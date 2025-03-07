@@ -1,0 +1,12 @@
+DEFINITION MODULE ChaosMachine;
+
+ CONST
+  mTraverse = 0;
+  mCannon1 = 1;
+  mCannon2 = 2;
+  mCannon3 = 3;
+  mTurret = 4;
+  mReactor = 5;
+  mDoor = 6;
+
+END ChaosMachine.

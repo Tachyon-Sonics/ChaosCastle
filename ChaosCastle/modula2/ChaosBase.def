@@ -1,0 +1,192 @@
+DEFINITION MODULE ChaosBase;
+
+ FROM SYSTEM IMPORT ADDRESS;
+ FROM Memory IMPORT Node, NodePtr, List, ListPtr, TagItemPtr, tagUser,
+  CARD8, INT8, CARD16, INT16, CARD32, INT32, SET16;
+ FROM Files IMPORT FilePtr;
+ FROM Dialogs IMPORT GadgetPtr;
+
+ CONST
+  Frac = 4096; (* INT32; Coords are given in 1/Frac pixels *)
+  Period = 300; (* Delays are in 1/Period seconds *)
+
+(** Stones **)
+
+ TYPE
+  Stones = (stC26, stC34, stC35, stCBOX, stRBOX, stCE, stRE, stCROSS,
+   stSTAR1, stSTAR2, stFLAME1, stFLAME2, stFOG1, stFOG2, stFOG3, stFOG4);
+  StoneSet = SET OF Stones;
+
+ (* Explosions *)
+ CONST
+  slowStyle = 0;
+  gravityStyle = 1;
+  returnStyle = 2;
+  fastStyle = 3;
+
+  FlameMult = 32;
+
+(** Dead objs **)
+
+ CONST
+  DeadObj = 0;
+  Message = 1;
+
+(** All objects **)
+
+ TYPE
+  Anims = (PLAYER, WEAPON, ALIEN3, ALIEN2, ALIEN1, MISSILE,
+          STONE, SMARTBONUS, BONUS, DEADOBJ, MACHINE, DEAD);
+   (* DEAD: dead obj which is still sounding / exploding *)
+   (* used to hold position for sound modulating; *)
+   (* also used for messages (subK = 1) *)
+  AnimSet = SET OF Anims;
+  BasicTypes = (NotBase, Bonus, Mineral, Vegetal, Animal);
+  ObjAttrPtr = POINTER TO ObjAttr;
+  ObjFlags = (displayed, nested, of1, of2);
+  ObjFlagSet = SET OF ObjFlags;
+  ObjPtr = POINTER TO Obj;
+  Obj = RECORD
+   animNode, objNode: Node;
+   attr: ObjAttrPtr;
+   left, top, right, bottom: INT32; (* Collision rect *)
+   x, y, midx, midy: INT32; (* 0..16777215 *)
+   vx, vy, dvx, dvy: INT16; (* -4095..4095 -> 300 pix / sec *)
+   ax, ay: INT8; (* -63..63 Frac pixels / Period * 60 * sec^2 *)
+   posX, posY, width, height, cx, cy: INT16; (* pos of current image *)
+   life, shapeSeq, moveSeq, stat: CARD16;
+   hitSubLife, fireSubLife: CARD16; (* max lives to remove when Aie *)
+   temperature: CARD16;
+   adelay: CARD8; (* has not moved # times *)
+   kind: Anims;
+   subKind: CARD8;
+   priority: INT8;
+   flags: ObjFlagSet;
+  END;
+  ResetProc = PROCEDURE(ObjPtr);
+  MakeProc = PROCEDURE(ObjPtr);
+  MoveProc = PROCEDURE(ObjPtr);
+  AieProc = PROCEDURE(ObjPtr, ObjPtr, VAR CARD16, VAR CARD16);
+  DieProc = PROCEDURE(ObjPtr);
+  ObjAttr = RECORD
+   node: Node;
+   Reset: ResetProc; (* After creating a new obj *)
+   Make: MakeProc; (* After changing gfx settings; called by Reset *)
+   Move: MoveProc;
+   Aie: AieProc; (* may be NIL ! *)
+   Die: DieProc; (* may be NIL ! *)
+   inerty: CARD16;
+    (* inerty: max. acceleration.  NB: maxStep * # < 32768*5 ! *)
+   weight, charge: INT16; (* weight for collisions, charge for attraction *)
+    (* weight, charge: + / - 0..127 *)
+   heatSpeed, coolSpeed, refreshSpeed: CARD16;
+    (* heat, refresh: * fire DIV 16 *)
+    (* cool: * step DIV 5 *)
+   aieStKinds, dieStKinds: StoneSet;
+   aieStone, aieStStyle, aieSKCount: CARD8;
+   dieStone, dieStStyle, dieSKCount: CARD8;
+   basicType: BasicTypes;
+   priority: INT8;
+   nbObj: CARD8;
+   toKill: BOOLEAN; (* Should be killed to finish the game *)
+  END;
+
+ CONST
+  AnimAlienSet = AnimSet{ALIEN3, ALIEN2, ALIEN1, MISSILE, MACHINE};
+  Cold = 0;
+  Warm = 8192;
+  Hot = 16384;
+  MaxHot = 24575;
+
+
+ VAR
+  attrList: ARRAY[MIN(Anims)..MAX(Anims)] OF List; (* nodes are ObjAttr *)
+  animList: ARRAY[MIN(Anims)..MAX(Anims)] OF List; (* nodes are Obj *)
+  nbAnim: ARRAY[MIN(Anims)..MAX(Anims)] OF CARD8;
+  objList: List; (* all objects *)
+  leftObjList: List; (* off-screen objects (not moving) *)
+  emptyObjList: List; (* empty obj structures *)
+  nextObj: ObjPtr;
+  nbEmpty, nbObj: CARD8;
+  nbToKill: CARD16;
+  lasttime: CARD32;
+  step: CARD16;
+
+
+ PROCEDURE GetAnimAttr(kind: Anims; subKind: CARD8): ObjAttrPtr;
+
+ PROCEDURE NewObj(kind: Anims; subKind: CARD8): ObjPtr;
+
+ PROCEDURE DisposeObj(obj: ObjPtr);
+
+ PROCEDURE ConvertObj(obj: ObjPtr; kind: Anims; subKind: CARD8);
+
+ PROCEDURE LeaveObj(obj: ObjPtr);
+
+ PROCEDURE RestartObj(obj: ObjPtr);
+
+ PROCEDURE FirstObj(VAR list: List): ADDRESS;
+
+ PROCEDURE NextObj(VAR node: Node): ADDRESS;
+
+ PROCEDURE PrevObj(VAR node: Node): ADDRESS;
+
+ PROCEDURE TailObj(VAR list: List): ADDRESS;
+
+ PROCEDURE FlushAllObjs;
+
+(** Weapons **)
+
+ TYPE
+  Weapon = (GUN, FB, LASER, BUBBLE, FIRE, BALL, STAR, GRENADE);
+  WeaponSet = SET OF Weapon;
+  WeaponAttr = RECORD
+   power, nbBullet, nbBomb: CARD8;
+  END;
+  FireProc = PROCEDURE(ObjPtr);
+
+ VAR
+  weaponAttr: ARRAY[MIN(Weapon)..MAX(Weapon)] OF WeaponAttr;
+  Fire, Bomb: ARRAY[MIN(Weapon)..MAX(Weapon)] OF FireProc;
+  nextGunFireTime: CARD32;
+  gunFiring, password: BOOLEAN;
+
+ CONST
+  GunFireSpeed = Period DIV 3;
+
+(** Player **)
+
+ VAR
+  mainPlayer: ObjPtr;
+  invinsibility, sleeper, doubleSpeed, hurryUp, difficulty,
+   magnet, air, freeFire, maxPower, noMissile, playerPower: CARD16;
+  screenInverted, specialStage, stages, powerCountDown: CARD8;
+  pLife, nbDollar, nbSterling: CARD8;
+  snow, water: BOOLEAN;
+
+(** Playing **)
+
+ TYPE
+  GameStat = (Start, Playing, Finish, Gameover, Break);
+  Zone = (Chaos, Castle, Family, Special);
+  Statistic = RECORD
+   total, done: CARD16;
+  END;
+
+ VAR
+  gameStat: GameStat;
+  zone: Zone;
+  level: ARRAY[MIN(Zone)..MAX(Zone)] OF CARD8;
+  basics: ARRAY[Bonus..Animal] OF Statistic;
+  shoot: Statistic;
+  addpt, score, gameSeed: CARD32;
+  buttonAssign: ARRAY[0..15] OF Weapon;
+  weaponKey: ARRAY[MIN(Weapon)..MAX(Weapon)] OF CHAR;
+  selectedWeapon: Weapon;
+  weaponSelected, bombActive: BOOLEAN;
+  lastJoy: SET16;
+
+  file: FilePtr;
+  d: GadgetPtr;
+
+END ChaosBase.

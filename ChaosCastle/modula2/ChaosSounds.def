@@ -1,0 +1,55 @@
+DEFINITION MODULE ChaosSounds;
+
+ FROM SYSTEM IMPORT ADDRESS;
+ FROM Memory IMPORT CARD8, INT8, CARD16, INT16, CARD32, INT32;
+ FROM ChaosBase IMPORT ObjPtr;
+
+ TYPE
+  SoundList = (aCrash, aPanflute, wCrash, wPanflute, wJans, wWhite, wNoise,
+   wShakuhachi, wVoice, sCaisse, sCannon, sCasserole, sCymbale, sGong, sGun,
+   sHa, sHHat, sHurryUp, sLaser, sMissile, sMoney, sPoubelle, sPouf, sVerre);
+  Sound = RECORD
+   wave: ADDRESS;
+   size: CARD32;
+   offset, rate: CARD16;
+  END;
+  SoundPtr = POINTER TO Sound;
+  Effect = RECORD
+   sound: SoundPtr;
+   delay, rate: CARD16;
+   volume: CARD8;
+   pri: INT8;
+  END;
+  Channel = RECORD
+   sndObj: ObjPtr;
+   sndWave: ADDRESS;
+   sndPri, boostPri: INT16;
+  END;
+
+ VAR
+  channel: ARRAY[0..15] OF Channel;
+  nbChannel: CARD16;
+  musicPri: INT16;
+  sound, music, stereo, dfltSound: BOOLEAN;
+  soundList: ARRAY[MIN(SoundList)..MAX(SoundList)] OF Sound;
+  nulSound: Sound;
+
+
+ PROCEDURE SwitchSoundOn(): BOOLEAN;
+
+ PROCEDURE SwitchSoundOff;
+
+ PROCEDURE GetChan(VAR chan: CARD16; pri: INT16; wave: ADDRESS; obj: ObjPtr): BOOLEAN;
+
+ PROCEDURE SetEffect(VAR effect: Effect; VAR sound: Sound; delay, rate: CARD16;
+                     volume: CARD8; pri: INT16);
+
+ PROCEDURE StereoEffect;
+
+ PROCEDURE SoundEffect(obj: ObjPtr; VAR effects: ARRAY OF Effect);
+
+ PROCEDURE SimpleSound(sound: Sound);
+
+ PROCEDURE ModulateSounds;
+
+END ChaosSounds.

@@ -1,0 +1,11 @@
+DEFINITION MODULE ChaosImages;
+
+ PROCEDURE InitImages(): BOOLEAN;
+
+ PROCEDURE RenderObjects;
+
+ PROCEDURE InitPalette;
+
+ PROCEDURE InitDualPalette;
+
+END ChaosImages.

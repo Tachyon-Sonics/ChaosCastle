@@ -1,0 +1,35 @@
+DEFINITION MODULE Menus;
+
+ FROM SYSTEM IMPORT ADDRESS;
+ FROM Memory IMPORT StrPtr, TagItem, TagItemPtr, tagUser;
+
+
+ CONST
+  mPARENT = tagUser + 0; (* MenuPtr *)
+  mBEFORE = tagUser + 1; (* MenuPtr; NIL/not given -> at the end *)
+  mDIALOG = tagUser + 2; (* GadgetPtr *)
+  mNAME = tagUser + 3; (* StrPtr *)
+  mCHECK = tagUser + 4; (* BOOLEAN, can be checked *)
+  mCHECKED = tagUser + 5; (* BOOLEAN, is checked *)
+  mCOMM = tagUser + 6; (* CHAR *)
+  mENABLE = tagUser + 7; (* BOOLEAN *)
+  mCOLOR = tagUser + 8; (* 0RGB CARD32 *)
+
+ TYPE
+  MenuPtr;
+
+ VAR
+  noMenu: MenuPtr;
+
+
+ PROCEDURE AddNewMenu(tags: TagItemPtr): MenuPtr;
+
+ PROCEDURE ModifyMenu(menu: MenuPtr; tags: TagItemPtr);
+
+ PROCEDURE FreeMenu(VAR menu: MenuPtr);
+
+ PROCEDURE MenuToAddress(menu{R.D0}: MenuPtr): ADDRESS;
+
+ PROCEDURE AddressToMenu(addr{R.D0}: ADDRESS): MenuPtr;
+
+END Menus.

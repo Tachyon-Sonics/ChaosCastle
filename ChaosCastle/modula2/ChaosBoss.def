@@ -1,0 +1,17 @@
+DEFINITION MODULE ChaosBoss;
+
+ CONST
+  bBrotherAlien = 0;
+  bSisterAlien = 1;
+  bMotherAlien = 2;
+  bFatherAlien = 3;
+  bMasterAlien1 = 4;
+  bMasterAlien2 = 5;
+  bFatherHeart = 6;
+  bMasterEye = 7;
+  bMasterMouth = 8;
+  bMasterPart0 = 9;
+  bMasterPart1 = 10;
+  bMasterPart2 = 11;
+
+END ChaosBoss.

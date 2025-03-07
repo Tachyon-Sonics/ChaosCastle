@@ -1,0 +1,144 @@
+DEFINITION MODULE Graphics;
+
+ FROM SYSTEM IMPORT ADDRESS, BYTE;
+ FROM Memory IMPORT TagItem, TagItemPtr, tagUser, StrPtr, CARD8, CARD16, INT16,
+  CARD32, INT32;
+
+ TYPE
+  Modes = (nsnd, nsd, snd, sd);
+  CopyMode = SET OF Modes;
+  TextModes = (bold, italic, outline, shadow);
+  TextModeSet = SET OF TextModes;
+  Pattern = ARRAY[0..7] OF BYTE;
+  GraphicsErr = (gOk, gNoMemory, gNotSupported, gTooComplex, gCanceled);
+  AreaPtr;
+  Palette = ARRAY[0..255] OF CARD32;
+  PalettePtr = POINTER TO Palette;
+  Image = RECORD
+   data: ADDRESS;
+   palette: PalettePtr;
+   bitPerPix, bytePerRow: CARD16;
+   width, height: INT16;
+   zw, zh: INT16;
+  END;
+  ImagePtr = POINTER TO Image;
+
+ VAR
+  noArea: AreaPtr;
+
+ CONST (* Copy modes *)
+  cmCopy = CopyMode{snd, sd};
+  cmOr = CopyMode{nsd, snd, sd}; (* Or, for bit copying routines *)
+  cmTrans = cmOr; (* Transparent, for drawing routines *)
+  cmXor = CopyMode{nsd, snd};
+
+ CONST (* predefined patterns *)
+  pBlack = 0;
+  pLtGrey = 1;
+  pGrey = 2;
+  pDkGrey = 3;
+  pWhite = 4;
+
+ CONST (* tags *)
+  aSIZEX = tagUser + 0; (* Not given -> clone system or ask *)
+  aSIZEY = tagUser + 1; (* 0 -> same as not given, fill with used value *)
+  aWIDTH = tagUser + 2; (* When the main area has been created *)
+  aHEIGHT = tagUser + 3;
+  aBARHEIGHT = tagUser + 4;
+  aCOLOR = tagUser + 8; (* 0 -> true colors, 24-bit RGB *)
+  aTYPE = tagUser + 16;
+   atVIRTUAL = 0; (* Used to set screen resolution. Can not be used to draw *)
+   atDISPLAY = 1; (* Used to draw on the entire screen *)
+   atBUFFER = 2; (* Same as atDISPLAY, with double-buffering *)
+   atMEMORY = 3; (* Used to draw on memory. Default *)
+   atDIALOG = 4; (* Used for dialogs, draw between Dialogs.Begin/EndRefresh *)
+   atMASK = 5; (* Mask of 1 bit depth, in memory *)
+   atPRINTER = 6; (* Used to print. *)
+
+
+ PROCEDURE GetGraphicsSysAttr(VAR what: TagItem);
+
+ PROCEDURE GetGraphicsErr(): GraphicsErr;
+
+ PROCEDURE CreateArea(tags: TagItemPtr): AreaPtr;
+
+ PROCEDURE DeleteArea(VAR a: AreaPtr);
+
+ PROCEDURE AreaToFront;
+
+ PROCEDURE SwitchArea;
+
+ PROCEDURE UpdateArea;
+
+ PROCEDURE SetBuffer(first, off: BOOLEAN);
+
+ PROCEDURE GetBuffer(VAR first, off: BOOLEAN);
+
+ PROCEDURE SetArea(a: AreaPtr);
+
+ PROCEDURE SetPalette(color, red, green, blue: CARD8);
+
+ PROCEDURE SetCopyMode(dm: CopyMode);
+
+ PROCEDURE SetPlanes(planes: CARD32; clear: BOOLEAN);
+
+ PROCEDURE SetPen(color: CARD32);
+
+ PROCEDURE SetBPen(color: CARD32);
+
+ PROCEDURE SetPat(v: CARD8); (* pBlack <= v <= pWhite *)
+
+ PROCEDURE SetPattern(VAR pattern: Pattern);
+
+ PROCEDURE DrawPixel(x, y: INT16);
+
+ PROCEDURE DrawLine(x1, y1, x2, y2: INT16);
+
+ PROCEDURE OpenPoly(x, y: INT16);
+
+ PROCEDURE AddLine(x, y: INT16);
+
+ PROCEDURE FillPoly;
+
+ PROCEDURE FillRect(x1, y1, x2, y2: INT16);
+
+ PROCEDURE FillEllipse(x1, y1, x2, y2: INT16);
+
+ PROCEDURE FillFlood(x, y: INT16; borderCol: CARD32);
+
+ PROCEDURE SetTextMode(tm: TextModeSet);
+
+ PROCEDURE SetTextSize(s: INT16);
+
+ PROCEDURE SetTextPos(x, y: INT16);
+
+ PROCEDURE TextWidth(t: StrPtr): INT16;
+
+ PROCEDURE DrawText(t: StrPtr);
+
+ PROCEDURE FillShadow(ma: AreaPtr; sx, sy: INT16;
+                      dx, dy, width, height: INT16);
+
+ PROCEDURE DrawShadow(ma: AreaPtr; sx, sy: INT16;
+                      dx, dy, width, height: INT16);
+
+ PROCEDURE DrawImage(image: ImagePtr; sx, sy: INT16;
+                     dx, dy, width, height: INT16);
+
+ PROCEDURE CopyRect(sa: AreaPtr; sx, sy: INT16;
+                                 dx, dy, width, height: INT16);
+
+ PROCEDURE CopyShadow(sa, ma: AreaPtr; sx, sy: INT16;
+                                       dx, dy, width, height: INT16);
+
+ PROCEDURE CopyMask(sa, ma: AreaPtr; sx, sy: INT16;
+                                     dx, dy, width, height: INT16);
+
+ PROCEDURE ScrollRect(x, y, width, height, dx, dy: INT16);
+
+ PROCEDURE ScaleRect(sa: AreaPtr; sx1, sy1, sx2, sy2: INT16;
+                                  dx1, dy1, dx2, dy2: INT16);
+
+ PROCEDURE WaitTOF;
+
+END Graphics.

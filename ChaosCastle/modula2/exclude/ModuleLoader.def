@@ -1,0 +1,43 @@
+DEFINITION MODULE ModuleLoader;
+
+ FROM SYSTEM IMPORT ADDRESS;
+ FROM Memory IMPORT CARD32, INT32, StrPtr, TagItemPtr;
+ IMPORT R;
+
+ TYPE
+  ModulePtr;
+  ProcPtr = ADDRESS;
+  ProcId = ARRAY[0..3] OF CHAR;
+  LMErr = (LoadOk, NoMemory, NotFound, NotAvailableYet);
+
+ CONST
+  noProc = NIL;
+
+ VAR
+  noModule: ModulePtr;
+  lmErr: LMErr;
+
+
+ PROCEDURE LoadModule(name: StrPtr): ModulePtr;
+
+ PROCEDURE ModuleVersion(m: ModulePtr): CARD32;
+
+ PROCEDURE ProcVersion(m: ModulePtr; proc: ProcId): CARD32;
+  (* 0 <=> no such proc *)
+
+ PROCEDURE GetNextProcId(m: ModulePtr; VAR proc: ProcId): BOOLEAN;
+  (* FALSE <=> ring of circular list reached *)
+
+ PROCEDURE CallProc(m: ModulePtr; proc: ProcId; params: TagItemPtr);
+
+ PROCEDURE GetProc(m: ModulePtr; proc: ProcId): ProcPtr;
+
+ PROCEDURE Call(proc{R.A0}: ProcPtr; params{R.A1}: TagItemPtr);
+
+ PROCEDURE Launch(proc: ProcPtr; params: TagItemPtr);
+
+ PROCEDURE FlushModule(VAR m: ModulePtr);
+
+ PROCEDURE AddProc(id: ProcId; proc: ADDRESS);
+
+END ModuleLoader.

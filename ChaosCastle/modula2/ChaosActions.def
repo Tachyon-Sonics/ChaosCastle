@@ -1,0 +1,108 @@
+DEFINITION MODULE ChaosActions;
+
+ FROM Memory IMPORT StrPtr, CARD8, INT8, CARD16, INT16, CARD32, INT32;
+ FROM Clock IMPORT TimePtr;
+ FROM ChaosBase IMPORT Obj, ObjPtr, Anims, AnimSet, AieProc, Stones, StoneSet;
+
+
+ VAR
+  messages: ARRAY[0..3] OF StrPtr;
+  priorities: ARRAY[0..3] OF CARD8;
+  msgObj: ARRAY[0..3] OF ObjPtr;
+  nlObj: Obj;
+  time: TimePtr;
+
+ CONST
+  statPos = 0;
+  moneyPos = 1;
+  lifePos = 2;
+  actionPos = 3;
+
+ PROCEDURE PopMessage(msg: StrPtr; pos, pri: CARD8);
+
+ PROCEDURE ZoomMessage(msg: StrPtr; p1, p2, p3: CARD16);
+
+ PROCEDURE AddPt(count: CARD16);
+
+ PROCEDURE NextStage;
+
+ PROCEDURE CreateObj(kind: Anims; subKind: CARD8;
+                     nx, ny: INT16; nStat, nLife: CARD16): ObjPtr;
+
+ PROCEDURE SetObjXY(obj: ObjPtr; nx, ny: INT32);
+
+ PROCEDURE SetObjVXY(obj: ObjPtr; nvx, nvy: INT16);
+
+ PROCEDURE SetObjAXY(obj: ObjPtr; nax, nay: INT8);
+
+ PROCEDURE SetObjPos(obj: ObjPtr; nPosX, nPosY: INT16);
+
+ PROCEDURE SetObjLoc(obj: ObjPtr; nPosX, nPosY, nWidth, nHeight: INT16);
+
+ PROCEDURE SetObjRect(obj: ObjPtr; nLeft, nTop, nRight, nBottom: INT32);
+
+ PROCEDURE GetCenter(obj: ObjPtr; VAR px, py: INT16);
+  (* px, py in pixels, to pass to SetObj *)
+
+ PROCEDURE Boum(obj: ObjPtr; subKinds: StoneSet; style, cnt, skcnt: CARD8);
+
+ PROCEDURE DecLife(obj: ObjPtr; VAR hit, fire: CARD16);
+
+ TYPE
+  DoToPlayerProc = PROCEDURE(ObjPtr, ObjPtr);
+
+ PROCEDURE Aie(victim, src: ObjPtr; VAR hit, fire: CARD16);
+
+ PROCEDURE Die(obj: ObjPtr);
+
+ PROCEDURE Collision(obj1, obj2: ObjPtr): BOOLEAN;
+
+ PROCEDURE DoCollision(obj: ObjPtr; victims: AnimSet; Do: AieProc; VAR hit, fire: CARD16);
+
+ PROCEDURE PlayerCollision(obj: ObjPtr; VAR hit: CARD16);
+
+ PROCEDURE DoToPlayer(obj: ObjPtr; Do: DoToPlayerProc);
+
+ PROCEDURE OutOfScreen(obj: ObjPtr): BOOLEAN;
+
+ PROCEDURE OutOfBounds(obj: ObjPtr): BOOLEAN;
+
+ PROCEDURE InBackground(obj: ObjPtr): BOOLEAN;
+
+ PROCEDURE AvoidBounds(obj: ObjPtr; return: INT16);
+  (* return: 4 = ellastic, 0 = stop *)
+
+ PROCEDURE AvoidBackground(obj: ObjPtr; return: INT16);
+
+ PROCEDURE AvoidAnims(obj: ObjPtr; anims: AnimSet);
+
+ PROCEDURE Gravity(obj: ObjPtr; victims: AnimSet);
+
+ PROCEDURE Burn(obj: ObjPtr);
+
+ PROCEDURE LimitSpeed(obj: ObjPtr; max: INT16);
+
+ PROCEDURE Leave(obj: ObjPtr);
+
+ PROCEDURE CheckLeftObjs;
+
+ PROCEDURE UpdateXY(obj: ObjPtr);
+
+ PROCEDURE FadeIn;
+
+ PROCEDURE FadeOut;
+
+ PROCEDURE WhiteFade;
+
+ PROCEDURE FadeFrom(r, g, b: CARD8);
+
+ VAR
+  lastMouseX, lastMouseY: INT16;
+
+ PROCEDURE HotFlush;
+
+ PROCEDURE NextFrame;
+
+ PROCEDURE HotInit;
+
+END ChaosActions.

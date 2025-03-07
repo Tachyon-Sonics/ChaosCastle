@@ -1,0 +1,237 @@
+DEFINITION MODULE Dialogs;
+
+ FROM SYSTEM IMPORT ADDRESS;
+ FROM Memory IMPORT TagItem, TagItemPtr, tagUser, CARD16, INT16, CARD32,
+  INT32, SET16, CARD8;
+
+ TYPE
+   (* Basic data type: *)
+  GadgetPtr;
+
+ CONST
+   (* Return codes: *)
+  DialogOk = 0; (* Operation was successfull *)
+  DialogNoMem = -1; (* There was not enough memory *)
+
+ (* Gadget types *)
+  dDialog = 0; (* Dialog window *)
+  dGroup = 1; (* Groups. Can contains any number of gadgets except dialogs *)
+  dButton = 10; (* Action button *)
+  dBool = 11; (* On/Off toggle button *)
+  dCycle = 12; (* Button whose text changes at each click *)
+  dChoice = 15; (* Pop-up choice *)
+  dCheckbox = 20; (* Yes/No checkbox *)
+  dRadio = 21; (* On/Off radio button *)
+  dSwitch = 22; (* Open/Closed switch *)
+  dSlider = 30; (* Numerical slider. Cannot have a text *)
+  dScroller = 31; (* Scroll bar. Cannot have a text *)
+  dProgress = 35; (* Progress *)
+  dLabel = 40; (* Label *)
+  dArea = 41; (* Rectangular drawing area *)
+  dImage = 42; (* Image *)
+  dTextEdit = 50; (* Text edit field *)
+  dIntEdit = 51; (* Integer edit field *)
+
+ (* Tags *)
+  dFLAGS = tagUser + 0; (* Flags to change *)
+  dRFLAGS = tagUser + 1; (* Flags to reset, without regards on dMASK *)
+  dMASK = tagUser + 2; (* Mask of flags to change, default to same as dFLAGS *)
+  (* state flags *)
+    (* Gadget is active. Inactive gadgets are ghosted and does not generate
+       any events. Ignored for groups and dialogs *)
+   dfACTIVE = 1;	dbActive = 0;
+    (* Gadget is selected, or down. Ignored for sliders and scrollers *)
+   dfSELECT = 2;	dbSelect = 1;
+    (* Gadget has a border. For group, and most buttons *)
+   dfBORDER = 8;	dbBorder = 3;
+    (* Dialog has a close box *)
+   dfCLOSE = 8;		dbClose = 3;
+
+  (* reaction flags. Not for goups *)
+    (* Generate an event when the mouse is pressed *)
+   dfDOWNEVENT = 16;	dbDownEvent = 4;
+    (* Generate an event when the mouse is released *)
+   dfUPEVENT = 32;	dbUpEvent = 5;
+    (* For dialogs, down event with left mouse button is send when the
+     * dialog becomes active and up event when it becomes inactive.
+     * Up event with 'sys event' button is sent when the close box is
+     * clicked on.
+     *)
+
+  (* position flags *)
+  (* Each gadget is given a box proportional to its size in the
+   * parent's box. These flags tell how a gadget is positioned
+   * within its box. The parent's box of a dialog is a rectangle
+   * that has the size of the whole application's screen.
+   * The box of a scrolling group or dialog is computed during
+   * the first layout only.
+   *)
+   dfAUTOLEFT = 64;	dbAutoLeft = 6; (* Align to the left *)
+   dfAUTORIGHT = 128;	dbAutoRight = 7; (* Align to the right *)
+    (* If none of the two previous flags are given, the gadget is
+     * centered horizontally. If both flags are given, the gadget
+     * is expanded or shrinked horizontally to its box's width.
+     *)
+   dfAUTOUP = 256;	dbAutoUp = 8; (* Align to the top *)
+   dfAUTODOWN = 512;	dbAutoDown = 9; (* Align to the bottom *)
+    (* If none of the two previous flags are given, the gadget is
+     * centered vertically. If both flags are given, the gadget
+     * is expanded or shrinked vertically to its box's width.
+     *)
+    dfAUTOWIDTH = dfAUTOLEFT + dfAUTORIGHT;
+    dfAUTOHEIGHT = dfAUTOUP + dfAUTODOWN;
+    dfJUSTIFY = dfAUTOWIDTH + dfAUTOHEIGHT;
+    dfCENTER = 0; (* No position flags: center in both directions *)
+     (* The following flags affect dialogs and groups only.
+      * Child gadgets are placed on a grid. Each line of the grid has
+      * a height proportional to the biggest of the child's heights on
+      * that line, and each column has a width proportional to the biggest
+      * of the child's widths on that colums.
+      *)
+    (* Tell whether the child gadgets fill the grid by columns (flag
+     * given) or by lines (default): *)
+   dfVDIR = 1024;	dbVDir = 10;
+    (* The gadget has an horizontal scroll bar *)
+   dfSCROLLX = 2048;	dbScrollX = 11;
+    (* The gadget has a vertical scroll bar *)
+   dfSCROLLY = 4096;    dbScrollY = 12;
+    dfSCROLL = dfSCROLLX + dfSCROLLY;
+    (* The dialog can be sized horizontally *)
+   dfSIZEX = 8192;	dbSizeX = 13;
+    (* The dialog can be sized vertically *)
+   dfSIZEY = 16384;     dbSizeY = 14;
+    dfSIZE = dfSIZEX + dfSIZEY;
+
+  dCOMM = tagUser + 4; (* key equivalent (including CR, ESC, ...) *)
+   (* Text to display on the gadget.
+    * Ignored for sliders, scrollers, groups, areas and images.
+    * Window's title for a dialog
+    * Pointer to a suitable buffer for textedit
+    *)
+  dTEXT = tagUser + 10;
+   (* Length of the buffer for textedit *)
+  dTXTLEN = tagUser + 11;
+   (* Value for an intedit *)
+  dINTVAL = tagUser + 12;
+   (* Hint for the color of the text. Use a 3x8bit RGB value *)
+  dTEXTCOLOR = tagUser + 13;
+   (* Graphics.TextModeSet *)
+  dTEXTMODE = tagUser + 14;
+
+   (* Progression in 65535th for a progress.
+    * Depth in the tree for a switch or label
+    *)
+  dFILL = tagUser + 20;
+   (* For a group or dialog: number of childs in a colums (vdir given)
+    * or in a line (vdir not given).
+    *)
+  dSPAN = tagUser + 21;
+   (* Amount of space (in pixel) around a gadget. Defaults to 1 *)
+  dGAPSIZE = tagUser + 22;
+
+  dXPOS = tagUser + 30; (* in 100th of a char's maximum width *)
+  dYPOS = tagUser + 31; (* in 100th of a char's height *)
+   (* Except for dialogs, these are overwritten by a layout operation *)
+  dWIDTH = tagUser + 32; (* in 100th of a char's maximum width *)
+  dHEIGHT = tagUser + 33; (* in 100th of a char's height *)
+   (* The width and height are taken as minumums.
+    * Use 0 to force a relayout of a scrolling group or dialog. *)
+  (* When scroll flag is given, sizes of the virtual box: *)
+  dINNERWIDTH = tagUser + 34; (* in 100th of a char's maximum width *)
+  dINNERHEIGHT = tagUser + 35; (* in 100th of a char's height *)
+   (* Scroll positions. 0=lowest, 65535=highest *)
+  dSCROLLX = tagUser + 36;
+  dSCROLLY = tagUser + 37;
+
+   (* AreaPtr for a gadget of type area *)
+  dAREA = tagUser + 40;
+   (* ImagePtr for a gadget of type image *)
+  dIMAGE = tagUser + 41;
+
+   (* These are never modified by this module. They can be read or written
+    * at any time by the application *)
+  dUDATA = tagUser + 64; (* User data *)
+  dUID = tagUser + 65; (* User id *)
+
+
+ VAR
+   (* GadgetPtr(NIL) *)
+  noGadget: GadgetPtr;
+   (* beforeGadget to use to put the gadget at the end (default) *)
+  tailGadget: GadgetPtr;
+
+
+  (* Create a new gadget with default attributes *)
+ PROCEDURE AllocGadget(type: INT16): GadgetPtr;
+
+  (* Modify an existing gadget *)
+ PROCEDURE ModifyGadget(gadget: GadgetPtr; tags: TagItemPtr);
+
+  (* Create a new gadget and initialize it using the tags.
+   * The new gadget is returned.
+   *)
+ PROCEDURE CreateGadget(type: INT16; tags: TagItemPtr): GadgetPtr;
+
+  (* Get a gadget's attribute.
+   * what.tag contains the attribute and what.data is set to the value.
+   * what.tag is set to zero if the attribute's value cannot be found.
+   * Use noGadget to get attributes of the application's screen.
+   *)
+ PROCEDURE GetGadgetAttr(gadget: GadgetPtr; VAR what: TagItem);
+
+  (* Add a gadget to a dialog or group before the gadget 'before'.
+   * Set before to tailGadget to put the gadget at the end of the list.
+   *)
+ PROCEDURE AddGadget(parent, gadget, before: GadgetPtr);
+
+  (* Create a new gadget, initialize it using the tags, and add
+   * it at the end of the parent's list. The new gadget is returned.
+   * The gadget is not layout or displayed automatically;
+   * use SetGadgetRect+DrawGadget or RefreshGadget to a parent to
+   * display all added gadgets.
+   *)
+ PROCEDURE AddNewGadget(parent: GadgetPtr; type: INT16; tags: TagItemPtr): GadgetPtr;
+
+  (* Layout all the childs and (re-)Display *)
+ PROCEDURE RefreshGadget(gadget: GadgetPtr): INT32;
+
+  (* Set a gadget's position and layout any childs automatically *)
+ PROCEDURE SetGadgetRect(gadget: GadgetPtr; sx, sy, sw, sh: INT16);
+
+  (* (Re-)display a gadget and all its visible childs *)
+ PROCEDURE DrawGadget(gadget: GadgetPtr): INT32;
+
+ PROCEDURE ModalDialog(dialog: GadgetPtr;
+  VAR gadget: GadgetPtr; VAR bNum: CARD8; VAR up: BOOLEAN);
+
+  (* Make a gadget invisible *)
+ PROCEDURE HideGadget(gadget: GadgetPtr);
+
+ PROCEDURE ShowGadget(gadget: GadgetPtr);
+
+ PROCEDURE BeginRefresh(gadget: GadgetPtr; VAR x, y, w, h: INT16);
+
+ PROCEDURE EndRefresh(gadget: GadgetPtr): BOOLEAN;
+
+  (* Remove a gadget from its parent *)
+ PROCEDURE RemoveGadget(gadget: GadgetPtr);
+
+  (* Free a gadget. The gadget is first removed from its parent
+   * as necessary. Except for dialogs, the gadget's image is not erased
+   * automatically, use DrawGadget or RefreshGadget with a parent to
+   * erase all removed gadgets.
+   *)
+ PROCEDURE FreeGadget(VAR gadget: GadgetPtr);
+
+  (* Free a gadget and all its childs. The gadget is first removed
+   * from its parent as necessary.
+   *)
+ PROCEDURE DeepFreeGadget(VAR gadget: GadgetPtr);
+
+  (* ADDRESS(GadgetPtr) *)
+ PROCEDURE GadgetToAddress(gadget{R.D0}: GadgetPtr): ADDRESS;
+
+  (* GadgetPtr(ADDRESS) *)
+ PROCEDURE AddressToGadget(addr{R.D0}: ADDRESS): GadgetPtr;
+
+END Dialogs.

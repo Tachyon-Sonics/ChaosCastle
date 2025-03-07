@@ -1,0 +1,11 @@
+DEFINITION MODULE Registration;
+
+ FROM Memory IMPORT StrPtr;
+
+ VAR
+  userName: StrPtr;
+  userAddress: StrPtr;
+  userLoc: StrPtr;
+  registered: BOOLEAN;
+
+END Registration.

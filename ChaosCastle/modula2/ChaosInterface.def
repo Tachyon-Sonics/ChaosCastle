@@ -1,0 +1,34 @@
+DEFINITION MODULE ChaosInterface;
+
+ FROM Memory IMPORT CARD8, CARD32;
+ FROM Input IMPORT Event;
+ FROM ChaosBase IMPORT Zone;
+
+ TYPE
+  TopScore = RECORD
+   name: ARRAY[0..19] OF CHAR;
+   score, seed: CARD32;
+   endLevel: ARRAY[Chaos..Family] OF CARD8;
+   endZone: Zone;
+   endDifficulty: CARD8;
+  END;
+  TopScoreList = ARRAY[1..10] OF TopScore;
+
+ VAR
+  Refresh: PROC;
+
+ PROCEDURE WarmInit;
+
+ PROCEDURE WarmFlush;
+
+ PROCEDURE ReadTopScoreList(VAR topScores: TopScoreList);
+
+ PROCEDURE WriteTopScoreList(topScores: TopScoreList);
+
+ PROCEDURE EnableFileMenus;
+
+ PROCEDURE DisableFileMenus;
+
+ PROCEDURE CommonEvent(event: Event);
+
+END ChaosInterface.

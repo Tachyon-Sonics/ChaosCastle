@@ -1,0 +1,16 @@
+DEFINITION MODULE ChaosMissile;
+
+ CONST
+  mAlien1 = 0;
+  mAlien2 = 1;
+  mAlien3 = 2;
+
+  mBlue = 0;
+  mRed = 1;
+  mYellow = 2;
+  mWhite = 3;
+  mGreen = 4;
+  mAcc2 = 0; (* cycle *)
+  mBig = 0;
+
+END ChaosMissile.

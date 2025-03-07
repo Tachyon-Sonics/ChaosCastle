@@ -1,0 +1,32 @@
+DEFINITION MODULE GrotteNoSoundLib;
+
+FROM SYSTEM	IMPORT	ADDRESS;
+FROM ExecD	IMPORT	Library;
+IMPORT R;
+FROM GrotteBase IMPORT OBJECT;
+
+CONST
+  version = 33;
+  ON = TRUE;
+  OFF = FALSE;
+
+TYPE
+  GrotteNoSoundBasePtr = POINTER TO GrotteNoSoundBase;
+  GrotteNoSoundBase = RECORD
+    lib: Library;
+    magicCode: LONGCARD;
+  END;
+
+CONST
+  baseSize = SIZE(GrotteNoSoundBase);
+
+PROCEDURE LibOpen(myLib{R.A6}:GrotteNoSoundBasePtr):ADDRESS;
+PROCEDURE LibClose(myLib{R.A6}:GrotteNoSoundBasePtr):ADDRESS;
+PROCEDURE LibExpunge(myLib{R.A6}:GrotteNoSoundBasePtr):ADDRESS;
+PROCEDURE LibExtFunc(myLib{R.A6}:GrotteNoSoundBasePtr):ADDRESS;
+
+PROCEDURE InitSound(): BOOLEAN;
+PROCEDURE Sound(o1, o2: OBJECT; volume: SHORTCARD; stereo: SHORTINT);
+PROCEDURE Switch(sound: BOOLEAN);
+
+END GrotteNoSoundLib.

@@ -1,0 +1,55 @@
+DEFINITION MODULE GrotteStdIOLib;
+
+ FROM SYSTEM	IMPORT	ADDRESS;
+ FROM ExecD	IMPORT	Library;
+ IMPORT R;
+
+ TYPE
+  UserPtr;
+  GrotteStdIOBasePtr = POINTER TO GrotteStdIOBase;
+  GrotteStdIOBase = RECORD
+   lib: Library;
+   firstUser: UserPtr;
+   magicCode: LONGCARD;
+  END;
+
+ CONST
+  version = 33;
+  baseSize = SIZE(GrotteStdIOBase);
+
+ PROCEDURE LibOpen(myLib{R.A6}: GrotteStdIOBasePtr):ADDRESS;
+ PROCEDURE LibClose(myLib{R.A6}: GrotteStdIOBasePtr):ADDRESS;
+ PROCEDURE LibExpunge(myLib{R.A6}: GrotteStdIOBasePtr):ADDRESS;
+ PROCEDURE LibExtFunc(myLib{R.A6}: GrotteStdIOBasePtr):ADDRESS;
+
+ PROCEDURE OpenTerminal(userName: ADDRESS): BOOLEAN;
+ PROCEDURE CloseTerminal;
+
+ PROCEDURE Read(VAR ch: CHAR);
+ PROCEDURE ReadAgain;
+ PROCEDURE WaitChar(VAR ch: CHAR);
+ PROCEDURE ReadString(VAR st: ARRAY OF CHAR);
+ PROCEDURE Report(x, y: SHORTCARD): CHAR;
+
+ PROCEDURE Write(ch: CHAR);
+ PROCEDURE WriteString(st: ARRAY OF CHAR);
+ PROCEDURE WriteLn;
+ PROCEDURE WriteAt(x, y: SHORTCARD; ch: CHAR);
+ PROCEDURE MoveChar(sx, sy: SHORTCARD; sch: CHAR; dx, dy: SHORTCARD; dch: CHAR);
+ PROCEDURE Ghost(x, y: SHORTCARD; ch: CHAR); (* draw on screen only *)
+
+ PROCEDURE Goto(x, y: SHORTINT); (* -1 = same pos. *)
+ PROCEDURE ClearScreen;
+ PROCEDURE ClearLine(y: SHORTCARD);
+ PROCEDURE Delete(n: SHORTCARD);
+ PROCEDURE Insert(n: SHORTCARD);
+ PROCEDURE Rubout(n: SHORTCARD);
+ PROCEDURE Scroll(dx, dy: SHORTINT);
+ PROCEDURE Color(c: SHORTCARD);
+ PROCEDURE RedrawAll;
+ PROCEDURE SetMode(cursor, beep, busy: BOOLEAN);
+
+ PROCEDURE Flush;
+ PROCEDURE Reset;
+
+END GrotteStdIOLib.

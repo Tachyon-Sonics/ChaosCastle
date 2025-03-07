@@ -1,0 +1,25 @@
+DEFINITION MODULE Chaos2Zone;
+
+ FROM Memory IMPORT CARD8, CARD16, INT16;
+
+ PROCEDURE Rooms;
+
+ PROCEDURE Yard;
+
+ PROCEDURE Antarctica;
+
+ PROCEDURE Forest;
+
+ PROCEDURE ZCastle;
+
+ PROCEDURE Lights;
+
+ PROCEDURE Plain;
+
+ PROCEDURE UnderWater;
+
+ PROCEDURE Assembly;
+
+ PROCEDURE Jungle;
+
+END Chaos2Zone.

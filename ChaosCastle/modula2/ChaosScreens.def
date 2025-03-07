@@ -1,0 +1,15 @@
+DEFINITION MODULE ChaosScreens;
+
+ PROCEDURE TitleScreen;
+
+ PROCEDURE StartScreen;
+
+ PROCEDURE MakingScreen;
+
+ PROCEDURE ShopScreen;
+
+ PROCEDURE StatisticScreen;
+
+ PROCEDURE GameOverScreen;
+
+END ChaosScreens.

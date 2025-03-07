@@ -1,0 +1,62 @@
+DEFINITION MODULE AudioA;
+
+ FROM SYSTEM IMPORT ADR, ADDRESS;
+ FROM Memory IMPORT CARD8, INT8, CARD16, INT16, CARD32, INT32, TagItem,
+  TagItemPtr, tagUser;
+
+ CONST
+   (* *Read*: kind of data accepted (eg 16bit) *)
+   (* *Write* kind of data actually output (eg 14bit) *)
+   (* *Write* should be used for information only *)
+  aReadFreq = tagUser + 0; (* Accepted input freqencies in hz *)
+  aWriteFreq = tagUser + 1; (* Used output frequency in hz *)
+  aReadBits = tagUser + 2; (* Accepted linear sample resolution in bits *)
+  aWriteBits = tagUser + 3; (* Used output sample resolution in bits *)
+  aReadChans = tagUser + 4; (* Accepted number of interleaved channels *)
+  aWriteChans = tagUser + 5; (* Used number of interleaved output channels *)
+  aIOMode = tagUser + 40; (* Play / Record support *)
+   amPLAY = 1;   amPlay = 0;
+   amRECORD = 2; amRecord = 1; (* Both => full duplex *)
+  aBufferLength = tagUser + 50; (* Length of buffer in samples * chans *)
+  aBufferCount = tagUser + 51; (* Maximum number of queued buffers allowed, -1 = infinite  *)
+  aModeName = tagUser + 60; (* Mode description string *)
+  aListOfModes = tagUser + 100; (* FALSE: search best match, TRUE: next of list *)
+
+
+ PROCEDURE QueryAudioMode(tags: TagItemPtr; index: CARD16;
+            VAR what: TagItem; VAR write: LONGINT);
+  (* Tags: Predefined read attributes (Freq, Bits, Chan, etc)
+   * what: what: attribute to query, filled with "Read" index-th value
+   * write: "Write" value of the attribute.
+   * No more attributes -> what.tag:= 0
+   *)
+
+ PROCEDURE SetAudioMode(tags: TagItemPtr): BOOLEAN;
+  (* NIL => release ressources. Use *Read* tag only *)
+
+ PROCEDURE AllocWave(): ADDRESS;
+  (* Allocate a wave that can be filled with sound data of the current
+   * audiomode's format and sent to PlayBuffer.
+   * Audiomode shoul have been set
+   *)
+
+ PROCEDURE FreeWave(VAR wave: ADDRESS);
+
+
+ PROCEDURE PlayBuffer(wave: ADDRESS; VAR done, queued: BOOLEAN);
+  (* done = FALSE <=> queue buffer full *)
+  (* queued = FALSE <=> previous one already finished *)
+
+  (* Always returns immediatly *)
+ PROCEDURE RecordBuffer(wave: ADDRESS; VAR done, overrun: BOOLEAN);
+  (* done = FALSE <=> to few samples received yet - nothing done *)
+  (* overrun = TRUE <=> buffer was full, record done but samples missed *)
+
+
+ PROCEDURE StopPlay;
+
+ PROCEDURE WaitPlayQueue;
+
+ PROCEDURE PlayQueueFinished(): BOOLEAN;
+
+END AudioA.

@@ -1,0 +1,7 @@
+DEFINITION MODULE ChaosSmartBonus;
+
+ CONST
+  sbExtraLife = 0;
+  sbExtraPower = 1;
+
+END ChaosSmartBonus.

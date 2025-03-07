@@ -1,0 +1,5 @@
+DEFINITION MODULE SDebug;
+
+ PROCEDURE PutStat(str: ARRAY OF CHAR);
+
+END SDebug.

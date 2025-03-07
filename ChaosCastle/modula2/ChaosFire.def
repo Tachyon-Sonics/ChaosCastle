@@ -1,0 +1,62 @@
+DEFINITION MODULE ChaosFire;
+
+ FROM Memory IMPORT CARD8, INT8, CARD16, INT16, CARD32, INT32, SET16, StrPtr;
+ FROM ChaosBase IMPORT Obj, ObjPtr, Anims;
+ FROM ChaosSounds IMPORT Effect;
+
+ VAR
+  missileEffect, flameEffect, bombEffect, createEffect: ARRAY[0..0] OF Effect;
+  huEffect, poufEffect, aieEffect, koEffect: ARRAY[0..0] OF Effect;
+
+  theFather, theMaster, theIllusion: ObjPtr;
+  laugh: BOOLEAN;
+
+
+ PROCEDURE ShowStat(str: StrPtr; val: CARD16);
+
+ PROCEDURE ParabolicDist(x, y, vx, vy, ax, ay, px, py: INT32): INT16;
+
+ PROCEDURE FireFlame(src: ObjPtr; ox, oy: INT16; snd: BOOLEAN);
+
+ PROCEDURE FireMissile(src: ObjPtr; fx, fy, fvx, fvy, ox, oy: INT16; snd: BOOLEAN);
+
+ PROCEDURE FireMissileV(src, dst: ObjPtr; ox, oy: INT16; snd: BOOLEAN);
+
+ PROCEDURE FireMissileA(src: ObjPtr; ox, oy: INT16);
+
+ PROCEDURE FireMissileS(fx, fy, fvx, fvy: INT32; src, dest: ObjPtr; ox, oy: INT16; speed, snd: BOOLEAN);
+
+ VAR
+  turn: BOOLEAN;
+
+ PROCEDURE BoumS(src, dest: ObjPtr; ox, oy, ba, bm, sa, sm, c, as, ms: INT16; follow, speed, snd: BOOLEAN);
+
+ PROCEDURE BoumX(src, dest: ObjPtr; cnt: INT16; star: BOOLEAN);
+
+ PROCEDURE BoumE(src: ObjPtr; cnt, mx, my: INT16);
+
+ PROCEDURE CloseEnough(bx, by, px, py: INT16): BOOLEAN;
+
+ PROCEDURE GoTo(boss: ObjPtr; tx, ty: INT16);
+
+ PROCEDURE GoCenter(boss: ObjPtr);
+
+ PROCEDURE ReturnWeapon(sx, sy: INT16);
+
+ PROCEDURE KillObjs(oKind: Anims; sKind: CARD8);
+
+ PROCEDURE Chain(boss: ObjPtr);
+
+ PROCEDURE ResetPart(part: ObjPtr);
+
+ PROCEDURE MoveHeart(heart: ObjPtr);
+
+ PROCEDURE MoveEye(eye: ObjPtr);
+
+ PROCEDURE MoveMouth(mouth: ObjPtr);
+
+ PROCEDURE MovePart(part: ObjPtr);
+
+ PROCEDURE DiePart(part: ObjPtr);
+
+END ChaosFire.

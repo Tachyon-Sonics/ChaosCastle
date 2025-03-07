@@ -1,0 +1,86 @@
+DEFINITION MODULE AmigaBase;
+
+ FROM SYSTEM IMPORT ADDRESS, BITSET, BYTE;
+ FROM GraphicsD IMPORT RastPortPtr, BitMapPtr, LayerPtr, LayerInfoPtr,
+  TextFontPtr;
+ FROM DiskFontD IMPORT DiskFontHeaderPtr;
+ FROM IntuitionD IMPORT WindowPtr, IDCMPFlagSet, MenuPtr, IntuiMessagePtr;
+ FROM ExecD IMPORT MsgPortPtr;
+ FROM Memory IMPORT List, Node;
+
+ CONST
+  asmHiRes = 0;
+  asmInterlace = 1;
+  asmHam = 2;
+
+ TYPE
+  WindowProc = PROCEDURE(WindowPtr): BOOLEAN;
+  GadgetProc = PROCEDURE(IntuiMessagePtr): BOOLEAN;
+  RefreshProc = PROCEDURE(RastPortPtr, ADDRESS,
+   INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER);
+  RefreshAreaProc = PROCEDURE(WindowPtr, ADDRESS,
+   INTEGER, INTEGER, INTEGER, INTEGER, INTEGER, INTEGER);
+  UpdateAreaProc = PROCEDURE(WindowPtr, ADDRESS): BOOLEAN;
+
+ WinRec = RECORD
+  node: Node;
+  win: WindowPtr;
+  rA4: ADDRESS;
+  WinControl: WindowProc;
+  GadControl: GadgetProc;
+ END;
+ WinRecPtr = POINTER TO WinRec;
+
+ Globals = RECORD
+  mainWindow, graphicWindow: WindowPtr;
+  idcmp: IDCMPFlagSet;
+  firstMenu: MenuPtr;
+  windowPort: MsgPortPtr;
+  windows: List;
+  multiThread: BOOLEAN;
+ END;
+ GlobalsPtr = POINTER TO Globals;
+
+ VAR
+  globals: GlobalsPtr;
+  timerPort: MsgPortPtr;
+  SoundControl: PROC;
+  WindowControl: WindowProc;
+  GadgetControl: GadgetProc;
+  AskScreenMode: PROCEDURE(BITSET, VAR INTEGER): BITSET;
+  RefreshImage: RefreshProc;
+  RefreshArea: RefreshAreaProc;
+  EndRefreshArea: UpdateAreaProc;
+  GetMenu: PROCEDURE(CARDINAL, CARDINAL, CARDINAL, VAR CARDINAL): ADDRESS;
+  SetMenus: PROC;
+  programName: ADDRESS;
+  busyStat: SHORTCARD;
+  memLow: BOOLEAN;
+
+  fontName: ARRAY[0..31] OF CHAR;
+  givenSM, givenAM: LONGCARD;
+  soundPriority, musicPriority: SHORTINT;
+  soundBoost, musicBoost, fontSize: SHORTCARD;
+  askMode, customMask, maskBM, dbGiven, givenDB, fontGiven, joystick, smGiven,
+  bSmartRefresh, dSmartRefresh, closeWB, filter, filterGiven, speaker,
+  maskPlaneGiven, givenMaskPlane, joystickGiven, surround,
+  ahiGiven, givenAhi, askAM, amGiven, dither, ditherGiven: BOOLEAN;
+
+
+ PROCEDURE LinkWindow(w: WindowPtr);
+
+ PROCEDURE UnlinkWindow(w: WindowPtr);
+
+ PROCEDURE IsBusyPointer(): BOOLEAN;
+
+ PROCEDURE SetWindows;
+
+ PROCEDURE DoWindowControl(w: WindowPtr): BOOLEAN;
+
+ PROCEDURE DoGadgetControl(msg: IntuiMessagePtr): BOOLEAN;
+
+ PROCEDURE FindBestPen(color: LONGCARD; avoidPen: SHORTCARD): LONGCARD;
+
+ PROCEDURE InitToolTypes;
+
+END AmigaBase.

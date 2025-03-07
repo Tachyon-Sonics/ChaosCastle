@@ -1,0 +1,24 @@
+DEFINITION MODULE Menus;
+
+ FROM SYSTEM IMPORT ADDRESS;
+ FROM Memory IMPORT TagItemPtr, tagUser;
+
+ CONST
+  mNAME = tagUser + 0; (* StrPtr *)
+  mCHK = tagUser + 1; (* BOOLEAN *)
+  mCOMM = tagUser + 2; (* CHAR *)
+  mENABLE = tagUser + 3; (* BOOLEAN *)
+  mNUM = tagUser + 8; (* CARD16 *)
+  mITEM = tagUser + 9; (* CARD16 *)
+  mSUB = tagUser + 10; (* CARD16 *)
+  mDIALOG = tagUser + 16; (* DialogPtr *)
+
+ PROCEDURE AddMenu(tags: TagItemPtr);
+
+ PROCEDURE AddItem(tags: TagItemPtr);
+
+ PROCEDURE ModifyItem(tags: TagItemPtr);
+
+ PROCEDURE RemoveMenus(tags: TagItemPtr);
+
+END Menus.

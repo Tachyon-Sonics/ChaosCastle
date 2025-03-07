@@ -1,0 +1,21 @@
+DEFINITION MODULE ChaosCreator;
+
+ CONST
+  cAlienV = 0;
+  cAlienA = 1;
+  cCreatorR = 2;
+  cCreatorC = 4;
+  cCircle = 3;
+  cController = 5;
+  cHurryUp = 6;
+  cChief = 7;
+  cFour = 8;
+  cAlienBox = 9;
+  cNest = 10;
+  cGrid = 11;
+  cMissile = 12;
+  cPopUp = 13;
+  cGhost = 14;
+  cQuad = 15;
+
+END ChaosCreator.

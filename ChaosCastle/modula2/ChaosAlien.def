@@ -1,0 +1,22 @@
+DEFINITION MODULE ChaosAlien;
+
+ CONST
+  aCartoon = 0;
+  aDbOval = 1;
+  aSmallDrawer = 2;
+  aBigDrawer = 3;
+  aHospital = 4;
+  aDiese = 5;
+  aKamikaze = 6;
+  aStar = 7;
+  aBubble = 8;
+  aBumper = 9;
+  aPic = 10;
+  aTri = 11;
+  aTrefle = 12;
+  aBig = 13;
+  aSquare = 14;
+  aFlame = 15;
+  aColor = 16;
+
+END ChaosAlien.

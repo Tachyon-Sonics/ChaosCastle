@@ -1,0 +1,93 @@
+DEFINITION MODULE ChaosGraphics;
+
+ FROM Memory IMPORT SET16, CARD8, CARD16, INT16, CARD32, INT32, tagUser,
+  TagItemPtr, StrPtr;
+ FROM ChaosBase IMPORT Obj, ObjPtr;
+ FROM Graphics IMPORT AreaPtr, CopyMode;
+
+ CONST
+  SW = 320; PW = 240; IW = 80; (* Screen, Play-area, Info-area *)
+  SH = 240; PH = SH;  IH = SH;
+  OW = 288; OH = 288; (* Off screen size *)
+  BW = 32; BH = 32;
+  SOW = 8; SOH = 8;
+
+  NbBackground = 24;
+  NbWall = 40;
+  NbClear = 21;
+
+ TYPE
+  CastleLine = ARRAY[0..127] OF CARD8;
+  DualLine = ARRAY[0..63] OF CARD8;
+  Castle = ARRAY[0..126] OF CastleLine;
+  Dual = ARRAY[0..63] OF DualLine;
+  CastlePtr = POINTER TO Castle;
+  DualPtr = POINTER TO Dual;
+  Palette = RECORD red, green, blue: CARD8 END;
+  PaletteEntries = ARRAY[0..15] OF Palette;
+  Explosions = (Low, Medium, High);
+  AdjustProc = PROCEDURE(INT16): INT16;
+
+ VAR
+  castle: CastlePtr;
+  dual: DualPtr;
+  castleWidth, castleHeight: INT16;
+  gameWidth, gameHeight: INT16;
+  backpx, backpy: INT16;
+  dualpx, dualpy: INT16;
+
+  mainArea, buffArea, dualArea: AreaPtr;
+  shapeArea, maskArea: AreaPtr; (* 256 x 256 *)
+  imageArea, image2Area: AreaPtr; (* 256 x 256 *)
+
+  mulS, dualSpeed: INT16;
+  color, dualpf, dfltGraphic: BOOLEAN;
+  explosions: Explosions;
+
+  cycling, dualCycling: SET16;
+  palette, cycle: PaletteEntries;
+  dualPalette, dualCycle: PaletteEntries;
+  cycleSpeed, dualCycleSpeed: ARRAY[0..15] OF CARD8;
+  transparent: ARRAY[0..15] OF CARD8;
+
+  X, Y, W, H: AdjustProc;
+
+ PROCEDURE OpenScreen(): BOOLEAN;
+
+ PROCEDURE CloseScreen;
+
+ PROCEDURE DrawBackground;
+
+ PROCEDURE MoveBackground(px, py: INT16);
+
+ PROCEDURE RenderObjects;
+
+ PROCEDURE UpdateAnim;
+
+ PROCEDURE WaterPalette(VAR r, g, b: CARD8);
+
+ PROCEDURE SetRGB(col, r, g, b: CARD8);
+
+ PROCEDURE CycleRGB(col, spd, r, g, b: CARD8);
+
+ PROCEDURE DualCycleRGB(col, spd, r, g, b: CARD8);
+
+ PROCEDURE SetTrans(col, trans: CARD8);
+
+ PROCEDURE CopyToDual;
+
+ PROCEDURE AnimPalette(step: CARD16);
+
+ PROCEDURE UpdatePalette;
+
+ PROCEDURE ResetCycle(end: BOOLEAN);
+
+ PROCEDURE WriteAt(x, y: INT16; t: StrPtr);
+
+ PROCEDURE CenterText(x, y, w: INT16; t: StrPtr);
+
+ PROCEDURE WriteCard(x, y: INT16; v: CARD32);
+
+ PROCEDURE SetOrigin(ox, oy: INT16);
+
+END ChaosGraphics.

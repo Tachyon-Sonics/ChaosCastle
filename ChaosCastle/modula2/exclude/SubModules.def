@@ -1,0 +1,29 @@
+DEFINITION MODULE SubModules;
+
+ FROM SYSTEM IMPORT ADDRESS;
+ FROM Memory IMPORT CARD32, INT32, TagItemPtr;
+ IMPORT R;
+
+ TYPE
+  ProcId = ARRAY[0..3] OF CHAR;
+  ProcPtr = ADDRESS;
+
+ CONST
+  noProc = NIL;
+
+
+ PROCEDURE SetModuleVersion(version: CARD32);
+
+ PROCEDURE InstallNextProc(id: ProcId; version: CARD32; proc: ADDRESS);
+
+ PROCEDURE ProcsInstalled;
+
+ PROCEDURE GetProc(proc: ProcId): ProcPtr;
+
+ PROCEDURE CallParentProc(proc: ProcId; params: TagItemPtr);
+
+ PROCEDURE GetParentProc(proc: ProcId): ProcPtr;
+
+ PROCEDURE CallParent(proc{R.A0}: ProcPtr; params{R.A1}: TagItemPtr);
+
+END SubModules.

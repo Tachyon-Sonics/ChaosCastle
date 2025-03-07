@@ -1,0 +1,43 @@
+DEFINITION MODULE Chaos1Zone;
+
+ FROM Memory IMPORT CARD8, CARD16, INT16, SET16;
+ FROM ChaosBase IMPORT Anims;
+
+ VAR
+  flipVert, flipHorz, rotate: BOOLEAN;
+  pLife2, pLife3, pLife4: CARD8;
+
+ VAR
+  fillTypes: SET16;
+  fillCount, fillRndAdd: ARRAY[0..15] OF CARD8;
+  fKind: ARRAY[1..4] OF Anims;
+  fSubKind: ARRAY[1..4] OF CARD8;
+  aStat: ARRAY[1..4] OF CARD16;
+
+
+ PROCEDURE RectFill(sx, sy, ex, ey: INT16);
+
+ PROCEDURE AddOptions(sx, sy, ex, ey: INT16; nbGrid, nbBumper, nbChief,
+                      nbGhost, nbPopup, nbBig, nbSquare: CARD16);
+
+ PROCEDURE Entry;
+
+ PROCEDURE Groove;
+
+ PROCEDURE Garden;
+
+ PROCEDURE Lake;
+
+ PROCEDURE Site;
+
+ PROCEDURE GhostCastle;
+
+ PROCEDURE Machinery;
+
+ PROCEDURE IceRink;
+
+ PROCEDURE Factory;
+
+ PROCEDURE Labyrinth;
+
+END Chaos1Zone.

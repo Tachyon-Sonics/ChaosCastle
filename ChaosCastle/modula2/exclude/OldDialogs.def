@@ -1,0 +1,108 @@
+DEFINITION MODULE Dialogs;
+
+ FROM SYSTEM IMPORT ADDRESS;
+ FROM Memory IMPORT TagItem, TagItemPtr, tagUser, CARD16, INT16, CARD32, INT32;
+
+ TYPE
+  DialogPtr;
+
+ VAR
+  noDialog: DialogPtr;
+
+
+ CONST
+  dNAME = tagUser + 0; (* StrPtr *)
+  dCLOSE = tagUser + 1; (* BOOLEAN, TRUE *)
+  dACTIVE = tagUser + 2; (* BOOLEAN, TRUE *)
+
+ PROCEDURE AllocDialog(tags: TagItemPtr): DialogPtr;
+
+ PROCEDURE ModifyDialog(d: DialogPtr; tags: TagItemPtr);
+
+
+ CONST
+  gFLAGS = tagUser + 64;
+  gMASK = tagUser + 65;
+   gfVDIR = 1; (* TRUE: vertical  FALSE: horizontal *)
+   gfATEND = 2; (* TRUE: right/bottom  FALSE: left/top *)
+   gfSCROLL = 4; (* May be partially invisible *)
+  gXPOS = 34; (* scrolling position in o/65535 *)
+  gYPOS = 35;
+  gMAXROW = 42; (* Max # of item in current dir -> used for grids *)
+
+ PROCEDURE BeginGroup(d: DialogPtr; tags: TagItemPtr);
+
+
+ CONST
+  gTYPE = tagUser + 0; (* ,gBUTTON *)
+   gBUTTON = 0;
+   gBOOL = 1; (* Also for filling *)
+   gRADIO = 2;
+   gCHECK = 3;
+   gSWITCH = 4; (* open (V) or closed (>) switch *)
+   gEMPTY = 5; (* To accept Area / Image *)
+   gCYCLE = 6; (* Choice without popup *)
+   gCHOICE = 7; (* Popup choice *)
+   gSCROLLER = 8;
+   gSLIDER = 9;
+   gSTRNG = 16;
+   gINT = 17;
+  gID = tagUser + 1; (* CARD16 *)
+   (* Progress for gBOOL, identation for gSWITCH,
+    * position for gSCROLLER, gSLIDER: *)
+  gFILL = tagUser + 6; (* 0..65535 *)
+  gSPAN = tagUser + 7; (* 0..65535, gSCROLLER only *)
+  gIMAGE = tagUser + 24; (* ImagePtr *)
+  gAREA = tagUser + 25; (* AreaPtr *)
+  gTEXT = tagUser + 8; (* StrPtr *)
+  gTEXTWIDTH = tagUser + 9;
+  gTEXTHEIGHT = tagUser + 10;
+  gTEXTMODE = tagUser + 11; (* TextModeSet *)
+  gTEXTCOLOR = tagUser + 12; (* CARD32 RGB 8-8-8 *)
+  gTXTSIZE = tagUser + 14; (* CARD16 *)
+  gINTVAL = tagUser + 15; (* INT32 *)
+  gHILITE = tagUser + 16; (* (gBUTTON, gBOOL, gRADIO) & gBORDER -> hINVALL *)
+   hNONE = 0;             (* gCYCLE -> hINVBORD *)
+   hINVBORD = 1;          (* else hNONE *)
+   hINVALL = 2;
+   hALTDAT = 3;
+  gfHITEVENT = 512; (* BOOLEAN, FALSE *)
+  gfRELEVENT = 1024; (* BOOLEAN, TRUE if not hNONE *)
+  gfBORDER = 4; (* BOOLEAN, group: NO, else YES *)
+  gfACTIVE = 128; (* BOOLEAN, YES *)
+  gfSELECT = 256; (* BOOLEAN, NO *)
+  gMINWIDTH = tagUser + 32; (* INT16 * textSize *)
+  gMINHEIGHT = tagUser + 33; (* INT16 * textSize *)
+  gGAPSIZE = tagUser + 40; (* INT16, 1 if border *)
+   gfAUTOLEFT = 8; (* all on: full justify *)
+   gfAUTORIGHT = 16;
+   gfAUTOUP = 32;
+   gfAUTODOWN = 64;
+    gfAUTOWIDTH = gfAUTOLEFT + gfAUTORIGHT;
+    gfAUTOHEIGHT = gfAUTOUP + gfAUTODOWN;
+    gfAUTOJUSTIFY = gfAUTOWIDTH + gfAUTOHEIGHT;
+
+ PROCEDURE AddGadget(d: DialogPtr; id, type: CARD16; tags: TagItemPtr);
+
+
+ PROCEDURE EndGroup(d: DialogPtr);
+
+
+ PROCEDURE ModifyGadget(d: DialogPtr; id: CARD16; tags: TagItemPtr);
+
+
+ PROCEDURE GetGadgetAttr(d: DialogPtr; id: CARD16; VAR what: TagItem);
+
+
+ CONST
+  DialogOk = 0;
+  NoMem = -1;
+  TooBig = -2;
+
+ PROCEDURE DisplayDialog(d: DialogPtr; tags: TagItemPtr): INT16;
+
+
+ PROCEDURE FreeDialog(VAR d: DialogPtr);
+
+
+END Dialogs.

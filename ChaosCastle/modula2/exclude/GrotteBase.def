@@ -1,0 +1,7 @@
+DEFINITION MODULE GrotteBase;
+ (*$ Implementation:= FALSE *)
+
+ TYPE OBJECT = (EMPTY, PLAYER, K0, K1, K2, K3, K4, GN1, GN2, ASC,
+                L1, L2, L3, BALL, PIC, PLAT, NID, BN, BM, SBN, MR);
+
+END GrotteBase.

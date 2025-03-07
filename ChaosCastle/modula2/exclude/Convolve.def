@@ -1,0 +1,33 @@
+DEFINITION MODULE Convolve;
+
+ FROM SYSTEM IMPORT ADDRESS;
+ FROM Memory IMPORT INT16, CARD16, INT32, CARD32;
+
+ TYPE
+  Card16Arr = ARRAY[0..16383] OF CARD16;
+  Card16ArrPtr = POINTER TO Card16Arr;
+
+
+ PROCEDURE SNTT(a, b: Card16ArrPtr; len, log: CARD16; forward: BOOLEAN);
+
+ PROCEDURE BackFNTT(a: Card16ArrPtr; len, log: CARD16);
+
+ PROCEDURE ForwFNTT(a: Card16ArrPtr; len, log: CARD16);
+
+ PROCEDURE Shift(a: ADDRESS; len: CARD16; shift: INT16);
+
+ PROCEDURE Power(base, exp: CARD16): CARD16;
+
+ PROCEDURE Normalize(a: Card16ArrPtr; len: CARD16);
+
+ PROCEDURE PTPMul(a, b, c: Card16ArrPtr; len: CARD16);
+
+ PROCEDURE FastConvolve(a, b, c: Card16ArrPtr; len, log: CARD16);
+
+ PROCEDURE FastReConvolve(a, b, c: Card16ArrPtr; len, log: CARD16);
+
+ PROCEDURE MediumConvolve(a, b, c: Card16ArrPtr; len, log: CARD16);
+
+ PROCEDURE SlowConvolve(a, b, c: Card16ArrPtr; len, log: CARD16);
+
+END Convolve.

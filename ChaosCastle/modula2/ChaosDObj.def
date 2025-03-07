@@ -1,0 +1,22 @@
+DEFINITION MODULE ChaosDObj;
+
+ CONST
+  doCartoon = 0;
+  doMagnetA = 1;
+  doMagnetR = 2;
+  doMeteor = 3;
+   domStone = 0;
+   domSmall = 1;
+   domMedium = 2;
+   domBig = 3;
+  doSand = 4;
+  doWind = 5;
+  doBubble = 6;
+  doMirror = 7;
+  doWindMaker = 8;
+  doBubbleMaker = 9;
+  doFireMaker = 10;
+  doFireWall = 11;
+  doWave = 12;
+
+END ChaosDObj.

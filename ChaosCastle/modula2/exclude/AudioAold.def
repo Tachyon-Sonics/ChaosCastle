@@ -1,0 +1,38 @@
+DEFINITION MODULE AudioA;
+
+ FROM SYSTEM IMPORT ADR, ADDRESS;
+ FROM Memory IMPORT CARD8, INT8, CARD16, INT16, CARD32, INT32, TagItem,
+  TagItemPtr, tagUser;
+
+
+ CONST
+  aMIXFREQ = tagUser + 0; (* freq *)
+  aMIXVOL = tagUser + 1; (* # of bit, negative if non-linear *)
+  aBUFSIZE = tagUser + 2;
+  aNBBALANCE = tagUser + 3; (* # of balances (= lg(# tracks)) *)
+  aNBMODES = tagUser + 4;
+  aMODE = tagUser + 5;
+   (* the following are passed to copy? & mix?; tag.data is a pointer to a buffer *)
+  aFREQ = tagUser + 8; (* count, val, ... *)
+  aVOL = tagUser + 9; (* count * 65536 + val *)
+  aDATA = tagUser + 10; (* bytes or words *)
+  aBALANCE = tagUser + 11; (* 4 bytes: count, b1, b2, b3 *)
+
+ PROCEDURE GetAudioMinAttrs(id: CARD32; tags: TagItemPtr);
+ PROCEDURE GetAudioMaxAttrs(id: CARD32; tags: TagItemPtr);
+ PROCEDURE SetAudioAttrs(tags: TagItemPtr);
+
+ PROCEDURE Sample(buffer: ADDRESS; VAR sources: ARRAY OF TagItemPtr);
+ PROCEDURE HQSample(buffer: ADDRESS; VAR sources: ARRAY OF TagItemPtr);
+ PROCEDURE Mix(buffer: ADDRESS; VAR sources: ARRAY OF ADDRESS);
+ PROCEDURE PlayBuffer(VAR done, queued: BOOLEAN);
+  (* done = FALSE <=> queue buffer full *)
+  (* queued = FALSE <=> last one already finished *)
+ PROCEDURE WaitAudioQueue;
+
+  (* aMIXVOL & aNBBALANCE can be used there *)
+  (* size = nb of sample *)
+ PROCEDURE AllocWave(size: CARD32; flags: TagItemPtr): ADDRESS;
+ PROCEDURE FreeWave(VAR wave: ADDRESS);
+
+END AudioA.

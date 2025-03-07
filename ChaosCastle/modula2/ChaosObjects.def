@@ -1,0 +1,142 @@
+DEFINITION MODULE ChaosObjects;
+
+ FROM Memory IMPORT CARD8, CARD16, INT16, CARD32, INT32;
+ FROM ChaosBase IMPORT Anims;
+ FROM ChaosBonus IMPORT MoneySet;
+
+
+ TYPE
+  FilterProc = PROCEDURE(INT16, INT16): BOOLEAN;
+  RandomProc = PROCEDURE(INT16): INT16;
+  ChooseProc = PROCEDURE(INT16, INT16): CARD8;
+
+
+ PROCEDURE Rnd(range: INT16): INT16;
+
+ PROCEDURE ExpRandom(range: INT16): INT16;
+
+
+ PROCEDURE Set(x, y: INT16);
+
+ PROCEDURE Reset(x, y: INT16);
+
+ PROCEDURE Get(x, y: INT16): CARD8;
+
+ PROCEDURE Put(x, y: INT16; v: CARD8);
+
+ PROCEDURE Mark(x, y: INT16);
+
+ PROCEDURE Marked(x, y: INT16): BOOLEAN;
+
+ PROCEDURE FlushMarks;
+
+ PROCEDURE Clear(w, h: INT16);
+
+ PROCEDURE Cadre(w, h: INT16);
+
+
+ PROCEDURE All(px, py: INT16): BOOLEAN;
+
+ PROCEDURE OnlyBackground(px, py: INT16): BOOLEAN;
+
+ PROCEDURE OnlyWall(px, py: INT16): BOOLEAN;
+
+ PROCEDURE SetOnlyValue(val: CARD8);
+ PROCEDURE OnlyValue(px, py: INT16): BOOLEAN;
+
+
+ PROCEDURE Fill(sx, sy, ex, ey: INT16; val: CARD8);
+
+ PROCEDURE FillCond(sx, sy, ex, ey: INT16; Filter: FilterProc; val: CARD8);
+
+ PROCEDURE FillRandom(sx, sy, ex, ey: INT16; min, max: INT16;
+                      Filter: FilterProc; Random: RandomProc);
+
+ PROCEDURE FillChoose(sx, sy, ex, ey: INT16; Filter: FilterProc; Choose: ChooseProc);
+
+ PROCEDURE PutRandom(sx, sy, ex, ey: INT16; Filter: FilterProc; val, cnt: CARD8);
+
+
+ PROCEDURE Rect(nsx, nsy, nex, ney: INT16);
+
+ PROCEDURE PutObj(kind: Anims; subKind: CARD8; stat: CARD16; px, py: INT16);
+
+ PROCEDURE PutBlockObj(kind: Anims; subKind: CARD8; stat: CARD16; px, py: INT16);
+
+ PROCEDURE PutFineObj(kind: Anims; subKind: CARD8; stat: CARD16; px, py, dx, dy: INT16);
+
+ PROCEDURE Put4Objs(kind: Anims; subKind: CARD8; stat: CARD16; px, py: INT16);
+
+ PROCEDURE PutRandomObjs(kind: Anims; subKind: CARD8; stat: CARD16; count: CARD16);
+
+ PROCEDURE FindIsolatedPlace(mxw: CARD16; VAR x, y: INT16): BOOLEAN;
+
+ PROCEDURE PutIsolated(mnc, mxc: CARD16; mns, mxs: INT16; val: CARD8);
+
+ PROCEDURE PutIsolatedObjs(kind: Anims; subKind: CARD8; mns, mxs: CARD16; mxw, count: CARD16);
+
+ PROCEDURE PutDeltaObjs(kind: Anims; subKind: CARD8; stat: CARD16; dx, dy: INT16; count: CARD16);
+
+ PROCEDURE PutGridObjs(kind: Anims; subKind: CARD8; stat: CARD16; sx, sy, dx, dy, cx, cy: INT16);
+
+ PROCEDURE PutRndStatObjs(kind: Anims; subKind: CARD8; mnstat, mxstat: CARD16; count: CARD16);
+
+ PROCEDURE PutChaosObjs(kind: Anims; subKind: CARD8; stat: CARD16; sx, sy, ex, ey: INT16; count: CARD16);
+
+ PROCEDURE PutChaosChain(kind: Anims; subKind: CARD8; VAR start: CARD16;
+                    step: CARD16; sx, sy, ex, ey: INT16; count: CARD16);
+
+ PROCEDURE FillObj(kind: Anims; subKind: CARD8; stat: CARD16; sx, sy, ex, ey: INT16; fine: BOOLEAN);
+
+
+ PROCEDURE PutPlayer(px, py: INT16);
+ PROCEDURE PutExit(px, py: INT16);
+
+ PROCEDURE PutKamikaze(stat, count: CARD16);
+ PROCEDURE PutPic(stat, count: CARD16);
+
+ PROCEDURE PutBlockBonus(stat: CARD16; px, py: INT16);
+ PROCEDURE PutTBonus(stat, count: CARD16);
+ PROCEDURE PutHospital(count: CARD16);
+ PROCEDURE PutBullet(count: CARD16);
+ PROCEDURE PutMagnet(count: CARD16);
+ PROCEDURE PutSleeper(count: CARD16);
+ PROCEDURE PutInvinsibility(count: CARD16);
+ PROCEDURE PutFreeFire(count: CARD16);
+ PROCEDURE PutMaxPower(count: CARD16);
+
+ PROCEDURE PutChaosSterling(count: CARD16);
+ PROCEDURE PutMoney(which: MoneySet; count: CARD16);
+
+ PROCEDURE PutExtraPower(min: CARD8; px, py: INT16);
+ PROCEDURE PutExtraLife(px, py: INT16);
+
+ PROCEDURE PutRAlien1(subK, mins, maxs, count: CARD16);
+ PROCEDURE PutAlien1(subK, stat, count: CARD16);
+ PROCEDURE PutAColor(mins, maxs, count: CARD16);
+ PROCEDURE PutColor(stat, count: CARD16);
+ PROCEDURE PutTrefle(stat, count: CARD16);
+ PROCEDURE PutTri(stat, count: CARD16);
+ PROCEDURE PutCartoon(mins, maxs, count: CARD16);
+
+ PROCEDURE PutRAlien2(subK, mins, maxs, count: CARD16);
+ PROCEDURE PutAlien2(subK, stat, count: CARD16);
+ PROCEDURE PutCFour(mins, maxs, count: CARD16);
+ PROCEDURE PutFour(stat, count: CARD16);
+ PROCEDURE PutQuad(stat, count: CARD16);
+ PROCEDURE PutABox(stat, count: CARD16);
+ PROCEDURE PutNest(stat, count: CARD16);
+ PROCEDURE PutCreatorR(count: CARD16);
+ PROCEDURE PutCreatorC(count: CARD16);
+
+ PROCEDURE PutDeadObj(subK, stat, count: CARD16);
+ PROCEDURE PutBubbleMaker(stat: CARD16; px, py: INT16);
+ PROCEDURE PutMagnetR(maxs, count: CARD16);
+ PROCEDURE PutMagnetA(maxs, count: CARD16);
+
+ PROCEDURE PutMachine(subK, mins, maxs, count: CARD16);
+ PROCEDURE PutCannon3(count: CARD16);
+ PROCEDURE PutTurret(count: CARD16);
+
+
+END ChaosObjects.

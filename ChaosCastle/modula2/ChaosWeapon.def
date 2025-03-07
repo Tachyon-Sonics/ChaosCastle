@@ -1,0 +1,8 @@
+DEFINITION MODULE ChaosWeapon;
+
+ FROM Memory IMPORT CARD8;
+ FROM ChaosBase IMPORT Weapon;
+
+ PROCEDURE GetBulletPrice(w: Weapon): CARD8;
+
+END ChaosWeapon.

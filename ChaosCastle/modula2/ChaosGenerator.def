@@ -1,0 +1,47 @@
+DEFINITION MODULE ChaosGenerator;
+
+ FROM Memory IMPORT CARD8, CARD16, INT16, INT32;
+
+
+ PROCEDURE DrawPacman(open: CARD16; width, height, sx, sy, ex, ey: INT16);
+
+ PROCEDURE Road(sx, sy, ex, ey, sz: INT16; val: CARD8);
+
+ PROCEDURE Excavate(sx, ex, mny, mxy, mnh, mxh, sdy, sh, sd, mxsy, mxsh, mnd, mxd: INT16);
+
+ PROCEDURE PutCross(bx, by, w, h: INT16; val: CARD8);
+
+ PROCEDURE FindIsolatedRect(sx, sy, ex, ey, sz, ml: INT16; VAR angle, x, y: INT16; wall: BOOLEAN): BOOLEAN;
+
+ PROCEDURE MakeLink(x, y, sz, angle: INT16; val: CARD8);
+
+ PROCEDURE FillEllipse(sx, sy, pw, ph: INT32; val: CARD8);
+
+ PROCEDURE TripleLoop(val: CARD8);
+
+ PROCEDURE GCastle(sx, sy, ex, ey: INT16; wall, back: CARD8);
+
+ PROCEDURE Cave(sx, sy, ex, ey, y1, y2, dx: INT16);
+
+ PROCEDURE DrawFactory;
+
+ PROCEDURE DrawLabyrinth(size: INT16);
+
+ PROCEDURE RemIsolated(sx, sy, ex, ey, dx, dy: INT16; val: CARD8);
+
+ PROCEDURE VRace(val: CARD8);
+
+ PROCEDURE DrawCastle(sx, sy, w, h: INT16);
+
+ PROCEDURE DrawBoxes(sx, sy, w, h: INT16);
+
+ PROCEDURE Join(sx, sy, ex, ey, dx, dy: INT16; val: CARD8);
+
+
+ PROCEDURE FlipVert;
+
+ PROCEDURE FlipHorz;
+
+ PROCEDURE Rotate;
+
+END ChaosGenerator.

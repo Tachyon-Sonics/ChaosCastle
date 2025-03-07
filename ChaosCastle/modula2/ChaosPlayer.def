@@ -1,0 +1,32 @@
+DEFINITION MODULE ChaosPlayer;
+
+ FROM Memory IMPORT SET16, CARD8, INT8, CARD16, INT16, CARD32, INT32, StrPtr;
+ FROM Input IMPORT Event;
+ FROM ChaosBase IMPORT ObjPtr, Weapon;
+
+
+ PROCEDURE WeaponToStr(w: Weapon): StrPtr;
+
+ PROCEDURE UpdateInfos;
+
+ PROCEDURE DrawInfos(db: BOOLEAN);
+
+ PROCEDURE AddLife(player: ObjPtr);
+
+ PROCEDURE AddMoney(player: ObjPtr; dollar, sterling: INT16);
+
+ PROCEDURE AddToWeapon(player: ObjPtr; w: Weapon; VAR bullet, bomb: CARD8);
+
+ PROCEDURE AddWeapon(player: ObjPtr; bullet: CARD8);
+
+ PROCEDURE AddBomb(player: ObjPtr; bomb: CARD8);
+
+ PROCEDURE AddPower(player: ObjPtr; power: CARD8);
+
+ PROCEDURE MakeInvinsible(player: ObjPtr; time: CARD16);
+
+ PROCEDURE CheckSelect(VAR e: Event; VAR stick: SET16; update: BOOLEAN);
+
+ PROCEDURE CheckStick;
+
+END ChaosPlayer.

@@ -1,0 +1,38 @@
+DEFINITION MODULE Terminal;
+(*$ LargeVars:=FALSE LongAlign:=FALSE NameChk:=FALSE *)
+
+(*
+ * 13.11.90/bp
+ * Neue Prozedur Flush
+ * Sicherheitsabfragen auf input,ouput#NIL eingebaut.
+ *)
+
+FROM SYSTEM IMPORT ADDRESS;
+
+VAR waitCloseGadget: BOOLEAN;
+
+(* Gibt den Puffer aus *)
+PROCEDURE Flush;
+
+PROCEDURE BusyRead(VAR ch: CHAR);
+PROCEDURE Read(VAR ch: CHAR);
+
+(* ACHTUNG: setzt letztes Zeichen IMMER auf 0C !!!!!! *)
+PROCEDURE ReadLn(VAR st:ARRAY OF CHAR; VAR len:INTEGER);
+
+PROCEDURE Write(ch: CHAR);
+PROCEDURE WriteLn;
+PROCEDURE WriteString(string: ARRAY OF CHAR);
+
+PROCEDURE Format(str:ARRAY OF CHAR; dats:ADDRESS);
+
+PROCEDURE FormatS(str:ARRAY OF CHAR;
+                  VAR innerStr:ARRAY OF CHAR);
+
+PROCEDURE FormatNr(str:ARRAY OF CHAR; nr:LONGINT);
+
+(* n<0: linksbuendig *)
+PROCEDURE WriteInt(x:LONGINT; n:INTEGER);
+PROCEDURE WriteHex(x:LONGINT; n:INTEGER);
+
+END Terminal.

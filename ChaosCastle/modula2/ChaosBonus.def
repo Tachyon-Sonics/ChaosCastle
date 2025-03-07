@@ -1,0 +1,33 @@
+DEFINITION MODULE ChaosBonus;
+
+ FROM Memory IMPORT CARD8, CARD16, INT16;
+ FROM ChaosBase IMPORT ObjPtr;
+
+ CONST
+  Money = 0;
+  TimedBonus = 1;
+  BonusLevel = 2;
+   tbDBSpeed = 0;
+   tbSGSpeed = 1;
+   tbMagnet = 2;
+   tbInvinsibility = 3;
+   tbSleeper = 4;
+   tbBullet = 5;
+   tbBonusLevel = 6;
+   tbHospital = 7;
+   tbFreeFire = 8;
+   tbMaxPower = 9;
+   tbNoMissile = 10;
+   tbDifficulty = 11;
+   tbExit = 12;
+   tbBomb = 13;
+   tbHelp = 14;
+
+ TYPE
+  Moneys = (m1, m2, m3, m5, m10, st);
+  MoneySet = SET OF Moneys;
+
+
+ PROCEDURE BoumMoney(obj: ObjPtr; coins: MoneySet; ns, nb: CARD16);
+
+END ChaosBonus.

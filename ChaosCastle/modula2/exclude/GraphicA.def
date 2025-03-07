@@ -1,0 +1,64 @@
+DEFINITION MODULE GraphicA;
+
+ FROM SYSTEM IMPORT ADR, ADDRESS;
+ FROM Memory IMPORT CARD8, INT8, CARD16, INT16, CARD32, INT32, TagItem,
+  TagItemPtr, tagUser;
+
+ CONST
+  gReadWidth = tagUser + 0;
+  gWriteWidth = tagUser + 1; (* Read <> Write => Autoscroll / window *)
+  gReadHeight = tagUser + 2;
+  gWriteHeight = tagUser + 3;
+  gReadPixelWidth = tagUser + 4;
+  gWritePixelWidth = tagUser + 5;
+  gReadPixelHeight = tagUser + 4; (* Read <> Write => Automatic scaling *)
+  gWritePixelHeight = tagUser + 5;
+  gReadColors = tagUser + 6; (* # of CLUT entries *)
+  gWriteColors = tagUser + 7;
+  gReadAnimatedColors = tagUser + 8; (* # of auto-refreshed CLUT entries *)
+  gWriteAnimatedColors = tagUser + 9;
+  gReadRed = tagUser + 10; (* red accuracy (usually power of two) *)
+  gWriteRed = tagUser + 11; (* Read > Write => dithering, patterns, etc *)
+  gReadGreen = tagUser + 12; (* green accuracy (usually power of two) *)
+  gWriteGreen = tagUser + 13; (* Read > Write => dithering, patterns, etc *)
+  gReadBlue = tagUser + 14; (* blue accuracy (usually power of two) *)
+  gWriteBlue = tagUser + 15; (* Read > Write => dithering, patterns, etc *)
+  gReadAlpha = tagUser + 16;
+  gWriteAlpha = tagUser + 17; (* Write = 0 => Read = gap size *)
+  gReadBuffers = tagUser + 20; (* Number of buffers, usually unlimited if not direct *)
+  aWriteBuffers = tagUser + 21;
+  gReadColorMode = tagUser + 50;
+  gWriteColorMode = tagUser + 51;
+   gcmCLUT = 0;
+   gcmARGB = 1;
+   gcmABGR = 2;
+  gReadPixelMode = tagUser + 52; (* SET16 *)
+  gWritePixelMode = tagUser + 53;
+   gpmfZSplit = 0; (* planar *)
+   gpmfYSplit = 1; (* interleaved *)
+   gpmfColorSplit = 2; (* Red plane - Green plane - Blue plane *)
+   gpmfOtherSplit = 3;
+    (* SET16{} is always guaranted *)
+  gReadScreenMode = tagUser + 54; (* SET16 *)
+  gWriteScreenMode = tagUser + 55;
+   gsmfDirect = 0; (* Image is directly connected to the display *)
+   gsmfAsync = 1; (* SetImage is asynchronous *)
+  gListOfModes = tagUser + 100;
+
+ TYPE
+  Image = RECORD
+   depth, width, height: INT16;
+   bitPerPix, bytePerRow: CARD16;
+   displayable: BOOLEAN;
+  END;
+
+
+ PROCEDURE QueryBestGraphicMode(tags: TagItemPtr);
+  (* =>: end of list or no mode found *)
+ PROCEDURE SetGraphicMode(tags: TagItemPtr);
+  (* NIL => release ressources *)
+ PROCEDURE AllocImage(depth, width, height: INT16; displayable: BOOLEAN): ImagePtr;
+ PROCEDURE FreeImage(VAR i: ImagePtr);
+ PROCEDURE SetImage(i: ImagePtr);
+
+END GraphicA.

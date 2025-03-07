@@ -1,0 +1,17 @@
+DEFINITION MODULE Languages;
+
+ FROM SYSTEM IMPORT ADDRESS;
+ FROM Memory IMPORT CARD8, StrPtr;
+
+
+ VAR
+  language: CARD8;
+
+
+ PROCEDURE GetLanguageName(num: CARD8): StrPtr;
+
+ PROCEDURE SetLanguage(num: CARD8);
+
+ PROCEDURE ADL(s: ARRAY OF CHAR): ADDRESS;
+
+END Languages.
