@@ -1,5 +1,7 @@
 package ch.chaos.castle;
 
+import java.util.EnumSet;
+
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosBase.BasicTypes;
 import ch.chaos.castle.ChaosBase.GameStat;
@@ -18,7 +20,6 @@ import ch.chaos.library.Memory;
 import ch.chaos.library.Registration;
 import ch.pitchtech.modula.runtime.HaltException;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.util.EnumSet;
 
 
 public class ChaosPlayer {
@@ -696,13 +697,13 @@ public class ChaosPlayer {
         chaosGraphics.WriteCard(chaosGraphics.X.invoke((short) (ChaosGraphics.IW / 2 + 8)), chaosGraphics.Y.invoke((short) 64), chaosBase.nbSterling);
     }
 
-    private void DrawTime(short p, short y, short h, int what, /* VAR */ Runtime.IRef<Integer> dWhat) {
+    private void DrawTime(short p, short y, short h, int what, /* VAR */ Runtime.IRef<Integer> dWhat, int divisor) {
         // VAR
         short width = 0;
 
         if ((p != 0) && (p == infoBackPen))
             p = 1;
-        width = (short) (what / (ChaosBase.Period / 2));
+        width = (short) (what / (ChaosBase.Period / 2) / divisor);
         if (width > 72)
             width = 72;
         if (width > 0) {
@@ -720,31 +721,31 @@ public class ChaosPlayer {
     }
 
     private void DrawMagnet() {
-        DrawTime((short) 2, (short) 74, (short) 1, chaosBase.magnet, new Runtime.FieldRef<>(this::getDMagnet, this::setDMagnet));
+        DrawTime((short) 2, (short) 74, (short) 1, chaosBase.magnet, new Runtime.FieldRef<>(this::getDMagnet, this::setDMagnet), 1);
     }
 
     private void DrawInv() {
-        DrawTime((short) 3, (short) 75, (short) 1, chaosBase.invinsibility, new Runtime.FieldRef<>(this::getDInv, this::setDInv));
+        DrawTime((short) 3, (short) 75, (short) 1, chaosBase.invinsibility, new Runtime.FieldRef<>(this::getDInv, this::setDInv), 1);
     }
 
     private void DrawFF() {
-        DrawTime((short) 6, (short) 76, (short) 1, chaosBase.freeFire, new Runtime.FieldRef<>(this::getDFF, this::setDFF));
+        DrawTime((short) 6, (short) 76, (short) 1, chaosBase.freeFire, new Runtime.FieldRef<>(this::getDFF, this::setDFF), 1);
     }
 
     private void DrawSleeper() {
-        DrawTime((short) 7, (short) 77, (short) 1, chaosBase.sleeper, new Runtime.FieldRef<>(this::getDSleeper, this::setDSleeper));
+        DrawTime((short) 7, (short) 77, (short) 1, chaosBase.sleeper, new Runtime.FieldRef<>(this::getDSleeper, this::setDSleeper), 1);
     }
 
     private void DrawMaxPower() {
-        DrawTime((short) 4, (short) 78, (short) 1, chaosBase.maxPower, new Runtime.FieldRef<>(this::getDMaxPower, this::setDMaxPower));
+        DrawTime((short) 4, (short) 78, (short) 1, chaosBase.maxPower, new Runtime.FieldRef<>(this::getDMaxPower, this::setDMaxPower), 1);
     }
 
     private void DrawAir() {
-        DrawTime((short) 0, (short) 79, (short) 1, chaosBase.air, new Runtime.FieldRef<>(this::getDAir, this::setDAir));
+        DrawTime((short) 0, (short) 79, (short) 1, chaosBase.air, new Runtime.FieldRef<>(this::getDAir, this::setDAir), 4);
     }
 
     private void DrawPlayerPower() {
-        DrawTime((short) 5, (short) 80, (short) 2, chaosBase.playerPower * ChaosBase.Period, new Runtime.FieldRef<>(this::getDPlayerPower, this::setDPlayerPower));
+        DrawTime((short) 5, (short) 80, (short) 2, chaosBase.playerPower * ChaosBase.Period, new Runtime.FieldRef<>(this::getDPlayerPower, this::setDPlayerPower), 1);
     }
 
     private void DrawNumber(Weapon w, boolean select) {
@@ -1154,8 +1155,6 @@ public class ChaosPlayer {
         chaosBase.mainPlayer = player;
     }
 
-    private final ChaosBase.MakeProc MakePlayer_ref = this::MakePlayer;
-
     private void ResetPlayer(ChaosBase.Obj player) {
         bulletToAdd = 0;
         bombToAdd = 0;
@@ -1168,8 +1167,6 @@ public class ChaosPlayer {
         chaosBase.playerPower = 36;
         MakePlayer(player);
     }
-
-    private final ChaosBase.ResetProc ResetPlayer_ref = this::ResetPlayer;
 
     private void AiePlayer(ChaosBase.Obj player, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         // VAR
@@ -1261,8 +1258,6 @@ public class ChaosPlayer {
             chaosBase.playerPower -= rem;
         }
     }
-
-    private final ChaosBase.AieProc AiePlayer_ref = this::AiePlayer;
 
     public void CheckSelect(/* var */ Input.Event e, /* VAR */ Runtime.RangeSet stick, boolean update) {
         // VAR
@@ -1723,14 +1718,10 @@ public class ChaosPlayer {
         }
     }
 
-    private final ChaosBase.MoveProc MovePlayer0_ref = this::MovePlayer0;
-
     private void DiePlayer(ChaosBase.Obj player) {
         chaosSounds.SoundEffect(player, dieEffects);
         chaosBase.gameStat = GameStat.Gameover;
     }
-
-    private final ChaosBase.DieProc DiePlayer_ref = this::DiePlayer;
 
     private void InitParams() {
         // VAR
@@ -1831,11 +1822,11 @@ public class ChaosPlayer {
         }
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetPlayer_ref;
-        attr.Make = MakePlayer_ref;
-        attr.Move = MovePlayer0_ref;
-        attr.Aie = AiePlayer_ref;
-        attr.Die = DiePlayer_ref;
+        attr.Reset = Runtime.proc(this::ResetPlayer, "ChaosPlayer.ResetPlayer");
+        attr.Make = Runtime.proc(this::MakePlayer, "ChaosPlayer.MakePlayer");
+        attr.Move = Runtime.proc(this::MovePlayer0, "ChaosPlayer.MovePlayer0");
+        attr.Aie = Runtime.proc(this::AiePlayer, "ChaosPlayer.AiePlayer");
+        attr.Die = Runtime.proc(this::DiePlayer, "ChaosPlayer.DiePlayer");
         attr.inerty = 128;
         attr.weight = 48;
         attr.charge = 40;

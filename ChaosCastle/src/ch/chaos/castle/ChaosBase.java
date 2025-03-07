@@ -1,13 +1,12 @@
 package ch.chaos.castle;
 
+import java.util.EnumSet;
+
 import ch.chaos.library.Checks;
 import ch.chaos.library.Dialogs;
 import ch.chaos.library.Files;
 import ch.chaos.library.Memory;
-import ch.chaos.library.Registration;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.lang.Runnable;
-import java.util.EnumSet;
 
 
 public class ChaosBase {
@@ -100,8 +99,8 @@ public class ChaosBase {
 
     public static class Obj { // RECORD
 
-        public Memory.Node animNode = new Memory.Node();
-        public Memory.Node objNode = new Memory.Node();
+        public Memory.Node animNode = new Memory.Node(this);
+        public Memory.Node objNode = new Memory.Node(this);
         public ObjAttr attr /* POINTER */;
         public int left;
         public int top;
@@ -491,7 +490,7 @@ public class ChaosBase {
 
     public static class ObjAttr { // RECORD
 
-        public Memory.Node node = new Memory.Node();
+        public Memory.Node node = new Memory.Node(this);
         public ResetProc Reset;
         public MakeProc Make;
         public MoveProc Move;
@@ -1391,8 +1390,8 @@ public class ChaosBase {
         // VAR
         ObjAttr attr = null;
         Obj obj = null;
-        Obj at = null;
-        Obj tail = null;
+        Memory.Node at = null; /* PATCH */
+        Memory.Node tail = null;
         short max = 0;
         byte pri = 0;
 
@@ -1416,13 +1415,13 @@ public class ChaosBase {
         obj.kind = kind;
         obj.subKind = subKind;
         obj.attr = attr;
-        at = (Obj) FirstObj(objList);
-        tail = (Obj) TailObj(objList);
-        while ((at != tail) && (pri > at.priority)) {
-            at = (Obj) NextObj(at.objNode);
+        at = memory.FirstNode(objList);
+        tail = memory.TailNode(objList);
+        while ((at != tail) && (pri > ((Obj) at.data).priority)) {
+            at = memory.NextNode(at);
         }
         obj.priority = pri;
-        memory.AddBefore(at.objNode, obj.objNode);
+        memory.AddBefore(at, obj.objNode);
         memory.AddHead(animList[kind.ordinal()], obj.animNode);
         nbAnim[kind.ordinal()]++;
         return obj;
@@ -1482,35 +1481,35 @@ public class ChaosBase {
 
     public void RestartObj(Obj obj) {
         // VAR
-        Obj at = null;
-        Obj tail = null;
+        Memory.Node at = null; /* PATCH */
+        Memory.Node tail = null;
         byte pri = 0;
 
         memory.Remove(obj.objNode);
         memory.AddHead(animList[obj.kind.ordinal()], obj.animNode);
         pri = obj.priority;
-        at = (Obj) FirstObj(objList);
-        tail = (Obj) TailObj(objList);
-        while ((at != tail) && (pri > at.priority)) {
-            at = (Obj) NextObj(at.objNode);
+        at = memory.FirstNode(objList);
+        tail = memory.TailNode(objList);
+        while ((at != tail) && (pri > ((Obj) at.data).priority)) {
+            at = memory.NextNode(at);
         }
-        memory.AddBefore(at.objNode, obj.objNode);
+        memory.AddBefore(at, obj.objNode);
     }
 
     public Object FirstObj(/* VAR+WRT */ Memory.List list) {
-        return Runtime.minusAdr(memory.First(list), (Object) Runtime.sizeOf(24, Memory.Node.class));
+        return memory.First(list);
     }
 
     public Object NextObj(/* VAR+WRT */ Memory.Node node) {
-        return Runtime.minusAdr(memory.Next(node), (Object) Runtime.sizeOf(24, Memory.Node.class));
+        return memory.Next(node);
     }
 
     public Object PrevObj(/* VAR+WRT */ Memory.Node node) {
-        return Runtime.minusAdr(memory.Prev(node), (Object) Runtime.sizeOf(24, Memory.Node.class));
+        return memory.Prev(node);
     }
 
     public Object TailObj(/* VAR+WRT */ Memory.List list) {
-        return Runtime.minusAdr(memory.Tail(list), (Object) Runtime.sizeOf(24, Memory.Node.class));
+        return memory.Tail(list);
     }
 
     public void FlushAllObjs() {
@@ -1579,8 +1578,6 @@ public class ChaosBase {
         dialogs.DeepFreeGadget(new Runtime.FieldRef<>(this::getD, this::setD));
     }
 
-    private final Runnable Close_ref = this::Close;
-
 
     // Support
 
@@ -1597,7 +1594,7 @@ public class ChaosBase {
     public void begin() {
         password = false;
         InitLists();
-        checks.AddTermProc(Close_ref);
+        checks.AddTermProc(Runtime.proc(this::Close, "ChaosBase.Close"));
     }
 
     public void close() {

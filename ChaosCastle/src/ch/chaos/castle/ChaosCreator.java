@@ -1,5 +1,7 @@
 package ch.chaos.castle;
 
+import java.util.EnumSet;
+
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosBase.BasicTypes;
 import ch.chaos.castle.ChaosBase.GameStat;
@@ -14,7 +16,6 @@ import ch.chaos.library.Languages;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.util.EnumSet;
 
 
 public class ChaosCreator {
@@ -411,8 +412,6 @@ public class ChaosCreator {
         chaosActions.SetObjRect(alien, 0, 0, 20, 20);
     }
 
-    private final ChaosBase.MakeProc MakeAlienV_ref = this::MakeAlienV;
-
     private void MakeAlienA(ChaosBase.Obj alien) {
         // VAR
         short px = 0;
@@ -424,8 +423,6 @@ public class ChaosCreator {
         chaosActions.SetObjLoc(alien, px, (short) 128, (short) 20, (short) 20);
         chaosActions.SetObjRect(alien, 0, 0, 20, 20);
     }
-
-    private final ChaosBase.MakeProc MakeAlienA_ref = this::MakeAlienA;
 
     private void MakeFour(ChaosBase.Obj four) {
         // VAR
@@ -439,21 +436,15 @@ public class ChaosCreator {
         chaosActions.SetObjRect(four, 0, 0, 24, 24);
     }
 
-    private final ChaosBase.MakeProc MakeFour_ref = this::MakeFour;
-
     private void MakeQuad(ChaosBase.Obj quad) {
         chaosActions.SetObjLoc(quad, (short) 5, (short) 185, (short) 22, (short) 22);
         chaosActions.SetObjRect(quad, 0, 0, 22, 22);
     }
 
-    private final ChaosBase.MakeProc MakeQuad_ref = this::MakeQuad;
-
     private void MakeCreatorR(ChaosBase.Obj creator) {
         chaosActions.SetObjLoc(creator, (short) 96, (short) 128, (short) 32, (short) 32);
         chaosActions.SetObjRect(creator, 0, 0, 32, 32);
     }
-
-    private final ChaosBase.MakeProc MakeCreatorR_ref = this::MakeCreatorR;
 
     private void MakeCreatorC(ChaosBase.Obj creator) {
         if (creator.moveSeq >= ChaosBase.Period * 3) {
@@ -464,8 +455,6 @@ public class ChaosCreator {
         }
     }
 
-    private final ChaosBase.MakeProc MakeCreatorC_ref = this::MakeCreatorC;
-
     private void MakeCircle(ChaosBase.Obj circle) {
         if (circle.shapeSeq == 0)
             chaosActions.SetObjLoc(circle, (short) 64, (short) 96, (short) 32, (short) 32);
@@ -473,8 +462,6 @@ public class ChaosCreator {
             chaosActions.SetObjLoc(circle, (short) 224, (short) 132, (short) 32, (short) 32);
         chaosActions.SetObjRect(circle, 1, 1, 31, 31);
     }
-
-    private final ChaosBase.MakeProc MakeCircle_ref = this::MakeCircle;
 
     private void FireMeteorite(short px, short py, short mvx, short mvy, int ns) {
         // VAR
@@ -638,35 +625,25 @@ public class ChaosCreator {
         chaosActions.SetObjRect(hu, 0, 0, 24, 16);
     }
 
-    private final ChaosBase.MakeProc MakeHurryUp_ref = this::MakeHurryUp;
-
     private void MakeChief(ChaosBase.Obj chief) {
         chaosActions.SetObjLoc(chief, (short) 128, (short) 72, (short) 16, (short) 16);
         chaosActions.SetObjRect(chief, 0, 0, 16, 16);
     }
-
-    private final ChaosBase.MakeProc MakeChief_ref = this::MakeChief;
 
     private void MakeABox(ChaosBase.Obj abox) {
         chaosActions.SetObjLoc(abox, (short) 0, (short) 180, (short) 32, (short) 32);
         chaosActions.SetObjRect(abox, 0, 0, 32, 32);
     }
 
-    private final ChaosBase.MakeProc MakeABox_ref = this::MakeABox;
-
     private void MakeNest(ChaosBase.Obj nest) {
         chaosActions.SetObjLoc(nest, (short) 184, (short) 132, (short) 28, (short) 28);
         chaosActions.SetObjRect(nest, 3, 3, 25, 25);
     }
 
-    private final ChaosBase.MakeProc MakeNest_ref = this::MakeNest;
-
     private void MakeGrid(ChaosBase.Obj grid) {
         chaosActions.SetObjLoc(grid, (short) 96, (short) 96, (short) 32, (short) 32);
         chaosActions.SetObjRect(grid, 2, 2, 30, 30);
     }
-
-    private final ChaosBase.MakeProc MakeGrid_ref = this::MakeGrid;
 
     private void MakeMissile(ChaosBase.Obj missile) {
         // VAR
@@ -682,9 +659,6 @@ public class ChaosCreator {
         chaosActions.SetObjRect(missile, 0, 0, 12, 24);
     }
 
-    private final ChaosBase.ResetProc MakeMissile_as_ChaosBase_ResetProc = this::MakeMissile;
-    private final ChaosBase.MakeProc MakeMissile_as_ChaosBase_MakeProc = this::MakeMissile;
-
     private void MakePopUp(ChaosBase.Obj popup) {
         // VAR
         short sz = 0;
@@ -697,14 +671,10 @@ public class ChaosCreator {
         chaosActions.SetObjRect(popup, 0, 0, sz, sz);
     }
 
-    private final ChaosBase.MakeProc MakePopUp_ref = this::MakePopUp;
-
     private void MakeGhost(ChaosBase.Obj ghost) {
         chaosActions.SetObjLoc(ghost, (short) 120, (short) 180, (short) 20, (short) 20);
         chaosActions.SetObjRect(ghost, 0, 0, 20, 20);
     }
-
-    private final ChaosBase.MakeProc MakeGhost_ref = this::MakeGhost;
 
     private void ResetAlienV(ChaosBase.Obj alien) {
         // VAR
@@ -734,8 +704,6 @@ public class ChaosCreator {
         alien.dvy = (short) (nvy - 1024);
         MakeAlienV(alien);
     }
-
-    private final ChaosBase.ResetProc ResetAlienV_ref = this::ResetAlienV;
 
     private void ResetAlienA(ChaosBase.Obj alien) {
         // VAR
@@ -771,8 +739,6 @@ public class ChaosCreator {
         MakeAlienA(alien);
     }
 
-    private final ChaosBase.ResetProc ResetAlienA_ref = this::ResetAlienA;
-
     private void ResetFour(ChaosBase.Obj four) {
         // VAR
         int time = 0;
@@ -797,8 +763,6 @@ public class ChaosCreator {
         MakeFour(four);
     }
 
-    private final ChaosBase.ResetProc ResetFour_ref = this::ResetFour;
-
     private void ResetQuad(ChaosBase.Obj quad) {
         // VAR
         int time = 0;
@@ -822,8 +786,6 @@ public class ChaosCreator {
         quad.dvy -= 1024;
         MakeQuad(quad);
     }
-
-    private final ChaosBase.ResetProc ResetQuad_ref = this::ResetQuad;
 
     private void ResetCreatorR(ChaosBase.Obj creator) {
         // VAR
@@ -850,8 +812,6 @@ public class ChaosCreator {
         MakeCreatorR(creator);
     }
 
-    private final ChaosBase.ResetProc ResetCreatorR_ref = this::ResetCreatorR;
-
     private void ResetCreatorC(ChaosBase.Obj creator) {
         // VAR
         int time = 0;
@@ -872,8 +832,6 @@ public class ChaosCreator {
         MakeCreatorC(creator);
     }
 
-    private final ChaosBase.ResetProc ResetCreatorC_ref = this::ResetCreatorC;
-
     private void ResetCircle(ChaosBase.Obj circle) {
         if (circle.stat == 0) {
             if (chaosBase.pLife >= 30)
@@ -893,8 +851,6 @@ public class ChaosCreator {
         }
     }
 
-    private final ChaosBase.ResetProc ResetCircle_ref = this::ResetCircle;
-
     private void ResetController(ChaosBase.Obj ctrl) {
         huCnt = 4;
         chaosActions.SetObjXY(ctrl, -ChaosGraphics.PW, -ChaosGraphics.PH);
@@ -908,15 +864,11 @@ public class ChaosCreator {
         MakeController(ctrl);
     }
 
-    private final ChaosBase.ResetProc ResetController_ref = this::ResetController;
-
     private void ResetHurryUp(ChaosBase.Obj hu) {
         hu.moveSeq = 0;
         hu.stat = ChaosBase.Period * 3;
         MakeHurryUp(hu);
     }
-
-    private final ChaosBase.ResetProc ResetHurryUp_ref = this::ResetHurryUp;
 
     private void ResetChief(ChaosBase.Obj chief) {
         // VAR
@@ -932,8 +884,6 @@ public class ChaosCreator {
         MakeChief(chief);
     }
 
-    private final ChaosBase.ResetProc ResetChief_ref = this::ResetChief;
-
     private void ResetABox(ChaosBase.Obj abox) {
         abox.dvx = 0;
         abox.dvy = 0;
@@ -944,8 +894,6 @@ public class ChaosCreator {
         MakeABox(abox);
     }
 
-    private final ChaosBase.ResetProc ResetABox_ref = this::ResetABox;
-
     private void ResetNest(ChaosBase.Obj nest) {
         nest.stat = nest.life;
         nest.life = 80 + chaosBase.difficulty * 10;
@@ -954,8 +902,6 @@ public class ChaosCreator {
         nest.moveSeq = trigo.RND() % (ChaosBase.Period * 10);
         MakeNest(nest);
     }
-
-    private final ChaosBase.ResetProc ResetNest_ref = this::ResetNest;
 
     private void ResetGrid(ChaosBase.Obj grid) {
         grid.hitSubLife = grid.life;
@@ -970,8 +916,6 @@ public class ChaosCreator {
         MakeGrid(grid);
     }
 
-    private final ChaosBase.ResetProc ResetGrid_ref = this::ResetGrid;
-
     private void ResetPopUp(ChaosBase.Obj popup) {
         popup.hitSubLife = popup.life;
         popup.fireSubLife = popup.life;
@@ -981,16 +925,12 @@ public class ChaosCreator {
         MakePopUp(popup);
     }
 
-    private final ChaosBase.ResetProc ResetPopUp_ref = this::ResetPopUp;
-
     private void ResetGhost(ChaosBase.Obj ghost) {
         ghost.hitSubLife = 0;
         ghost.fireSubLife = ghost.life;
         ghost.moveSeq = 0;
         MakeGhost(ghost);
     }
-
-    private final ChaosBase.ResetProc ResetGhost_ref = this::ResetGhost;
 
     private void FireMissileV(ChaosBase.Obj src, short sk) {
         // VAR
@@ -1106,8 +1046,6 @@ public class ChaosCreator {
             chaosActions.Die(alien);
     }
 
-    private final ChaosBase.MoveProc MoveAlienAV_ref = this::MoveAlienAV;
-
     private void MoveCreatorR(ChaosBase.Obj creator) {
         // VAR
         ChaosBase.Obj alien = null;
@@ -1191,8 +1129,6 @@ public class ChaosCreator {
             chaosActions.Die(creator);
     }
 
-    private final ChaosBase.MoveProc MoveCreatorR_ref = this::MoveCreatorR;
-
     private void MoveCreatorC(ChaosBase.Obj creator) {
         // VAR
         ChaosBase.Obj alien = null;
@@ -1257,8 +1193,6 @@ public class ChaosCreator {
         if (creator.life == 0)
             chaosActions.Die(creator);
     }
-
-    private final ChaosBase.MoveProc MoveCreatorC_ref = this::MoveCreatorC;
 
     private void BoumMissile(ChaosBase.Obj obj, boolean force) {
         // VAR
@@ -1333,8 +1267,6 @@ public class ChaosCreator {
         chaosActions.PlayerCollision(circle, hit);
     }
 
-    private final ChaosBase.MoveProc MoveCircle_ref = this::MoveCircle;
-
     private void MoveController(ChaosBase.Obj ctrl) {
         if (chaosBase.step > ctrl.moveSeq)
             ctrl.moveSeq = 0;
@@ -1349,8 +1281,6 @@ public class ChaosCreator {
         if ((chaosBase.nbAnim[Anims.ALIEN3.ordinal()] + chaosBase.nbAnim[Anims.ALIEN2.ordinal()] + chaosBase.nbAnim[Anims.ALIEN1.ordinal()] <= 1) && ((chaosBase.zone == Zone.Chaos) || (chaosBase.zone == Zone.Family)))
             chaosActions.Die(ctrl);
     }
-
-    private final ChaosBase.MoveProc MoveController_ref = this::MoveController;
 
     private void MoveHurryUp(ChaosBase.Obj hu) {
         // VAR
@@ -1406,8 +1336,6 @@ public class ChaosCreator {
         if (hu.life == 0)
             chaosActions.Die(hu);
     }
-
-    private final ChaosBase.MoveProc MoveHurryUp_ref = this::MoveHurryUp;
 
     private void MoveChief(ChaosBase.Obj chief) {
         // VAR
@@ -1612,12 +1540,10 @@ public class ChaosCreator {
         chaosActions.Gravity(chief, EnumSet.of(Anims.MISSILE));
         hit.set(chief.life / 2);
         fire.set(chief.life - hit.get());
-        chaosActions.DoCollision(chief, EnumSet.of(Anims.PLAYER, Anims.ALIEN1), chaosActions.Aie_ref, hit, fire);
+        chaosActions.DoCollision(chief, EnumSet.of(Anims.PLAYER, Anims.ALIEN1), Runtime.proc(chaosActions::Aie, "ChaosActions.Aie"), hit, fire);
         if (chief.life == 0)
             chaosActions.Die(chief);
     }
-
-    private final ChaosBase.MoveProc MoveChief_ref = this::MoveChief;
 
     private void MoveABox(ChaosBase.Obj abox) {
         // VAR
@@ -1634,8 +1560,6 @@ public class ChaosCreator {
         hit.set(5);
         chaosActions.PlayerCollision(abox, hit);
     }
-
-    private final ChaosBase.MoveProc MoveABox_ref = this::MoveABox;
 
     private void MoveNest(ChaosBase.Obj nest) {
         // VAR
@@ -1712,8 +1636,6 @@ public class ChaosCreator {
         nest.moveSeq -= chaosBase.step;
     }
 
-    private final ChaosBase.MoveProc MoveNest_ref = this::MoveNest;
-
     private void MoveGrid(ChaosBase.Obj grid) {
         // VAR
         short ovx = 0;
@@ -1750,8 +1672,6 @@ public class ChaosCreator {
             chaosActions.Die(grid);
     }
 
-    private final ChaosBase.MoveProc MoveGrid_ref = this::MoveGrid;
-
     private void MoveMissile(ChaosBase.Obj missile) {
         if (chaosActions.OutOfScreen(missile)) {
             chaosActions.Leave(missile);
@@ -1761,8 +1681,6 @@ public class ChaosCreator {
         if (chaosActions.OutOfBounds(missile) || chaosActions.InBackground(missile))
             chaosActions.Die(missile);
     }
-
-    private final ChaosBase.MoveProc MoveMissile_ref = this::MoveMissile;
 
     private void MovePopUp(ChaosBase.Obj popup) {
         // VAR
@@ -1815,8 +1733,6 @@ public class ChaosCreator {
         }
     }
 
-    private final ChaosBase.MoveProc MovePopUp_ref = this::MovePopUp;
-
     private void RemMoney(ChaosBase.Obj player, ChaosBase.Obj ghost, /* var */ Runtime.IRef<Integer> hit, /* var */ Runtime.IRef<Integer> fire) {
         // VAR
         byte md = 0;
@@ -1834,8 +1750,6 @@ public class ChaosCreator {
         if ((md != 0) || (ms != 0))
             chaosPlayer.AddMoney(player, md, ms);
     }
-
-    private final ChaosBase.AieProc RemMoney_ref = this::RemMoney;
 
     private void MoveGhost(ChaosBase.Obj ghost) {
         // VAR
@@ -1857,14 +1771,12 @@ public class ChaosCreator {
         ghost.dvx = (short) (trigo.SGN((short) (px.get() - mx.get())) * speed);
         ghost.dvy = (short) (trigo.SGN((short) (py.get() - my.get())) * speed);
         if (ghost.moveSeq == 0)
-            chaosActions.DoCollision(ghost, EnumSet.of(Anims.PLAYER), RemMoney_ref, new Runtime.FieldRef<>(ghost::getHitSubLife, ghost::setHitSubLife), new Runtime.FieldRef<>(ghost::getFireSubLife, ghost::setFireSubLife));
+            chaosActions.DoCollision(ghost, EnumSet.of(Anims.PLAYER), Runtime.proc(this::RemMoney, "ChaosCreator.RemMoney"), new Runtime.FieldRef<>(ghost::getHitSubLife, ghost::setHitSubLife), new Runtime.FieldRef<>(ghost::getFireSubLife, ghost::setFireSubLife));
         else if (chaosBase.step > ghost.moveSeq)
             ghost.moveSeq = 0;
         else
             ghost.moveSeq -= chaosBase.step;
     }
-
-    private final ChaosBase.MoveProc MoveGhost_ref = this::MoveGhost;
 
     private void AieAlienAV(ChaosBase.Obj alien, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosActions.DecLife(alien, hit, fire);
@@ -1872,14 +1784,10 @@ public class ChaosCreator {
             chaosSounds.SoundEffect(alien, aieAlienEffect);
     }
 
-    private final ChaosBase.AieProc AieAlienAV_ref = this::AieAlienAV;
-
     private void AieCreator(ChaosBase.Obj creator, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosActions.DecLife(creator, hit, fire);
         chaosSounds.SoundEffect(creator, aieCreatorEffect);
     }
-
-    private final ChaosBase.AieProc AieCreator_ref = this::AieCreator;
 
     private void AieCircle(ChaosBase.Obj circle, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosActions.DecLife(circle, hit, fire);
@@ -1893,41 +1801,29 @@ public class ChaosCreator {
         circle.fireSubLife = 0;
     }
 
-    private final ChaosBase.AieProc AieCircle_ref = this::AieCircle;
-
     private void AieHurryUp(ChaosBase.Obj hu, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosActions.DecLife(hu, hit, fire);
         chaosSounds.SoundEffect(hu, aieHUEffect);
     }
-
-    private final ChaosBase.AieProc AieHurryUp_ref = this::AieHurryUp;
 
     private void AieChief(ChaosBase.Obj chief, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosActions.DecLife(chief, hit, fire);
         chaosSounds.SoundEffect(chief, aieChiefEffect);
     }
 
-    private final ChaosBase.AieProc AieChief_ref = this::AieChief;
-
     private void AieABox(ChaosBase.Obj abox, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosActions.DecLife(abox, hit, fire);
         chaosSounds.SoundEffect(abox, aieCreatorEffect);
     }
-
-    private final ChaosBase.AieProc AieABox_ref = this::AieABox;
 
     private void AieNest(ChaosBase.Obj nest, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosActions.DecLife(nest, hit, fire);
         chaosSounds.SoundEffect(nest, aieCreatorEffect);
     }
 
-    private final ChaosBase.AieProc AieNest_ref = this::AieNest;
-
     private void AieMissile(ChaosBase.Obj missile, ChaosBase.Obj src, /* var */ Runtime.IRef<Integer> hit, /* var */ Runtime.IRef<Integer> fire) {
         missile.life = 0;
     }
-
-    private final ChaosBase.AieProc AieMissile_ref = this::AieMissile;
 
     private void AieGrid(ChaosBase.Obj grid, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         ResetGrid(grid);
@@ -1935,21 +1831,15 @@ public class ChaosCreator {
         chaosActions.DecLife(grid, hit, fire);
     }
 
-    private final ChaosBase.AieProc AieGrid_ref = this::AieGrid;
-
     private void AiePopUp(ChaosBase.Obj popup, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosSounds.SoundEffect(popup, aieAlienEffect);
         chaosActions.DecLife(popup, hit, fire);
     }
 
-    private final ChaosBase.AieProc AiePopUp_ref = this::AiePopUp;
-
     private void AieGhost(ChaosBase.Obj ghost, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosSounds.SoundEffect(ghost, aieGhostEffect);
         chaosActions.DecLife(ghost, hit, fire);
     }
-
-    private final ChaosBase.AieProc AieGhost_ref = this::AieGhost;
 
     private void DieAlienV(ChaosBase.Obj alien) {
         chaosBase.addpt++;
@@ -1959,8 +1849,6 @@ public class ChaosCreator {
             chaosBonus.BoumMoney(alien, EnumSet.of(Moneys.m1, Moneys.m2), 2, 1);
     }
 
-    private final ChaosBase.DieProc DieAlienV_ref = this::DieAlienV;
-
     private void DieAlienA(ChaosBase.Obj alien) {
         chaosBase.addpt++;
         chaosSounds.SoundEffect(alien, dieAlienAEffect);
@@ -1968,8 +1856,6 @@ public class ChaosCreator {
         if (!alien.flags.contains(ObjFlags.nested))
             chaosBonus.BoumMoney(alien, EnumSet.of(Moneys.m2), 1, 2);
     }
-
-    private final ChaosBase.DieProc DieAlienA_ref = this::DieAlienA;
 
     private void DieFour(ChaosBase.Obj four) {
         BoumMissile(four, false);
@@ -1979,8 +1865,6 @@ public class ChaosCreator {
             chaosBase.addpt++;
         chaosSounds.SoundEffect(four, dieFourEffect);
     }
-
-    private final ChaosBase.DieProc DieFour_ref = this::DieFour;
 
     private void DieCreatorR(ChaosBase.Obj creator) {
         // VAR
@@ -2017,15 +1901,11 @@ public class ChaosCreator {
         chaosSounds.SoundEffect(creator, dieCreatorREffect);
     }
 
-    private final ChaosBase.DieProc DieCreatorR_ref = this::DieCreatorR;
-
     private void DieCreatorC(ChaosBase.Obj creator) {
         chaosSounds.SoundEffect(creator, dieCreatorCEffect);
         BoumMissile(creator, false);
         chaosBase.addpt += chaosBase.pLife;
     }
-
-    private final ChaosBase.DieProc DieCreatorC_ref = this::DieCreatorC;
 
     private void DieCircle(ChaosBase.Obj circle) {
         // VAR
@@ -2057,14 +1937,10 @@ public class ChaosCreator {
             chaosBonus.BoumMoney(circle, EnumSet.of(Moneys.m5), 1, 10 - chaosBase.difficulty);
     }
 
-    private final ChaosBase.DieProc DieCircle_ref = this::DieCircle;
-
     private void DieHurryUp(ChaosBase.Obj hu) {
         if (hu.stat != 7)
             chaosSounds.SoundEffect(hu, dieHUEffect);
     }
-
-    private final ChaosBase.DieProc DieHurryUp_ref = this::DieHurryUp;
 
     private void DieChief(ChaosBase.Obj chief) {
         if (chief.stat == 1)
@@ -2077,8 +1953,6 @@ public class ChaosCreator {
                 chaosBonus.BoumMoney(chief, EnumSet.of(Moneys.m10), 1, 5 - (chaosBase.difficulty + 5) / 3);
         }
     }
-
-    private final ChaosBase.DieProc DieChief_ref = this::DieChief;
 
     private void DieABox(ChaosBase.Obj abox) {
         // VAR
@@ -2118,8 +1992,6 @@ public class ChaosCreator {
         }
     }
 
-    private final ChaosBase.DieProc DieABox_ref = this::DieABox;
-
     private void DieNest(ChaosBase.Obj nest) {
         // VAR
         ChaosBase.Obj bonus = null;
@@ -2140,14 +2012,10 @@ public class ChaosCreator {
         chaosSounds.SoundEffect(nest, dieNestEffect);
     }
 
-    private final ChaosBase.DieProc DieNest_ref = this::DieNest;
-
     private void DieGrid(ChaosBase.Obj grid) {
         chaosBonus.BoumMoney(grid, EnumSet.of(Moneys.st), 1, 2);
         BoumMissile(grid, true);
     }
-
-    private final ChaosBase.DieProc DieGrid_ref = this::DieGrid;
 
     private void DieMissile(ChaosBase.Obj missile) {
         // VAR
@@ -2190,20 +2058,14 @@ public class ChaosCreator {
         _new = chaosActions.CreateObj(nkind, nsk, px.get(), py.get(), nstat, nlife);
     }
 
-    private final ChaosBase.DieProc DieMissile_ref = this::DieMissile;
-
     private void DiePopUp(ChaosBase.Obj popup) {
         BoumMissile(popup, false);
         chaosSounds.SoundEffect(popup, diePopupEffect);
     }
 
-    private final ChaosBase.DieProc DiePopUp_ref = this::DiePopUp;
-
     private void DieGhost(ChaosBase.Obj ghost) {
         chaosSounds.SoundEffect(ghost, dieGhostEffect);
     }
-
-    private final ChaosBase.DieProc DieGhost_ref = this::DieGhost;
 
     private void InitParams() {
         // VAR
@@ -2268,11 +2130,11 @@ public class ChaosCreator {
         chaosSounds.SetEffect(dieGhostEffect[0], chaosSounds.soundList[SoundList.wWhite.ordinal()], 0, 0, (short) 160, (short) 4);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetAlienV_ref;
-        attr.Make = MakeAlienV_ref;
-        attr.Move = MoveAlienAV_ref;
-        attr.Aie = AieAlienAV_ref;
-        attr.Die = DieAlienV_ref;
+        attr.Reset = Runtime.proc(this::ResetAlienV, "ChaosCreator.ResetAlienV");
+        attr.Make = Runtime.proc(this::MakeAlienV, "ChaosCreator.MakeAlienV");
+        attr.Move = Runtime.proc(this::MoveAlienAV, "ChaosCreator.MoveAlienAV");
+        attr.Aie = Runtime.proc(this::AieAlienAV, "ChaosCreator.AieAlienAV");
+        attr.Die = Runtime.proc(this::DieAlienV, "ChaosCreator.DieAlienV");
         attr.charge = 40;
         attr.weight = 24;
         attr.inerty = 60;
@@ -2293,11 +2155,11 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetAlienA_ref;
-        attr.Make = MakeAlienA_ref;
-        attr.Move = MoveAlienAV_ref;
-        attr.Aie = AieAlienAV_ref;
-        attr.Die = DieAlienA_ref;
+        attr.Reset = Runtime.proc(this::ResetAlienA, "ChaosCreator.ResetAlienA");
+        attr.Make = Runtime.proc(this::MakeAlienA, "ChaosCreator.MakeAlienA");
+        attr.Move = Runtime.proc(this::MoveAlienAV, "ChaosCreator.MoveAlienAV");
+        attr.Aie = Runtime.proc(this::AieAlienAV, "ChaosCreator.AieAlienAV");
+        attr.Die = Runtime.proc(this::DieAlienA, "ChaosCreator.DieAlienA");
         attr.charge = 30;
         attr.weight = 48;
         attr.inerty = 60;
@@ -2318,11 +2180,11 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetCreatorR_ref;
-        attr.Make = MakeCreatorR_ref;
-        attr.Move = MoveCreatorR_ref;
-        attr.Aie = AieCreator_ref;
-        attr.Die = DieCreatorR_ref;
+        attr.Reset = Runtime.proc(this::ResetCreatorR, "ChaosCreator.ResetCreatorR");
+        attr.Make = Runtime.proc(this::MakeCreatorR, "ChaosCreator.MakeCreatorR");
+        attr.Move = Runtime.proc(this::MoveCreatorR, "ChaosCreator.MoveCreatorR");
+        attr.Aie = Runtime.proc(this::AieCreator, "ChaosCreator.AieCreator");
+        attr.Die = Runtime.proc(this::DieCreatorR, "ChaosCreator.DieCreatorR");
         attr.charge = 16;
         attr.weight = 100;
         attr.inerty = 14;
@@ -2343,11 +2205,11 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetCircle_ref;
-        attr.Make = MakeCircle_ref;
-        attr.Move = MoveCircle_ref;
-        attr.Aie = AieCircle_ref;
-        attr.Die = DieCircle_ref;
+        attr.Reset = Runtime.proc(this::ResetCircle, "ChaosCreator.ResetCircle");
+        attr.Make = Runtime.proc(this::MakeCircle, "ChaosCreator.MakeCircle");
+        attr.Move = Runtime.proc(this::MoveCircle, "ChaosCreator.MoveCircle");
+        attr.Aie = Runtime.proc(this::AieCircle, "ChaosCreator.AieCircle");
+        attr.Die = Runtime.proc(this::DieCircle, "ChaosCreator.DieCircle");
         attr.charge = 16;
         attr.weight = 100;
         attr.inerty = 256;
@@ -2368,11 +2230,11 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetCreatorC_ref;
-        attr.Make = MakeCreatorC_ref;
-        attr.Move = MoveCreatorC_ref;
-        attr.Aie = AieCreator_ref;
-        attr.Die = DieCreatorC_ref;
+        attr.Reset = Runtime.proc(this::ResetCreatorC, "ChaosCreator.ResetCreatorC");
+        attr.Make = Runtime.proc(this::MakeCreatorC, "ChaosCreator.MakeCreatorC");
+        attr.Move = Runtime.proc(this::MoveCreatorC, "ChaosCreator.MoveCreatorC");
+        attr.Aie = Runtime.proc(this::AieCreator, "ChaosCreator.AieCreator");
+        attr.Die = Runtime.proc(this::DieCreatorC, "ChaosCreator.DieCreatorC");
         attr.charge = 24;
         attr.weight = 80;
         attr.inerty = 16;
@@ -2393,17 +2255,17 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetController_ref;
-        attr.Move = MoveController_ref;
+        attr.Reset = Runtime.proc(this::ResetController, "ChaosCreator.ResetController");
+        attr.Move = Runtime.proc(this::MoveController, "ChaosCreator.MoveController");
         attr.basicType = BasicTypes.NotBase;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetHurryUp_ref;
-        attr.Make = MakeHurryUp_ref;
-        attr.Move = MoveHurryUp_ref;
-        attr.Aie = AieHurryUp_ref;
-        attr.Die = DieHurryUp_ref;
+        attr.Reset = Runtime.proc(this::ResetHurryUp, "ChaosCreator.ResetHurryUp");
+        attr.Make = Runtime.proc(this::MakeHurryUp, "ChaosCreator.MakeHurryUp");
+        attr.Move = Runtime.proc(this::MoveHurryUp, "ChaosCreator.MoveHurryUp");
+        attr.Aie = Runtime.proc(this::AieHurryUp, "ChaosCreator.AieHurryUp");
+        attr.Die = Runtime.proc(this::DieHurryUp, "ChaosCreator.DieHurryUp");
         attr.charge = 12;
         attr.weight = 80;
         attr.inerty = 32;
@@ -2424,11 +2286,11 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetChief_ref;
-        attr.Make = MakeChief_ref;
-        attr.Move = MoveChief_ref;
-        attr.Aie = AieChief_ref;
-        attr.Die = DieChief_ref;
+        attr.Reset = Runtime.proc(this::ResetChief, "ChaosCreator.ResetChief");
+        attr.Make = Runtime.proc(this::MakeChief, "ChaosCreator.MakeChief");
+        attr.Move = Runtime.proc(this::MoveChief, "ChaosCreator.MoveChief");
+        attr.Aie = Runtime.proc(this::AieChief, "ChaosCreator.AieChief");
+        attr.Die = Runtime.proc(this::DieChief, "ChaosCreator.DieChief");
         attr.charge = 24;
         attr.weight = 75;
         attr.inerty = 300;
@@ -2449,11 +2311,11 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetFour_ref;
-        attr.Make = MakeFour_ref;
-        attr.Move = MoveAlienAV_ref;
-        attr.Aie = AieAlienAV_ref;
-        attr.Die = DieFour_ref;
+        attr.Reset = Runtime.proc(this::ResetFour, "ChaosCreator.ResetFour");
+        attr.Make = Runtime.proc(this::MakeFour, "ChaosCreator.MakeFour");
+        attr.Move = Runtime.proc(this::MoveAlienAV, "ChaosCreator.MoveAlienAV");
+        attr.Aie = Runtime.proc(this::AieAlienAV, "ChaosCreator.AieAlienAV");
+        attr.Die = Runtime.proc(this::DieFour, "ChaosCreator.DieFour");
         attr.charge = 15;
         attr.weight = 64;
         attr.inerty = 50;
@@ -2474,11 +2336,11 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetABox_ref;
-        attr.Make = MakeABox_ref;
-        attr.Move = MoveABox_ref;
-        attr.Aie = AieABox_ref;
-        attr.Die = DieABox_ref;
+        attr.Reset = Runtime.proc(this::ResetABox, "ChaosCreator.ResetABox");
+        attr.Make = Runtime.proc(this::MakeABox, "ChaosCreator.MakeABox");
+        attr.Move = Runtime.proc(this::MoveABox, "ChaosCreator.MoveABox");
+        attr.Aie = Runtime.proc(this::AieABox, "ChaosCreator.AieABox");
+        attr.Die = Runtime.proc(this::DieABox, "ChaosCreator.DieABox");
         attr.charge = 0;
         attr.weight = 100;
         attr.inerty = 10;
@@ -2499,11 +2361,11 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetNest_ref;
-        attr.Make = MakeNest_ref;
-        attr.Move = MoveNest_ref;
-        attr.Aie = AieNest_ref;
-        attr.Die = DieNest_ref;
+        attr.Reset = Runtime.proc(this::ResetNest, "ChaosCreator.ResetNest");
+        attr.Make = Runtime.proc(this::MakeNest, "ChaosCreator.MakeNest");
+        attr.Move = Runtime.proc(this::MoveNest, "ChaosCreator.MoveNest");
+        attr.Aie = Runtime.proc(this::AieNest, "ChaosCreator.AieNest");
+        attr.Die = Runtime.proc(this::DieNest, "ChaosCreator.DieNest");
         attr.weight = 160;
         attr.priority = -76;
         attr.heatSpeed = 10;
@@ -2522,11 +2384,11 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetGrid_ref;
-        attr.Make = MakeGrid_ref;
-        attr.Move = MoveGrid_ref;
-        attr.Aie = AieGrid_ref;
-        attr.Die = DieGrid_ref;
+        attr.Reset = Runtime.proc(this::ResetGrid, "ChaosCreator.ResetGrid");
+        attr.Make = Runtime.proc(this::MakeGrid, "ChaosCreator.MakeGrid");
+        attr.Move = Runtime.proc(this::MoveGrid, "ChaosCreator.MoveGrid");
+        attr.Aie = Runtime.proc(this::AieGrid, "ChaosCreator.AieGrid");
+        attr.Die = Runtime.proc(this::DieGrid, "ChaosCreator.DieGrid");
         attr.charge = -60;
         attr.weight = 90;
         attr.inerty = 100;
@@ -2540,11 +2402,11 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = MakeMissile_as_ChaosBase_ResetProc;
-        attr.Make = MakeMissile_as_ChaosBase_MakeProc;
-        attr.Move = MoveMissile_ref;
-        attr.Aie = AieMissile_ref;
-        attr.Die = DieMissile_ref;
+        attr.Reset = Runtime.proc(this::MakeMissile, "ChaosCreator.MakeMissile");
+        attr.Make = Runtime.proc(this::MakeMissile, "ChaosCreator.MakeMissile");
+        attr.Move = Runtime.proc(this::MoveMissile, "ChaosCreator.MoveMissile");
+        attr.Aie = Runtime.proc(this::AieMissile, "ChaosCreator.AieMissile");
+        attr.Die = Runtime.proc(this::DieMissile, "ChaosCreator.DieMissile");
         attr.charge = 2;
         attr.weight = 30;
         attr.inerty = 50;
@@ -2554,11 +2416,11 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetPopUp_ref;
-        attr.Make = MakePopUp_ref;
-        attr.Move = MovePopUp_ref;
-        attr.Aie = AiePopUp_ref;
-        attr.Die = DiePopUp_ref;
+        attr.Reset = Runtime.proc(this::ResetPopUp, "ChaosCreator.ResetPopUp");
+        attr.Make = Runtime.proc(this::MakePopUp, "ChaosCreator.MakePopUp");
+        attr.Move = Runtime.proc(this::MovePopUp, "ChaosCreator.MovePopUp");
+        attr.Aie = Runtime.proc(this::AiePopUp, "ChaosCreator.AiePopUp");
+        attr.Die = Runtime.proc(this::DiePopUp, "ChaosCreator.DiePopUp");
         attr.charge = 20;
         attr.weight = 20;
         attr.inerty = 40;
@@ -2579,11 +2441,11 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetGhost_ref;
-        attr.Make = MakeGhost_ref;
-        attr.Move = MoveGhost_ref;
-        attr.Aie = AieGhost_ref;
-        attr.Die = DieGhost_ref;
+        attr.Reset = Runtime.proc(this::ResetGhost, "ChaosCreator.ResetGhost");
+        attr.Make = Runtime.proc(this::MakeGhost, "ChaosCreator.MakeGhost");
+        attr.Move = Runtime.proc(this::MoveGhost, "ChaosCreator.MoveGhost");
+        attr.Aie = Runtime.proc(this::AieGhost, "ChaosCreator.AieGhost");
+        attr.Die = Runtime.proc(this::DieGhost, "ChaosCreator.DieGhost");
         attr.charge = 0;
         attr.weight = 10;
         attr.inerty = 90;
@@ -2593,11 +2455,11 @@ public class ChaosCreator {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN2.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetQuad_ref;
-        attr.Make = MakeQuad_ref;
-        attr.Move = MoveAlienAV_ref;
-        attr.Aie = AieAlienAV_ref;
-        attr.Die = DieFour_ref;
+        attr.Reset = Runtime.proc(this::ResetQuad, "ChaosCreator.ResetQuad");
+        attr.Make = Runtime.proc(this::MakeQuad, "ChaosCreator.MakeQuad");
+        attr.Move = Runtime.proc(this::MoveAlienAV, "ChaosCreator.MoveAlienAV");
+        attr.Aie = Runtime.proc(this::AieAlienAV, "ChaosCreator.AieAlienAV");
+        attr.Die = Runtime.proc(this::DieFour, "ChaosCreator.DieFour");
         attr.charge = 15;
         attr.weight = 64;
         attr.inerty = 50;

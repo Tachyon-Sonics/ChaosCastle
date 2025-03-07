@@ -5,11 +5,40 @@ import ch.chaos.castle.ChaosBase.BasicTypes;
 import ch.chaos.castle.ChaosBase.GameStat;
 import ch.chaos.castle.ChaosBase.Weapon;
 import ch.chaos.castle.ChaosBase.Zone;
-import ch.chaos.library.*;
+import ch.chaos.library.Checks;
+import ch.chaos.library.Clock;
+import ch.chaos.library.Dialogs;
+import ch.chaos.library.Files;
+import ch.chaos.library.Graphics;
+import ch.chaos.library.Input;
+import ch.chaos.library.Languages;
+import ch.chaos.library.Memory;
+import ch.chaos.library.Menus;
+import ch.chaos.library.Registration;
+import ch.chaos.library.Sounds;
+import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.HaltException;
 import ch.pitchtech.modula.runtime.Runtime;
 
-
+/*
+ * TODO (0) Github repo
+ * TODO (0) Next
+ * - [ok] background graphics scaling
+ *   - [ok] assume continuous if side by side
+ *   - [ok] boost isolated pixels (stars are currently not sparkling)
+ *   - [no] multicore
+ * - Incorporate https://github.com/VincenzoLaSpesa/hqxcli-java (2 - 4) or https://github.com/stanio/xbrz-java (2 - 6)
+ * - [ok] messages incorrect, the last one gets sometimes repeated
+ * - [ok] graphics modes?
+ * - [ok] use two buffers and separate repaint thread
+ * - [ok] Rectangular Turret: why firing so slowly?
+ * - [ok] numpad keys
+ * - [later] One of Fire's flames is dirty @SCALE=4
+ * - [ok] Joypad support
+ * - [ok] Full screen mode, incl. dialogs
+ * - System tray icon, in case of hide
+ * - [ok] Smoother scrolling (player is not fixed, but should be)
+ */
 public class ChaosCastle {
 
     // Imports
@@ -86,7 +115,31 @@ public class ChaosCastle {
         chaosBase.stages = 5;
         chaosBase.addpt = 0;
         chaosBase.score = 0;
+//        setupCheat(); // FIXME remove
         InitPlayVars();
+    }
+    
+    void setupCheat() {
+        chaosBase.nbDollar = 200;
+        chaosBase.nbSterling = 200;
+        chaosBase.zone = Zone.Chaos;
+        chaosBase.level[Zone.Chaos.ordinal()] = 20;
+        chaosBase.level[Zone.Castle.ordinal()] = 8;
+        chaosBase.level[Zone.Family.ordinal()] = 5;
+        chaosBase.level[Zone.Special.ordinal()] = 4;
+        chaosBase.specialStage = 5; // 5 bonus levels
+        chaosBase.stages = 0; // PMM active
+        chaosBase.difficulty = 3;
+        
+        for (int _w = 0; _w < Weapon.values().length; _w++) {
+            Weapon w = Weapon.values()[_w];
+            { // WITH
+                ChaosBase.WeaponAttr _weaponAttr = chaosBase.weaponAttr[w.ordinal()];
+                _weaponAttr.power = 4;
+                _weaponAttr.nbBullet = 50;
+                _weaponAttr.nbBomb = 5;
+            }
+        }
     }
 
     private void InitCold() {

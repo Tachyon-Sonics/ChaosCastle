@@ -385,7 +385,7 @@ public class ChaosFire {
         chaosActions.SetObjVXY(missile, nvx, nvy);
         chaosActions.SetObjAXY(missile, nax, nay);
     }
-
+    
     public void FireMissileS(int fx, int fy, int fvx, int fvy, ChaosBase.Obj src, ChaosBase.Obj dest, short ox, short oy, boolean speed, boolean snd) {
         // VAR
         ChaosBase.Obj missile = null;
@@ -713,8 +713,6 @@ public class ChaosFire {
         chaosActions.SetObjRect(part, 0, 0, 11, 11);
     }
 
-    public final ChaosBase.ResetProc ResetPart_ref = this::ResetPart;
-
     public void MoveHeart(ChaosBase.Obj heart) {
         // VAR
         Runtime.Ref<Short> fx = new Runtime.Ref<>((short) 0);
@@ -732,8 +730,6 @@ public class ChaosFire {
         chaosActions.GetCenter(theFather, fx, fy);
         chaosActions.SetObjXY(heart, fx.get() - 3, fy.get() - 3);
     }
-
-    public final ChaosBase.MoveProc MoveHeart_ref = this::MoveHeart;
 
     public void MoveEye(ChaosBase.Obj eye) {
         // VAR
@@ -821,8 +817,6 @@ public class ChaosFire {
         chaosActions.SetObjLoc(eye, (short) ((r % 10) * 11 + 76), (short) ((r / 10) * 11 + 32), (short) 11, (short) 11);
     }
 
-    public final ChaosBase.MoveProc MoveEye_ref = this::MoveEye;
-
     public void MoveMouth(ChaosBase.Obj mouth) {
         // VAR
         short off = 0;
@@ -861,8 +855,6 @@ public class ChaosFire {
         }
         chaosActions.SetObjXY(mouth, mx.get() - 10 + off, my.get() - 6 + off);
     }
-
-    public final ChaosBase.MoveProc MoveMouth_ref = this::MoveMouth;
 
     public void MovePart(ChaosBase.Obj part) {
         // VAR
@@ -974,14 +966,10 @@ public class ChaosFire {
             chaosActions.SetObjXY(part, ix.get() + x0, iy.get() + y0);
     }
 
-    public final ChaosBase.MoveProc MovePart_ref = this::MovePart;
-
     public void DiePart(ChaosBase.Obj part) {
         if (part.moveSeq != 0)
             part.life = 1;
     }
-
-    public final ChaosBase.DieProc DiePart_ref = this::DiePart;
 
 
     // Support

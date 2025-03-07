@@ -70,8 +70,6 @@ public class ChaosMissile {
         chaosActions.SetObjRect(missile, 0, 0, 7, 7);
     }
 
-    private final ChaosBase.MakeProc MakeMissile1_ref = this::MakeMissile1;
-
     private void MakeMissile2(ChaosBase.Obj missile) {
         if (missile.stat >= 2)
             missile.stat = 0;
@@ -81,8 +79,6 @@ public class ChaosMissile {
         chaosActions.SetObjRect(missile, 0, 0, 7, 7);
     }
 
-    private final ChaosBase.MakeProc MakeMissile2_ref = this::MakeMissile2;
-
     private void MakeMissile3(ChaosBase.Obj missile) {
         if (missile.stat >= 2)
             missile.stat = 0;
@@ -91,8 +87,6 @@ public class ChaosMissile {
         chaosActions.SetObjLoc(missile, (short) (missile.stat * 11 + 76), (short) 65, (short) 11, (short) 11);
         chaosActions.SetObjRect(missile, 0, 0, 11, 11);
     }
-
-    private final ChaosBase.MakeProc MakeMissile3_ref = this::MakeMissile3;
 
     private void ResetMissile(ChaosBase.Obj missile) {
         missile.shapeSeq = ChaosBase.Period / 10;
@@ -106,8 +100,6 @@ public class ChaosMissile {
         missile.hitSubLife = missile.life - missile.fireSubLife;
         missile.attr.Make.invoke(missile);
     }
-
-    private final ChaosBase.ResetProc ResetMissile_ref = this::ResetMissile;
 
     private void MoveMissile(ChaosBase.Obj missile, EnumSet<Anims> victims, ChaosBase.AieProc proc) {
         // VAR
@@ -152,25 +144,17 @@ public class ChaosMissile {
         chaosActions.Die(victim);
     }
 
-    private final ChaosBase.AieProc KillIt_ref = this::KillIt;
-
     private void MoveMissile1(ChaosBase.Obj missile) {
-        MoveMissile(missile, EnumSet.of(Anims.PLAYER, Anims.ALIEN1), chaosActions.Aie_ref);
+        MoveMissile(missile, EnumSet.of(Anims.PLAYER, Anims.ALIEN1), Runtime.proc(chaosActions::Aie, "ChaosActions.Aie"));
     }
-
-    private final ChaosBase.MoveProc MoveMissile1_ref = this::MoveMissile1;
 
     private void MoveMissile2(ChaosBase.Obj missile) {
-        MoveMissile(missile, EnumSet.of(Anims.PLAYER, Anims.ALIEN1, Anims.ALIEN2), chaosActions.Aie_ref);
+        MoveMissile(missile, EnumSet.of(Anims.PLAYER, Anims.ALIEN1, Anims.ALIEN2), Runtime.proc(chaosActions::Aie, "ChaosActions.Aie"));
     }
-
-    private final ChaosBase.MoveProc MoveMissile2_ref = this::MoveMissile2;
 
     private void MoveMissile3(ChaosBase.Obj missile) {
-        MoveMissile(missile, EnumSet.of(Anims.ALIEN1, Anims.ALIEN2, Anims.ALIEN3, Anims.MACHINE), KillIt_ref);
+        MoveMissile(missile, EnumSet.of(Anims.ALIEN1, Anims.ALIEN2, Anims.ALIEN3, Anims.MACHINE), Runtime.proc(this::KillIt, "ChaosMissile.KillIt"));
     }
-
-    private final ChaosBase.MoveProc MoveMissile3_ref = this::MoveMissile3;
 
     private void InitParams() {
         // VAR
@@ -179,9 +163,9 @@ public class ChaosMissile {
         chaosSounds.SetEffect(missileDieEffect[0], chaosSounds.soundList[SoundList.wCrash.ordinal()], 1673, 16726, (short) 30, (short) 0);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetMissile_ref;
-        attr.Make = MakeMissile1_ref;
-        attr.Move = MoveMissile1_ref;
+        attr.Reset = Runtime.proc(this::ResetMissile, "ChaosMissile.ResetMissile");
+        attr.Make = Runtime.proc(this::MakeMissile1, "ChaosMissile.MakeMissile1");
+        attr.Move = Runtime.proc(this::MoveMissile1, "ChaosMissile.MoveMissile1");
         attr.weight = 18;
         attr.charge = 120;
         attr.basicType = BasicTypes.NotBase;
@@ -190,9 +174,9 @@ public class ChaosMissile {
         memory.AddTail(chaosBase.attrList[Anims.MISSILE.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetMissile_ref;
-        attr.Make = MakeMissile2_ref;
-        attr.Move = MoveMissile2_ref;
+        attr.Reset = Runtime.proc(this::ResetMissile, "ChaosMissile.ResetMissile");
+        attr.Make = Runtime.proc(this::MakeMissile2, "ChaosMissile.MakeMissile2");
+        attr.Move = Runtime.proc(this::MoveMissile2, "ChaosMissile.MoveMissile2");
         attr.weight = 30;
         attr.charge = 90;
         attr.basicType = BasicTypes.NotBase;
@@ -201,9 +185,9 @@ public class ChaosMissile {
         memory.AddTail(chaosBase.attrList[Anims.MISSILE.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetMissile_ref;
-        attr.Make = MakeMissile3_ref;
-        attr.Move = MoveMissile3_ref;
+        attr.Reset = Runtime.proc(this::ResetMissile, "ChaosMissile.ResetMissile");
+        attr.Make = Runtime.proc(this::MakeMissile3, "ChaosMissile.MakeMissile3");
+        attr.Move = Runtime.proc(this::MoveMissile3, "ChaosMissile.MoveMissile3");
         attr.weight = 100;
         attr.charge = 80;
         attr.basicType = BasicTypes.NotBase;

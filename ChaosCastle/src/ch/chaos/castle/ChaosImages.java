@@ -1,5 +1,7 @@
 package ch.chaos.castle;
 
+import java.util.EnumSet;
+
 import ch.chaos.castle.ChaosBase.Zone;
 import ch.chaos.library.Checks;
 import ch.chaos.library.Dialogs;
@@ -12,7 +14,6 @@ import ch.chaos.library.Languages;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.util.EnumSet;
 
 
 public class ChaosImages {
@@ -946,6 +947,13 @@ public class ChaosImages {
         graphics.SetArea(chaosGraphics.maskArea);
         graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) 256), chaosGraphics.H.invoke((short) 256));
         dialogs.DeepFreeGadget(new Runtime.FieldRef<>(chaosBase::getD, chaosBase::setD));
+        
+//        SetRGBIcePalette();
+//        graphics.SetArea(chaosGraphics.mainArea);
+//        graphics.CopyRect(chaosGraphics.imageArea, (short) 0, (short) 20, (short) 0, (short) 0, (short) 256, (short) 256);
+//        graphics.SwitchArea();
+//        
+//        System.out.println();
     }
 
     public void InitPalette() {

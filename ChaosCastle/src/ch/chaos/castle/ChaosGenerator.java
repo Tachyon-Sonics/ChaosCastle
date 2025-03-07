@@ -459,7 +459,7 @@ public class ChaosGenerator {
                     v2 = val;
                     val = 9;
                 }
-                chaosObjects.FillCond((short) (x - sz), (short) (y - sz), (short) (x + sz), (short) (y + sz), chaosObjects.OnlyWall_ref, val);
+                chaosObjects.FillCond((short) (x - sz), (short) (y - sz), (short) (x + sz), (short) (y + sz), Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), val);
                 val = (short) (trigo.RND() % 4 + pass + 25);
                 sz2 = chaosObjects.Rnd((short) (sz - 1));
                 chaosObjects.Fill((short) (x - sz2), (short) (y - sz2), (short) (x + sz2), (short) (y + sz2), val);

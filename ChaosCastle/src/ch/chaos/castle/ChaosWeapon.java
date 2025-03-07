@@ -1,5 +1,7 @@
 package ch.chaos.castle;
 
+import java.util.EnumSet;
+
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosBase.BasicTypes;
 import ch.chaos.castle.ChaosBase.ObjFlags;
@@ -12,7 +14,6 @@ import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.HaltException;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.util.EnumSet;
 
 
 public class ChaosWeapon {
@@ -48,8 +49,8 @@ public class ChaosWeapon {
 
     private static class FollowData { // RECORD
 
-        private ChaosBase.Obj currentObj /* POINTER */;
-        private ChaosBase.Obj tailObj /* POINTER */;
+        private Memory.Node currentNode /* POINTER */; /* PATCH */
+        private Memory.Node tailNode /* POINTER */;
         private ChaosBase.Obj bestObj /* POINTER */;
         private long lasttime;
         private int bestCount;
@@ -59,22 +60,6 @@ public class ChaosWeapon {
         private boolean finish;
         private boolean used;
 
-
-        public ChaosBase.Obj getCurrentObj() {
-            return this.currentObj;
-        }
-
-        public void setCurrentObj(ChaosBase.Obj currentObj) {
-            this.currentObj = currentObj;
-        }
-
-        public ChaosBase.Obj getTailObj() {
-            return this.tailObj;
-        }
-
-        public void setTailObj(ChaosBase.Obj tailObj) {
-            this.tailObj = tailObj;
-        }
 
         public ChaosBase.Obj getBestObj() {
             return this.bestObj;
@@ -142,8 +127,8 @@ public class ChaosWeapon {
 
 
         public void copyFrom(FollowData other) {
-            this.currentObj = other.currentObj;
-            this.tailObj = other.tailObj;
+            this.currentNode = other.currentNode;
+            this.tailNode = other.tailNode;
             this.bestObj = other.bestObj;
             this.lasttime = other.lasttime;
             this.bestCount = other.bestCount;
@@ -585,8 +570,8 @@ public class ChaosWeapon {
                     _followData.anim = Runtime.next(_followData.anim);
                 }
             } while (!Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1).contains(_followData.anim));
-            _followData.currentObj = (ChaosBase.Obj) memory.First(chaosBase.animList[_followData.anim.ordinal()]);
-            _followData.tailObj = (ChaosBase.Obj) memory.Tail(chaosBase.animList[_followData.anim.ordinal()]);
+            _followData.currentNode = memory.FirstNode(chaosBase.animList[_followData.anim.ordinal()]);
+            _followData.tailNode = memory.TailNode(chaosBase.animList[_followData.anim.ordinal()]);
         }
     }
 
@@ -647,23 +632,23 @@ public class ChaosWeapon {
                 if (!_followData.finish) {
                     if ((_followData.wait > 0) && (_followData.bestObj != null))
                         _followData.wait--;
-                    if ((_followData.currentObj == null) || (_followData.currentObj == _followData.tailObj)) {
+                    if ((_followData.currentNode == null) || (_followData.currentNode == _followData.tailNode)) {
                         SetNextFollowAnim(num);
-                    } else if (_followData.currentObj.kind != _followData.anim) {
-                        _followData.currentObj = (ChaosBase.Obj) memory.First(chaosBase.animList[_followData.anim.ordinal()]);
+                    } else if (obj(_followData.currentNode).kind != _followData.anim) {
+                        _followData.currentNode = memory.FirstNode(chaosBase.animList[_followData.anim.ordinal()]);
                     } else {
                         count = 0;
                         if (chkall) {
                             for (cnt = 1; cnt <= MAXF; cnt++) {
-                                if (follow[cnt - 1].used && (follow[cnt - 1].bestObj == _followData.currentObj))
+                                if (follow[cnt - 1].used && (follow[cnt - 1].bestObj == obj(_followData.currentNode)))
                                     count++;
                             }
                             if (count > 4)
                                 count = 4;
                         }
                         chaosActions.GetCenter(src, sx, sy);
-                        chaosActions.GetCenter(_followData.currentObj, cx, cy);
-                        rem = _followData.currentObj.hitSubLife + _followData.currentObj.fireSubLife;
+                        chaosActions.GetCenter(obj(_followData.currentNode), cx, cy);
+                        rem = obj(_followData.currentNode).hitSubLife + obj(_followData.currentNode).fireSubLife;
                         if (rem > 100)
                             rem = 100;
                         rx = sx.get() + src.vx / 32 - cx.get();
@@ -672,11 +657,11 @@ public class ChaosWeapon {
                         dist += 100 - rem;
                         dist += count * 128;
                         if ((dist < _followData.bestDist) && (rem > 0)) {
-                            _followData.bestObj = _followData.currentObj;
+                            _followData.bestObj = obj(_followData.currentNode);
                             _followData.bestCount = count;
                             _followData.bestDist = dist;
                         }
-                        _followData.currentObj = (ChaosBase.Obj) memory.Next(_followData.currentObj.animNode);
+                        _followData.currentNode = memory.NextNode(_followData.currentNode);
                     }
                 } else if (_followData.bestObj != null) {
                     _followData.wait = 0;
@@ -686,13 +671,15 @@ public class ChaosWeapon {
             }
         }
     }
+    
+    private static ChaosBase.Obj obj(Memory.Node node) { /* PATCH */
+        return (ChaosBase.Obj) node.data;
+    }
 
     private void MakeGun(ChaosBase.Obj gun) {
         chaosActions.SetObjLoc(gun, (short) 240, (short) 20, (short) 6, (short) 6);
         chaosActions.SetObjRect(gun, 0, 0, 6, 6);
     }
-
-    private final ChaosBase.MakeProc MakeGun_ref = this::MakeGun;
 
     private void MakeFB(ChaosBase.Obj fb) {
         // VAR
@@ -721,8 +708,6 @@ public class ChaosWeapon {
         }
     }
 
-    private final ChaosBase.MakeProc MakeFB_ref = this::MakeFB;
-
     private void MakeLaser(ChaosBase.Obj laser) {
         // VAR
         int dt = 0;
@@ -745,8 +730,6 @@ public class ChaosWeapon {
         chaosActions.SetObjLoc(laser, (short) (238 - dt), (short) (py - dt), (short) sz, (short) sz);
         chaosActions.SetObjRect(laser, 0, 0, sz, sz);
     }
-
-    private final ChaosBase.MakeProc MakeLaser_ref = this::MakeLaser;
 
     private void MakeBubble(ChaosBase.Obj bubble) {
         // VAR
@@ -773,8 +756,6 @@ public class ChaosWeapon {
         chaosActions.SetObjRect(bubble, 0, 0, sz, sz);
     }
 
-    private final ChaosBase.MakeProc MakeBubble_ref = this::MakeBubble;
-
     private void MakeFire(ChaosBase.Obj fire) {
         // VAR
         short px = 0;
@@ -796,8 +777,6 @@ public class ChaosWeapon {
         sz++;
         chaosActions.SetObjRect(fire, -1, -1, sz, sz);
     }
-
-    private final ChaosBase.MakeProc MakeFire_ref = this::MakeFire;
 
     private void MakeBall(ChaosBase.Obj ball) {
         // VAR
@@ -826,8 +805,6 @@ public class ChaosWeapon {
         chaosActions.SetObjRect(ball, 0, 0, 11, 11);
     }
 
-    private final ChaosBase.MakeProc MakeBall_ref = this::MakeBall;
-
     private void MakeStar(ChaosBase.Obj star) {
         // VAR
         short py = 0;
@@ -839,8 +816,6 @@ public class ChaosWeapon {
         chaosActions.SetObjLoc(star, (short) 146, py, (short) 12, (short) 12);
         chaosActions.SetObjRect(star, 0, 0, 12, 12);
     }
-
-    private final ChaosBase.MakeProc MakeStar_ref = this::MakeStar;
 
     private void MakeGrenade(ChaosBase.Obj grenade) {
         // VAR
@@ -866,8 +841,6 @@ public class ChaosWeapon {
         }
     }
 
-    private final ChaosBase.MakeProc MakeGrenade_ref = this::MakeGrenade;
-
     private void ResetGun(ChaosBase.Obj gun) {
         // VAR
         int power = 0;
@@ -881,8 +854,6 @@ public class ChaosWeapon {
         gun.fireSubLife = gun.life - gun.hitSubLife;
         MakeGun(gun);
     }
-
-    private final ChaosBase.ResetProc ResetGun_ref = this::ResetGun;
 
     private void ResetFB(ChaosBase.Obj fb) {
         // VAR
@@ -907,8 +878,6 @@ public class ChaosWeapon {
         MakeFB(fb);
     }
 
-    private final ChaosBase.ResetProc ResetFB_ref = this::ResetFB;
-
     private void ResetLaser(ChaosBase.Obj laser) {
         // VAR
         int power = 0;
@@ -928,8 +897,6 @@ public class ChaosWeapon {
         MakeLaser(laser);
     }
 
-    private final ChaosBase.ResetProc ResetLaser_ref = this::ResetLaser;
-
     private void ResetBubble(ChaosBase.Obj bubble) {
         // VAR
         int power = 0;
@@ -942,8 +909,6 @@ public class ChaosWeapon {
         MakeBubble(bubble);
     }
 
-    private final ChaosBase.ResetProc ResetBubble_ref = this::ResetBubble;
-
     private void ResetFire(ChaosBase.Obj fire) {
         fire.hitSubLife = 0;
         fire.fireSubLife = fire.life;
@@ -951,8 +916,6 @@ public class ChaosWeapon {
         fire.shapeSeq = trigo.RND() % 2;
         MakeFire(fire);
     }
-
-    private final ChaosBase.ResetProc ResetFire_ref = this::ResetFire;
 
     private void ResetBall(ChaosBase.Obj ball) {
         ball.life = GetPower(Weapon.BALL) * 10 + 20;
@@ -967,8 +930,6 @@ public class ChaosWeapon {
         ball.moveSeq = AllocFollow(chaosBase.lasttime);
         MakeBall(ball);
     }
-
-    private final ChaosBase.ResetProc ResetBall_ref = this::ResetBall;
 
     private void ResetStar(ChaosBase.Obj star) {
         // VAR
@@ -988,8 +949,6 @@ public class ChaosWeapon {
         MakeStar(star);
     }
 
-    private final ChaosBase.ResetProc ResetStar_ref = this::ResetStar;
-
     private void ResetGrenade(ChaosBase.Obj grenade) {
         grenade.shapeSeq = ChaosBase.Period / 5;
         if (grenade.stat != 0) {
@@ -1002,13 +961,11 @@ public class ChaosWeapon {
         MakeGrenade(grenade);
     }
 
-    private final ChaosBase.ResetProc ResetGrenade_ref = this::ResetGrenade;
-
     private void MoveGun(ChaosBase.Obj gun) {
         // VAR
         boolean kill = false;
 
-        chaosActions.DoCollision(gun, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), chaosActions.Aie_ref, new Runtime.FieldRef<>(gun::getHitSubLife, gun::setHitSubLife), new Runtime.FieldRef<>(gun::getFireSubLife, gun::setFireSubLife));
+        chaosActions.DoCollision(gun, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), Runtime.proc(chaosActions::Aie, "ChaosActions.Aie"), new Runtime.FieldRef<>(gun::getHitSubLife, gun::setHitSubLife), new Runtime.FieldRef<>(gun::getFireSubLife, gun::setFireSubLife));
         kill = chaosActions.InBackground(gun);
         if (kill) {
             chaosSounds.SoundEffect(gun, gunKillEffect);
@@ -1024,15 +981,11 @@ public class ChaosWeapon {
         chaosActions.UpdateXY(gun);
     }
 
-    private final ChaosBase.MoveProc MoveGun_ref = this::MoveGun;
-
     private void KillIt(ChaosBase.Obj victim, ChaosBase.Obj src, /* var */ Runtime.IRef<Integer> hit, /* var */ Runtime.IRef<Integer> fire) {
         src.hitSubLife = 100;
         src.fireSubLife = 100;
         chaosActions.Die(victim);
     }
-
-    private final ChaosBase.AieProc KillIt_ref = this::KillIt;
 
     private void MoveFB(ChaosBase.Obj fb) {
         // VAR
@@ -1040,9 +993,9 @@ public class ChaosWeapon {
         boolean kill = false;
 
         if (fb.stat == 0)
-            Do = chaosActions.Aie_ref;
+            Do = Runtime.proc(chaosActions::Aie, "ChaosActions.Aie");
         else
-            Do = KillIt_ref;
+            Do = Runtime.proc(this::KillIt, "ChaosWeapon.KillIt");
         chaosActions.DoCollision(fb, Runtime.withRange(EnumSet.of(Anims.MISSILE, Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), Do, new Runtime.FieldRef<>(fb::getHitSubLife, fb::setHitSubLife), new Runtime.FieldRef<>(fb::getFireSubLife, fb::setFireSubLife));
         kill = (fb.stat == 0) && chaosActions.InBackground(fb);
         if (kill) {
@@ -1079,8 +1032,6 @@ public class ChaosWeapon {
         chaosActions.UpdateXY(fb);
     }
 
-    private final ChaosBase.MoveProc MoveFB_ref = this::MoveFB;
-
     private void MoveLaser(ChaosBase.Obj laser) {
         // VAR
         int rx = 0;
@@ -1092,7 +1043,7 @@ public class ChaosWeapon {
         Runtime.Ref<Short> ly = new Runtime.Ref<>((short) 0);
         boolean kill = false;
 
-        chaosActions.DoCollision(laser, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), chaosActions.Aie_ref, new Runtime.FieldRef<>(laser::getHitSubLife, laser::setHitSubLife), new Runtime.FieldRef<>(laser::getFireSubLife, laser::setFireSubLife));
+        chaosActions.DoCollision(laser, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), Runtime.proc(chaosActions::Aie, "ChaosActions.Aie"), new Runtime.FieldRef<>(laser::getHitSubLife, laser::setHitSubLife), new Runtime.FieldRef<>(laser::getFireSubLife, laser::setFireSubLife));
         laser.life = laser.hitSubLife + laser.fireSubLife;
         kill = chaosActions.InBackground(laser);
         if (kill) {
@@ -1151,8 +1102,6 @@ public class ChaosWeapon {
         chaosActions.UpdateXY(laser);
     }
 
-    private final ChaosBase.MoveProc MoveLaser_ref = this::MoveLaser;
-
     private void MoveBubble(ChaosBase.Obj bubble) {
         // VAR
         ChaosBase.Obj clone = null;
@@ -1161,7 +1110,7 @@ public class ChaosWeapon {
         short nvx = 0;
         short nvy = 0;
 
-        chaosActions.DoCollision(bubble, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), chaosActions.Aie_ref, new Runtime.FieldRef<>(bubble::getHitSubLife, bubble::setHitSubLife), new Runtime.FieldRef<>(bubble::getFireSubLife, bubble::setFireSubLife));
+        chaosActions.DoCollision(bubble, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), Runtime.proc(chaosActions::Aie, "ChaosActions.Aie"), new Runtime.FieldRef<>(bubble::getHitSubLife, bubble::setHitSubLife), new Runtime.FieldRef<>(bubble::getFireSubLife, bubble::setFireSubLife));
         if ((bubble.hitSubLife == 0) || chaosActions.OutOfScreen(bubble) || chaosActions.OutOfBounds(bubble) || (chaosBase.step > bubble.moveSeq)) {
             chaosActions.Die(bubble);
             return;
@@ -1195,11 +1144,9 @@ public class ChaosWeapon {
         chaosActions.UpdateXY(bubble);
     }
 
-    private final ChaosBase.MoveProc MoveBubble_ref = this::MoveBubble;
-
     private void MoveFire(ChaosBase.Obj fire) {
         if (fire.stat == 0)
-            chaosActions.DoCollision(fire, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), chaosActions.Aie_ref, new Runtime.FieldRef<>(fire::getHitSubLife, fire::setHitSubLife), new Runtime.FieldRef<>(fire::getFireSubLife, fire::setFireSubLife));
+            chaosActions.DoCollision(fire, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), Runtime.proc(chaosActions::Aie, "ChaosActions.Aie"), new Runtime.FieldRef<>(fire::getHitSubLife, fire::setHitSubLife), new Runtime.FieldRef<>(fire::getFireSubLife, fire::setFireSubLife));
         if ((fire.life > fire.fireSubLife) || chaosActions.InBackground(fire) || (fire.life == 0) || chaosBase.water) {
             fire.vx = (short) (fire.vx / 2);
             fire.vy = (short) (fire.vy / 2);
@@ -1221,8 +1168,6 @@ public class ChaosWeapon {
         chaosActions.UpdateXY(fire);
     }
 
-    private final ChaosBase.MoveProc MoveFire_ref = this::MoveFire;
-
     private void MoveBall(ChaosBase.Obj ball) {
         // VAR
         int rx = 0;
@@ -1239,7 +1184,7 @@ public class ChaosWeapon {
         int spd = 0;
         boolean kill = false;
 
-        chaosActions.DoCollision(ball, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), chaosActions.Aie_ref, new Runtime.FieldRef<>(ball::getHitSubLife, ball::setHitSubLife), new Runtime.FieldRef<>(ball::getFireSubLife, ball::setFireSubLife));
+        chaosActions.DoCollision(ball, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), Runtime.proc(chaosActions::Aie, "ChaosActions.Aie"), new Runtime.FieldRef<>(ball::getHitSubLife, ball::setHitSubLife), new Runtime.FieldRef<>(ball::getFireSubLife, ball::setFireSubLife));
         ball.life = ball.hitSubLife + ball.fireSubLife;
         ball.hitSubLife = ball.life * 2 / 5;
         ball.fireSubLife = ball.life - ball.hitSubLife;
@@ -1324,8 +1269,6 @@ public class ChaosWeapon {
         chaosActions.UpdateXY(ball);
     }
 
-    private final ChaosBase.MoveProc MoveBall_ref = this::MoveBall;
-
     private void MoveStar(ChaosBase.Obj star) {
         // VAR
         Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
@@ -1343,7 +1286,7 @@ public class ChaosWeapon {
             anims = Runtime.withRange(EnumSet.noneOf(Anims.class), Anims.ALIEN3, Anims.ALIEN1);
             if (chaosBase.weaponAttr[Weapon.STAR.ordinal()].power > 2)
                 anims.add(Anims.MACHINE);
-            chaosActions.DoCollision(star, anims, chaosActions.Aie_ref, new Runtime.FieldRef<>(star::getHitSubLife, star::setHitSubLife), new Runtime.FieldRef<>(star::getFireSubLife, star::setFireSubLife));
+            chaosActions.DoCollision(star, anims, Runtime.proc(chaosActions::Aie, "ChaosActions.Aie"), new Runtime.FieldRef<>(star::getHitSubLife, star::setHitSubLife), new Runtime.FieldRef<>(star::getFireSubLife, star::setFireSubLife));
             if (star.life > star.hitSubLife + star.fireSubLife)
                 ResetStar(star);
         } else if (chaosBase.step > star.stat) {
@@ -1374,8 +1317,6 @@ public class ChaosWeapon {
         chaosActions.UpdateXY(star);
         star.flags.add(ObjFlags.displayed);
     }
-
-    private final ChaosBase.MoveProc MoveStar_ref = this::MoveStar;
 
     private void MoveGrenade(ChaosBase.Obj grenade) {
         grenade.dvx = 0;
@@ -1414,15 +1355,11 @@ public class ChaosWeapon {
         chaosActions.UpdateXY(grenade);
     }
 
-    private final ChaosBase.MoveProc MoveGrenade_ref = this::MoveGrenade;
-
     private void FireGun(ChaosBase.Obj player) {
         chaosSounds.SoundEffect(player, gunFireEffect);
         chaosBase.shoot.total++;
         StdFire(player, Weapon.GUN, (short) 3250, false, false);
     }
-
-    private final ChaosBase.FireProc FireGun_ref = this::FireGun;
 
     private void FireFB(ChaosBase.Obj player) {
         if (CheckBullet(Weapon.FB)) {
@@ -1431,16 +1368,12 @@ public class ChaosWeapon {
         }
     }
 
-    private final ChaosBase.FireProc FireFB_ref = this::FireFB;
-
     private void FireLaser(ChaosBase.Obj player) {
         if (CheckBullet(Weapon.LASER)) {
             chaosSounds.SoundEffect(player, laserFireEffect);
             StdFire(player, Weapon.LASER, (short) 4090, false, true);
         }
     }
-
-    private final ChaosBase.FireProc FireLaser_ref = this::FireLaser;
 
     private void FireBubble(ChaosBase.Obj player) {
         // VAR
@@ -1462,8 +1395,6 @@ public class ChaosWeapon {
             }
         }
     }
-
-    private final ChaosBase.FireProc FireBubble_ref = this::FireBubble;
 
     private void FireFire(ChaosBase.Obj player) {
         // CONST
@@ -1535,8 +1466,6 @@ public class ChaosWeapon {
         }
     }
 
-    private final ChaosBase.FireProc FireFire_ref = this::FireFire;
-
     private void FireBall(ChaosBase.Obj player) {
         // VAR
         int rnd = 0;
@@ -1552,8 +1481,6 @@ public class ChaosWeapon {
             StdFire(player, Weapon.BALL, (short) 1024, false, false);
         }
     }
-
-    private final ChaosBase.FireProc FireBall_ref = this::FireBall;
 
     private void FireStar(ChaosBase.Obj player) {
         // VAR
@@ -1573,16 +1500,12 @@ public class ChaosWeapon {
         }
     }
 
-    private final ChaosBase.FireProc FireStar_ref = this::FireStar;
-
     private void FireGrenade(ChaosBase.Obj player) {
         if (CheckBullet(Weapon.GRENADE)) {
             chaosSounds.SoundEffect(player, grenadeFireEffect);
             StdFire(player, Weapon.GRENADE, (short) 2000, true, false);
         }
     }
-
-    private final ChaosBase.FireProc FireGrenade_ref = this::FireGrenade;
 
     private void GunBomb(ChaosBase.Obj player) {
         if (CheckBomb(Weapon.GUN)) {
@@ -1594,16 +1517,12 @@ public class ChaosWeapon {
         }
     }
 
-    private final ChaosBase.FireProc GunBomb_ref = this::GunBomb;
-
     private void FBBomb(ChaosBase.Obj player) {
         if (CheckBomb(Weapon.FB)) {
             chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Cold Fire"), String.class), (short) ChaosActions.statPos, (short) 2);
             StdBomb(player, Weapon.FB, (short) 2090, 1, 30, false);
         }
     }
-
-    private final ChaosBase.FireProc FBBomb_ref = this::FBBomb;
 
     private void LaserBomb(ChaosBase.Obj player) {
         if (CheckBomb(Weapon.LASER)) {
@@ -1614,8 +1533,6 @@ public class ChaosWeapon {
             StdBomb(player, Weapon.LASER, (short) 4090, 1, 30, false);
         }
     }
-
-    private final ChaosBase.FireProc LaserBomb_ref = this::LaserBomb;
 
     private void BubbleBomb(ChaosBase.Obj player) {
         // VAR
@@ -1628,8 +1545,6 @@ public class ChaosWeapon {
             StdBomb(player, Weapon.BUBBLE, (short) 2000, q, q, true);
         }
     }
-
-    private final ChaosBase.FireProc BubbleBomb_ref = this::BubbleBomb;
 
     private void FireBomb(ChaosBase.Obj player) {
         // VAR
@@ -1654,8 +1569,6 @@ public class ChaosWeapon {
         }
     }
 
-    private final ChaosBase.FireProc FireBomb_ref = this::FireBomb;
-
     private void BallBomb(ChaosBase.Obj player) {
         if (CheckBomb(Weapon.BALL)) {
             chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Hunters"), String.class), (short) ChaosActions.statPos, (short) 2);
@@ -1665,8 +1578,6 @@ public class ChaosWeapon {
             StdBomb(player, Weapon.BALL, (short) 1024, 0, 24, false);
         }
     }
-
-    private final ChaosBase.FireProc BallBomb_ref = this::BallBomb;
 
     private void StarBomb(ChaosBase.Obj player) {
         // VAR
@@ -1699,16 +1610,12 @@ public class ChaosWeapon {
         }
     }
 
-    private final ChaosBase.FireProc StarBomb_ref = this::StarBomb;
-
     private void GrenadeBomb(ChaosBase.Obj player) {
         if (CheckBomb(Weapon.GRENADE)) {
             chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Black Hole"), String.class), (short) ChaosActions.statPos, (short) 2);
             StdBomb(player, Weapon.GRENADE, (short) 0, 1, 1, true);
         }
     }
-
-    private final ChaosBase.FireProc GrenadeBomb_ref = this::GrenadeBomb;
 
     private void InitParams_AddAttrs(ChaosBase.ObjAttr attrs) {
         // VAR
@@ -1740,11 +1647,11 @@ public class ChaosWeapon {
         chaosSounds.SetEffect(gunBombEffectR[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 167, 8363, (short) 0, (short) 5);
         chaosSounds.SetEffect(gunBombEffectR[1], chaosSounds.soundList[SoundList.sPouf.ordinal()], 0, 8363, (short) 160, (short) 5);
         chaosSounds.SetEffect(gunKillEffect[0], chaosSounds.soundList[SoundList.wWhite.ordinal()], 1673, 16726, (short) 8, (short) 0);
-        chaosBase.Fire[Weapon.GUN.ordinal()] = FireGun_ref;
-        chaosBase.Bomb[Weapon.GUN.ordinal()] = GunBomb_ref;
-        attrs.Reset = ResetGun_ref;
-        attrs.Make = MakeGun_ref;
-        attrs.Move = MoveGun_ref;
+        chaosBase.Fire[Weapon.GUN.ordinal()] = Runtime.proc(this::FireGun, "ChaosWeapon.FireGun");
+        chaosBase.Bomb[Weapon.GUN.ordinal()] = Runtime.proc(this::GunBomb, "ChaosWeapon.GunBomb");
+        attrs.Reset = Runtime.proc(this::ResetGun, "ChaosWeapon.ResetGun");
+        attrs.Make = Runtime.proc(this::MakeGun, "ChaosWeapon.MakeGun");
+        attrs.Move = Runtime.proc(this::MoveGun, "ChaosWeapon.MoveGun");
         attrs.weight = 24;
         attrs.charge = 90;
         attrs.basicType = BasicTypes.NotBase;
@@ -1755,11 +1662,11 @@ public class ChaosWeapon {
         chaosSounds.SetEffect(fbFireEffect[1], chaosSounds.soundList[SoundList.wNoise.ordinal()], 627, 6265, (short) 120, (short) 4);
         chaosSounds.SetEffect(fbFireEffect[2], chaosSounds.soundList[SoundList.wNoise.ordinal()], 527, 5268, (short) 120, (short) 4);
         chaosSounds.SetEffect(fbKillEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 1673, 16726, (short) 16, (short) 0);
-        chaosBase.Fire[Weapon.FB.ordinal()] = FireFB_ref;
-        chaosBase.Bomb[Weapon.FB.ordinal()] = FBBomb_ref;
-        attrs.Reset = ResetFB_ref;
-        attrs.Make = MakeFB_ref;
-        attrs.Move = MoveFB_ref;
+        chaosBase.Fire[Weapon.FB.ordinal()] = Runtime.proc(this::FireFB, "ChaosWeapon.FireFB");
+        chaosBase.Bomb[Weapon.FB.ordinal()] = Runtime.proc(this::FBBomb, "ChaosWeapon.FBBomb");
+        attrs.Reset = Runtime.proc(this::ResetFB, "ChaosWeapon.ResetFB");
+        attrs.Make = Runtime.proc(this::MakeFB, "ChaosWeapon.MakeFB");
+        attrs.Move = Runtime.proc(this::MoveFB, "ChaosWeapon.MoveFB");
         attrs.weight = 60;
         attrs.charge = 6;
         attrs.basicType = BasicTypes.NotBase;
@@ -1779,11 +1686,11 @@ public class ChaosWeapon {
             e = (9 - c) * 30;
             chaosSounds.SetEffect(laserBombEffectR[c], chaosSounds.nulSound, 1673, d, (short) e, (short) 5);
         }
-        chaosBase.Fire[Weapon.LASER.ordinal()] = FireLaser_ref;
-        chaosBase.Bomb[Weapon.LASER.ordinal()] = LaserBomb_ref;
-        attrs.Reset = ResetLaser_ref;
-        attrs.Make = MakeLaser_ref;
-        attrs.Move = MoveLaser_ref;
+        chaosBase.Fire[Weapon.LASER.ordinal()] = Runtime.proc(this::FireLaser, "ChaosWeapon.FireLaser");
+        chaosBase.Bomb[Weapon.LASER.ordinal()] = Runtime.proc(this::LaserBomb, "ChaosWeapon.LaserBomb");
+        attrs.Reset = Runtime.proc(this::ResetLaser, "ChaosWeapon.ResetLaser");
+        attrs.Make = Runtime.proc(this::MakeLaser, "ChaosWeapon.MakeLaser");
+        attrs.Move = Runtime.proc(this::MoveLaser, "ChaosWeapon.MoveLaser");
         attrs.weight = 40;
         attrs.charge = 120;
         attrs.basicType = BasicTypes.NotBase;
@@ -1802,11 +1709,11 @@ public class ChaosWeapon {
             chaosSounds.SetEffect(bubbleFireEffectR[c * 3 + 2], chaosSounds.nulSound, 318, 12544, (short) (d * 25), (short) 3);
             chaosSounds.SetEffect(bubbleFireEffectR[c * 3 + 3], chaosSounds.nulSound, 558, 16726, (short) (d * 25), (short) 3);
         }
-        chaosBase.Fire[Weapon.BUBBLE.ordinal()] = FireBubble_ref;
-        chaosBase.Bomb[Weapon.BUBBLE.ordinal()] = BubbleBomb_ref;
-        attrs.Reset = ResetBubble_ref;
-        attrs.Make = MakeBubble_ref;
-        attrs.Move = MoveBubble_ref;
+        chaosBase.Fire[Weapon.BUBBLE.ordinal()] = Runtime.proc(this::FireBubble, "ChaosWeapon.FireBubble");
+        chaosBase.Bomb[Weapon.BUBBLE.ordinal()] = Runtime.proc(this::BubbleBomb, "ChaosWeapon.BubbleBomb");
+        attrs.Reset = Runtime.proc(this::ResetBubble, "ChaosWeapon.ResetBubble");
+        attrs.Make = Runtime.proc(this::MakeBubble, "ChaosWeapon.MakeBubble");
+        attrs.Move = Runtime.proc(this::MoveBubble, "ChaosWeapon.MoveBubble");
         attrs.weight = 10;
         attrs.charge = 80;
         attrs.basicType = BasicTypes.NotBase;
@@ -1819,11 +1726,11 @@ public class ChaosWeapon {
             chaosSounds.SetEffect(fireFireEffect[7 - c], chaosSounds.nulSound, 400, 4181, (short) (d * 20), (short) 3);
         }
         chaosSounds.SetEffect(fireFireEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 300, 4181, (short) 20, (short) 3);
-        chaosBase.Fire[Weapon.FIRE.ordinal()] = FireFire_ref;
-        chaosBase.Bomb[Weapon.FIRE.ordinal()] = FireBomb_ref;
-        attrs.Reset = ResetFire_ref;
-        attrs.Make = MakeFire_ref;
-        attrs.Move = MoveFire_ref;
+        chaosBase.Fire[Weapon.FIRE.ordinal()] = Runtime.proc(this::FireFire, "ChaosWeapon.FireFire");
+        chaosBase.Bomb[Weapon.FIRE.ordinal()] = Runtime.proc(this::FireBomb, "ChaosWeapon.FireBomb");
+        attrs.Reset = Runtime.proc(this::ResetFire, "ChaosWeapon.ResetFire");
+        attrs.Make = Runtime.proc(this::MakeFire, "ChaosWeapon.MakeFire");
+        attrs.Move = Runtime.proc(this::MoveFire, "ChaosWeapon.MoveFire");
         attrs.weight = 3;
         attrs.charge = 30;
         attrs.dieStone = 1;
@@ -1870,11 +1777,11 @@ public class ChaosWeapon {
         for (c = 1; c <= 15; c++) {
             chaosSounds.SetEffect(ballBombEffectL[c], chaosSounds.nulSound, 588, 4694, (short) ((16 - c) * 5), (short) 5);
         }
-        chaosBase.Fire[Weapon.BALL.ordinal()] = FireBall_ref;
-        chaosBase.Bomb[Weapon.BALL.ordinal()] = BallBomb_ref;
-        attrs.Reset = ResetBall_ref;
-        attrs.Make = MakeBall_ref;
-        attrs.Move = MoveBall_ref;
+        chaosBase.Fire[Weapon.BALL.ordinal()] = Runtime.proc(this::FireBall, "ChaosWeapon.FireBall");
+        chaosBase.Bomb[Weapon.BALL.ordinal()] = Runtime.proc(this::BallBomb, "ChaosWeapon.BallBomb");
+        attrs.Reset = Runtime.proc(this::ResetBall, "ChaosWeapon.ResetBall");
+        attrs.Make = Runtime.proc(this::MakeBall, "ChaosWeapon.MakeBall");
+        attrs.Move = Runtime.proc(this::MoveBall, "ChaosWeapon.MoveBall");
         attrs.weight = 80;
         attrs.charge = 20;
         attrs.basicType = BasicTypes.NotBase;
@@ -1882,11 +1789,11 @@ public class ChaosWeapon {
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
         chaosSounds.SetEffect(starFireEffect[0], chaosSounds.soundList[SoundList.sCasserole.ordinal()], 0, 16726, (short) 100, (short) 3);
-        chaosBase.Fire[Weapon.STAR.ordinal()] = FireStar_ref;
-        chaosBase.Bomb[Weapon.STAR.ordinal()] = StarBomb_ref;
-        attrs.Reset = ResetStar_ref;
-        attrs.Make = MakeStar_ref;
-        attrs.Move = MoveStar_ref;
+        chaosBase.Fire[Weapon.STAR.ordinal()] = Runtime.proc(this::FireStar, "ChaosWeapon.FireStar");
+        chaosBase.Bomb[Weapon.STAR.ordinal()] = Runtime.proc(this::StarBomb, "ChaosWeapon.StarBomb");
+        attrs.Reset = Runtime.proc(this::ResetStar, "ChaosWeapon.ResetStar");
+        attrs.Make = Runtime.proc(this::MakeStar, "ChaosWeapon.MakeStar");
+        attrs.Move = Runtime.proc(this::MoveStar, "ChaosWeapon.MoveStar");
         attrs.weight = 10;
         attrs.charge = 30;
         attrs.inerty = 96;
@@ -1899,11 +1806,11 @@ public class ChaosWeapon {
         chaosSounds.SetEffect(grenadeFireEffect[1], chaosSounds.soundList[SoundList.sCymbale.ordinal()], 697, 8363, (short) 120, (short) 3);
         chaosSounds.SetEffect(grenadeFireEffect[2], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1045, 12544, (short) 120, (short) 3);
         chaosSounds.SetEffect(grenadeFireEffect[3], chaosSounds.soundList[SoundList.aCrash.ordinal()], 0, 0, (short) 120, (short) 3);
-        chaosBase.Fire[Weapon.GRENADE.ordinal()] = FireGrenade_ref;
-        chaosBase.Bomb[Weapon.GRENADE.ordinal()] = GrenadeBomb_ref;
-        attrs.Reset = ResetGrenade_ref;
-        attrs.Make = MakeGrenade_ref;
-        attrs.Move = MoveGrenade_ref;
+        chaosBase.Fire[Weapon.GRENADE.ordinal()] = Runtime.proc(this::FireGrenade, "ChaosWeapon.FireGrenade");
+        chaosBase.Bomb[Weapon.GRENADE.ordinal()] = Runtime.proc(this::GrenadeBomb, "ChaosWeapon.GrenadeBomb");
+        attrs.Reset = Runtime.proc(this::ResetGrenade, "ChaosWeapon.ResetGrenade");
+        attrs.Make = Runtime.proc(this::MakeGrenade, "ChaosWeapon.MakeGrenade");
+        attrs.Move = Runtime.proc(this::MoveGrenade, "ChaosWeapon.MoveGrenade");
         attrs.weight = 50;
         attrs.charge = -120;
         attrs.inerty = 32;

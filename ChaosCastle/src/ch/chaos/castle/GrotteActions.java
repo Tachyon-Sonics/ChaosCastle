@@ -875,8 +875,6 @@ public class GrotteActions {
         }
     }
 
-    public final GrotteSupport.CreateProc Create_ref = this::Create;
-
     public void Dispose(int o) {
         if (o == 0)
             return;
@@ -1207,7 +1205,7 @@ public class GrotteActions {
         }
         first[OBJECT.EMPTY.ordinal()] = 1;
         grotteSupport.attr[OBJECT.EMPTY.ordinal()].nb = MAXOBJ;
-        grotteSupport.LoadGame(Create_ref, new Runtime.FieldRef<>(this::getAx, this::setAx), new Runtime.FieldRef<>(this::getAy, this::setAy));
+        grotteSupport.LoadGame(Runtime.proc(this::Create, "GrotteActions.Create"), new Runtime.FieldRef<>(this::getAx, this::setAx), new Runtime.FieldRef<>(this::getAy, this::setAy));
         if (level == 10) {
             grotteSupport.blvcount--;
             if (grotteSupport.blvcount > 0)
@@ -2058,8 +2056,6 @@ public class GrotteActions {
         }
     }
 
-    public final MoveProc MovePlayer_ref = this::MovePlayer;
-
     private int ReportObj(byte x, byte y, byte d) {
         // VAR
         char ch = (char) 0;
@@ -2329,8 +2325,6 @@ public class GrotteActions {
                 _object.seq = 0;
         }
     }
-
-    public final MoveProc MoveK0_ref = this::MoveK0;
 
 
     // Support

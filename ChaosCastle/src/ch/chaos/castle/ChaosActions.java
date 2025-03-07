@@ -1,5 +1,7 @@
 package ch.chaos.castle;
 
+import java.util.EnumSet;
+
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosBase.BasicTypes;
 import ch.chaos.castle.ChaosBase.GameStat;
@@ -15,8 +17,6 @@ import ch.chaos.library.Languages;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.lang.Runnable;
-import java.util.EnumSet;
 
 
 public class ChaosActions {
@@ -690,8 +690,6 @@ public class ChaosActions {
             stones = (short) (stones % ChaosBase.FlameMult);
         Boum(victim, victim.attr.aieStKinds, victim.attr.aieStStyle, stones, victim.attr.aieSKCount);
     }
-
-    public final ChaosBase.AieProc Aie_ref = this::Aie;
 
     public boolean Collision(ChaosBase.Obj obj1, ChaosBase.Obj obj2) {
         // VAR
@@ -1452,8 +1450,6 @@ public class ChaosActions {
         clock.FreeTime(time);
     }
 
-    private final Runnable Close_ref = this::Close;
-
 
     // Support
 
@@ -1471,7 +1467,7 @@ public class ChaosActions {
         time = clock.AllocTime(ChaosBase.Period);
         checks.CheckMemBool(time == clock.noTime);
         out = true;
-        checks.AddTermProc(Close_ref);
+        checks.AddTermProc(Runtime.proc(this::Close, "ChaosActions.Close"));
     }
 
     public void close() {

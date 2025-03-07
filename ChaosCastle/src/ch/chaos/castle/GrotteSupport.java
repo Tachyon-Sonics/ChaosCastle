@@ -8,7 +8,6 @@ import ch.chaos.library.Files.AccessFlags;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.lang.Runnable;
 import java.util.EnumSet;
 
 
@@ -647,8 +646,6 @@ public class GrotteSupport {
         files.CloseFile(new Runtime.FieldRef<>(this::getFh, this::setFh));
         clock.FreeTime(time);
     }
-
-    public final Runnable BigFlush_ref = this::BigFlush;
 
     public void WriteCard(long c) {
         // VAR
@@ -1913,7 +1910,7 @@ public class GrotteSupport {
         made[8] = new Runtime.RangeSet(Memory.SET16_r).withRange(0, 9);
         made[9] = new Runtime.RangeSet(Memory.SET16_r).withRange(0, 9);
         made[10] = new Runtime.RangeSet(Memory.SET16_r).with(0, 10);
-        checks.AddTermProc(BigFlush_ref);
+        checks.AddTermProc(Runtime.proc(this::BigFlush, "GrotteSupport.BigFlush"));
         BigInit();
     }
 
