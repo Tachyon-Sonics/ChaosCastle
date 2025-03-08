@@ -354,23 +354,23 @@ public class Input {
             } else if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_NUMPAD6) {
                 stick(JoyRight, down, e);
                 return true;
-            } else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_NUMPAD2) {
+            } else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_NUMPAD8) {
                 stick(JoyUp, down, e);
                 return true;
-            } else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_NUMPAD8) {
+            } else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_NUMPAD2) {
                 stick(JoyDown, down, e);
                 return true;
             } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD1) {
-                sticks(down, e, JoyUp, JoyLeft);
-                return true;
-            } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD3) {
-                sticks(down, e, JoyUp, JoyRight);
-                return true;
-            } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD7) {
                 sticks(down, e, JoyDown, JoyLeft);
                 return true;
-            } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD9) {
+            } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD3) {
                 sticks(down, e, JoyDown, JoyRight);
+                return true;
+            } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD7) {
+                sticks(down, e, JoyUp, JoyLeft);
+                return true;
+            } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD9) {
+                sticks(down, e, JoyUp, JoyRight);
                 return true;
             } else if (e.getKeyCode() == KeyEvent.VK_NUMPAD5) {
                 // Pressing [5] will stop all directions. Safety for occasional missed keyup
