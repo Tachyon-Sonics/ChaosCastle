@@ -1,0 +1,24 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	// Dependency on another Eclipse project (assuming it's a local project)
+    implementation project(':Modula2-Runtime')
+
+	// Libraries
+	implementation("com.badlogicgames.jamepad:jamepad:2.30.0.0")
+ 	//implementation('uk.co.electronstudio.sdl2gdx:sdl2gdx:1.0.4')
+}
+
+sourceSets {
+	main.java.srcDirs = ['src']
+	main.resources.srcDirs = ['src']
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
