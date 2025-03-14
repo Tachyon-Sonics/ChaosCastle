@@ -131,6 +131,8 @@ public class ChaosBoss {
         chaosActions.SetObjRect(boss, 1, 1, 63, 31);
     }
 
+    private final ChaosBase.MakeProc MakeBrotherAlien_ref = this::MakeBrotherAlien;
+
     private void ResetBrotherAlien(ChaosBase.Obj boss) {
         boss.life = 1500;
         boss.fireSubLife = 10;
@@ -140,6 +142,8 @@ public class ChaosBoss {
         boss.stat = 0;
         MakeBrotherAlien(boss);
     }
+
+    private final ChaosBase.ResetProc ResetBrotherAlien_ref = this::ResetBrotherAlien;
 
     private void MoveBrotherAlien(ChaosBase.Obj boss) {
         // VAR
@@ -198,6 +202,8 @@ public class ChaosBoss {
         chaosActions.PlayerCollision(boss, hit);
     }
 
+    private final ChaosBase.MoveProc MoveBrotherAlien_ref = this::MoveBrotherAlien;
+
     private void AieBrotherAlien(ChaosBase.Obj boss, ChaosBase.Obj src, /* VAR */ Runtime.IRef<Integer> hit, /* VAR */ Runtime.IRef<Integer> fire) {
         hit.set(0);
         fire.set(0);
@@ -216,6 +222,8 @@ public class ChaosBoss {
         boss.life = boss.moveSeq * 50 + 1;
         chaosFire.ShowStat(Runtime.castToRef(languages.ADL("Brother: ##"), String.class), boss.moveSeq);
     }
+
+    private final ChaosBase.AieProc AieBrotherAlien_ref = this::AieBrotherAlien;
 
     private void DieBrotherAlien(ChaosBase.Obj boss) {
         // VAR
@@ -244,6 +252,8 @@ public class ChaosBoss {
         }
     }
 
+    private final ChaosBase.DieProc DieBrotherAlien_ref = this::DieBrotherAlien;
+
     private void MakeSisterAlien(ChaosBase.Obj boss) {
         // VAR
         short ss = 0;
@@ -266,6 +276,8 @@ public class ChaosBoss {
         chaosActions.SetObjRect(boss, 0, 0, 28, 16);
     }
 
+    private final ChaosBase.MakeProc MakeSisterAlien_ref = this::MakeSisterAlien;
+
     private void ResetSisterAlien(ChaosBase.Obj boss) {
         boss.life = 1500;
         boss.fireSubLife = 40;
@@ -275,6 +287,8 @@ public class ChaosBoss {
         boss.stat = 0;
         MakeSisterAlien(boss);
     }
+
+    private final ChaosBase.ResetProc ResetSisterAlien_ref = this::ResetSisterAlien;
 
     private void MoveSisterAlien(ChaosBase.Obj boss) {
         // VAR
@@ -377,6 +391,8 @@ public class ChaosBoss {
         chaosActions.PlayerCollision(boss, hit);
     }
 
+    private final ChaosBase.MoveProc MoveSisterAlien_ref = this::MoveSisterAlien;
+
     private void AieSisterAlien(ChaosBase.Obj boss, ChaosBase.Obj src, /* VAR */ Runtime.IRef<Integer> hit, /* VAR */ Runtime.IRef<Integer> fire) {
         hit.set(0);
         fire.set(0);
@@ -398,6 +414,8 @@ public class ChaosBoss {
         chaosFire.ShowStat(Runtime.castToRef(languages.ADL("Sister: ##"), String.class), boss.moveSeq);
     }
 
+    private final ChaosBase.AieProc AieSisterAlien_ref = this::AieSisterAlien;
+
     private void DieSisterAlien(ChaosBase.Obj boss) {
         // VAR
         Runtime.Ref<Integer> hit = new Runtime.Ref<>(0);
@@ -414,6 +432,8 @@ public class ChaosBoss {
             chaosActions.Aie(boss, boss, hit, fire);
         }
     }
+
+    private final ChaosBase.DieProc DieSisterAlien_ref = this::DieSisterAlien;
 
     private void MakeMotherAlien(ChaosBase.Obj boss) {
         // VAR
@@ -446,6 +466,8 @@ public class ChaosBoss {
         chaosActions.SetObjRect(boss, 1, 1, 23, 23);
     }
 
+    private final ChaosBase.MakeProc MakeMotherAlien_ref = this::MakeMotherAlien;
+
     private void ResetMotherAlien(ChaosBase.Obj boss) {
         boss.hitSubLife = 30;
         boss.fireSubLife = 20;
@@ -455,6 +477,8 @@ public class ChaosBoss {
         boss.stat = 5;
         MakeMotherAlien(boss);
     }
+
+    private final ChaosBase.ResetProc ResetMotherAlien_ref = this::ResetMotherAlien;
 
     private void MoveMotherAlien(ChaosBase.Obj boss) {
         // VAR
@@ -698,6 +722,8 @@ public class ChaosBoss {
         chaosActions.PlayerCollision(boss, hit);
     }
 
+    private final ChaosBase.MoveProc MoveMotherAlien_ref = this::MoveMotherAlien;
+
     private void AieMotherAlien(ChaosBase.Obj boss, ChaosBase.Obj src, /* var */ Runtime.IRef<Integer> hit, /* var */ Runtime.IRef<Integer> fire) {
         if (src.kind == Anims.WEAPON)
             chaosActions.Die(src);
@@ -713,6 +739,8 @@ public class ChaosBoss {
         boss.stat = 4;
         boss.shapeSeq = ChaosBase.Period * 2;
     }
+
+    private final ChaosBase.AieProc AieMotherAlien_ref = this::AieMotherAlien;
 
     private void DieMotherAlien(ChaosBase.Obj boss) {
         // VAR
@@ -732,6 +760,8 @@ public class ChaosBoss {
             chaosActions.Aie(boss, boss, hit, fire);
         }
     }
+
+    private final ChaosBase.DieProc DieMotherAlien_ref = this::DieMotherAlien;
 
     private void MakeFatherAlien(ChaosBase.Obj boss) {
         // VAR
@@ -771,6 +801,8 @@ public class ChaosBoss {
         chaosActions.SetObjRect(boss, dt, dt, dt + 8, dt + 8);
     }
 
+    private final ChaosBase.MakeProc MakeFatherAlien_ref = this::MakeFatherAlien;
+
     private void ResetFatherAlien(ChaosBase.Obj boss) {
         chaosFire.theFather = boss;
         boss.hitSubLife = 20;
@@ -781,6 +813,8 @@ public class ChaosBoss {
         boss.stat = 4;
         MakeFatherAlien(boss);
     }
+
+    private final ChaosBase.ResetProc ResetFatherAlien_ref = this::ResetFatherAlien;
 
     private void MoveFatherAlien(ChaosBase.Obj boss) {
         // VAR
@@ -1117,6 +1151,8 @@ public class ChaosBoss {
         chaosActions.PlayerCollision(boss, hit);
     }
 
+    private final ChaosBase.MoveProc MoveFatherAlien_ref = this::MoveFatherAlien;
+
     private void AieFatherAlien(ChaosBase.Obj boss, ChaosBase.Obj src, /* VAR */ Runtime.IRef<Integer> hit, /* VAR */ Runtime.IRef<Integer> fire) {
         hit.set(0);
         fire.set(0);
@@ -1134,6 +1170,8 @@ public class ChaosBoss {
         boss.stat = 7;
         boss.shapeSeq = ChaosBase.Period;
     }
+
+    private final ChaosBase.AieProc AieFatherAlien_ref = this::AieFatherAlien;
 
     private void DieFatherAlien(ChaosBase.Obj boss) {
         // VAR
@@ -1163,10 +1201,14 @@ public class ChaosBoss {
         }
     }
 
+    private final ChaosBase.DieProc DieFatherAlien_ref = this::DieFatherAlien;
+
     private void MakeMasterAlien(ChaosBase.Obj boss) {
         chaosActions.SetObjLoc(boss, (short) 88, (short) 200, (short) 84, (short) 36);
         chaosActions.SetObjRect(boss, 8, 4, 68, 28);
     }
+
+    private final ChaosBase.MakeProc MakeMasterAlien_ref = this::MakeMasterAlien;
 
     private void ResetMasterAlien(ChaosBase.Obj boss) {
         chaosFire.theMaster = boss;
@@ -1179,6 +1221,8 @@ public class ChaosBoss {
         boss.shapeSeq = 1;
         MakeMasterAlien(boss);
     }
+
+    private final ChaosBase.ResetProc ResetMasterAlien_ref = this::ResetMasterAlien;
 
     private void MoveMasterAlien(ChaosBase.Obj boss) {
         // VAR
@@ -1412,6 +1456,8 @@ public class ChaosBoss {
         chaosActions.PlayerCollision(boss, hit);
     }
 
+    private final ChaosBase.MoveProc MoveMasterAlien_ref = this::MoveMasterAlien;
+
     private void AieMasterAlien(ChaosBase.Obj boss, ChaosBase.Obj src, /* VAR */ Runtime.IRef<Integer> hit, /* VAR */ Runtime.IRef<Integer> fire) {
         hit.set(0);
         fire.set(0);
@@ -1429,6 +1475,8 @@ public class ChaosBoss {
         boss.stat = 4;
         boss.shapeSeq = ChaosBase.Period * 2;
     }
+
+    private final ChaosBase.AieProc AieMasterAlien_ref = this::AieMasterAlien;
 
     private void DieMasterAlien(ChaosBase.Obj boss) {
         // VAR
@@ -1453,10 +1501,14 @@ public class ChaosBoss {
         }
     }
 
+    private final ChaosBase.DieProc DieMasterAlien_ref = this::DieMasterAlien;
+
     private void MakeIllusion(ChaosBase.Obj boss) {
         chaosActions.SetObjLoc(boss, (short) 59, (short) 243, (short) 10, (short) 10);
         chaosActions.SetObjRect(boss, -3, -3, 19, 19);
     }
+
+    private final ChaosBase.MakeProc MakeIllusion_ref = this::MakeIllusion;
 
     private void ResetIllusion(ChaosBase.Obj boss) {
         chaosFire.theIllusion = boss;
@@ -1468,6 +1520,8 @@ public class ChaosBoss {
         boss.shapeSeq = 1;
         MakeIllusion(boss);
     }
+
+    private final ChaosBase.ResetProc ResetIllusion_ref = this::ResetIllusion;
 
     private void MoveIllusion(ChaosBase.Obj boss) {
         // VAR
@@ -1641,12 +1695,16 @@ public class ChaosBoss {
         MakeIllusion(boss);
     }
 
+    private final ChaosBase.MoveProc MoveIllusion_ref = this::MoveIllusion;
+
     private void AieIllusion(ChaosBase.Obj boss, ChaosBase.Obj src, /* VAR */ Runtime.IRef<Integer> hit, /* VAR */ Runtime.IRef<Integer> fire) {
         hit.set(0);
         fire.set(0);
         if (src.kind == Anims.WEAPON)
             chaosActions.Die(src);
     }
+
+    private final ChaosBase.AieProc AieIllusion_ref = this::AieIllusion;
 
     private void DieIllusion(ChaosBase.Obj boss) {
         // VAR
@@ -1687,6 +1745,8 @@ public class ChaosBoss {
         boss.life = boss.moveSeq * 50 + 1;
     }
 
+    private final ChaosBase.DieProc DieIllusion_ref = this::DieIllusion;
+
     private void InitParams() {
         // VAR
         ChaosBase.ObjAttr attr = null;
@@ -1714,11 +1774,11 @@ public class ChaosBoss {
         chaosSounds.SetEffect(haha2Effect[5], chaosSounds.soundList[SoundList.sHa.ordinal()], 0, 7032, (short) 250, (short) 8);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetBrotherAlien, "ChaosBoss.ResetBrotherAlien");
-        attr.Make = Runtime.proc(this::MakeBrotherAlien, "ChaosBoss.MakeBrotherAlien");
-        attr.Move = Runtime.proc(this::MoveBrotherAlien, "ChaosBoss.MoveBrotherAlien");
-        attr.Aie = Runtime.proc(this::AieBrotherAlien, "ChaosBoss.AieBrotherAlien");
-        attr.Die = Runtime.proc(this::DieBrotherAlien, "ChaosBoss.DieBrotherAlien");
+        attr.Reset = ResetBrotherAlien_ref;
+        attr.Make = MakeBrotherAlien_ref;
+        attr.Move = MoveBrotherAlien_ref;
+        attr.Aie = AieBrotherAlien_ref;
+        attr.Die = DieBrotherAlien_ref;
         attr.charge = 16;
         attr.weight = 100;
         attr.inerty = 192;
@@ -1739,11 +1799,11 @@ public class ChaosBoss {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetSisterAlien, "ChaosBoss.ResetSisterAlien");
-        attr.Make = Runtime.proc(this::MakeSisterAlien, "ChaosBoss.MakeSisterAlien");
-        attr.Move = Runtime.proc(this::MoveSisterAlien, "ChaosBoss.MoveSisterAlien");
-        attr.Aie = Runtime.proc(this::AieSisterAlien, "ChaosBoss.AieSisterAlien");
-        attr.Die = Runtime.proc(this::DieSisterAlien, "ChaosBoss.DieSisterAlien");
+        attr.Reset = ResetSisterAlien_ref;
+        attr.Make = MakeSisterAlien_ref;
+        attr.Move = MoveSisterAlien_ref;
+        attr.Aie = AieSisterAlien_ref;
+        attr.Die = DieSisterAlien_ref;
         attr.charge = 24;
         attr.weight = 60;
         attr.inerty = 192;
@@ -1764,11 +1824,11 @@ public class ChaosBoss {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetMotherAlien, "ChaosBoss.ResetMotherAlien");
-        attr.Make = Runtime.proc(this::MakeMotherAlien, "ChaosBoss.MakeMotherAlien");
-        attr.Move = Runtime.proc(this::MoveMotherAlien, "ChaosBoss.MoveMotherAlien");
-        attr.Aie = Runtime.proc(this::AieMotherAlien, "ChaosBoss.AieMotherAlien");
-        attr.Die = Runtime.proc(this::DieMotherAlien, "ChaosBoss.DieMotherAlien");
+        attr.Reset = ResetMotherAlien_ref;
+        attr.Make = MakeMotherAlien_ref;
+        attr.Move = MoveMotherAlien_ref;
+        attr.Aie = AieMotherAlien_ref;
+        attr.Die = DieMotherAlien_ref;
         attr.charge = 16;
         attr.weight = 70;
         attr.inerty = 192;
@@ -1789,11 +1849,11 @@ public class ChaosBoss {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetFatherAlien, "ChaosBoss.ResetFatherAlien");
-        attr.Make = Runtime.proc(this::MakeFatherAlien, "ChaosBoss.MakeFatherAlien");
-        attr.Move = Runtime.proc(this::MoveFatherAlien, "ChaosBoss.MoveFatherAlien");
-        attr.Aie = Runtime.proc(this::AieFatherAlien, "ChaosBoss.AieFatherAlien");
-        attr.Die = Runtime.proc(this::DieFatherAlien, "ChaosBoss.DieFatherAlien");
+        attr.Reset = ResetFatherAlien_ref;
+        attr.Make = MakeFatherAlien_ref;
+        attr.Move = MoveFatherAlien_ref;
+        attr.Aie = AieFatherAlien_ref;
+        attr.Die = DieFatherAlien_ref;
         attr.charge = 16;
         attr.weight = 70;
         attr.inerty = 300;
@@ -1807,11 +1867,11 @@ public class ChaosBoss {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetMasterAlien, "ChaosBoss.ResetMasterAlien");
-        attr.Make = Runtime.proc(this::MakeMasterAlien, "ChaosBoss.MakeMasterAlien");
-        attr.Move = Runtime.proc(this::MoveMasterAlien, "ChaosBoss.MoveMasterAlien");
-        attr.Aie = Runtime.proc(this::AieMasterAlien, "ChaosBoss.AieMasterAlien");
-        attr.Die = Runtime.proc(this::DieMasterAlien, "ChaosBoss.DieMasterAlien");
+        attr.Reset = ResetMasterAlien_ref;
+        attr.Make = MakeMasterAlien_ref;
+        attr.Move = MoveMasterAlien_ref;
+        attr.Aie = AieMasterAlien_ref;
+        attr.Die = DieMasterAlien_ref;
         attr.charge = 16;
         attr.weight = 70;
         attr.inerty = 100;
@@ -1823,11 +1883,11 @@ public class ChaosBoss {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetIllusion, "ChaosBoss.ResetIllusion");
-        attr.Make = Runtime.proc(this::MakeIllusion, "ChaosBoss.MakeIllusion");
-        attr.Move = Runtime.proc(this::MoveIllusion, "ChaosBoss.MoveIllusion");
-        attr.Aie = Runtime.proc(this::AieIllusion, "ChaosBoss.AieIllusion");
-        attr.Die = Runtime.proc(this::DieIllusion, "ChaosBoss.DieIllusion");
+        attr.Reset = ResetIllusion_ref;
+        attr.Make = MakeIllusion_ref;
+        attr.Move = MoveIllusion_ref;
+        attr.Aie = AieIllusion_ref;
+        attr.Die = DieIllusion_ref;
         attr.charge = 30;
         attr.weight = 100;
         attr.inerty = 20;
@@ -1839,34 +1899,34 @@ public class ChaosBoss {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(chaosFire::ResetPart, "ChaosFire.ResetPart");
-        attr.Move = Runtime.proc(chaosFire::MoveHeart, "ChaosFire.MoveHeart");
-        attr.Die = Runtime.proc(chaosFire::DiePart, "ChaosFire.DiePart");
+        attr.Reset = chaosFire.ResetPart_ref;
+        attr.Move = chaosFire.MoveHeart_ref;
+        attr.Die = chaosFire.DiePart_ref;
         attr.basicType = BasicTypes.NotBase;
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(chaosFire::ResetPart, "ChaosFire.ResetPart");
-        attr.Move = Runtime.proc(chaosFire::MoveEye, "ChaosFire.MoveEye");
-        attr.Die = Runtime.proc(chaosFire::DiePart, "ChaosFire.DiePart");
+        attr.Reset = chaosFire.ResetPart_ref;
+        attr.Move = chaosFire.MoveEye_ref;
+        attr.Die = chaosFire.DiePart_ref;
         attr.basicType = BasicTypes.NotBase;
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(chaosFire::ResetPart, "ChaosFire.ResetPart");
-        attr.Move = Runtime.proc(chaosFire::MoveMouth, "ChaosFire.MoveMouth");
-        attr.Die = Runtime.proc(chaosFire::DiePart, "ChaosFire.DiePart");
+        attr.Reset = chaosFire.ResetPart_ref;
+        attr.Move = chaosFire.MoveMouth_ref;
+        attr.Die = chaosFire.DiePart_ref;
         attr.basicType = BasicTypes.NotBase;
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
         for (c = 0; c <= 2; c++) {
             attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
             checks.CheckMem(attr);
-            attr.Reset = Runtime.proc(chaosFire::ResetPart, "ChaosFire.ResetPart");
-            attr.Move = Runtime.proc(chaosFire::MovePart, "ChaosFire.MovePart");
-            attr.Die = Runtime.proc(chaosFire::DiePart, "ChaosFire.DiePart");
+            attr.Reset = chaosFire.ResetPart_ref;
+            attr.Move = chaosFire.MovePart_ref;
+            attr.Die = chaosFire.DiePart_ref;
             attr.basicType = BasicTypes.NotBase;
             attr.priority = (byte) (99 + c);
             attr.toKill = false;

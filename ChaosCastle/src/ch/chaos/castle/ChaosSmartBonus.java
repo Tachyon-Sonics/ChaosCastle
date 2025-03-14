@@ -50,10 +50,15 @@ public class ChaosSmartBonus {
         chaosActions.SetObjRect(bonus, 0, 0, 12, 12);
     }
 
+    private final ChaosBase.ResetProc MakeBonus_as_ChaosBase_ResetProc = this::MakeBonus;
+    private final ChaosBase.MakeProc MakeBonus_as_ChaosBase_MakeProc = this::MakeBonus;
+
     private void Life(ChaosBase.Obj player, ChaosBase.Obj bonus) {
         chaosPlayer.AddLife(player);
         chaosActions.Die(bonus);
     }
+
+    private final ChaosActions.DoToPlayerProc Life_ref = this::Life;
 
     private void Power(ChaosBase.Obj player, ChaosBase.Obj bonus) {
         chaosPlayer.AddPower(player, (short) 1);
@@ -61,6 +66,8 @@ public class ChaosSmartBonus {
             chaosBase.powerCountDown--;
         chaosActions.Die(bonus);
     }
+
+    private final ChaosActions.DoToPlayerProc Power_ref = this::Power;
 
     private void MoveBonus(ChaosBase.Obj bonus) {
         // VAR
@@ -79,12 +86,12 @@ public class ChaosSmartBonus {
         }
         chaosActions.AvoidBackground(bonus, (short) 1);
         if (bonus.subKind == sbExtraLife)
-            What = Runtime.proc(this::Life, "ChaosSmartBonus.Life");
+            What = Life_ref;
         else
-            What = Runtime.proc(this::Power, "ChaosSmartBonus.Power");
+            What = Power_ref;
         h.set(200);
         f.set(200);
-        chaosActions.DoCollision(bonus, EnumSet.of(Anims.ALIEN3, Anims.ALIEN2, Anims.ALIEN1, Anims.MISSILE, Anims.DEADOBJ, Anims.MACHINE), Runtime.proc(chaosActions::Aie, "ChaosActions.Aie"), h, f);
+        chaosActions.DoCollision(bonus, EnumSet.of(Anims.ALIEN3, Anims.ALIEN2, Anims.ALIEN1, Anims.MISSILE, Anims.DEADOBJ, Anims.MACHINE), chaosActions.Aie_ref, h, f);
         if ((h.get() < 200) || (f.get() < 200)) {
             bonus.vy = (short) -Math.abs(bonus.vy);
             if (bonus.vy < -1024)
@@ -94,15 +101,17 @@ public class ChaosSmartBonus {
         chaosActions.DoToPlayer(bonus, What);
     }
 
+    private final ChaosBase.MoveProc MoveBonus_ref = this::MoveBonus;
+
     private void InitParams() {
         // VAR
         ChaosBase.ObjAttr attr = null;
 
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::MakeBonus, "ChaosSmartBonus.MakeBonus");
-        attr.Make = Runtime.proc(this::MakeBonus, "ChaosSmartBonus.MakeBonus");
-        attr.Move = Runtime.proc(this::MoveBonus, "ChaosSmartBonus.MoveBonus");
+        attr.Reset = MakeBonus_as_ChaosBase_ResetProc;
+        attr.Make = MakeBonus_as_ChaosBase_MakeProc;
+        attr.Move = MoveBonus_ref;
         attr.charge = 4;
         attr.weight = 32;
         attr.basicType = BasicTypes.Bonus;

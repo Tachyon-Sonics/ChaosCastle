@@ -88,6 +88,8 @@ public class ChaosStone {
         chaosActions.SetObjRect(stone, 1, 1, r.get() - 1, b.get() - 1);
     }
 
+    private final ChaosBase.MakeProc MakeStone0_ref = this::MakeStone0;
+
     private void MakeStone1(ChaosBase.Obj stone) {
         // VAR
         short py = 0;
@@ -101,6 +103,8 @@ public class ChaosStone {
         }
         chaosActions.SetObjLoc(stone, (short) 224, py, (short) cnt, (short) cnt);
     }
+
+    private final ChaosBase.MakeProc MakeStone1_ref = this::MakeStone1;
 
     private void ResetStone0(ChaosBase.Obj stone) {
         stone.hitSubLife = 1;
@@ -125,11 +129,15 @@ public class ChaosStone {
         MakeStone0(stone);
     }
 
+    private final ChaosBase.ResetProc ResetStone0_ref = this::ResetStone0;
+
     private void ResetStone1(ChaosBase.Obj stone) {
         stone.hitSubLife = 1;
         stone.life = ChaosBase.Period / 5;
         MakeStone1(stone);
     }
+
+    private final ChaosBase.ResetProc ResetStone1_ref = this::ResetStone1;
 
     private void MoveStone0_Switch(int os, int ns, short nx, short ny, ChaosBase.Obj stone, /* VAR */ Runtime.IRef<Boolean> switched) {
         if (!switched.get() && (os == stone.shapeSeq)) {
@@ -228,6 +236,8 @@ public class ChaosStone {
         }
     }
 
+    private final ChaosBase.MoveProc MoveStone0_ref = this::MoveStone0;
+
     private void MoveStone1(ChaosBase.Obj stone) {
         chaosActions.UpdateXY(stone);
         if (chaosBase.step > stone.life) {
@@ -249,6 +259,8 @@ public class ChaosStone {
         }
     }
 
+    private final ChaosBase.MoveProc MoveStone1_ref = this::MoveStone1;
+
     private void InitParams() {
         // VAR
         ChaosBase.ObjAttr attr = null;
@@ -256,9 +268,9 @@ public class ChaosStone {
         chaosSounds.SetEffect(stoneEffect[0], chaosSounds.soundList[SoundList.sGun.ordinal()], 0, 0, (short) 12, (short) 1);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetStone0, "ChaosStone.ResetStone0");
-        attr.Make = Runtime.proc(this::MakeStone0, "ChaosStone.MakeStone0");
-        attr.Move = Runtime.proc(this::MoveStone0, "ChaosStone.MoveStone0");
+        attr.Reset = ResetStone0_ref;
+        attr.Make = MakeStone0_ref;
+        attr.Move = MoveStone0_ref;
         attr.charge = 96;
         attr.basicType = BasicTypes.NotBase;
         attr.priority = 80;
@@ -266,9 +278,9 @@ public class ChaosStone {
         memory.AddTail(chaosBase.attrList[Anims.STONE.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetStone1, "ChaosStone.ResetStone1");
-        attr.Make = Runtime.proc(this::MakeStone1, "ChaosStone.MakeStone1");
-        attr.Move = Runtime.proc(this::MoveStone1, "ChaosStone.MoveStone1");
+        attr.Reset = ResetStone1_ref;
+        attr.Make = MakeStone1_ref;
+        attr.Move = MoveStone1_ref;
         attr.charge = 50;
         attr.inerty = 12;
         attr.dieStKinds = EnumSet.of(Stones.stFOG1, Stones.stFLAME2);

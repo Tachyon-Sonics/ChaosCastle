@@ -280,6 +280,9 @@ public class ChaosBonus {
         chaosActions.SetObjRect(money, 0, 0, ps, ps);
     }
 
+    private final ChaosBase.ResetProc MakeMoney_as_ChaosBase_ResetProc = this::MakeMoney;
+    private final ChaosBase.MakeProc MakeMoney_as_ChaosBase_MakeProc = this::MakeMoney;
+
     private void MakeBonus(ChaosBase.Obj bonus) {
         // VAR
         short px = 0;
@@ -363,6 +366,9 @@ public class ChaosBonus {
         chaosActions.SetObjRect(bonus, 0, 0, pw, ph);
     }
 
+    private final ChaosBase.ResetProc MakeBonus_as_ChaosBase_ResetProc = this::MakeBonus;
+    private final ChaosBase.MakeProc MakeBonus_as_ChaosBase_MakeProc = this::MakeBonus;
+
     private void GiveToPlayer(ChaosBase.Obj p, ChaosBase.Obj m) {
         // VAR
         byte dollar = 0;
@@ -383,6 +389,8 @@ public class ChaosBonus {
         chaosActions.Die(m);
     }
 
+    private final ChaosActions.DoToPlayerProc GiveToPlayer_ref = this::GiveToPlayer;
+
     private void MoveMoney(ChaosBase.Obj money) {
         if (chaosActions.OutOfScreen(money)) {
             if (chaosActions.OutOfBounds(money))
@@ -399,8 +407,10 @@ public class ChaosBonus {
             chaosActions.AvoidBackground(money, (short) 2);
         chaosActions.UpdateXY(money);
         chaosActions.LimitSpeed(money, (short) 1920);
-        chaosActions.DoToPlayer(money, Runtime.proc(this::GiveToPlayer, "ChaosBonus.GiveToPlayer"));
+        chaosActions.DoToPlayer(money, GiveToPlayer_ref);
     }
+
+    private final ChaosBase.MoveProc MoveMoney_ref = this::MoveMoney;
 
     private void DBSpeed(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.doubleSpeed = 1;
@@ -411,6 +421,8 @@ public class ChaosBonus {
         chaosActions.Die(o);
     }
 
+    private final ChaosActions.DoToPlayerProc DBSpeed_ref = this::DBSpeed;
+
     private void SGSpeed(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.doubleSpeed = 0;
         chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Normal speed"), String.class), (short) ChaosActions.statPos, (short) 1);
@@ -420,12 +432,16 @@ public class ChaosBonus {
         chaosActions.Die(o);
     }
 
+    private final ChaosActions.DoToPlayerProc SGSpeed_ref = this::SGSpeed;
+
     private void Magnet(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.magnet += ChaosBase.Period * 40;
         chaosSounds.SoundEffect(p, magnetEffect);
         chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Magnet"), String.class), (short) ChaosActions.statPos, (short) 3);
         chaosActions.Die(o);
     }
+
+    private final ChaosActions.DoToPlayerProc Magnet_ref = this::Magnet;
 
     private void Invinsibility(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosPlayer.MakeInvinsible(p, ChaosBase.Period * 30);
@@ -436,6 +452,8 @@ public class ChaosBonus {
         chaosActions.Die(o);
     }
 
+    private final ChaosActions.DoToPlayerProc Invinsibility_ref = this::Invinsibility;
+
     private void Sleeper(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.sleeper += ChaosBase.Period * 50;
         chaosSounds.StereoEffect();
@@ -445,15 +463,21 @@ public class ChaosBonus {
         chaosActions.Die(o);
     }
 
+    private final ChaosActions.DoToPlayerProc Sleeper_ref = this::Sleeper;
+
     private void Bullet(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosPlayer.AddWeapon(p, (short) 40);
         chaosActions.Die(o);
     }
 
+    private final ChaosActions.DoToPlayerProc Bullet_ref = this::Bullet;
+
     private void Bomb(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosPlayer.AddBomb(p, (short) 1);
         chaosActions.Die(o);
     }
+
+    private final ChaosActions.DoToPlayerProc Bomb_ref = this::Bomb;
 
     private void AddSS(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosSounds.SoundEffect(p, blvEffect);
@@ -462,11 +486,15 @@ public class ChaosBonus {
         chaosActions.Die(o);
     }
 
+    private final ChaosActions.DoToPlayerProc AddSS_ref = this::AddSS;
+
     private void Hospital(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.playerPower = 36;
         chaosSounds.SoundEffect(p, hospitalEffect);
         chaosActions.Die(o);
     }
+
+    private final ChaosActions.DoToPlayerProc Hospital_ref = this::Hospital;
 
     private void FreeFire(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.freeFire += ChaosBase.Period * 50;
@@ -477,6 +505,8 @@ public class ChaosBonus {
         chaosActions.Die(o);
     }
 
+    private final ChaosActions.DoToPlayerProc FreeFire_ref = this::FreeFire;
+
     private void MaxPower(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.maxPower += ChaosBase.Period * 40;
         chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Maximum Power"), String.class), (short) ChaosActions.statPos, (short) 3);
@@ -484,11 +514,15 @@ public class ChaosBonus {
         chaosActions.Die(o);
     }
 
+    private final ChaosActions.DoToPlayerProc MaxPower_ref = this::MaxPower;
+
     private void NoMissile(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.noMissile += ChaosBase.Period * 60;
         chaosActions.PopMessage(Runtime.castToRef(languages.ADL("No missile"), String.class), (short) ChaosActions.statPos, (short) 3);
         chaosActions.Die(o);
     }
+
+    private final ChaosActions.DoToPlayerProc NoMissile_ref = this::NoMissile;
 
     private void Difficulty(ChaosBase.Obj p, ChaosBase.Obj o) {
         // VAR
@@ -544,11 +578,15 @@ public class ChaosBonus {
         chaosActions.Die(o);
     }
 
+    private final ChaosActions.DoToPlayerProc Difficulty_ref = this::Difficulty;
+
     private void Exit(ChaosBase.Obj p, ChaosBase.Obj o) {
         if ((chaosBase.gameStat == GameStat.Playing) && (chaosBase.zone != Zone.Family))
             chaosBase.gameStat = GameStat.Finish;
         chaosActions.Die(o);
     }
+
+    private final ChaosActions.DoToPlayerProc Exit_ref = this::Exit;
 
     private void Help(ChaosBase.Obj p, ChaosBase.Obj o) {
         // VAR
@@ -663,6 +701,8 @@ public class ChaosBonus {
         chaosActions.Die(o);
     }
 
+    private final ChaosActions.DoToPlayerProc Help_ref = this::Help;
+
     private void MoveBonus(ChaosBase.Obj bonus) {
         // VAR
         ChaosActions.DoToPlayerProc What = null;
@@ -682,25 +722,27 @@ public class ChaosBonus {
         bonus.dvx = 0;
         bonus.dvy = 0;
         switch (bonus.stat) {
-            case tbDBSpeed -> What = Runtime.proc(this::DBSpeed, "ChaosBonus.DBSpeed");
-            case tbSGSpeed -> What = Runtime.proc(this::SGSpeed, "ChaosBonus.SGSpeed");
-            case tbMagnet -> What = Runtime.proc(this::Magnet, "ChaosBonus.Magnet");
-            case tbInvinsibility -> What = Runtime.proc(this::Invinsibility, "ChaosBonus.Invinsibility");
-            case tbSleeper -> What = Runtime.proc(this::Sleeper, "ChaosBonus.Sleeper");
-            case tbBullet -> What = Runtime.proc(this::Bullet, "ChaosBonus.Bullet");
-            case tbBonusLevel -> What = Runtime.proc(this::AddSS, "ChaosBonus.AddSS");
-            case tbHospital -> What = Runtime.proc(this::Hospital, "ChaosBonus.Hospital");
-            case tbFreeFire -> What = Runtime.proc(this::FreeFire, "ChaosBonus.FreeFire");
-            case tbMaxPower -> What = Runtime.proc(this::MaxPower, "ChaosBonus.MaxPower");
-            case tbNoMissile -> What = Runtime.proc(this::NoMissile, "ChaosBonus.NoMissile");
-            case tbDifficulty -> What = Runtime.proc(this::Difficulty, "ChaosBonus.Difficulty");
-            case tbExit -> What = Runtime.proc(this::Exit, "ChaosBonus.Exit");
-            case tbBomb -> What = Runtime.proc(this::Bomb, "ChaosBonus.Bomb");
-            case tbHelp -> What = Runtime.proc(this::Help, "ChaosBonus.Help");
+            case tbDBSpeed -> What = DBSpeed_ref;
+            case tbSGSpeed -> What = SGSpeed_ref;
+            case tbMagnet -> What = Magnet_ref;
+            case tbInvinsibility -> What = Invinsibility_ref;
+            case tbSleeper -> What = Sleeper_ref;
+            case tbBullet -> What = Bullet_ref;
+            case tbBonusLevel -> What = AddSS_ref;
+            case tbHospital -> What = Hospital_ref;
+            case tbFreeFire -> What = FreeFire_ref;
+            case tbMaxPower -> What = MaxPower_ref;
+            case tbNoMissile -> What = NoMissile_ref;
+            case tbDifficulty -> What = Difficulty_ref;
+            case tbExit -> What = Exit_ref;
+            case tbBomb -> What = Bomb_ref;
+            case tbHelp -> What = Help_ref;
             default -> throw new RuntimeException("Unhandled CASE value " + bonus.stat);
         }
         chaosActions.DoToPlayer(bonus, What);
     }
+
+    private final ChaosBase.MoveProc MoveBonus_ref = this::MoveBonus;
 
     private void InitParams() {
         // VAR
@@ -754,9 +796,9 @@ public class ChaosBonus {
         }
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::MakeMoney, "ChaosBonus.MakeMoney");
-        attr.Make = Runtime.proc(this::MakeMoney, "ChaosBonus.MakeMoney");
-        attr.Move = Runtime.proc(this::MoveMoney, "ChaosBonus.MoveMoney");
+        attr.Reset = MakeMoney_as_ChaosBase_ResetProc;
+        attr.Make = MakeMoney_as_ChaosBase_MakeProc;
+        attr.Move = MoveMoney_ref;
         attr.charge = -64;
         attr.weight = 8;
         attr.inerty = 6;
@@ -766,9 +808,9 @@ public class ChaosBonus {
         memory.AddTail(chaosBase.attrList[Anims.BONUS.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::MakeBonus, "ChaosBonus.MakeBonus");
-        attr.Make = Runtime.proc(this::MakeBonus, "ChaosBonus.MakeBonus");
-        attr.Move = Runtime.proc(this::MoveBonus, "ChaosBonus.MoveBonus");
+        attr.Reset = MakeBonus_as_ChaosBase_ResetProc;
+        attr.Make = MakeBonus_as_ChaosBase_MakeProc;
+        attr.Move = MoveBonus_ref;
         attr.charge = 32;
         attr.weight = 16;
         attr.inerty = 4;
@@ -782,9 +824,9 @@ public class ChaosBonus {
         memory.AddTail(chaosBase.attrList[Anims.BONUS.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::MakeBonus, "ChaosBonus.MakeBonus");
-        attr.Make = Runtime.proc(this::MakeBonus, "ChaosBonus.MakeBonus");
-        attr.Move = Runtime.proc(this::MoveBonus, "ChaosBonus.MoveBonus");
+        attr.Reset = MakeBonus_as_ChaosBase_ResetProc;
+        attr.Make = MakeBonus_as_ChaosBase_MakeProc;
+        attr.Move = MoveBonus_ref;
         attr.charge = 32;
         attr.weight = 16;
         attr.inerty = 4;

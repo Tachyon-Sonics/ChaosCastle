@@ -15,6 +15,7 @@ import ch.chaos.library.Languages;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
+import java.lang.Runnable;
 import java.util.EnumSet;
 
 
@@ -689,6 +690,8 @@ public class ChaosActions {
             stones = (short) (stones % ChaosBase.FlameMult);
         Boum(victim, victim.attr.aieStKinds, victim.attr.aieStStyle, stones, victim.attr.aieSKCount);
     }
+
+    public final ChaosBase.AieProc Aie_ref = this::Aie;
 
     public boolean Collision(ChaosBase.Obj obj1, ChaosBase.Obj obj2) {
         // VAR
@@ -1449,6 +1452,8 @@ public class ChaosActions {
         clock.FreeTime(time);
     }
 
+    private final Runnable Close_ref = this::Close;
+
 
     // Support
 
@@ -1466,7 +1471,7 @@ public class ChaosActions {
         time = clock.AllocTime(ChaosBase.Period);
         checks.CheckMemBool(time == clock.noTime);
         out = true;
-        checks.AddTermProc(Runtime.proc(this::Close, "ChaosActions.Close"));
+        checks.AddTermProc(Close_ref);
     }
 
     public void close() {

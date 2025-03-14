@@ -65,6 +65,8 @@ public class Grotte {
         }
     }
 
+    private final GrotteActions.MoveProc MoveK1_ref = this::MoveK1;
+
     private void MoveK2(int k) {
         // VAR
         DIRECTION rd = DIRECTION.NUL;
@@ -158,6 +160,8 @@ public class Grotte {
         }
     }
 
+    private final GrotteActions.MoveProc MoveK2_ref = this::MoveK2;
+
     private void MoveK3(int k) {
         if (grotteActions.first[OBJECT.K3.ordinal()] == k)
             grotteActions.k3c = 0;
@@ -201,6 +205,8 @@ public class Grotte {
             }
         }
     }
+
+    private final GrotteActions.MoveProc MoveK3_ref = this::MoveK3;
 
     private void MoveK4(int k) {
         { // WITH
@@ -275,6 +281,8 @@ public class Grotte {
         }
     }
 
+    private final GrotteActions.MoveProc MoveK4_ref = this::MoveK4;
+
     private void MoveGn1(int g) {
         // VAR
         int k0 = 0;
@@ -317,6 +325,8 @@ public class Grotte {
         }
     }
 
+    private final GrotteActions.MoveProc MoveGn1_ref = this::MoveGn1;
+
     private void MoveGn2(int g) {
         { // WITH
             GrotteActions.Object _object = grotteActions.object[g];
@@ -330,6 +340,8 @@ public class Grotte {
             }
         }
     }
+
+    private final GrotteActions.MoveProc MoveGn2_ref = this::MoveGn2;
 
     private void MoveAsc(int a) {
         { // WITH
@@ -375,6 +387,8 @@ public class Grotte {
             }
         }
     }
+
+    private final GrotteActions.MoveProc MoveAsc_ref = this::MoveAsc;
 
     private void MoveL1(int l) {
         // VAR
@@ -532,6 +546,8 @@ public class Grotte {
         }
     }
 
+    private final GrotteActions.MoveProc MoveL1_ref = this::MoveL1;
+
     private void MoveL2(int l) {
         // VAR
         int bl = 0;
@@ -636,6 +652,8 @@ public class Grotte {
         }
     }
 
+    private final GrotteActions.MoveProc MoveL2_ref = this::MoveL2;
+
     private void MoveL3(int l) {
         { // WITH
             GrotteActions.Object _object = grotteActions.object[l];
@@ -673,6 +691,8 @@ public class Grotte {
             }
         }
     }
+
+    private final GrotteActions.MoveProc MoveL3_ref = this::MoveL3;
 
     private void MoveBall(int b) {
         // VAR
@@ -758,6 +778,8 @@ public class Grotte {
         }
     }
 
+    private final GrotteActions.MoveProc MoveBall_ref = this::MoveBall;
+
     private void MovePic(int p) {
         // VAR
         int bo = 0;
@@ -830,6 +852,8 @@ public class Grotte {
             }
         }
     }
+
+    private final GrotteActions.MoveProc MovePic_ref = this::MovePic;
 
     private void MovePlat(int p) {
         // VAR
@@ -930,6 +954,8 @@ public class Grotte {
         }
     }
 
+    private final GrotteActions.MoveProc MovePlat_ref = this::MovePlat;
+
     private void MoveWoof(int p) {
         // VAR
         int pl = 0;
@@ -978,6 +1004,8 @@ public class Grotte {
         }
     }
 
+    private final GrotteActions.MoveProc MoveWoof_ref = this::MoveWoof;
+
     private void MoveTPlat(int p) {
         // VAR
         char ch = (char) 0;
@@ -1001,6 +1029,8 @@ public class Grotte {
             }
         }
     }
+
+    private final GrotteActions.MoveProc MoveTPlat_ref = this::MoveTPlat;
 
     private void Nid(int n) {
         // VAR
@@ -1034,6 +1064,8 @@ public class Grotte {
         }
     }
 
+    private final GrotteActions.MoveProc Nid_ref = this::Nid;
+
     private void Bub(int b) {
         // VAR
         int c = 0;
@@ -1060,6 +1092,8 @@ public class Grotte {
             _object.seq = (byte) (-_object.seq - 3);
         }
     }
+
+    private final GrotteActions.MoveProc Bub_ref = this::Bub;
 
     private void ChuteBonus(int b) {
         // VAR
@@ -1104,6 +1138,8 @@ public class Grotte {
         }
     }
 
+    private final GrotteActions.MoveProc ChuteBonus_ref = this::ChuteBonus;
+
     private void CheckDl(int dl) {
         // VAR
         char ch = (char) 0;
@@ -1123,6 +1159,8 @@ public class Grotte {
         }
     }
 
+    private final GrotteActions.MoveProc CheckDl_ref = this::CheckDl;
+
     private void EraseBoum(int b) {
         // VAR
         byte c1 = 0;
@@ -1140,8 +1178,12 @@ public class Grotte {
         grotteActions.Dispose(b);
     }
 
+    private final GrotteActions.MoveProc EraseBoum_ref = this::EraseBoum;
+
     private void EmptyMove(int o) {
     }
+
+    private final GrotteActions.MoveProc EmptyMove_ref = this::EmptyMove;
 
     private void InitVars() {
         // VAR
@@ -1161,72 +1203,72 @@ public class Grotte {
         grotteActions.deltah[4] = 0;
         for (int _t = 0; _t < OBJECT.values().length; _t++) {
             t = OBJECT.values()[_t];
-            grotteActions.Move[t.ordinal()] = Runtime.proc(this::EmptyMove, "Grotte.EmptyMove");
+            grotteActions.Move[t.ordinal()] = EmptyMove_ref;
             grotteActions.speed[t.ordinal()] = 255;
             grotteActions.aiept[t.ordinal()] = 0;
             grotteActions.dispt[t.ordinal()] = 0;
         }
-        grotteActions.Move[OBJECT.PLAYER.ordinal()] = Runtime.proc(grotteActions::MovePlayer, "GrotteActions.MovePlayer");
+        grotteActions.Move[OBJECT.PLAYER.ordinal()] = grotteActions.MovePlayer_ref;
         grotteActions.speed[OBJECT.PLAYER.ordinal()] = 15;
-        grotteActions.Move[OBJECT.K0.ordinal()] = Runtime.proc(grotteActions::MoveK0, "GrotteActions.MoveK0");
+        grotteActions.Move[OBJECT.K0.ordinal()] = grotteActions.MoveK0_ref;
         grotteActions.speed[OBJECT.K0.ordinal()] = 31;
         grotteActions.dispt[OBJECT.K0.ordinal()] = 50;
-        grotteActions.Move[OBJECT.K1.ordinal()] = Runtime.proc(this::MoveK1, "Grotte.MoveK1");
+        grotteActions.Move[OBJECT.K1.ordinal()] = MoveK1_ref;
         grotteActions.speed[OBJECT.K1.ordinal()] = 37;
         grotteActions.dispt[OBJECT.K1.ordinal()] = 10;
         grotteActions.aiept[OBJECT.K1.ordinal()] = 3;
-        grotteActions.Move[OBJECT.K2.ordinal()] = Runtime.proc(this::MoveK2, "Grotte.MoveK2");
+        grotteActions.Move[OBJECT.K2.ordinal()] = MoveK2_ref;
         grotteActions.speed[OBJECT.K2.ordinal()] = 34;
         grotteActions.dispt[OBJECT.K2.ordinal()] = 2;
         grotteActions.aiept[OBJECT.K2.ordinal()] = 2;
-        grotteActions.Move[OBJECT.K3.ordinal()] = Runtime.proc(this::MoveK3, "Grotte.MoveK3");
+        grotteActions.Move[OBJECT.K3.ordinal()] = MoveK3_ref;
         grotteActions.speed[OBJECT.K3.ordinal()] = 47;
         grotteActions.dispt[OBJECT.K3.ordinal()] = 3;
         grotteActions.aiept[OBJECT.K3.ordinal()] = 1;
-        grotteActions.Move[OBJECT.K4.ordinal()] = Runtime.proc(this::MoveK4, "Grotte.MoveK4");
+        grotteActions.Move[OBJECT.K4.ordinal()] = MoveK4_ref;
         grotteActions.speed[OBJECT.K4.ordinal()] = 29;
         grotteActions.dispt[OBJECT.K4.ordinal()] = 20;
-        grotteActions.Move[OBJECT.GN1.ordinal()] = Runtime.proc(this::MoveGn1, "Grotte.MoveGn1");
+        grotteActions.Move[OBJECT.GN1.ordinal()] = MoveGn1_ref;
         grotteActions.speed[OBJECT.GN1.ordinal()] = 231;
         grotteActions.dispt[OBJECT.GN1.ordinal()] = 13;
-        grotteActions.Move[OBJECT.GN2.ordinal()] = Runtime.proc(this::MoveGn2, "Grotte.MoveGn2");
+        grotteActions.Move[OBJECT.GN2.ordinal()] = MoveGn2_ref;
         grotteActions.speed[OBJECT.GN2.ordinal()] = 15;
         grotteActions.dispt[OBJECT.GN2.ordinal()] = 4;
-        grotteActions.Move[OBJECT.ASC.ordinal()] = Runtime.proc(this::MoveAsc, "Grotte.MoveAsc");
+        grotteActions.Move[OBJECT.ASC.ordinal()] = MoveAsc_ref;
         grotteActions.speed[OBJECT.ASC.ordinal()] = 40;
-        grotteActions.Move[OBJECT.L1.ordinal()] = Runtime.proc(this::MoveL1, "Grotte.MoveL1");
+        grotteActions.Move[OBJECT.L1.ordinal()] = MoveL1_ref;
         grotteActions.speed[OBJECT.L1.ordinal()] = 8;
-        grotteActions.Move[OBJECT.L2.ordinal()] = Runtime.proc(this::MoveL2, "Grotte.MoveL2");
+        grotteActions.Move[OBJECT.L2.ordinal()] = MoveL2_ref;
         grotteActions.speed[OBJECT.L2.ordinal()] = 12;
-        grotteActions.Move[OBJECT.L3.ordinal()] = Runtime.proc(this::MoveL3, "Grotte.MoveL3");
+        grotteActions.Move[OBJECT.L3.ordinal()] = MoveL3_ref;
         grotteActions.speed[OBJECT.L3.ordinal()] = 13;
-        grotteActions.Move[OBJECT.BALL.ordinal()] = Runtime.proc(this::MoveBall, "Grotte.MoveBall");
+        grotteActions.Move[OBJECT.BALL.ordinal()] = MoveBall_ref;
         grotteActions.speed[OBJECT.BALL.ordinal()] = 17;
         grotteActions.dispt[OBJECT.BALL.ordinal()] = 11;
         grotteActions.aiept[OBJECT.BALL.ordinal()] = 1;
-        grotteActions.Move[OBJECT.PIC.ordinal()] = Runtime.proc(this::MovePic, "Grotte.MovePic");
+        grotteActions.Move[OBJECT.PIC.ordinal()] = MovePic_ref;
         grotteActions.speed[OBJECT.PIC.ordinal()] = 19;
         grotteActions.dispt[OBJECT.PIC.ordinal()] = 9;
-        grotteActions.Move[OBJECT.PLAT.ordinal()] = Runtime.proc(this::MovePlat, "Grotte.MovePlat");
+        grotteActions.Move[OBJECT.PLAT.ordinal()] = MovePlat_ref;
         grotteActions.speed[OBJECT.PLAT.ordinal()] = 30;
-        grotteActions.Move[OBJECT.WOOF.ordinal()] = Runtime.proc(this::MoveWoof, "Grotte.MoveWoof");
+        grotteActions.Move[OBJECT.WOOF.ordinal()] = MoveWoof_ref;
         grotteActions.speed[OBJECT.WOOF.ordinal()] = 30;
-        grotteActions.Move[OBJECT.TPLAT.ordinal()] = Runtime.proc(this::MoveTPlat, "Grotte.MoveTPlat");
+        grotteActions.Move[OBJECT.TPLAT.ordinal()] = MoveTPlat_ref;
         grotteActions.speed[OBJECT.TPLAT.ordinal()] = 15;
-        grotteActions.Move[OBJECT.NID.ordinal()] = Runtime.proc(this::Nid, "Grotte.Nid");
+        grotteActions.Move[OBJECT.NID.ordinal()] = Nid_ref;
         grotteActions.speed[OBJECT.NID.ordinal()] = 64;
         grotteActions.dispt[OBJECT.NID.ordinal()] = 40;
         grotteActions.aiept[OBJECT.NID.ordinal()] = 7;
-        grotteActions.Move[OBJECT.BUB.ordinal()] = Runtime.proc(this::Bub, "Grotte.Bub");
+        grotteActions.Move[OBJECT.BUB.ordinal()] = Bub_ref;
         grotteActions.speed[OBJECT.BUB.ordinal()] = 64;
         grotteActions.dispt[OBJECT.BUB.ordinal()] = 30;
         grotteActions.aiept[OBJECT.BUB.ordinal()] = 5;
-        grotteActions.Move[OBJECT.BN.ordinal()] = Runtime.proc(this::ChuteBonus, "Grotte.ChuteBonus");
+        grotteActions.Move[OBJECT.BN.ordinal()] = ChuteBonus_ref;
         grotteActions.speed[OBJECT.BN.ordinal()] = 17;
         grotteActions.dispt[OBJECT.BN.ordinal()] = 50;
-        grotteActions.Move[OBJECT.DL.ordinal()] = Runtime.proc(this::CheckDl, "Grotte.CheckDl");
+        grotteActions.Move[OBJECT.DL.ordinal()] = CheckDl_ref;
         grotteActions.speed[OBJECT.DL.ordinal()] = 15;
-        grotteActions.Move[OBJECT.BM.ordinal()] = Runtime.proc(this::EraseBoum, "Grotte.EraseBoum");
+        grotteActions.Move[OBJECT.BM.ordinal()] = EraseBoum_ref;
         grotteActions.speed[OBJECT.BM.ordinal()] = 5;
         grotteSupport.followscore = 1000;
         grotteSupport.pvie = 5;

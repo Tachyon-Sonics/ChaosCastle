@@ -6,6 +6,7 @@ import ch.chaos.library.Files;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Registration;
 import ch.pitchtech.modula.runtime.Runtime;
+import java.lang.Runnable;
 import java.util.EnumSet;
 
 
@@ -1578,6 +1579,8 @@ public class ChaosBase {
         dialogs.DeepFreeGadget(new Runtime.FieldRef<>(this::getD, this::setD));
     }
 
+    private final Runnable Close_ref = this::Close;
+
 
     // Support
 
@@ -1594,7 +1597,7 @@ public class ChaosBase {
     public void begin() {
         password = false;
         InitLists();
-        checks.AddTermProc(Runtime.proc(this::Close, "ChaosBase.Close"));
+        checks.AddTermProc(Close_ref);
     }
 
     public void close() {

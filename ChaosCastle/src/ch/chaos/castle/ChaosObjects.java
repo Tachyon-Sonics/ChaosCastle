@@ -113,6 +113,8 @@ public class ChaosObjects {
         return (short) (trigo.RND() % mod);
     }
 
+    public final RandomProc Rnd_ref = this::Rnd;
+
     public short ExpRandom(short range) {
         // VAR
         short cnt = 0;
@@ -123,6 +125,8 @@ public class ChaosObjects {
         }
         return Rnd(cnt);
     }
+
+    public final RandomProc ExpRandom_ref = this::ExpRandom;
 
     public void Set(short x, short y) {
         chaosGraphics.castle[y][x] = ChaosGraphics.NbBackground;
@@ -198,13 +202,19 @@ public class ChaosObjects {
         return true;
     }
 
+    public final FilterProc All_ref = this::All;
+
     public boolean OnlyBackground(short px, short py) {
         return Get(px, py) < ChaosGraphics.NbClear;
     }
 
+    public final FilterProc OnlyBackground_ref = this::OnlyBackground;
+
     public boolean OnlyWall(short px, short py) {
         return Get(px, py) >= ChaosGraphics.NbBackground;
     }
+
+    public final FilterProc OnlyWall_ref = this::OnlyWall;
 
     public void SetOnlyValue(short val) {
         onlyValue = val;
@@ -318,6 +328,8 @@ public class ChaosObjects {
         }
     }
 
+    public final FillObj_PutObjProc PutBlockObj_ref = this::PutBlockObj;
+
     public void PutFineObj(Anims kind, short subKind, int stat, short px, short py, short dx, short dy) {
         // VAR
         short x = 0;
@@ -335,6 +347,8 @@ public class ChaosObjects {
         PutFineObj(kind, subKind, stat, px, py, (short) 1, (short) 0);
         PutFineObj(kind, subKind, stat, px, py, (short) 1, (short) 1);
     }
+
+    public final FillObj_PutObjProc Put4Objs_ref = this::Put4Objs;
 
     public void PutRandomObjs(Anims kind, short subKind, int stat, int count) {
         // VAR
@@ -521,9 +535,9 @@ public class ChaosObjects {
         short y = 0;
 
         if (fine)
-            PutIt = Runtime.proc(this::Put4Objs, "ChaosObjects.Put4Objs");
+            PutIt = Put4Objs_ref;
         else
-            PutIt = Runtime.proc(this::PutBlockObj, "ChaosObjects.PutBlockObj");
+            PutIt = PutBlockObj_ref;
         for (y = sy; y <= ey; y++) {
             for (x = sx; x <= ex; x++) {
                 PutIt.invoke(kind, subKind, stat, x, y);

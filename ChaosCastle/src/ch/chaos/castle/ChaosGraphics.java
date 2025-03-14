@@ -5,6 +5,7 @@ import ch.chaos.library.Graphics;
 import ch.chaos.library.Graphics.GraphicsErr;
 import ch.chaos.library.Memory;
 import ch.pitchtech.modula.runtime.Runtime;
+import java.lang.Runnable;
 
 
 public class ChaosGraphics {
@@ -1344,51 +1345,63 @@ public class ChaosGraphics {
         return s;
     }
 
+    private final AdjustProc FastS_ref = this::FastS;
+
     private short MultS(short s) {
         return (short) (s * mulS);
     }
+
+    private final AdjustProc MultS_ref = this::MultS;
 
     private short FastX(short x) {
         return (short) (x + OX);
     }
 
+    private final AdjustProc FastX_ref = this::FastX;
+
     private short FastY(short y) {
         return (short) (y + OY);
     }
+
+    private final AdjustProc FastY_ref = this::FastY;
 
     private short MultX(short x) {
         return (short) (x * mulS + OX);
     }
 
+    private final AdjustProc MultX_ref = this::MultX;
+
     private short MultY(short y) {
         return (short) (y * mulS + OY);
     }
+
+    private final AdjustProc MultY_ref = this::MultY;
 
     public void SetOrigin(short ox, short oy) {
         OX = (short) (ox * mulS);
         OY = (short) (oy * mulS);
         if (mulS == 1) {
-            W = Runtime.proc(this::FastS, "ChaosGraphics.FastS");
-            H = Runtime.proc(this::FastS, "ChaosGraphics.FastS");
+            W = FastS_ref;
+            H = FastS_ref;
             if (OX == 0)
-                X = Runtime.proc(this::FastS, "ChaosGraphics.FastS");
+                X = FastS_ref;
             else
-                X = Runtime.proc(this::FastX, "ChaosGraphics.FastX");
+                X = FastX_ref;
             if (OY == 0)
-                Y = Runtime.proc(this::FastS, "ChaosGraphics.FastS");
+                Y = FastS_ref;
             else
-                Y = Runtime.proc(this::FastY, "ChaosGraphics.FastY");
+                Y = FastY_ref;
         } else {
-            W = Runtime.proc(this::MultS, "ChaosGraphics.MultS");
-            H = Runtime.proc(this::MultS, "ChaosGraphics.MultS");
+            W = MultS_ref;
+            H = MultS_ref;
             if (OX == 0)
-                X = Runtime.proc(this::MultS, "ChaosGraphics.MultS");
+                X = MultS_ref;
             else
-                X = Runtime.proc(this::MultX, "ChaosGraphics.MultX");
+                X = MultX_ref;
             if (OY == 0)
-                Y = Runtime.proc(this::MultS, "ChaosGraphics.MultS");
+                Y = MultS_ref;
             else
-                Y = Runtime.proc(this::MultY, "ChaosGraphics.MultY");
+                Y = MultY_ref;
         }
     }
 
@@ -1397,6 +1410,8 @@ public class ChaosGraphics {
         memory.FreeMem(new Runtime.FieldRef<>(this::getDual, this::setDual).asAdrRef());
         memory.FreeMem(new Runtime.FieldRef<>(this::getCastle, this::setCastle).asAdrRef());
     }
+
+    private final Runnable Close_ref = this::Close;
 
     private void InitColors() {
         // VAR
@@ -1463,7 +1478,7 @@ public class ChaosGraphics {
         dualpf = false;
         castle = null;
         dual = null;
-        checks.AddTermProc(Runtime.proc(this::Close, "ChaosGraphics.Close"));
+        checks.AddTermProc(Close_ref);
         castle = (short[][]) memory.AllocMem(Runtime.sizeOf(32512, short[][].class, 127, 128));
         checks.CheckMem(castle);
         dual = (short[][]) memory.AllocMem(Runtime.sizeOf(8192, short[][].class, 64, 64));

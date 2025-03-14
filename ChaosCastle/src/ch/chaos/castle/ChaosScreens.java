@@ -15,6 +15,7 @@ import ch.chaos.library.Memory;
 import ch.chaos.library.Registration;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
+import java.lang.Runnable;
 import java.util.EnumSet;
 
 
@@ -450,6 +451,8 @@ public class ChaosScreens {
         UpdateScreen();
     }
 
+    private final Runnable DrawStartScreen_ref = this::DrawStartScreen;
+
     private void RefreshPlay() {
         graphics.SetArea(chaosGraphics.mainArea);
         graphics.SetBuffer(true, true);
@@ -458,6 +461,8 @@ public class ChaosScreens {
         graphics.UpdateArea();
         graphics.SetBuffer(true, false);
     }
+
+    private final Runnable RefreshPlay_ref = this::RefreshPlay;
 
     private Runtime.IRef<String> GetChaosName(short level) {
         // VAR
@@ -670,6 +675,8 @@ public class ChaosScreens {
         UpdateScreen();
     }
 
+    private final Runnable DrawMakingScreen_ref = this::DrawMakingScreen;
+
     public void MakingScreen() {
         if ((chaosBase.score > 2000) && !registration.registered)
             checks.Terminate();
@@ -677,7 +684,7 @@ public class ChaosScreens {
         chaosActions.FadeOut();
         DrawMakingScreen();
         chaosActions.FadeIn();
-        chaosInterface.Refresh = Runtime.proc(this::DrawMakingScreen, "ChaosScreens.DrawMakingScreen");
+        chaosInterface.Refresh = DrawMakingScreen_ref;
         chaosLevels.MakeCastle();
         gameMade = true;
         chaosBase.gameStat = GameStat.Playing;
@@ -685,7 +692,7 @@ public class ChaosScreens {
         chaosInterface.EnableFileMenus();
         WaitStart();
         graphics.SetPen(0);
-        chaosInterface.Refresh = Runtime.proc(this::RefreshPlay, "ChaosScreens.RefreshPlay");
+        chaosInterface.Refresh = RefreshPlay_ref;
         if (chaosBase.gameStat != GameStat.Playing)
             return;
         graphics.SetBuffer(true, true);
@@ -1094,6 +1101,8 @@ public class ChaosScreens {
         UpdateScreen();
     }
 
+    private final Runnable DrawShopScreen_ref = this::DrawShopScreen;
+
     public void ShopScreen() {
         // VAR
         Runtime.RangeSet joy = new Runtime.RangeSet(Memory.SET16_r); /* WRT */
@@ -1118,7 +1127,7 @@ public class ChaosScreens {
         chaosActions.FadeOut();
         DrawShopScreen();
         chaosActions.FadeIn();
-        chaosInterface.Refresh = Runtime.proc(this::DrawShopScreen, "ChaosScreens.DrawShopScreen");
+        chaosInterface.Refresh = DrawShopScreen_ref;
         UpdateScreen();
         graphics.SetBuffer(true, true);
         chaosInterface.EnableFileMenus();
@@ -1314,7 +1323,7 @@ public class ChaosScreens {
         } while (input.GetStick().equals(new Runtime.RangeSet(Memory.SET16_r)));
         if (chaosGraphics.color)
             chaosActions.FadeFrom((short) red, (short) 152, (short) 0);
-        chaosInterface.Refresh = Runtime.proc(this::DrawStatistics, "ChaosScreens.DrawStatistics");
+        chaosInterface.Refresh = DrawStatistics_ref;
         DrawStatistics();
     }
 
@@ -1458,12 +1467,14 @@ public class ChaosScreens {
             DrawStatistics_Push("> Nightmare <", cnt);
         }
         p1 = 2;
-        if (((chaosBase.stages == 0) || chaosBase.password) && (chaosInterface.Refresh != Runtime.proc((Runnable) this::DrawStatistics, "ChaosScreens.DrawStatistics")))
+        if (((chaosBase.stages == 0) || chaosBase.password) && (chaosInterface.Refresh != DrawStatistics_ref))
             DrawStatistics_ShowDecor();
         ResetGraphics();
         TripleCenter((short) ChaosGraphics.PW, (short) 230, Runtime.castToRef(languages.ADL("Press [SPACE] to continue"), String.class));
         UpdateScreen();
     }
+
+    private final Runnable DrawStatistics_ref = this::DrawStatistics;
 
     public void StatisticScreen() {
         // VAR
@@ -1475,7 +1486,7 @@ public class ChaosScreens {
         input.SetBusyStat((short) Input.statBusy);
         if ((chaosBase.zone == Zone.Castle) || (chaosBase.zone == Zone.Special)) {
             DrawStatistics();
-            chaosInterface.Refresh = Runtime.proc(this::DrawStatistics, "ChaosScreens.DrawStatistics");
+            chaosInterface.Refresh = DrawStatistics_ref;
             WaitStart();
         }
         chaosActions.FadeOut();
@@ -1523,6 +1534,8 @@ public class ChaosScreens {
         }
         UpdateScreen();
     }
+
+    private final Runnable DrawEndScreen_ref = this::DrawEndScreen;
 
     private void UpdateTopScore(/* var */ ChaosInterface.TopScore topScore, int c, int s, int n) {
         // VAR
@@ -1670,6 +1683,8 @@ public class ChaosScreens {
         UpdateTopScores();
     }
 
+    private final Runnable DrawTopScores_ref = this::DrawTopScores;
+
     private void TopScoreWait() {
         // VAR
         Input.Event event = new Input.Event(); /* WRT */
@@ -1699,7 +1714,7 @@ public class ChaosScreens {
         graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) ChaosGraphics.SW), chaosGraphics.H.invoke((short) ChaosGraphics.SH));
         chaosImages.InitPalette();
         DrawStartScreen();
-        chaosInterface.Refresh = Runtime.proc(this::DrawStartScreen, "ChaosScreens.DrawStartScreen");
+        chaosInterface.Refresh = DrawStartScreen_ref;
         chaosInterface.EnableFileMenus();
         chaosBase.gameSeed = clock.GetNewSeed();
         sl = 1;
@@ -1710,14 +1725,14 @@ public class ChaosScreens {
                 break;
             chaosActions.FadeOut();
             chaosInterface.ReadTopScoreList(topScores);
-            chaosInterface.Refresh = Runtime.proc(this::DrawTopScores, "ChaosScreens.DrawTopScores");
+            chaosInterface.Refresh = DrawTopScores_ref;
             chaosInterface.Refresh.run();
             chaosActions.FadeIn();
             TopScoreWait();
             if (chaosBase.gameStat == GameStat.Break)
                 break;
             chaosActions.FadeOut();
-            chaosInterface.Refresh = Runtime.proc(this::DrawStartScreen, "ChaosScreens.DrawStartScreen");
+            chaosInterface.Refresh = DrawStartScreen_ref;
             chaosInterface.Refresh.run();
         }
         chaosInterface.DisableFileMenus();
@@ -1794,7 +1809,7 @@ public class ChaosScreens {
             }
         }
         DrawTopScores();
-        chaosInterface.Refresh = Runtime.proc(this::DrawTopScores, "ChaosScreens.DrawTopScores");
+        chaosInterface.Refresh = DrawTopScores_ref;
         WaitRelease();
         if (n <= 10) {
             if (EditTopScore(topScores[n - 1], n)) {
@@ -1819,7 +1834,7 @@ public class ChaosScreens {
         chaosBase.password = false;
         if (chaosBase.gameStat == GameStat.Break)
             return;
-        chaosInterface.Refresh = Runtime.proc(this::DrawEndScreen, "ChaosScreens.DrawEndScreen");
+        chaosInterface.Refresh = DrawEndScreen_ref;
         chaosBase.gameStat = GameStat.Start;
         DrawEndScreen();
         chaosActions.FadeIn();

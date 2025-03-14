@@ -8,6 +8,7 @@ import ch.chaos.library.Memory;
 import ch.chaos.library.Sounds;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
+import java.lang.Runnable;
 import java.util.EnumSet;
 
 
@@ -711,6 +712,8 @@ public class GrotteSounds {
         }
     }
 
+    public final Runnable FlushSounds_ref = this::FlushSounds;
+
     private short BestChan(Object w, short volume, short stereo) {
         // VAR
         short bc = 0;
@@ -1058,7 +1061,7 @@ public class GrotteSounds {
 
     public void begin() {
         Init();
-        checks.AddTermProc(Runtime.proc(this::FlushSounds, "GrotteSounds.FlushSounds"));
+        checks.AddTermProc(FlushSounds_ref);
         InitSounds();
     }
 
