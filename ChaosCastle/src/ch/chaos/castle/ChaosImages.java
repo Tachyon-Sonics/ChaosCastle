@@ -1,8 +1,21 @@
 package ch.chaos.castle;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
+
+import org.apache.batik.dom.GenericDOMImplementation;
+import org.apache.batik.svggen.SVGGraphics2D;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
 
 import ch.chaos.castle.ChaosBase.Zone;
+import ch.chaos.castle.ChaosGraphics.Palette;
 import ch.chaos.library.Checks;
 import ch.chaos.library.Dialogs;
 import ch.chaos.library.Files;
@@ -667,7 +680,8 @@ public class ChaosImages {
         graphics.SetCopyMode(cm);
     }
 
-    private void RenderObjects_XFillPoly(short[] xvect, short[] yvect, boolean[] xdec, boolean[] ydec, /* VAR */ Runtime.IRef<Integer> cnt, short lightColor, short darkColor, short bpen, short pat, EnumSet<Modes> cm, /* VAR */ Runtime.IRef<Boolean> triColor) {
+    private void RenderObjects_XFillPoly(short[] xvect, short[] yvect, boolean[] xdec, boolean[] ydec, /* VAR */ Runtime.IRef<Integer> cnt, short lightColor,
+            short darkColor, short bpen, short pat, EnumSet<Modes> cm, /* VAR */ Runtime.IRef<Boolean> triColor) {
         // VAR
         short i = 0;
         int c = 0;
@@ -778,6 +792,22 @@ public class ChaosImages {
         size.set((long) files.FileLength(chaosBase.file));
         tofill.set(200);
         total = size.get();
+        
+        // Get a DOMImplementation.
+        DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
+        
+        // Create an instance of org.w3c.dom.Document.
+        String svgNS = "http://www.w3.org/2000/svg";
+        Document document = domImpl.createDocument(svgNS, "svg", null);
+
+        // Create an instance of the SVG Generator.
+        SVGGraphics2D svgGenerator = new SVGGraphics2D(document);
+        svgGenerator.setSVGCanvasSize(new Dimension(16, 16));
+        svgGenerator.setColor(new Color(0, 0, 0, 0));
+        svgGenerator.fillRect(0, 0, 16, 16); // TODO (0) better center the resulting image
+        
+        List<int[]> curPoly = new ArrayList<>();
+        
         while (size.get() > 0) {
             RenderObjects_GetChar(ch, progress, size, total, bRead, tofill);
             if (ch.get() >= ((char) 0200)) {
@@ -804,6 +834,10 @@ public class ChaosImages {
                         graphics.SetPen(col.get());
                     else
                         graphics.SetPat(p.get());
+                    
+                    // SVG
+                    Palette pal = chaosGraphics.palette[col.get()];
+                    svgGenerator.setColor(new Color(pal.red, pal.green, pal.blue));
                 }
                 case 'P' -> {
                     RenderObjects_GetVal(pat, progress, size, total, bRead, tofill);
@@ -909,8 +943,56 @@ public class ChaosImages {
                     xvect[cnt.get()] = x1.get();
                     yvect[cnt.get()] = y1.get();
                     cnt.inc();
+                    
+                    // SVG
+                    int[] pts = new int[] {x1.get(), y1.get()};
+                    curPoly.add(pts);
                 }
                 case 'F' -> {
+                    // SVG
+                    if (triColor.get()) {
+                        Color mainColor = svgGenerator.getColor();
+                        
+                        Palette pal = chaosGraphics.palette[lightColor.get()];
+                        svgGenerator.setColor(new Color(pal.red, pal.green, pal.blue));
+                        curPoly.clear();
+                        for (c = 0; c < cnt.get(); c++) {
+                            int[] pts = new int[] {xvect[c], yvect[c]};
+                            curPoly.add(pts);
+                            if (!xdec[c])
+                                xvect[c]++;
+                            if (!ydec[c])
+                                yvect[c]++;
+                        }
+                        fillSvgPoly(svgGenerator, curPoly);
+                        
+                        pal = chaosGraphics.palette[darkColor.get()];
+                        svgGenerator.setColor(new Color(pal.red, pal.green, pal.blue));
+                        curPoly.clear();
+                        for (c = 0; c < cnt.get(); c++) {
+                            int[] pts = new int[] {xvect[c], yvect[c]};
+                            curPoly.add(pts);
+                            if (xdec[c])
+                                xvect[c]--;
+                            if (ydec[c])
+                                yvect[c]--;
+                        }
+                        fillSvgPoly(svgGenerator, curPoly);
+                        
+                        svgGenerator.setColor(mainColor);
+                        curPoly.clear();
+                        for (c = 0; c < cnt.get(); c++) {
+                            int[] pts = new int[] {xvect[c], yvect[c]};
+                            curPoly.add(pts);
+                        }
+                        fillSvgPoly(svgGenerator, curPoly);
+                        
+                        curPoly.clear();
+                    } else {
+                        fillSvgPoly(svgGenerator, curPoly);
+                        curPoly.clear();
+                    }
+
                     graphics.SetArea(chaosGraphics.maskArea);
                     graphics.FillPoly();
                     if (triColor.get()) {
@@ -948,12 +1030,38 @@ public class ChaosImages {
         graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) 256), chaosGraphics.H.invoke((short) 256));
         dialogs.DeepFreeGadget(new Runtime.FieldRef<>(chaosBase::getD, chaosBase::setD));
         
-//        SetRGBIcePalette();
-//        graphics.SetArea(chaosGraphics.mainArea);
-//        graphics.CopyRect(chaosGraphics.imageArea, (short) 0, (short) 20, (short) 0, (short) 0, (short) 256, (short) 256);
-//        graphics.SwitchArea();
-//        
-//        System.out.println();
+        // Finally, stream out SVG to the standard output using
+        // UTF-8 encoding.
+        boolean useCSS = true; // we want to use CSS style attributes
+        try {
+            Writer out = new OutputStreamWriter(System.out, "UTF-8");
+            svgGenerator.stream(out, useCSS);
+        } catch (IOException ex2) {
+            ex2.printStackTrace();
+        }
+
+        
+        SetRGBIcePalette();
+        graphics.SetArea(chaosGraphics.mainArea);
+        graphics.CopyRect(chaosGraphics.shapeArea, (short) 0, (short) 0, (short) 0, (short) 0, (short) 256, (short) 256);
+        graphics.SwitchArea();
+        
+        System.out.println();
+    }
+
+    void fillSvgPoly(SVGGraphics2D svgGenerator, List<int[]> curPoly) {
+        int[] xpts = new int[curPoly.size()];
+        int[] ypts = new int[curPoly.size()];
+        boolean inRange = true;
+        for (int i = 0; i < curPoly.size(); i++) {
+            xpts[i] = curPoly.get(i)[0];
+            ypts[i] = curPoly.get(i)[1];
+            if (xpts[i] > 16 || ypts[i] > 16)
+                inRange = false;
+        }
+        if (inRange) {
+            svgGenerator.fillPolygon(xpts, ypts, xpts.length);
+        }
     }
 
     public void InitPalette() {
