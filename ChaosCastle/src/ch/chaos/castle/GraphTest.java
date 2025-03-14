@@ -2,15 +2,8 @@ package ch.chaos.castle;
 
 import java.util.EnumSet;
 
-import ch.chaos.library.Checks;
-import ch.chaos.library.Clock;
-import ch.chaos.library.Dialogs;
-import ch.chaos.library.Graphics;
+import ch.chaos.library.*;
 import ch.chaos.library.Graphics.Modes;
-import ch.chaos.library.Input;
-import ch.chaos.library.Memory;
-import ch.chaos.library.Menus;
-import ch.chaos.library.Terminal;
 import ch.pitchtech.modula.runtime.HaltException;
 import ch.pitchtech.modula.runtime.Runtime;
 

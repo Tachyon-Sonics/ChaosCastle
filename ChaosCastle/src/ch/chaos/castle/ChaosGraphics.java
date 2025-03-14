@@ -1,11 +1,12 @@
 package ch.chaos.castle;
 
+import java.lang.Runnable;
+
 import ch.chaos.library.Checks;
 import ch.chaos.library.Graphics;
 import ch.chaos.library.Graphics.GraphicsErr;
 import ch.chaos.library.Memory;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.lang.Runnable;
 
 
 public class ChaosGraphics {

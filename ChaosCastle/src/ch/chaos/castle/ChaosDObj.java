@@ -1,5 +1,7 @@
 package ch.chaos.castle;
 
+import java.util.EnumSet;
+
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosBase.BasicTypes;
 import ch.chaos.castle.ChaosBase.ObjFlags;
@@ -10,7 +12,6 @@ import ch.chaos.library.Checks;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.util.EnumSet;
 
 
 public class ChaosDObj {

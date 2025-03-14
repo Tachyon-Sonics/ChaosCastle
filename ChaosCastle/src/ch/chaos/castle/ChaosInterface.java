@@ -1,5 +1,8 @@
 package ch.chaos.castle;
 
+import java.lang.Runnable;
+import java.util.EnumSet;
+
 import ch.chaos.castle.ChaosBase.GameStat;
 import ch.chaos.castle.ChaosBase.Weapon;
 import ch.chaos.castle.ChaosBase.Zone;
@@ -18,8 +21,6 @@ import ch.chaos.library.Menus;
 import ch.chaos.library.Registration;
 import ch.chaos.library.Sounds;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.lang.Runnable;
-import java.util.EnumSet;
 
 
 public class ChaosInterface {

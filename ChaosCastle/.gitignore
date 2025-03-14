@@ -2,3 +2,9 @@
 /Decors_Decompressed.txt
 /ChaosCastle.jar
 /Grotte.jar
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
