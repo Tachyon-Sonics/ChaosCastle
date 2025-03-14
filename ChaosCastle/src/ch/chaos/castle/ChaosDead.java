@@ -36,6 +36,8 @@ public class ChaosDead {
             d.width = 0;
     }
 
+    private final ChaosBase.MakeProc MakeDead_ref = this::MakeDead;
+
     private void MoveDead(ChaosBase.Obj d) {
         // VAR
         short py = 0;
@@ -66,14 +68,16 @@ public class ChaosDead {
         }
     }
 
+    private final ChaosBase.MoveProc MoveDead_ref = this::MoveDead;
+
     private void InitParams() {
         // VAR
         ChaosBase.ObjAttr attr = null;
 
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Move = Runtime.proc(this::MoveDead, "ChaosDead.MoveDead");
-        attr.Make = Runtime.proc(this::MakeDead, "ChaosDead.MakeDead");
+        attr.Move = MoveDead_ref;
+        attr.Make = MakeDead_ref;
         attr.basicType = BasicTypes.NotBase;
         attr.priority = 100;
         attr.toKill = true;

@@ -217,8 +217,8 @@ public class ChaosLevels {
             }
             default -> throw new RuntimeException("Unhandled CASE value " + rnd);
         }
-        chaosObjects.FillCond((short) 0, (short) 0, (short) (width - 1), (short) (height - 1), Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), wall);
-        chaosObjects.FillCond((short) 1, (short) 1, (short) (width - 2), (short) (height - 2), Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), back);
+        chaosObjects.FillCond((short) 0, (short) 0, (short) (width - 1), (short) (height - 1), chaosObjects.OnlyWall_ref, wall);
+        chaosObjects.FillCond((short) 1, (short) 1, (short) (width - 2), (short) (height - 2), chaosObjects.OnlyBackground_ref, back);
         for (c = 1; c <= 2; c++) {
             x.set(chaosObjects.Rnd((short) (width - 10)));
             y.set(chaosObjects.Rnd((short) (height - 10)));
@@ -280,7 +280,7 @@ public class ChaosLevels {
         }
         chaosObjects.PutPlayer((short) 27, (short) 0);
         chaosObjects.PutExit((short) 32, (short) 0);
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) 59, (short) 59, (short) Forest1, (short) Forest7, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), Runtime.proc(chaosObjects::Rnd, "ChaosObjects.Rnd"));
+        chaosObjects.FillRandom((short) 0, (short) 0, (short) 59, (short) 59, (short) Forest1, (short) Forest7, chaosObjects.OnlyWall_ref, chaosObjects.Rnd_ref);
         for (c = 1; c <= trigo.RND() % 8 + 5; c++) {
             val = (short) (trigo.RND() % 4 + Leaf1);
             chaosGenerator.PutCross((short) 1, (short) 1, (short) 58, (short) 58, val);
@@ -302,7 +302,7 @@ public class ChaosLevels {
                 chaosGenerator.MakeLink(x.get(), y.get(), sz, angle.get(), (short) 0);
             }
         }
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 59, (short) 59, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), (short) Ground2);
+        chaosObjects.FillCond((short) 0, (short) 0, (short) 59, (short) 59, chaosObjects.OnlyBackground_ref, (short) Ground2);
         for (c = 1; c <= 3; c++) {
             if (chaosGenerator.FindIsolatedRect((short) 1, (short) 1, (short) 58, (short) 58, (short) 1, (short) 0, angle, x, y, false))
                 chaosObjects.FillObj(Anims.ALIEN1, (short) ChaosAlien.aCartoon, trigo.RND() % 2 + 1, (short) (x.get() - 1), (short) (y.get() - 1), (short) (x.get() + 1), (short) (y.get() + 1), true);
@@ -364,10 +364,10 @@ public class ChaosLevels {
             lx = x.get();
             ly = y.get();
         }
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 126, (short) 126, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Leaf1, (short) 255);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 126, (short) 126, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Leaf2, (short) 255);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 126, (short) 126, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Leaf3, (short) 255);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 126, (short) 126, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Fact2Block, (short) 50);
+        chaosObjects.PutRandom((short) 0, (short) 0, (short) 126, (short) 126, chaosObjects.OnlyWall_ref, (short) Leaf1, (short) 255);
+        chaosObjects.PutRandom((short) 0, (short) 0, (short) 126, (short) 126, chaosObjects.OnlyWall_ref, (short) Leaf2, (short) 255);
+        chaosObjects.PutRandom((short) 0, (short) 0, (short) 126, (short) 126, chaosObjects.OnlyWall_ref, (short) Leaf3, (short) 255);
+        chaosObjects.PutRandom((short) 0, (short) 0, (short) 126, (short) 126, chaosObjects.OnlyWall_ref, (short) Fact2Block, (short) 50);
         chaosObjects.PutPlayer((short) 100, (short) 63);
         chaosObjects.PutBlockBonus(ChaosBonus.tbSleeper, (short) 100, (short) 63);
         chaosObjects.PutExit((short) 102, (short) 63);
@@ -473,7 +473,7 @@ public class ChaosLevels {
         chaosObjects.PutPlayer((short) 1, (short) 16);
         chaosObjects.PutBlockBonus(ChaosBonus.tbInvinsibility, (short) 1, (short) 16);
         chaosObjects.PutExit(px.get(), py.get());
-        chaosObjects.FillRandom((short) 1, (short) 1, (short) 118, (short) 36, (short) Forest1, (short) Forest7, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), Runtime.proc(chaosObjects::Rnd, "ChaosObjects.Rnd"));
+        chaosObjects.FillRandom((short) 1, (short) 1, (short) 118, (short) 36, (short) Forest1, (short) Forest7, chaosObjects.OnlyWall_ref, chaosObjects.Rnd_ref);
         chaosObjects.Rect((short) 1, (short) 1, (short) 118, (short) 31);
         for (c = 0; c <= trigo.RND() % 24 + 8; c++) {
             if (chaosObjects.FindIsolatedPlace(0, px, py)) {
@@ -525,9 +525,9 @@ public class ChaosLevels {
             }
         }
         if (chaosGraphics.dualpf)
-            chaosObjects.FillCond((short) 1, (short) 1, (short) 39, (short) 39, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), (short) BackNone);
+            chaosObjects.FillCond((short) 1, (short) 1, (short) 39, (short) 39, chaosObjects.OnlyBackground_ref, (short) BackNone);
         else
-            chaosObjects.FillRandom((short) 1, (short) 1, (short) 39, (short) 39, (short) 0, (short) 7, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), Runtime.proc(chaosObjects::Rnd, "ChaosObjects.Rnd"));
+            chaosObjects.FillRandom((short) 1, (short) 1, (short) 39, (short) 39, (short) 0, (short) 7, chaosObjects.OnlyBackground_ref, chaosObjects.Rnd_ref);
         chaosObjects.Fill((short) 20, (short) 1, (short) 20, (short) 39, (short) Ice);
         chaosObjects.PutPlayer((short) 20, (short) 22);
         chaosObjects.PutExit((short) 20, (short) 30);
@@ -568,11 +568,13 @@ public class ChaosLevels {
             return val2;
     }
 
+    private final ChaosObjects.ChooseProc CheckerBoard_ref = this::CheckerBoard;
+
     private void Brother() {
         chaosObjects.Cadre((short) 21, (short) 21);
         val1 = FSmall1;
         val2 = FSmall2;
-        chaosObjects.FillChoose((short) 0, (short) 0, (short) 20, (short) 20, Runtime.proc(chaosObjects::All, "ChaosObjects.All"), Runtime.proc(this::CheckerBoard, "ChaosLevels.CheckerBoard"));
+        chaosObjects.FillChoose((short) 0, (short) 0, (short) 20, (short) 20, chaosObjects.All_ref, CheckerBoard_ref);
         chaosObjects.Fill((short) 7, (short) 1, (short) 13, (short) 19, (short) 11);
         chaosObjects.Fill((short) 1, (short) 7, (short) 19, (short) 13, (short) 11);
         chaosObjects.PutPlayer((short) 7, (short) 19);
@@ -585,11 +587,11 @@ public class ChaosLevels {
         chaosBase.water = true;
         val1 = FSmall1;
         val2 = FSmall2;
-        chaosObjects.FillChoose((short) 0, (short) 0, (short) 15, (short) 23, Runtime.proc(chaosObjects::All, "ChaosObjects.All"), Runtime.proc(this::CheckerBoard, "ChaosLevels.CheckerBoard"));
+        chaosObjects.FillChoose((short) 0, (short) 0, (short) 15, (short) 23, chaosObjects.All_ref, CheckerBoard_ref);
         chaosObjects.Fill((short) 1, (short) 1, (short) 14, (short) 22, (short) Light);
         val1 = FBig1;
         val2 = FBig2;
-        chaosObjects.FillChoose((short) 7, (short) 10, (short) 8, (short) 13, Runtime.proc(chaosObjects::All, "ChaosObjects.All"), Runtime.proc(this::CheckerBoard, "ChaosLevels.CheckerBoard"));
+        chaosObjects.FillChoose((short) 7, (short) 10, (short) 8, (short) 13, chaosObjects.All_ref, CheckerBoard_ref);
         chaosObjects.PutObj(Anims.DEADOBJ, (short) ChaosDObj.doBubbleMaker, 0, (short) (ChaosGraphics.BW * 8), (short) (ChaosGraphics.BH * 9));
         chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bSisterAlien, 0, (short) 9, (short) 14);
         chaosObjects.PutPlayer((short) 6, (short) 22);
@@ -615,7 +617,7 @@ public class ChaosLevels {
                 }
             }
         } else {
-            chaosObjects.FillRandom((short) 0, (short) 0, (short) 10, (short) 10, (short) 0, (short) 7, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), Runtime.proc(chaosObjects::ExpRandom, "ChaosObjects.ExpRandom"));
+            chaosObjects.FillRandom((short) 0, (short) 0, (short) 10, (short) 10, (short) 0, (short) 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
         }
         chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMotherAlien, 0, (short) 5, (short) 3);
         chaosObjects.PutPlayer((short) 5, (short) 7);
@@ -628,7 +630,7 @@ public class ChaosLevels {
         chaosObjects.Clear((short) 11, (short) 13);
         val1 = FRound;
         val2 = FStar;
-        chaosObjects.FillChoose((short) 0, (short) 0, (short) 10, (short) 12, Runtime.proc(chaosObjects::All, "ChaosObjects.All"), Runtime.proc(this::CheckerBoard, "ChaosLevels.CheckerBoard"));
+        chaosObjects.FillChoose((short) 0, (short) 0, (short) 10, (short) 12, chaosObjects.All_ref, CheckerBoard_ref);
         chaosObjects.Fill((short) 1, (short) 3, (short) 9, (short) 11, (short) Back2x2);
         chaosObjects.Fill((short) 4, (short) 1, (short) 6, (short) 2, (short) BackSmall);
         chaosObjects.Put((short) 5, (short) 0, (short) BackSmall);
@@ -663,7 +665,7 @@ public class ChaosLevels {
                 chaosGenerator.FillEllipse(5 - z, 5 - z, d, d, val);
             }
         } else {
-            chaosObjects.FillRandom((short) 0, (short) 0, (short) 10, (short) 10, (short) 0, (short) 7, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), Runtime.proc(chaosObjects::ExpRandom, "ChaosObjects.ExpRandom"));
+            chaosObjects.FillRandom((short) 0, (short) 0, (short) 10, (short) 10, (short) 0, (short) 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
         }
         chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterEye, 0, (short) 4, (short) 3);
         chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterEye, 1, (short) 6, (short) 3);
@@ -678,14 +680,14 @@ public class ChaosLevels {
 
     private void Illusion() {
         chaosObjects.Cadre((short) 36, (short) 18);
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 35, (short) 17, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), (short) BackBig);
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 35, (short) 17, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) F9x9);
+        chaosObjects.FillCond((short) 0, (short) 0, (short) 35, (short) 17, chaosObjects.OnlyBackground_ref, (short) BackBig);
+        chaosObjects.FillCond((short) 0, (short) 0, (short) 35, (short) 17, chaosObjects.OnlyWall_ref, (short) F9x9);
         val1 = FSmall1;
         val2 = FBig2;
-        chaosObjects.FillChoose((short) 9, (short) 5, (short) 12, (short) 11, Runtime.proc(chaosObjects::All, "ChaosObjects.All"), Runtime.proc(this::CheckerBoard, "ChaosLevels.CheckerBoard"));
+        chaosObjects.FillChoose((short) 9, (short) 5, (short) 12, (short) 11, chaosObjects.All_ref, CheckerBoard_ref);
         val1 = FSmall2;
         val2 = FBig1;
-        chaosObjects.FillChoose((short) 23, (short) 5, (short) 26, (short) 11, Runtime.proc(chaosObjects::All, "ChaosObjects.All"), Runtime.proc(this::CheckerBoard, "ChaosLevels.CheckerBoard"));
+        chaosObjects.FillChoose((short) 23, (short) 5, (short) 26, (short) 11, chaosObjects.All_ref, CheckerBoard_ref);
         chaosObjects.PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doMirror, 1, (short) 15, (short) 7);
         chaosObjects.PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doMirror, 1, (short) 20, (short) 7);
         chaosObjects.PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doMirror, 0, (short) 17, (short) 10);
@@ -727,8 +729,8 @@ public class ChaosLevels {
             val1 = FSmall2;
             val2 = FBig1;
         }
-        chaosObjects.FillChoose((short) 0, (short) 0, (short) 23, (short) 23, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), Runtime.proc(this::CheckerBoard, "ChaosLevels.CheckerBoard"));
-        chaosObjects.FillCond((short) 1, (short) 1, (short) 22, (short) 22, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), (short) Ice);
+        chaosObjects.FillChoose((short) 0, (short) 0, (short) 23, (short) 23, chaosObjects.OnlyWall_ref, CheckerBoard_ref);
+        chaosObjects.FillCond((short) 1, (short) 1, (short) 22, (short) 22, chaosObjects.OnlyBackground_ref, (short) Ice);
         chaosObjects.PutChaosObjs(Anims.DEADOBJ, (short) ChaosDObj.doSand, 0, (short) 0, (short) 0, (short) 735, (short) 735, 10);
         chaosObjects.PutPlayer((short) 1, (short) 22);
         chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bBrotherAlien, 0, (short) 21, (short) 22);
@@ -775,7 +777,7 @@ public class ChaosLevels {
         chaosObjects.Fill((short) 2, (short) 7, (short) 14, (short) 9, (short) BackSmall);
         val1 = FBig1;
         val2 = FBig2;
-        chaosObjects.FillChoose((short) 0, (short) 0, (short) 16, (short) 16, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), Runtime.proc(this::CheckerBoard, "ChaosLevels.CheckerBoard"));
+        chaosObjects.FillChoose((short) 0, (short) 0, (short) 16, (short) 16, chaosObjects.OnlyWall_ref, CheckerBoard_ref);
         chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 6, (short) 6);
         chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 10, (short) 6);
         chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 6, (short) 10);
@@ -812,8 +814,8 @@ public class ChaosLevels {
         chaosObjects.Fill((short) 2, (short) 20, (short) 2, (short) 33, (short) FF9x9);
         chaosObjects.Fill((short) 3, (short) 25, (short) 9, (short) 25, (short) FF9x9);
         chaosObjects.Fill((short) 2, (short) 33, (short) 2, (short) 33, (short) Ground2);
-        chaosObjects.FillCond((short) 0, (short) 40, (short) 18, (short) 58, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) F9x9);
-        chaosObjects.FillCond((short) 0, (short) 40, (short) 18, (short) 58, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), (short) Round4);
+        chaosObjects.FillCond((short) 0, (short) 40, (short) 18, (short) 58, chaosObjects.OnlyWall_ref, (short) F9x9);
+        chaosObjects.FillCond((short) 0, (short) 40, (short) 18, (short) 58, chaosObjects.OnlyBackground_ref, (short) Round4);
         chaosObjects.Fill((short) 4, (short) 44, (short) 6, (short) 46, (short) FBig1);
         chaosObjects.Fill((short) 5, (short) 45, (short) 5, (short) 45, (short) FPanic);
         chaosObjects.Fill((short) 12, (short) 44, (short) 14, (short) 46, (short) FBig2);
@@ -863,7 +865,7 @@ public class ChaosLevels {
         chaosBase.water = (chaosBase.difficulty >= 6) && (chaosBase.level[Zone.Chaos.ordinal()] == 13);
         chaosGraphics.gameWidth = ChaosGraphics.PW;
         chaosGraphics.gameHeight = ChaosGraphics.PH;
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) (ChaosGraphics.SOW - 1), (short) (ChaosGraphics.SOH - 1), (short) 0, (short) 7, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), Runtime.proc(chaosObjects::ExpRandom, "ChaosObjects.ExpRandom"));
+        chaosObjects.FillRandom((short) 0, (short) 0, (short) (ChaosGraphics.SOW - 1), (short) (ChaosGraphics.SOH - 1), (short) 0, (short) 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
         cLevel = chaosBase.level[Zone.Chaos.ordinal()];
         total = 0;
         cnt = -1;

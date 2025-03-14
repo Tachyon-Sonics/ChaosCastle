@@ -1155,6 +1155,8 @@ public class ChaosPlayer {
         chaosBase.mainPlayer = player;
     }
 
+    private final ChaosBase.MakeProc MakePlayer_ref = this::MakePlayer;
+
     private void ResetPlayer(ChaosBase.Obj player) {
         bulletToAdd = 0;
         bombToAdd = 0;
@@ -1167,6 +1169,8 @@ public class ChaosPlayer {
         chaosBase.playerPower = 36;
         MakePlayer(player);
     }
+
+    private final ChaosBase.ResetProc ResetPlayer_ref = this::ResetPlayer;
 
     private void AiePlayer(ChaosBase.Obj player, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         // VAR
@@ -1258,6 +1262,8 @@ public class ChaosPlayer {
             chaosBase.playerPower -= rem;
         }
     }
+
+    private final ChaosBase.AieProc AiePlayer_ref = this::AiePlayer;
 
     public void CheckSelect(/* var */ Input.Event e, /* VAR */ Runtime.RangeSet stick, boolean update) {
         // VAR
@@ -1718,10 +1724,14 @@ public class ChaosPlayer {
         }
     }
 
+    private final ChaosBase.MoveProc MovePlayer0_ref = this::MovePlayer0;
+
     private void DiePlayer(ChaosBase.Obj player) {
         chaosSounds.SoundEffect(player, dieEffects);
         chaosBase.gameStat = GameStat.Gameover;
     }
+
+    private final ChaosBase.DieProc DiePlayer_ref = this::DiePlayer;
 
     private void InitParams() {
         // VAR
@@ -1822,11 +1832,11 @@ public class ChaosPlayer {
         }
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetPlayer, "ChaosPlayer.ResetPlayer");
-        attr.Make = Runtime.proc(this::MakePlayer, "ChaosPlayer.MakePlayer");
-        attr.Move = Runtime.proc(this::MovePlayer0, "ChaosPlayer.MovePlayer0");
-        attr.Aie = Runtime.proc(this::AiePlayer, "ChaosPlayer.AiePlayer");
-        attr.Die = Runtime.proc(this::DiePlayer, "ChaosPlayer.DiePlayer");
+        attr.Reset = ResetPlayer_ref;
+        attr.Make = MakePlayer_ref;
+        attr.Move = MovePlayer0_ref;
+        attr.Aie = AiePlayer_ref;
+        attr.Die = DiePlayer_ref;
         attr.inerty = 128;
         attr.weight = 48;
         attr.charge = 40;

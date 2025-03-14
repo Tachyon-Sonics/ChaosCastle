@@ -18,7 +18,7 @@ import ch.chaos.library.Menus;
 import ch.chaos.library.Registration;
 import ch.chaos.library.Sounds;
 import ch.pitchtech.modula.runtime.Runtime;
-
+import java.lang.Runnable;
 import java.util.EnumSet;
 
 
@@ -968,6 +968,8 @@ public class ChaosInterface {
         FlushMenus();
     }
 
+    private final Runnable ColdFlush_ref = this::ColdFlush;
+
     private void AskGraphicSettings() {
         // CONST
         final String Busy = "---------------";
@@ -1376,7 +1378,7 @@ public class ChaosInterface {
     public void begin() {
         lsFile = "Games/";
         Refresh = null;
-        checks.AddTermProc(Runtime.proc(this::ColdFlush, "ChaosInterface.ColdFlush"));
+        checks.AddTermProc(ColdFlush_ref);
         ColdInit();
     }
 

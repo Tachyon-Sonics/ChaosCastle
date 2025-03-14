@@ -122,6 +122,9 @@ public class ChaosDObj {
         chaosActions.SetObjRect(cartoon, 0, 0, 32, 32);
     }
 
+    private final ChaosBase.ResetProc MakeCartoon_as_ChaosBase_ResetProc = this::MakeCartoon;
+    private final ChaosBase.MakeProc MakeCartoon_as_ChaosBase_MakeProc = this::MakeCartoon;
+
     private void MakeMagnet(ChaosBase.Obj magnet) {
         // VAR
         short px = 0;
@@ -137,6 +140,8 @@ public class ChaosDObj {
         chaosActions.SetObjLoc(magnet, px, (short) 120, (short) 12, (short) 12);
         chaosActions.SetObjRect(magnet, 0, 0, 12, 12);
     }
+
+    private final ChaosBase.MakeProc MakeMagnet_ref = this::MakeMagnet;
 
     private void MakeMeteor(ChaosBase.Obj meteor) {
         // VAR
@@ -174,11 +179,16 @@ public class ChaosDObj {
             chaosActions.SetObjRect(meteor, 0, 0, sz, sz);
     }
 
+    private final ChaosBase.MakeProc MakeMeteor_ref = this::MakeMeteor;
+
     private void MakeSand(ChaosBase.Obj sand) {
         sand.life = 1;
         chaosActions.SetObjLoc(sand, (short) 240, (short) 184, (short) 16, (short) 16);
         chaosActions.SetObjRect(sand, 1, 1, 15, 15);
     }
+
+    private final ChaosBase.ResetProc MakeSand_as_ChaosBase_ResetProc = this::MakeSand;
+    private final ChaosBase.MakeProc MakeSand_as_ChaosBase_MakeProc = this::MakeSand;
 
     private void MakeWind(ChaosBase.Obj wind) {
         wind.hitSubLife = 0;
@@ -187,6 +197,8 @@ public class ChaosDObj {
         chaosActions.SetObjLoc(wind, (short) 104, (short) 136, (short) 16, (short) 16);
         chaosActions.SetObjRect(wind, -4, -4, 12, 12);
     }
+
+    private final ChaosBase.MakeProc MakeWind_ref = this::MakeWind;
 
     private void MakeBubble(ChaosBase.Obj bubble) {
         // VAR
@@ -233,6 +245,8 @@ public class ChaosDObj {
         chaosActions.SetObjRect(bubble, 0, 0, sz, sz);
     }
 
+    private final ChaosBase.MakeProc MakeBubble_ref = this::MakeBubble;
+
     private void MakeMirror(ChaosBase.Obj mirror) {
         // VAR
         short px = 0;
@@ -247,6 +261,9 @@ public class ChaosDObj {
         chaosActions.SetObjRect(mirror, 1, 1, 31, 31);
     }
 
+    private final ChaosBase.ResetProc MakeMirror_as_ChaosBase_ResetProc = this::MakeMirror;
+    private final ChaosBase.MakeProc MakeMirror_as_ChaosBase_MakeProc = this::MakeMirror;
+
     private void MakeWindMaker(ChaosBase.Obj maker) {
         if (((maker.stat % 2) != 0) || (maker.shapeSeq <= ChaosBase.Period * 4))
             chaosActions.SetObjLoc(maker, (short) 140, (short) 180, (short) 12, (short) 20);
@@ -255,20 +272,29 @@ public class ChaosDObj {
         chaosActions.SetObjRect(maker, 0, 0, 12, 20);
     }
 
+    private final ChaosBase.MakeProc MakeWindMaker_ref = this::MakeWindMaker;
+
     private void MakeBubbleMaker(ChaosBase.Obj maker) {
         chaosActions.SetObjLoc(maker, (short) 80, (short) 180, (short) 12, (short) 20);
         chaosActions.SetObjRect(maker, 0, 0, 12, 20);
     }
+
+    private final ChaosBase.MakeProc MakeBubbleMaker_ref = this::MakeBubbleMaker;
 
     private void MakeFireMaker(ChaosBase.Obj maker) {
         chaosActions.SetObjLoc(maker, (short) 32, (short) 200, (short) 20, (short) 12);
         chaosActions.SetObjRect(maker, 0, 0, 20, 12);
     }
 
+    private final ChaosBase.MakeProc MakeFireMaker_ref = this::MakeFireMaker;
+
     private void MakeFireWall(ChaosBase.Obj fw) {
         chaosActions.SetObjLoc(fw, (short) 224, (short) 204, (short) 32, (short) 32);
         chaosActions.SetObjRect(fw, 4, 4, 28, 28);
     }
+
+    private final ChaosBase.ResetProc MakeFireWall_as_ChaosBase_ResetProc = this::MakeFireWall;
+    private final ChaosBase.MakeProc MakeFireWall_as_ChaosBase_MakeProc = this::MakeFireWall;
 
     private void MakeWave(ChaosBase.Obj wave) {
         // VAR
@@ -358,11 +384,15 @@ public class ChaosDObj {
         chaosActions.SetObjRect(wave, -2, -2, sz + 2, sz + 2);
     }
 
+    private final ChaosBase.MakeProc MakeWave_ref = this::MakeWave;
+
     private void ResetMagnet(ChaosBase.Obj magnet) {
         magnet.moveSeq = trigo.RND() % 4;
         magnet.shapeSeq = trigo.RND() % (ChaosBase.Period / 10);
         MakeMagnet(magnet);
     }
+
+    private final ChaosBase.ResetProc ResetMagnet_ref = this::ResetMagnet;
 
     private void ResetMeteor(ChaosBase.Obj meteor) {
         meteor.shapeSeq = trigo.RND() % ChaosBase.Period;
@@ -372,16 +402,22 @@ public class ChaosDObj {
         MakeMeteor(meteor);
     }
 
+    private final ChaosBase.ResetProc ResetMeteor_ref = this::ResetMeteor;
+
     private void ResetWind(ChaosBase.Obj wind) {
         wind.moveSeq = ChaosBase.Period / 4 + trigo.RND() % (ChaosBase.Period * 4);
         MakeWind(wind);
     }
+
+    private final ChaosBase.ResetProc ResetWind_ref = this::ResetWind;
 
     private void ResetBubble(ChaosBase.Obj bubble) {
         bubble.moveSeq = ChaosBase.Period * 2 + trigo.RND() % ChaosBase.Period;
         bubble.life = 1;
         MakeBubble(bubble);
     }
+
+    private final ChaosBase.ResetProc ResetBubble_ref = this::ResetBubble;
 
     private void ResetWindMaker(ChaosBase.Obj maker) {
         maker.shapeSeq = ChaosBase.Period / 10;
@@ -390,16 +426,22 @@ public class ChaosDObj {
         MakeWindMaker(maker);
     }
 
+    private final ChaosBase.ResetProc ResetWindMaker_ref = this::ResetWindMaker;
+
     private void ResetBubbleMaker(ChaosBase.Obj maker) {
         maker.stat = maker.stat % 2;
         maker.moveSeq = trigo.RND() % (ChaosBase.Period * 3);
         MakeBubbleMaker(maker);
     }
 
+    private final ChaosBase.ResetProc ResetBubbleMaker_ref = this::ResetBubbleMaker;
+
     private void ResetFireMaker(ChaosBase.Obj maker) {
         maker.moveSeq = 0;
         MakeFireMaker(maker);
     }
+
+    private final ChaosBase.ResetProc ResetFireMaker_ref = this::ResetFireMaker;
 
     private void ResetWave(ChaosBase.Obj wave) {
         wave.hitSubLife = 0;
@@ -409,12 +451,16 @@ public class ChaosDObj {
         MakeWave(wave);
     }
 
+    private final ChaosBase.ResetProc ResetWave_ref = this::ResetWave;
+
     private void MoveCartoon(ChaosBase.Obj cartoon) {
         if (chaosActions.OutOfScreen(cartoon)) {
             chaosActions.Leave(cartoon);
             return;
         }
     }
+
+    private final ChaosBase.MoveProc MoveCartoon_ref = this::MoveCartoon;
 
     private void MoveMagnet(ChaosBase.Obj magnet) {
         if (chaosActions.OutOfScreen(magnet)) {
@@ -446,6 +492,8 @@ public class ChaosDObj {
         chaosActions.Gravity(magnet, Runtime.withRange(EnumSet.noneOf(Anims.class), Anims.PLAYER, Anims.BONUS));
     }
 
+    private final ChaosBase.MoveProc MoveMagnet_ref = this::MoveMagnet;
+
     private void MeteorCrash(ChaosBase.Obj m1, ChaosBase.Obj m2, /* var */ Runtime.IRef<Integer> hit, /* var */ Runtime.IRef<Integer> fire) {
         if ((m1 != m2) && (m1.subKind == doMeteor) && (m1.stat >= domMedium) && (m1.stat <= m2.stat)) {
             if (m1.stat == m2.stat) {
@@ -456,6 +504,8 @@ public class ChaosDObj {
             chaosActions.Die(m1);
         }
     }
+
+    private final ChaosBase.AieProc MeteorCrash_ref = this::MeteorCrash;
 
     private void MoveMeteor(ChaosBase.Obj meteor) {
         // VAR
@@ -571,7 +621,7 @@ public class ChaosDObj {
                 meteor.moveSeq -= chaosBase.step;
         }
         if (meteor.stat >= domMedium) {
-            chaosActions.DoCollision(meteor, EnumSet.of(Anims.DEADOBJ), Runtime.proc(this::MeteorCrash, "ChaosDObj.MeteorCrash"), new Runtime.FieldRef<>(meteor::getHitSubLife, meteor::setHitSubLife), new Runtime.FieldRef<>(meteor::getFireSubLife, meteor::setFireSubLife));
+            chaosActions.DoCollision(meteor, EnumSet.of(Anims.DEADOBJ), MeteorCrash_ref, new Runtime.FieldRef<>(meteor::getHitSubLife, meteor::setHitSubLife), new Runtime.FieldRef<>(meteor::getFireSubLife, meteor::setFireSubLife));
         } else if (meteor.stat == domStone) {
             meteor.hitSubLife = 10;
             chaosActions.PlayerCollision(meteor, new Runtime.FieldRef<>(meteor::getHitSubLife, meteor::setHitSubLife));
@@ -581,6 +631,8 @@ public class ChaosDObj {
         if ((meteor.life == 0) || chaosActions.OutOfScreen(meteor))
             chaosActions.Die(meteor);
     }
+
+    private final ChaosBase.MoveProc MoveMeteor_ref = this::MoveMeteor;
 
     private static ChaosBase.Obj obj(Memory.Node node) { /* PATCH */
         return (ChaosBase.Obj) node.data;
@@ -608,10 +660,14 @@ public class ChaosDObj {
         }
     }
 
+    private final ChaosBase.AieProc SlowDown_ref = this::SlowDown;
+
     private void KillOnMagnet(ChaosBase.Obj victim, ChaosBase.Obj src, /* var */ Runtime.IRef<Integer> hit, /* var */ Runtime.IRef<Integer> fire) {
         if (victim.subKind == doMagnetA)
             src.life = 0;
     }
+
+    private final ChaosBase.AieProc KillOnMagnet_ref = this::KillOnMagnet;
 
     private void MoveSand(ChaosBase.Obj sand) {
         if (chaosActions.OutOfScreen(sand)) {
@@ -622,16 +678,18 @@ public class ChaosDObj {
         chaosActions.AvoidBackground(sand, (short) 0);
         sand.hitSubLife = 0;
         sand.fireSubLife = 0;
-        chaosActions.DoCollision(sand, Runtime.withRange(EnumSet.of(Anims.PLAYER, Anims.BONUS, Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), Runtime.proc(this::SlowDown, "ChaosDObj.SlowDown"), new Runtime.FieldRef<>(sand::getHitSubLife, sand::setHitSubLife), new Runtime.FieldRef<>(sand::getFireSubLife, sand::setFireSubLife));
-        chaosActions.DoCollision(sand, EnumSet.of(Anims.DEADOBJ), Runtime.proc(this::KillOnMagnet, "ChaosDObj.KillOnMagnet"), new Runtime.FieldRef<>(sand::getHitSubLife, sand::setHitSubLife), new Runtime.FieldRef<>(sand::getFireSubLife, sand::setFireSubLife));
+        chaosActions.DoCollision(sand, Runtime.withRange(EnumSet.of(Anims.PLAYER, Anims.BONUS, Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), SlowDown_ref, new Runtime.FieldRef<>(sand::getHitSubLife, sand::setHitSubLife), new Runtime.FieldRef<>(sand::getFireSubLife, sand::setFireSubLife));
+        chaosActions.DoCollision(sand, EnumSet.of(Anims.DEADOBJ), KillOnMagnet_ref, new Runtime.FieldRef<>(sand::getHitSubLife, sand::setHitSubLife), new Runtime.FieldRef<>(sand::getFireSubLife, sand::setFireSubLife));
         if (sand.life == 0)
             chaosActions.Die(sand);
     }
 
+    private final ChaosBase.MoveProc MoveSand_ref = this::MoveSand;
+
     private void MoveWind(ChaosBase.Obj wind) {
         chaosActions.UpdateXY(wind);
         chaosActions.AvoidBackground(wind, (short) 0);
-        chaosActions.DoCollision(wind, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.PLAYER, Anims.BONUS), Runtime.proc(this::SlowDown, "ChaosDObj.SlowDown"), new Runtime.FieldRef<>(wind::getHitSubLife, wind::setHitSubLife), new Runtime.FieldRef<>(wind::getFireSubLife, wind::setFireSubLife));
+        chaosActions.DoCollision(wind, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.PLAYER, Anims.BONUS), SlowDown_ref, new Runtime.FieldRef<>(wind::getHitSubLife, wind::setHitSubLife), new Runtime.FieldRef<>(wind::getFireSubLife, wind::setFireSubLife));
         if (chaosActions.OutOfScreen(wind) || (chaosBase.step >= wind.moveSeq) || (Math.abs(wind.vx) + Math.abs(wind.vy) < 2000)) {
             chaosSounds.SoundEffect(wind, dieWindEffect);
             chaosActions.Die(wind);
@@ -639,6 +697,8 @@ public class ChaosDObj {
         }
         wind.moveSeq -= chaosBase.step;
     }
+
+    private final ChaosBase.MoveProc MoveWind_ref = this::MoveWind;
 
     private void GiveAir(ChaosBase.Obj player, ChaosBase.Obj bubble, /* var */ Runtime.IRef<Integer> hit, /* var */ Runtime.IRef<Integer> fire) {
         // VAR
@@ -676,6 +736,8 @@ public class ChaosDObj {
         }
     }
 
+    private final ChaosBase.AieProc GiveAir_ref = this::GiveAir;
+
     private void MoveWave(ChaosBase.Obj wave) {
         if (chaosActions.OutOfScreen(wave) || chaosActions.InBackground(wave)) {
             chaosActions.Die(wave);
@@ -683,7 +745,7 @@ public class ChaosDObj {
         }
         chaosActions.UpdateXY(wave);
         chaosActions.AvoidBackground(wave, (short) 1);
-        chaosActions.DoCollision(wave, Runtime.withRange(EnumSet.of(Anims.PLAYER, Anims.BONUS), Anims.ALIEN3, Anims.ALIEN1), Runtime.proc(this::SlowDown, "ChaosDObj.SlowDown"), new Runtime.FieldRef<>(wave::getHitSubLife, wave::setHitSubLife), new Runtime.FieldRef<>(wave::getFireSubLife, wave::setFireSubLife));
+        chaosActions.DoCollision(wave, Runtime.withRange(EnumSet.of(Anims.PLAYER, Anims.BONUS), Anims.ALIEN3, Anims.ALIEN1), SlowDown_ref, new Runtime.FieldRef<>(wave::getHitSubLife, wave::setHitSubLife), new Runtime.FieldRef<>(wave::getFireSubLife, wave::setFireSubLife));
         chaosActions.LimitSpeed(wave, (short) 1600);
         wave.dvx = wave.vx;
         wave.dvy = wave.vy;
@@ -708,6 +770,8 @@ public class ChaosDObj {
         }
     }
 
+    private final ChaosBase.MoveProc MoveWave_ref = this::MoveWave;
+
     private void MoveBubble(ChaosBase.Obj bubble) {
         if (chaosActions.OutOfScreen(bubble)) {
             chaosActions.Die(bubble);
@@ -715,8 +779,8 @@ public class ChaosDObj {
         }
         chaosActions.AvoidBackground(bubble, (short) 1);
         chaosActions.UpdateXY(bubble);
-        chaosActions.DoCollision(bubble, Runtime.withRange(EnumSet.of(Anims.BONUS), Anims.ALIEN3, Anims.ALIEN1), Runtime.proc(this::SlowDown, "ChaosDObj.SlowDown"), new Runtime.FieldRef<>(bubble::getHitSubLife, bubble::setHitSubLife), new Runtime.FieldRef<>(bubble::getFireSubLife, bubble::setFireSubLife));
-        chaosActions.DoCollision(bubble, EnumSet.of(Anims.PLAYER), Runtime.proc(this::GiveAir, "ChaosDObj.GiveAir"), new Runtime.FieldRef<>(bubble::getHitSubLife, bubble::setHitSubLife), new Runtime.FieldRef<>(bubble::getFireSubLife, bubble::setFireSubLife));
+        chaosActions.DoCollision(bubble, Runtime.withRange(EnumSet.of(Anims.BONUS), Anims.ALIEN3, Anims.ALIEN1), SlowDown_ref, new Runtime.FieldRef<>(bubble::getHitSubLife, bubble::setHitSubLife), new Runtime.FieldRef<>(bubble::getFireSubLife, bubble::setFireSubLife));
+        chaosActions.DoCollision(bubble, EnumSet.of(Anims.PLAYER), GiveAir_ref, new Runtime.FieldRef<>(bubble::getHitSubLife, bubble::setHitSubLife), new Runtime.FieldRef<>(bubble::getFireSubLife, bubble::setFireSubLife));
         if (chaosBase.step > bubble.moveSeq) {
             if (bubble.stat == 0)
                 bubble.life = 0;
@@ -729,6 +793,8 @@ public class ChaosDObj {
         if (bubble.life == 0)
             chaosActions.Die(bubble);
     }
+
+    private final ChaosBase.MoveProc MoveBubble_ref = this::MoveBubble;
 
     private void MedianM(ChaosBase.Obj victim, ChaosBase.Obj mirror, /* var */ Runtime.IRef<Integer> hit, /* var */ Runtime.IRef<Integer> fire) {
         // VAR
@@ -768,6 +834,8 @@ public class ChaosDObj {
             }
         }
     }
+
+    private final ChaosBase.AieProc MedianM_ref = this::MedianM;
 
     private void DiagM(ChaosBase.Obj victim, ChaosBase.Obj mirror, /* var */ Runtime.IRef<Integer> hit, /* var */ Runtime.IRef<Integer> fire) {
         // VAR
@@ -819,6 +887,8 @@ public class ChaosDObj {
         }
     }
 
+    private final ChaosBase.AieProc DiagM_ref = this::DiagM;
+
     private void MoveMirror(ChaosBase.Obj mirror) {
         // VAR
         ChaosBase.AieProc What = null;
@@ -828,11 +898,13 @@ public class ChaosDObj {
             return;
         }
         if (((mirror.stat % 2) != 0))
-            What = Runtime.proc(this::DiagM, "ChaosDObj.DiagM");
+            What = DiagM_ref;
         else
-            What = Runtime.proc(this::MedianM, "ChaosDObj.MedianM");
+            What = MedianM_ref;
         chaosActions.DoCollision(mirror, Runtime.withRange(EnumSet.noneOf(Anims.class), Anims.PLAYER, Anims.MACHINE), What, new Runtime.FieldRef<>(mirror::getHitSubLife, mirror::setHitSubLife), new Runtime.FieldRef<>(mirror::getFireSubLife, mirror::setFireSubLife));
     }
+
+    private final ChaosBase.MoveProc MoveMirror_ref = this::MoveMirror;
 
     private void Blow(ChaosBase.Obj src, EnumSet<Anims> victims) {
         // VAR
@@ -923,6 +995,8 @@ public class ChaosDObj {
         chaosActions.PlayerCollision(maker, new Runtime.FieldRef<>(maker::getHitSubLife, maker::setHitSubLife));
     }
 
+    private final ChaosBase.MoveProc MoveWindMaker_ref = this::MoveWindMaker;
+
     private void MoveBubbleMaker(ChaosBase.Obj maker) {
         // VAR
         ChaosBase.Obj bubble = null;
@@ -956,6 +1030,8 @@ public class ChaosDObj {
         chaosActions.PlayerCollision(maker, new Runtime.FieldRef<>(maker::getHitSubLife, maker::setHitSubLife));
     }
 
+    private final ChaosBase.MoveProc MoveBubbleMaker_ref = this::MoveBubbleMaker;
+
     private void MoveFireMaker(ChaosBase.Obj maker) {
         // VAR
         ChaosBase.Obj fire = null;
@@ -985,6 +1061,8 @@ public class ChaosDObj {
         maker.moveSeq -= chaosBase.step;
     }
 
+    private final ChaosBase.MoveProc MoveFireMaker_ref = this::MoveFireMaker;
+
     private void MoveFireWall(ChaosBase.Obj fw) {
         // VAR
         Runtime.Ref<Integer> hit = new Runtime.Ref<>(0);
@@ -996,6 +1074,8 @@ public class ChaosDObj {
         hit.set(72);
         chaosActions.PlayerCollision(fw, hit);
     }
+
+    private final ChaosBase.MoveProc MoveFireWall_ref = this::MoveFireWall;
 
     private void InitParams() {
         // VAR
@@ -1012,36 +1092,36 @@ public class ChaosDObj {
         chaosSounds.SetEffect(dieWindEffect[0], chaosSounds.soundList[SoundList.wCrash.ordinal()], 300, 4181, (short) 80, (short) 1);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::MakeCartoon, "ChaosDObj.MakeCartoon");
-        attr.Make = Runtime.proc(this::MakeCartoon, "ChaosDObj.MakeCartoon");
-        attr.Move = Runtime.proc(this::MoveCartoon, "ChaosDObj.MoveCartoon");
+        attr.Reset = MakeCartoon_as_ChaosBase_ResetProc;
+        attr.Make = MakeCartoon_as_ChaosBase_MakeProc;
+        attr.Move = MoveCartoon_ref;
         attr.basicType = BasicTypes.NotBase;
         attr.priority = 95;
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.DEADOBJ.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetMagnet, "ChaosDObj.ResetMagnet");
-        attr.Make = Runtime.proc(this::MakeMagnet, "ChaosDObj.MakeMagnet");
-        attr.Move = Runtime.proc(this::MoveMagnet, "ChaosDObj.MoveMagnet");
+        attr.Reset = ResetMagnet_ref;
+        attr.Make = MakeMagnet_ref;
+        attr.Move = MoveMagnet_ref;
         attr.basicType = BasicTypes.NotBase;
         attr.priority = -80;
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.DEADOBJ.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetMagnet, "ChaosDObj.ResetMagnet");
-        attr.Make = Runtime.proc(this::MakeMagnet, "ChaosDObj.MakeMagnet");
-        attr.Move = Runtime.proc(this::MoveMagnet, "ChaosDObj.MoveMagnet");
+        attr.Reset = ResetMagnet_ref;
+        attr.Make = MakeMagnet_ref;
+        attr.Move = MoveMagnet_ref;
         attr.basicType = BasicTypes.NotBase;
         attr.priority = -80;
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.DEADOBJ.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetMeteor, "ChaosDObj.ResetMeteor");
-        attr.Make = Runtime.proc(this::MakeMeteor, "ChaosDObj.MakeMeteor");
-        attr.Move = Runtime.proc(this::MoveMeteor, "ChaosDObj.MoveMeteor");
+        attr.Reset = ResetMeteor_ref;
+        attr.Make = MakeMeteor_ref;
+        attr.Move = MoveMeteor_ref;
         attr.basicType = BasicTypes.NotBase;
         attr.inerty = 200;
         attr.priority = -75;
@@ -1050,9 +1130,9 @@ public class ChaosDObj {
         memory.AddTail(chaosBase.attrList[Anims.DEADOBJ.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::MakeSand, "ChaosDObj.MakeSand");
-        attr.Make = Runtime.proc(this::MakeSand, "ChaosDObj.MakeSand");
-        attr.Move = Runtime.proc(this::MoveSand, "ChaosDObj.MoveSand");
+        attr.Reset = MakeSand_as_ChaosBase_ResetProc;
+        attr.Make = MakeSand_as_ChaosBase_MakeProc;
+        attr.Move = MoveSand_ref;
         attr.inerty = 30;
         attr.weight = 20;
         attr.charge = -100;
@@ -1062,9 +1142,9 @@ public class ChaosDObj {
         memory.AddTail(chaosBase.attrList[Anims.DEADOBJ.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetWind, "ChaosDObj.ResetWind");
-        attr.Make = Runtime.proc(this::MakeWind, "ChaosDObj.MakeWind");
-        attr.Move = Runtime.proc(this::MoveWind, "ChaosDObj.MoveWind");
+        attr.Reset = ResetWind_ref;
+        attr.Make = MakeWind_ref;
+        attr.Move = MoveWind_ref;
         attr.inerty = 0;
         attr.weight = 40;
         attr.basicType = BasicTypes.NotBase;
@@ -1072,9 +1152,9 @@ public class ChaosDObj {
         memory.AddTail(chaosBase.attrList[Anims.DEADOBJ.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetBubble, "ChaosDObj.ResetBubble");
-        attr.Make = Runtime.proc(this::MakeBubble, "ChaosDObj.MakeBubble");
-        attr.Move = Runtime.proc(this::MoveBubble, "ChaosDObj.MoveBubble");
+        attr.Reset = ResetBubble_ref;
+        attr.Make = MakeBubble_ref;
+        attr.Move = MoveBubble_ref;
         attr.inerty = 20;
         attr.weight = 5;
         attr.charge = 10;
@@ -1084,54 +1164,54 @@ public class ChaosDObj {
         memory.AddTail(chaosBase.attrList[Anims.DEADOBJ.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::MakeMirror, "ChaosDObj.MakeMirror");
-        attr.Make = Runtime.proc(this::MakeMirror, "ChaosDObj.MakeMirror");
-        attr.Move = Runtime.proc(this::MoveMirror, "ChaosDObj.MoveMirror");
+        attr.Reset = MakeMirror_as_ChaosBase_ResetProc;
+        attr.Make = MakeMirror_as_ChaosBase_MakeProc;
+        attr.Move = MoveMirror_ref;
         attr.priority = -76;
         attr.basicType = BasicTypes.NotBase;
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.DEADOBJ.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetWindMaker, "ChaosDObj.ResetWindMaker");
-        attr.Make = Runtime.proc(this::MakeWindMaker, "ChaosDObj.MakeWindMaker");
-        attr.Move = Runtime.proc(this::MoveWindMaker, "ChaosDObj.MoveWindMaker");
+        attr.Reset = ResetWindMaker_ref;
+        attr.Make = MakeWindMaker_ref;
+        attr.Move = MoveWindMaker_ref;
         attr.priority = -1;
         attr.basicType = BasicTypes.NotBase;
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.DEADOBJ.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetBubbleMaker, "ChaosDObj.ResetBubbleMaker");
-        attr.Make = Runtime.proc(this::MakeBubbleMaker, "ChaosDObj.MakeBubbleMaker");
-        attr.Move = Runtime.proc(this::MoveBubbleMaker, "ChaosDObj.MoveBubbleMaker");
+        attr.Reset = ResetBubbleMaker_ref;
+        attr.Make = MakeBubbleMaker_ref;
+        attr.Move = MoveBubbleMaker_ref;
         attr.priority = -1;
         attr.basicType = BasicTypes.NotBase;
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.DEADOBJ.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetFireMaker, "ChaosDObj.ResetFireMaker");
-        attr.Make = Runtime.proc(this::MakeFireMaker, "ChaosDObj.MakeFireMaker");
-        attr.Move = Runtime.proc(this::MoveFireMaker, "ChaosDObj.MoveFireMaker");
+        attr.Reset = ResetFireMaker_ref;
+        attr.Make = MakeFireMaker_ref;
+        attr.Move = MoveFireMaker_ref;
         attr.priority = -2;
         attr.basicType = BasicTypes.NotBase;
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.DEADOBJ.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::MakeFireWall, "ChaosDObj.MakeFireWall");
-        attr.Make = Runtime.proc(this::MakeFireWall, "ChaosDObj.MakeFireWall");
-        attr.Move = Runtime.proc(this::MoveFireWall, "ChaosDObj.MoveFireWall");
+        attr.Reset = MakeFireWall_as_ChaosBase_ResetProc;
+        attr.Make = MakeFireWall_as_ChaosBase_MakeProc;
+        attr.Move = MoveFireWall_ref;
         attr.priority = -90;
         attr.basicType = BasicTypes.NotBase;
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.DEADOBJ.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = Runtime.proc(this::ResetWave, "ChaosDObj.ResetWave");
-        attr.Make = Runtime.proc(this::MakeWave, "ChaosDObj.MakeWave");
-        attr.Move = Runtime.proc(this::MoveWave, "ChaosDObj.MoveWave");
+        attr.Reset = ResetWave_ref;
+        attr.Make = MakeWave_ref;
+        attr.Move = MoveWave_ref;
         attr.inerty = 20;
         attr.weight = 0;
         attr.charge = 10;
