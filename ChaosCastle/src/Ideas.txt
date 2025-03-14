@@ -19,6 +19,7 @@
 - [ok] Blue circle: easier burning?
 - Hurry up: fire fountains since difficulty level ??
 - [ok] Sister alien in Autumn: only diff > XXX; or only 1/2 lives
+- Reason for "shop is closed" changes if one saves the game
 - Labyrinth: ensure there is a path
   - Ensure skull bonus behind exit
   - Maybe something different than a skull bonus (a diamond for master alien / star for family aliens?)
@@ -29,7 +30,7 @@
 - !! Air when not under water: reset to zero or full
 - !! "Bomb added" -> "Not enough power" when trying to add to weapon with zero power
 - [ok] Bumper: try bouming 3x 1$
-- !! Remove "0 Stages before PMM", leaving only "PMM enabled"
+- [ok] Remove "0 Stages before PMM", leaving only "PMM enabled"
 - Grenade: associate to first non-gun weapon to which power was added
 - [ok] Sister Alien in Antarctica: WTF?
 - Graveyard & other, prevent placing yellow trap that blocks a passage

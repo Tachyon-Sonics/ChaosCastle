@@ -21,7 +21,6 @@ import ch.pitchtech.modula.runtime.HaltException;
 import ch.pitchtech.modula.runtime.Runtime;
 
 /*
- * TODO (0) Github repo
  * TODO (0) Next
  * - [ok] background graphics scaling
  *   - [ok] assume continuous if side by side
