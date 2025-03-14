@@ -1,12 +1,12 @@
 package ch.chaos.castle;
 
-import java.util.EnumSet;
-
 import ch.chaos.library.Checks;
 import ch.chaos.library.Dialogs;
 import ch.chaos.library.Files;
 import ch.chaos.library.Memory;
 import ch.pitchtech.modula.runtime.Runtime;
+
+import java.util.EnumSet;
 
 
 public class ChaosBase {

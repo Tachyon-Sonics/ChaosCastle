@@ -1,7 +1,5 @@
 package ch.chaos.castle;
 
-import java.util.EnumSet;
-
 import ch.chaos.castle.ChaosBase.BasicTypes;
 import ch.chaos.castle.ChaosBase.GameStat;
 import ch.chaos.castle.ChaosBase.Weapon;
@@ -17,6 +15,8 @@ import ch.chaos.library.Memory;
 import ch.chaos.library.Registration;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
+
+import java.util.EnumSet;
 
 
 public class ChaosScreens {
