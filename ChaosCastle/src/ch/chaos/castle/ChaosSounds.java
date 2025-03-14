@@ -10,7 +10,6 @@ import ch.chaos.library.Memory;
 import ch.chaos.library.Sounds;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.lang.Runnable;
 import java.util.EnumSet;
 
 
@@ -533,8 +532,6 @@ public class ChaosSounds {
         }
     }
 
-    public final Runnable SwitchSoundOff_ref = this::SwitchSoundOff;
-
     public void SetEffect(/* var */ Effect effect, /* var */ Sound sound, int delay, int rate, short volume, short pri) {
         effect.sound = sound;
         effect.delay = delay;
@@ -820,7 +817,7 @@ public class ChaosSounds {
         stereoEffect = 0;
         nulSound.wave = null;
         nbChans = 0;
-        checks.AddTermProc(SwitchSoundOff_ref);
+        checks.AddTermProc(Runtime.proc(this::SwitchSoundOff, "ChaosSounds.SwitchSoundOff"));
     }
 
     public void close() {

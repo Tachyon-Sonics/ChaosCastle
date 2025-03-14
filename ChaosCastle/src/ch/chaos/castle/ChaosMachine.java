@@ -156,8 +156,6 @@ public class ChaosMachine {
         chaosActions.SetObjRect(traverse, 0, 0, sx, sy);
     }
 
-    private final ChaosBase.MakeProc MakeTraverse_ref = this::MakeTraverse;
-
     private void MakeCannon1(ChaosBase.Obj cannon) {
         // VAR
         short px = 0;
@@ -176,8 +174,6 @@ public class ChaosMachine {
         chaosActions.SetObjLoc(cannon, px, (short) 212, (short) 16, (short) 28);
         chaosActions.SetObjRect(cannon, sx, 0, ex, 28);
     }
-
-    private final ChaosBase.MakeProc MakeCannon1_ref = this::MakeCannon1;
 
     private void MakeCannon2(ChaosBase.Obj cannon) {
         // VAR
@@ -198,28 +194,20 @@ public class ChaosMachine {
         chaosActions.SetObjRect(cannon, 0, sy, 28, ey);
     }
 
-    private final ChaosBase.MakeProc MakeCannon2_ref = this::MakeCannon2;
-
     private void MakeCannon3(ChaosBase.Obj cannon) {
         chaosActions.SetObjLoc(cannon, (short) 152, (short) 180, (short) 20, (short) 20);
         chaosActions.SetObjRect(cannon, 0, 0, 20, 20);
     }
-
-    private final ChaosBase.MakeProc MakeCannon3_ref = this::MakeCannon3;
 
     private void MakeTurret(ChaosBase.Obj turret) {
         chaosActions.SetObjLoc(turret, (short) 32, (short) 212, (short) 28, (short) 28);
         chaosActions.SetObjRect(turret, 2, 2, 26, 26);
     }
 
-    private final ChaosBase.MakeProc MakeTurret_ref = this::MakeTurret;
-
     private void MakeReactor(ChaosBase.Obj reactor) {
         chaosActions.SetObjLoc(reactor, (short) 224, (short) 184, (short) 16, (short) 20);
         chaosActions.SetObjRect(reactor, 0, 0, 16, 20);
     }
-
-    private final ChaosBase.MakeProc MakeReactor_ref = this::MakeReactor;
 
     private void MakeDoor(ChaosBase.Obj door) {
         door.hitSubLife = 0;
@@ -228,9 +216,6 @@ public class ChaosMachine {
         chaosActions.SetObjLoc(door, (short) 224, (short) 84, (short) 32, (short) 6);
         chaosActions.SetObjRect(door, 0, -2, 32, 8);
     }
-
-    private final ChaosBase.ResetProc MakeDoor_as_ChaosBase_ResetProc = this::MakeDoor;
-    private final ChaosBase.MakeProc MakeDoor_as_ChaosBase_MakeProc = this::MakeDoor;
 
     private void ResetTraverse(ChaosBase.Obj traverse) {
         traverse.dvx = 0;
@@ -253,8 +238,6 @@ public class ChaosMachine {
         MakeTraverse(traverse);
     }
 
-    private final ChaosBase.ResetProc ResetTraverse_ref = this::ResetTraverse;
-
     private void ResetCannon(ChaosBase.Obj cannon) {
         cannon.stat = cannon.life;
         cannon.life = 40 + chaosBase.difficulty * 10;
@@ -266,8 +249,6 @@ public class ChaosMachine {
         cannon.attr.Make.invoke(cannon);
     }
 
-    private final ChaosBase.ResetProc ResetCannon_ref = this::ResetCannon;
-
     private void ResetTurret(ChaosBase.Obj turret) {
         turret.life = 40 + chaosBase.difficulty * 10;
         turret.fireSubLife = turret.life;
@@ -276,8 +257,6 @@ public class ChaosMachine {
         turret.shapeSeq = trigo.RND() % 8;
         MakeTurret(turret);
     }
-
-    private final ChaosBase.ResetProc ResetTurret_ref = this::ResetTurret;
 
     private void ResetReactor(ChaosBase.Obj reactor) {
         reactor.life = 100;
@@ -289,8 +268,6 @@ public class ChaosMachine {
         MakeReactor(reactor);
     }
 
-    private final ChaosBase.ResetProc ResetReactor_ref = this::ResetReactor;
-
     private void MoveTraverse(ChaosBase.Obj traverse) {
         if (chaosActions.OutOfScreen(traverse)) {
             chaosActions.Leave(traverse);
@@ -301,8 +278,6 @@ public class ChaosMachine {
         traverse.life = 18;
         chaosActions.PlayerCollision(traverse, new Runtime.FieldExprRef<>(traverse, ChaosBase.Obj::getLife, ChaosBase.Obj::setLife));
     }
-
-    private final ChaosBase.MoveProc MoveTraverse_ref = this::MoveTraverse;
 
     private void MoveCannon(ChaosBase.Obj cannon) {
         // VAR
@@ -356,8 +331,6 @@ public class ChaosMachine {
         if (cannon.life == 0)
             chaosActions.Die(cannon);
     }
-
-    private final ChaosBase.MoveProc MoveCannon_ref = this::MoveCannon;
 
     private void MoveCannon3(ChaosBase.Obj cannon) {
         // VAR
@@ -428,8 +401,6 @@ public class ChaosMachine {
             chaosActions.Die(cannon);
     }
 
-    private final ChaosBase.MoveProc MoveCannon3_ref = this::MoveCannon3;
-
     private void MoveTurret(ChaosBase.Obj turret) {
         // VAR
         ChaosBase.Obj missile = null;
@@ -486,8 +457,6 @@ public class ChaosMachine {
             chaosActions.Die(turret);
     }
 
-    private final ChaosBase.MoveProc MoveTurret_ref = this::MoveTurret;
-
     private void MoveReactor(ChaosBase.Obj reactor) {
         if (chaosActions.OutOfScreen(reactor)) {
             chaosActions.Leave(reactor);
@@ -499,21 +468,15 @@ public class ChaosMachine {
             reactor.moveSeq -= chaosBase.step;
     }
 
-    private final ChaosBase.MoveProc MoveReactor_ref = this::MoveReactor;
-
     private void AieCannon(ChaosBase.Obj cannon, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosActions.DecLife(cannon, hit, fire);
         chaosSounds.SoundEffect(cannon, aieCannonEffect);
     }
 
-    private final ChaosBase.AieProc AieCannon_ref = this::AieCannon;
-
     private void AieCannon3(ChaosBase.Obj cannon, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosActions.DecLife(cannon, hit, fire);
         chaosSounds.SoundEffect(cannon, aieCannon3Effect);
     }
-
-    private final ChaosBase.AieProc AieCannon3_ref = this::AieCannon3;
 
     private void AieReactor(ChaosBase.Obj reactor, ChaosBase.Obj src, /* VAR */ Runtime.IRef<Integer> hit, /* VAR */ Runtime.IRef<Integer> fire) {
         // VAR
@@ -532,33 +495,23 @@ public class ChaosMachine {
         }
     }
 
-    private final ChaosBase.AieProc AieReactor_ref = this::AieReactor;
-
     private void DieCannon(ChaosBase.Obj cannon) {
         chaosSounds.SoundEffect(cannon, dieCannonEffect);
     }
-
-    private final ChaosBase.DieProc DieCannon_ref = this::DieCannon;
 
     private void DieCannon3(ChaosBase.Obj cannon) {
         chaosBase.addpt += chaosBase.difficulty / 2;
         chaosSounds.SoundEffect(cannon, dieCannon3Effect);
     }
 
-    private final ChaosBase.DieProc DieCannon3_ref = this::DieCannon3;
-
     private void DieTurret(ChaosBase.Obj turret) {
         chaosBase.addpt++;
         chaosSounds.SoundEffect(turret, dieTurretEffect);
     }
 
-    private final ChaosBase.DieProc DieTurret_ref = this::DieTurret;
-
     private void DieReactor(ChaosBase.Obj reactor) {
         reactor.life = 100;
     }
-
-    private final ChaosBase.DieProc DieReactor_ref = this::DieReactor;
 
     private void Push(ChaosBase.Obj victim, ChaosBase.Obj door, /* var */ Runtime.IRef<Integer> hit, /* var */ Runtime.IRef<Integer> fire) {
         // VAR
@@ -581,17 +534,13 @@ public class ChaosMachine {
         victim.ay = (byte) Math.abs(victim.ay);
     }
 
-    private final ChaosBase.AieProc Push_ref = this::Push;
-
     private void MoveDoor(ChaosBase.Obj door) {
         if (chaosActions.OutOfScreen(door)) {
             chaosActions.Leave(door);
             return;
         }
-        chaosActions.DoCollision(door, Runtime.withRange(EnumSet.of(Anims.MISSILE, Anims.SMARTBONUS, Anims.BONUS, Anims.MACHINE), Anims.PLAYER, Anims.ALIEN1), Push_ref, new Runtime.FieldRef<>(door::getHitSubLife, door::setHitSubLife), new Runtime.FieldRef<>(door::getFireSubLife, door::setFireSubLife));
+        chaosActions.DoCollision(door, Runtime.withRange(EnumSet.of(Anims.MISSILE, Anims.SMARTBONUS, Anims.BONUS, Anims.MACHINE), Anims.PLAYER, Anims.ALIEN1), Runtime.proc(this::Push, "ChaosMachine.Push"), new Runtime.FieldRef<>(door::getHitSubLife, door::setHitSubLife), new Runtime.FieldRef<>(door::getFireSubLife, door::setFireSubLife));
     }
-
-    private final ChaosBase.MoveProc MoveDoor_ref = this::MoveDoor;
 
     private void DieDoor(ChaosBase.Obj door) {
         chaosSounds.SoundEffect(door, dieDoorEffect);
@@ -602,8 +551,6 @@ public class ChaosMachine {
         }
         chaosBase.screenInverted = (short) (ChaosBase.Period / 4);
     }
-
-    private final ChaosBase.DieProc DieDoor_ref = this::DieDoor;
 
     private void InitParams() {
         // VAR
@@ -644,9 +591,9 @@ public class ChaosMachine {
         }
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetTraverse_ref;
-        attr.Make = MakeTraverse_ref;
-        attr.Move = MoveTraverse_ref;
+        attr.Reset = Runtime.proc(this::ResetTraverse, "ChaosMachine.ResetTraverse");
+        attr.Make = Runtime.proc(this::MakeTraverse, "ChaosMachine.MakeTraverse");
+        attr.Move = Runtime.proc(this::MoveTraverse, "ChaosMachine.MoveTraverse");
         attr.weight = 100;
         attr.inerty = 30;
         attr.priority = -75;
@@ -658,11 +605,11 @@ public class ChaosMachine {
         memory.AddTail(chaosBase.attrList[Anims.MACHINE.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetCannon_ref;
-        attr.Make = MakeCannon1_ref;
-        attr.Move = MoveCannon_ref;
-        attr.Aie = AieCannon_ref;
-        attr.Die = DieCannon_ref;
+        attr.Reset = Runtime.proc(this::ResetCannon, "ChaosMachine.ResetCannon");
+        attr.Make = Runtime.proc(this::MakeCannon1, "ChaosMachine.MakeCannon1");
+        attr.Move = Runtime.proc(this::MoveCannon, "ChaosMachine.MoveCannon");
+        attr.Aie = Runtime.proc(this::AieCannon, "ChaosMachine.AieCannon");
+        attr.Die = Runtime.proc(this::DieCannon, "ChaosMachine.DieCannon");
         attr.weight = 120;
         attr.heatSpeed = 10;
         attr.coolSpeed = 10;
@@ -681,11 +628,11 @@ public class ChaosMachine {
         memory.AddTail(chaosBase.attrList[Anims.MACHINE.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetCannon_ref;
-        attr.Make = MakeCannon2_ref;
-        attr.Move = MoveCannon_ref;
-        attr.Aie = AieCannon_ref;
-        attr.Die = DieCannon_ref;
+        attr.Reset = Runtime.proc(this::ResetCannon, "ChaosMachine.ResetCannon");
+        attr.Make = Runtime.proc(this::MakeCannon2, "ChaosMachine.MakeCannon2");
+        attr.Move = Runtime.proc(this::MoveCannon, "ChaosMachine.MoveCannon");
+        attr.Aie = Runtime.proc(this::AieCannon, "ChaosMachine.AieCannon");
+        attr.Die = Runtime.proc(this::DieCannon, "ChaosMachine.DieCannon");
         attr.weight = 120;
         attr.heatSpeed = 10;
         attr.coolSpeed = 10;
@@ -704,11 +651,11 @@ public class ChaosMachine {
         memory.AddTail(chaosBase.attrList[Anims.MACHINE.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetCannon_ref;
-        attr.Make = MakeCannon3_ref;
-        attr.Move = MoveCannon3_ref;
-        attr.Aie = AieCannon3_ref;
-        attr.Die = DieCannon3_ref;
+        attr.Reset = Runtime.proc(this::ResetCannon, "ChaosMachine.ResetCannon");
+        attr.Make = Runtime.proc(this::MakeCannon3, "ChaosMachine.MakeCannon3");
+        attr.Move = Runtime.proc(this::MoveCannon3, "ChaosMachine.MoveCannon3");
+        attr.Aie = Runtime.proc(this::AieCannon3, "ChaosMachine.AieCannon3");
+        attr.Die = Runtime.proc(this::DieCannon3, "ChaosMachine.DieCannon3");
         attr.weight = 120;
         attr.heatSpeed = 8;
         attr.coolSpeed = 10;
@@ -727,11 +674,11 @@ public class ChaosMachine {
         memory.AddTail(chaosBase.attrList[Anims.MACHINE.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetTurret_ref;
-        attr.Make = MakeTurret_ref;
-        attr.Move = MoveTurret_ref;
-        attr.Aie = AieCannon_ref;
-        attr.Die = DieTurret_ref;
+        attr.Reset = Runtime.proc(this::ResetTurret, "ChaosMachine.ResetTurret");
+        attr.Make = Runtime.proc(this::MakeTurret, "ChaosMachine.MakeTurret");
+        attr.Move = Runtime.proc(this::MoveTurret, "ChaosMachine.MoveTurret");
+        attr.Aie = Runtime.proc(this::AieCannon, "ChaosMachine.AieCannon");
+        attr.Die = Runtime.proc(this::DieTurret, "ChaosMachine.DieTurret");
         attr.weight = 140;
         attr.heatSpeed = 10;
         attr.coolSpeed = 10;
@@ -750,11 +697,11 @@ public class ChaosMachine {
         memory.AddTail(chaosBase.attrList[Anims.MACHINE.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetReactor_ref;
-        attr.Make = MakeReactor_ref;
-        attr.Move = MoveReactor_ref;
-        attr.Aie = AieReactor_ref;
-        attr.Die = DieReactor_ref;
+        attr.Reset = Runtime.proc(this::ResetReactor, "ChaosMachine.ResetReactor");
+        attr.Make = Runtime.proc(this::MakeReactor, "ChaosMachine.MakeReactor");
+        attr.Move = Runtime.proc(this::MoveReactor, "ChaosMachine.MoveReactor");
+        attr.Aie = Runtime.proc(this::AieReactor, "ChaosMachine.AieReactor");
+        attr.Die = Runtime.proc(this::DieReactor, "ChaosMachine.DieReactor");
         attr.charge = 60;
         attr.aieStKinds = EnumSet.of(Stones.stFOG1, Stones.stFOG2, Stones.stFOG3);
         attr.aieSKCount = 3;
@@ -766,10 +713,10 @@ public class ChaosMachine {
         memory.AddTail(chaosBase.attrList[Anims.MACHINE.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = MakeDoor_as_ChaosBase_ResetProc;
-        attr.Make = MakeDoor_as_ChaosBase_MakeProc;
-        attr.Move = MoveDoor_ref;
-        attr.Die = DieDoor_ref;
+        attr.Reset = Runtime.proc(this::MakeDoor, "ChaosMachine.MakeDoor");
+        attr.Make = Runtime.proc(this::MakeDoor, "ChaosMachine.MakeDoor");
+        attr.Move = Runtime.proc(this::MoveDoor, "ChaosMachine.MoveDoor");
+        attr.Die = Runtime.proc(this::DieDoor, "ChaosMachine.DieDoor");
         attr.dieStKinds = EnumSet.of(Stones.stSTAR2);
         attr.dieSKCount = 1;
         attr.dieStone = (short) (ChaosBase.FlameMult * 6 + 28);

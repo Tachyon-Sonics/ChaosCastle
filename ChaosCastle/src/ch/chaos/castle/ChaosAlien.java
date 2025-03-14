@@ -326,42 +326,30 @@ public class ChaosAlien {
         chaosActions.SetObjRect(cartoon, 0, 0, sz, sz);
     }
 
-    private final ChaosBase.MakeProc MakeCartoon_ref = this::MakeCartoon;
-
     private void MakeAlien0(ChaosBase.Obj alien) {
         chaosActions.SetObjLoc(alien, (short) 0, (short) 76, (short) 20, (short) 20);
         chaosActions.SetObjRect(alien, 0, 0, 20, 20);
     }
-
-    private final ChaosBase.MakeProc MakeAlien0_ref = this::MakeAlien0;
 
     private void MakeSmallDrawer(ChaosBase.Obj drawer) {
         chaosActions.SetObjLoc(drawer, (short) 168, (short) 60, (short) 16, (short) 12);
         chaosActions.SetObjRect(drawer, 0, 0, 16, 12);
     }
 
-    private final ChaosBase.MakeProc MakeSmallDrawer_ref = this::MakeSmallDrawer;
-
     private void MakeBigDrawer(ChaosBase.Obj drawer) {
         chaosActions.SetObjLoc(drawer, (short) 96, (short) 76, (short) 32, (short) 20);
         chaosActions.SetObjRect(drawer, 0, 0, 32, 20);
     }
-
-    private final ChaosBase.MakeProc MakeBigDrawer_ref = this::MakeBigDrawer;
 
     private void MakeHospital(ChaosBase.Obj hospital) {
         chaosActions.SetObjLoc(hospital, (short) 20, (short) 76, (short) 20, (short) 20);
         chaosActions.SetObjRect(hospital, 0, 0, 20, 20);
     }
 
-    private final ChaosBase.MakeProc MakeHospital_ref = this::MakeHospital;
-
     private void MakeDiese(ChaosBase.Obj diese) {
         chaosActions.SetObjLoc(diese, (short) 144, (short) 72, (short) 15, (short) 15);
         chaosActions.SetObjRect(diese, 0, 0, 15, 15);
     }
-
-    private final ChaosBase.MakeProc MakeDiese_ref = this::MakeDiese;
 
     private void MakeKamikaze(ChaosBase.Obj kamikaze) {
         // VAR
@@ -374,8 +362,6 @@ public class ChaosAlien {
         chaosActions.SetObjRect(kamikaze, 0, 0, 16, 16);
     }
 
-    private final ChaosBase.MakeProc MakeKamikaze_ref = this::MakeKamikaze;
-
     private void MakePic(ChaosBase.Obj pic) {
         // VAR
         short py = 0;
@@ -385,56 +371,40 @@ public class ChaosAlien {
         chaosActions.SetObjRect(pic, 0, 0, 16, 16);
     }
 
-    private final ChaosBase.MakeProc MakePic_ref = this::MakePic;
-
     private void MakeStar(ChaosBase.Obj star) {
         chaosActions.SetObjLoc(star, (short) 64, (short) 148, (short) 16, (short) 16);
         chaosActions.SetObjRect(star, 0, 0, 16, 16);
     }
-
-    private final ChaosBase.MakeProc MakeStar_ref = this::MakeStar;
 
     private void MakeBubble(ChaosBase.Obj bubble) {
         chaosActions.SetObjLoc(bubble, (short) 64, (short) 164, (short) 16, (short) 16);
         chaosActions.SetObjRect(bubble, 1, 1, 15, 15);
     }
 
-    private final ChaosBase.MakeProc MakeBubble_ref = this::MakeBubble;
-
     private void MakeBumper(ChaosBase.Obj bumper) {
         chaosActions.SetObjLoc(bumper, (short) 76, (short) 76, (short) 20, (short) 20);
         chaosActions.SetObjRect(bumper, 0, 0, 20, 20);
     }
-
-    private final ChaosBase.MakeProc MakeBumper_ref = this::MakeBumper;
 
     private void MakeTri(ChaosBase.Obj tri) {
         chaosActions.SetObjLoc(tri, (short) 224, (short) 164, (short) 24, (short) 20);
         chaosActions.SetObjRect(tri, 4, 4, 20, 16);
     }
 
-    private final ChaosBase.MakeProc MakeTri_ref = this::MakeTri;
-
     private void MakeTrefle(ChaosBase.Obj trefle) {
         chaosActions.SetObjLoc(trefle, (short) 80, (short) 160, (short) 20, (short) 20);
         chaosActions.SetObjRect(trefle, 0, 0, 20, 20);
     }
-
-    private final ChaosBase.MakeProc MakeTrefle_ref = this::MakeTrefle;
 
     private void MakeBig(ChaosBase.Obj big) {
         chaosActions.SetObjLoc(big, (short) 100, (short) 180, (short) 20, (short) 20);
         chaosActions.SetObjRect(big, 1, 1, 19, 19);
     }
 
-    private final ChaosBase.MakeProc MakeBig_ref = this::MakeBig;
-
     private void MakeSquare(ChaosBase.Obj square) {
         chaosActions.SetObjLoc(square, (short) 101, (short) 101, (short) 22, (short) 22);
         chaosActions.SetObjRect(square, 0, 0, 22, 22);
     }
-
-    private final ChaosBase.MakeProc MakeSquare_ref = this::MakeSquare;
 
     private void MakeFlame(ChaosBase.Obj flame) {
         // VAR
@@ -448,8 +418,6 @@ public class ChaosAlien {
         chaosActions.SetObjRect(flame, 0, 0, 12, 12);
     }
 
-    private final ChaosBase.MakeProc MakeFlame_ref = this::MakeFlame;
-
     private void MakeColor(ChaosBase.Obj color) {
         // VAR
         short px = 0;
@@ -462,8 +430,6 @@ public class ChaosAlien {
         chaosActions.SetObjRect(color, 0, 0, 20, 20);
     }
 
-    private final ChaosBase.MakeProc MakeColor_ref = this::MakeColor;
-
     private void ResetCartoon(ChaosBase.Obj cartoon) {
         cartoon.stat = cartoon.life % 3;
         if (cartoon.stat == 0)
@@ -474,8 +440,6 @@ public class ChaosAlien {
         cartoon.fireSubLife = cartoon.life;
         MakeCartoon(cartoon);
     }
-
-    private final ChaosBase.ResetProc ResetCartoon_ref = this::ResetCartoon;
 
     private void ResetAlien0(ChaosBase.Obj alien) {
         // VAR
@@ -492,8 +456,6 @@ public class ChaosAlien {
         alien.attr.Make.invoke(alien);
     }
 
-    private final ChaosBase.ResetProc ResetAlien0_ref = this::ResetAlien0;
-
     private void ResetSmallDrawer(ChaosBase.Obj drawer) {
         drawer.life = (8 - chaosBase.powerCountDown / 2 + chaosBase.difficulty) * 5;
         drawer.hitSubLife = drawer.life;
@@ -501,16 +463,12 @@ public class ChaosAlien {
         MakeSmallDrawer(drawer);
     }
 
-    private final ChaosBase.ResetProc ResetSmallDrawer_ref = this::ResetSmallDrawer;
-
     private void ResetBigDrawer(ChaosBase.Obj drawer) {
         drawer.life = (9 - chaosBase.powerCountDown / 2 + chaosBase.difficulty) * 8;
         drawer.hitSubLife = drawer.life;
         drawer.fireSubLife = drawer.life;
         MakeBigDrawer(drawer);
     }
-
-    private final ChaosBase.ResetProc ResetBigDrawer_ref = this::ResetBigDrawer;
 
     private void ResetHospital(ChaosBase.Obj hospital) {
         // VAR
@@ -524,15 +482,11 @@ public class ChaosAlien {
         MakeHospital(hospital);
     }
 
-    private final ChaosBase.ResetProc ResetHospital_ref = this::ResetHospital;
-
     private void ResetDiese(ChaosBase.Obj diese) {
         diese.fireSubLife = diese.life;
         diese.hitSubLife = diese.life;
         MakeDiese(diese);
     }
-
-    private final ChaosBase.ResetProc ResetDiese_ref = this::ResetDiese;
 
     private void ResetKamikaze(ChaosBase.Obj kamikaze) {
         kamikaze.stat = kamikaze.life % 4;
@@ -543,8 +497,6 @@ public class ChaosAlien {
         MakeKamikaze(kamikaze);
     }
 
-    private final ChaosBase.ResetProc ResetKamikaze_ref = this::ResetKamikaze;
-
     private void ResetPic(ChaosBase.Obj pic) {
         pic.stat = pic.life % 2;
         pic.life = 40 + chaosBase.difficulty * 16;
@@ -554,16 +506,12 @@ public class ChaosAlien {
         MakePic(pic);
     }
 
-    private final ChaosBase.ResetProc ResetPic_ref = this::ResetPic;
-
     private void ResetStar(ChaosBase.Obj star) {
         star.moveSeq = 0;
         star.hitSubLife = star.life;
         star.fireSubLife = 0;
         MakeStar(star);
     }
-
-    private final ChaosBase.ResetProc ResetStar_ref = this::ResetStar;
 
     private void ResetBubble(ChaosBase.Obj bubble) {
         bubble.moveSeq = 0;
@@ -572,8 +520,6 @@ public class ChaosAlien {
         MakeBubble(bubble);
     }
 
-    private final ChaosBase.ResetProc ResetBubble_ref = this::ResetBubble;
-
     private void ResetBumper(ChaosBase.Obj bumper) {
         bumper.moveSeq = 0;
         bumper.hitSubLife = bumper.life;
@@ -581,23 +527,17 @@ public class ChaosAlien {
         MakeBumper(bumper);
     }
 
-    private final ChaosBase.ResetProc ResetBumper_ref = this::ResetBumper;
-
     private void ResetTri(ChaosBase.Obj tri) {
         tri.fireSubLife = tri.life / 3;
         tri.hitSubLife = tri.life - tri.fireSubLife;
         MakeTri(tri);
     }
 
-    private final ChaosBase.ResetProc ResetTri_ref = this::ResetTri;
-
     private void ResetTrefle(ChaosBase.Obj trefle) {
         trefle.hitSubLife = trefle.life / 3;
         trefle.fireSubLife = trefle.life - trefle.hitSubLife;
         MakeTrefle(trefle);
     }
-
-    private final ChaosBase.ResetProc ResetTrefle_ref = this::ResetTrefle;
 
     private void ResetBig(ChaosBase.Obj big) {
         big.moveSeq = 0;
@@ -606,16 +546,12 @@ public class ChaosAlien {
         MakeBig(big);
     }
 
-    private final ChaosBase.ResetProc ResetBig_ref = this::ResetBig;
-
     private void ResetSquare(ChaosBase.Obj square) {
         square.moveSeq = 0;
         square.hitSubLife = square.life / 4;
         square.fireSubLife = square.life - square.hitSubLife;
         MakeSquare(square);
     }
-
-    private final ChaosBase.ResetProc ResetSquare_ref = this::ResetSquare;
 
     private void ResetFlame(ChaosBase.Obj flame) {
         flame.fireSubLife = flame.life / 2;
@@ -625,16 +561,12 @@ public class ChaosAlien {
         MakeFlame(flame);
     }
 
-    private final ChaosBase.ResetProc ResetFlame_ref = this::ResetFlame;
-
     private void ResetColor(ChaosBase.Obj color) {
         color.hitSubLife = 20;
         color.fireSubLife = 10;
         color.moveSeq = 0;
         MakeColor(color);
     }
-
-    private final ChaosBase.ResetProc ResetColor_ref = this::ResetColor;
 
     private void Stop(ChaosBase.Obj victim, ChaosBase.Obj cartoon, /* var */ Runtime.IRef<Integer> hit, /* var */ Runtime.IRef<Integer> fire) {
         // CONST
@@ -688,8 +620,6 @@ public class ChaosAlien {
         }
     }
 
-    private final ChaosBase.AieProc Stop_ref = this::Stop;
-
     private void MoveCartoon(ChaosBase.Obj cartoon) {
         if (chaosActions.OutOfScreen(cartoon)) {
             chaosActions.Leave(cartoon);
@@ -699,12 +629,10 @@ public class ChaosAlien {
         cartoon.vy = 0;
         cartoon.dvx = 0;
         cartoon.dvy = 0;
-        chaosActions.DoCollision(cartoon, Runtime.withRange(EnumSet.of(Anims.PLAYER, Anims.SMARTBONUS, Anims.BONUS), Anims.ALIEN3, Anims.MISSILE), Stop_ref, new Runtime.FieldRef<>(cartoon::getHitSubLife, cartoon::setHitSubLife), new Runtime.FieldRef<>(cartoon::getFireSubLife, cartoon::setFireSubLife));
+        chaosActions.DoCollision(cartoon, Runtime.withRange(EnumSet.of(Anims.PLAYER, Anims.SMARTBONUS, Anims.BONUS), Anims.ALIEN3, Anims.MISSILE), Runtime.proc(this::Stop, "ChaosAlien.Stop"), new Runtime.FieldRef<>(cartoon::getHitSubLife, cartoon::setHitSubLife), new Runtime.FieldRef<>(cartoon::getFireSubLife, cartoon::setFireSubLife));
         chaosActions.UpdateXY(cartoon);
         chaosActions.Burn(cartoon);
     }
-
-    private final ChaosBase.MoveProc MoveCartoon_ref = this::MoveCartoon;
 
     private void MoveDrawer(ChaosBase.Obj drawer) {
         if (chaosActions.OutOfScreen(drawer)) {
@@ -715,12 +643,10 @@ public class ChaosAlien {
         chaosActions.AvoidBounds(drawer, (short) 2);
         drawer.dvx = 0;
         drawer.dvy = 0;
-        chaosActions.DoCollision(drawer, Runtime.withRange(EnumSet.of(Anims.PLAYER, Anims.SMARTBONUS, Anims.BONUS), Anims.ALIEN3, Anims.MISSILE), Stop_ref, new Runtime.FieldRef<>(drawer::getHitSubLife, drawer::setHitSubLife), new Runtime.FieldRef<>(drawer::getFireSubLife, drawer::setFireSubLife));
+        chaosActions.DoCollision(drawer, Runtime.withRange(EnumSet.of(Anims.PLAYER, Anims.SMARTBONUS, Anims.BONUS), Anims.ALIEN3, Anims.MISSILE), Runtime.proc(this::Stop, "ChaosAlien.Stop"), new Runtime.FieldRef<>(drawer::getHitSubLife, drawer::setHitSubLife), new Runtime.FieldRef<>(drawer::getFireSubLife, drawer::setFireSubLife));
         chaosActions.UpdateXY(drawer);
         chaosActions.Burn(drawer);
     }
-
-    private final ChaosBase.MoveProc MoveDrawer_ref = this::MoveDrawer;
 
     private void MoveAlien0(ChaosBase.Obj alien) {
         if (chaosActions.OutOfScreen(alien)) {
@@ -740,8 +666,6 @@ public class ChaosAlien {
         if (alien.life == 0)
             chaosActions.Die(alien);
     }
-
-    private final ChaosBase.MoveProc MoveAlien0_ref = this::MoveAlien0;
 
     private void MoveHospital(ChaosBase.Obj hospital) {
         // VAR
@@ -774,8 +698,6 @@ public class ChaosAlien {
         if (hospital.life == 0)
             chaosActions.Die(hospital);
     }
-
-    private final ChaosBase.MoveProc MoveHospital_ref = this::MoveHospital;
 
     private void MoveDiese(ChaosBase.Obj diese) {
         // VAR
@@ -817,8 +739,6 @@ public class ChaosAlien {
             chaosActions.Die(diese);
     }
 
-    private final ChaosBase.MoveProc MoveDiese_ref = this::MoveDiese;
-
     private void MovePic(ChaosBase.Obj pic) {
         // VAR
         Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
@@ -848,13 +768,11 @@ public class ChaosAlien {
             pic.moveSeq = 0;
             pic.dvx = (short) -(dx * 4096);
         } else {
-            chaosActions.DoCollision(pic, EnumSet.of(Anims.PLAYER, Anims.ALIEN1), chaosActions.Aie_ref, new Runtime.FieldRef<>(pic::getHitSubLife, pic::setHitSubLife), new Runtime.FieldRef<>(pic::getFireSubLife, pic::setFireSubLife));
+            chaosActions.DoCollision(pic, EnumSet.of(Anims.PLAYER, Anims.ALIEN1), Runtime.proc(chaosActions::Aie, "ChaosActions.Aie"), new Runtime.FieldRef<>(pic::getHitSubLife, pic::setHitSubLife), new Runtime.FieldRef<>(pic::getFireSubLife, pic::setFireSubLife));
             if ((pic.hitSubLife == 0) || (pic.fireSubLife == 0) || chaosActions.InBackground(pic) || chaosActions.OutOfBounds(pic))
                 chaosActions.Die(pic);
         }
     }
-
-    private final ChaosBase.MoveProc MovePic_ref = this::MovePic;
 
     private void MoveKamikaze(ChaosBase.Obj kamikaze) {
         // VAR
@@ -896,8 +814,6 @@ public class ChaosAlien {
             chaosActions.Die(kamikaze);
     }
 
-    private final ChaosBase.MoveProc MoveKamikaze_ref = this::MoveKamikaze;
-
     private void MoveBumper(ChaosBase.Obj bumper) {
         // VAR
         short nax = 0;
@@ -923,8 +839,6 @@ public class ChaosAlien {
         if (bumper.life == 0)
             chaosActions.Die(bumper);
     }
-
-    private final ChaosBase.MoveProc MoveBumper_ref = this::MoveBumper;
 
     private void MoveStarBubble(ChaosBase.Obj obj) {
         // VAR
@@ -966,8 +880,6 @@ public class ChaosAlien {
             chaosActions.Die(obj);
     }
 
-    private final ChaosBase.MoveProc MoveStarBubble_ref = this::MoveStarBubble;
-
     private void MoveTri(ChaosBase.Obj tri) {
         // VAR
         int dx = 0;
@@ -1008,8 +920,6 @@ public class ChaosAlien {
             chaosActions.Die(tri);
     }
 
-    private final ChaosBase.MoveProc MoveTri_ref = this::MoveTri;
-
     private void MoveTrefle(ChaosBase.Obj trefle) {
         // VAR
         Runtime.Ref<Short> tx = new Runtime.Ref<>((short) 0);
@@ -1041,8 +951,6 @@ public class ChaosAlien {
             chaosActions.Die(trefle);
     }
 
-    private final ChaosBase.MoveProc MoveTrefle_ref = this::MoveTrefle;
-
     private void MoveBig(ChaosBase.Obj big) {
         // VAR
         short angle = 0;
@@ -1067,12 +975,10 @@ public class ChaosAlien {
             anims = EnumSet.of(Anims.MACHINE);
         else
             anims = EnumSet.noneOf(Anims.class);
-        chaosActions.DoCollision(big, Runtime.plusSet(EnumSet.of(Anims.PLAYER), anims), chaosActions.Aie_ref, new Runtime.FieldRef<>(this::getZeroFire, this::setZeroFire), new Runtime.FieldRef<>(big::getLife, big::setLife));
+        chaosActions.DoCollision(big, Runtime.plusSet(EnumSet.of(Anims.PLAYER), anims), Runtime.proc(chaosActions::Aie, "ChaosActions.Aie"), new Runtime.FieldRef<>(this::getZeroFire, this::setZeroFire), new Runtime.FieldRef<>(big::getLife, big::setLife));
         if (big.life == 0)
             chaosActions.Die(big);
     }
-
-    private final ChaosBase.MoveProc MoveBig_ref = this::MoveBig;
 
     private void MoveFlame(ChaosBase.Obj flame) {
         // VAR
@@ -1131,21 +1037,15 @@ public class ChaosAlien {
             chaosActions.Die(flame);
     }
 
-    private final ChaosBase.MoveProc MoveFlame_ref = this::MoveFlame;
-
     private void AieCartoon(ChaosBase.Obj cartoon, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosActions.DecLife(cartoon, hit, fire);
         chaosSounds.SoundEffect(cartoon, aieCartoonEffect);
     }
 
-    private final ChaosBase.AieProc AieCartoon_ref = this::AieCartoon;
-
     private void AieDrawer(ChaosBase.Obj drawer, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosActions.DecLife(drawer, hit, fire);
         chaosSounds.SoundEffect(drawer, aieDrawerEffect);
     }
-
-    private final ChaosBase.AieProc AieDrawer_ref = this::AieDrawer;
 
     private void AieAlien0(ChaosBase.Obj alien, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosActions.DecLife(alien, hit, fire);
@@ -1154,22 +1054,16 @@ public class ChaosAlien {
             chaosSounds.SoundEffect(alien, aieAlien0Effect);
     }
 
-    private final ChaosBase.AieProc AieAlien0_ref = this::AieAlien0;
-
     private void AieDiese(ChaosBase.Obj diese, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosActions.DecLife(diese, hit, fire);
         if (diese.life > 0)
             chaosSounds.SoundEffect(diese, aieAlien0Effect);
     }
 
-    private final ChaosBase.AieProc AieDiese_ref = this::AieDiese;
-
     private void AieHospital(ChaosBase.Obj hospital, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosSounds.SoundEffect(hospital, aieHospitalEffect);
         chaosActions.DecLife(hospital, hit, fire);
     }
-
-    private final ChaosBase.AieProc AieHospital_ref = this::AieHospital;
 
     private void AieKamikaze(ChaosBase.Obj kamikaze, ChaosBase.Obj src, /* VAR */ Runtime.IRef<Integer> hit, /* VAR */ Runtime.IRef<Integer> fire) {
         if (kamikaze.moveSeq == 2)
@@ -1180,14 +1074,10 @@ public class ChaosAlien {
         fire.set(0);
     }
 
-    private final ChaosBase.AieProc AieKamikaze_ref = this::AieKamikaze;
-
     private void AiePic(ChaosBase.Obj pic, ChaosBase.Obj src, /* var */ Runtime.IRef<Integer> hit, /* var */ Runtime.IRef<Integer> fire) {
         if (pic.moveSeq == 2)
             pic.moveSeq = 1;
     }
-
-    private final ChaosBase.AieProc AiePic_ref = this::AiePic;
 
     private void AieSBB(ChaosBase.Obj obj, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         if (((obj.hitSubLife > 0) && (hit.get() > 0)) || ((obj.fireSubLife > 0) && (fire.get() > 0)))
@@ -1195,22 +1085,16 @@ public class ChaosAlien {
         chaosActions.DecLife(obj, hit, fire);
     }
 
-    private final ChaosBase.AieProc AieSBB_ref = this::AieSBB;
-
     private void AieTri(ChaosBase.Obj tri, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosSounds.SoundEffect(tri, aieTriEffect);
         chaosActions.DecLife(tri, hit, fire);
     }
-
-    private final ChaosBase.AieProc AieTri_ref = this::AieTri;
 
     private void AieTrefle(ChaosBase.Obj trefle, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosBase.addpt += 1;
         chaosSounds.SoundEffect(trefle, aieTrefleEffect);
         chaosActions.DecLife(trefle, hit, fire);
     }
-
-    private final ChaosBase.AieProc AieTrefle_ref = this::AieTrefle;
 
     private void AieBig(ChaosBase.Obj big, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         chaosBase.addpt += 4;
@@ -1219,15 +1103,11 @@ public class ChaosAlien {
         chaosActions.DecLife(big, hit, fire);
     }
 
-    private final ChaosBase.AieProc AieBig_ref = this::AieBig;
-
     private void AieSquare(ChaosBase.Obj square, ChaosBase.Obj src, /* VAR+WRT */ Runtime.IRef<Integer> hit, /* VAR+WRT */ Runtime.IRef<Integer> fire) {
         square.moveSeq = 0;
         chaosSounds.SoundEffect(square, aieSquareEffect);
         chaosActions.DecLife(square, hit, fire);
     }
-
-    private final ChaosBase.AieProc AieSquare_ref = this::AieSquare;
 
     private void DieCartoon(ChaosBase.Obj cartoon) {
         if (cartoon.stat == 0)
@@ -1235,8 +1115,6 @@ public class ChaosAlien {
         else
             chaosSounds.SoundEffect(cartoon, dieSCartoonEffect);
     }
-
-    private final ChaosBase.DieProc DieCartoon_ref = this::DieCartoon;
 
     private void DieAlien0(ChaosBase.Obj alien) {
         // VAR
@@ -1257,27 +1135,19 @@ public class ChaosAlien {
         }
     }
 
-    private final ChaosBase.DieProc DieAlien0_ref = this::DieAlien0;
-
     private void DieDiese(ChaosBase.Obj diese) {
         chaosBase.addpt++;
         chaosSounds.SoundEffect(diese, dieDieseEffect);
     }
 
-    private final ChaosBase.DieProc DieDiese_ref = this::DieDiese;
-
     private void DieKamikaze(ChaosBase.Obj kamikaze) {
         chaosSounds.SoundEffect(kamikaze, dieKmkEffect);
     }
-
-    private final ChaosBase.DieProc DieKamikaze_ref = this::DieKamikaze;
 
     private void DieStarBubble(ChaosBase.Obj obj) {
         chaosBase.addpt += 2;
         chaosSounds.SoundEffect(obj, dieSBEffect);
     }
-
-    private final ChaosBase.DieProc DieStarBubble_ref = this::DieStarBubble;
 
     private void DieBumper(ChaosBase.Obj bumper) {
         chaosBase.addpt += 3;
@@ -1286,15 +1156,11 @@ public class ChaosAlien {
         chaosSounds.SoundEffect(bumper, dieBumperEffect);
     }
 
-    private final ChaosBase.DieProc DieBumper_ref = this::DieBumper;
-
     private void DieTri(ChaosBase.Obj tri) {
         if (!tri.flags.contains(ObjFlags.nested))
             chaosBonus.BoumMoney(tri, EnumSet.of(Moneys.st), 1, 2);
         chaosSounds.SoundEffect(tri, dieTriEffect);
     }
-
-    private final ChaosBase.DieProc DieTri_ref = this::DieTri;
 
     private void DieTrefle(ChaosBase.Obj trefle) {
         chaosSounds.SoundEffect(trefle, dieTrefleEffect);
@@ -1302,13 +1168,9 @@ public class ChaosAlien {
             chaosBonus.BoumMoney(trefle, EnumSet.of(Moneys.st), 1, 1);
     }
 
-    private final ChaosBase.DieProc DieTrefle_ref = this::DieTrefle;
-
     private void DieBig(ChaosBase.Obj big) {
         chaosSounds.SoundEffect(big, dieBigEffect);
     }
-
-    private final ChaosBase.DieProc DieBig_ref = this::DieBig;
 
     private void DieSquare(ChaosBase.Obj square) {
         if (!square.flags.contains(ObjFlags.nested))
@@ -1316,13 +1178,9 @@ public class ChaosAlien {
         chaosSounds.SoundEffect(square, dieSquareEffect);
     }
 
-    private final ChaosBase.DieProc DieSquare_ref = this::DieSquare;
-
     private void DieFlame(ChaosBase.Obj flame) {
         chaosSounds.SoundEffect(flame, dieFlameEffect);
     }
-
-    private final ChaosBase.DieProc DieFlame_ref = this::DieFlame;
 
     private void DieSmallDrawer(ChaosBase.Obj drawer) {
         // VAR
@@ -1341,8 +1199,6 @@ public class ChaosAlien {
         if (chaosBase.difficulty < 10)
             chaosBonus.BoumMoney(drawer, EnumSet.of(Moneys.m1, Moneys.m2, Moneys.m5), 3, 6);
     }
-
-    private final ChaosBase.DieProc DieSmallDrawer_ref = this::DieSmallDrawer;
 
     private void DieBigDrawer(ChaosBase.Obj drawer) {
         // VAR
@@ -1382,8 +1238,6 @@ public class ChaosAlien {
             chaosActions.SetObjAXY(bonus, (byte) 0, (byte) 12);
     }
 
-    private final ChaosBase.DieProc DieBigDrawer_ref = this::DieBigDrawer;
-
     private void DieHospital(ChaosBase.Obj hospital) {
         // VAR
         ChaosBase.Obj bonus = null;
@@ -1401,8 +1255,6 @@ public class ChaosAlien {
         if (chaosBase.nbDollar == 0)
             chaosBonus.BoumMoney(hospital, EnumSet.of(Moneys.m1, Moneys.m2, Moneys.m5), 3, 11 - chaosBase.difficulty);
     }
-
-    private final ChaosBase.DieProc DieHospital_ref = this::DieHospital;
 
     private void InitParams() {
         // VAR
@@ -1512,11 +1364,11 @@ public class ChaosAlien {
         chaosSounds.SetEffect(dieFlameEffect[2], chaosSounds.soundList[SoundList.wNoise.ordinal()], 209, 4181, (short) 150, (short) 3);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetCartoon_ref;
-        attr.Make = MakeCartoon_ref;
-        attr.Move = MoveCartoon_ref;
-        attr.Aie = AieCartoon_ref;
-        attr.Die = DieCartoon_ref;
+        attr.Reset = Runtime.proc(this::ResetCartoon, "ChaosAlien.ResetCartoon");
+        attr.Make = Runtime.proc(this::MakeCartoon, "ChaosAlien.MakeCartoon");
+        attr.Move = Runtime.proc(this::MoveCartoon, "ChaosAlien.MoveCartoon");
+        attr.Aie = Runtime.proc(this::AieCartoon, "ChaosAlien.AieCartoon");
+        attr.Die = Runtime.proc(this::DieCartoon, "ChaosAlien.DieCartoon");
         attr.weight = 100;
         attr.heatSpeed = 170;
         attr.refreshSpeed = 140;
@@ -1535,11 +1387,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetAlien0_ref;
-        attr.Make = MakeAlien0_ref;
-        attr.Move = MoveAlien0_ref;
-        attr.Aie = AieAlien0_ref;
-        attr.Die = DieAlien0_ref;
+        attr.Reset = Runtime.proc(this::ResetAlien0, "ChaosAlien.ResetAlien0");
+        attr.Make = Runtime.proc(this::MakeAlien0, "ChaosAlien.MakeAlien0");
+        attr.Move = Runtime.proc(this::MoveAlien0, "ChaosAlien.MoveAlien0");
+        attr.Aie = Runtime.proc(this::AieAlien0, "ChaosAlien.AieAlien0");
+        attr.Die = Runtime.proc(this::DieAlien0, "ChaosAlien.DieAlien0");
         attr.charge = 70;
         attr.weight = 12;
         attr.inerty = 24;
@@ -1560,11 +1412,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetSmallDrawer_ref;
-        attr.Make = MakeSmallDrawer_ref;
-        attr.Move = MoveDrawer_ref;
-        attr.Aie = AieDrawer_ref;
-        attr.Die = DieSmallDrawer_ref;
+        attr.Reset = Runtime.proc(this::ResetSmallDrawer, "ChaosAlien.ResetSmallDrawer");
+        attr.Make = Runtime.proc(this::MakeSmallDrawer, "ChaosAlien.MakeSmallDrawer");
+        attr.Move = Runtime.proc(this::MoveDrawer, "ChaosAlien.MoveDrawer");
+        attr.Aie = Runtime.proc(this::AieDrawer, "ChaosAlien.AieDrawer");
+        attr.Die = Runtime.proc(this::DieSmallDrawer, "ChaosAlien.DieSmallDrawer");
         attr.charge = 20;
         attr.weight = 50;
         attr.inerty = 30;
@@ -1585,11 +1437,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetBigDrawer_ref;
-        attr.Make = MakeBigDrawer_ref;
-        attr.Move = MoveDrawer_ref;
-        attr.Aie = AieDrawer_ref;
-        attr.Die = DieBigDrawer_ref;
+        attr.Reset = Runtime.proc(this::ResetBigDrawer, "ChaosAlien.ResetBigDrawer");
+        attr.Make = Runtime.proc(this::MakeBigDrawer, "ChaosAlien.MakeBigDrawer");
+        attr.Move = Runtime.proc(this::MoveDrawer, "ChaosAlien.MoveDrawer");
+        attr.Aie = Runtime.proc(this::AieDrawer, "ChaosAlien.AieDrawer");
+        attr.Die = Runtime.proc(this::DieBigDrawer, "ChaosAlien.DieBigDrawer");
         attr.charge = 10;
         attr.weight = 100;
         attr.inerty = 60;
@@ -1610,11 +1462,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetHospital_ref;
-        attr.Make = MakeHospital_ref;
-        attr.Move = MoveHospital_ref;
-        attr.Aie = AieHospital_ref;
-        attr.Die = DieHospital_ref;
+        attr.Reset = Runtime.proc(this::ResetHospital, "ChaosAlien.ResetHospital");
+        attr.Make = Runtime.proc(this::MakeHospital, "ChaosAlien.MakeHospital");
+        attr.Move = Runtime.proc(this::MoveHospital, "ChaosAlien.MoveHospital");
+        attr.Aie = Runtime.proc(this::AieHospital, "ChaosAlien.AieHospital");
+        attr.Die = Runtime.proc(this::DieHospital, "ChaosAlien.DieHospital");
         attr.charge = 15;
         attr.weight = 40;
         attr.priority = -30;
@@ -1634,11 +1486,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetDiese_ref;
-        attr.Make = MakeDiese_ref;
-        attr.Move = MoveDiese_ref;
-        attr.Aie = AieDiese_ref;
-        attr.Die = DieDiese_ref;
+        attr.Reset = Runtime.proc(this::ResetDiese, "ChaosAlien.ResetDiese");
+        attr.Make = Runtime.proc(this::MakeDiese, "ChaosAlien.MakeDiese");
+        attr.Move = Runtime.proc(this::MoveDiese, "ChaosAlien.MoveDiese");
+        attr.Aie = Runtime.proc(this::AieDiese, "ChaosAlien.AieDiese");
+        attr.Die = Runtime.proc(this::DieDiese, "ChaosAlien.DieDiese");
         attr.charge = 50;
         attr.weight = 50;
         attr.inerty = 50;
@@ -1659,11 +1511,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetKamikaze_ref;
-        attr.Make = MakeKamikaze_ref;
-        attr.Move = MoveKamikaze_ref;
-        attr.Aie = AieKamikaze_ref;
-        attr.Die = DieKamikaze_ref;
+        attr.Reset = Runtime.proc(this::ResetKamikaze, "ChaosAlien.ResetKamikaze");
+        attr.Make = Runtime.proc(this::MakeKamikaze, "ChaosAlien.MakeKamikaze");
+        attr.Move = Runtime.proc(this::MoveKamikaze, "ChaosAlien.MoveKamikaze");
+        attr.Aie = Runtime.proc(this::AieKamikaze, "ChaosAlien.AieKamikaze");
+        attr.Die = Runtime.proc(this::DieKamikaze, "ChaosAlien.DieKamikaze");
         attr.charge = 80;
         attr.weight = 100;
         attr.inerty = 100;
@@ -1677,11 +1529,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetStar_ref;
-        attr.Make = MakeStar_ref;
-        attr.Move = MoveStarBubble_ref;
-        attr.Aie = AieSBB_ref;
-        attr.Die = DieStarBubble_ref;
+        attr.Reset = Runtime.proc(this::ResetStar, "ChaosAlien.ResetStar");
+        attr.Make = Runtime.proc(this::MakeStar, "ChaosAlien.MakeStar");
+        attr.Move = Runtime.proc(this::MoveStarBubble, "ChaosAlien.MoveStarBubble");
+        attr.Aie = Runtime.proc(this::AieSBB, "ChaosAlien.AieSBB");
+        attr.Die = Runtime.proc(this::DieStarBubble, "ChaosAlien.DieStarBubble");
         attr.charge = 10;
         attr.weight = 50;
         attr.inerty = 32;
@@ -1699,11 +1551,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetBubble_ref;
-        attr.Make = MakeBubble_ref;
-        attr.Move = MoveStarBubble_ref;
-        attr.Aie = AieSBB_ref;
-        attr.Die = DieStarBubble_ref;
+        attr.Reset = Runtime.proc(this::ResetBubble, "ChaosAlien.ResetBubble");
+        attr.Make = Runtime.proc(this::MakeBubble, "ChaosAlien.MakeBubble");
+        attr.Move = Runtime.proc(this::MoveStarBubble, "ChaosAlien.MoveStarBubble");
+        attr.Aie = Runtime.proc(this::AieSBB, "ChaosAlien.AieSBB");
+        attr.Die = Runtime.proc(this::DieStarBubble, "ChaosAlien.DieStarBubble");
         attr.charge = 100;
         attr.weight = 50;
         attr.inerty = 32;
@@ -1723,11 +1575,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetBumper_ref;
-        attr.Make = MakeBumper_ref;
-        attr.Move = MoveBumper_ref;
-        attr.Aie = AieSBB_ref;
-        attr.Die = DieBumper_ref;
+        attr.Reset = Runtime.proc(this::ResetBumper, "ChaosAlien.ResetBumper");
+        attr.Make = Runtime.proc(this::MakeBumper, "ChaosAlien.MakeBumper");
+        attr.Move = Runtime.proc(this::MoveBumper, "ChaosAlien.MoveBumper");
+        attr.Aie = Runtime.proc(this::AieSBB, "ChaosAlien.AieSBB");
+        attr.Die = Runtime.proc(this::DieBumper, "ChaosAlien.DieBumper");
         attr.charge = 30;
         attr.weight = 60;
         attr.inerty = 60;
@@ -1748,11 +1600,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetPic_ref;
-        attr.Make = MakePic_ref;
-        attr.Move = MovePic_ref;
-        attr.Aie = AiePic_ref;
-        attr.Die = DieKamikaze_ref;
+        attr.Reset = Runtime.proc(this::ResetPic, "ChaosAlien.ResetPic");
+        attr.Make = Runtime.proc(this::MakePic, "ChaosAlien.MakePic");
+        attr.Move = Runtime.proc(this::MovePic, "ChaosAlien.MovePic");
+        attr.Aie = Runtime.proc(this::AiePic, "ChaosAlien.AiePic");
+        attr.Die = Runtime.proc(this::DieKamikaze, "ChaosAlien.DieKamikaze");
         attr.charge = 40;
         attr.weight = 120;
         attr.inerty = 160;
@@ -1766,11 +1618,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetTri_ref;
-        attr.Make = MakeTri_ref;
-        attr.Move = MoveTri_ref;
-        attr.Aie = AieTri_ref;
-        attr.Die = DieTri_ref;
+        attr.Reset = Runtime.proc(this::ResetTri, "ChaosAlien.ResetTri");
+        attr.Make = Runtime.proc(this::MakeTri, "ChaosAlien.MakeTri");
+        attr.Move = Runtime.proc(this::MoveTri, "ChaosAlien.MoveTri");
+        attr.Aie = Runtime.proc(this::AieTri, "ChaosAlien.AieTri");
+        attr.Die = Runtime.proc(this::DieTri, "ChaosAlien.DieTri");
         attr.charge = 8;
         attr.weight = 40;
         attr.inerty = 100;
@@ -1791,11 +1643,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetTrefle_ref;
-        attr.Make = MakeTrefle_ref;
-        attr.Move = MoveTrefle_ref;
-        attr.Aie = AieTrefle_ref;
-        attr.Die = DieTrefle_ref;
+        attr.Reset = Runtime.proc(this::ResetTrefle, "ChaosAlien.ResetTrefle");
+        attr.Make = Runtime.proc(this::MakeTrefle, "ChaosAlien.MakeTrefle");
+        attr.Move = Runtime.proc(this::MoveTrefle, "ChaosAlien.MoveTrefle");
+        attr.Aie = Runtime.proc(this::AieTrefle, "ChaosAlien.AieTrefle");
+        attr.Die = Runtime.proc(this::DieTrefle, "ChaosAlien.DieTrefle");
         attr.charge = 55;
         attr.weight = 20;
         attr.inerty = 200;
@@ -1816,11 +1668,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetBig_ref;
-        attr.Make = MakeBig_ref;
-        attr.Move = MoveBig_ref;
-        attr.Aie = AieBig_ref;
-        attr.Die = DieBig_ref;
+        attr.Reset = Runtime.proc(this::ResetBig, "ChaosAlien.ResetBig");
+        attr.Make = Runtime.proc(this::MakeBig, "ChaosAlien.MakeBig");
+        attr.Move = Runtime.proc(this::MoveBig, "ChaosAlien.MoveBig");
+        attr.Aie = Runtime.proc(this::AieBig, "ChaosAlien.AieBig");
+        attr.Die = Runtime.proc(this::DieBig, "ChaosAlien.DieBig");
         attr.charge = 5;
         attr.weight = 80;
         attr.inerty = 100;
@@ -1841,11 +1693,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetSquare_ref;
-        attr.Make = MakeSquare_ref;
-        attr.Move = MoveBig_ref;
-        attr.Aie = AieSquare_ref;
-        attr.Die = DieSquare_ref;
+        attr.Reset = Runtime.proc(this::ResetSquare, "ChaosAlien.ResetSquare");
+        attr.Make = Runtime.proc(this::MakeSquare, "ChaosAlien.MakeSquare");
+        attr.Move = Runtime.proc(this::MoveBig, "ChaosAlien.MoveBig");
+        attr.Aie = Runtime.proc(this::AieSquare, "ChaosAlien.AieSquare");
+        attr.Die = Runtime.proc(this::DieSquare, "ChaosAlien.DieSquare");
         attr.charge = 60;
         attr.weight = 30;
         attr.inerty = 60;
@@ -1866,11 +1718,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetFlame_ref;
-        attr.Make = MakeFlame_ref;
-        attr.Move = MoveFlame_ref;
-        attr.Aie = AieAlien0_ref;
-        attr.Die = DieFlame_ref;
+        attr.Reset = Runtime.proc(this::ResetFlame, "ChaosAlien.ResetFlame");
+        attr.Make = Runtime.proc(this::MakeFlame, "ChaosAlien.MakeFlame");
+        attr.Move = Runtime.proc(this::MoveFlame, "ChaosAlien.MoveFlame");
+        attr.Aie = Runtime.proc(this::AieAlien0, "ChaosAlien.AieAlien0");
+        attr.Die = Runtime.proc(this::DieFlame, "ChaosAlien.DieFlame");
         attr.charge = 50;
         attr.weight = 30;
         attr.inerty = 40;
@@ -1891,11 +1743,11 @@ public class ChaosAlien {
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
         attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
-        attr.Reset = ResetColor_ref;
-        attr.Make = MakeColor_ref;
-        attr.Move = MoveAlien0_ref;
-        attr.Aie = AieAlien0_ref;
-        attr.Die = DieAlien0_ref;
+        attr.Reset = Runtime.proc(this::ResetColor, "ChaosAlien.ResetColor");
+        attr.Make = Runtime.proc(this::MakeColor, "ChaosAlien.MakeColor");
+        attr.Move = Runtime.proc(this::MoveAlien0, "ChaosAlien.MoveAlien0");
+        attr.Aie = Runtime.proc(this::AieAlien0, "ChaosAlien.AieAlien0");
+        attr.Die = Runtime.proc(this::DieAlien0, "ChaosAlien.DieAlien0");
         attr.charge = 70;
         attr.weight = 12;
         attr.inerty = 24;

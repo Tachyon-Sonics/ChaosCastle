@@ -162,10 +162,10 @@ public class Chaos2Zone {
                 chaosGenerator.MakeLink(x.get(), y.get(), sz, angle.get(), val);
             }
         }
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 29, (short) 29, chaosObjects.OnlyWall_ref, (short) Sq1Block, (short) 60);
-        chaosObjects.PutRandom((short) 30, (short) 0, (short) 59, (short) 29, chaosObjects.OnlyWall_ref, (short) Sq4Block, (short) 60);
-        chaosObjects.PutRandom((short) 30, (short) 30, (short) 59, (short) 59, chaosObjects.OnlyWall_ref, (short) Sq4TravBlock, (short) 60);
-        chaosObjects.PutRandom((short) 0, (short) 30, (short) 29, (short) 59, chaosObjects.OnlyWall_ref, (short) BigBlock, (short) 60);
+        chaosObjects.PutRandom((short) 0, (short) 0, (short) 29, (short) 29, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Sq1Block, (short) 60);
+        chaosObjects.PutRandom((short) 30, (short) 0, (short) 59, (short) 29, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Sq4Block, (short) 60);
+        chaosObjects.PutRandom((short) 30, (short) 30, (short) 59, (short) 59, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Sq4TravBlock, (short) 60);
+        chaosObjects.PutRandom((short) 0, (short) 30, (short) 29, (short) 59, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) BigBlock, (short) 60);
         chaosObjects.PutGridObjs(Anims.BONUS, (short) ChaosBonus.TimedBonus, ChaosBonus.tbHospital, (short) 10, (short) 10, (short) 19, (short) 20, (short) 2, (short) 2);
         chaosObjects.Rect((short) 1, (short) 40, (short) 58, (short) 58);
         chaosObjects.PutRAlien2(ChaosCreator.cAlienBox, 0, 1, 5);
@@ -201,13 +201,13 @@ public class Chaos2Zone {
 
     public void Yard() {
         chaosObjects.Cadre((short) 40, (short) 40);
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 40, (short) 40, chaosObjects.OnlyWall_ref, (short) TravLight);
+        chaosObjects.FillCond((short) 0, (short) 0, (short) 40, (short) 40, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) TravLight);
         chaosObjects.Rect((short) 1, (short) 1, (short) 38, (short) 38);
         chaosObjects.PutIsolated(5, 20, (short) 10, (short) 30, (short) BarDark);
-        chaosObjects.FillRandom((short) 1, (short) 1, (short) 39, (short) 39, (short) Back4x4, (short) Back8x8, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
-        chaosObjects.FillCond((short) 18, (short) 18, (short) 22, (short) 22, chaosObjects.OnlyBackground_ref, (short) Light);
+        chaosObjects.FillRandom((short) 1, (short) 1, (short) 39, (short) 39, (short) Back4x4, (short) Back8x8, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), Runtime.proc(chaosObjects::ExpRandom, "ChaosObjects.ExpRandom"));
+        chaosObjects.FillCond((short) 18, (short) 18, (short) 22, (short) 22, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), (short) Light);
         if (chaosGraphics.dualpf)
-            chaosObjects.PutRandom((short) 1, (short) 1, (short) 39, (short) 39, chaosObjects.OnlyBackground_ref, (short) BackNone, (short) 255);
+            chaosObjects.PutRandom((short) 1, (short) 1, (short) 39, (short) 39, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), (short) BackNone, (short) 255);
         chaosObjects.PutPlayer((short) 2, (short) 2);
         if ((chaosBase.nbSterling >= 190) && (chaosBase.difficulty >= 2)) {
             chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterEye, 0, (short) 19, (short) 20);
@@ -334,10 +334,10 @@ public class Chaos2Zone {
             }
         }
         chaosObjects.Rect((short) 1, (short) 1, (short) (W - 2), (short) (H - 2));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) (W - 1), (short) (H - 1), chaosObjects.OnlyWall_ref, (short) SimpleBlock, (short) (trigo.RND() % 256));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) (W - 1), (short) (H - 1), chaosObjects.OnlyWall_ref, (short) BigBlock, (short) (trigo.RND() % 256));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) (W - 1), (short) (H - 1), chaosObjects.OnlyWall_ref, (short) Leaf2, (short) (trigo.RND() % 64));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) (W - 1), (short) (H - 1), chaosObjects.OnlyWall_ref, (short) Leaf3, (short) (trigo.RND() % 32));
+        chaosObjects.PutRandom((short) 0, (short) 0, (short) (W - 1), (short) (H - 1), Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) SimpleBlock, (short) (trigo.RND() % 256));
+        chaosObjects.PutRandom((short) 0, (short) 0, (short) (W - 1), (short) (H - 1), Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) BigBlock, (short) (trigo.RND() % 256));
+        chaosObjects.PutRandom((short) 0, (short) 0, (short) (W - 1), (short) (H - 1), Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Leaf2, (short) (trigo.RND() % 64));
+        chaosObjects.PutRandom((short) 0, (short) 0, (short) (W - 1), (short) (H - 1), Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Leaf3, (short) (trigo.RND() % 32));
         chaosObjects.PutRandomObjs(Anims.BONUS, (short) ChaosBonus.BonusLevel, ChaosBonus.tbBonusLevel, 1);
         if ((chaosBase.stages == 0) && (chaosBase.difficulty >= 9) && (trigo.RND() % 4 == 0))
             chaosObjects.PutRandomObjs(Anims.ALIEN3, (short) ChaosBoss.bSisterAlien, 0, 1);
@@ -383,7 +383,7 @@ public class Chaos2Zone {
                 chaosGenerator.MakeLink(x.get(), y.get(), sz, angle.get(), (short) Ground2);
             }
         }
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) 59, (short) 59, (short) Forest1, (short) Forest7, chaosObjects.OnlyWall_ref, chaosObjects.Rnd_ref);
+        chaosObjects.FillRandom((short) 0, (short) 0, (short) 59, (short) 59, (short) Forest1, (short) Forest7, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), Runtime.proc(chaosObjects::Rnd, "ChaosObjects.Rnd"));
         chaosObjects.Rect((short) 26, (short) 26, (short) 33, (short) 33);
         for (c = 2; c <= 4; c++) {
             chaosObjects.PutRandomObjs(chaos1Zone.fKind[c - 1], chaos1Zone.fSubKind[c - 1], chaos1Zone.aStat[c - 1], 12);
@@ -408,18 +408,18 @@ public class Chaos2Zone {
         chaosObjects.Cadre((short) 40, (short) 40);
         chaosBase.snow = (chaosBase.difficulty >= 5) && (trigo.RND() % 3 == 0);
         chaosGenerator.DrawCastle((short) 2, (short) 1, (short) 36, (short) 37);
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 39, (short) 39, chaosObjects.OnlyWall_ref, (short) SimpleBlock);
+        chaosObjects.FillCond((short) 0, (short) 0, (short) 39, (short) 39, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) SimpleBlock);
         if (chaosGraphics.dualpf)
             val = BackNone;
         else
             val = Back4x4;
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 39, (short) 39, chaosObjects.OnlyBackground_ref, val);
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, chaosObjects.OnlyBackground_ref, (short) Back8x8, (short) 40);
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, chaosObjects.OnlyBackground_ref, (short) Back2x2, (short) 40);
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, chaosObjects.OnlyWall_ref, (short) Sq4Block, (short) 10);
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, chaosObjects.OnlyWall_ref, (short) BigBlock, (short) 10);
+        chaosObjects.FillCond((short) 0, (short) 0, (short) 39, (short) 39, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), val);
+        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), (short) Back8x8, (short) 40);
+        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), (short) Back2x2, (short) 40);
+        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Sq4Block, (short) 10);
+        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) BigBlock, (short) 10);
         chaosObjects.Put((short) 1, (short) 18, (short) FalseBlock);
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, chaosObjects.OnlyWall_ref, (short) FalseBlock, (short) chaosBase.difficulty);
+        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) FalseBlock, (short) chaosBase.difficulty);
         chaosObjects.PutPlayer((short) 1, (short) 1);
         chaosObjects.PutExit((short) 38, (short) 38);
         chaosObjects.Rect((short) 1, (short) 1, (short) 38, (short) 19);
@@ -467,8 +467,8 @@ public class Chaos2Zone {
         }
         chaosGenerator.DrawBoxes((short) 0, (short) 0, (short) 40, (short) 20);
         chaosObjects.Put((short) 39, (short) 18, (short) 0);
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 39, (short) 19, chaosObjects.OnlyBackground_ref, (short) Light);
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 39, (short) 19, chaosObjects.OnlyWall_ref, (short) BarLight);
+        chaosObjects.FillCond((short) 0, (short) 0, (short) 39, (short) 19, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), (short) Light);
+        chaosObjects.FillCond((short) 0, (short) 0, (short) 39, (short) 19, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) BarLight);
         chaosObjects.PutPlayer((short) 38, (short) 1);
         chaosObjects.PutExit((short) 39, (short) 18);
         chaosObjects.Rect((short) 50, (short) 0, (short) 127, (short) 19);
@@ -526,7 +526,7 @@ public class Chaos2Zone {
 
         chaosObjects.Cadre((short) 60, (short) 60);
         chaosObjects.Clear((short) 60, (short) 70);
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 59, (short) 59, chaosObjects.OnlyWall_ref, (short) SimpleBlock);
+        chaosObjects.FillCond((short) 0, (short) 0, (short) 59, (short) 59, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) SimpleBlock);
         chaosObjects.Fill((short) 0, (short) 60, (short) 59, (short) 69, (short) BackNone);
         for (c = 1; c <= 4 + trigo.RND() % 16; c++) {
             sz = (short) (trigo.RND() % 3 + 1);
@@ -572,8 +572,8 @@ public class Chaos2Zone {
             }
             chaosGenerator.PutCross((short) 1, (short) 1, (short) 58, (short) 58, val);
         }
-        chaosObjects.FillCond((short) 1, (short) 1, (short) 58, (short) 58, chaosObjects.OnlyBackground_ref, (short) Ground);
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 58, (short) 58, chaosObjects.OnlyBackground_ref, (short) Ground2, (short) 180);
+        chaosObjects.FillCond((short) 1, (short) 1, (short) 58, (short) 58, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), (short) Ground);
+        chaosObjects.PutRandom((short) 1, (short) 1, (short) 58, (short) 58, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), (short) Ground2, (short) 180);
         chaosObjects.Put((short) (chaosObjects.Rnd((short) 58) + 1), (short) 59, (short) FalseBlock);
         chaosObjects.PutPlayer((short) 1, (short) 1);
         chaosObjects.PutExit((short) 58, (short) 58);
@@ -655,10 +655,10 @@ public class Chaos2Zone {
                 chaosGenerator.MakeLink(x.get(), y.get(), sz, a.get(), val);
             }
         }
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 99, (short) 69, chaosObjects.OnlyWall_ref, (short) Leaf1, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 99, (short) 69, chaosObjects.OnlyWall_ref, (short) Leaf2, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 99, (short) 69, chaosObjects.OnlyWall_ref, (short) Leaf3, (short) (trigo.RND() % 256));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 99, (short) 69, chaosObjects.OnlyWall_ref, (short) Leaf4, (short) (trigo.RND() % 256));
+        chaosObjects.PutRandom((short) 0, (short) 0, (short) 99, (short) 69, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Leaf1, (short) (trigo.RND() % 128));
+        chaosObjects.PutRandom((short) 0, (short) 0, (short) 99, (short) 69, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Leaf2, (short) (trigo.RND() % 128));
+        chaosObjects.PutRandom((short) 0, (short) 0, (short) 99, (short) 69, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Leaf3, (short) (trigo.RND() % 256));
+        chaosObjects.PutRandom((short) 0, (short) 0, (short) 99, (short) 69, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) Leaf4, (short) (trigo.RND() % 256));
         chaosObjects.PutPlayer((short) 1, (short) 34);
         chaosObjects.PutExit((short) 98, (short) 34);
         chaosObjects.PutBubbleMaker(1, (short) 49, (short) 1);
@@ -696,12 +696,12 @@ public class Chaos2Zone {
             val = BackNone;
         else
             val = Round4;
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 14, (short) 69, chaosObjects.OnlyWall_ref, (short) SimpleBlock);
+        chaosObjects.FillCond((short) 0, (short) 0, (short) 14, (short) 69, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), (short) SimpleBlock);
         chaosGenerator.GCastle((short) 1, (short) 7, (short) 13, (short) 25, (short) Bricks, val);
         chaosGenerator.DrawPacman(6, (short) 2, (short) 2, (short) 2, (short) 27, (short) 12, (short) 39);
         chaosObjects.Fill((short) 1, (short) 41, (short) 12, (short) 41, (short) SimpleBlock);
-        chaosObjects.FillRandom((short) 1, (short) 27, (short) 13, (short) 40, (short) Granit1, (short) Granit2, chaosObjects.OnlyWall_ref, chaosObjects.Rnd_ref);
-        chaosObjects.FillCond((short) 1, (short) 1, (short) 13, (short) 69, chaosObjects.OnlyBackground_ref, val);
+        chaosObjects.FillRandom((short) 1, (short) 27, (short) 13, (short) 40, (short) Granit1, (short) Granit2, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), Runtime.proc(chaosObjects::Rnd, "ChaosObjects.Rnd"));
+        chaosObjects.FillCond((short) 1, (short) 1, (short) 13, (short) 69, Runtime.proc(chaosObjects::OnlyBackground, "ChaosObjects.OnlyBackground"), val);
         x = (short) (chaosObjects.Rnd((short) 10) + 3);
         chaosObjects.Fill((short) 0, (short) 47, (short) (x - 1), (short) 55, (short) SimpleBlock);
         chaosObjects.Fill((short) (x + 1), (short) 47, (short) 14, (short) 55, (short) SimpleBlock);
@@ -779,7 +779,7 @@ public class Chaos2Zone {
                     chaosObjects.Fill((short) (x.get() - sz), (short) (y.get() - sz), (short) (x.get() + sz), (short) (y.get() + sz), (short) BackNone);
             }
         }
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) 59, (short) 59, (short) Forest1, (short) Forest7, chaosObjects.OnlyWall_ref, chaosObjects.Rnd_ref);
+        chaosObjects.FillRandom((short) 0, (short) 0, (short) 59, (short) 59, (short) Forest1, (short) Forest7, Runtime.proc(chaosObjects::OnlyWall, "ChaosObjects.OnlyWall"), Runtime.proc(chaosObjects::Rnd, "ChaosObjects.Rnd"));
         for (c = 0; c <= 15; c++) {
             if (Alien1L.contains(c)) {
                 Jungle_RndRect(x, y);
