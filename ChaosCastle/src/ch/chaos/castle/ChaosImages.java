@@ -1,5 +1,7 @@
 package ch.chaos.castle;
 
+import java.util.EnumSet;
+
 import ch.chaos.castle.ChaosBase.Zone;
 import ch.chaos.library.Checks;
 import ch.chaos.library.Dialogs;
@@ -12,7 +14,6 @@ import ch.chaos.library.Languages;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.util.EnumSet;
 
 
 public class ChaosImages {

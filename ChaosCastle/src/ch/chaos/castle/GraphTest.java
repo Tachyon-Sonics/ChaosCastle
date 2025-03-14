@@ -1,10 +1,11 @@
 package ch.chaos.castle;
 
+import java.util.EnumSet;
+
 import ch.chaos.library.*;
 import ch.chaos.library.Graphics.Modes;
 import ch.pitchtech.modula.runtime.HaltException;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.util.EnumSet;
 
 
 public class GraphTest {

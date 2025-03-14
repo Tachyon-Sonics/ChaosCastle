@@ -1,5 +1,8 @@
 package ch.chaos.castle;
 
+import java.lang.Runnable;
+import java.util.EnumSet;
+
 import ch.chaos.library.ANSITerm;
 import ch.chaos.library.Checks;
 import ch.chaos.library.Clock;
@@ -8,8 +11,6 @@ import ch.chaos.library.Files.AccessFlags;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
-import java.lang.Runnable;
-import java.util.EnumSet;
 
 
 public class GrotteSupport {
