@@ -805,6 +805,7 @@ public class ChaosImages {
         svgGenerator.setSVGCanvasSize(new Dimension(16, 16));
         svgGenerator.setColor(new Color(0, 0, 0, 0));
         svgGenerator.fillRect(0, 0, 16, 16); // TODO (0) better center the resulting image
+        svgGenerator.translate(0.5, 0.5);
         
         List<int[]> curPoly = new ArrayList<>();
         
@@ -1055,7 +1056,7 @@ public class ChaosImages {
         boolean inRange = true;
         for (int i = 0; i < curPoly.size(); i++) {
             xpts[i] = curPoly.get(i)[0];
-            ypts[i] = curPoly.get(i)[1];
+            ypts[i] = curPoly.get(i)[1] + 1;
             if (xpts[i] > 16 || ypts[i] > 16)
                 inRange = false;
         }
