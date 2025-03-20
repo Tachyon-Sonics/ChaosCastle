@@ -30,6 +30,7 @@
 - !! Air when not under water: reset to zero or full
 - !! "Bomb added" -> "Not enough power" when trying to add to weapon with zero power
 - !! Sound settings (from shop) + Cancel -> not re-rendered
+- !! Same sound multiple times at the same time: try to make less loud
 - [ok] Bumper: try bouming 3x 1$
 - [ok] Remove "0 Stages before PMM", leaving only "PMM enabled"
 - Grenade: associate to first non-gun weapon to which power was added

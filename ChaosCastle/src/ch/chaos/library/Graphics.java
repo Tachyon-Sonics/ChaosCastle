@@ -26,7 +26,7 @@ public class Graphics {
     private final static boolean USE_RGB_MODE = false;
     private final static double QUALITY = 1.0; // 0.0 - 1.0 (0.0 = full scaling afterwards, 1.0 = full scaling internally)
     private final static double SCREEN_FRACTION = 1.0;
-    public static boolean FULL_SCREEN = false;
+    public static boolean FULL_SCREEN = true;
     public static DisplayMode DISPLAY_MODE = new DisplayMode(1920, 1080, 32, 60);
     public final static boolean SEPARATE_GAME_LOOP = false;
 

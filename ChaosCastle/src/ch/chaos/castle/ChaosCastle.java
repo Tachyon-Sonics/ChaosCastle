@@ -38,6 +38,7 @@ import ch.pitchtech.modula.runtime.Runtime;
  * - [ok] Full screen mode, incl. dialogs
  * - [ok] System tray icon, in case of hide
  * - [ok] Smoother scrolling (player is not fixed, but should be)
+ * - Allow more explosions (eg Autumn)
  */
 public class ChaosCastle {
 
