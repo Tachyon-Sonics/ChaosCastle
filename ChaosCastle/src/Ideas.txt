@@ -26,9 +26,10 @@
   - Add nice bonus in the side corners starting with diff XX
   - Add a 2nd magnet for first door
 - Show bonus level number (but not name) in shop
-- Improve Fireball
+- !! Improve Fireball (less weight?)
 - !! Air when not under water: reset to zero or full
 - !! "Bomb added" -> "Not enough power" when trying to add to weapon with zero power
+- !! Sound settings (from shop) + Cancel -> not re-rendered
 - [ok] Bumper: try bouming 3x 1$
 - [ok] Remove "0 Stages before PMM", leaving only "PMM enabled"
 - Grenade: associate to first non-gun weapon to which power was added
