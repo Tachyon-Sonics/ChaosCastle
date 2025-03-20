@@ -5,6 +5,7 @@ import ch.chaos.castle.ChaosBase.BasicTypes;
 import ch.chaos.castle.ChaosBase.GameStat;
 import ch.chaos.castle.ChaosBase.Weapon;
 import ch.chaos.castle.ChaosBase.Zone;
+import ch.chaos.castle.app.ChaosCastleApp;
 import ch.chaos.library.Checks;
 import ch.chaos.library.Clock;
 import ch.chaos.library.Dialogs;
@@ -35,7 +36,7 @@ import ch.pitchtech.modula.runtime.Runtime;
  * - [later] One of Fire's flames is dirty @SCALE=4
  * - [ok] Joypad support
  * - [ok] Full screen mode, incl. dialogs
- * - System tray icon, in case of hide
+ * - [ok] System tray icon, in case of hide
  * - [ok] Smoother scrolling (player is not fixed, but should be)
  */
 public class ChaosCastle {
@@ -210,6 +211,7 @@ public class ChaosCastle {
     // Life Cycle
 
     private void begin() {
+        ChaosCastleApp.init();
         Memory.instance().begin();
         Checks.instance().begin();
         Files.instance().begin();
