@@ -1,5 +1,12 @@
 package ch.chaos.library;
 
+import java.awt.AWTException;
+import java.awt.MenuItem;
+import java.awt.MenuShortcut;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
@@ -16,6 +23,7 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
 import ch.chaos.library.Input.Event;
+import ch.pitchtech.modula.runtime.Runtime;
 import ch.pitchtech.modula.runtime.Runtime.IRef;
 
 public class Menus {
@@ -125,7 +133,7 @@ public class Menus {
 
     private final List<Menu> menuBar = new ArrayList<>();
 
-
+    
     public MenuPtr AddNewMenu(Memory.TagItem tags) {
         String text = Memory.tagString(tags, mNAME, "<Missing>");
         Menu parent = (Menu) Memory.tagObject(tags, mPARENT, null);
@@ -183,6 +191,8 @@ public class Menus {
 
     private JFrame mainFrame;
     private JPopupMenu popupMenu;
+    private SystemTray systemTray;
+    private TrayIcon trayIcon;
 
 
     public void registerMainFrame(JFrame frame) {
@@ -233,38 +243,65 @@ public class Menus {
     }
 
     private void installMenu0() {
-        if (mainFrame == null)
-            return;
         if (menuBar.isEmpty()) {
             popupMenu = null;
             return;
         }
-        JPopupMenu popupMenu = new JPopupMenu();
-        for (Menu menu : menuBar) {
-            JMenu target = new JMenu(menu.getText());
-            target.setEnabled(menu.isEnabled());
-            popupMenu.add(target);
-            addMenuItems(menu, target);
+
+        // Install tray icon
+        if (Dialogs.instance().getAppImage() != null && SystemTray.isSupported()) {
+            PopupMenu popupMenu = new PopupMenu(Runtime.getAppName());
+            for (Menu menu : menuBar) {
+                java.awt.Menu target = new java.awt.Menu(menu.getText());
+                target.setEnabled(menu.isEnabled());
+                popupMenu.add(target);
+                addMenuItems(menu, target);
+            }
+            
+            if (systemTray == null) {
+                systemTray = SystemTray.getSystemTray();
+                trayIcon = new TrayIcon(Dialogs.instance().getAppImage(), Runtime.getAppName());
+                trayIcon.setImageAutoSize(true);
+                try {
+                    systemTray.add(trayIcon);
+                } catch (AWTException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            trayIcon.setPopupMenu(popupMenu);
         }
-        this.popupMenu = popupMenu;
-        popupMenu.addPopupMenuListener(new PopupMenuListener() {
 
-            @Override
-            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-
+        // Install context menu on main frame
+        if (mainFrame == null)
+            return;
+        {
+            JPopupMenu popupMenu = new JPopupMenu();
+            for (Menu menu : menuBar) {
+                JMenu target = new JMenu(menu.getText());
+                target.setEnabled(menu.isEnabled());
+                popupMenu.add(target);
+                addMenuItems(menu, target);
             }
-
-            @Override
-            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                if (mainFrame != null)
-                    mainFrame.repaint();
-            }
-
-            @Override
-            public void popupMenuCanceled(PopupMenuEvent e) {
-
-            }
-        });
+            this.popupMenu = popupMenu;
+            popupMenu.addPopupMenuListener(new PopupMenuListener() {
+    
+                @Override
+                public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+    
+                }
+    
+                @Override
+                public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                    if (mainFrame != null)
+                        mainFrame.repaint();
+                }
+    
+                @Override
+                public void popupMenuCanceled(PopupMenuEvent e) {
+    
+                }
+            });
+        }
     }
 
     private void addMenuItems(Menu menu, JMenu target) {
@@ -290,6 +327,34 @@ public class Menus {
 
                 if (!item.getItems().isEmpty()) {
                     addMenuItems(item, (JMenu) menuItem);
+                }
+            }
+        }
+    }
+
+    private void addMenuItems(Menu menu, java.awt.Menu target) {
+        for (Menu item : menu.getItems()) {
+            if (isSeparator(item)) {
+                target.addSeparator();
+            } else {
+                MenuItem menuItem;
+                if (item.getItems().isEmpty()) {
+                    menuItem = new MenuItem(item.getText());
+                } else {
+                    menuItem = new java.awt.Menu(item.getText());
+                }
+                menuItem.setEnabled(item.isEnabled());
+                if (item.getShortcut() != null) {
+                    int key = KeyEvent.getExtendedKeyCodeForChar(item.getShortcut());
+                    menuItem.setShortcut(new MenuShortcut(key));
+                }
+                target.add(menuItem);
+                if (item.isEnabled()) {
+                    menuItem.addActionListener((e) -> menuSelected(item));
+                }
+
+                if (!item.getItems().isEmpty()) {
+                    addMenuItems(item, (java.awt.Menu) menuItem);
                 }
             }
         }

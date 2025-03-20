@@ -1,6 +1,8 @@
 package ch.chaos.library;
 
+import java.awt.Image;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
@@ -152,6 +154,8 @@ public class Dialogs {
     private JFrame mainFrame;
     private Runnable hideArea; // Stop rendering loop so that we can add dialogs to the screen
     private Runnable showArea; // Restart rendering loop
+    private Image appImage;
+    private List<Image> appImageList;
 
 
     public void setMainFrame(JFrame mainFrame) {
@@ -176,6 +180,22 @@ public class Dialogs {
 
     public void setShowArea(Runnable showArea) {
         this.showArea = showArea;
+    }
+    
+    public Image getAppImage() {
+        return appImage;
+    }
+
+    public void setAppImage(Image appImage) {
+        this.appImage = appImage;
+    }
+    
+    public List<Image> getAppImageList() {
+        return appImageList;
+    }
+    
+    public void setAppImageList(List<Image> appImageList) {
+        this.appImageList = appImageList;
     }
 
     private void invokeInSwing(Runnable runnable) {

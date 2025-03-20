@@ -5,6 +5,7 @@ import ch.chaos.castle.ChaosBase.BasicTypes;
 import ch.chaos.castle.ChaosBase.GameStat;
 import ch.chaos.castle.ChaosBase.Weapon;
 import ch.chaos.castle.ChaosBase.Zone;
+import ch.chaos.castle.app.ChaosCastleApp;
 import ch.chaos.library.*;
 import ch.pitchtech.modula.runtime.HaltException;
 import ch.pitchtech.modula.runtime.Runtime;
@@ -158,6 +159,7 @@ public class ChaosCastle {
     // Life Cycle
 
     private void begin() {
+        ChaosCastleApp.init();
         Memory.instance().begin();
         Checks.instance().begin();
         Files.instance().begin();

@@ -121,6 +121,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
             } else {
                 frame.setTitle(Runtime.getAppNameOrDefault());
                 frame.setResizable(false);
+                frame.setIconImages(Dialogs.instance().getAppImageList());
             }
             frame.pack();
             if (FULL_SCREEN) {
