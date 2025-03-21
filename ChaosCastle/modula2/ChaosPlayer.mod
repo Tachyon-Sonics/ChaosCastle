@@ -805,10 +805,18 @@ IMPLEMENTATION MODULE ChaosPlayer;
    ELSIF ((bulletToAdd > 0) AND (weaponAttr[w].nbBullet < 99)) OR
          ((bombToAdd > 0) AND (weaponAttr[w].nbBomb < 99)) THEN
     IF bulletToAdd <> 0 THEN
-     PopMessage(ADL("Bullet added"), moneyPos, 2)
+     IF weaponAttr[w].power > 0 THEN
+      PopMessage(ADL("Bullet added"), moneyPos, 2)
+     ELSE
+      PopMessage(ADL("not enough power"), moneyPos, 2)
+     END
     END;
     IF bombToAdd <> 0 THEN
-     PopMessage(ADL("BOMB added"), lifePos, 2)
+     IF weaponAttr[w].power > 0 THEN
+      PopMessage(ADL("BOMB added"), lifePos, 2)
+     ELSE
+      PopMessage(ADL("not enough power"), moneyPos, 2)
+     END
     END;
     IF bombToAdd > 0 THEN
      IF (w IN WeaponSet{GUN, BALL, GRENADE}) THEN INC(bombToAdd, 2) END;

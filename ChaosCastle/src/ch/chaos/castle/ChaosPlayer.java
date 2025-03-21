@@ -1370,10 +1370,18 @@ public class ChaosPlayer {
             chaosSounds.SoundEffect(player, powerEffectL);
             chaosSounds.SoundEffect(player, powerEffectR);
         } else if (((bulletToAdd > 0) && (chaosBase.weaponAttr[w.ordinal()].nbBullet < 99)) || ((bombToAdd > 0) && (chaosBase.weaponAttr[w.ordinal()].nbBomb < 99))) {
-            if (bulletToAdd != 0)
-                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Bullet added"), String.class), (short) ChaosActions.moneyPos, (short) 2);
-            if (bombToAdd != 0)
-                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("BOMB added"), String.class), (short) ChaosActions.lifePos, (short) 2);
+            if (bulletToAdd != 0) {
+                if (chaosBase.weaponAttr[w.ordinal()].power > 0)
+                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Bullet added"), String.class), (short) ChaosActions.moneyPos, (short) 2);
+                else
+                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("not enough power"), String.class), (short) ChaosActions.moneyPos, (short) 2);
+            }
+            if (bombToAdd != 0) {
+                if (chaosBase.weaponAttr[w.ordinal()].power > 0)
+                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("BOMB added"), String.class), (short) ChaosActions.lifePos, (short) 2);
+                else
+                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("not enough power"), String.class), (short) ChaosActions.moneyPos, (short) 2);
+            }
             if (bombToAdd > 0) {
                 if (EnumSet.of(Weapon.GUN, Weapon.BALL, Weapon.GRENADE).contains(w))
                     bombToAdd += 2;

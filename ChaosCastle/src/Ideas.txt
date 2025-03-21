@@ -28,7 +28,7 @@
 - Show bonus level number (but not name) in shop
 - !! Improve Fireball (less weight?)
 - [ok] Air when not under water: reset to zero or full
-- !! "Bomb added" -> "Not enough power" when trying to add to weapon with zero power
+- [ok] "Bomb added" -> "Not enough power" when trying to add to weapon with zero power
 - !! Sound settings (from shop) + Cancel -> not re-rendered
 - !! Same sound multiple times at the same time: try to make less loud
 - [ok] Bumper: try bouming 3x 1$
