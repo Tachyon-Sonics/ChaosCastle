@@ -9,13 +9,13 @@
     <target name="create_run_jar">
         <jar destfile="${dir.jarfile}/Grotte.jar" filesetmanifest="mergewithoutmain">
             <manifest>
-                <attribute name="Main-Class" value="ch.chaos.castle.Grotte"/>
+                <attribute name="Main-Class" value="ch.chaos.castle.app.GrotteApp"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
-            <fileset dir="${dir.jarfile}/bin"/>
-            <fileset dir="C:/Users/Nicolas Juillerat/git/Modula2-Runtime/Modula2-Runtime/bin"/>
-            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Nicolas Juillerat/Documents/Java/JARS/Jamepad-1.4.0.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Nicolas Juillerat/Documents/Java/JARS/sdl2gdx-1.0.5.jar"/>
+            <fileset dir="${dir.jarfile}/bin/main"/>
+            <fileset dir="C:/Users/Nicolas Juillerat/git/Modula2-Runtime/Modula2-Runtime/bin/main"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Nicolas Juillerat/.gradle/caches/modules-2/files-2.1/com.badlogicgames.jamepad/jamepad/2.30.0.0/45560285a49564bcb1fc62e147ca8b577eab6012/jamepad-2.30.0.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Nicolas Juillerat/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-jnigen-loader/2.2.0/f8bff67f1788d5f52fb8c21b2cdcee3b93dfb069/gdx-jnigen-loader-2.2.0.jar"/>
         </jar>
     </target>
 </project>
