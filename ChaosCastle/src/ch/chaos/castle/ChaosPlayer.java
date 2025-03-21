@@ -741,7 +741,8 @@ public class ChaosPlayer {
     }
 
     private void DrawAir() {
-        DrawTime((short) 0, (short) 79, (short) 1, chaosBase.air, new Runtime.FieldRef<>(this::getDAir, this::setDAir), 4);
+        int air = (chaosBase.water ? chaosBase.air : 0);
+        DrawTime((short) 0, (short) 79, (short) 1, air, new Runtime.FieldRef<>(this::getDAir, this::setDAir), 4);
     }
 
     private void DrawPlayerPower() {
@@ -882,7 +883,8 @@ public class ChaosPlayer {
             DrawSleeper();
         if (chaosBase.maxPower != dMaxPower)
             DrawMaxPower();
-        if (chaosBase.air != dAir)
+        int air = (chaosBase.water ? chaosBase.air : 0);
+        if (air != dAir)
             DrawAir();
         if (chaosBase.playerPower != dPlayerPower)
             DrawPlayerPower();
