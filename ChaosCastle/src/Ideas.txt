@@ -26,10 +26,10 @@
   - Add a 2nd magnet for first door
 - Show bonus level number (but not name) in shop
 - Improve Fireball
-- !! Air when not under water: reset to zero or full
-- !! "Bomb added" -> "Not enough power" when trying to add to weapon with zero power
+- [ok] Air when not under water: reset to zero or full
+- [ok] "Bomb added" -> "Not enough power" when trying to add to weapon with zero power
 - [ok] Bumper: try bouming 3x 1$
-- !! Remove "0 Stages before PMM", leaving only "PMM enabled"
+- [ok] Remove "0 Stages before PMM", leaving only "PMM enabled"
 - Grenade: associate to first non-gun weapon to which power was added
 - [ok] Sister Alien in Antarctica: WTF?
 - Graveyard & other, prevent placing yellow trap that blocks a passage
