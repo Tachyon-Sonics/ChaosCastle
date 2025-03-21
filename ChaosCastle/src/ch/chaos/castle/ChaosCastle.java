@@ -5,8 +5,18 @@ import ch.chaos.castle.ChaosBase.BasicTypes;
 import ch.chaos.castle.ChaosBase.GameStat;
 import ch.chaos.castle.ChaosBase.Weapon;
 import ch.chaos.castle.ChaosBase.Zone;
-import ch.chaos.castle.app.ChaosCastleApp;
-import ch.chaos.library.*;
+import ch.chaos.library.Checks;
+import ch.chaos.library.Clock;
+import ch.chaos.library.Dialogs;
+import ch.chaos.library.Files;
+import ch.chaos.library.Graphics;
+import ch.chaos.library.Input;
+import ch.chaos.library.Languages;
+import ch.chaos.library.Memory;
+import ch.chaos.library.Menus;
+import ch.chaos.library.Registration;
+import ch.chaos.library.Sounds;
+import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.HaltException;
 import ch.pitchtech.modula.runtime.Runtime;
 
@@ -159,7 +169,6 @@ public class ChaosCastle {
     // Life Cycle
 
     private void begin() {
-        ChaosCastleApp.init();
         Memory.instance().begin();
         Checks.instance().begin();
         Files.instance().begin();
