@@ -1219,6 +1219,7 @@ public class ChaosInterface {
         if (event.gadget == save)
             SaveConfig();
         dialogs.DeepFreeGadget(new Runtime.FieldRef<>(chaosBase::getD, chaosBase::setD));
+        Refresh.run();
     }
 
     private void AskLanguage() {
@@ -1296,6 +1297,7 @@ public class ChaosInterface {
         if (event.gadget == save)
             SaveConfig();
         dialogs.DeepFreeGadget(new Runtime.FieldRef<>(chaosBase::getD, chaosBase::setD));
+        Refresh.run();
     }
 
     public void CommonEvent(Input.Event event) {
