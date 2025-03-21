@@ -1416,7 +1416,7 @@ public class ChaosWeapon {
     private void FireFB(ChaosBase.Obj player) {
         if (CheckBullet(Weapon.FB)) {
             chaosSounds.SoundEffect(player, fbFireEffect);
-            StdFire(player, Weapon.FB, (short) 1000, true, false);
+            StdFire(player, Weapon.FB, (short) 1000, false, false);
         }
     }
 
