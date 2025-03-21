@@ -8,12 +8,20 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import ch.chaos.castle.ChaosCastle;
 import ch.chaos.library.Dialogs;
 import ch.pitchtech.modula.runtime.Runtime;
 
+/**
+ * Launcher for {@link ChaosCastle}. Setup stuff that does not exist in the Modula-2 code,
+ * and hence not in the generated Java code. This includes stuff like application icons
+ * and application name.
+ * <p>
+ * This class setup the mentionned stuff and then runs {@link ChaosCastle}'s main method.
+ */
 public class ChaosCastleApp {
     
-    public static void init() {
+    private static void init() {
         Runtime.setAppName("ChaosCastle");
         
         List<Image> images = new ArrayList<>();
@@ -31,6 +39,11 @@ public class ChaosCastleApp {
     private static ImageIcon loadIcon(String name) {
         URL url = ChaosCastleApp.class.getResource(name);
         return new ImageIcon(url);
+    }
+    
+    public static void main(String[] args) {
+        init();
+        ChaosCastle.main(args);
     }
 
 }

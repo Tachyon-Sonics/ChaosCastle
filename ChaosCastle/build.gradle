@@ -27,3 +27,75 @@ eclipse {
     pathVariables 'GRADLE_USER_HOME' : gradle.gradleUserHomeDir
 }
 
+task ChaosCastleJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'ch.chaos.castle.app.ChaosCastleApp'
+    }
+    archiveBaseName = 'ChaosCastle'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task GrotteJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'ch.chaos.castle.app.GrotteApp'
+    }
+    archiveBaseName = 'Grotte'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task buildAllJars {
+    dependsOn ChaosCastleJar, GrotteJar
+}
+/*
+task jdepsGrotte(type: Exec) {
+    group = 'build'
+    description = 'Analyzes the application to determine required modules using jdeps'
+
+    def mainJar = 'Grotte.jar' // Replace with your JAR file name
+
+    commandLine 'jdeps',
+        '--generate-module-info', 'module-info.java', // Generates module-info.java
+        "$buildDir/libs/$mainJar"
+}
+
+task jlinkGrotte(type: Exec) {
+    group = 'build'
+    description = 'Creates a minimal JRE using jlink'
+
+    def outputDir = "$buildDir/jlink" // Output directory for the JRE
+    def mainJar = 'Grotte.jar' // Replace with your JAR file name
+    def moduleName = 'your.module.name' // Replace with your module name
+
+    dependsOn jdepsAnalyze // Ensure jdepsAnalyze runs first
+
+    commandLine 'jlink',
+        '--module-path', "$buildDir/libs:$JAVA_HOME/jmods", // Include your JAR and JDK modules
+        '--add-modules', moduleName, // Specify the main module
+        '--output', outputDir,
+        '--launcher', 'app=your.module.name/your.package.MainClass' // Replace with your main class
+}
+
+task jpackageApp(type: Exec) {
+    group = 'build'
+    description = 'Packages the application into an executable using jpackage'
+
+    def mainClass = 'your.package.MainClass' // Replace with your main class
+    def outputDir = "$buildDir/jpackage" // Output directory for the package
+    def appName = 'YourAppName' // Name of your application
+
+    dependsOn jlinkApp // Ensure jlinkApp runs first
+
+    commandLine 'jpackage',
+        '--input', "$buildDir/libs", // Input directory containing the JAR
+        '--name', appName,
+        '--main-class', mainClass,
+        '--type', 'exe', // Specify the type as 'exe'
+        '--dest', outputDir,
+        '--main-jar', mainJar, // Replace with your JAR file name
+        '--runtime-image', "$buildDir/jlink" // Use the custom runtime image
+}
+*/

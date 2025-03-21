@@ -5,7 +5,6 @@ import ch.chaos.castle.ChaosBase.BasicTypes;
 import ch.chaos.castle.ChaosBase.GameStat;
 import ch.chaos.castle.ChaosBase.Weapon;
 import ch.chaos.castle.ChaosBase.Zone;
-import ch.chaos.castle.app.ChaosCastleApp;
 import ch.chaos.library.Checks;
 import ch.chaos.library.Clock;
 import ch.chaos.library.Dialogs;
@@ -212,7 +211,6 @@ public class ChaosCastle {
     // Life Cycle
 
     private void begin() {
-        ChaosCastleApp.init();
         Memory.instance().begin();
         Checks.instance().begin();
         Files.instance().begin();
