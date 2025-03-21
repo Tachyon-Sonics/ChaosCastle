@@ -845,7 +845,8 @@ IMPLEMENTATION MODULE ChaosInterface;
   IF event.gadget = save THEN
    SaveConfig
   END;
-  DeepFreeGadget(d)
+  DeepFreeGadget(d);
+  Refresh
  END AskSoundSettings;
 
  PROCEDURE AskLanguage;
@@ -911,7 +912,8 @@ IMPLEMENTATION MODULE ChaosInterface;
   IF event.gadget = save THEN
    SaveConfig
   END;
-  DeepFreeGadget(d)
+  DeepFreeGadget(d);
+  Refresh
  END AskLanguage;
 
  PROCEDURE CommonEvent(event: Event);
