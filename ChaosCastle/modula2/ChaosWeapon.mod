@@ -887,7 +887,7 @@ IMPLEMENTATION MODULE ChaosWeapon;
  BEGIN
   IF CheckBullet(FB) THEN
    SoundEffect(player, fbFireEffect);
-   StdFire(player, FB, 1000, FALSE, FALSE)
+   StdFire(player, FB, 1000, TRUE, FALSE)
   END
  END FireFB;
 
