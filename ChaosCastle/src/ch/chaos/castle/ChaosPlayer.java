@@ -1380,15 +1380,17 @@ public class ChaosPlayer {
                 else
                     chaosActions.PopMessage(Runtime.castToRef(languages.ADL("not enough power"), String.class), (short) ChaosActions.moneyPos, (short) 2);
             }
-            if (bombToAdd > 0) {
-                if (EnumSet.of(Weapon.GUN, Weapon.BALL, Weapon.GRENADE).contains(w))
-                    bombToAdd += 2;
-                if (EnumSet.of(Weapon.LASER, Weapon.BUBBLE, Weapon.FIRE).contains(w))
-                    bombToAdd++;
+            if (chaosBase.weaponAttr[w.ordinal()].power > 0) {
+                if (bombToAdd > 0) {
+                    if (EnumSet.of(Weapon.GUN, Weapon.BALL, Weapon.GRENADE).contains(w))
+                        bombToAdd += 2;
+                    if (EnumSet.of(Weapon.LASER, Weapon.BUBBLE, Weapon.FIRE).contains(w))
+                        bombToAdd++;
+                }
+                bulletToAdd = (short) (bulletToAdd / chaosWeapon.GetBulletPrice(w));
+                AddToWeapon(player, w, new Runtime.FieldRef<>(this::getBulletToAdd, this::setBulletToAdd), new Runtime.FieldRef<>(this::getBombToAdd, this::setBombToAdd));
+                bulletToAdd = 0;
             }
-            bulletToAdd = (short) (bulletToAdd / chaosWeapon.GetBulletPrice(w));
-            AddToWeapon(player, w, new Runtime.FieldRef<>(this::getBulletToAdd, this::setBulletToAdd), new Runtime.FieldRef<>(this::getBombToAdd, this::setBombToAdd));
-            bulletToAdd = 0;
         } else if (w != Weapon.GUN) {
             nChanges.add(w);
             chaosBase.Fire[w.ordinal()].invoke(player);

@@ -818,13 +818,15 @@ IMPLEMENTATION MODULE ChaosPlayer;
       PopMessage(ADL("not enough power"), moneyPos, 2)
      END
     END;
-    IF bombToAdd > 0 THEN
-     IF (w IN WeaponSet{GUN, BALL, GRENADE}) THEN INC(bombToAdd, 2) END;
-     IF (w IN WeaponSet{LASER, BUBBLE, FIRE}) THEN INC(bombToAdd) END
-    END;
-    bulletToAdd:= bulletToAdd DIV GetBulletPrice(w);
-    AddToWeapon(player, w, bulletToAdd, bombToAdd);
-    bulletToAdd:= 0
+    IF weaponAttr[w].power > 0 THEN
+     IF bombToAdd > 0 THEN
+      IF (w IN WeaponSet{GUN, BALL, GRENADE}) THEN INC(bombToAdd, 2) END;
+      IF (w IN WeaponSet{LASER, BUBBLE, FIRE}) THEN INC(bombToAdd) END
+     END;
+     bulletToAdd:= bulletToAdd DIV GetBulletPrice(w);
+     AddToWeapon(player, w, bulletToAdd, bombToAdd);
+     bulletToAdd:= 0
+    END
    ELSIF w <> GUN THEN
     INCL(nChanges, w); Fire[w](player)
    END
