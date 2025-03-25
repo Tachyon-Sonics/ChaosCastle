@@ -31,6 +31,7 @@
 - [ok] "Bomb added" -> "Not enough power" when trying to add to weapon with zero power
 - [ok] Sound settings (from shop) + Cancel -> not re-rendered
 - !! Same sound multiple times at the same time: try to make less loud
+- !! Focus lost -> pause button
 - [ok] Bumper: try bouming 3x 1$
 - [ok] Remove "0 Stages before PMM", leaving only "PMM enabled"
 - Grenade: associate to first non-gun weapon to which power was added
@@ -60,6 +61,7 @@
 - [ok] Master alien tri-color fire: on color per "line"
 - [ok] Make Ice Rink less ugly!
 - [ok] Force Skull Bonus in Assembly when diff >= 3 <= 7
+- Somewhere: invisibility bonus + just enough time to cross a yellow trap and fetch a hidden key
 - New levels
   - Industry: based on 2nd Vector Race level. Similar to Factory in style
   - Pond: left-to right oval, with down roads ending in trefles. Garden/Autumn -> Family top - down blocks. Violet kamikazes, Under water.
@@ -75,4 +77,23 @@
   
 Game 1:
  - Diff 4, Chaos 100, Plain (after 20 levels), Kids just done, Bonus level 9
+ 
+ 
+ 									hit/$
+Gun: 8 + p * 2 = 16/max 24
+Fireball: 37 + p * 5 = 57		$3 -> 19
+Laser: 40 + p * 30 = 160		$6 -> 26.67
+Bubble: 8 + p * 10 = 48 / 144	$2 -> 72 / 24 per bubble
+Fire: p /max 5 (x 2p) -> 40		$1 -> 40
+Ball: 20 + p * 10 = 60			$4 -> 15
+Star: 20 * p = 80				$7 -> 11.4
+
+Min power:
+Gun: 10
+Fireball: 42, 	14/$
+Laser: 70		11/$
+Bubble: 18		 9/$
+Fire: 2			 2/$
+Ball: 30	   7.5/$
+Star: 20		 3/$
  
