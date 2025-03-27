@@ -32,6 +32,7 @@
 - [ok] Sound settings (from shop) + Cancel -> not re-rendered
 - !! Same sound multiple times at the same time: try to make less loud
 - !! Focus lost -> pause button
+- !! Increase number of objects / aliens allowed
 - [ok] Bumper: try bouming 3x 1$
 - [ok] Remove "0 Stages before PMM", leaving only "PMM enabled"
 - Grenade: associate to first non-gun weapon to which power was added
@@ -96,4 +97,18 @@ Bubble: 18		 9/$
 Fire: 2			 2/$
 Ball: 30	   7.5/$
 Star: 20		 3/$
- 
+
+
+Small quest:
+1) Site: Bubble p4, Laser p2, Fire p3
+2) Garden: Star p4, Ball p3
+3) Rooms: Bubble p4, Grenade p4, Fireball p2
+4) Castle: Bubble p4, Fireball p4
+5) Lights: Fireball p3, Ball p4
+6) Machinery: Star p3, Bubble p2, Grenade p4
+7) Underwater: Laser p4, Fireball p3
+8) Autumn: Fire p4, Laser p3 (with colored alien)
+9) Industry: Star 4, Ball 4, Laser 4 
+10) Mother Alien: Fire p4, Star p3; 9 Gun Bombs
+
+Fireball: 4/12; Laser: 4/13; Ball: 3/11; Fire: 3/11; Bubble: 4/14; Star: 4/14; Grenade: 2/8
