@@ -111,4 +111,6 @@ Small quest:
 9) Industry: Star 4, Ball 4, Laser 4 
 10) Mother Alien: Fire p4, Star p3; 9 Gun Bombs
 
+$ -> +10, £ -> +50 (after the game)
+
 Fireball: 4/12; Laser: 4/13; Ball: 3/11; Fire: 3/11; Bubble: 4/14; Star: 4/14; Grenade: 2/8
