@@ -40,6 +40,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
     public final static boolean FULL_SCREEN = Graphics.FULL_SCREEN;
     private final static boolean SKIP_MODE = Graphics.SEPARATE_GAME_LOOP;
     private final static int NB_BUFFERS = 2; // Single / Double / Triple Buffering
+    private final static boolean INTERMEDIATE_BUFFER = false; // TODO (0) test, then configure to use when relevant
 
     private final JFrame frame;
     private final int width;
@@ -48,6 +49,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
     private Graphics2D g;
     private DoubleBufferArea bufferArea;
     private BufferStrategy bufferStrategy;
+    private BufferedImage intermediateImage;
     private Thread repaintThread;
     private BlockingQueue<MemoryArea> repaintExchanger = new SynchronousQueue<>();
 
@@ -186,6 +188,9 @@ class JFrameArea extends AreaBase implements AreaPtr {
                     panelOffsetX = (int) ((actualSize.width - preferredSize.width) * corrX / 2 + 0.5);
                     panelOffsetY = (int) ((actualSize.height - preferredSize.height) * corrY / 2 + 0.5);
                 }
+                if (INTERMEDIATE_BUFFER) {
+                    intermediateImage = frame.getGraphicsConfiguration().createCompatibleImage(width, height);
+                }
             }
             repaintThread = new Thread(this::repaintLoop, "Paint Loop");
             repaintThread.setDaemon(true);
@@ -214,6 +219,14 @@ class JFrameArea extends AreaBase implements AreaPtr {
                 ex.printStackTrace();
             }
             if (bufferStrategy != null) {
+                if (intermediateImage != null) {
+                    Graphics2D g2 = intermediateImage.createGraphics();
+                    GraphicsIndexedColorImpl.setupHighSpeed(g2);
+                    g2.scale(Graphics.FRAME_SCALE, Graphics.FRAME_SCALE);
+                    g2.drawImage(area.getExternalImage(), 0, 0, null);
+                    g2.dispose();
+                }
+                BufferedImage toRender = (intermediateImage != null ? intermediateImage : area.getExternalImage());
                 // Render single frame
                 do {
                     // The following loop ensures that the contents of the drawing buffer
@@ -224,7 +237,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
                         Graphics2D graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
 
                         // Render to graphics
-                        panel.paint(graphics, area.getExternalImage(), true);
+                        panel.paint(graphics, toRender, true, intermediateImage == null);
 
                         // Dispose the graphics
                         graphics.dispose();
