@@ -16,6 +16,7 @@ public class ChaosLevels {
     // Imports
     private final Chaos1Zone chaos1Zone;
     private final Chaos2Zone chaos2Zone;
+    private final Chaos3Zone chaos3Zone;
     private final ChaosActions chaosActions;
     private final ChaosBase chaosBase;
     private final ChaosDual chaosDual;
@@ -31,6 +32,7 @@ public class ChaosLevels {
         instance = this; // Set early to handle circular dependencies
         chaos1Zone = Chaos1Zone.instance();
         chaos2Zone = Chaos2Zone.instance();
+        chaos3Zone = Chaos3Zone.instance();
         chaosActions = ChaosActions.instance();
         chaosBase = ChaosBase.instance();
         chaosDual = ChaosDual.instance();
@@ -1027,6 +1029,7 @@ public class ChaosLevels {
                 case 7 -> chaos1Zone.Machinery();
                 case 8 -> chaos1Zone.IceRink();
                 case 9 -> chaos1Zone.Factory();
+//                case 9 -> chaos3Zone.industry();
                 case 10 -> chaos1Zone.Labyrinth();
                 case 11 -> chaos2Zone.Rooms();
                 case 12 -> chaos2Zone.Yard();

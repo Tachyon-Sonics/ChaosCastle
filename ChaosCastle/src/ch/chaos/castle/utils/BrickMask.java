@@ -23,7 +23,7 @@ public class BrickMask {
         this.shadow = new boolean[height][];
         for (int i = 0; i < height; i++)
             shadow[i] = new boolean[width];
-        setBrick(height / 2, width / 2);
+        setBrick(width / 2, height / 2);
     }
 
     public int getWidth() {
@@ -219,7 +219,7 @@ public class BrickMask {
         return arr;
     }
 
-    public int[] toTravel(long seed) {
+    public int[] toTravel(long seed, boolean filterLines) {
         final int[] dxs = new int[] { 1, 1, 0, -1, -1, -1, 0, 1 };
         final int[] dys = new int[] { 0, 1, 1, 1, 0, -1, -1, -1 };
         List<Integer> result = new ArrayList<Integer>();
@@ -261,29 +261,33 @@ public class BrickMask {
 
         // Filter lines
         List<Integer> filtered = new ArrayList<Integer>();
-        int index = 0;
-        while (index < count) {
-            int loc = rotated.get(index);
-            y = loc / width;
-            x = loc % width;
-            boolean includeIt = true;
-            if (index > 1 && index < count - 2 && rnd.nextInt(4) > 0) {
-                int prevLoc = rotated.get(index - 1);
-                int py = prevLoc / width;
-                int px = prevLoc % width;
-                int dy1 = y - py;
-                int dx1 = x - px;
-                int nextLoc = rotated.get(index + 1);
-                int ny = nextLoc / width;
-                int nx = nextLoc % width;
-                int dy2 = ny - y;
-                int dx2 = nx - x;
-                if (dy1 == dy2 && dx1 == dx2)
-                    includeIt = false;
+        if (filterLines) {
+            int index = 0;
+            while (index < count) {
+                int loc = rotated.get(index);
+                y = loc / width;
+                x = loc % width;
+                boolean includeIt = true;
+                if (index > 1 && index < count - 2 && rnd.nextInt(4) > 0) {
+                    int prevLoc = rotated.get(index - 1);
+                    int py = prevLoc / width;
+                    int px = prevLoc % width;
+                    int dy1 = y - py;
+                    int dx1 = x - px;
+                    int nextLoc = rotated.get(index + 1);
+                    int ny = nextLoc / width;
+                    int nx = nextLoc % width;
+                    int dy2 = ny - y;
+                    int dx2 = nx - x;
+                    if (dy1 == dy2 && dx1 == dx2)
+                        includeIt = false;
+                }
+                if (includeIt)
+                    filtered.add(loc);
+                index++;
             }
-            if (includeIt)
-                filtered.add(loc);
-            index++;
+        } else {
+            filtered.addAll(rotated);
         }
 
         int[] arr = new int[filtered.size()];
@@ -371,9 +375,13 @@ public class BrickMask {
         return builder.toString();
     }
 
-    public static BrickMask buildBrickMask(long seed) {
+    private static BrickMask buildBrickMask(long seed) {
         int nbBricksHorz = 25;
         int nbBricksVert = 25;
+        return buildBrickMask(seed, nbBricksHorz, nbBricksVert);
+    }
+
+    public static BrickMask buildBrickMask(long seed, int nbBricksHorz, int nbBricksVert) {
         BrickMask brickMask = new BrickMask(nbBricksHorz, nbBricksVert);
         Random rnd = new Random(seed);
         int base = nbBricksHorz * nbBricksVert / 7 + 1;
@@ -392,7 +400,7 @@ public class BrickMask {
 
     public static void main(String[] args) {
         BrickMask mask = buildBrickMask(new Random().nextLong());
-        int[] travel = mask.toTravel(1);
+        int[] travel = mask.toTravel(1, false);
         System.out.println(mask.toString(travel));
         System.out.println(mask.toString());
     }

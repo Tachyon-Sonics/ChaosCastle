@@ -114,16 +114,16 @@ public class ChaosCastle {
         chaosBase.stages = 5;
         chaosBase.addpt = 0;
         chaosBase.score = 0;
-//        setupCheat(); // FIXME remove
+        setupCheat(); // FIXME remove
         InitPlayVars();
     }
     
     void setupCheat() {
         chaosBase.nbDollar = 200;
         chaosBase.nbSterling = 200;
-        chaosBase.zone = Zone.Chaos;
+        chaosBase.zone = Zone.Castle;
         chaosBase.level[Zone.Chaos.ordinal()] = 20;
-        chaosBase.level[Zone.Castle.ordinal()] = 8;
+        chaosBase.level[Zone.Castle.ordinal()] = 9;
         chaosBase.level[Zone.Family.ordinal()] = 5;
         chaosBase.level[Zone.Special.ordinal()] = 4;
         chaosBase.specialStage = 5; // 5 bonus levels
