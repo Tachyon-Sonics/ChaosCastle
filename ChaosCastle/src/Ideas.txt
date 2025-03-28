@@ -64,16 +64,18 @@
 - [ok] Force Skull Bonus in Assembly when diff >= 3 <= 7
 - Somewhere: invisibility bonus + just enough time to cross a yellow trap and fetch a hidden key
 - New levels
-  - Industry: based on 2nd Vector Race level. Similar to Factory in style
+  - Industry: based on 2nd Vector Race level (brickmask). Similar to Factory in style. Extensions are also brickMask-based, with optionnal briskmask interior
   - Pond: left-to right oval, with down roads ending in trefles. Garden/Autumn -> Family top - down blocks. Violet kamikazes, Under water.
   - Space Station: grid of boxes with an outside, labyrinth between boxes. Use block of Lights and also black circle with orange cross. Background stars / neutral. # and blue boxes
   - Stones Desert: garden blocks (maybe some Groove/Family blocks) in grey levels (or brown levels?). Group garden's block into squares / curves
+  - Caves: BrickMask 100x100's interior
   - Snow Tracks: two graveyard-type circles (interior block, exterior empty), different values. Ice
   - Twilight. T-shaped block structures. Canon left and right of treffles. Canon (Ghost Castle) with Wind Maker + bouncers to deviate. Four white kamikazes oriented toward exterior
   - ??: blocks from Factory, more colored, no palette cycle. Concentric circles with path from left to center.
   - Warehouse: Rough shape: Grotte 1A, fine shape: Grotte bonus level with 0H0H0H0H, 8/+-
   - ?? Vertical Oval, horizontal oval, surrounding circle
-  - ?? multiple O--O at random positions, without preventing any crossings
+  - The Void: multiple O--O at random positions, without preventing any crossings. No anims at all. Only starting from diff 6: only new aliens (from diff > 1)
+
   - Resuse blocks from ghost castle somewhere
   
 Game 1:
