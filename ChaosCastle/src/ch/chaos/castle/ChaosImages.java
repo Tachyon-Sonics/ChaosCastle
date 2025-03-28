@@ -948,7 +948,32 @@ public class ChaosImages {
         graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) 256), chaosGraphics.H.invoke((short) 256));
         dialogs.DeepFreeGadget(new Runtime.FieldRef<>(chaosBase::getD, chaosBase::setD));
         
-//        SetRGBIcePalette();
+//        graphics.SetArea(chaosGraphics.imageArea);
+//        SetForestPalette();
+//        chaosGraphics.AnimPalette(0);
+////        {
+////            MemoryArea area = (MemoryArea) chaosGraphics.imageArea;
+////            BufferedImage image = area.getExternalImage();
+////            File targetDir = new File("C:\\Users\\Nicolas Juillerat\\Desktop\\img");
+////            
+////            for (int y = 0; y < 9; y++) {
+////                for (int x = 0; x < 8; x++) {
+////                    BufferedImage block = new BufferedImage(32, 32, BufferedImage.TYPE_INT_RGB);
+////                    Graphics2D g2 = block.createGraphics();
+////                    g2.drawImage(image, 0, 0, 32, 32, x * 32, y * 32, x * 32 + 32, y * 32 + 32, null);
+////                    g2.dispose();
+////                    
+////                    File targetFile = new File(targetDir, "Block" + y + "x" + x + ".png");
+////                    try {
+////                        ImageIO.write(block, "PNG", targetFile);
+////                    } catch (IOException e) {
+////                        e.printStackTrace();
+////                    }
+////                }
+////            }
+////           
+////        }
+//        
 //        graphics.SetArea(chaosGraphics.mainArea);
 //        graphics.CopyRect(chaosGraphics.imageArea, (short) 0, (short) 20, (short) 0, (short) 0, (short) 256, (short) 256);
 //        graphics.SwitchArea();
