@@ -19,6 +19,7 @@ import ch.chaos.library.Memory.TagItem;
 import ch.chaos.library.graphics.IGraphics;
 import ch.chaos.library.graphics.indexed.GraphicsIndexedColorImpl;
 import ch.chaos.library.graphics.rgb.GraphicsRgbColorImpl;
+import ch.chaos.library.graphics.xbrz.XbrzHelper;
 import ch.pitchtech.modula.runtime.Runtime.IRef;
 
 public class Graphics {
@@ -29,6 +30,7 @@ public class Graphics {
     public static boolean FULL_SCREEN = false;
     public static DisplayMode DISPLAY_MODE = new DisplayMode(1920, 1080, 32, 60);
     public final static boolean SEPARATE_GAME_LOOP = false;
+    public final static boolean SCALE_XBRZ = true; // false: bicubic
 
     // CONST
 
@@ -247,6 +249,10 @@ public class Graphics {
             steps--;
         frameScale /= steps;
         innerScale *= steps;
+        if (SCALE_XBRZ) {
+            // Xbrz does not support all scaling factors. Round to nearest
+            innerScale = XbrzHelper.getNearestScale(innerScale);
+        }
         SCALE = innerScale;
         FRAME_SCALE = frameScale;
         System.out.println("Inner scale: " + SCALE + "; outer scale: " + FRAME_SCALE);

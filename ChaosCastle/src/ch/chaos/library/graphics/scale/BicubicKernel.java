@@ -1,5 +1,8 @@
 package ch.chaos.library.graphics.scale;
 
+/**
+ * Bicubic scaling kernel
+ */
 public class BicubicKernel extends Kernel {
 
     private final int length;

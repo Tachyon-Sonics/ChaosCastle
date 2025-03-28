@@ -13,6 +13,11 @@ public class IndexedImageScaler {
 //        int length = scale * 3;
 //        this.kernel = new SincKernel(((length + 1) / 2) * 2, 2);
 //        this.kernel = new LinearKernel(scale);
+        /*
+         * Using a bicubic kernel slightly larger than its normal size of 2,
+         * we get some "over-shoot" in edges, that gives an "alienish" look...
+         * Definitely not high quality, but nice for the game.
+         */
         this.kernel = new BicubicKernel(scale * 5 / 2);
     }
 
