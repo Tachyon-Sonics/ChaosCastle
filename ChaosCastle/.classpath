@@ -18,11 +18,6 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="GRADLE_USER_HOME/caches/modules-2/files-2.1/io.github.stanio/xbrz-core/1.8.2/feafd5c2a2e7723950d22ec1fb76d6e4d5807bfc/xbrz-core-1.8.2-sources.jar" kind="var" path="GRADLE_USER_HOME/caches/modules-2/files-2.1/io.github.stanio/xbrz-core/1.8.2/f0f31015122c6cc9ff666529c8fcea724c04ae31/xbrz-core-1.8.2.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry sourcepath="GRADLE_USER_HOME/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-jnigen-loader/2.2.0/80fc298463ce96fcac9c079db95c803cfe56fae0/gdx-jnigen-loader-2.2.0-sources.jar" kind="var" path="GRADLE_USER_HOME/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-jnigen-loader/2.2.0/f8bff67f1788d5f52fb8c21b2cdcee3b93dfb069/gdx-jnigen-loader-2.2.0.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>

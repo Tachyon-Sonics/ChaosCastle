@@ -30,6 +30,9 @@ import ch.chaos.library.graphics.AreaBase;
 import ch.chaos.library.graphics.GraphicsBase;
 import ch.chaos.library.graphics.scale.IndexedImage;
 import ch.chaos.library.graphics.scale.IndexedImageScaler;
+import ch.chaos.library.graphics.xbrz.Xbrz;
+import ch.chaos.library.graphics.xbrz.Xbrz.ScalerCfg;
+import ch.chaos.library.graphics.xbrz.XbrzHelper;
 import ch.pitchtech.modula.runtime.Runtime.IRef;
 
 public class GraphicsIndexedColorImpl extends GraphicsBase {
@@ -436,43 +439,106 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
         } else if (currentArea instanceof MemoryArea bufferArea) {
             int nbColors = bufferArea.getNbColors();
             if (nbColors == 16) {
-                IndexedImage srcImage = new IndexedImage(width, height, bufferArea.getNbColors());
-                short[] pixData = (short[]) imageInfo.data;
-                // Every short is actually two 4-bit pixels... TODO (3) handle black&white
-                for (int y = 0; y < height; y++) {
-                    for (int x = 0; x < width; x++) {
-                        short value = pixData[((y + sy) * width + (x + sx)) / 2];
-                        int pen = ((x % 2 == 0) ? value >>> 4 : value & 0xf);
-                        srcImage.set(x, y, pen);
-                    }
-                }
-
-                IndexedImage dstImage;
-                final int Scale = Graphics.SCALE;
-                if (Scale > 1) {
-                    // Scale
-                    IndexedImageScaler scaler = new IndexedImageScaler(Scale);
-                    dstImage = scaler.scale(srcImage);
+                if (Graphics.SCALE_XBRZ && Graphics.SCALE != 1) {
+                    scaleXbrz16(imageInfo, sx, sy, dx, dy, width, height, bufferArea);
                 } else {
-                    dstImage = srcImage;
-                }
-
-                // Write
-                for (int y = 0; y < height; y++) {
-                    for (int x = 0; x < width; x++) {
-                        for (int py = 0; py < Scale; py++) {
-                            for (int px = 0; px < Scale; px++) {
-                                int pen = dstImage.get(x * Scale + px, y * Scale + py);
-                                bufferArea.writeUnscaledPixel((x + dx) * Scale + px, (y + dy) * Scale + py, pen);
-                            }
-                        }
-                    }
+                    scaleCubic16(imageInfo, sx, sy, dx, dy, width, height, bufferArea);
                 }
             } else {
                 throw new UnsupportedOperationException("" + nbColors + " colors");
             }
         } else {
             throw new UnsupportedOperationException();
+        }
+    }
+
+    private void scaleXbrz16(Graphics.Image imageInfo, short sx, short sy, 
+            short dx, short dy, short width, short height, MemoryArea bufferArea) {
+        final int Scale = Graphics.SCALE; // TODO (0) handle multiple steps (for instance when scale=8)
+        
+        // Extract block to scale into an RGB image
+        BufferedImage srcImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = srcImage.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+        short[] pixData = (short[]) imageInfo.data;
+        // Every short is actually two 4-bit pixels...
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                short value = pixData[((y + sy) * width + (x + sx)) / 2];
+                int pen = ((x % 2 == 0) ? value >>> 4 : value & 0xf);
+                g2.setColor(bufferArea.getColor(pen));
+                g2.fillRect(x, y, 1, 1);
+            }
+        }
+        g2.dispose();
+        
+        List<Integer> scales = XbrzHelper.getScales(Scale);
+
+        // Scale RGB image using xbrz
+        int[] srcPixels = srcImage.getRGB(0, 0, width, height, null, 0, width);
+        int[] destPixels = null;
+        int curWidth = width;
+        int curHeight = height;
+        int destWidth = width;
+        int destHeight = height;
+
+        for (int scale : scales) {
+            destWidth = curWidth * scale;
+            destHeight = curHeight * scale;
+            ScalerCfg cfg = new ScalerCfg();
+            cfg.equalColorTolerance = 0.0;
+            destPixels = new Xbrz(scale, false, cfg).scaleImage(srcPixels, null, curWidth, curHeight);
+            
+            // Prepare for next iteration
+            curWidth = destWidth;
+            curHeight = destHeight;
+            srcPixels = destPixels;
+        }
+
+        BufferedImage scaled = new BufferedImage(destWidth, destHeight, BufferedImage.TYPE_INT_RGB);
+        scaled.setRGB(0, 0, destWidth, destHeight, destPixels, 0, destWidth);
+        
+        // Draw RGB image into target indexed image
+        BufferedImage dstImage = bufferArea.getInternalImage();
+        g2 = dstImage.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+        g2.drawImage(scaled, dx * Scale, dy * Scale, null);
+        g2.dispose();
+    }
+    
+    private void scaleCubic16(Graphics.Image imageInfo, short sx, short sy, 
+            short dx, short dy, short width, short height, MemoryArea bufferArea) {
+        IndexedImage srcImage = new IndexedImage(width, height, bufferArea.getNbColors());
+        short[] pixData = (short[]) imageInfo.data;
+        // Every short is actually two 4-bit pixels... TODO (3) handle black&white
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                short value = pixData[((y + sy) * width + (x + sx)) / 2];
+                int pen = ((x % 2 == 0) ? value >>> 4 : value & 0xf);
+                srcImage.set(x, y, pen);
+            }
+        }
+
+        IndexedImage dstImage;
+        final int Scale = Graphics.SCALE;
+        if (Scale > 1) {
+            // Scale
+            IndexedImageScaler scaler = new IndexedImageScaler(Scale);
+            dstImage = scaler.scale(srcImage);
+        } else {
+            dstImage = srcImage;
+        }
+
+        // Write
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                for (int py = 0; py < Scale; py++) {
+                    for (int px = 0; px < Scale; px++) {
+                        int pen = dstImage.get(x * Scale + px, y * Scale + py);
+                        bufferArea.writeUnscaledPixel((x + dx) * Scale + px, (y + dy) * Scale + py, pen);
+                    }
+                }
+            }
         }
     }
 
