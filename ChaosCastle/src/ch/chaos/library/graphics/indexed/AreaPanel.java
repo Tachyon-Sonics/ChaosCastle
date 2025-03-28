@@ -32,10 +32,10 @@ class AreaPanel extends JPanel {
 
     @Override
     public void paint(java.awt.Graphics g) {
-        paint(g, this.image, false);
+        paint(g, this.image, false, true);
     }
 
-    public void paint(java.awt.Graphics g, BufferedImage image, boolean fromFrame) {
+    public void paint(java.awt.Graphics g, BufferedImage image, boolean fromFrame, boolean scale) {
         boolean fullScreen = JFrameArea.FULL_SCREEN;
         Graphics2D g2 = (Graphics2D) g.create();
         if (frameArea != null) {
@@ -50,7 +50,8 @@ class AreaPanel extends JPanel {
                 Graphics.resetScale(g2);
                 if (fromFrame || fullScreen)
                     g2.translate(frameArea.getPanelOffsetX(), frameArea.getPanelOffsetY());
-                g2.scale(Graphics.FRAME_SCALE, Graphics.FRAME_SCALE);
+                if (scale)
+                    g2.scale(Graphics.FRAME_SCALE, Graphics.FRAME_SCALE);
                 if (image != null) {
                     g2.drawImage(image, 0, 0, this);
                     this.image = image;
