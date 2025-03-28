@@ -1,6 +1,5 @@
 package ch.chaos.castle;
 
-import java.lang.Runnable;
 import java.util.EnumSet;
 
 import ch.chaos.castle.ChaosBase.Anims;
@@ -445,7 +444,7 @@ public class ChaosActions {
     public void Boum(ChaosBase.Obj obj, EnumSet<Stones> subKinds, short style, short cnt, short skcnt) {
         // CONST
         final int SV = 4;
-        final int MAXSTONES = ((1 << 8) - 1) /* MAX(SHORTCARD) */ - 64;
+        final int MAXSTONES = ChaosBase.MAXSTONES;
 
         // VAR
         short flames = 0;

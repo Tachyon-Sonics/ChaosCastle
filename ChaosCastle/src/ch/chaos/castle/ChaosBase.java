@@ -1,6 +1,5 @@
 package ch.chaos.castle;
 
-import java.lang.Runnable;
 import java.util.EnumSet;
 
 import ch.chaos.library.Checks;
@@ -1361,8 +1360,11 @@ public class ChaosBase {
 
     // CONST
 
-    private static final short MAXOBJ = ((1 << 8) - 1) /* MAX(SHORTCARD) */;
-    private static final int MAXALIEN = MAXOBJ - 32;
+//    private static final short MAXOBJ = ((1 << 8) - 1) /* MAX(SHORTCARD) */;
+//    private static final int MAXALIEN = MAXOBJ - 32;
+    private static final short MAXOBJ = 384;
+    private static final int MAXALIEN = MAXOBJ - 48;
+    public static final int MAXSTONES = MAXOBJ - 96;
 
 
     // PROCEDURE

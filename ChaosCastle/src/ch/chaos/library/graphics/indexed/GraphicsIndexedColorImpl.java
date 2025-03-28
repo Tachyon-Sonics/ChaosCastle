@@ -454,7 +454,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
 
     private void scaleXbrz16(Graphics.Image imageInfo, short sx, short sy, 
             short dx, short dy, short width, short height, MemoryArea bufferArea) {
-        final int Scale = Graphics.SCALE; // TODO (0) handle multiple steps (for instance when scale=8)
+        final int Scale = Graphics.SCALE;
         
         // Extract block to scale into an RGB image
         BufferedImage srcImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
