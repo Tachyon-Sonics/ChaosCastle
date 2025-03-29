@@ -72,7 +72,7 @@
   - Pond: left-to right oval, with down roads ending in trefles. Garden/Autumn -> Family top - down blocks. Violet kamikazes, Under water.
   - Space Station: grid of boxes with an outside, labyrinth between boxes. Use block of Lights and also black circle with orange cross. Background stars / neutral. # and blue boxes
   - Stones Desert: garden blocks (maybe some Groove/Family blocks) in grey levels (or brown levels?). Group garden's block into squares / curves
-  - Caves / Big Swamp: BrickMask 100x100's interior
+  - Caves / Big Swamp: BrickMask 100x100's interior. "Dried Swamp" (group above and this)
   - Snow Tracks: two graveyard-type circles (interior block, exterior empty), different values. Ice
   - Twilight. T-shaped block structures. Canon left and right of treffles. Canon (Ghost Castle) with Wind Maker + bouncers to deviate. Four white kamikazes oriented toward exterior
   - ??: blocks from Factory, more colored, no palette cycle. Concentric circles with path from left to center.
