@@ -2074,7 +2074,7 @@ public class ChaosCreator {
         chaosBase.addpt += 8;
         BoumMissile(chief, false);
         if ((chaosBase.zone == Zone.Castle) || (chaosBase.zone == Zone.Chaos)) {
-            if (chief.attr.nbObj == 1)
+            if ((chief.attr.nbObj == 1) && !chief.flags.contains(ObjFlags.nested))
                 chaosBonus.BoumMoney(chief, EnumSet.of(Moneys.m10), 1, 5 - (chaosBase.difficulty + 5) / 3);
         }
     }

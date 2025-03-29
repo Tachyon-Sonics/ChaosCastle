@@ -40,7 +40,6 @@ class JFrameArea extends AreaBase implements AreaPtr {
     public final static boolean FULL_SCREEN = Graphics.FULL_SCREEN;
     private final static boolean SKIP_MODE = Graphics.SEPARATE_GAME_LOOP;
     private final static int NB_BUFFERS = 2; // Single / Double / Triple Buffering
-    private final static boolean INTERMEDIATE_BUFFER = false; // TODO (0) use automatically when outer scale > 1
 
     private final JFrame frame;
     private final int width;
@@ -188,9 +187,13 @@ class JFrameArea extends AreaBase implements AreaPtr {
                     panelOffsetX = (int) ((actualSize.width - preferredSize.width) * corrX / 2 + 0.5);
                     panelOffsetY = (int) ((actualSize.height - preferredSize.height) * corrY / 2 + 0.5);
                 }
-                if (INTERMEDIATE_BUFFER) {
-                    intermediateImage = frame.getGraphicsConfiguration().createCompatibleImage(
-                            width / Graphics.FRAME_SCALE, height / Graphics.FRAME_SCALE);
+                if (Graphics.FRAME_SCALE > 1) {
+                    /*
+                     * Scaling an indexed image to an RGB one seems slower than converting to an RGB image
+                     * first, and scaling then. At least for scale > 2. For 2 both ways seems similar in speed...
+                     */
+                    intermediateImage = frame.getGraphicsConfiguration()
+                            .createCompatibleImage(width / Graphics.FRAME_SCALE, height / Graphics.FRAME_SCALE);
                 }
             }
             repaintThread = new Thread(this::repaintLoop, "Paint Loop");
@@ -237,7 +240,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
                         Graphics2D graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
 
                         // Render to graphics
-                        panel.paint(graphics, toRender, true, true);
+                        panel.paint(graphics, toRender, true);
 
                         // Dispose the graphics
                         graphics.dispose();
