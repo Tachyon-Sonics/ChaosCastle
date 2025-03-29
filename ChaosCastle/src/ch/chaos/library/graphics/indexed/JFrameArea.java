@@ -40,7 +40,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
     public final static boolean FULL_SCREEN = Graphics.FULL_SCREEN;
     private final static boolean SKIP_MODE = Graphics.SEPARATE_GAME_LOOP;
     private final static int NB_BUFFERS = 2; // Single / Double / Triple Buffering
-    private final static boolean INTERMEDIATE_BUFFER = false; // TODO (0) test, then configure to use when relevant
+    private final static boolean INTERMEDIATE_BUFFER = false; // TODO (0) use automatically when outer scale > 1
 
     private final JFrame frame;
     private final int width;

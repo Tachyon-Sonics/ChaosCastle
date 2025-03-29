@@ -375,12 +375,6 @@ public class BrickMask {
         return builder.toString();
     }
 
-    private static BrickMask buildBrickMask(long seed) {
-        int nbBricksHorz = 25;
-        int nbBricksVert = 25;
-        return buildBrickMask(seed, nbBricksHorz, nbBricksVert);
-    }
-
     public static BrickMask buildBrickMask(long seed, int nbBricksHorz, int nbBricksVert) {
         BrickMask brickMask = new BrickMask(nbBricksHorz, nbBricksVert);
         Random rnd = new Random(seed);
@@ -399,7 +393,7 @@ public class BrickMask {
     }
 
     public static void main(String[] args) {
-        BrickMask mask = buildBrickMask(new Random().nextLong());
+        BrickMask mask = buildBrickMask(new Random().nextLong(), 10, 10);
         int[] travel = mask.toTravel(1, false);
         System.out.println(mask.toString(travel));
         System.out.println(mask.toString());

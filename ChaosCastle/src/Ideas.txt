@@ -32,7 +32,8 @@
 - [ok] Sound settings (from shop) + Cancel -> not re-rendered
 - !! Same sound multiple times at the same time: try to make less loud
 - !! Focus lost -> pause button
-- !! Increase number of objects / aliens allowed
+- [ok] Increase number of objects / aliens allowed
+- !! Last "&": do not release 10$ if nested
 - [ok] Bumper: try bouming 3x 1$
 - [ok] Remove "0 Stages before PMM", leaving only "PMM enabled"
 - Grenade: associate to first non-gun weapon to which power was added
@@ -63,12 +64,14 @@
 - [ok] Make Ice Rink less ugly!
 - [ok] Force Skull Bonus in Assembly when diff >= 3 <= 7
 - Somewhere: invisibility bonus + just enough time to cross a yellow trap and fetch a hidden key
-- New levels
+
+
+*** New levels
   - Industry: based on 2nd Vector Race level (brickmask). Similar to Factory in style. Extensions are also brickMask-based, with optionnal briskmask interior
   - Pond: left-to right oval, with down roads ending in trefles. Garden/Autumn -> Family top - down blocks. Violet kamikazes, Under water.
   - Space Station: grid of boxes with an outside, labyrinth between boxes. Use block of Lights and also black circle with orange cross. Background stars / neutral. # and blue boxes
   - Stones Desert: garden blocks (maybe some Groove/Family blocks) in grey levels (or brown levels?). Group garden's block into squares / curves
-  - Caves: BrickMask 100x100's interior
+  - Caves / Big Swamp: BrickMask 100x100's interior
   - Snow Tracks: two graveyard-type circles (interior block, exterior empty), different values. Ice
   - Twilight. T-shaped block structures. Canon left and right of treffles. Canon (Ghost Castle) with Wind Maker + bouncers to deviate. Four white kamikazes oriented toward exterior
   - ??: blocks from Factory, more colored, no palette cycle. Concentric circles with path from left to center.
@@ -77,11 +80,9 @@
   - The Void: multiple O--O at random positions, without preventing any crossings. No anims at all. Only starting from diff 6: only new aliens (from diff > 1)
 
   - Resuse blocks from ghost castle somewhere
-  
-Game 1:
- - Diff 4, Chaos 100, Plain (after 20 levels), Kids just done, Bonus level 9
  
  
+*** Weapon facts:
  									hit/$
 Gun: 8 + p * 2 = 16/max 24
 Fireball: 37 + p * 5 = 57		$3 -> 19
@@ -116,3 +117,32 @@ Small quest:
 $ -> +10, £ -> +50 (after the game)
 
 Fireball: 4/12; Laser: 4/13; Ball: 3/11; Fire: 3/11; Bubble: 4/14; Star: 4/14; Grenade: 2/8
+
+
+Bonus levels:
+1. Baby Aliens
+2. Autumn
+3. Baby Aliens
+4. Graveyard
+5. Baby Aliens
+6. Autumn
+7. Baby Aliens
+8. Winter
+9. Baby Aliens
+10. Autumn
+11. Baby Aliens
+12. Graveyard
+13. Baby Aliens
+14. Autumn
+15. Baby Aliens
+16. Winter
+17. Baby Aliens
+18. Autumn
+19. Baby Aliens
+20. Graveyard
+21. Baby Aliens
+22. Autumn
+23. Baby Aliens
+24. ChaosCastle
+
+Replace some Baby Alien and Autumn instances by other levels (Big Swamp for Autumn?)
