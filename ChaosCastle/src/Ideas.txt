@@ -33,7 +33,7 @@
 - !! Same sound multiple times at the same time: try to make less loud
 - !! Focus lost -> pause button
 - [ok] Increase number of objects / aliens allowed
-- !! Last "&": do not release 10$ if nested
+- [ok] Last "&": do not release 10$ if nested
 - [ok] Bumper: try bouming 3x 1$
 - [ok] Remove "0 Stages before PMM", leaving only "PMM enabled"
 - Grenade: associate to first non-gun weapon to which power was added
