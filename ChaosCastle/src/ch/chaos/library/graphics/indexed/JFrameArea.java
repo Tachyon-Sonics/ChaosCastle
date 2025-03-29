@@ -192,7 +192,8 @@ class JFrameArea extends AreaBase implements AreaPtr {
                      * Scaling an indexed image to an RGB one seems slower than converting to an RGB image
                      * first, and scaling then. At least for scale > 2. For 2 both ways seems similar in speed...
                      */
-                    intermediateImage = frame.getGraphicsConfiguration().createCompatibleImage(width, height);
+                    intermediateImage = frame.getGraphicsConfiguration()
+                            .createCompatibleImage(width / Graphics.FRAME_SCALE, height / Graphics.FRAME_SCALE);
                 }
             }
             repaintThread = new Thread(this::repaintLoop, "Paint Loop");
@@ -225,7 +226,6 @@ class JFrameArea extends AreaBase implements AreaPtr {
                 if (intermediateImage != null) {
                     Graphics2D g2 = intermediateImage.createGraphics();
                     GraphicsIndexedColorImpl.setupHighSpeed(g2);
-                    g2.scale(Graphics.FRAME_SCALE, Graphics.FRAME_SCALE);
                     g2.drawImage(area.getExternalImage(), 0, 0, null);
                     g2.dispose();
                 }
@@ -240,7 +240,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
                         Graphics2D graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
 
                         // Render to graphics
-                        panel.paint(graphics, toRender, true, intermediateImage == null);
+                        panel.paint(graphics, toRender, true);
 
                         // Dispose the graphics
                         graphics.dispose();
