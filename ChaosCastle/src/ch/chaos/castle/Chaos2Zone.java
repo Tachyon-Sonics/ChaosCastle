@@ -437,7 +437,8 @@ public class Chaos2Zone {
         chaosObjects.Rect((short) 20, (short) 1, (short) 38, (short) 25);
         chaosObjects.PutInvinsibility(1);
         chaosObjects.PutSleeper(1);
-        chaosObjects.PutTBonus(ChaosBonus.tbDBSpeed, 1);
+        if (chaosBase.difficulty < 5)
+            chaosObjects.PutTBonus(ChaosBonus.tbDBSpeed, 1);
         chaos1Zone.AddOptions((short) 1, (short) 20, (short) 38, (short) 38, 1, 20, 1, 10, 10, 0, 0);
     }
 

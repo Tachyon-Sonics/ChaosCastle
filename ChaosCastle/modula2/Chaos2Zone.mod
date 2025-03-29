@@ -379,7 +379,9 @@ IMPLEMENTATION MODULE Chaos2Zone;
   Rect(20, 1, 38, 25);
   PutInvinsibility(1);
   PutSleeper(1);
-  PutTBonus(tbDBSpeed, 1);
+  IF difficulty < 5 THEN
+   PutTBonus(tbDBSpeed, 1)
+  END;
   AddOptions(1, 20, 38, 38, 1, 20, 1, 10, 10, 0, 0)
  END ZCastle;
 
