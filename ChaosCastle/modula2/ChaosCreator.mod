@@ -1317,7 +1317,7 @@ IMPLEMENTATION MODULE ChaosCreator;
   INC(addpt, 8);
   BoumMissile(chief, FALSE);
   IF (zone = Castle) OR (zone = Chaos) THEN
-   IF chief^.attr^.nbObj = 1 THEN
+   IF (chief^.attr^.nbObj = 1) AND NOT (nested IN chief^.flags) THEN
     BoumMoney(chief, MoneySet{m10}, 1, 5 - (difficulty + 5) DIV 3)
    END
   END;
