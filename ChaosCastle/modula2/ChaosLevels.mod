@@ -898,10 +898,10 @@ IMPLEMENTATION MODULE ChaosLevels;
     |2: Sister
     |3: Mother
     |4: Father
-    |5: Master
-    |6: Illusion
-    |7: Kids
-    |8: Parents
+    |5: Kids
+    |6: Parents
+    |7: Master
+    |8: Illusion
     |9: Masters
    |10: Final
    END;
