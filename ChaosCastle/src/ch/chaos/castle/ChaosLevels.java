@@ -1052,10 +1052,10 @@ public class ChaosLevels {
                 case 2 -> Sister();
                 case 3 -> Mother();
                 case 4 -> Father();
-                case 5 -> Master();
-                case 6 -> Illusion();
-                case 7 -> Kids();
-                case 8 -> Parents();
+                case 5 -> Kids();
+                case 6 -> Parents();
+                case 7 -> Master();
+                case 8 -> Illusion();
                 case 9 -> Masters();
                 case 10 -> Final();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Family.ordinal()]);
