@@ -12,7 +12,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.awt.image.IndexColorModel;
-import java.awt.image.PixelInterleavedSampleModel;
 import java.awt.image.Raster;
 import java.awt.image.SampleModel;
 import java.awt.image.WritableRaster;
@@ -650,11 +649,11 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
 
         // Last color must be white so that we can copy the mask:
         assert rBlend[nbColors - 1] == (byte) 255 && gBlend[nbColors - 1] == (byte) 255 && bBlend[nbColors - 1] == (byte) 255;
-
-        SampleModel blendSampleModel = new PixelInterleavedSampleModel(DataBuffer.TYPE_BYTE, scale(width), scale(height),
-                1, scale(width), new int[] { 0 });
-        DataBuffer blendBuffer = blendSampleModel.createDataBuffer();
+//      int nbBits = GraphicsIndexedColorImpl.bitsForColors(nbColors);
         int nbBits = 8; // Seems that transparent color only works in 8-bit
+
+        SampleModel blendSampleModel = Helper.createSampleModel(scale(width), scale(height), nbBits);
+        DataBuffer blendBuffer = blendSampleModel.createDataBuffer();
         WritableRaster blendRaster = Raster.createPackedRaster(blendBuffer, scale(width), scale(height), nbBits, null);
         IndexColorModel blendColorModel = new IndexColorModel(nbBits, nbColors, rBlend, gBlend, bBlend, transPen);
         BufferedImage blendedImage = new BufferedImage(blendColorModel, blendRaster, false, null);
@@ -701,10 +700,9 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
         rBlend[nbColors] = (byte) 255;
         gBlend[nbColors] = (byte) 255;
         bBlend[nbColors] = (byte) 255;
-        SampleModel blendSampleModel = new PixelInterleavedSampleModel(DataBuffer.TYPE_BYTE, scale(width), scale(height),
-                1, scale(width), new int[] { 0 });
-        DataBuffer blendBuffer = blendSampleModel.createDataBuffer();
         int nbBits = bitsForColors(nbColors + 1);
+        SampleModel blendSampleModel = Helper.createSampleModel(scale(width), scale(height), nbBits);
+        DataBuffer blendBuffer = blendSampleModel.createDataBuffer();
         WritableRaster blendRaster = Raster.createPackedRaster(blendBuffer, scale(width), scale(height), nbBits, null);
         IndexColorModel blendColorModel = new IndexColorModel(nbBits, nbColors + 1, rBlend, gBlend, bBlend, 0);
         BufferedImage blendedImage = new BufferedImage(blendColorModel, blendRaster, false, null);
