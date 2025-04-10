@@ -9,7 +9,6 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.awt.image.IndexColorModel;
-import java.awt.image.PixelInterleavedSampleModel;
 import java.awt.image.Raster;
 import java.awt.image.SampleModel;
 import java.awt.image.WritableRaster;
@@ -59,7 +58,7 @@ class MemoryArea extends AreaBase implements AreaPtr {
         this.nbColors = nbColors;
 
         int nbBits = GraphicsIndexedColorImpl.bitsForColors(nbColors);
-        SampleModel sampleModel = new PixelInterleavedSampleModel(DataBuffer.TYPE_BYTE, width * scale, height * scale, 1, width * scale, new int[] { 0 });
+        SampleModel sampleModel = Helper.createSampleModel(width * scale, height * scale, nbBits);
         DataBuffer dataBuffer = sampleModel.createDataBuffer();
         raster = Raster.createPackedRaster(dataBuffer, width * scale, height * scale, nbBits, null);
         if (nbColors == graphicsIndexedColorImpl.nbScreenColor) {
