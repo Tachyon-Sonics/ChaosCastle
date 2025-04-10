@@ -238,7 +238,7 @@ public class Chaos3Zone {
             }
         }
         
-        // Link TODO: simplify: trying link and drawing link should both fill an array of points and hence use the same method
+        // Link TODO simplify: trying link and drawing link should both fill an array of points and hence use the same method
         if (link) {
             int[] dxs = {-1, 1, 0, 0, -1, -1, 1, 1};
             int[] dys = {0, 0, -1, 1, -1, 1, -1, 1};
