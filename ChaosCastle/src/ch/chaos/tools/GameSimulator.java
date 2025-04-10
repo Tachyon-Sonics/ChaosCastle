@@ -94,7 +94,6 @@ Special: 51
     private final ChaosLevels chaosLevels = ChaosLevels.instance();
     private final ChaosBase chaosBase = ChaosBase.instance();
     private final ChaosGraphics chaosGraphics = ChaosGraphics.instance();
-    private final ChaosScreens chaosScreens = ChaosScreens.instance();
     
     private final Graphics graphics = Graphics.instance();
     private final Memory memory = Memory.instance();
@@ -260,7 +259,7 @@ Special: 51
         // Kill all aliens to release their money
         for (Anims a : Anims.values()) {
             if (a != Anims.PLAYER && a != Anims.BONUS && a != Anims.SMARTBONUS) {
-                int nbKilled = 0;
+//                int nbKilled = 0;
                 ChaosBase.Obj obj = (ChaosBase.Obj) memory.First(chaosBase.animList[a.ordinal()]);
                 ChaosBase.Obj tail = (ChaosBase.Obj) memory.Tail(chaosBase.animList[a.ordinal()]);
                 while ((obj != tail) && (obj.attr != null)) {
@@ -269,7 +268,7 @@ Special: 51
                         obj.life = 1;
                         obj.attr.Die.invoke(obj);
                         chaosBase.DisposeObj(obj);
-                        nbKilled++;
+//                        nbKilled++;
                     }
                     obj = chaosBase.nextObj;
                 }
