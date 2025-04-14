@@ -1,0 +1,9 @@
+- Memory model in m2translator
+- Pointer arithmetic
+- Graphics: scaling support
+- Graphics: b&w support
+- Graphics: 256 + dual pf support
+- Tiered graphics
+- Review sounds
+- Background musics
+- Review tray icon's menu
