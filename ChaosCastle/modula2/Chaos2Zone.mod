@@ -663,7 +663,7 @@ IMPLEMENTATION MODULE Chaos2Zone;
   Clear(60, 60);
   PutPlayer(0, 0);
   PutBlockBonus(tbBomb, 59, 59);
-  water:= FALSE;
+  water:= (difficulty >= 7) AND (RND() MOD 7 = 0);
   Fill(0, 0, 59, 59, SimpleBlock);
   Join(1, 1, 58, 58, 1, 1, Ground2);
   PutExit(58, 58);
