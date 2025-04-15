@@ -767,7 +767,7 @@ public class Chaos2Zone {
         chaosObjects.Clear((short) 60, (short) 60);
         chaosObjects.PutPlayer((short) 0, (short) 0);
         chaosObjects.PutBlockBonus(ChaosBonus.tbBomb, (short) 59, (short) 59);
-        chaosBase.water = false;
+        chaosBase.water = (chaosBase.difficulty >= 7) && (trigo.RND() % 7 == 0);
         chaosObjects.Fill((short) 0, (short) 0, (short) 59, (short) 59, (short) SimpleBlock);
         chaosGenerator.Join((short) 1, (short) 1, (short) 58, (short) 58, (short) 1, (short) 1, (short) Ground2);
         chaosObjects.PutExit((short) 58, (short) 58);
