@@ -1020,8 +1020,8 @@ public class ChaosImages {
             switch (chaosBase.level[Zone.Family.ordinal()]) {
                 case 1, 2, 4, 6, 8, 9, 10 -> SetOrPalette();
                 case 3 -> SetMetalPalette();
-                case 5 -> SetFactoryPalette();
-                case 7 -> SetBluePalette();
+                case 5 -> SetBluePalette();
+                case 7 -> SetFactoryPalette();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Family.ordinal()]);
             }
         } else {
@@ -1113,11 +1113,11 @@ public class ChaosImages {
             }
         } else if (chaosBase.zone == Zone.Family) {
             switch (chaosBase.level[Zone.Family.ordinal()]) {
-                case 3, 5, 6, 10 -> SetMetalPalette();
+                case 3, 7, 8, 10 -> SetMetalPalette();
                 case 1, 2, 9 -> SetForestPalette();
                 case 4 -> SetGraveyardPalette();
-                case 7 -> SetBagleyPalette();
-                case 8 -> SetDarkFactoryPalette();
+                case 5 -> SetBagleyPalette();
+                case 6 -> SetDarkFactoryPalette();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Family.ordinal()]);
             }
         } else {
