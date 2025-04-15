@@ -777,8 +777,8 @@ IMPLEMENTATION MODULE ChaosImages;
    CASE level[Family] OF
      1, 2, 4, 6, 8, 9, 10: SetOrPalette
     |3: SetMetalPalette
-    |5: SetFactoryPalette
-    |7: SetBluePalette
+    |5: SetBluePalette
+    |7: SetFactoryPalette
    END
   ELSE
    IF level[Special] = 24 THEN
@@ -831,11 +831,11 @@ IMPLEMENTATION MODULE ChaosImages;
    END
   ELSIF zone = Family THEN
    CASE level[Family] OF
-     3, 5, 6, 10: SetMetalPalette
+     3, 7, 8, 10: SetMetalPalette
     |1, 2, 9: SetForestPalette
     |4: SetGraveyardPalette
-    |7: SetBagleyPalette
-    |8: SetDarkFactoryPalette
+    |5: SetBagleyPalette
+    |6: SetDarkFactoryPalette
    END
   ELSE
    IF level[Special] = 24 THEN

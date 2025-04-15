@@ -351,10 +351,10 @@ IMPLEMENTATION MODULE ChaosDual;
    CASE level[Family] OF
      1: DrawForest; dualSpeed:= 4
     |2: DrawGround; dualSpeed:= 4
-    |3, 5, 6, 10: DrawStars; dualSpeed:= 7
+    |3, 7, 8, 10: DrawStars; dualSpeed:= 7
     |4: DrawGround; dualSpeed:= 3
-    |7: DrawForest; IceTrans(128); dualSpeed:= 3
-    |8: DrawFactory2; IceTrans(160); dualSpeed:= 3
+    |5: DrawForest; IceTrans(128); dualSpeed:= 3
+    |6: DrawFactory2; IceTrans(160); dualSpeed:= 3
     |9: DrawForest; dualSpeed:= 2
    END
   ELSIF zone = Special THEN

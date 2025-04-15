@@ -441,7 +441,7 @@ public class ChaosDual {
                     DrawGround();
                     chaosGraphics.dualSpeed = 4;
                 }
-                case 3, 5, 6, 10 -> {
+                case 3, 7, 8, 10 -> {
                     DrawStars();
                     chaosGraphics.dualSpeed = 7;
                 }
@@ -449,12 +449,12 @@ public class ChaosDual {
                     DrawGround();
                     chaosGraphics.dualSpeed = 3;
                 }
-                case 7 -> {
+                case 5 -> {
                     DrawForest();
                     IceTrans(128);
                     chaosGraphics.dualSpeed = 3;
                 }
-                case 8 -> {
+                case 6 -> {
                     DrawFactory2();
                     IceTrans(160);
                     chaosGraphics.dualSpeed = 3;
