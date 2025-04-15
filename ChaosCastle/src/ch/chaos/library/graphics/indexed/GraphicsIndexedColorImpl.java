@@ -471,6 +471,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
         }
         g2.dispose();
         
+        // Decompose any large scale into multiple smaller steps
         List<Integer> scales = XbrzHelper.getScales(Scale);
 
         // Scale RGB image using xbrz
