@@ -10,10 +10,8 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
-rootProject.name = "ChaosCastle"
-// include("app")
+rootProject.name = "Library"
+// include("lib")
 
 include(":Modula2-Runtime")
 project(":Modula2-Runtime").projectDir = File("../../Modula2-Runtime/Modula2-Runtime")
-include(":Library")
-project(":Library").projectDir = File("../../ChaosCastle/Library")
