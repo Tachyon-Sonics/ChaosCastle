@@ -8,7 +8,9 @@ repositories {
 dependencies {
 	// Dependency on another Eclipse project (assuming it's a local project)
     implementation project(':Modula2-Runtime')
-    implementation project(':Library')
+    implementation(project(':Library')) {
+    	exclude group: 'com.badlogicgames.jamepad', module: 'jamepad'
+    }
 }
 
 sourceSets {
@@ -27,7 +29,7 @@ eclipse {
 
 task GrotteJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'ch.chaos.castle.app.GrotteApp'
+        attributes 'Main-Class': 'ch.chaos.grotte.app.GrotteApp'
     }
     archiveBaseName = 'Grotte'
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
