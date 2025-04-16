@@ -1,0 +1,32 @@
+DEFINITION MODULE Clock;
+
+ FROM SYSTEM IMPORT ADDRESS;
+ FROM Memory IMPORT CARD16, INT16, CARD32, INT32;
+
+ TYPE
+  TimePtr;
+  TimeCallBackProc = PROCEDURE(TimePtr, ADDRESS);
+
+ VAR
+  noTime: TimePtr;
+
+ PROCEDURE AllocTime(period: CARD16): TimePtr;
+
+ PROCEDURE StartTime(t: TimePtr);
+
+ PROCEDURE WaitTime(t: TimePtr; delay: CARD32): BOOLEAN;
+
+ PROCEDURE TimeEvent(t: TimePtr; delay: CARD32);
+
+ PROCEDURE TimeCall(t: TimePtr; delay: CARD32;
+                    proc: TimeCallBackProc; data: ADDRESS): BOOLEAN;
+
+ PROCEDURE GetTime(t: TimePtr): CARD32;
+
+ PROCEDURE FreeTime(t: TimePtr);
+
+ PROCEDURE GetCurrentTime(VAR h, m, s: CARD16);
+
+ PROCEDURE GetNewSeed(): CARD32;
+
+END Clock.
