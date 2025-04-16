@@ -8,6 +8,7 @@ repositories {
 dependencies {
 	// Dependency on another Eclipse project (assuming it's a local project)
     implementation project(':Modula2-Runtime')
+    implementation project(':Library')
 
 	// Libraries
 	implementation("com.badlogicgames.jamepad:jamepad:2.30.0.0")
