@@ -1,0 +1,39 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	// Dependency on another Eclipse project (assuming it's a local project)
+    implementation project(':Modula2-Runtime')
+    implementation(project(':Library')) {
+    	exclude group: 'com.badlogicgames.jamepad', module: 'jamepad'
+    }
+}
+
+sourceSets {
+	main.java.srcDirs = ['src']
+	main.resources.srcDirs = ['src']
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+}
+
+eclipse {
+    pathVariables 'GRADLE_USER_HOME' : gradle.gradleUserHomeDir
+}
+
+task GrotteJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'ch.chaos.grotte.app.GrotteApp'
+    }
+    archiveBaseName = 'Grotte'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
