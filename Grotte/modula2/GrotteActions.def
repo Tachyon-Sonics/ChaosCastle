@@ -1,0 +1,137 @@
+DEFINITION MODULE GrotteActions;
+
+ FROM Memory IMPORT SET16, CARD8, INT8, CARD16, INT16, CARD32, INT32;
+ FROM GrotteSupport IMPORT OBJECT, DIRECTION;
+
+ CONST
+  N = 0; G = 1; H = 2; D = 3; B = 4;
+  ND = 0; SQ = 1;
+  MAXOBJ = 96;
+
+ TYPE
+  ObjPtr = CARD16;
+  Object = RECORD
+   next, prev: ObjPtr;
+   type: OBJECT;
+   flags: SET16;
+   x, y, vie, seq: INT8;
+   CASE b0:BOOLEAN OF
+    TRUE:
+     jump: CARD8;
+     dir: DIRECTION;
+   |FALSE:
+     d, v, bx, by: INT8;
+   END;
+   ch1, ch2: CHAR;
+  END;
+  Delta = ARRAY[0..4] OF INT8;
+  Line = ARRAY[0..71] OF CARD8;
+  MoveProc = PROCEDURE(ObjPtr);
+  Param = ARRAY[MIN(OBJECT)..MAX(OBJECT)] OF CARD8;
+  MoveAttr = ARRAY[MIN(OBJECT)..MAX(OBJECT)] OF MoveProc;
+  Grtt = ARRAY[0..19] OF POINTER TO Line;
+  BSetArr10 = ARRAY[0..10] OF SET16;
+
+ VAR
+  scoreshown, wt: BOOLEAN;
+  deltav, deltah: Delta;
+  oldx, oldy, px, py, firedir,
+   sx, sy, ax, ay, rfx, rfy, l2l, l2r, mvie: INT8;
+  k3c, wtc, at, nlj, nlk, reps, clkt: CARD8;
+  ch, ch1, ch2, repch, lastch: CHAR;
+  addpt, decpt, oldscore: CARD32;
+  Move: MoveAttr;
+  speed, aiept, dispt: Param;
+  first: ARRAY[MIN(OBJECT)..MAX(OBJECT)] OF ObjPtr;
+  object: ARRAY[0..MAXOBJ] OF Object;
+  els: ARRAY[0..19] OF Line;
+  e: Grtt; (* tableau bidimensionel des pointeurs sur les objets *)
+  gn: ARRAY[0..71] OF RECORD hset, lset: SET16 END; (* GN2 *)
+
+
+ PROCEDURE SGN(v: INT8): INT8;
+
+ PROCEDURE Snd(t1, t2: OBJECT; zx, zy: INT8);
+
+ PROCEDURE WriteTo(x, y: INT8; ch: CHAR);
+
+ PROCEDURE UnLink(o: ObjPtr);
+
+ PROCEDURE Link(o: ObjPtr; t: OBJECT);
+
+ PROCEDURE SetAttr(t: OBJECT);
+
+ PROCEDURE New(t: OBJECT): ObjPtr;
+
+ PROCEDURE Create(t: OBJECT; nx, ny, nvie, nseq: INT8; ch: CHAR);
+
+ PROCEDURE Dispose(o: ObjPtr);
+
+ PROCEDURE Remove(o: ObjPtr);
+
+ PROCEDURE Mur(ch: CHAR): BOOLEAN;
+
+ PROCEDURE SetPxPy(nx, ny: INT8);
+
+ PROCEDURE MoveProx;
+
+ PROCEDURE ShowLives;
+
+ PROCEDURE ShowLevel;
+
+ PROCEDURE ShowScore;
+
+ PROCEDURE ShowMessage;
+
+ PROCEDURE ShowL2;
+
+ PROCEDURE AddPt;
+
+ PROCEDURE WaitKey;
+
+ PROCEDURE SortK3(k: ObjPtr);
+
+ PROCEDURE InitGame(level, game: CARD8);
+
+ PROCEDURE Delay(d: CARD16);
+
+ PROCEDURE Aie(t1, t2: OBJECT; o: ObjPtr; n: CARD8);
+
+ PROCEDURE Boum(nx, ny: INT8);
+
+ PROCEDURE AddL2;
+
+ PROCEDURE DecVie(p: ObjPtr);
+
+ PROCEDURE Fire(t: OBJECT; fx, fy, fd: INT8; nid: BOOLEAN);
+
+ PROCEDURE SubL2;
+
+ PROCEDURE AddBLV;
+
+ PROCEDURE Gn2(x, y: INT8): BOOLEAN;
+
+ PROCEDURE MakeGn2(nx, ny: INT8);
+
+ PROCEDURE AiePlayer(ax, ay: INT8; ch: CHAR; o: ObjPtr);
+
+ PROCEDURE MoveObj(o: ObjPtr; c, x, y: INT8; dch: CHAR);
+
+ PROCEDURE Confirm(): BOOLEAN;
+
+ PROCEDURE Fixed(ch: CHAR): BOOLEAN;
+
+ PROCEDURE GetK2Dir(x, y, z: INT8): DIRECTION;
+
+ PROCEDURE FireBall(nx, ny: INT8; jmp: CARD8; nd: DIRECTION);
+
+ PROCEDURE Dead(ch: CHAR): BOOLEAN;
+
+ PROCEDURE CreateObj(nx, ny: INT8);
+
+
+ PROCEDURE MovePlayer(p: ObjPtr);
+
+ PROCEDURE MoveK0(k: ObjPtr);
+
+END GrotteActions.

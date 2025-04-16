@@ -1,0 +1,21 @@
+DEFINITION MODULE Checks;
+
+ FROM SYSTEM IMPORT ADDRESS;
+ FROM Memory IMPORT StrPtr;
+
+
+ PROCEDURE Check(badCase: BOOLEAN; s1, s2: StrPtr);
+
+ PROCEDURE Warn(badCase: BOOLEAN; s1, s2: StrPtr);
+
+ PROCEDURE CheckMem(adr: ADDRESS);
+
+ PROCEDURE CheckMemBool(badCase: BOOLEAN);
+
+ PROCEDURE Ask(s1, s2, pos, neg: StrPtr): BOOLEAN;
+
+ PROCEDURE AddTermProc(proc: PROC);
+
+ PROCEDURE Terminate;
+
+END Checks.

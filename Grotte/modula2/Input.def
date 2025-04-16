@@ -1,0 +1,96 @@
+DEFINITION MODULE Input;
+
+ FROM SYSTEM IMPORT ADDRESS;
+ FROM Memory IMPORT SET16, CARD8, INT8, CARD16, INT16, CARD32, INT32;
+
+ CONST
+  LeftButton = 0;
+  RightButton = 1;
+  MiddleButton = 2;
+  SysEvent = 3;
+
+  eNUL = 0;
+  eKEYBOARD = 1;
+  eMOUSE = 2;
+  eMENU = 4;
+  eGADGET = 5;
+  eREFRESH = 8;
+  eSYS = 9;
+  eTIMER = 12;
+
+ CONST
+  JoyLeft = 3; JoyRight = 2;
+  JoyUp = 0; JoyDown = 1;
+  Joy1 = 4; Joy2 = 5;
+  Joy3 = 6; Joy4 = 7;
+  Joy5 = 8; Joy6 = 9;
+  Joy7 = 10; Joy8 = 11;
+  JoyPause = 12;
+  JoyReverse = 13; JoyForward = 14;
+  JoyShift = 15;
+
+ CONST
+  statWaiting = 0;
+  statReady = 1; (* no cursor *)
+  statWorking = 2; (* may be interrupted *)
+  statBusy = 3; (* may not be interrupted *)
+
+ TYPE
+  SysMsg = (pActivate, pDeactivate, pQuit, pKill);
+  Modifiers = (emSHIFT, emCTRL, emALT, emCOMMAND, emDOUBLE);
+  ModifierSet = SET OF Modifiers;
+  EventTypes = [eNUL..eTIMER];
+  EventTypeSet = SET OF EventTypes;
+  Event = RECORD
+   CASE type: EventTypes OF
+     eNUL:
+    |eKEYBOARD:
+     ch: CHAR;
+    |eMOUSE:
+     button: CARD8;
+     mouseUp: BOOLEAN;
+     mx, my: INT16;
+    |eMENU:
+     menu: ADDRESS;
+    |eGADGET:
+     gadget: ADDRESS;
+     bNum: CARD8;
+     gadgetUp: BOOLEAN;
+    |eREFRESH:
+     refreshGadget: ADDRESS;
+    |eSYS:
+     msg: SysMsg;
+    |eTIMER:
+    ELSE
+   END;
+   dialog: ADDRESS;
+   modifiers: ModifierSet;
+  END;
+  EventPtr = POINTER TO Event;
+
+
+ PROCEDURE AddEvents(types: EventTypeSet); (* receive these events *)
+
+ PROCEDURE RemEvents(types: EventTypeSet); (* don't receive these events *)
+
+ PROCEDURE WaitEvent;
+
+ PROCEDURE GetEvent(VAR e: Event);
+
+ PROCEDURE SendEvent(e: Event);
+
+ PROCEDURE FlushEvents;
+
+ PROCEDURE BeginRefresh;
+
+ PROCEDURE EndRefresh(): BOOLEAN;
+
+ PROCEDURE SetBusyStat(stat: CARD8);
+
+ PROCEDURE Beep;
+
+ PROCEDURE GetMouse(VAR x, y: INT16);
+
+ PROCEDURE GetStick(): SET16;
+
+END Input.
