@@ -9,9 +9,6 @@ dependencies {
 	// Dependency on another Eclipse project (assuming it's a local project)
     implementation project(':Modula2-Runtime')
     implementation project(':Library')
-
-	// Libraries
-	implementation("com.badlogicgames.jamepad:jamepad:2.30.0.0")
 }
 
 sourceSets {
@@ -38,19 +35,6 @@ task ChaosCastleJar(type: Jar) {
     with jar
 }
 
-task GrotteJar(type: Jar) {
-    manifest {
-        attributes 'Main-Class': 'ch.chaos.castle.app.GrotteApp'
-    }
-    archiveBaseName = 'Grotte'
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
-task buildAllJars {
-    dependsOn ChaosCastleJar, GrotteJar
-}
 /*
 task jdepsGrotte(type: Exec) {
     group = 'build'
