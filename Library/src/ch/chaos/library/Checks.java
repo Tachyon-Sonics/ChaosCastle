@@ -65,7 +65,7 @@ public class Checks {
         return ask(message, okText, cancelText);
     }
 
-    private boolean ask(String message, String okText, String cancelText) {
+    private boolean ask(String message, String okText, String cancelText) { // TODO (3) does not work of Grotte (for instances 'Samples' missing) in Graphics.FULL_SCREEN because there is no MainFrame
         Async<Boolean> result = new Async<>();
         if (okText != null) {
             if (Graphics.FULL_SCREEN) {
