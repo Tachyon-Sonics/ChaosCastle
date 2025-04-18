@@ -1,6 +1,7 @@
 - Review tray icon's menu
 - Memory model in m2translator
 - Pointer arithmetic
+- JUnit tests for Modula2Java17
 - Tiered graphics
 - Graphics: scaling support
 - Graphics: b&w support
