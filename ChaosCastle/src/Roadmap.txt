@@ -1,4 +1,4 @@
-- Review tray icon's menu
+[ok] Review tray icon's menu
 - Memory model in m2translator
 - Pointer arithmetic
 - JUnit tests for Modula2Java17
