@@ -3,6 +3,7 @@
 - Pointer arithmetic
 - JUnit tests for Modula2Java17
 - Tiered graphics
+- Launcher with settings
 - Graphics: scaling support
 - Graphics: b&w support
 - Graphics: 256 + dual pf support

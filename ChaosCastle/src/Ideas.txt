@@ -70,7 +70,7 @@
 
 *** New levels
   - Industry: based on 2nd Vector Race level (brickmask). Similar to Factory in style. Extensions are also brickMask-based, with optionnal briskmask interior
-  - Pond: left-to right oval, with down roads ending in trefles. Garden/Autumn -> Family top - down blocks. Violet kamikazes, Under water.
+  - Pond: left-to right oval, with down roads ending in trefles. Jungle -> Family top - down blocks. Violet kamikazes, Under water.
   - Space Station: grid of boxes with an outside, labyrinth between boxes. Use block of Lights and also black circle with orange cross. Background stars / neutral. # and blue boxes
   - Stones Desert: garden blocks (maybe some Groove/Family blocks) in grey levels (or brown levels?). Group garden's block into squares / curves
   - Caves / Big Swamp: BrickMask 100x100's interior. "Dried Swamp" (group above and this)
@@ -108,7 +108,7 @@ Small quest:
 1) Site: Bubble p4, Laser p2, Fire p3
 2) Garden: Star p4, Ball p3
 3) Rooms: Bubble p4, Grenade p4, Fireball p2
-4) Castle: Bubble p4, Fireball p4
+4) Castle: Bubble p4, Fireball p4 (without high-speed)
 5) Lights: Fireball p3, Ball p4
 6) Machinery: Star p3, Bubble p2, Grenade p4
 7) Underwater: Laser p4, Fireball p3
