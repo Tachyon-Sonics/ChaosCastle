@@ -1,0 +1,67 @@
+BACKGROUND
+0	0x0
+1	0x1
+2	0x2
+3	0x3
+4	0x4
+5	0x5
+6	0x6
+7	0x7
+8	1x0	Back4x4
+9	1x1	BackNone
+10	1x2	Back2x2
+11	1x3	BackSmall
+12	1x4	BackBig
+13	1x5	Back8x8
+14	1x6	Tar
+15	1x7	Ground
+16	2x0	Ground2
+17	2x1	Ice
+18	2x2	Light
+19	2x3	Balls
+20	2x4 Round4
+21	2x5	FalseBlock
+22	2x6	(False F9x9)
+23	2x7	FalseEmpty
+
+BLOCKS
+24	3x0	EmptyBlock
+25	3x1	Sq1Block
+26	3x2	Sq4Block
+27	3x3	Sq4TravBlock
+28	3x4	TravBlock
+29	3x5	Fact1Block
+30	3x6	Fact2Block
+31	3x7	Fact3Block
+32	4x0	SimpleBlock
+33	4x1 Granit1
+34	4x2	Granit2
+35	4x3	BigBlock
+36	4x4	Bricks
+37	4x5	Fade1
+38	4x6	Fade2
+39	4x7	Fade3
+40	5x0	FBig1
+41	5x1	FBig2
+42	5x2	FSmall1
+43	5x3	FSmall2
+44	5x4	FRound
+45	5x5	FStar
+46	5x6	FPanic
+47	5x7	F9x9
+48	6x0	Forest1
+49	6x1	
+50	6x2	
+51	6x3	
+52	6x4	
+53	6x5	
+54	6x6	Forest7
+55	6x7	Leaf1
+56	7x0	Leaf2
+57	7x1	Leaf3
+58	7x2	Leaf4
+59	7x3	BarLight
+60	7x4	BarDark
+61	7x5	TravLight
+62	7x6	RGBBlock
+63	7x7	IceBlock

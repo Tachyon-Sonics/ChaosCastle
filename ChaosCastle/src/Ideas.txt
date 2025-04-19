@@ -70,11 +70,24 @@
 
 *** New levels
   - Industry: based on 2nd Vector Race level (brickmask). Similar to Factory in style. Extensions are also brickMask-based, with optionnal briskmask interior
-  - Pond: left-to right oval, with down roads ending in trefles. Jungle -> Family top - down blocks. Violet kamikazes, Under water.
+
+  - Pond: 
+  		left-to right oval, with down roads ending in trefles. Jungle -> Family top - down blocks. Violet kamikazes, Under water.
+  		Reuse forest block (jungle palette) + various bricks from Rooms, Plain and Groove
+  		Initial oval, top center + multiple rings (interior filled, exterior background), exterior of each ring must touch at leats another background
+  		Peano-random blocks?
   - Space Station: grid of boxes with an outside, labyrinth between boxes. Use block of Lights and also black circle with orange cross. Background stars / neutral. # and blue boxes
+  
   - Stones Desert: garden blocks (maybe some Groove/Family blocks) in grey levels (or brown levels?). Group garden's block into squares / curves
-  - Caves / Big Swamp: BrickMask 100x100's interior. "Dried Swamp" (group above and this)
-  - Snow Tracks: two graveyard-type circles (interior block, exterior empty), different values. Ice
+  - Caves / Dried Swamp: BrickMask 120x120's interior. "Dried Swamp" (group above and this)
+  
+  - Snow Tracks: two graveyard-type circles (interior block, exterior empty), different values. Ice. Or cycloide with 2 different ratios (mutually prime)
+  
+  - Start with centered 5x5 background
+    - Choose random wall touching background
+    - Random 4-direction, random length
+      - Repeat (prevent opposite of previous direction) until background or bounds. Then fill with random 1 - 4 size
+  
   - Twilight. T-shaped block structures. Canon left and right of treffles. Canon (Ghost Castle) with Wind Maker + bouncers to deviate. Four white kamikazes oriented toward exterior
   - ??: blocks from Factory, more colored, no palette cycle. Concentric circles with path from left to center.
   - Warehouse: Rough shape: Grotte 1A, fine shape: Grotte bonus level with 0H0H0H0H, 8/+-
