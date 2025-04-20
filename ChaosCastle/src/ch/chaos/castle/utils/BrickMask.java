@@ -339,6 +339,17 @@ public class BrickMask {
         }
         return builder.toString();
     }
+    
+    public BinaryLevelBuilderBase toBinaryLevel() {
+        BinaryLevelBuilderBase level = new BinaryLevelBuilderBase(width, height);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                boolean empty = getBrick(x, y) || getBrick(x + 1, y) || getBrick(x, y + 1);
+                level.setWall(x, y, !empty);
+            }
+        }
+        return level;
+    }
 
     public String toString(int[] travel) {
         StringBuilder builder = new StringBuilder();
@@ -393,10 +404,11 @@ public class BrickMask {
     }
 
     public static void main(String[] args) {
-        BrickMask mask = buildBrickMask(new Random().nextLong(), 10, 10);
+        BrickMask mask = buildBrickMask(new Random().nextLong(), 100, 100);
         int[] travel = mask.toTravel(1, false);
         System.out.println(mask.toString(travel));
         System.out.println(mask.toString());
+        System.out.println(mask.toBinaryLevel().toString());
     }
 
 }

@@ -15,4 +15,8 @@ public record Coord(int x, int y) {
     public Coord add(int dx, int dy) {
         return new Coord(x() + dx, y() + dy);
     }
+    
+    public String toShortString() {
+        return "(" + x + "," + y + ")";
+    }
 }

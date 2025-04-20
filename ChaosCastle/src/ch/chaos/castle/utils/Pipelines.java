@@ -4,19 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Pipelines {
+public class Pipelines extends BinaryLevelBuilderBase {
     
-    private final int width;
-    private final int height;
     private final int nbPipes;
-    private final boolean[][] walls;
+    private final Random rnd = new Random();
     
     
     public Pipelines(int width, int height, int nbPipes) {
-        this.width = width;
-        this.height = height;
+        super(width, height);
         this.nbPipes = nbPipes;
-        this.walls = new boolean[width][height];
     }
     
     public void build() {
@@ -27,7 +23,7 @@ public class Pipelines {
         // Finish
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                if (isBorder(x, y)) {
+                if (isBoundary(x, y)) {
                     walls[x][y] = true;
                 }
             }
@@ -50,9 +46,8 @@ public class Pipelines {
         }
 
         // Add random "pipes"
-        Random rnd = new Random();
         for (int k = 0; k < nbPipes; k++) {
-            addRandomPipe(rnd);
+            addRandomPipe();
         }
     }
     
@@ -90,9 +85,9 @@ public class Pipelines {
      * <p>
      * The pipe is then filled with empty blocks using a random thickness
      */
-    private void addRandomPipe(Random rnd) {
+    private void addRandomPipe() {
         // Choose an initial coordinate. Must be a wall, and 4-neighbour to an empty space
-        Coord current = pickRandomStart(rnd);
+        Coord current = pickRandomStart();
         
         // Set initial direction to be away from empty block neighbour
         int dx = 0;
@@ -105,7 +100,7 @@ public class Pipelines {
         }
         
         // Choose initial length
-        int length = rndLength(rnd);
+        int length = rndLength();
         
         // Draw the pipe
         List<Coord> pipe = new ArrayList<>();
@@ -117,7 +112,7 @@ public class Pipelines {
                 current = current.add(dx, dy);
                 
                 // Stop if bounds are reached
-                if (isBound(current)) {
+                if (isBoundary(current)) {
                     break pipeLoop;
                 }
                 
@@ -142,7 +137,7 @@ public class Pipelines {
             dx = dir.x();
             dy = dir.y();
             // Choose a new random length
-            length = rndLength(rnd);
+            length = rndLength();
         }
         
         // Now draw the pipe with a random thickness
@@ -156,7 +151,7 @@ public class Pipelines {
         }
     }
     
-    private int rndLength(Random rnd) {
+    private int rndLength() {
         return 5 + rnd.nextInt(15);
     }
     
@@ -164,7 +159,7 @@ public class Pipelines {
      * Pick a random coordinate than is a wall and that is a 4-neighbour of an empty block.
      * Used a a start coordinate for pipes.
      */
-    private Coord pickRandomStart(Random rnd) {
+    private Coord pickRandomStart() {
         List<Coord> candidates = new ArrayList<>();
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -180,68 +175,6 @@ public class Pipelines {
         return candidates.get(index);
     }
     
-    private int nbSurroundingWalls4(Coord coord) {
-        int result = 0;
-        for (Coord delta : Coord.n4()) {
-            if (isWall(coord.x() + delta.x(), coord.y() + delta.y())) {
-                result++;
-            }
-        }
-        return result;
-    }
-    
-    private boolean isWall(Coord coord) {
-        return isWall(coord.x(), coord.y());
-    }
-    
-    private boolean isWall(int x, int y) {
-        if (isOutside(x, y))
-            return true;
-        return walls[x][y];
-    }
-    
-    private void setWall(int x, int y, boolean wall) {
-        if (isOutside(x, y))
-            return;
-        walls[x][y] = wall;
-    }
-    
-    private boolean isOutside(int x, int y) {
-        if (x < 0 || y < 0 || x >= width || y >= height)
-            return true;
-        return false;
-    }
-    
-    private boolean isBound(Coord coord) {
-        return isBorder(coord.x(), coord.y());
-    }
-    
-    private boolean isBorder(int x, int y) {
-        if (isOutside(x, y))
-            return true;
-        return (x == 0 || y == 0 || x == width - 1 || y == height - 1);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        for (int y = 0; y < height; y+= 2) {
-            for (int x = 0; x < width; x++) {
-                if (isWall(x, y) && isWall(x, y + 1)) {
-                    builder.append("█");
-                } else if (isWall(x, y) && !isWall(x, y + 1)) {
-                    builder.append("▀");
-                } else if (!isWall(x, y) && isWall(x, y + 1)) {
-                    builder.append("▄");
-                } else {
-                    builder.append(" ");
-                }
-            }
-            builder.append("\n");
-        }
-        return builder.toString();
-    }
-
     public static void main(String[] args) {
         Pipelines pipelines = new Pipelines(120, 120, 40);
         pipelines.build();
