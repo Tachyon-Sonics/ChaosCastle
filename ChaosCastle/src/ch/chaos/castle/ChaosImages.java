@@ -1003,7 +1003,7 @@ public class ChaosImages {
         if (chaosBase.zone == Zone.Chaos) {
             SetMetalPalette();
         } else if (chaosBase.zone == Zone.Castle) {
-            switch (chaosBase.level[Zone.Castle.ordinal()]) {
+            switch (chaosBase.level[Zone.Castle.ordinal()]) { // [NEW LEVELS]
                 case 1, 8, 13 -> SetRGBIcePalette();
                 case 2 -> SetFadePalette();
                 case 3, 4, 11, 14, 17, 18 -> SetForestPalette();
@@ -1013,6 +1013,7 @@ public class ChaosImages {
                 case 9 -> SetFactoryPalette();
                 case 12, 16 -> SetAnimatedPalette2();
                 case 20 -> SetJunglePalette();
+                case 21 -> SetBagleyPalette();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }
             lastCastleLevel = chaosBase.level[Zone.Castle.ordinal()];
@@ -1060,11 +1061,11 @@ public class ChaosImages {
         if (chaosBase.zone == Zone.Chaos) {
             SetMetalPalette();
         } else if (chaosBase.zone == Zone.Castle) {
-            switch (chaosBase.level[Zone.Castle.ordinal()]) {
+            switch (chaosBase.level[Zone.Castle.ordinal()]) { // [NEW LEVELS]
                 case 1, 4 -> {
                     SetForestPalette();
                 }
-                case 2, 3, 5, 7, 10, 14, 16, 17, 19 -> {
+                case 2, 3, 5, 7, 10, 14, 16, 17, 19, 21 -> {
                     SetMetalPalette();
                 }
                 case 6 -> {

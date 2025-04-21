@@ -114,7 +114,7 @@ public class ChaosCastle {
         chaosBase.stages = 5;
         chaosBase.addpt = 0;
         chaosBase.score = 0;
-//        setupCheat(); // FIXME remove
+        setupCheat(); // FIXME remove
         InitPlayVars();
     }
     
@@ -123,12 +123,12 @@ public class ChaosCastle {
         chaosBase.nbSterling = 200;
         chaosBase.zone = Zone.Castle;
         chaosBase.level[Zone.Chaos.ordinal()] = 20;
-        chaosBase.level[Zone.Castle.ordinal()] = 9;
+        chaosBase.level[Zone.Castle.ordinal()] = 21;
         chaosBase.level[Zone.Family.ordinal()] = 5;
         chaosBase.level[Zone.Special.ordinal()] = 4;
         chaosBase.specialStage = 5; // 5 bonus levels
         chaosBase.stages = 0; // PMM active
-        chaosBase.difficulty = 3;
+        chaosBase.difficulty = 5;
         
         for (int _w = 0; _w < Weapon.values().length; _w++) {
             Weapon w = Weapon.values()[_w];
@@ -192,7 +192,7 @@ public class ChaosCastle {
                 if (chaosBase.zone == Zone.Chaos)
                     maxl = 100;
                 else if (chaosBase.zone == Zone.Castle)
-                    maxl = 20;
+                    maxl = 21; // [NEW LEVELS]
                 else if (chaosBase.zone == Zone.Family)
                     maxl = 10;
                 else

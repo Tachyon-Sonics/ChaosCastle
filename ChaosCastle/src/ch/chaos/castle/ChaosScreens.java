@@ -1,6 +1,5 @@
 package ch.chaos.castle;
 
-import java.lang.Runnable;
 import java.util.EnumSet;
 
 import ch.chaos.castle.ChaosBase.BasicTypes;
@@ -482,7 +481,7 @@ public class ChaosScreens {
     }
 
     private Runtime.IRef<String> GetCastleName(short level) {
-        switch (level) {
+        switch (level) { // [NEW LEVELS]
             case 1 -> {
                 return Runtime.castToRef(languages.ADL("Entry"), String.class);
             }
@@ -542,6 +541,9 @@ public class ChaosScreens {
             }
             case 20 -> {
                 return Runtime.castToRef(languages.ADL("Jungle"), String.class);
+            }
+            case 21 -> {
+                return Runtime.castToRef(languages.ADL("Pipeline"), String.class);
             }
             default -> throw new RuntimeException("Unhandled CASE value " + level);
         }

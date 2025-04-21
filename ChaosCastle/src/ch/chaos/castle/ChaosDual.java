@@ -1,7 +1,6 @@
 package ch.chaos.castle;
 
 import ch.chaos.castle.ChaosBase.Zone;
-import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
 
@@ -361,7 +360,7 @@ public class ChaosDual {
                     chaosGraphics.dualSpeed = 8;
                     GrooveTrans();
                 }
-                case 3, 5, 10, 19 -> {
+                case 3, 5, 10, 19, 21 -> { // [NEW LEVELS]
                     DrawStars();
                     chaosGraphics.dualSpeed = 8;
                 }

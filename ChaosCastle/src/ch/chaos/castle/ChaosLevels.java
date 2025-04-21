@@ -1019,7 +1019,7 @@ public class ChaosLevels {
             chaos1Zone.rotate = false;
             MakeChaos();
         } else if (chaosBase.zone == Zone.Castle) {
-            switch (chaosBase.level[Zone.Castle.ordinal()]) {
+            switch (chaosBase.level[Zone.Castle.ordinal()]) { // [NEW LEVELS]
                 case 1 -> chaos1Zone.Entry();
                 case 2 -> chaos1Zone.Groove();
                 case 3 -> chaos1Zone.Garden();
@@ -1029,7 +1029,6 @@ public class ChaosLevels {
                 case 7 -> chaos1Zone.Machinery();
                 case 8 -> chaos1Zone.IceRink();
                 case 9 -> chaos1Zone.Factory();
-//                case 9 -> chaos3Zone.industry();
                 case 10 -> chaos1Zone.Labyrinth();
                 case 11 -> chaos2Zone.Rooms();
                 case 12 -> chaos2Zone.Yard();
@@ -1041,6 +1040,7 @@ public class ChaosLevels {
                 case 18 -> chaos2Zone.UnderWater();
                 case 19 -> chaos2Zone.Assembly();
                 case 20 -> chaos2Zone.Jungle();
+                case 21 -> chaos3Zone.pipeline();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }
         } else if (chaosBase.zone == Zone.Family) {
