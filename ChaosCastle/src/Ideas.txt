@@ -32,6 +32,7 @@
 - [ok] Sound settings (from shop) + Cancel -> not re-rendered
 - !! Same sound multiple times at the same time: try to make less loud
 - !! Focus lost -> pause button
+- !! Magnets in Factory (also main branch)
 - In rare case, exit not reachable in Factory
 - [ok] Castle: no high-speed if difficulty >= 5
 - [ok] Increase number of objects / aliens allowed
