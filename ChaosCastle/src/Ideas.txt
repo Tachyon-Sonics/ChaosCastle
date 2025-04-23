@@ -70,6 +70,13 @@
 
 
 *** New levels
+  - Pipeline: ok
+    - Darker pallette (especially brown)
+    - Review placed aliens (actually those from Rooms)
+  - Industry: Use industry algorithm, then similar to Factory
+  - Pond: try peano noise (or clouds), favoring toward the center, then convert to binary
+  - XX: BrickMask without bridge limitation, maybe for Pond
+
   - Industry: based on 2nd Vector Race level (brickmask). Similar to Factory in style. Extensions are also brickMask-based, with optionnal briskmask interior
 
   - Pond: 
