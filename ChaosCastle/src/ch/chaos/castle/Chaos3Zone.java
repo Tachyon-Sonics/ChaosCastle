@@ -305,7 +305,7 @@ public class Chaos3Zone {
         // Check if placeable
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                if (brickMask.getBrick(x, y)) {
+                if (brickMask.isBrick(x, y)) {
                     if (!isIsolated4(px + x, py + y, filter))
                         return null;
                 }
@@ -315,7 +315,7 @@ public class Chaos3Zone {
         // Place it
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                if (brickMask.getBrick(x, y)) {
+                if (brickMask.isBrick(x, y)) {
                     int index = rnd.nextInt(blockTypes.length);
                     chaosObjects.Put((short) (px + x), (short) (py + y), (short) blockTypes[index]);
                 }
@@ -397,7 +397,7 @@ public class Chaos3Zone {
             List<int[]> centerPoints = new ArrayList<>();
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
-                    if (brickMask.getBrick(x, y) 
+                    if (brickMask.isBrick(x, y) 
                             && isIsolatedN(px + x, py + y, fillCenterN, reverseFilter)) {
                         centerPoints.add(new int[] {px + x, py + y});
                     }

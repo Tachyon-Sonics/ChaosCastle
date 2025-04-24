@@ -45,31 +45,35 @@ public class SimpleBrickMask extends BinaryLevelBuilderBase {
                 }
             }
         }
-        
-        // Remove diagonals
-        for (int x = 0; x < width - 1; x++) {
-            for (int y = 0; y < height - 1; y++) {
-                /*
-                 * 01 -> 01
-                 * 10    00
-                 */
-                if (!isWall(x, y) && !isWall(x + 1, y + 1) && isWall(x + 1, y) && isWall(x, y + 1)) {
-                    setWall(x, y + 1, false);
-                } else 
-                /*
-                 * 10 -> 00
-                 * 01    01
-                 */
-                if (!isWall(x + 1, y) && !isWall(x, y + 1) && isWall(x, y) && isWall(x + 1, y + 1)) {
-                    setWall(x, y, false);
+    }
+
+    public void fillInterior(int distance) {
+        List<Coord> toFill = new ArrayList<>();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (!isWall(x, y)) {
+                    boolean isFree = true;
+                    for (int k = 1; k <= distance; k++) {
+                        if (isWall(x - k, y) || isWall(x + k, y) || isWall(x, y - k) || isWall(x, y + k)) {
+                            isFree = false;
+                        }
+                    }
+                    if (isFree) {
+                        toFill.add(new Coord(x, y));
+                    }
                 }
             }
+        }
+        for (Coord coord : toFill) {
+            setWall(coord, true);
         }
     }
     
     public static void main(String[] args) {
         SimpleBrickMask mask = new SimpleBrickMask(30, 30);
         mask.build(0.4);
+        mask.fillInterior(4);
+        mask.removeDiagonals();
         System.out.println(mask.toString());
     }
 

@@ -2,6 +2,7 @@ package ch.chaos.castle.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class Industry extends BinaryLevelBuilderBase {
@@ -176,9 +177,22 @@ public class Industry extends BinaryLevelBuilderBase {
     }
     
     public static void main(String[] args) {
-        Industry pipelines = new Industry(120, 120, 40);
-        pipelines.build();
-        System.out.println(pipelines.toString());
+        Industry industry = new Industry(120, 120, 40);
+        industry.build();
+        System.out.println(industry.toString());
+        
+        Coord start = new Coord(industry.getWidth() / 2, industry.getHeight() / 2);
+        List<List<Coord>> distances = industry.getDistancesFrom(start);
+        Map<Coord, Integer> distanceMap = industry.remapDistances(distances); 
+        int maxDist1 = distances.size() - 1;
+        Coord max1 = distances.get(maxDist1).get(0);
+        System.out.println("Bomb: " + max1.toShortString() + " at distance " + maxDist1);
+        
+        distances = industry.getDistancesFrom(max1);
+        int maxDist2 = distances.size() - 1;
+        Coord max2 = distances.get(maxDist2).get(0);
+        int bonusDist = distanceMap.get(max2);
+        System.out.println("Bonus: " + max2.toShortString() + "; " + maxDist2 + " from bomb, " + bonusDist + " from start");
     }
 
 }

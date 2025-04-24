@@ -1,5 +1,11 @@
 package ch.chaos.castle.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class BinaryLevelBuilderBase {
 
@@ -12,6 +18,14 @@ public class BinaryLevelBuilderBase {
         this.width = width;
         this.height = height;
         this.walls = new boolean[width][height];
+    }
+    
+    public int getWidth() {
+        return width;
+    }
+    
+    public int getHeight() {
+        return height;
     }
 
     protected int nbSurroundingWalls4(Coord coord) {
@@ -40,10 +54,110 @@ public class BinaryLevelBuilderBase {
         return walls[x][y];
     }
     
+    protected void setWall(Coord coord, boolean wall) {
+        setWall(coord.x(), coord.y(), wall);
+    }
+    
     protected void setWall(int x, int y, boolean wall) {
         if (isOutside(x, y))
             return;
         walls[x][y] = wall;
+    }
+    
+    protected void fillOval(int sx, int sy, int width, int height, boolean wall) {
+        boolean odd = ((width % 2) != 0);
+        int ph2 = height * height;
+        int pw2 = width * width;
+        int phd = ph2 / 2;
+        int h = -height + 1;
+        int w = 1;
+        int y = 0;
+        do {
+            int w2 = ((ph2 - h * h) * pw2 + phd) / ph2;
+            while (w * w < w2) {
+                w++;
+            }
+            if (((w % 2) != 0) != odd)
+                w--;
+            int x = sx + (width - w) / 2;
+            int by = sy + y;
+            int ey = sy + height - y - 1;
+            fillRect(x, by, w, 1, wall);
+            if (h != 0)
+                fillRect(x, ey, w, 1, wall);
+            y++;
+            h += 2;
+        } while (h <= 0);
+    }
+    
+    protected void fillRect(int sx, int sy, int width, int height, boolean wall) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                setWall(sx + x, sy + y, wall);
+            }
+        }
+    }
+    
+    public void removeDiagonals() {
+        for (int x = 0; x < width - 1; x++) {
+            for (int y = 0; y < height - 1; y++) {
+                /*
+                 * 01 -> 01
+                 * 10    00
+                 */
+                if (!isWall(x, y) && !isWall(x + 1, y + 1) && isWall(x + 1, y) && isWall(x, y + 1)) {
+                    setWall(x, y + 1, false);
+                } else 
+                /*
+                 * 10 -> 00
+                 * 01    01
+                 */
+                if (!isWall(x + 1, y) && !isWall(x, y + 1) && isWall(x, y) && isWall(x + 1, y + 1)) {
+                    setWall(x, y, false);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Get all 4-distances from the given coordinate.
+     * <p>
+     * In the resulting list, index N contains the list of coordinates whose distance to
+     * the given coordinate is N.
+     */
+    public List<List<Coord>> getDistancesFrom(Coord coord) {
+        List<List<Coord>> result = new ArrayList<>();
+        // BFS
+        Set<Coord> visited = new HashSet<>();
+        Set<Coord> toVisit = new HashSet<>();
+        toVisit.add(coord);
+        while (!toVisit.isEmpty()) {
+            result.add(new ArrayList<>(toVisit));
+            Set<Coord> next = new HashSet<>();
+            for (Coord curCoord : toVisit) {
+                visited.add(curCoord);
+                for (Coord delta : Coord.n4()) {
+                    Coord nextCoord = curCoord.add(delta);
+                    if (!isWall(nextCoord)) {
+                        if (!visited.contains(nextCoord) && !toVisit.contains(nextCoord)) {
+                            next.add(nextCoord);
+                        }
+                    }
+                }
+            }
+            toVisit = next;
+        }
+        return result;
+    }
+    
+    public Map<Coord, Integer> remapDistances(List<List<Coord>> distances) {
+        Map<Coord, Integer> result = new HashMap<>();
+        for (int distance = 0; distance < distances.size(); distance++) {
+            for (Coord coord : distances.get(distance)) {
+                result.put(coord, distance);
+            }
+        }
+        return result;
     }
     
     protected boolean isOutside(Coord coord) {
