@@ -34,7 +34,22 @@ public class DoubleCyclo extends BinaryLevelBuilderBase {
         int phase1 = rnd.nextInt(360);
         int phase2 = rnd.nextInt(360);
         System.out.println("Periods: " + period1 + ", " + period2);
+        
+        int prevSize = 4;
+        int nextSize = 4;
+        int sizeCount = 0;
+        int sizeIndex = 0;
+
         for (int angle = 0; angle < 360; angle++) {
+            if (sizeIndex >= sizeCount) {
+                prevSize = nextSize;
+                nextSize = 2 + rnd.nextInt(5);
+                sizeCount = 2 + rnd.nextInt(6);
+                sizeIndex = 0;
+            }
+            int curSize = (prevSize * (sizeCount - sizeIndex) + nextSize * sizeIndex) / sizeCount;
+            sizeIndex++;
+
             double radius = Math.sin(rad(angle * period1 + phase1)) + Math.sin(rad(angle * period2 + phase2)); // -2..2
             radius += 6.0; // 4..8
             radius /= 2.0; // 2..4
@@ -42,7 +57,8 @@ public class DoubleCyclo extends BinaryLevelBuilderBase {
             int x = (int) (Math.cos(rad(angle)) * radius);
             int y = (int) (Math.sin(rad(angle)) * radius);
             Coord coord = center.add(x, y);
-            fillOval(coord.x() - 2, coord.y() - 2, 4, 4, false);
+            int sizeH = curSize / 2;
+            fillOval(coord.x() - sizeH, coord.y() - sizeH, curSize, curSize, false);
 //            setWall(center.add(x, y), false);
         }
     }
@@ -55,7 +71,7 @@ public class DoubleCyclo extends BinaryLevelBuilderBase {
         // Simple brick mask
         SimpleBrickMask mask = new SimpleBrickMask(30, 30);
         mask.build(0.4);
-        mask.fillInterior(4);
+        mask.fillInterior(3);
         
         // Add brick mask to interior of double cycloid
         for (int x = 0; x < mask.getWidth(); x++) {
