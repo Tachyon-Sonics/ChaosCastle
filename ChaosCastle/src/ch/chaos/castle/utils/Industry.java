@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Pipelines extends BinaryLevelBuilderBase {
+public class Industry extends BinaryLevelBuilderBase {
     
     private final int nbPipes;
     private final Random rnd = new Random();
     
     
-    public Pipelines(int width, int height, int nbPipes) {
+    public Industry(int width, int height, int nbPipes) {
         super(width, height);
         this.nbPipes = nbPipes;
     }
@@ -176,7 +176,7 @@ public class Pipelines extends BinaryLevelBuilderBase {
     }
     
     public static void main(String[] args) {
-        Pipelines pipelines = new Pipelines(120, 120, 40);
+        Industry pipelines = new Industry(120, 120, 40);
         pipelines.build();
         System.out.println(pipelines.toString());
     }

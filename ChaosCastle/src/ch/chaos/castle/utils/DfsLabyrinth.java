@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
-public class SpaceStation extends BinaryLevelBuilderBase {
+public class DfsLabyrinth extends BinaryLevelBuilderBase {
     
     private final int width;
     private final int height;
@@ -26,7 +26,7 @@ public class SpaceStation extends BinaryLevelBuilderBase {
     private final Random rnd = new Random();
     
     
-    public SpaceStation(int width, int height, int cellWidth, int cellHeight) {
+    public DfsLabyrinth(int width, int height, int cellWidth, int cellHeight) {
         super(width * cellWidth + 1, height * cellHeight + 1);
         this.width = width;
         this.height = height;
@@ -222,7 +222,7 @@ public class SpaceStation extends BinaryLevelBuilderBase {
         final int Height = 10;
         final int CellWidth = 10;
         final int CellHeight = 6;
-        SpaceStation spaceStation = new SpaceStation(Width, Height, CellWidth, CellHeight);
+        DfsLabyrinth spaceStation = new DfsLabyrinth(Width, Height, CellWidth, CellHeight);
         spaceStation.build();
         Coord exitCell = spaceStation.getFarthestCell(new Coord(0, 0));
         spaceStation.setWall(exitCell.x() * CellWidth + CellWidth / 2, exitCell.y() * CellHeight + CellHeight / 2, true); // Just to highlight the exit
