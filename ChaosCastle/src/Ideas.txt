@@ -71,6 +71,7 @@
 
 
 *** New levels
+  - Space Station (algo ok)
   - Pipeline: ok
     - Darker pallette (especially brown)
     - Review placed aliens (actually those from Rooms)
@@ -80,8 +81,12 @@
       Magnets, Cartoons, Kamikazes, Yellow Traps (isolated), Brother Alien's balls
     - Farthest from center: bomb bonus, farthest from bomb: bonus level
   - Pond: try perlin noise (https://www.redblobgames.com/maps/terrain-from-noise/), favoring toward the center, then convert to binary (Island)
-  - XX: BrickMask without bridge limitation, maybe for Pond
+  - Snow Track (algo ok)
+  - Big Cavern: Brick Mask
+  - Emptyness: 0-0
+  - Forest's exterior, using squares instead of circles
 
+Old:
   - Industry: based on 2nd Vector Race level (brickmask). Similar to Factory in style. Extensions are also brickMask-based, with optionnal briskmask interior
 
   - Pond: 
