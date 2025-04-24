@@ -77,7 +77,7 @@
     - No orientation change. Add kamikazes
   - Industry: Use industry algorithm, then similar to Factory. Add Blue-Green Baby Aliens + Big Blue creators
     - All turrets, Sliders (like in Rooms / Machinery), Rect + Losange reflectors (isolated); Wind, Water, Fire makers; 
-      Magnets, Cartoons, Kamikazes, Yellow Traps (isolated)
+      Magnets, Cartoons, Kamikazes, Yellow Traps (isolated), Brother Alien's balls
     - Farthest from center: bomb bonus, farthest from bomb: bonus level
   - Pond: try perlin noise (https://www.redblobgames.com/maps/terrain-from-noise/), favoring toward the center, then convert to binary (Island)
   - XX: BrickMask without bridge limitation, maybe for Pond
