@@ -1,10 +1,12 @@
-package ch.chaos.castle.utils;
+package ch.chaos.castle.utils.generator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Park extends BinaryLevelBuilderBase {
+import ch.chaos.castle.utils.Coord;
+
+public class Park extends BinaryLevel {
     
     private final int minSize;
     private final int maxSize;
@@ -70,7 +72,7 @@ public class Park extends BinaryLevelBuilderBase {
         }
     }
     
-    private boolean placeBlobRandomly(BinaryLevelBuilderBase blob, Random rnd, IBlobCondition condition) {
+    private boolean placeBlobRandomly(BinaryLevel blob, Random rnd, IBlobCondition condition) {
         List<Coord> candidates = new ArrayList<>();
         for (int x = -minSize; x < width; x++) {
             for (int y = -minSize; y < height; y++) {
@@ -89,7 +91,7 @@ public class Park extends BinaryLevelBuilderBase {
         return true;
     }
     
-    private void placeBlobAt(BinaryLevelBuilderBase blob, Coord where) {
+    private void placeBlobAt(BinaryLevel blob, Coord where) {
         for (int x = 0; x < blob.getWidth(); x++) {
             for (int y = 0; y < blob.getHeight(); y++) {
                 if (!blob.isWall(x, y)) {
@@ -102,11 +104,11 @@ public class Park extends BinaryLevelBuilderBase {
     @FunctionalInterface
     static interface IBlobCondition {
         
-        public boolean isValid(BinaryLevelBuilderBase blob, Coord where);
+        public boolean isValid(BinaryLevel blob, Coord where);
     
     }
     
-    private boolean isInsideBounds(BinaryLevelBuilderBase blob, Coord where) {
+    private boolean isInsideBounds(BinaryLevel blob, Coord where) {
         for (int x = 0; x < blob.getWidth(); x++) {
             for (int y = 0; y < blob.getHeight(); y++) {
                 if (!blob.isWall(x, y)) {
@@ -118,7 +120,7 @@ public class Park extends BinaryLevelBuilderBase {
         return true;
     }
     
-    private boolean isTouchingAnother(BinaryLevelBuilderBase blob, Coord where) {
+    private boolean isTouchingAnother(BinaryLevel blob, Coord where) {
         if (!isInsideBounds(blob, where))
             return false;
         boolean touch = false;

@@ -1,8 +1,10 @@
-package ch.chaos.castle.utils;
+package ch.chaos.castle.utils.generator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import ch.chaos.castle.utils.Coord;
 
 public class BrickMask {
 
@@ -323,8 +325,8 @@ public class BrickMask {
         return builder.toString();
     }
     
-    public BinaryLevelBuilderBase toBinaryLevel() {
-        BinaryLevelBuilderBase level = new BinaryLevelBuilderBase(width, height);
+    public BinaryLevel toBinaryLevel() {
+        BinaryLevel level = new BinaryLevel(width, height);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 boolean empty = isBrick(x, y) || isBrick(x + 1, y) || isBrick(x, y + 1);

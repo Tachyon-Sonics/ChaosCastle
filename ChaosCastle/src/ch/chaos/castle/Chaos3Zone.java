@@ -11,9 +11,9 @@ import java.util.Set;
 
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosObjects.FilterProc;
-import ch.chaos.castle.utils.BrickMask;
 import ch.chaos.castle.utils.CubicInterpolator;
 import ch.chaos.castle.utils.Rect;
+import ch.chaos.castle.utils.generator.BrickMask;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;

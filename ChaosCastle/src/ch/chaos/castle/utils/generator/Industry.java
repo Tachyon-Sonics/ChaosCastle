@@ -1,11 +1,13 @@
-package ch.chaos.castle.utils;
+package ch.chaos.castle.utils.generator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class Industry extends BinaryLevelBuilderBase {
+import ch.chaos.castle.utils.Coord;
+
+public class Industry extends BinaryLevel {
     
     private final int nbPipes;
     private final Random rnd = new Random();

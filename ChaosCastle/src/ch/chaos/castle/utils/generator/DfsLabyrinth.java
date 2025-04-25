@@ -1,4 +1,4 @@
-package ch.chaos.castle.utils;
+package ch.chaos.castle.utils.generator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +12,9 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
-public class DfsLabyrinth extends BinaryLevelBuilderBase {
+import ch.chaos.castle.utils.Coord;
+
+public class DfsLabyrinth extends BinaryLevel {
     
     private final int width;
     private final int height;

@@ -1,4 +1,4 @@
-package ch.chaos.castle.utils;
+package ch.chaos.castle.utils.generator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,15 +6,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
-public class BinaryLevelBuilderBase {
+import ch.chaos.castle.utils.Coord;
+
+public class BinaryLevel {
 
     protected final int width;
     protected final int height;
     protected final boolean[][] walls;
     
     
-    public BinaryLevelBuilderBase(int width, int height) {
+    public BinaryLevel(int width, int height) {
         this.width = width;
         this.height = height;
         this.walls = new boolean[width][height];
@@ -98,11 +101,26 @@ public class BinaryLevelBuilderBase {
         }
     }
     
+    protected void drawRect(int sx, int sy, int width, int height, boolean wall) {
+        for (int x = 0; x < width; x++) {
+            setWall(x, sy, wall);
+            setWall(x, sy + height - 1, wall);
+        }
+        for (int y = 0; y < height; y++) {
+            setWall(sx, y, wall);
+            setWall(sx + width - 1, y, wall);
+        }
+    }
+    
     /**
      * @return whether at least one coordinate was filled. If false, the root coordinate already had the
      * given wall status
      */
     protected boolean fillFlood(Coord root, boolean wall) {
+        return fillFlood(root, wall, null);
+    }
+    
+    protected boolean fillFlood(Coord root, boolean wall, Consumer<Coord> onFill) {
         if (isWall(root) == wall)
             return false;
         Set<Coord> todo = new HashSet<>();
@@ -111,6 +129,8 @@ public class BinaryLevelBuilderBase {
             Set<Coord> nextBatch = new HashSet<>();
             for (Coord coord : todo) {
                 setWall(coord, wall);
+                if (onFill != null)
+                    onFill.accept(coord);
                 for (Coord delta : Coord.n4()) {
                     Coord next = coord.add(delta);
                     if (isWall(next) != wall && !todo.contains(next)) {

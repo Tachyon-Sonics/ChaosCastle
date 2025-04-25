@@ -72,6 +72,7 @@
 
 *** New levels
   - Space Station (algo ok). Canon (Ghost Castle) with Wind Maker + bouncers to deviate. Four white kamikazes oriented toward exterior
+    - Use 3 or 4 (X) backgrounds. Each cell use background block based on distance modulo X
   - Pipeline: ok
     - Darker pallette (especially brown)
     - Review placed aliens (actually those from Rooms)
@@ -84,8 +85,11 @@
   - Snow Track (algo ok)
   - Big Cavern: Brick Mask
   - Emptyness: 0-0; start with hidden passage (- visible, | hidden, in a "T") with exit nearby ?. Bonus level
-  - Forest's exterior, using squares instead of circles
-  - Park: (algo ok), blob interior: bricks/leafs, exterior: forest with fractal noise. Optionally under water at diff >= 9
+  - Twilight: Forest's exterior, using squares instead of circles
+  - City Park: (algo ok), blob interior: factory blocks, perimeter: bricks + leafs, exterior: forest with fractal noise. Optionally under water at diff >= 9
+  
+Order: 21 Space Station, 22 Pipeline, 23 Snow Track, 24 City Park, 25 Emptyness (B), 
+       26 Twilight, 27 Pond, 28 Big Cavern, 29 Industry (B)
   
   - Somewhere: ring (interior is hole) + cross-shaped hole
 

@@ -1,10 +1,12 @@
-package ch.chaos.castle.utils;
+package ch.chaos.castle.utils.generator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class SimpleBrickMask extends BinaryLevelBuilderBase {
+import ch.chaos.castle.utils.Coord;
+
+public class SimpleBrickMask extends BinaryLevel {
 
     public SimpleBrickMask(int width, int height) {
         super(width, height);

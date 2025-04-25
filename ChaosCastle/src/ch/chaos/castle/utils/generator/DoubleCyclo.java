@@ -1,9 +1,11 @@
-package ch.chaos.castle.utils;
+package ch.chaos.castle.utils.generator;
 
 import java.util.Random;
 import java.util.function.BiPredicate;
 
-public class DoubleCyclo extends BinaryLevelBuilderBase {
+import ch.chaos.castle.utils.Coord;
+
+public class DoubleCyclo extends BinaryLevel {
     
     private final int size;
     private final int minTrackWidth;
