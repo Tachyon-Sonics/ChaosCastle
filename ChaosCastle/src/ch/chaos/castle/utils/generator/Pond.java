@@ -9,7 +9,7 @@ import ch.chaos.castle.utils.simplex.SimplexNoise;
 
 public class Pond extends BinaryLevel {
     
-    private final double SCALE_FACTOR = 1.4;
+    private final double SCALE_FACTOR = 1.6;
     
     public Pond(int width, int height) {
         super(width, height);
@@ -76,11 +76,11 @@ public class Pond extends BinaryLevel {
         boolean success;
         do {
             pond.build(rnd, persistence);
+            pond.drawRect(0, 0, pond.getWidth(), pond.getHeight(), true);
             success = pond.retainReachableFrom(new Coord(pond.getWidth() / 2, pond.getHeight() / 2));
         } while (!success);
         pond.removeDiagonalsMakeHole();
-        pond.drawRect(0, 0, pond.getWidth(), pond.getHeight(), true);
-        pond.fillOval(37, 23, 26, 14, false);
+        pond.fillOval(32, 20, 36, 20, false);
         System.out.println(pond.toString());
     }
 
