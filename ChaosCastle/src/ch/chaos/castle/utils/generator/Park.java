@@ -183,7 +183,7 @@ public class Park extends BinaryLevel {
         Park blobs = new Park(100, 100, 20, 40, 2, 9); // '9' -> 11 - (difficulty - 3);
         blobs.build();
         System.out.println(blobs.toString());
-        System.out.println("Start: " + blobs.getStart() + "; Exists: " + Coord.toShortString(blobs.getExits()));
+        System.out.println("Start: " + blobs.getStart() + "; Exits: " + Coord.toShortString(blobs.getExits()));
     }
 
 }

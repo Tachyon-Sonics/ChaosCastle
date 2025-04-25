@@ -89,7 +89,8 @@ Special: 51
      */
     
     private final static int NB_RUNS = 50; // # runs for averaging
-    private final static boolean SKIP_SECOND_LABYRINTH_SKULL = false; // Only take labyrinth's skull bonus once
+    private final static boolean SKIP_FIRST_LABYRINTH_SKULL = false;
+    private final static boolean SKIP_SUBSEQUENT_LABYRINTH_SKULL = false; // Only take labyrinth's skull bonus once
     
     private final ChaosLevels chaosLevels = ChaosLevels.instance();
     private final ChaosBase chaosBase = ChaosBase.instance();
@@ -420,8 +421,12 @@ Special: 51
             nbBonusLevels = (nbBonusLevels + NB_RUNS / 2) / NB_RUNS;
             nbPowers = (nbPowers + NB_RUNS / 2) / NB_RUNS;
             
-            if (SKIP_SECOND_LABYRINTH_SKULL) {
+            if (SKIP_SUBSEQUENT_LABYRINTH_SKULL) {
                 if (levelName.equals("Labyrinth") && chaosBase.difficulty > 1)
+                    nbSkulls = 0; // Do not take it
+            }
+            if (SKIP_FIRST_LABYRINTH_SKULL) {
+                if (levelName.equals("Labyrinth") && chaosBase.difficulty == 1)
                     nbSkulls = 0; // Do not take it
             }
             

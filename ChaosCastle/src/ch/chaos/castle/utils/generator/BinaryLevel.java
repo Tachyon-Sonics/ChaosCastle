@@ -113,6 +113,7 @@ public class BinaryLevel {
     }
     
     /**
+     * @param wall as how to fill
      * @return whether at least one coordinate was filled. If false, the root coordinate already had the
      * given wall status
      */
@@ -133,7 +134,7 @@ public class BinaryLevel {
                     onFill.accept(coord);
                 for (Coord delta : Coord.n4()) {
                     Coord next = coord.add(delta);
-                    if (isWall(next) != wall && !todo.contains(next)) {
+                    if (isWall(next) != wall && !todo.contains(next) && !isOutside(next)) {
                         nextBatch.add(next);
                     }
                 }
@@ -170,6 +171,17 @@ public class BinaryLevel {
         for (Coord coord : toFill) {
             setWall(coord, true);
         }
+    }
+    
+    public int countHoles() {
+        int result = 0;
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (!isWall(x, y))
+                    result++;
+            }
+        }
+        return result;
     }
     
     public void removeDiagonalsMakeHole() {
@@ -255,6 +267,86 @@ public class BinaryLevel {
         return result;
     }
     
+    public void invert() {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                setWall(x, y, !isWall(x, y));
+            }
+        }
+    }
+    
+    /**
+     * For each walls, set all the 8-neighbours as wall
+     */
+    public void growWalls8() {
+        List<Coord> toAdd = new ArrayList<>();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (isWall(x, y)) {
+                    for (Coord delta : Coord.n8()) {
+                        Coord n = delta.add(x, y);
+                        if (!isOutside(n) && !isWall(n)) {
+                            toAdd.add(n);
+                        }
+                    }
+                }
+            }
+        }
+        for (Coord coord : toAdd) {
+            setWall(coord, true);
+        }
+    }
+    
+    /**
+     * Get all the top-left locations of which the given shape (considering wall cells) can be placed without hitting
+     * a wall (onWall false) or hole (onWall true).
+     * <p>
+     * Only the rectangle specified by the given coordinates is considered
+     * @param shape the shape, as wall-set coordinates
+     * @param onWall whether to place the shape entirely on walls, or entirely on holes
+     */
+    public List<Coord> randomPlacesFor(BinaryLevel shape, boolean onWall, int sx, int sy, int width, int height) {
+        List<Coord> result = new ArrayList<>();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Coord topLeft = new Coord(x + sx, y + sy);
+                
+                boolean isValid = true;
+                for (int mx = 0; mx < shape.getWidth(); mx++) {
+                    for (int my = 0; my < shape.getHeight(); my++) {
+                        if (shape.isWall(mx, my)) {
+                            Coord pos = topLeft.add(mx, my);
+                            if (pos.x() < sx || pos.y() < sy || pos.x() >= sx + width || pos.y() >= sy + height) {
+                                isValid = false; // Outside of given rectangle
+                            }
+                            if (isWall(pos) != onWall) {
+                                isValid = false; // Not entirely in wall / hole
+                            }
+                        }
+                    }
+                }
+                
+                if (isValid) {
+                    result.add(topLeft);
+                }
+            }
+        }
+        return result;
+    }
+    
+    /**
+     * Draw all cells of the given shape that are wall into this shape
+     */
+    public void drawShape(BinaryLevel shape, Coord where, boolean wall) {
+        for (int x = 0; x < shape.getWidth(); x++) {
+            for (int y = 0; y < shape.getHeight(); y++) {
+                if (shape.isWall(x, y)) {
+                    setWall(where.add(x, y), wall);
+                }
+            }
+        }
+    }
+    
     protected boolean isOutside(Coord coord) {
         return isOutside(coord.x(), coord.y());
     }
@@ -274,7 +366,13 @@ public class BinaryLevel {
             return true;
         return (x == 0 || y == 0 || x == width - 1 || y == height - 1);
     }
-
+    
+    public BinaryLevel copy() {
+        BinaryLevel result = new BinaryLevel(width, height);
+        result.drawShape(this, new Coord(0, 0), true);
+        return result;
+    }
+    
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

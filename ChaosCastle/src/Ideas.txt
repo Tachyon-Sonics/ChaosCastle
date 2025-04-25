@@ -87,9 +87,10 @@
   - Emptyness: 0-0; start with hidden passage (- visible, | hidden, in a "T") with exit nearby ?. Bonus level
   - Twilight: Forest's exterior, using squares instead of circles
   - City Park: (algo ok), blob interior: factory blocks, perimeter: bricks + leafs, exterior: forest with fractal noise. Optionally under water at diff >= 9
+  - Clouds/Swamp (Jungle's palette?): similar to City Park, using SimpleBrickMasks
   
 Order: 21 Space Station, 22 Pipeline, 23 Snow Track, 24 City Park, 25 Emptyness (B), 
-       26 Twilight, 27 Pond, 28 Big Cavern, 29 Industry (B)
+       26 Big Cavern, 27 Pond, 28 Twilight, 29 Industry (B), 30 Clouds
   
   - Somewhere: ring (interior is hole) + cross-shaped hole
 
