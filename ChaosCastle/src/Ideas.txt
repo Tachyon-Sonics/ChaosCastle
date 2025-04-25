@@ -71,7 +71,7 @@
 
 
 *** New levels
-  - Space Station (algo ok)
+  - Space Station (algo ok). Canon (Ghost Castle) with Wind Maker + bouncers to deviate. Four white kamikazes oriented toward exterior
   - Pipeline: ok
     - Darker pallette (especially brown)
     - Review placed aliens (actually those from Rooms)
@@ -85,6 +85,9 @@
   - Big Cavern: Brick Mask
   - Emptyness: 0-0; start with hidden passage (- visible, | hidden, in a "T") with exit nearby ?. Bonus level
   - Forest's exterior, using squares instead of circles
+  - Park: (algo ok), blob interior: bricks/leafs, exterior: forest with fractal noise. Optionally under water at diff >= 9
+  
+  - Somewhere: ring (interior is hole) + cross-shaped hole
 
   - Industry: based on 2nd Vector Race level (brickmask). Similar to Factory in style. Extensions are also brickMask-based, with optionnal briskmask interior
 

@@ -40,7 +40,7 @@ public class DoubleCyclo extends BinaryLevelBuilderBase {
         } while (!acceptPeriods.test(period1, period2));
         int phase1 = rnd.nextInt(360);
         int phase2 = rnd.nextInt(360);
-        System.out.println("Periods: " + period1 + ", " + period2);
+//        System.out.println("Periods: " + period1 + ", " + period2);
         
         int prevSize = (minTrackWidth + maxTrackWidth) / 2;
         int nextSize = (minTrackWidth + maxTrackWidth) / 2;
@@ -92,7 +92,7 @@ public class DoubleCyclo extends BinaryLevelBuilderBase {
                 }
             }
         }
-        dc.removeDiagonals();
+        dc.removeDiagonalsMakeHole();
         
         // Put road from one to the other
         int cx = dc.getWidth() / 2;

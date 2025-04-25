@@ -47,46 +47,11 @@ public class SimpleBrickMask extends BinaryLevelBuilderBase {
         }
     }
 
-    /**
-     * Fill all empty space whose distance to a wall (euclidean) is greater than the given value
-     */
-    public void fillInterior(int distance) {
-        List<Coord> toFill = new ArrayList<>();
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                if (!isWall(x, y)) {
-                    boolean isFree = true;
-                    for (int dx = -distance; dx <= distance; dx++) {
-                        for (int dy = -distance; dy <= distance; dy++) {
-                            if (dx * dx + dy * dy <= distance * distance) {
-                                if (isWall(x + dx, y + dy)) {
-                                    isFree = false;
-                                }
-                            }
-                        }
-                    }
-//                    
-//                    for (int k = 1; k <= distance; k++) {
-//                        if (isWall(x - k, y) || isWall(x + k, y) || isWall(x, y - k) || isWall(x, y + k)) {
-//                            isFree = false;
-//                        }
-//                    }
-                    if (isFree) {
-                        toFill.add(new Coord(x, y));
-                    }
-                }
-            }
-        }
-        for (Coord coord : toFill) {
-            setWall(coord, true);
-        }
-    }
-    
     public static void main(String[] args) {
         SimpleBrickMask mask = new SimpleBrickMask(30, 30);
         mask.build(0.4);
         mask.fillInterior(4);
-        mask.removeDiagonals();
+        mask.removeDiagonalsMakeHole();
         System.out.println(mask.toString());
     }
 

@@ -1,8 +1,10 @@
 package ch.chaos.castle.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.StringJoiner;
 
 public record Coord(int x, int y) {
     
@@ -65,5 +67,13 @@ public record Coord(int x, int y) {
     
     public String toShortString() {
         return "(" + x + "," + y + ")";
+    }
+    
+    public static String toShortString(Collection<Coord> coords) {
+        StringJoiner result = new StringJoiner(", ");
+        for (Coord coord : coords) {
+            result.add(coord.toShortString());
+        }
+        return result.toString();
     }
 }

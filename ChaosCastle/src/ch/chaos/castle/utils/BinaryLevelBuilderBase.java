@@ -98,9 +98,13 @@ public class BinaryLevelBuilderBase {
         }
     }
     
-    protected void fillFlood(Coord root, boolean wall) {
+    /**
+     * @return whether at least one coordinate was filled. If false, the root coordinate already had the
+     * given wall status
+     */
+    protected boolean fillFlood(Coord root, boolean wall) {
         if (isWall(root) == wall)
-            throw new IllegalArgumentException();
+            return false;
         Set<Coord> todo = new HashSet<>();
         todo.add(root);
         while (!todo.isEmpty()) {
@@ -116,9 +120,39 @@ public class BinaryLevelBuilderBase {
             }
             todo = nextBatch;
         }
+        return true;
     }
     
-    public void removeDiagonals() {
+    /**
+     * Fill all empty space whose distance to a wall (euclidean) is greater than the given value
+     */
+    public void fillInterior(int distance) {
+        List<Coord> toFill = new ArrayList<>();
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (!isWall(x, y)) {
+                    boolean isFree = true;
+                    for (int dx = -distance; dx <= distance; dx++) {
+                        for (int dy = -distance; dy <= distance; dy++) {
+                            if (dx * dx + dy * dy <= distance * distance) {
+                                if (isWall(x + dx, y + dy)) {
+                                    isFree = false;
+                                }
+                            }
+                        }
+                    }
+                    if (isFree) {
+                        toFill.add(new Coord(x, y));
+                    }
+                }
+            }
+        }
+        for (Coord coord : toFill) {
+            setWall(coord, true);
+        }
+    }
+    
+    public void removeDiagonalsMakeHole() {
         for (int x = 0; x < width - 1; x++) {
             for (int y = 0; y < height - 1; y++) {
                 /*
@@ -134,6 +168,27 @@ public class BinaryLevelBuilderBase {
                  */
                 if (!isWall(x + 1, y) && !isWall(x, y + 1) && isWall(x, y) && isWall(x + 1, y + 1)) {
                     setWall(x, y, false);
+                }
+            }
+        }
+    }
+    
+    public void removeDiagonalsMakeWall() {
+        for (int x = 0; x < width - 1; x++) {
+            for (int y = 0; y < height - 1; y++) {
+                /*
+                 * 01 -> 11
+                 * 10    10
+                 */
+                if (!isWall(x, y) && !isWall(x + 1, y + 1) && isWall(x + 1, y) && isWall(x, y + 1)) {
+                    setWall(x, y, true);
+                } else 
+                /*
+                 * 10 -> 11
+                 * 01    01
+                 */
+                if (!isWall(x + 1, y) && !isWall(x, y + 1) && isWall(x, y) && isWall(x + 1, y + 1)) {
+                    setWall(x + 1, y, true);
                 }
             }
         }
