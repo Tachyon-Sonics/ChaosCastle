@@ -98,6 +98,26 @@ public class BinaryLevelBuilderBase {
         }
     }
     
+    protected void fillFlood(Coord root, boolean wall) {
+        if (isWall(root) == wall)
+            throw new IllegalArgumentException();
+        Set<Coord> todo = new HashSet<>();
+        todo.add(root);
+        while (!todo.isEmpty()) {
+            Set<Coord> nextBatch = new HashSet<>();
+            for (Coord coord : todo) {
+                setWall(coord, wall);
+                for (Coord delta : Coord.n4()) {
+                    Coord next = coord.add(delta);
+                    if (isWall(next) != wall && !todo.contains(next)) {
+                        nextBatch.add(next);
+                    }
+                }
+            }
+            todo = nextBatch;
+        }
+    }
+    
     public void removeDiagonals() {
         for (int x = 0; x < width - 1; x++) {
             for (int y = 0; y < height - 1; y++) {

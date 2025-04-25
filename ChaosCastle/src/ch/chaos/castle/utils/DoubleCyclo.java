@@ -1,16 +1,23 @@
 package ch.chaos.castle.utils;
 
 import java.util.Random;
+import java.util.function.BiPredicate;
 
 public class DoubleCyclo extends BinaryLevelBuilderBase {
     
     private final int size;
+    private final int minTrackWidth;
+    private final int maxTrackWidth;
+    private final BiPredicate<Integer, Integer> acceptPeriods;
     private final Coord center;
     
 
-    public DoubleCyclo(int size) {
+    public DoubleCyclo(int size, int minTrackWidth, int maxTrackWidth, BiPredicate<Integer, Integer> acceptPeriods) {
         super(size, size);
         this.size = size;
+        this.minTrackWidth = minTrackWidth;
+        this.maxTrackWidth = maxTrackWidth;
+        this.acceptPeriods = acceptPeriods;
         this.center = new Coord(size / 2, size / 2);
     }
     
@@ -28,22 +35,22 @@ public class DoubleCyclo extends BinaryLevelBuilderBase {
         Random rnd = new Random();
         int period1, period2;
         do {
-            period1 = 2 + rnd.nextInt(7); // 2 .. 8
-            period2 = 2 + rnd.nextInt(7); // 2 .. 8
-        } while (period1 == period2 || period1 + period2 <= 7);
+            period1 = 1 + rnd.nextInt(8); // 1 .. 8
+            period2 = 1 + rnd.nextInt(8); // 1 .. 8
+        } while (!acceptPeriods.test(period1, period2));
         int phase1 = rnd.nextInt(360);
         int phase2 = rnd.nextInt(360);
         System.out.println("Periods: " + period1 + ", " + period2);
         
-        int prevSize = 4;
-        int nextSize = 4;
+        int prevSize = (minTrackWidth + maxTrackWidth) / 2;
+        int nextSize = (minTrackWidth + maxTrackWidth) / 2;
         int sizeCount = 0;
         int sizeIndex = 0;
 
         for (int angle = 0; angle < 360; angle++) {
             if (sizeIndex >= sizeCount) {
                 prevSize = nextSize;
-                nextSize = 2 + rnd.nextInt(5);
+                nextSize = minTrackWidth + (minTrackWidth == maxTrackWidth ? 0 : rnd.nextInt(maxTrackWidth - minTrackWidth));
                 sizeCount = 2 + rnd.nextInt(6);
                 sizeIndex = 0;
             }
@@ -63,9 +70,11 @@ public class DoubleCyclo extends BinaryLevelBuilderBase {
         }
     }
     
-    public static void main(String[] args) { // Snow Tracks
+    static void snowTracks() {
         // Double cycloide
-        DoubleCyclo dc = new DoubleCyclo(84);
+        DoubleCyclo dc = new DoubleCyclo(84, 2, 6, (period1, period2) -> {
+            return (period1 != period2 && period1 + period2 > 7 && period1 > 1 && period2 > 1);
+        });
         dc.build();
         
         // Simple brick mask
@@ -134,6 +143,19 @@ public class DoubleCyclo extends BinaryLevelBuilderBase {
         
         System.out.println(dc.toString());
         System.out.println("Start: " + start.toShortString() + "; Exit: " + exit.toShortString());
+    }
+    
+    static void blob() {
+        // Double cycloide
+        DoubleCyclo dc = new DoubleCyclo(20, 1, 1, (period1, period2) -> true);
+        dc.build();
+        dc.fillFlood(new Coord(dc.getWidth() / 2, dc.getHeight() / 2), false);
+        System.out.println(dc.toString());
+    }
+
+    public static void main(String[] args) {
+        snowTracks();
+//        blob();
     }
 
 }

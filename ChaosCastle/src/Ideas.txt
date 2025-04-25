@@ -83,10 +83,9 @@
   - Pond: try perlin noise (https://www.redblobgames.com/maps/terrain-from-noise/), favoring toward the center, then convert to binary (Island)
   - Snow Track (algo ok)
   - Big Cavern: Brick Mask
-  - Emptyness: 0-0
+  - Emptyness: 0-0; start with hidden passage (- visible, | hidden, in a "T") with exit nearby ?. Bonus level
   - Forest's exterior, using squares instead of circles
 
-Old:
   - Industry: based on 2nd Vector Race level (brickmask). Similar to Factory in style. Extensions are also brickMask-based, with optionnal briskmask interior
 
   - Pond: 
@@ -98,13 +97,6 @@ Old:
   
   - Stones Desert: garden blocks (maybe some Groove/Family blocks) in grey levels (or brown levels?). Group garden's block into squares / curves
   - Caves / Dried Swamp: BrickMask 120x120's interior. "Dried Swamp" (group above and this)
-  
-  - Snow Tracks: two graveyard-type circles (interior block, exterior empty), different values. Ice. Or cycloide with 2 different ratios (mutually prime)
-  
-  - Start with centered 5x5 background
-    - Choose random wall touching background
-    - Random 4-direction, random length
-      - Repeat (prevent opposite of previous direction) until background or bounds. Then fill with random 1 - 4 size
   
   - Twilight. T-shaped block structures. Canon left and right of treffles. Canon (Ghost Castle) with Wind Maker + bouncers to deviate. Four white kamikazes oriented toward exterior
   - ??: blocks from Factory, more colored, no palette cycle. Concentric circles with path from left to center.
