@@ -70,6 +70,7 @@ class JFrameArea extends AreaBase implements AreaPtr { // TODO (1) App's icon (f
         this.width = Graphics.scale(width) * Graphics.FRAME_SCALE;
         this.height = Graphics.scale(height) * Graphics.FRAME_SCALE;
         this.frame = new JFrame();
+        frame.setIconImages(Dialogs.instance().getAppImageList());
         this.panel = new AreaPanel();
         panel.setOpaque(true);
         panel.setBackground(Color.BLACK);
