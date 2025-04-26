@@ -1,9 +1,12 @@
+[X] Stuff for initial release
+
+
 [ok] Review tray icon's menu
 - Memory model in m2translator
 - Pointer arithmetic
 - JUnit tests for Modula2Java17
 - Tiered graphics
-- Launcher with settings
+- [X] Launcher with settings
 - Graphics: scaling support
 - Graphics: b&w support
 - Graphics: 256 + dual pf support
