@@ -1049,6 +1049,8 @@ public class Chaos1Zone {
         chaosObjects.Rect((short) 1, (short) 1, (short) 98, (short) 98);
         chaosObjects.PutCannon3(6);
         chaosObjects.PutCartoon(0, 1, 25);
+        chaosObjects.PutMagnetA(3, 15);
+        chaosObjects.PutMagnetR(3, 5);
         for (c = 1; c <= 10; c++) {
             if (chaosGenerator.FindIsolatedRect((short) 0, (short) 0, (short) 99, (short) 99, (short) 2, (short) 8, a, x, y, true)) {
                 chaosGenerator.MakeLink(x.get(), y.get(), (short) 0, a.get(), (short) BackBig);
@@ -1069,8 +1071,6 @@ public class Chaos1Zone {
                 chaosObjects.PutAlien1(ChaosAlien.aHospital, pLife2, 1);
             }
         }
-        chaosObjects.PutMagnetA(3, 15);
-        chaosObjects.PutMagnetR(3, 5);
         if (chaosGenerator.FindIsolatedRect((short) 0, (short) 0, (short) 99, (short) 99, (short) 1, (short) 20, a, x, y, true)) {
             chaosObjects.Fill((short) (x.get() - 1), (short) (y.get() - 1), (short) (x.get() + 1), (short) (y.get() + 1), (short) Ice);
             chaosObjects.PutBlockObj(Anims.BONUS, (short) ChaosBonus.BonusLevel, ChaosBonus.tbBonusLevel, x.get(), y.get());
