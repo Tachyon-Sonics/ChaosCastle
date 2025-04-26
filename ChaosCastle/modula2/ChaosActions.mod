@@ -830,7 +830,7 @@ IMPLEMENTATION MODULE ChaosActions;
    testObj: ObjPtr;
    cnt: CARD16;
  BEGIN
-  cnt:= step DIV 4;
+  cnt:= step;
   LOOP
    IF leftObj = leftTail THEN
     leftObj:= FirstObj(leftObjList)
