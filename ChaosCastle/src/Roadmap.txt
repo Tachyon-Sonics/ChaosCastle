@@ -7,6 +7,7 @@
 - JUnit tests for Modula2Java17
 - Tiered graphics
 - [X] Launcher with settings
+- [X] Ideas marked "!!"
 - Graphics: scaling support
 - Graphics: b&w support
 - Graphics: 256 + dual pf support
