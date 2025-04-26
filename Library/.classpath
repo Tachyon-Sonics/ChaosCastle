@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Modula2-Runtime"/>
+	<classpathentry kind="output" path="bin/default"/>
+	<classpathentry output="bin/main" kind="src" path="src">
+		<attributes>
+			<attribute name="gradle_scope" value="main"/>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17/"/>
+	<classpathentry kind="src" path="/Modula2-Runtime">
+		<attributes>
+			<attribute name="without_test_code" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="GRADLE_USER_HOME/caches/modules-2/files-2.1/com.badlogicgames.jamepad/jamepad/2.30.0.0/90bfe5ecc48146b41ec5969b0195804824dd0336/jamepad-2.30.0.0-sources.jar" kind="var" path="GRADLE_USER_HOME/caches/modules-2/files-2.1/com.badlogicgames.jamepad/jamepad/2.30.0.0/45560285a49564bcb1fc62e147ca8b577eab6012/jamepad-2.30.0.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="GRADLE_USER_HOME/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.19.0/f4bddd52e5baac7dcff1ee0629c1bcc014755056/jackson-annotations-2.19.0-sources.jar" kind="var" path="GRADLE_USER_HOME/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.19.0/fd1e7c56de1e5b658563c8c66d5074cceb4e3a0b/jackson-annotations-2.19.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="GRADLE_USER_HOME/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.19.0/2667d199da66b634f9c68f48c19768b768be8b55/jackson-core-2.19.0-sources.jar" kind="var" path="GRADLE_USER_HOME/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.19.0/a90640e59ea42632a8e331ff1d6b706cf306050a/jackson-core-2.19.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="GRADLE_USER_HOME/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.19.0/c8e6a69a49afb7c4a808f12e18e7879585a99764/jackson-databind-2.19.0-sources.jar" kind="var" path="GRADLE_USER_HOME/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.19.0/b3f7506f6414fb04760561eec11a0880165c2a4a/jackson-databind-2.19.0.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -13,5 +38,4 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="output" path="bin"/>
 </classpath>

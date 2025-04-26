@@ -11,6 +11,7 @@ dependencies {
 
 	// Libraries
 	implementation("com.badlogicgames.jamepad:jamepad:2.30.0.0")
+	implementation("com.fasterxml.jackson.core:jackson-databind:2.19.0")
 }
 
 sourceSets {

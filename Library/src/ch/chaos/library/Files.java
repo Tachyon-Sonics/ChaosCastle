@@ -109,6 +109,14 @@ public class Files {
     private JFileChooser chooser;
 
 
+    public static java.io.File appDataDirectory() {
+        String appName = Runtime.getAppNameOrDefault();
+        java.io.File baseDir = FileSystemView.getFileSystemView().getDefaultDirectory();
+        java.io.File appDir = new java.io.File(baseDir, appName);
+        appDir.mkdir();
+        return appDir;
+    }
+    
     public Runtime.IRef<String> AskFile(Memory.TagItem tags) {
         String fileName = Memory.tagString(tags, fNAME, null);
         String title = Memory.tagString(tags, fTEXT, "Open...");
@@ -132,14 +140,7 @@ public class Files {
                             return true;
                         }
                     });
-                    String appName = Runtime.getAppNameOrDefault();
-                    if (appName != null && !appName.isBlank()) {
-                        java.io.File baseDir = FileSystemView.getFileSystemView().getDefaultDirectory();
-                        java.io.File appDir = new java.io.File(baseDir, appName);
-                        appDir.mkdir();
-                        if (appDir.isDirectory())
-                            chooser.setCurrentDirectory(appDir);
-                    }
+                    chooser.setCurrentDirectory(appDataDirectory());
                 }
                 chooser.setDialogTitle(title);
                 if (fileName != null && !fileName.isBlank()) {
