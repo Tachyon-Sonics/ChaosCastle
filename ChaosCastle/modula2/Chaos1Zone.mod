@@ -759,6 +759,8 @@ IMPLEMENTATION MODULE Chaos1Zone;
   Rect(1, 1, 98, 98);
   PutCannon3(6);
   PutCartoon(0, 1, 25);
+  PutMagnetA(3, 15);
+  PutMagnetR(3, 5);
   FOR c:= 1 TO 10 DO
    IF FindIsolatedRect(0, 0, 99, 99, 2, 8, a, x, y, TRUE) THEN
     MakeLink(x, y, 0, a, BackBig);
@@ -772,8 +774,6 @@ IMPLEMENTATION MODULE Chaos1Zone;
     PutBullet(1); PutAlien1(aHospital, pLife2, 1)
    END
   END;
-  PutMagnetA(3, 15);
-  PutMagnetR(3, 5);
   IF FindIsolatedRect(0, 0, 99, 99, 1, 20, a, x, y, TRUE) THEN
    Fill(x - 1, y - 1, x + 1, y + 1, Ice);
    PutBlockObj(BONUS, BonusLevel, tbBonusLevel, x, y);
