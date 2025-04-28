@@ -8,9 +8,9 @@ import java.util.PriorityQueue;
 import ch.chaos.library.Input.Event;
 import ch.pitchtech.modula.runtime.Runtime;
 
-public class Clock { // TODO use nanoTime everywhere
+public class Clock {
 
-    private final static long MAX_SKEW = 200L;
+    private final static long MAX_SKEW = 200000000L;
 
     private static Clock instance;
 
@@ -84,7 +84,7 @@ public class Clock { // TODO use nanoTime everywhere
     }
 
     public void StartTime(TimePtr t) {
-        ((Time) t).startTime = System.currentTimeMillis();
+        ((Time) t).startTime = System.nanoTime();
     }
 
     public boolean WaitTime(TimePtr t0, long delay) {
@@ -92,11 +92,12 @@ public class Clock { // TODO use nanoTime everywhere
             listener.run();
 
         Time t = (Time) t0;
-        long now = System.currentTimeMillis();
-        long deadline = t.startTime + delay * 1000 / t.period;
+        long now = System.nanoTime();
+        long deadline = t.startTime + delay * 1000000000L / t.period;
         if (now < deadline) {
+            long toSleep = deadline - now;
             try {
-                Thread.sleep(deadline - now);
+                Thread.sleep(toSleep / 1000000, (int) (toSleep % 1000000));
             } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
             }
@@ -119,8 +120,8 @@ public class Clock { // TODO use nanoTime everywhere
 
     public void TimeEvent(TimePtr t, long delay) {
         Time time = (Time) t;
-        long now = System.currentTimeMillis();
-        long deadline = now + delay * 1000 / time.period;
+        long now = System.nanoTime();
+        long deadline = now + delay * 1000000000L / time.period;
         synchronized (timeEvents) {
             timeEvents.add(deadline);
             timeEvents.notify();
@@ -139,7 +140,7 @@ public class Clock { // TODO use nanoTime everywhere
                 }
                 if (!timeThreadEnabled)
                     break;
-                long now = System.currentTimeMillis();
+                long now = System.nanoTime();
                 long next = timeEvents.peek();
                 if (next >= now) {
                     // Fire event now
@@ -150,8 +151,9 @@ public class Clock { // TODO use nanoTime everywhere
                 } else {
                     // Sleep until next event, or until we are notified
                     assert next < now;
+                    long toSleep = now - next;
                     try {
-                        timeEvents.wait(now - next);
+                        timeEvents.wait(toSleep / 1000000, (int) (toSleep % 1000000));
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
@@ -169,8 +171,8 @@ public class Clock { // TODO use nanoTime everywhere
 
     public long GetTime(TimePtr t0) {
         Time t = (Time) t0;
-        long elapsed = System.currentTimeMillis() - t.startTime;
-        return elapsed * t.period / 1000;
+        long elapsed = System.nanoTime() - t.startTime;
+        return elapsed * t.period / 1000000000L;
     }
 
     public void FreeTime(TimePtr t) {
