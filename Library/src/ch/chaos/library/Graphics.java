@@ -213,6 +213,8 @@ public class Graphics {
         if (FULL_SCREEN && DISPLAY_MODE != null) {
             System.setProperty("sun.java2d.uiScale", "1.0");
         }
+        
+        // System.setProperty("sun.java2d.trace", "timestamp,log,count");
 
         // Determine default frame insets
         JFrame testFrame = new JFrame();
