@@ -51,23 +51,23 @@ public class BinaryLevel {
         return walls[x][y];
     }
     
-    protected boolean isInsideWall(int x, int y) {
+    public boolean isInsideWall(int x, int y) {
         if (isOutside(x, y))
             return false;
         return walls[x][y];
     }
     
-    protected void setWall(Coord coord, boolean wall) {
+    public void setWall(Coord coord, boolean wall) {
         setWall(coord.x(), coord.y(), wall);
     }
     
-    protected void setWall(int x, int y, boolean wall) {
+    public void setWall(int x, int y, boolean wall) {
         if (isOutside(x, y))
             return;
         walls[x][y] = wall;
     }
     
-    protected void fillOval(int sx, int sy, int width, int height, boolean wall) {
+    public void fillOval(int sx, int sy, int width, int height, boolean wall) {
         boolean odd = ((width % 2) != 0);
         int ph2 = height * height;
         int pw2 = width * width;
@@ -93,7 +93,7 @@ public class BinaryLevel {
         } while (h <= 0);
     }
     
-    protected void fillRect(int sx, int sy, int width, int height, boolean wall) {
+    public void fillRect(int sx, int sy, int width, int height, boolean wall) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 setWall(sx + x, sy + y, wall);
@@ -121,7 +121,7 @@ public class BinaryLevel {
         return fillFlood(root, wall, null);
     }
     
-    protected boolean fillFlood(Coord root, boolean wall, Consumer<Coord> onFill) {
+    public boolean fillFlood(Coord root, boolean wall, Consumer<Coord> onFill) {
         if (isWall(root) == wall)
             return false;
         Set<Coord> todo = new HashSet<>();
@@ -371,6 +371,26 @@ public class BinaryLevel {
         BinaryLevel result = new BinaryLevel(width, height);
         result.drawShape(this, new Coord(0, 0), true);
         return result;
+    }
+    
+    public void forWalls(Consumer<Coord> onWall) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (isWall(x, y)) {
+                    onWall.accept(new Coord(x, y));
+                }
+            }
+        }
+    }
+    
+    public void forHoles(Consumer<Coord> onWall) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (!isWall(x, y)) {
+                    onWall.accept(new Coord(x, y));
+                }
+            }
+        }
     }
     
     @Override

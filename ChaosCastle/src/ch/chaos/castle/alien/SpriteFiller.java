@@ -7,6 +7,10 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import ch.chaos.castle.ChaosAlien;
+import ch.chaos.castle.ChaosBase;
+import ch.chaos.castle.ChaosBase.Anims;
+import ch.chaos.castle.ChaosCreator;
 import ch.chaos.castle.ChaosObjects;
 import ch.chaos.castle.utils.Coord;
 import ch.chaos.castle.utils.MinMax;
@@ -17,12 +21,14 @@ public class SpriteFiller {
     
     private final Random rnd;
     private final ChaosObjects chaosObjects;
+    private final ChaosBase chaosBase;
     private final Set<Coord> usedCoords = new HashSet<>();
 
     
     public SpriteFiller(Random rnd) {
         this.rnd = rnd;
         this.chaosObjects = ChaosObjects.instance();
+        this.chaosBase = ChaosBase.instance();
     }
     
     /**
@@ -141,6 +147,23 @@ public class SpriteFiller {
     
     public int placeRandom(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount) {
         return placeRandom(List.of(type), where, isAllowed, nb(amount));
+    }
+    
+    public void addOptions(Rect where, Predicate<Coord> isAllowed, int nbGrid, int nbBumper, int nbChief, int nbGhost, int nbPopup, int nbBig, int nbSquare) {
+        int stat = chaosBase.pLife * 3 + chaosBase.difficulty * 2;
+        addIfDiff(where, new SpriteInfo(Anims.ALIEN2, ChaosCreator.cGrid, stat), isAllowed, 2, nbGrid);
+        addIfDiff(where, new SpriteInfo(Anims.ALIEN1, ChaosAlien.aBumper, stat), isAllowed, 3, nbBumper);
+        addIfDiff(where, new SpriteInfo(Anims.ALIEN2, ChaosCreator.cChief, stat), isAllowed, 4, nbChief);
+        addIfDiff(where, new SpriteInfo(Anims.ALIEN2, ChaosCreator.cGhost, stat), isAllowed, 5, nbGhost);
+        addIfDiff(where, new SpriteInfo(Anims.ALIEN2, ChaosCreator.cPopUp, stat), isAllowed, 6, nbPopup);
+        addIfDiff(where, new SpriteInfo(Anims.ALIEN1, ChaosAlien.aBig, stat), isAllowed, 7, nbBig);
+        addIfDiff(where, new SpriteInfo(Anims.ALIEN1, ChaosAlien.aSquare, stat), isAllowed, 8, nbSquare);
+    }
+    
+    private void addIfDiff(Rect where, SpriteInfo sprite, Predicate<Coord> isAllowed, int minDiff, int amount) {
+        if (chaosBase.difficulty >= minDiff) {
+            placeRandom(sprite, where, isAllowed, amount);
+        }
     }
     
     /**

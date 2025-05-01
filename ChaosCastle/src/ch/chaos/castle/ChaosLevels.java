@@ -1041,6 +1041,7 @@ public class ChaosLevels {
                 case 19 -> chaos2Zone.Assembly();
                 case 20 -> chaos2Zone.Jungle();
                 case 21 -> chaos3Zone.pipeline();
+                case 22 -> chaos3Zone.silentVoid();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }
         } else if (chaosBase.zone == Zone.Family) {

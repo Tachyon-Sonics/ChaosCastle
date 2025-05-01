@@ -545,6 +545,9 @@ public class ChaosScreens {
             case 21 -> {
                 return Runtime.castToRef(languages.ADL("Pipeline"), String.class);
             }
+            case 22 -> {
+                return Runtime.castToRef(languages.ADL("Silent Void"), String.class);
+            }
             default -> throw new RuntimeException("Unhandled CASE value " + level);
         }
     }

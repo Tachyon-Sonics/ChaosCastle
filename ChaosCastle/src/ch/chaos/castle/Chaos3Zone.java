@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import ch.chaos.castle.ChaosBase.Anims;
+import ch.chaos.castle.ChaosBonus.Moneys;
 import ch.chaos.castle.ChaosObjects.FilterProc;
 import ch.chaos.castle.alien.SpriteFiller;
 import ch.chaos.castle.alien.SpriteInfo;
@@ -17,8 +19,10 @@ import ch.chaos.castle.utils.Coord;
 import ch.chaos.castle.utils.CubicInterpolator;
 import ch.chaos.castle.utils.MinMax;
 import ch.chaos.castle.utils.Rect;
+import ch.chaos.castle.utils.generator.BinaryLevel;
 import ch.chaos.castle.utils.generator.BrickMask;
 import ch.chaos.castle.utils.generator.MaskAt;
+import ch.chaos.castle.utils.generator.SilentVoid;
 import ch.chaos.library.Trigo;
 
 
@@ -122,11 +126,83 @@ public class Chaos3Zone {
 
 
     // PROCEDURE
+    
+    public void silentVoid() {
+        chaos1Zone.rotate = false;
+        Random rnd = new Random();
+        
+        // Build structure
+        BinaryLevel reachable;
+        Coord entry;
+        SilentVoid silentVoid;
+        do {
+            int nbLines = 15 + rnd.nextInt(30);
+            int nbEllipses = 10 + rnd.nextInt(15);
+            silentVoid = new SilentVoid(120, 60, nbLines, nbEllipses, 3, 9);
+            do {
+                silentVoid.build();
+                entry = silentVoid.getEntry();
+            } while (entry == null);
+            
+            // Create reachability mask:
+            reachable = new BinaryLevel(silentVoid.getWidth(), silentVoid.getHeight());
+            reachable.fillRect(0, 0, silentVoid.getWidth(), silentVoid.getHeight(), true);
+            BinaryLevel copy = silentVoid.copy();
+            BinaryLevel reachable0 = reachable;
+            copy.fillFlood(entry, true, (coord) -> reachable0.setWall(coord, false));
+        } while (reachable.countHoles() < 1000); // Reject if interior is too small
+        
+        // Add entry passage
+        Coord cur = new Coord(entry.x(), entry.y() - 1);
+        while (cur.y() >= 0) {
+            silentVoid.setWall(cur, false);
+            silentVoid.setWall(cur.add(-1, 0), true);
+            silentVoid.setWall(cur.add(1, 0), true);
+            silentVoid.setWall(cur, false);
+            cur = cur.add(0, -1);
+        };
+        
+        final int IAH = 25;
+        chaosObjects.Clear((short) 120, (short) (60 + IAH));
+        // Stars as background
+        chaosObjects.FillRandom((short) 0, (short) 0, (short) 119, (short) 119, (short) 0, (short) 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
+
+        // Initial area
+        chaosObjects.Fill((short) 0, (short) 0, (short) 119, (short) (IAH - 1), (short) EmptyBlock);
+        chaosObjects.Fill((short) 57, (short) 6, (short) 63, (short) 6, (short) BackBig);
+        chaosObjects.PutPlayer((short) 57, (short) 6);
+        chaosObjects.PutExit((short) 63, (short) 6);
+        chaosObjects.Fill((short) 0, (short) (IAH - 1), (short) 119, (short) (IAH - 1), (short) Bricks);
+        chaosObjects.Fill((short) 60, (short) 7, (short) 60, (short) (IAH - 1), (short) FalseEmpty);
+        
+        // Silent Void
+        silentVoid.forWalls((Coord coord) -> {
+            chaosObjects.Put((short) coord.x(), (short) (coord.y() + IAH), (short) EmptyBlock);
+        });
+        
+        // TODO (0) different bricks for interior ovals: 3x1 or 3x2, then a few random 3x5, 3x6 and 3x7 
+        SpriteFiller filler = new SpriteFiller(rnd);
+        Rect whole = new Rect(0, IAH, 120, 60);
+        Predicate<Coord> whereReachable = filler.mask(new Coord(0, IAH), reachable, false);
+        
+        if (chaosBase.difficulty >= 5) {
+            filler.placeRandom(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cPopUp), whole, whereReachable, 30);
+        }
+        
+        if (chaosBase.difficulty >= 7) {
+            filler.addOptions(whole, whereReachable, 5, 5, 2, 15, 0, 10, 5);
+            filler.placeRandom(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCircle, 120), whole, whereReachable, 10);
+        }
+        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), whole, whereReachable, 10);
+        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), whole, whereReachable, 10);
+        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBomb), whole, whereReachable, 5);
+        filler.placeRandom(new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal()),
+                whole, whereReachable, 10);
+    }
 
     public void pipeline() {
         chaos1Zone.flipVert = false;
         chaos1Zone.flipHorz = false;
-        chaos1Zone.rotate = false;
 
         // Create road
         final int BmSize = 30;
@@ -486,109 +562,6 @@ public class Chaos3Zone {
             }
         }
     }
-    
-//    public void Factory() {
-//        // VAR
-//        short c = 0;
-//        Runtime.Ref<Short> x = new Runtime.Ref<>((short) 0);
-//        Runtime.Ref<Short> y = new Runtime.Ref<>((short) 0);
-//        short dx = 0;
-//        short dy = 0;
-//        Runtime.Ref<Short> a = new Runtime.Ref<>((short) 0);
-//        short z = 0;
-//        short sz = 0;
-//        short d = 0;
-//        short sk = 0;
-//
-//        chaosObjects.Clear((short) 101, (short) 101);
-//        if (trigo.RND() % 8 != 0)
-//            rotate = false;
-//        chaosBase.water = (chaosBase.difficulty >= 4) && (trigo.RND() % 3 == 0);
-//        chaosObjects.Fill((short) 0, (short) 0, (short) 100, (short) 100, (short) EmptyBlock);
-//        chaosGenerator.DrawFactory();
-//        chaosObjects.PutPlayer((short) 12, (short) 90);
-//        chaosObjects.PutBlockBonus(ChaosBonus.tbHelp, (short) 12, (short) 88);
-//        chaosObjects.Rect((short) 1, (short) 1, (short) 98, (short) 98);
-//        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, (short) ChaosDObj.doWindMaker, 0, 1, 1, 6);
-//        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, (short) ChaosDObj.doBubbleMaker, 1, 1, 1, 15);
-//        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, (short) ChaosDObj.doFireMaker, 0, 0, 2, 15);
-//        chaosObjects.Rect((short) 33, (short) 1, (short) 98, (short) 98);
-//        chaosObjects.PutKamikaze(0, 6);
-//        chaosObjects.PutKamikaze(1, 6);
-//        chaosObjects.PutKamikaze(2, 6);
-//        chaosObjects.PutKamikaze(3, 6);
-//        chaosObjects.PutPic(0, 10);
-//        chaosObjects.PutPic(1, 10);
-//        chaosObjects.Rect((short) 1, (short) 1, (short) 98, (short) 66);
-//        chaosObjects.PutTurret(15);
-//        chaosObjects.Rect((short) 70, (short) 1, (short) 98, (short) 98);
-//        chaosObjects.PutTri(pLife3, 7);
-//        chaosObjects.Rect((short) 1, (short) 1, (short) 98, (short) 98);
-//        chaosObjects.PutCannon3(6);
-//        chaosObjects.PutCartoon(0, 1, 25);
-//        for (c = 1; c <= 10; c++) {
-//            if (chaosGenerator.FindIsolatedRect((short) 0, (short) 0, (short) 99, (short) 99, (short) 2, (short) 8, a, x, y, true)) {
-//                chaosGenerator.MakeLink(x.get(), y.get(), (short) 0, a.get(), (short) BackBig);
-//                if (trigo.COS(a.get()) == 0) {
-//                    dx = 1;
-//                    dy = 0;
-//                } else {
-//                    dx = 0;
-//                    dy = 1;
-//                }
-//                for (z = -2; z <= 2; z++) {
-//                    chaosObjects.Put((short) (x.get() + z * dx), (short) (y.get() + z * dy), (short) BackSmall);
-//                    chaosObjects.Put((short) (x.get() - 2 * dx + z * dy), (short) (y.get() - 2 * dy + z * dx), (short) BackSmall);
-//                    chaosObjects.Put((short) (x.get() + 2 * dx + z * dy), (short) (y.get() + 2 * dy + z * dx), (short) BackSmall);
-//                }
-//                chaosObjects.Rect((short) (x.get() - 2), (short) (y.get() - 2), (short) (x.get() + 2), (short) (y.get() + 2));
-//                chaosObjects.PutBullet(1);
-//                chaosObjects.PutAlien1(ChaosAlien.aHospital, pLife2, 1);
-//            }
-//        }
-//        chaosObjects.PutMagnetA(3, 15);
-//        chaosObjects.PutMagnetR(3, 5);
-//        if (chaosGenerator.FindIsolatedRect((short) 0, (short) 0, (short) 99, (short) 99, (short) 1, (short) 20, a, x, y, true)) {
-//            chaosObjects.Fill((short) (x.get() - 1), (short) (y.get() - 1), (short) (x.get() + 1), (short) (y.get() + 1), (short) Ice);
-//            chaosObjects.PutBlockObj(Anims.BONUS, (short) ChaosBonus.BonusLevel, ChaosBonus.tbBonusLevel, x.get(), y.get());
-//            chaosGenerator.MakeLink(x.get(), y.get(), (short) 1, a.get(), (short) 23);
-//        }
-//        if (chaosBase.difficulty > 2) {
-//            for (c = 0; c <= 6; c++) {
-//                sz = (short) (trigo.RND() % 3 + 1);
-//                if (chaosGenerator.FindIsolatedRect((short) 0, (short) 0, (short) 99, (short) 99, sz, (short) 20, a, x, y, true)) {
-//                    chaosObjects.Rect((short) (x.get() - sz), (short) (y.get() - sz), (short) (x.get() + sz), (short) (y.get() + sz));
-//                    d = (short) (sz * 2 + 1);
-//                    chaosGenerator.MakeLink(x.get(), y.get(), sz, a.get(), (short) FalseEmpty);
-//                    chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, (short) BackNone);
-//                    if (sz >= 2)
-//                        sz -= 2;
-//                    else
-//                        sz--;
-//                    d = (short) (2 * sz + 1);
-//                    chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, (short) SimpleBlock);
-//                    sk = (short) (trigo.RND() % 4);
-//                    if (sk == 0)
-//                        sk = ChaosAlien.aTri;
-//                    else if (sk == 1)
-//                        sk = ChaosAlien.aDiese;
-//                    else
-//                        sk = ChaosAlien.aBumper;
-//                    chaosObjects.PutAlien1(sk, pLife2, (c == 0 ? 1 : 0) * 20 + 1);
-//                }
-//            }
-//        }
-//        chaosObjects.PutRandom((short) 0, (short) 0, (short) 99, (short) 99, chaosObjects.OnlyWall_ref, (short) Sq1Block, (short) (trigo.RND() % 64));
-//        chaosObjects.PutRandom((short) 0, (short) 0, (short) 99, (short) 99, chaosObjects.OnlyWall_ref, (short) Sq4Block, (short) (trigo.RND() % 64));
-//        chaosObjects.PutRandom((short) 10, (short) 0, (short) 99, (short) 99, chaosObjects.OnlyWall_ref, (short) Sq4TravBlock, (short) (trigo.RND() % 128));
-//        chaosObjects.PutRandom((short) 20, (short) 0, (short) 99, (short) 99, chaosObjects.OnlyWall_ref, (short) TravBlock, (short) (trigo.RND() % 128));
-//        chaosObjects.PutRandom((short) 30, (short) 0, (short) 99, (short) 79, chaosObjects.OnlyWall_ref, (short) Fact1Block, (short) (trigo.RND() % 256));
-//        chaosObjects.PutRandom((short) 30, (short) 0, (short) 79, (short) 99, chaosObjects.OnlyWall_ref, (short) Fact2Block, (short) (trigo.RND() % 256));
-//        chaosObjects.PutRandom((short) 0, (short) 0, (short) 99, (short) 59, chaosObjects.OnlyWall_ref, (short) Fact3Block, (short) (trigo.RND() % 256));
-//        chaos1Zone.AddOptions((short) 30, (short) 1, (short) 98, (short) 98, 5, 5, 3, 4, 1, 0, 0);
-//    }
-//
-
 
     // Support
 

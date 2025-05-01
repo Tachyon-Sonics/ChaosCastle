@@ -1008,7 +1008,7 @@ public class ChaosImages {
                 case 2 -> SetFadePalette();
                 case 3, 4, 11, 14, 17, 18 -> SetForestPalette();
                 case 5 -> SetAnimPalette();
-                case 6, 10, 15, 19 -> SetMetalPalette();
+                case 6, 10, 15, 19, 22 -> SetMetalPalette();
                 case 7 -> SetAnimatedPalette();
                 case 9 -> SetFactoryPalette();
                 case 12, 16 -> SetAnimatedPalette2();
@@ -1065,7 +1065,7 @@ public class ChaosImages {
                 case 1, 4 -> {
                     SetForestPalette();
                 }
-                case 2, 3, 5, 7, 10, 14, 16, 17, 19, 21 -> {
+                case 2, 3, 5, 7, 10, 14, 16, 17, 19, 21, 22 -> {
                     SetMetalPalette();
                 }
                 case 6 -> {
