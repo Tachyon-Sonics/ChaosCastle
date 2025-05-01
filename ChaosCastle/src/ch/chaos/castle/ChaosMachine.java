@@ -39,12 +39,12 @@ public class ChaosMachine {
     // CONST
 
     public static final int mTraverse = 0;
-    public static final int mCannon1 = 1;
-    public static final int mCannon2 = 2;
-    public static final int mCannon3 = 3;
-    public static final int mTurret = 4;
-    public static final int mReactor = 5;
-    public static final int mDoor = 6;
+    public static final int mCannon1 = 1; // Horizontal firing
+    public static final int mCannon2 = 2; // Vertical firing
+    public static final int mCannon3 = 3; // Brown, octogon
+    public static final int mTurret = 4; // Circle-shaped firing in all directions (one after the other)
+    public static final int mReactor = 5; // Big turret of Ghost Castle to break mDoor
+    public static final int mDoor = 6; // Door from Ghost Castle, Labyrinth
 
 
     // VAR

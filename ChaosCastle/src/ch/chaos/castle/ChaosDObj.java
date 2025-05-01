@@ -38,7 +38,7 @@ public class ChaosDObj {
 
     // CONST
 
-    public static final int doCartoon = 0;
+    public static final int doCartoon = 0; // Dark-grey false block that is on top of everything else
     public static final int doMagnetA = 1;
     public static final int doMagnetR = 2;
     public static final int doMeteor = 3;

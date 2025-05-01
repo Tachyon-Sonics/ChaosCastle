@@ -50,17 +50,17 @@ public class ChaosAlien {
     public static final int aBigDrawer = 3;
     public static final int aHospital = 4;
     public static final int aDiese = 5;
-    public static final int aKamikaze = 6;
+    public static final int aKamikaze = 6; // White kamikaze
     public static final int aStar = 7;
     public static final int aBubble = 8;
     public static final int aBumper = 9;
-    public static final int aPic = 10;
-    public static final int aTri = 11;
-    public static final int aTrefle = 12;
-    public static final int aBig = 13;
-    public static final int aSquare = 14;
-    public static final int aFlame = 15;
-    public static final int aColor = 16;
+    public static final int aPic = 10; // Violet kamikaze
+    public static final int aTri = 11; // Black transparent
+    public static final int aTrefle = 12; // Four-leaf red trefle that tries to avoid bullets (Ice Rink)
+    public static final int aBig = 13; // Lots of points when hitting
+    public static final int aSquare = 14; // White, with funny die sound
+    public static final int aFlame = 15; // Balls thrown by brother alien and others
+    public static final int aColor = 16; // Alien with changing colors depending on lives
 
 
     // VAR

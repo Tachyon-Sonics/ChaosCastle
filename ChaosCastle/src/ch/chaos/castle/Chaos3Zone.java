@@ -11,9 +11,11 @@ import java.util.Set;
 
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosObjects.FilterProc;
+import ch.chaos.castle.utils.Coord;
 import ch.chaos.castle.utils.CubicInterpolator;
 import ch.chaos.castle.utils.Rect;
 import ch.chaos.castle.utils.generator.BrickMask;
+import ch.chaos.castle.utils.generator.MaskAt;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
@@ -126,12 +128,16 @@ public class Chaos3Zone {
         Random rnd = new Random();
         List<BrickMask> brickMasks = new ArrayList<>();
         Map<BrickMask, Integer> lengthMap = new HashMap<>();
+        
+        // Generate multiple masks
         for (int k = 0; k < 6; k++) {
             BrickMask brickMask = BrickMask.buildBrickMask(rnd.nextLong(), BmSize, BmSize);
             brickMasks.add(brickMask);
             int[] path = brickMask.toTravel(rnd.nextLong(), false);
             lengthMap.put(brickMask, path.length);
         }
+        
+        // Choose one with complexity matching current difficulty
         brickMasks.sort((bm1, bm2) -> {
             return Integer.compare(lengthMap.get(bm1), lengthMap.get(bm2));
         });
@@ -143,6 +149,7 @@ public class Chaos3Zone {
         BrickMask brickMask = brickMasks.get(index);
         int[] path = brickMask.toTravel(rnd.nextLong(), true); // Each value: y * width + x
         
+        // Fill background
         chaosObjects.Clear((short) 120, (short) 120);
         chaosObjects.Fill((short) 0, (short) 0, (short) (BmSize * 4), (short) (BmSize * 4), (short) SimpleBlock);
         chaosObjects.PutRandom((short) 0, (short) 0, (short) 120, (short) 120, chaosObjects.OnlyWall_ref, (short) Leaf1, (short) 100);
@@ -151,7 +158,7 @@ public class Chaos3Zone {
         chaosObjects.PutRandom((short) 0, (short) 0, (short) 120, (short) 120, chaosObjects.OnlyWall_ref, (short) Leaf4, (short) 10);
         chaosObjects.PutRandom((short) 0, (short) 0, (short) 120, (short) 120, chaosObjects.OnlyWall_ref, (short) RGBBlock, (short) 5);
 
-        // Draw road
+        // Draw pipeline
         int prevSize = 0;
         int nextSize = 2 + rnd.nextInt(6);
         int sizeCount = 0;
@@ -201,9 +208,9 @@ public class Chaos3Zone {
                     fillTypes = new int[] { Granit1, Granit2 };
                 else
                     fillTypes = new int[] { Forest1, Forest2, Forest3, Forest4, Forest5, Forest6, Forest7 };
-                Rect where = tryPlaceBrickMaskHole(1, 1, 119, 119, 8, 12, chaosObjects.OnlyBackground_ref,
+                MaskAt maskAt = tryPlaceBrickMaskHole(1, 1, 119, 119, 8, 12, chaosObjects.OnlyBackground_ref,
                         rnd, fillTypes);
-                if (where != null) {
+                if (maskAt != null) {
                     nbAdded++;
                     break;
                 }
@@ -241,11 +248,12 @@ public class Chaos3Zone {
                     fillTypes = new int[] { Forest1, Forest2, Forest3, Forest4, Forest5, Forest6, Forest7 };
                 else // 4, 5
                     fillTypes = new int[] { Fade1, Fade2, Fade3 };
-                Rect where = tryPlaceBrickMaskHole(1, 1, 119, 119, 8, 32, chaosObjects.OnlyWall_ref,
+                MaskAt maskAt = tryPlaceBrickMaskHole(1, 1, 119, 119, 8, 32, chaosObjects.OnlyWall_ref,
                         rnd, new int[] { Back4x4 }, true, Back4x4, 1 + rnd.nextInt(2),
                         fillTypes);
-                if (where != null) {
+                if (maskAt != null) {
                     // Walls
+                    Rect where = maskAt.rect();
                     Rect where2 = extend2(where);
                     fillFadeFromCenter(where2, 
                             new int[] { Leaf1, Leaf2, Leaf3 }, 
@@ -288,12 +296,12 @@ public class Chaos3Zone {
         chaosObjects.PutHospital(20 - nbAdded);
     }
     
-    public Rect tryPlaceBrickMaskHole(int sx, int sy, int ex, int ey, int minSize, int maxSize,
+    public MaskAt tryPlaceBrickMaskHole(int sx, int sy, int ex, int ey, int minSize, int maxSize,
             FilterProc filter, Random rnd, int... blockTypes) {
         return tryPlaceBrickMaskHole(sx, sy, ex, ey, minSize, maxSize, filter, rnd, blockTypes, false, 0, 0);
     }
     
-    public Rect tryPlaceBrickMaskHole(int sx, int sy, int ex, int ey, int minSize, int maxSize,
+    public MaskAt tryPlaceBrickMaskHole(int sx, int sy, int ex, int ey, int minSize, int maxSize,
             FilterProc filter, Random rnd, int[] blockTypes, boolean link, int linkType,
             int fillCenterN, int... centerBlockTypes) {
         int width = minSize + (maxSize == minSize ? 0 : rnd.nextInt(maxSize - minSize));
@@ -409,7 +417,7 @@ public class Chaos3Zone {
             }
         }
         
-        return new Rect(px, py, width, height);
+        return new MaskAt(brickMask.toBinaryLevel(), new Coord(px, py));
     }
     
     public boolean isIsolated4(int px, int py, FilterProc filter) {

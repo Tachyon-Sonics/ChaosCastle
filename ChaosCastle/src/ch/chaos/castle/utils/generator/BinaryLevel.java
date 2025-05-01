@@ -41,11 +41,11 @@ public class BinaryLevel {
         return result;
     }
     
-    protected boolean isWall(Coord coord) {
+    public boolean isWall(Coord coord) {
         return isWall(coord.x(), coord.y());
     }
     
-    protected boolean isWall(int x, int y) {
+    public boolean isWall(int x, int y) {
         if (isOutside(x, y))
             return true;
         return walls[x][y];

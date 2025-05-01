@@ -70,15 +70,15 @@ public class ChaosBase {
     public static enum Anims {
         PLAYER,
         WEAPON,
-        ALIEN3,
-        ALIEN2,
-        ALIEN1,
-        MISSILE,
-        STONE,
-        SMARTBONUS,
-        BONUS,
-        DEADOBJ,
-        MACHINE,
+        ALIEN3, // Family alien. ChaosAlien
+        ALIEN2, // Firing or creating alien. ChaosCreator
+        ALIEN1, // Basic alien
+        MISSILE, // Bullet fired by ALIEN2 or ALIEN3
+        STONE, // Animation item when hit or dying
+        SMARTBONUS, // Extra life + Extra power
+        BONUS, // ChaosBonus.bXxx
+        DEADOBJ, // ChaosDObj.doXxx (Magnets, wind maker, sand, etc)
+        MACHINE, // Turrets, ChaosMachine.mXxx
         DEAD;
     }
 

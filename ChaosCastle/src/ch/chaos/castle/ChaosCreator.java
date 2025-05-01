@@ -50,22 +50,22 @@ public class ChaosCreator {
 
     // CONST
 
-    public static final int cAlienV = 0;
+    public static final int cAlienV = 0; // Butterfly from chaos
     public static final int cAlienA = 1;
-    public static final int cCreatorR = 2;
-    public static final int cCreatorC = 4;
-    public static final int cCircle = 3;
-    public static final int cController = 5;
+    public static final int cCreatorR = 2; // Blue round-rect creator from chaos
+    public static final int cCreatorC = 4; // Gold circle creator from site, lights, etc
+    public static final int cCircle = 3; // Blue-green baby alien
+    public static final int cController = 5; // Meta-alien, do not use
     public static final int cHurryUp = 6;
-    public static final int cChief = 7;
-    public static final int cFour = 8;
-    public static final int cAlienBox = 9;
-    public static final int cNest = 10;
-    public static final int cGrid = 11;
-    public static final int cMissile = 12;
+    public static final int cChief = 7; // "&"-shaped baby alien
+    public static final int cFour = 8; // Four-balls shaped, in Groove
+    public static final int cAlienBox = 9; // Big blue rect. Stat 0 explodes in aStar, stat 1 explodes in aBubble (ChaosAlien) 
+    public static final int cNest = 10; // Green flower, Garden
+    public static final int cGrid = 11; // White, 4-kamikaze shaped
+    public static final int cMissile = 12; // Cropped circle from cCircle
     public static final int cPopUp = 13;
     public static final int cGhost = 14;
-    public static final int cQuad = 15;
+    public static final int cQuad = 15; // Blue rect and firing, in Groove
 
 
     // TYPE

@@ -329,6 +329,17 @@ public class BrickMask {
         BinaryLevel level = new BinaryLevel(width, height);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
+                boolean empty = isBrick(x, y);
+                level.setWall(x, y, !empty);
+            }
+        }
+        return level;
+    }
+
+    public BinaryLevel toExtendedBinaryLevel() {
+        BinaryLevel level = new BinaryLevel(width, height);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 boolean empty = isBrick(x, y) || isBrick(x + 1, y) || isBrick(x, y + 1);
                 level.setWall(x, y, !empty);
             }
@@ -396,7 +407,7 @@ public class BrickMask {
         int[] travel = mask.toTravel(1, false);
         System.out.println(mask.toString(travel));
         System.out.println(mask.toString());
-        System.out.println(mask.toBinaryLevel().toString());
+        System.out.println(mask.toExtendedBinaryLevel().toString());
     }
 
 }

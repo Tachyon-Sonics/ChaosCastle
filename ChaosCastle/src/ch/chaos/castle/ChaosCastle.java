@@ -125,7 +125,7 @@ public class ChaosCastle {
         chaosBase.level[Zone.Chaos.ordinal()] = 20;
         chaosBase.level[Zone.Castle.ordinal()] = 21;
         chaosBase.level[Zone.Family.ordinal()] = 5;
-        chaosBase.level[Zone.Special.ordinal()] = 4;
+        chaosBase.level[Zone.Special.ordinal()] = 2;
         chaosBase.specialStage = 5; // 5 bonus levels
         chaosBase.stages = 0; // PMM active
         chaosBase.difficulty = 7;
