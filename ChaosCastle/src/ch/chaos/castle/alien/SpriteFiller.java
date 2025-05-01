@@ -12,17 +12,25 @@ import ch.chaos.castle.utils.Coord;
 import ch.chaos.castle.utils.MinMax;
 import ch.chaos.castle.utils.Rect;
 import ch.chaos.castle.utils.generator.BinaryLevel;
-import ch.chaos.castle.utils.generator.BrickMask;
 
 public class SpriteFiller {
     
     private final Random rnd;
     private final ChaosObjects chaosObjects;
+    private final Set<Coord> usedCoords = new HashSet<>();
 
     
     public SpriteFiller(Random rnd) {
         this.rnd = rnd;
         this.chaosObjects = ChaosObjects.instance();
+    }
+    
+    /**
+     * Clear the set of used coordinates, meaning that next placement can be put on top of those
+     * previous to this call.
+     */
+    public void reset() {
+        usedCoords.clear();
     }
 
     /**
@@ -40,7 +48,6 @@ public class SpriteFiller {
             MinMax amount, MinMax statOrLife, int nbTries) {
         int pickAmount = amount.pick(rnd);
         int result = 0;
-        Set<Coord> usedCoords = new HashSet<>();
         for (int k = 0; k < pickAmount; k++) {
             // Choose a random coordinate
             Coord position;
@@ -83,13 +90,13 @@ public class SpriteFiller {
      * <tt>null</tt>, {@link SpriteInfo#statOrLife()} is used instead.
      */
     public int placeRandom(List<SpriteInfo> types, Rect where, Predicate<Coord> isAllowed, 
-            MinMax amount, MinMax statOrLife, int nbTries) {
+            MinMax amount, MinMax statOrLife) {
         // Build list of available coordinates
         List<Coord> availableCoords = new ArrayList<>();
         for (int x = 0; x < where.w(); x++) {
             for (int y = 0; y < where.h(); y++) {
                 Coord coord = new Coord(where.x() + x, where.y() + y);
-                if (isAllowed.test(coord)) {
+                if (!usedCoords.contains(coord) && isAllowed.test(coord)) {
                     availableCoords.add(coord);
                 }
             }
@@ -122,6 +129,20 @@ public class SpriteFiller {
         return result;
     }
     
+    public int placeRandom(List<SpriteInfo> types, Rect where, Predicate<Coord> isAllowed, 
+            MinMax amount) {
+        return placeRandom(types, where, isAllowed, amount, null);
+    }
+    
+    public int placeRandom(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, 
+            MinMax amount) {
+        return placeRandom(List.of(type), where, isAllowed, amount, null);
+    }
+    
+    public int placeRandom(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount) {
+        return placeRandom(List.of(type), where, isAllowed, nb(amount));
+    }
+    
     /**
      * Create a {@link MinMax} corresponding to a fixed number
      */
@@ -129,17 +150,22 @@ public class SpriteFiller {
         return MinMax.value(value);
     }
     
-    public Predicate<Coord> onlyBackground() {
+    public Predicate<Coord> background() {
         return (Coord coord) -> {
             return chaosObjects.OnlyBackground((short) coord.x(), (short) coord.y());
         };
     }
     
-    public Predicate<Coord> brick(Coord offset, BrickMask brickMask) {
+    public Predicate<Coord> background8() {
         return (Coord coord) -> {
-            Coord brickCoord = coord.add(-offset.x(), -offset.y());
-            return chaosObjects.OnlyBackground((short) coord.x(), (short) coord.y())
-                    && brickMask.isBrick(brickCoord.x(), brickCoord.y());
+            if (!chaosObjects.OnlyBackground((short) coord.x(), (short) coord.y()))
+                return false;
+            for (Coord delta : Coord.n8()) {
+                Coord n = coord.add(delta);
+                if (!chaosObjects.OnlyBackground((short) n.x(), (short) n.y()))
+                    return false;
+            }
+            return true;
         };
     }
     
@@ -154,5 +180,5 @@ public class SpriteFiller {
                     && (mask.isWall(maskCoord) == wall);
         };
     }
-
+    
 }

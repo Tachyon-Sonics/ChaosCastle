@@ -11,14 +11,15 @@ import java.util.Set;
 
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosObjects.FilterProc;
+import ch.chaos.castle.alien.SpriteFiller;
+import ch.chaos.castle.alien.SpriteInfo;
 import ch.chaos.castle.utils.Coord;
 import ch.chaos.castle.utils.CubicInterpolator;
+import ch.chaos.castle.utils.MinMax;
 import ch.chaos.castle.utils.Rect;
 import ch.chaos.castle.utils.generator.BrickMask;
 import ch.chaos.castle.utils.generator.MaskAt;
-import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
-import ch.pitchtech.modula.runtime.Runtime;
 
 
 public class Chaos3Zone {
@@ -217,21 +218,36 @@ public class Chaos3Zone {
             }
         }
         
-        // TODO [N] review, create better helper
-        chaosObjects.Rect((short) 0, (short) 0, (short) 60, (short) 60);
-        chaosObjects.PutFour(chaos1Zone.pLife3, 60); // Red
-        chaosObjects.PutAlien1(ChaosAlien.aDbOval, chaos1Zone.pLife3, 20);
-        chaosObjects.Rect((short) 60, (short) 0, (short) 120, (short) 60);
-        chaosObjects.PutQuad(chaos1Zone.pLife3, 10); // Blue
-        chaosObjects.Rect((short) 0, (short) 60, (short) 60, (short) 120);
-        chaosObjects.PutAlien1(ChaosAlien.aDiese, chaos1Zone.pLife3, 10);
-        chaosObjects.Rect((short) 60, (short) 60, (short) 120, (short) 120);
-        chaosObjects.PutColor(chaos1Zone.pLife3, 20);
+        SpriteFiller filler = new SpriteFiller(rnd);
+        filler.placeRandom(
+                new SpriteInfo(Anims.ALIEN2, ChaosCreator.cFour, chaos1Zone.pLife3),
+                new Rect(0, 0, 60, 60), filler.background(), 60);
+        filler.placeRandom(
+                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aDbOval, chaos1Zone.pLife3),
+                new Rect(0, 0, 60, 60), filler.background(), 20);
         
-        chaosObjects.Rect((short) 1, (short) 1, (short) 119, (short) 119);
-        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, (short) ChaosDObj.doWindMaker, 1, 1, 1, 12);
-        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, (short) ChaosDObj.doFireMaker, 0, 0, 2, 6);
-        chaosObjects.PutCannon3(10);
+        filler.placeRandom(
+                new SpriteInfo(Anims.ALIEN2, ChaosCreator.cQuad, chaos1Zone.pLife3),
+                new Rect(60, 0, 60, 60), filler.background(), 10);
+        
+        filler.placeRandom(
+                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aDiese, chaos1Zone.pLife3),
+                new Rect(0, 60, 60, 60), filler.background(), 10);
+
+        filler.placeRandom(
+                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aColor, chaos1Zone.pLife3),
+                new Rect(60, 60, 60, 60), filler.background(), 20);
+        
+        filler.placeRandom(
+                List.of(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doWindMaker)), 
+                new Rect(1, 1, 118, 118), filler.background8(), filler.nb(12), filler.nb(1));
+        filler.placeRandom(
+                List.of(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doFireMaker)), 
+                new Rect(1, 1, 118, 118), filler.background8(), filler.nb(6), filler.nb(0));
+        filler.placeRandom(
+                List.of(new SpriteInfo(Anims.MACHINE, ChaosMachine.mCannon3)), 
+                new Rect(1, 1, 118, 118), filler.background(), filler.nb(10));
+        
         chaos1Zone.AddOptions((short) 1, (short) 1, (short) 119, (short) 119, 0, 0, 1, 0, 0, 20, 5);
         
         // Add isolated brickmaks holes with link
@@ -260,40 +276,34 @@ public class Chaos3Zone {
                             new Integer[] { SimpleBlock }, 120, 120, rnd);
 
                     // Aliens
-                    // Copied from "Rooms"... TODO [N] review, create better helper. Add blue clusters
-                    chaos1Zone.fillTypes = new Runtime.RangeSet(Memory.SET16_r).with(fAlienColor, fAlienFour, fCartoon, fNone, fAnims1, fAnims2, fAnims3, fAnims4);
-                    for (int c = 0; c <= 15; c++) {
-                        chaos1Zone.fillCount[c] = 3;
-                        chaos1Zone.fillRndAdd[c] = 2;
-                    }
-                    chaos1Zone.fKind[0] = Anims.ALIEN2;
-                    chaos1Zone.fSubKind[0] = ChaosCreator.cNest;
-                    chaos1Zone.aStat[0] = 0;
-                    chaos1Zone.fKind[1] = Anims.ALIEN2;
-                    chaos1Zone.fSubKind[1] = ChaosCreator.cQuad;
-                    chaos1Zone.aStat[1] = chaos1Zone.pLife3;
-                    chaos1Zone.fKind[2] = Anims.ALIEN2;
-                    chaos1Zone.fSubKind[2] = ChaosCreator.cCreatorC;
-                    chaos1Zone.aStat[2] = chaos1Zone.pLife3 + 40 + chaosBase.difficulty * 4;
-                    chaos1Zone.fKind[3] = Anims.ALIEN2;
-                    chaos1Zone.fSubKind[3] = ChaosCreator.cCreatorR;
-                    chaos1Zone.aStat[3] = chaos1Zone.pLife3 + 40 + chaosBase.difficulty * 4;
-                    chaos1Zone.RectFill((short) where.x(), (short) where.y(), (short) where.ex(), (short) where.ey());
+                    List<SpriteInfo> types = List.of(
+                            new SpriteInfo(Anims.ALIEN2, ChaosCreator.cNest, chaos1Zone.pLife3),
+                            new SpriteInfo(Anims.ALIEN2, ChaosCreator.cAlienA, chaos1Zone.pLife2),
+                            new SpriteInfo(Anims.ALIEN1, ChaosAlien.aFlame, chaosBase.pLife),
+                            new SpriteInfo(Anims.ALIEN1, ChaosAlien.aTrefle, chaos1Zone.pLife2),
+                            new SpriteInfo(Anims.ALIEN1, ChaosAlien.aBumper, chaos1Zone.pLife2)
+                            );
+                    int typeIndex = nbAdded % types.size();
+                    filler.placeRandom(types.get(typeIndex), maskAt.rect(), 
+                            filler.mask(maskAt.where(), maskAt.mask(), false),
+                            new MinMax(3, 5));
                     
-                    chaosObjects.Rect((short) where.x(), (short) where.y(), (short) where.ex(), (short) where.ey());
-                    chaosObjects.PutHospital(1);
-                    chaosObjects.PutBullet(1 + rnd.nextInt(1));
-
+                    // Bonus
+                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), maskAt.rect(), 
+                            filler.mask(maskAt.where(), maskAt.mask(), false), 1);
+                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), maskAt.rect(), 
+                            filler.mask(maskAt.where(), maskAt.mask(), false), 1);
+                    
                     nbAdded++;
                     break;
                 }
             }
         }
         
-        chaosObjects.Rect((short) 0, (short) 0, (short) 120, (short) 120);
-        chaosObjects.PutSleeper(1);
-        chaosObjects.PutBullet((20 - nbAdded) * 3 / 2);
-        chaosObjects.PutHospital(20 - nbAdded);
+        Rect whole = new Rect(0, 0, 120, 120);
+        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbSleeper), whole, filler.background(), 1);
+        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), whole, filler.background(), (20 - nbAdded) * 3 / 2);
+        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), whole, filler.background(), 20 - nbAdded);
     }
     
     public MaskAt tryPlaceBrickMaskHole(int sx, int sy, int ex, int ey, int minSize, int maxSize,
