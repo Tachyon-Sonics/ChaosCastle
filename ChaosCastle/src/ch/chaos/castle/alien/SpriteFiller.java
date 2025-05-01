@@ -135,6 +135,11 @@ public class SpriteFiller {
         return result;
     }
     
+    public void putBlockObj(SpriteInfo info, Coord position) {
+        chaosObjects.PutBlockObj(info.type(), (short) info.subKind(), info.statOrLife(), 
+                (short) position.x(), (short) position.y());
+    }
+    
     public int placeRandom(List<SpriteInfo> types, Rect where, Predicate<Coord> isAllowed, 
             MinMax amount) {
         return placeRandom(types, where, isAllowed, amount, null);

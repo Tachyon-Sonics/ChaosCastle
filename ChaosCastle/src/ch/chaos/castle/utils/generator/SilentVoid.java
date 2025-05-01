@@ -15,6 +15,7 @@ public class SilentVoid extends BinaryLevel {
     private final int nbEllipses;
     private final int minEllipseSize;
     private final int maxEllipseSize;
+    private final List<BinaryLevel> ellipses = new ArrayList<>();
     
     private Coord entry;
     
@@ -44,7 +45,6 @@ public class SilentVoid extends BinaryLevel {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 Coord coord = new Coord(x, y);
-//                if (!outer.isWall(coord)) {
                     boolean border = false;
                     for (Coord delta : Coord.n8()) {
                         if (!isWall(coord.add(delta))) {
@@ -54,7 +54,6 @@ public class SilentVoid extends BinaryLevel {
                     if (!border) {
                         toClear.add(coord);
                     }
-//                }
             }
         }
         
@@ -75,6 +74,9 @@ public class SilentVoid extends BinaryLevel {
                 int index = rnd.nextInt(candidates.size());
                 Coord position = candidates.get(index);
                 drawShape(ellipse, position.add(1, 1), true);
+                BinaryLevel ellipseMask = new BinaryLevel(width, height);
+                ellipseMask.drawShape(ellipse, position.add(1, 1), true);
+                this.ellipses.add(ellipseMask);
                 placed++;
             }
         }
@@ -100,6 +102,10 @@ public class SilentVoid extends BinaryLevel {
     
     public Coord getEntry() {
         return entry;
+    }
+    
+    public List<BinaryLevel> getEllipses() {
+        return ellipses;
     }
 
     private void addRandomHole(Random rnd) {

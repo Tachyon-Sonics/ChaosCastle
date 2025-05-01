@@ -119,8 +119,8 @@ public class ChaosCastle {
     }
     
     void setupCheat() {
-        chaosBase.nbDollar = 200;
-        chaosBase.nbSterling = 200;
+//        chaosBase.nbDollar = 200;
+//        chaosBase.nbSterling = 200;
         chaosBase.zone = Zone.Castle;
         chaosBase.level[Zone.Chaos.ordinal()] = 20;
         chaosBase.level[Zone.Castle.ordinal()] = 22;

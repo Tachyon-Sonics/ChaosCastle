@@ -10,6 +10,7 @@ public record Coord(int x, int y) {
     
     private final static List<Coord> N4 = List.of(new Coord(-1, 0), new Coord(0, 1), new Coord(1, 0), new Coord(0, -1));
     private final static List<Coord> N8 = Collections.unmodifiableList(buildN8());
+    private final static List<Coord> N9 = Collections.unmodifiableList(buildN9());
     private final static List<Coord> CW_N8 = List.of(
             new Coord(0, -1),
             new Coord(1, -1),
@@ -38,6 +39,10 @@ public record Coord(int x, int y) {
         return N8;
     }
     
+    public static List<Coord> n9() {
+        return N9;
+    }
+    
     /**
      * @return same as {@link #n8()}, but is clockwise order
      */
@@ -52,6 +57,16 @@ public record Coord(int x, int y) {
                 if (dx != 0 || dy != 0) {
                     result.add(new Coord(dx, dy));
                 }
+            }
+        }
+        return result;
+    }
+    
+    private static List<Coord> buildN9() {
+        List<Coord> result = new ArrayList<>();
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                result.add(new Coord(dx, dy));
             }
         }
         return result;

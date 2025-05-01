@@ -162,42 +162,63 @@ public class Chaos3Zone {
             cur = cur.add(0, -1);
         };
         
-        final int IAH = 25;
+        final int IAH = 40;
         chaosObjects.Clear((short) 120, (short) (60 + IAH));
         // Stars as background
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) 119, (short) 119, (short) 0, (short) 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
+        chaosObjects.FillRandom((short) 0, (short) 0, (short) 119, (short) (60 + IAH), (short) 0, (short) 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
 
         // Initial area
-        chaosObjects.Fill((short) 0, (short) 0, (short) 119, (short) (IAH - 1), (short) EmptyBlock);
-        chaosObjects.Fill((short) 57, (short) 6, (short) 63, (short) 6, (short) BackBig);
-        chaosObjects.PutPlayer((short) 57, (short) 6);
-        chaosObjects.PutExit((short) 63, (short) 6);
-        chaosObjects.Fill((short) 0, (short) (IAH - 1), (short) 119, (short) (IAH - 1), (short) Bricks);
-        chaosObjects.Fill((short) 60, (short) 7, (short) 60, (short) (IAH - 1), (short) FalseEmpty);
+        chaosObjects.Fill((short) 40, (short) 0, (short) 80, (short) (IAH - 1), (short) EmptyBlock);
+        chaosObjects.Fill((short) 57, (short) 20, (short) 63, (short) 20, (short) BackBig);
+        chaosObjects.PutPlayer((short) 57, (short) 20);
+        chaosObjects.PutExit((short) 63, (short) 20);
+        chaosObjects.Fill((short) 40, (short) (IAH - 1), (short) 80, (short) (IAH - 1), (short) Bricks);
+        chaosObjects.Fill((short) 59, (short) (IAH - 1), (short) 61, (short) (IAH - 1), (short) BarLight);
+        chaosObjects.Fill((short) 60, (short) (IAH - 1), (short) 60, (short) (IAH - 1), (short) Light);
+        chaosObjects.Fill((short) 60, (short) 21, (short) 60, (short) (IAH - 2), (short) FalseEmpty);
         
         // Silent Void
         silentVoid.forWalls((Coord coord) -> {
             chaosObjects.Put((short) coord.x(), (short) (coord.y() + IAH), (short) EmptyBlock);
         });
+        List<Integer> fillTypes = List.of(Sq1Block, Sq4Block);
+        List<Integer> sparseTypes = List.of(Fact1Block, Fact2Block, Fact3Block);
+        for (BinaryLevel ellipse : silentVoid.getEllipses()) {
+            int fillType = fillTypes.get(rnd.nextInt(fillTypes.size()));
+            ellipse.forWalls((Coord coord) -> {
+                int ft = fillType;
+                if (rnd.nextInt(10) == 0) {
+                    ft = sparseTypes.get(rnd.nextInt(sparseTypes.size()));
+                }
+                chaosObjects.Put((short) coord.x(), (short) (coord.y() + IAH), (short) ft);
+            });
+        }
         
-        // TODO (0) different bricks for interior ovals: 3x1 or 3x2, then a few random 3x5, 3x6 and 3x7 
+        // Objects
+        Coord bonusLevel = silentVoid.pickFarthestFrom(entry, rnd);
+        bonusLevel = bonusLevel.add(0, IAH);
+        for (Coord delta : Coord.n9()) {
+            Coord coord = bonusLevel.add(delta);
+            if (chaosObjects.OnlyBackground((short) coord.x(), (short) coord.y())) {
+                chaosObjects.Put((short) coord.x(), (short) coord.y(), (short) Ice);
+            }
+        }
+
         SpriteFiller filler = new SpriteFiller(rnd);
+        filler.putBlockObj(SpriteInfo.tbBonus(ChaosBonus.tbBonusLevel), bonusLevel);
+        
         Rect whole = new Rect(0, IAH, 120, 60);
         Predicate<Coord> whereReachable = filler.mask(new Coord(0, IAH), reachable, false);
         
-        if (chaosBase.difficulty >= 5) {
-            filler.placeRandom(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cPopUp), whole, whereReachable, 30);
-        }
-        
-        if (chaosBase.difficulty >= 7) {
-            filler.addOptions(whole, whereReachable, 5, 5, 2, 15, 0, 10, 5);
+        if (chaosBase.difficulty >= 6) {
+            filler.addOptions(whole, whereReachable, 7, 7, 2, 15, 30, 15, 7);
             filler.placeRandom(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCircle, 120), whole, whereReachable, 10);
+            filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), whole, whereReachable, 10);
         }
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), whole, whereReachable, 10);
-        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), whole, whereReachable, 10);
-        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBomb), whole, whereReachable, 5);
+        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBomb), whole, whereReachable, 6 - chaosBase.difficulty / 2);
         filler.placeRandom(new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal()),
-                whole, whereReachable, 10);
+                whole, whereReachable, 10 + (20 - chaosBase.difficulty * 2));
     }
 
     public void pipeline() {

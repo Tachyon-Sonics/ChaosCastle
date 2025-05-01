@@ -1008,12 +1008,18 @@ public class ChaosImages {
                 case 2 -> SetFadePalette();
                 case 3, 4, 11, 14, 17, 18 -> SetForestPalette();
                 case 5 -> SetAnimPalette();
-                case 6, 10, 15, 19, 22 -> SetMetalPalette();
+                case 6, 10, 15, 19 -> SetMetalPalette();
                 case 7 -> SetAnimatedPalette();
                 case 9 -> SetFactoryPalette();
                 case 12, 16 -> SetAnimatedPalette2();
                 case 20 -> SetJunglePalette();
                 case 21 -> SetBagleyPalette();
+                case 22 -> {
+                    if (chaosBase.difficulty >= 6)
+                        SetFactoryPalette();
+                    else
+                        SetMetalPalette();
+                }
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }
             lastCastleLevel = chaosBase.level[Zone.Castle.ordinal()];

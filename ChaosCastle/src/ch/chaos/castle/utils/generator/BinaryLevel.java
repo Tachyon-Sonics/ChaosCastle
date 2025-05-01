@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -265,6 +266,17 @@ public class BinaryLevel {
             }
         }
         return result;
+    }
+    
+    public List<Coord> getFarthestFrom(Coord base) {
+        List<List<Coord>> distances = getDistancesFrom(base);
+        return distances.get(distances.size() - 1);
+    }
+    
+    public Coord pickFarthestFrom(Coord base, Random rnd) {
+        List<Coord> candidates = getFarthestFrom(base);
+        int index = rnd.nextInt(candidates.size());
+        return candidates.get(index);
     }
     
     public void invert() {
