@@ -65,6 +65,13 @@ public record Coord(int x, int y) {
         return new Coord(x() + dx, y() + dy);
     }
     
+    /**
+     * @return -this
+     */
+    public Coord neg() {
+        return new Coord(-x(), -y());
+    }
+    
     public String toShortString() {
         return "(" + x + "," + y + ")";
     }

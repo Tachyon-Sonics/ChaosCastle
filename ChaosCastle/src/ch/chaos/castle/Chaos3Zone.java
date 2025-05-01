@@ -124,6 +124,10 @@ public class Chaos3Zone {
     // PROCEDURE
 
     public void pipeline() {
+        chaos1Zone.flipVert = false;
+        chaos1Zone.flipHorz = false;
+        chaos1Zone.rotate = false;
+
         // Create road
         final int BmSize = 30;
         Random rnd = new Random();
@@ -218,6 +222,7 @@ public class Chaos3Zone {
             }
         }
         
+        // Add aliens
         SpriteFiller filler = new SpriteFiller(rnd);
         filler.placeRandom(
                 new SpriteInfo(Anims.ALIEN2, ChaosCreator.cFour, chaos1Zone.pLife3),
@@ -238,15 +243,23 @@ public class Chaos3Zone {
                 new SpriteInfo(Anims.ALIEN1, ChaosAlien.aColor, chaos1Zone.pLife3),
                 new Rect(60, 60, 60, 60), filler.background(), 20);
         
+        Rect anywhere = new Rect(1, 1, 118, 118);
         filler.placeRandom(
                 List.of(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doWindMaker)), 
-                new Rect(1, 1, 118, 118), filler.background8(), filler.nb(12), filler.nb(1));
+                anywhere, filler.background8(), filler.nb(12), filler.nb(1));
         filler.placeRandom(
                 List.of(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doFireMaker)), 
-                new Rect(1, 1, 118, 118), filler.background8(), filler.nb(6), filler.nb(0));
+                anywhere, filler.background8(), filler.nb(6), filler.nb(0));
         filler.placeRandom(
                 List.of(new SpriteInfo(Anims.MACHINE, ChaosMachine.mCannon3)), 
-                new Rect(1, 1, 118, 118), filler.background(), filler.nb(10));
+                anywhere, filler.background(), filler.nb(10));
+        
+        filler.placeRandom(
+                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aPic, 0), 
+                anywhere, filler.wallToBackground(new Coord(1, 0), 6), 10);
+        filler.placeRandom(
+                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aPic, 1), 
+                anywhere, filler.wallToBackground(new Coord(-1, 0), 6), 10);
         
         chaos1Zone.AddOptions((short) 1, (short) 1, (short) 119, (short) 119, 0, 0, 1, 0, 0, 20, 5);
         
@@ -300,6 +313,7 @@ public class Chaos3Zone {
             }
         }
         
+        // More bonus
         Rect whole = new Rect(0, 0, 120, 120);
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbSleeper), whole, filler.background(), 1);
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), whole, filler.background(), (20 - nbAdded) * 3 / 2);

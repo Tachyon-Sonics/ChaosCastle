@@ -151,18 +151,34 @@ public class SpriteFiller {
     }
     
     public Predicate<Coord> background() {
-        return (Coord coord) -> {
-            return chaosObjects.OnlyBackground((short) coord.x(), (short) coord.y());
-        };
+        return this::isBackground;
     }
     
     public Predicate<Coord> background8() {
         return (Coord coord) -> {
-            if (!chaosObjects.OnlyBackground((short) coord.x(), (short) coord.y()))
+            if (!isBackground(coord))
                 return false;
             for (Coord delta : Coord.n8()) {
                 Coord n = coord.add(delta);
-                if (!chaosObjects.OnlyBackground((short) n.x(), (short) n.y()))
+                if (!isBackground(n))
+                    return false;
+            }
+            return true;
+        };
+    }
+    
+    /**
+     * Must be a wall in -direction, then background in direction for nb tiles
+     */
+    public Predicate<Coord> wallToBackground(Coord direction, int nb) {
+        return (Coord coord) -> {
+            Coord back = coord.add(direction.neg());
+            if (isBackground(back) || !isBackground(coord))
+                return false;
+            Coord front = coord;
+            for (int k = 0; k < nb; k++) {
+                front = front.add(direction);
+                if (!isBackground(front))
                     return false;
             }
             return true;
@@ -176,9 +192,12 @@ public class SpriteFiller {
     public Predicate<Coord> mask(Coord offset, BinaryLevel mask, boolean wall) {
         return (Coord coord) -> {
             Coord maskCoord = coord.add(-offset.x(), -offset.y());
-            return chaosObjects.OnlyBackground((short) coord.x(), (short) coord.y())
-                    && (mask.isWall(maskCoord) == wall);
+            return isBackground(coord) && (mask.isWall(maskCoord) == wall);
         };
+    }
+    
+    private boolean isBackground(Coord coord) {
+        return chaosObjects.OnlyBackground((short) coord.x(), (short) coord.y());
     }
     
 }
