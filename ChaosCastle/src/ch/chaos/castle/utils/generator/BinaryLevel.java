@@ -102,7 +102,7 @@ public class BinaryLevel {
         }
     }
     
-    protected void drawRect(int sx, int sy, int width, int height, boolean wall) {
+    public void drawRect(int sx, int sy, int width, int height, boolean wall) {
         for (int x = 0; x < width; x++) {
             setWall(x, sy, wall);
             setWall(x, sy + height - 1, wall);
@@ -118,7 +118,7 @@ public class BinaryLevel {
      * @return whether at least one coordinate was filled. If false, the root coordinate already had the
      * given wall status
      */
-    protected boolean fillFlood(Coord root, boolean wall) {
+    public boolean fillFlood(Coord root, boolean wall) {
         return fillFlood(root, wall, null);
     }
     
@@ -309,6 +309,13 @@ public class BinaryLevel {
         }
     }
     
+    public BinaryLevel grownWalls8Mask() {
+        BinaryLevel mask = new BinaryLevel(width + 2, height + 2);
+        mask.drawShape(this, new Coord(1, 1), true);
+        mask.growWalls8();
+        return mask;
+    }
+    
     /**
      * Get all the top-left locations of which the given shape (considering wall cells) can be placed without hitting
      * a wall (onWall false) or hole (onWall true).
@@ -317,7 +324,7 @@ public class BinaryLevel {
      * @param shape the shape, as wall-set coordinates
      * @param onWall whether to place the shape entirely on walls, or entirely on holes
      */
-    public List<Coord> randomPlacesFor(BinaryLevel shape, boolean onWall, int sx, int sy, int width, int height) {
+    public List<Coord> allPlacesFor(BinaryLevel shape, boolean onWall, int sx, int sy, int width, int height) {
         List<Coord> result = new ArrayList<>();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {

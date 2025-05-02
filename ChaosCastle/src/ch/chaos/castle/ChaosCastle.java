@@ -123,7 +123,7 @@ public class ChaosCastle {
 //        chaosBase.nbSterling = 200;
         chaosBase.zone = Zone.Castle;
         chaosBase.level[Zone.Chaos.ordinal()] = 20;
-        chaosBase.level[Zone.Castle.ordinal()] = 22;
+        chaosBase.level[Zone.Castle.ordinal()] = 23;
         chaosBase.level[Zone.Family.ordinal()] = 5;
         chaosBase.level[Zone.Special.ordinal()] = 2;
         chaosBase.specialStage = 5; // 5 bonus levels
@@ -192,7 +192,7 @@ public class ChaosCastle {
                 if (chaosBase.zone == Zone.Chaos)
                     maxl = 100;
                 else if (chaosBase.zone == Zone.Castle)
-                    maxl = 22; // [NEW LEVELS]
+                    maxl = 23; // [NEW LEVELS]
                 else if (chaosBase.zone == Zone.Family)
                     maxl = 10;
                 else

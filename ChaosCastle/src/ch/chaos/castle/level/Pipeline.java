@@ -28,8 +28,7 @@ import ch.chaos.castle.utils.generator.MaskAt;
 public class Pipeline extends LevelBase {
 
     public void build() {
-        chaos1Zone.flipVert = false;
-        chaos1Zone.flipHorz = false;
+        chaos1Zone.rotate = false;
 
         // Create road
         final int BmSize = 30;

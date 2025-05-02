@@ -1012,7 +1012,7 @@ public class ChaosImages {
                 case 7 -> SetAnimatedPalette();
                 case 9 -> SetFactoryPalette();
                 case 12, 16 -> SetAnimatedPalette2();
-                case 20 -> SetJunglePalette();
+                case 20, 23 -> SetJunglePalette();
                 case 21 -> SetBagleyPalette();
                 case 22 -> {
                     if (chaosBase.difficulty >= 6)
@@ -1071,7 +1071,7 @@ public class ChaosImages {
                 case 1, 4 -> {
                     SetForestPalette();
                 }
-                case 2, 3, 5, 7, 10, 14, 16, 17, 19, 21, 22 -> {
+                case 2, 3, 5, 7, 10, 14, 16, 17, 19, 21, 22, 23 -> {
                     SetMetalPalette();
                 }
                 case 6 -> {

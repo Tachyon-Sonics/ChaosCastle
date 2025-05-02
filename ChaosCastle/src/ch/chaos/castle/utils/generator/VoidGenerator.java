@@ -69,7 +69,7 @@ public class VoidGenerator extends BinaryLevel {
             mask.drawShape(ellipse, new Coord(1, 1), true);
             mask.growWalls8();
             
-            List<Coord> candidates = randomPlacesFor(mask, false, 0, 0, width, height);
+            List<Coord> candidates = allPlacesFor(mask, false, 0, 0, width, height);
             if (!candidates.isEmpty()) {
                 int index = rnd.nextInt(candidates.size());
                 Coord position = candidates.get(index);

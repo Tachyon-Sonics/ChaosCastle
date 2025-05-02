@@ -7,11 +7,11 @@ import java.util.Random;
 import ch.chaos.castle.utils.Coord;
 import ch.chaos.castle.utils.simplex.SimplexNoise;
 
-public class Pond extends BinaryLevel {
+public class PondGenerator extends BinaryLevel {
     
     private final double SCALE_FACTOR = 1.6;
     
-    public Pond(int width, int height) {
+    public PondGenerator(int width, int height) {
         super(width, height);
     }
     
@@ -68,7 +68,7 @@ public class Pond extends BinaryLevel {
     }
     
     public static void main(String[] args) {
-        Pond pond = new Pond(100, 60);
+        PondGenerator pond = new PondGenerator(100, 60);
         Random rnd = new Random();
         // (difficulty - 7) / 20 [0-0.35] + 0.1 [0.1-0.45] + rnd.nextDouble() * 0.15
         double persistence = 0.1 + rnd.nextDouble() * 0.7; // Should be based on difficulty
