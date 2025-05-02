@@ -1006,13 +1006,13 @@ public class ChaosImages {
             switch (chaosBase.level[Zone.Castle.ordinal()]) { // [NEW LEVELS]
                 case 1, 8, 13 -> SetRGBIcePalette();
                 case 2 -> SetFadePalette();
-                case 3, 4, 11, 14, 17, 18 -> SetForestPalette();
+                case 3, 4, 11, 14, 17, 18, 23 -> SetForestPalette();
                 case 5 -> SetAnimPalette();
                 case 6, 10, 15, 19 -> SetMetalPalette();
                 case 7 -> SetAnimatedPalette();
                 case 9 -> SetFactoryPalette();
                 case 12, 16 -> SetAnimatedPalette2();
-                case 20, 23 -> SetJunglePalette();
+                case 20 -> SetJunglePalette();
                 case 21 -> SetBagleyPalette();
                 case 22 -> {
                     if (chaosBase.difficulty >= 6)

@@ -43,8 +43,8 @@ public class Pond extends LevelBase {
         generator.removeDiagonalsMakeHole();
         generator.fillOval(32, 20, 36, 20, false);
         
-        chaosObjects.Clear((short) 100, (short) 100);
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) 99, (short) 99, (short) Forest1, (short) Forest7, 
+        chaosObjects.Clear((short) 100, (short) 90);
+        chaosObjects.FillRandom((short) 0, (short) 0, (short) 99, (short) 89, (short) Forest1, (short) Forest7, 
                 chaosObjects.All_ref, chaosObjects.Rnd_ref);
         generator.forHoles((Coord coord) -> {
             chaosObjects.Put((short) coord.x(), (short) coord.y(), (short) Ground);
@@ -79,7 +79,7 @@ public class Pond extends LevelBase {
         SpriteFiller filler = new SpriteFiller(rnd);
         
         // Place stuff on corners and dead ends
-        Rect topHalf = new Rect(1, 1, 98, 50);
+        Rect topHalf = new Rect(1, 1, 98, 58);
         List<SpriteInfo> items = List.of(
                 new SpriteInfo(Anims.ALIEN2, ChaosCreator.cNest),
                 new SpriteInfo(Anims.ALIEN1, ChaosAlien.aCartoon, 0),
@@ -171,11 +171,13 @@ public class Pond extends LevelBase {
                 new SpriteInfo(Anims.ALIEN1, ChaosAlien.aPic, 1), 
                 anywhere, filler.wallToBackground(new Coord(-1, 0), 6), 3 + chaosBase.difficulty);
         
-        // Bottom
-        BinaryLevel fullPond = new BinaryLevel(100, 100);
-        fullPond.fillRect(0, 60, 100, 40, true);
+        filler.addOptions(anywhere, filler.background(), 0, 6, 0, 2, 15, 5, 5);
+        
+        // Bottom treffles
+        BinaryLevel fullPond = new BinaryLevel(100, 90);
+        fullPond.fillRect(0, 60, 100, 30, true);
         fullPond.drawShape(generator, new Coord(0, 0), true);
-        for (int k = 0; k < 10; k++) {
+        for (int k = 0; k < 6; k++) {
             int tries = 0;
             MaskAt placement;
             do {
@@ -190,7 +192,7 @@ public class Pond extends LevelBase {
                 treffle.fillOval(mid - diameter / 2, mid + 2, diameter, diameter, false);
                 treffle.fillRect(mid - 1, mid - offsetY, 3, 1, false); // ---
                 treffle.fillRect(mid, mid - offsetY, 1, diameter, false); // |
-                placement = placeWithUpLink(fullPond, treffle, 15, rnd);
+                placement = placeWithUpLink(fullPond, treffle, 10, rnd);
                 
                 if (placement != null) {
                     BinaryLevel shape = placement.mask();
@@ -215,6 +217,11 @@ public class Pond extends LevelBase {
                     });
                     
                     // Add curiosities
+                    Rect curRect = new Rect(where.x(), where.y(), shape.getWidth(), shape.getHeight());
+                    int[] tbTypes = { ChaosBonus.tbFreeFire, ChaosBonus.tbSleeper, ChaosBonus.tbNoMissile, ChaosBonus.tbMagnet };
+                    if (k < tbTypes.length && chaosBase.difficulty - 3 < rnd.nextInt(7)) {
+                        filler.placeRandom(SpriteInfo.tbBonus(tbTypes[k]), curRect, filler.background(), 1);
+                    }
                     List<SpriteInfo> infos = List.of(
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCreatorR, chaos1Zone.pLife3 + 40 + chaosBase.difficulty * 4),
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCreatorC, chaos1Zone.pLife3 + 40 + chaosBase.difficulty * 4),
@@ -223,28 +230,28 @@ public class Pond extends LevelBase {
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cNest),
                             new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal())
                             );
-                    SpriteInfo info = infos.get(rnd.nextInt(infos.size()));
-                    Rect curRect = new Rect(where.x(), where.y(), shape.getWidth(), shape.getHeight());
+                    SpriteInfo info = infos.get(k);
                     filler.placeRandom(info, 
                             curRect,
-                            filler.background(), 5 + rnd.nextInt(10));
+                            filler.background(), new MinMax(6, 10));
                     filler.placeRandom(List.of(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doBubbleMaker)), curRect,
                             filler.background8(), MinMax.value(1), MinMax.value(0));
                 }
                 tries++;
-            } while (placement == null && tries < 5);
+            } while (placement == null && tries < 10);
         }
         
-        anywhere = new Rect(1, 1, 98, 98);
+        anywhere = new Rect(1, 1, 98, 88);
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), anywhere, filler.background(), MinMax.value(10));
-        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), anywhere, filler.background(), MinMax.value(7));
+        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), anywhere, filler.background(), MinMax.value(12));
         
         System.out.println("NB objs: " + chaosBase.getNbObj());
         
         /*
          * TODO continue Pond with:
-         * - options (only a few)
          * - groove/family blocks randomly at the bottom
+         * - Review Sand: cluster with fine positioning around exit
+         * - Small items like money: add random fine positioning
          * - review all
          */
     }
