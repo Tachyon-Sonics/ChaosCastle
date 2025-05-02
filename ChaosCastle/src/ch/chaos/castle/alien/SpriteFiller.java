@@ -11,6 +11,7 @@ import ch.chaos.castle.ChaosAlien;
 import ch.chaos.castle.ChaosBase;
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosCreator;
+import ch.chaos.castle.ChaosGraphics;
 import ch.chaos.castle.ChaosObjects;
 import ch.chaos.castle.utils.Coord;
 import ch.chaos.castle.utils.MinMax;
@@ -22,6 +23,7 @@ public class SpriteFiller {
     private final Random rnd;
     private final ChaosObjects chaosObjects;
     private final ChaosBase chaosBase;
+    private final ChaosGraphics chaosGraphics;
     private final Set<Coord> usedCoords = new HashSet<>();
 
     
@@ -29,6 +31,7 @@ public class SpriteFiller {
         this.rnd = rnd;
         this.chaosObjects = ChaosObjects.instance();
         this.chaosBase = ChaosBase.instance();
+        this.chaosGraphics = ChaosGraphics.instance();
     }
     
     /**
@@ -154,6 +157,10 @@ public class SpriteFiller {
         return placeRandom(List.of(type), where, isAllowed, nb(amount));
     }
     
+    public int placeRandom(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount, int stat) {
+        return placeRandom(List.of(type), where, isAllowed, nb(amount), nb(stat));
+    }
+    
     public void addOptions(Rect where, Predicate<Coord> isAllowed, int nbGrid, int nbBumper, int nbChief, int nbGhost, int nbPopup, int nbBig, int nbSquare) {
         int stat = chaosBase.pLife * 3 + chaosBase.difficulty * 2;
         addIfDiff(where, new SpriteInfo(Anims.ALIEN2, ChaosCreator.cGrid, stat), isAllowed, 2, nbGrid);
@@ -178,10 +185,16 @@ public class SpriteFiller {
         return MinMax.value(value);
     }
     
+    /**
+     * Predicate for choosing a background tile
+     */
     public Predicate<Coord> background() {
         return this::isBackground;
     }
     
+    /**
+     * Predicate for choosing a background tile whose 8 neighbours are also background
+     */
     public Predicate<Coord> background8() {
         return (Coord coord) -> {
             if (!isBackground(coord))
@@ -190,6 +203,25 @@ public class SpriteFiller {
                 Coord n = coord.add(delta);
                 if (!isBackground(n))
                     return false;
+            }
+            return true;
+        };
+    }
+    
+    /**
+     * Predicate for choosing a background tile whose neighbors with the given distance or less
+     * are also background.
+     */
+    public Predicate<Coord> backgroundDistance(int distance) {
+        return (Coord coord) -> {
+            for (int dx = -distance; dx <= distance; dx++) {
+                for (int dy = -distance; dy <= distance; dy++) {
+                    double curDist = Math.sqrt(dx * dx + dy * dy);
+                    if (curDist <= distance) {
+                        if (!isBackground(coord.add(dx, dy)))
+                            return false;
+                    }
+                }
             }
             return true;
         };
@@ -225,6 +257,11 @@ public class SpriteFiller {
     }
     
     private boolean isBackground(Coord coord) {
+        if (coord.x() <= 0 || coord.y() <= 0 
+                || coord.x() >= chaosGraphics.castleWidth
+                || coord.y() >= chaosGraphics.castleHeight) {
+            return false;
+        }
         return chaosObjects.OnlyBackground((short) coord.x(), (short) coord.y());
     }
     
