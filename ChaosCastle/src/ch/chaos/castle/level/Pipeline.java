@@ -1,4 +1,4 @@
-package ch.chaos.castle;
+package ch.chaos.castle.level;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,10 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.function.Predicate;
 
+import ch.chaos.castle.ChaosAlien;
 import ch.chaos.castle.ChaosBase.Anims;
-import ch.chaos.castle.ChaosBonus.Moneys;
+import ch.chaos.castle.ChaosBonus;
+import ch.chaos.castle.ChaosCreator;
+import ch.chaos.castle.ChaosDObj;
+import ch.chaos.castle.ChaosMachine;
 import ch.chaos.castle.ChaosObjects.FilterProc;
 import ch.chaos.castle.alien.SpriteFiller;
 import ch.chaos.castle.alien.SpriteInfo;
@@ -19,209 +22,12 @@ import ch.chaos.castle.utils.Coord;
 import ch.chaos.castle.utils.CubicInterpolator;
 import ch.chaos.castle.utils.MinMax;
 import ch.chaos.castle.utils.Rect;
-import ch.chaos.castle.utils.generator.BinaryLevel;
 import ch.chaos.castle.utils.generator.BrickMask;
 import ch.chaos.castle.utils.generator.MaskAt;
-import ch.chaos.castle.utils.generator.SilentVoid;
-import ch.chaos.library.Trigo;
 
+public class Pipeline extends LevelBase {
 
-public class Chaos3Zone {
-
-    // Imports
-    private final Chaos1Zone chaos1Zone;
-    private final Chaos2Zone chaos2Zone;
-    private final ChaosBase chaosBase;
-    private final ChaosGenerator chaosGenerator;
-    private final ChaosGraphics chaosGraphics;
-    private final ChaosObjects chaosObjects;
-    private final Trigo trigo;
-
-
-    private Chaos3Zone() {
-        instance = this; // Set early to handle circular dependencies
-        chaos1Zone = Chaos1Zone.instance();
-        chaos2Zone = Chaos2Zone.instance();
-        chaosBase = ChaosBase.instance();
-        chaosGenerator = ChaosGenerator.instance();
-        chaosGraphics = ChaosGraphics.instance();
-        chaosObjects = ChaosObjects.instance();
-        trigo = Trigo.instance();
-    }
-
-
-    // CONST
-
-    private static final int fKmk = 0;
-    private static final int fPic = 1;
-    private static final int fMoneyS = 2;
-    private static final int fMoneyMix = 3;
-    private static final int fAlienColor = 4;
-    private static final int fAlienFour = 5;
-    private static final int fCannon1 = 6;
-    private static final int fCannon2 = 7;
-    private static final int fCartoon = 8;
-    private static final int fNone = 9;
-    private static final int fAnims1 = 10;
-    private static final int fAnims2 = 11;
-    private static final int fAnims3 = 12;
-    private static final int fAnims4 = 13;
-    private static final int fCrunchY = 14;
-    private static final int fCrunchX = 15;
-    private static final int Back4x4 = 8;
-    private static final int BackNone = 9;
-    private static final int Back2x2 = 10;
-    private static final int BackSmall = 11;
-    private static final int BackBig = 12;
-    private static final int Back8x8 = 13;
-    private static final int Tar = 14;
-    private static final int Ground = 15;
-    private static final int Ground2 = 16;
-    private static final int Ice = 17;
-    private static final int Light = 18;
-    private static final int Balls = 19;
-    private static final int Round4 = 20;
-    private static final int FalseBlock = 21;
-    private static final int FalseEmpty = 23;
-    private static final int EmptyBlock = 24;
-    private static final int Sq1Block = 25;
-    private static final int Sq4Block = 26;
-    private static final int Sq4TravBlock = 27;
-    private static final int TravBlock = 28;
-    private static final int Fact1Block = 29;
-    private static final int Fact2Block = 30;
-    private static final int Fact3Block = 31;
-    private static final int SimpleBlock = 32;
-    private static final int Granit1 = 33;
-    private static final int Granit2 = 34;
-    private static final int BigBlock = 35;
-    private static final int Bricks = 36;
-    private static final int Fade1 = 37;
-    private static final int Fade2 = 38;
-    private static final int Fade3 = 39;
-    private static final int FBig1 = 40;
-    private static final int FBig2 = 41;
-    private static final int FSmall1 = 42;
-    private static final int FSmall2 = 43;
-    private static final int FRound = 44;
-    private static final int FStar = 45;
-    private static final int FPanic = 46;
-    private static final int F9x9 = 47;
-    private static final int Forest1 = 48;
-    private static final int Forest2 = 49;
-    private static final int Forest3 = 50;
-    private static final int Forest4 = 51;
-    private static final int Forest5 = 52;
-    private static final int Forest6 = 53;
-    private static final int Forest7 = 54;
-    private static final int Leaf1 = 55;
-    private static final int Leaf2 = 56;
-    private static final int Leaf3 = 57;
-    private static final int Leaf4 = 58;
-    private static final int BarLight = 59;
-    private static final int BarDark = 60;
-    private static final int TravLight = 61;
-    private static final int RGBBlock = 62;
-    private static final int IceBlock = 63;
-
-
-    // PROCEDURE
-    
-    public void silentVoid() {
-        chaos1Zone.rotate = false;
-        Random rnd = new Random();
-        
-        // Build structure
-        BinaryLevel reachable;
-        Coord entry;
-        SilentVoid silentVoid;
-        do {
-            int nbLines = 15 + rnd.nextInt(30);
-            int nbEllipses = 10 + rnd.nextInt(15);
-            silentVoid = new SilentVoid(120, 60, nbLines, nbEllipses, 3, 9);
-            do {
-                silentVoid.build();
-                entry = silentVoid.getEntry();
-            } while (entry == null);
-            
-            // Create reachability mask:
-            reachable = new BinaryLevel(silentVoid.getWidth(), silentVoid.getHeight());
-            reachable.fillRect(0, 0, silentVoid.getWidth(), silentVoid.getHeight(), true);
-            BinaryLevel copy = silentVoid.copy();
-            BinaryLevel reachable0 = reachable;
-            copy.fillFlood(entry, true, (coord) -> reachable0.setWall(coord, false));
-        } while (reachable.countHoles() < 1000); // Reject if interior is too small
-        
-        // Add entry passage
-        Coord cur = new Coord(entry.x(), entry.y() - 1);
-        while (cur.y() >= 0) {
-            silentVoid.setWall(cur, false);
-            silentVoid.setWall(cur.add(-1, 0), true);
-            silentVoid.setWall(cur.add(1, 0), true);
-            silentVoid.setWall(cur, false);
-            cur = cur.add(0, -1);
-        };
-        
-        final int IAH = 40;
-        chaosObjects.Clear((short) 120, (short) (60 + IAH));
-        // Stars as background
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) 119, (short) (60 + IAH), (short) 0, (short) 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
-
-        // Initial area
-        chaosObjects.Fill((short) 40, (short) 0, (short) 80, (short) (IAH - 1), (short) EmptyBlock);
-        chaosObjects.Fill((short) 57, (short) 20, (short) 63, (short) 20, (short) BackBig);
-        chaosObjects.PutPlayer((short) 57, (short) 20);
-        chaosObjects.PutExit((short) 63, (short) 20);
-        chaosObjects.Fill((short) 40, (short) (IAH - 1), (short) 80, (short) (IAH - 1), (short) Bricks);
-        chaosObjects.Fill((short) 59, (short) (IAH - 1), (short) 61, (short) (IAH - 1), (short) BarLight);
-        chaosObjects.Fill((short) 60, (short) (IAH - 1), (short) 60, (short) (IAH - 1), (short) Light);
-        chaosObjects.Fill((short) 60, (short) 21, (short) 60, (short) (IAH - 2), (short) FalseEmpty);
-        
-        // Silent Void
-        silentVoid.forWalls((Coord coord) -> {
-            chaosObjects.Put((short) coord.x(), (short) (coord.y() + IAH), (short) EmptyBlock);
-        });
-        List<Integer> fillTypes = List.of(Sq1Block, Sq4Block);
-        List<Integer> sparseTypes = List.of(Fact1Block, Fact2Block, Fact3Block);
-        for (BinaryLevel ellipse : silentVoid.getEllipses()) {
-            int fillType = fillTypes.get(rnd.nextInt(fillTypes.size()));
-            ellipse.forWalls((Coord coord) -> {
-                int ft = fillType;
-                if (rnd.nextInt(10) == 0) {
-                    ft = sparseTypes.get(rnd.nextInt(sparseTypes.size()));
-                }
-                chaosObjects.Put((short) coord.x(), (short) (coord.y() + IAH), (short) ft);
-            });
-        }
-        
-        // Objects
-        Coord bonusLevel = silentVoid.pickFarthestFrom(entry, rnd);
-        bonusLevel = bonusLevel.add(0, IAH);
-        for (Coord delta : Coord.n9()) {
-            Coord coord = bonusLevel.add(delta);
-            if (chaosObjects.OnlyBackground((short) coord.x(), (short) coord.y())) {
-                chaosObjects.Put((short) coord.x(), (short) coord.y(), (short) Ice);
-            }
-        }
-
-        SpriteFiller filler = new SpriteFiller(rnd);
-        filler.putBlockObj(SpriteInfo.tbBonus(ChaosBonus.tbBonusLevel), bonusLevel);
-        
-        Rect whole = new Rect(0, IAH, 120, 60);
-        Predicate<Coord> whereReachable = filler.mask(new Coord(0, IAH), reachable, false);
-        
-        if (chaosBase.difficulty >= 6) {
-            filler.addOptions(whole, whereReachable, 7, 7, 2, 15, 30, 15, 7);
-            filler.placeRandom(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCircle, 120), whole, whereReachable, 10);
-            filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), whole, whereReachable, 10);
-        }
-        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), whole, whereReachable, 10);
-        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBomb), whole, whereReachable, 6 - chaosBase.difficulty / 2);
-        filler.placeRandom(new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal()),
-                whole, whereReachable, 10 + (20 - chaosBase.difficulty * 2));
-    }
-
-    public void pipeline() {
+    public void build() {
         chaos1Zone.flipVert = false;
         chaos1Zone.flipHorz = false;
 
@@ -451,7 +257,7 @@ public class Chaos3Zone {
             }
         }
         
-        // Link TODO [N] simplify: trying link and drawing link should both fill an array of points and hence use the same method
+        // Link
         if (link) {
             int[] dxs = {-1, 1, 0, 0, -1, -1, 1, 1};
             int[] dys = {0, 0, -1, 1, -1, 1, -1, 1};
@@ -584,22 +390,5 @@ public class Chaos3Zone {
         }
     }
 
-    // Support
-
-    private static Chaos3Zone instance;
-
-    public static Chaos3Zone instance() {
-        if (instance == null)
-            new Chaos3Zone(); // will set 'instance'
-        return instance;
-    }
-
-    // Life-cycle
-
-    public void begin() {
-    }
-
-    public void close() {
-    }
 
 }

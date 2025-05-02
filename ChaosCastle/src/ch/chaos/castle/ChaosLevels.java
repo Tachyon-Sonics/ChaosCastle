@@ -5,6 +5,9 @@ import java.util.EnumSet;
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosBase.Zone;
 import ch.chaos.castle.ChaosBonus.Moneys;
+import ch.chaos.castle.level.LevelBase;
+import ch.chaos.castle.level.Pipeline;
+import ch.chaos.castle.level.SilentVoid;
 import ch.chaos.library.Languages;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
@@ -16,7 +19,7 @@ public class ChaosLevels {
     // Imports
     private final Chaos1Zone chaos1Zone;
     private final Chaos2Zone chaos2Zone;
-    private final Chaos3Zone chaos3Zone;
+    private final LevelBase chaos3Zone;
     private final ChaosActions chaosActions;
     private final ChaosBase chaosBase;
     private final ChaosDual chaosDual;
@@ -32,7 +35,7 @@ public class ChaosLevels {
         instance = this; // Set early to handle circular dependencies
         chaos1Zone = Chaos1Zone.instance();
         chaos2Zone = Chaos2Zone.instance();
-        chaos3Zone = Chaos3Zone.instance();
+        chaos3Zone = LevelBase.instance();
         chaosActions = ChaosActions.instance();
         chaosBase = ChaosBase.instance();
         chaosDual = ChaosDual.instance();
@@ -1040,8 +1043,8 @@ public class ChaosLevels {
                 case 18 -> chaos2Zone.UnderWater();
                 case 19 -> chaos2Zone.Assembly();
                 case 20 -> chaos2Zone.Jungle();
-                case 21 -> chaos3Zone.pipeline();
-                case 22 -> chaos3Zone.silentVoid();
+                case 21 -> new Pipeline().build();
+                case 22 -> new SilentVoid().build();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }
         } else if (chaosBase.zone == Zone.Family) {

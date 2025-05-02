@@ -6,7 +6,7 @@ import java.util.Random;
 
 import ch.chaos.castle.utils.Coord;
 
-public class SilentVoid extends BinaryLevel {
+public class VoidGenerator extends BinaryLevel {
     
     private final static int OUTER_SIZE = 9;
     private final static int PAD_SIZE = 5;
@@ -20,7 +20,7 @@ public class SilentVoid extends BinaryLevel {
     private Coord entry;
     
 
-    public SilentVoid(int width, int height, int nbHoles, int nbEllipses, int minEllipseSize, int maxEllipseSize) {
+    public VoidGenerator(int width, int height, int nbHoles, int nbEllipses, int minEllipseSize, int maxEllipseSize) {
         super(width, height);
         this.nbHoles = nbHoles;
         this.nbEllipses = nbEllipses;
@@ -133,7 +133,7 @@ public class SilentVoid extends BinaryLevel {
         Random rnd = new Random();
         int nbLines = 15 + rnd.nextInt(30); // Based on difficulty?
         int nbEllipses = 10 + rnd.nextInt(15);
-        SilentVoid sv = new SilentVoid(120, 60, nbLines, nbEllipses, 3, 9);
+        VoidGenerator sv = new VoidGenerator(120, 60, nbLines, nbEllipses, 3, 9);
         Coord entry;
         do {
             sv.build();
