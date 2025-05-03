@@ -228,10 +228,10 @@ public class Pond extends LevelBase {
                         filler.placeRandom(SpriteInfo.tbBonus(tbTypes[k]), curRect, filler.backgroundOrFalse(), 1);
                     }
                     List<SpriteInfo> infos = List.of(
-                            new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCreatorR, chaos1Zone.pLife3 + 40 + chaosBase.difficulty * 4),
+                            new SpriteInfo(Anims.ALIEN1, ChaosAlien.aBumper, chaos1Zone.pLife3),
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCreatorC, chaos1Zone.pLife3 + 40 + chaosBase.difficulty * 4),
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cQuad, chaos1Zone.pLife3),
-                            new SpriteInfo(Anims.ALIEN1, ChaosAlien.aBumper, chaos1Zone.pLife3),
+                            new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCreatorR, chaos1Zone.pLife3 + 40 + chaosBase.difficulty * 4),
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cNest),
                             new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal())
                             );
@@ -266,7 +266,6 @@ public class Pond extends LevelBase {
         
         /*
          * TODO continue Pond with:
-         * - groove/family blocks randomly at the bottom
          * - Review Sand: cluster with fine positioning around exit
          * - Small items like money: add random fine positioning
          * - review all
