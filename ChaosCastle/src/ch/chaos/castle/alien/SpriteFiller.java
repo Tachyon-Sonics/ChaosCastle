@@ -192,6 +192,10 @@ public class SpriteFiller {
         return this::isBackground;
     }
     
+    public Predicate<Coord> backgroundOrFalse() {
+        return this::isBackgroundOrFalse;
+    }
+    
     /**
      * Predicate for choosing a background tile whose 8 neighbours are also background
      */
@@ -202,6 +206,19 @@ public class SpriteFiller {
             for (Coord delta : Coord.n8()) {
                 Coord n = coord.add(delta);
                 if (!isBackground(n))
+                    return false;
+            }
+            return true;
+        };
+    }
+    
+    public Predicate<Coord> backgroundOrFalse8() {
+        return (Coord coord) -> {
+            if (!isBackgroundOrFalse(coord))
+                return false;
+            for (Coord delta : Coord.n8()) {
+                Coord n = coord.add(delta);
+                if (!isBackgroundOrFalse(n))
                     return false;
             }
             return true;
@@ -263,6 +280,18 @@ public class SpriteFiller {
             return false;
         }
         return chaosObjects.OnlyBackground((short) coord.x(), (short) coord.y());
+    }
+    
+    /**
+     * Includes false backgrounds
+     */
+    private boolean isBackgroundOrFalse(Coord coord) {
+        if (coord.x() <= 0 || coord.y() <= 0 
+                || coord.x() >= chaosGraphics.castleWidth
+                || coord.y() >= chaosGraphics.castleHeight) {
+            return false;
+        }
+        return !chaosObjects.OnlyWall((short) coord.x(), (short) coord.y());
     }
     
 }

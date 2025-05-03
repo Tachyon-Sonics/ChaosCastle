@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
+import ch.chaos.castle.ChaosAlien;
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosBonus;
 import ch.chaos.castle.ChaosBonus.Moneys;
@@ -66,6 +67,16 @@ public class SilentVoid extends LevelBase {
         chaosObjects.Fill((short) 59, (short) (IAH - 1), (short) 61, (short) (IAH - 1), (short) BarLight);
         chaosObjects.Fill((short) 60, (short) (IAH - 1), (short) 60, (short) (IAH - 1), (short) Light);
         chaosObjects.Fill((short) 60, (short) 21, (short) 60, (short) (IAH - 2), (short) FalseEmpty);
+        
+        // Hidden area
+        chaosObjects.Put((short) 64, (short) 20, (short) FalseEmpty);
+        chaosObjects.Fill((short) 57, (short) 1, (short) 63, (short) 1, (short) Ground);
+        chaosObjects.Fill((short) 63, (short) 1, (short) 63, (short) 19, (short) FalseEmpty);
+        chaosObjects.PutExtraLife((short) 57, (short) 1);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, (short) 60, (short) 38);
+        if (chaosBase.difficulty >= 6) {
+            chaosObjects.PutBlockObj(Anims.ALIEN1, (short) ChaosAlien.aPic, 0, (short) 58, (short) 1);
+        }
         
         // Silent Void
         silentVoid.forWalls((Coord coord) -> {

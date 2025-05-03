@@ -51,29 +51,33 @@ public class Pond extends LevelBase {
         });
         
         // Player: left-most position
-        int x = 0;
-        playerLoop:
-        while (x < 100) {
-            for (int y = 0; y < 60; y++) {
-                if (chaosObjects.OnlyBackground((short) x, (short) y)) {
-                    chaosObjects.PutPlayer((short) x, (short) y);
-                    break playerLoop;
+        {
+            int x = 0;
+            playerLoop:
+            while (x < 100) {
+                for (int y = 0; y < 60; y++) {
+                    if (chaosObjects.OnlyBackground((short) x, (short) y)) {
+                        chaosObjects.PutPlayer((short) x, (short) y);
+                        break playerLoop;
+                    }
                 }
+                x++;
             }
-            x++;
         }
         
         // Exit: right-most position
-        x = 99;
-        exitLoop:
-        while (x >= 0) {
-            for (int y = 59; y >= 0; y--) {
-                if (chaosObjects.OnlyBackground((short) x, (short) y)) {
-                    chaosObjects.PutExit((short) x, (short) y);
-                    break exitLoop;
+        {
+            int x = 99;
+            exitLoop:
+            while (x >= 0) {
+                for (int y = 59; y >= 0; y--) {
+                    if (chaosObjects.OnlyBackground((short) x, (short) y)) {
+                        chaosObjects.PutExit((short) x, (short) y);
+                        break exitLoop;
+                    }
                 }
+                x--;
             }
-            x--;
         }
         
         SpriteFiller filler = new SpriteFiller(rnd);
@@ -177,6 +181,8 @@ public class Pond extends LevelBase {
         BinaryLevel fullPond = new BinaryLevel(100, 90);
         fullPond.fillRect(0, 60, 100, 30, true);
         fullPond.drawShape(generator, new Coord(0, 0), true);
+        int[] linkTypes = { Balls, Balls, Ground2, BackBig, Round4, FalseEmpty };
+        int[] interiorTypes = { Balls, Light, Ground, Back8x8, Tar, FalseEmpty };
         for (int k = 0; k < 6; k++) {
             int tries = 0;
             MaskAt placement;
@@ -203,13 +209,12 @@ public class Pond extends LevelBase {
                     Coord center = where.add(shape.getWidth() / 2, shape.getHeight() / 2 - 1);
                     while (fullPond.isWall(center) && center.y() > 1) {
                         fullPond.setWall(center, false);
-                        chaosObjects.Put((short) center.x(), (short) center.y(), (short) Balls);
+                        chaosObjects.Put((short) center.x(), (short) center.y(), (short) linkTypes[k]);
                         center = center.add(0, -1);
                     }
                     
                     // Create interior
-                    int[] bgTypes = new int[] { Back4x4, Back2x2, BackBig, Round4 };
-                    int type = bgTypes[rnd.nextInt(bgTypes.length)];
+                    int type = interiorTypes[k];
                     fullPond.drawShape(shape, where, false);
                     shape.forWalls((Coord coord) -> {
                         Coord target = coord.add(where);
@@ -220,7 +225,7 @@ public class Pond extends LevelBase {
                     Rect curRect = new Rect(where.x(), where.y(), shape.getWidth(), shape.getHeight());
                     int[] tbTypes = { ChaosBonus.tbFreeFire, ChaosBonus.tbSleeper, ChaosBonus.tbNoMissile, ChaosBonus.tbMagnet };
                     if (k < tbTypes.length && chaosBase.difficulty - 3 < rnd.nextInt(7)) {
-                        filler.placeRandom(SpriteInfo.tbBonus(tbTypes[k]), curRect, filler.background(), 1);
+                        filler.placeRandom(SpriteInfo.tbBonus(tbTypes[k]), curRect, filler.backgroundOrFalse(), 1);
                     }
                     List<SpriteInfo> infos = List.of(
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCreatorR, chaos1Zone.pLife3 + 40 + chaosBase.difficulty * 4),
@@ -233,9 +238,9 @@ public class Pond extends LevelBase {
                     SpriteInfo info = infos.get(k);
                     filler.placeRandom(info, 
                             curRect,
-                            filler.background(), new MinMax(6, 10));
+                            filler.backgroundOrFalse(), new MinMax(6, 10));
                     filler.placeRandom(List.of(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doBubbleMaker)), curRect,
-                            filler.background8(), MinMax.value(1), MinMax.value(0));
+                            filler.backgroundOrFalse8(), MinMax.value(1), MinMax.value(0));
                 }
                 tries++;
             } while (placement == null && tries < 10);
@@ -246,6 +251,18 @@ public class Pond extends LevelBase {
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), anywhere, filler.background(), MinMax.value(12));
         
         System.out.println("NB objs: " + chaosBase.getNbObj());
+        
+        // Bottom blocks
+        int[] btTypes = { F9x9, FStar, FRound, Fade2, Fade1, Fade3, Fact2Block };
+        for (int x = 0; x < 100; x++) {
+            for (int y = 0; y < 20; y++) {
+                int r = y + rnd.nextInt(11) - 5; // 0 .. 24
+                if (r >= 0 && chaosObjects.OnlyWall((short) x, (short) (y + 70))) {
+                    int index = r / 4; // 0 .. 6
+                    chaosObjects.Put((short) x, (short) (y + 70), (short) btTypes[index]);
+                }
+            }
+        }
         
         /*
          * TODO continue Pond with:

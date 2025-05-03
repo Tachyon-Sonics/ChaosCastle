@@ -29,10 +29,14 @@ public class Pipeline extends LevelBase {
 
     public void build() {
         chaos1Zone.rotate = false;
+        Random rnd = new Random();
+        
+        if (chaosBase.difficulty >= 8 && rnd.nextBoolean()) {
+            chaosBase.water = true;
+        }
 
         // Create road
         final int BmSize = 30;
-        Random rnd = new Random();
         List<BrickMask> brickMasks = new ArrayList<>();
         Map<BrickMask, Integer> lengthMap = new HashMap<>();
         
@@ -102,6 +106,10 @@ public class Pipeline extends LevelBase {
                     chaosObjects.PutPlayer((short) x, (short) y);
                 } else if (i == path.length - 2 && k == nbSteps - 1) {
                     chaosObjects.PutExit((short) x, (short) y);
+                } else if ((i + 5) % 7 == 0 && k == 0) {
+                    if (chaosBase.water) {
+                        chaosObjects.PutBubbleMaker(1, (short) x, (short) y);
+                    }
                 }
             }
         }
