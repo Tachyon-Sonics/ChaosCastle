@@ -50,9 +50,12 @@ public class SimpleBrickMask extends BinaryLevel {
     }
 
     public static void main(String[] args) {
-        SimpleBrickMask mask = new SimpleBrickMask(30, 30);
+        SimpleBrickMask mask = new SimpleBrickMask(60, 60);
         mask.build(0.4);
-        mask.fillInterior(4);
+        SimpleBrickMask mask2 = new SimpleBrickMask(20, 20);
+        mask2.build(0.4);
+        mask2.invert();
+        mask.drawShape(mask2, new Coord(20, 20), true);
         mask.removeDiagonalsMakeHole();
         System.out.println(mask.toString());
     }

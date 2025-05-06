@@ -70,7 +70,7 @@ public class SilentVoid extends LevelBase {
         
         // Hidden area
         chaosObjects.Put((short) 64, (short) 20, (short) FalseEmpty);
-        chaosObjects.Fill((short) 57, (short) 1, (short) 63, (short) 1, (short) Ground);
+        chaosObjects.Fill((short) 57, (short) 1, (short) 63, (short) 1, (short) FalseEmpty);
         chaosObjects.Fill((short) 63, (short) 1, (short) 63, (short) 19, (short) FalseEmpty);
         chaosObjects.PutExtraLife((short) 57, (short) 1);
         chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, (short) 60, (short) 38);
@@ -101,7 +101,7 @@ public class SilentVoid extends LevelBase {
         for (Coord delta : Coord.n9()) {
             Coord coord = bonusLevel.add(delta);
             if (chaosObjects.OnlyBackground((short) coord.x(), (short) coord.y())) {
-                chaosObjects.Put((short) coord.x(), (short) coord.y(), (short) Ice);
+                chaosObjects.Put((short) coord.x(), (short) coord.y(), (short) Tar);
             }
         }
 

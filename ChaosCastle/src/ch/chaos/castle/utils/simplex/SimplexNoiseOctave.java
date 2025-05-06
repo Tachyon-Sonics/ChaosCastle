@@ -18,8 +18,7 @@ import java.util.Random;
  * attribution is appreciated.
  *
  */
-
-public class SimplexNoiseOctave { // Simplex noise in 2D, 3D and 4D
+class SimplexNoiseOctave { // Simplex noise in 2D, 3D and 4D
 
     public static int RANDOMSEED = 0;
     private static int NUMBEROFSWAPS = 400;
@@ -62,7 +61,7 @@ public class SimplexNoiseOctave { // Simplex noise in 2D, 3D and 4D
     public SimplexNoiseOctave(int seed) {
         p = p_supply.clone();
 
-        if (seed == RANDOMSEED) {
+        if (seed == RANDOMSEED) { // TODO (0) review (and the whole class too)
             Random rand = new Random();
             seed = rand.nextInt();
         }
