@@ -13,6 +13,7 @@ import ch.chaos.castle.ChaosMachine;
 import ch.chaos.castle.alien.SpriteFiller;
 import ch.chaos.castle.alien.SpriteInfo;
 import ch.chaos.castle.utils.Coord;
+import ch.chaos.castle.utils.MinMax;
 import ch.chaos.castle.utils.Rect;
 import ch.chaos.castle.utils.generator.DfsLabyrinth;
 
@@ -88,7 +89,7 @@ public class SpaceStation extends LevelBase {
                 // TODO (0) review, iterate on types and pick cell at random
                 if (type == 0) {
                     // Bonus
-                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), cellRect, filler.background(), 1);
+                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), cellRect, filler.background(), new MinMax(0, 1));
                     filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), cellRect, filler.background(), 1);
                 } else if (type == 1) {
                     // Aliens
