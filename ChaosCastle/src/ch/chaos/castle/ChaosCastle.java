@@ -5,6 +5,7 @@ import ch.chaos.castle.ChaosBase.BasicTypes;
 import ch.chaos.castle.ChaosBase.GameStat;
 import ch.chaos.castle.ChaosBase.Weapon;
 import ch.chaos.castle.ChaosBase.Zone;
+import ch.chaos.castle.level.Levels;
 import ch.chaos.library.Checks;
 import ch.chaos.library.Clock;
 import ch.chaos.library.Dialogs;
@@ -119,11 +120,11 @@ public class ChaosCastle {
     }
     
     void setupCheat() {
-        chaosBase.nbDollar = 100;
+        chaosBase.nbDollar = 200;
 //        chaosBase.nbSterling = 200;
         chaosBase.zone = Zone.Castle;
         chaosBase.level[Zone.Chaos.ordinal()] = 20;
-        chaosBase.level[Zone.Castle.ordinal()] = 21;
+        chaosBase.level[Zone.Castle.ordinal()] = Levels.SPACE_STATION;
         chaosBase.level[Zone.Family.ordinal()] = 5;
         chaosBase.level[Zone.Special.ordinal()] = 2;
         chaosBase.specialStage = 5; // 5 bonus levels
@@ -192,7 +193,7 @@ public class ChaosCastle {
                 if (chaosBase.zone == Zone.Chaos)
                     maxl = 100;
                 else if (chaosBase.zone == Zone.Castle)
-                    maxl = 23; // [NEW LEVELS]
+                    maxl = 24; // [NEW LEVELS]
                 else if (chaosBase.zone == Zone.Family)
                     maxl = 10;
                 else

@@ -7,6 +7,7 @@ import ch.chaos.castle.ChaosBase.GameStat;
 import ch.chaos.castle.ChaosBase.Weapon;
 import ch.chaos.castle.ChaosBase.Zone;
 import ch.chaos.castle.ChaosSounds.SoundList;
+import ch.chaos.castle.level.Levels;
 import ch.chaos.library.Checks;
 import ch.chaos.library.Clock;
 import ch.chaos.library.Graphics;
@@ -542,13 +543,16 @@ public class ChaosScreens {
             case 20 -> {
                 return Runtime.castToRef(languages.ADL("Jungle"), String.class);
             }
-            case 21 -> {
+            case Levels.SPACE_STATION -> {
+                return Runtime.castToRef(languages.ADL("Space Station"), String.class);
+            }
+            case Levels.PIPELINE -> {
                 return Runtime.castToRef(languages.ADL("Pipeline"), String.class);
             }
-            case 22 -> {
+            case Levels.SILENT_VOID -> {
                 return Runtime.castToRef(languages.ADL("Silent Void"), String.class);
             }
-            case 23 -> {
+            case Levels.POND -> {
                 return Runtime.castToRef(languages.ADL("Pond"), String.class);
             }
             default -> throw new RuntimeException("Unhandled CASE value " + level);

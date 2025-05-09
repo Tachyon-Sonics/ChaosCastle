@@ -3,6 +3,7 @@ package ch.chaos.castle;
 import java.util.EnumSet;
 
 import ch.chaos.castle.ChaosBase.Zone;
+import ch.chaos.castle.level.Levels;
 import ch.chaos.library.Checks;
 import ch.chaos.library.Dialogs;
 import ch.chaos.library.Files;
@@ -1006,20 +1007,21 @@ public class ChaosImages {
             switch (chaosBase.level[Zone.Castle.ordinal()]) { // [NEW LEVELS]
                 case 1, 8, 13 -> SetRGBIcePalette();
                 case 2 -> SetFadePalette();
-                case 3, 4, 11, 14, 17, 18, 23 -> SetForestPalette();
+                case 3, 4, 11, 14, 17, 18, Levels.POND -> SetForestPalette();
                 case 5 -> SetAnimPalette();
                 case 6, 10, 15, 19 -> SetMetalPalette();
                 case 7 -> SetAnimatedPalette();
                 case 9 -> SetFactoryPalette();
                 case 12, 16 -> SetAnimatedPalette2();
                 case 20 -> SetJunglePalette();
-                case 21 -> SetBagleyPalette();
-                case 22 -> {
+                case Levels.PIPELINE -> SetBagleyPalette();
+                case Levels.SILENT_VOID -> {
                     if (chaosBase.difficulty >= 6)
                         SetFactoryPalette();
                     else
                         SetMetalPalette();
                 }
+                case Levels.SPACE_STATION -> SetMetalPalette();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }
             lastCastleLevel = chaosBase.level[Zone.Castle.ordinal()];
@@ -1071,7 +1073,7 @@ public class ChaosImages {
                 case 1, 4 -> {
                     SetForestPalette();
                 }
-                case 2, 3, 5, 7, 10, 14, 16, 17, 19, 21, 22, 23 -> {
+                case 2, 3, 5, 7, 10, 14, 16, 17, 19, 21, 22, 23, 24 -> {
                     SetMetalPalette();
                 }
                 case 6 -> {

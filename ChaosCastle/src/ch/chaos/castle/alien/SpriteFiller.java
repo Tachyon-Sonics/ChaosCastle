@@ -225,6 +225,19 @@ public class SpriteFiller {
         };
     }
     
+    public Predicate<Coord> nearWall4() {
+        return (Coord coord) -> {
+            if (!isBackgroundOrFalse(coord))
+                return false;
+            for (Coord delta : Coord.n4()) {
+                Coord n = coord.add(delta);
+                if (!isBackgroundOrFalse(n))
+                    return true;
+            }
+            return false;
+        };
+    }
+    
     /**
      * Predicate for choosing a background tile whose neighbors with the given distance or less
      * are also background.

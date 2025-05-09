@@ -6,9 +6,11 @@ import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosBase.Zone;
 import ch.chaos.castle.ChaosBonus.Moneys;
 import ch.chaos.castle.level.LevelBase;
+import ch.chaos.castle.level.Levels;
 import ch.chaos.castle.level.Pipeline;
 import ch.chaos.castle.level.Pond;
 import ch.chaos.castle.level.SilentVoid;
+import ch.chaos.castle.level.SpaceStation;
 import ch.chaos.library.Languages;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
@@ -1044,9 +1046,10 @@ public class ChaosLevels {
                 case 18 -> chaos2Zone.UnderWater();
                 case 19 -> chaos2Zone.Assembly();
                 case 20 -> chaos2Zone.Jungle();
-                case 21 -> new Pipeline().build();
-                case 22 -> new SilentVoid().build();
-                case 23 -> new Pond().build();
+                case Levels.SPACE_STATION -> new SpaceStation().build();
+                case Levels.PIPELINE -> new Pipeline().build();
+                case Levels.SILENT_VOID -> new SilentVoid().build();
+                case Levels.POND -> new Pond().build();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }
         } else if (chaosBase.zone == Zone.Family) {
