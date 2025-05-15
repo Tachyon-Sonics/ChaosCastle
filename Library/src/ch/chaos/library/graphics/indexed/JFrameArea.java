@@ -35,7 +35,7 @@ import ch.pitchtech.modula.runtime.Runtime;
  * {@link AreaPtr} implementation when displaying on screen (type {@link Graphics0#atDISPLAY})
  * TODO (2) there is still antialiasing of texts on MacOS
  */
-class JFrameArea extends AreaBase implements AreaPtr { // TODO (1) App's icon (for the taskbar)
+class JFrameArea extends AreaBase implements AreaPtr {
 
     public final static boolean FULL_SCREEN = Graphics.FULL_SCREEN;
     private final static boolean SKIP_MODE = Graphics.SEPARATE_GAME_LOOP;

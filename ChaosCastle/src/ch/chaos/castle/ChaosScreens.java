@@ -553,7 +553,7 @@ public class ChaosScreens {
                 return Runtime.castToRef(languages.ADL("Silent Void"), String.class);
             }
             case Levels.POND -> {
-                return Runtime.castToRef(languages.ADL("Pond"), String.class);
+                return Runtime.castToRef(languages.ADL("Deep Pond"), String.class);
             }
             default -> throw new RuntimeException("Unhandled CASE value " + level);
         }

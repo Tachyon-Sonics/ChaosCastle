@@ -250,8 +250,6 @@ public class Pond extends LevelBase {
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), anywhere, filler.background(), MinMax.value(10));
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), anywhere, filler.background(), MinMax.value(12));
         
-        System.out.println("NB objs: " + chaosBase.getNbObj());
-        
         // Bottom blocks
         int[] btTypes = { F9x9, FStar, FRound, Fade2, Fade1, Fade3, Fact2Block };
         for (int x = 0; x < 100; x++) {

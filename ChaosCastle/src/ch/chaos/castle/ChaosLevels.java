@@ -1052,6 +1052,7 @@ public class ChaosLevels {
                 case Levels.POND -> new Pond().build();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }
+            System.out.println("NB objs: " + chaosBase.getNbObj() + " / " + ChaosBase.MAXALIEN);
         } else if (chaosBase.zone == Zone.Family) {
             chaos1Zone.flipVert = false;
             chaos1Zone.flipHorz = false;
@@ -1087,6 +1088,7 @@ public class ChaosLevels {
             } else {
                 BabyAliens();
             }
+            System.out.println("NB objs: " + chaosBase.getNbObj() + " / " + ChaosBase.MAXALIEN);
         }
         if (chaos1Zone.flipVert && (trigo.RND() % 2 == 0))
             chaosGenerator.FlipVert();

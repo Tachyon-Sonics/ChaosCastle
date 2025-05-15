@@ -85,13 +85,13 @@ public class SpaceStation extends LevelBase {
         for (int cx = 0; cx < Width; cx++) {
             for (int cy = 0; cy < Height; cy++) {
                 Rect cellRect = new Rect(cx * CellWidth + 1, cy * CellHeight + 1 + YOffset, CellWidth - 2, CellHeight - 2);
-                int type = rnd.nextInt(3);
+                int type = rnd.nextInt(4);
                 // TODO (0) review, iterate on types and pick cell at random
                 if (type == 0) {
                     // Bonus
-                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), cellRect, filler.background(), new MinMax(0, 1));
-                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), cellRect, filler.background(), 1);
-                } else if (type == 1) {
+                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), cellRect, filler.background(), 1);
+                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), cellRect, filler.background(), new MinMax(0, 1));
+                } else if (type == 1 || type == 2) {
                     // Aliens
                     List<SpriteInfo> aliens = List.of(
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cAlienBox, 0),

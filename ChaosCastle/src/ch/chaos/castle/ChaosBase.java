@@ -1362,9 +1362,10 @@ public class ChaosBase {
 
 //    private static final short MAXOBJ = ((1 << 8) - 1) /* MAX(SHORTCARD) */;
 //    private static final int MAXALIEN = MAXOBJ - 32;
-    private static final short MAXOBJ = 384;
-    private static final int MAXALIEN = MAXOBJ - 48;
-    public static final int MAXSTONES = MAXOBJ - 96;
+//    public static final int MAXSTONES = MAXOBJ - 64;
+    private static final short MAXOBJ = 512;
+    public static final int MAXALIEN = MAXOBJ - 64;
+    public static final int MAXSTONES = MAXOBJ - 128;
 
 
     // PROCEDURE
