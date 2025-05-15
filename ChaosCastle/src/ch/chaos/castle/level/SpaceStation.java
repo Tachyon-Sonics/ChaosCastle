@@ -3,6 +3,7 @@ package ch.chaos.castle.level;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.Predicate;
 
 import ch.chaos.castle.ChaosAlien;
 import ch.chaos.castle.ChaosBase.Anims;
@@ -32,12 +33,12 @@ public class SpaceStation extends LevelBase {
         final int YOffset = 19;
         final int FullWidth = Width * CellWidth + 1 + PadWidth;
         final int FullHeight = Height * CellHeight + 1 + YOffset;
-
+        
         // 101x61 for Station
-        chaosObjects.Clear((short) FullWidth, (short) FullHeight); // TODO (1) helper for all stuff with walls and backgrounds
+        LevelBuilder builder = new LevelBuilder(FullWidth, FullHeight, rnd);
+        SpriteFiller filler = new SpriteFiller(rnd);
         // Stars as background
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) (FullWidth - 1), (short) (FullHeight - 1),
-                (short) 0, (short) 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
+        builder.fillRandom(0, 0, FullWidth, FullHeight, 0, 7, builder::isBackground, builder::expRandom);
 
         // Station:
         DfsLabyrinth spaceStation = new DfsLabyrinth(Width, Height, CellWidth, CellHeight);
@@ -46,24 +47,24 @@ public class SpaceStation extends LevelBase {
         
         // Walls
         spaceStation.forWalls((Coord coord) -> {
-            chaosObjects.Put((short) coord.x(), (short) (coord.y() + YOffset), (short) BarDark);
+            builder.put(coord.add(0, YOffset), BarDark);
         });
         // Default floor between cells
         spaceStation.forHoles((Coord coord) -> {
-            chaosObjects.Put((short) coord.x(), (short) (coord.y() + YOffset), (short) Round4);
+            builder.put(coord.add(0, YOffset), Round4);
         });
         // Entry
-        chaosObjects.Put((short) 1, (short) YOffset, (short) Tar);
-        chaosObjects.PutObj(Anims.MACHINE, (short) ChaosMachine.mDoor, 0, 
+        builder.put(1, YOffset, Tar);
+        filler.putObj(new SpriteInfo(Anims.MACHINE, ChaosMachine.mDoor, 0), 
                 (short) (1 * ChaosGraphics.BW + ChaosGraphics.BW / 2), 
                 (short) (YOffset * ChaosGraphics.BH + ChaosGraphics.BH / 8));
-        chaosObjects.PutBlockBonus(ChaosBonus.tbSGSpeed, (short) 1, (short) YOffset);
+        filler.putBlockBonus(ChaosBonus.tbSGSpeed, new Coord(1, YOffset));
 
         // Exit
-        chaosObjects.PutExit((short) (exitCell.x() * CellWidth + CellWidth / 2), (short) (exitCell.y() * CellHeight + CellHeight / 2 + YOffset));
+        filler.putExit(exitCell.x() * CellWidth + CellWidth / 2, exitCell.y() * CellHeight + CellHeight / 2 + YOffset);
         // Player
-        chaosObjects.PutPlayer((short) (FullWidth - 1), (short) (FullHeight - 1));
-        chaosObjects.PutBlockBonus(ChaosBonus.tbDBSpeed, (short) (FullWidth - PadWidth), (short) (FullHeight - 1));
+        filler.putPlayer(FullWidth - 1, FullHeight - 1);
+        filler.putBlockBonus(ChaosBonus.tbDBSpeed, new Coord(FullWidth - PadWidth, FullHeight - 1));
         
         // Cells Background
         Map<Coord, Integer> distances = spaceStation.getAllDistances(exitCell);
@@ -74,39 +75,42 @@ public class SpaceStation extends LevelBase {
                 int background = (distance == 0 ? BackSmall : backgrounds[distance % 3]);
                 for (int x = 1; x < CellWidth; x++) {
                     for (int y = 1; y < CellHeight; y++) {
-                        chaosObjects.Put((short) (cx * CellWidth + x), (short) (cy * CellHeight + y + YOffset), (short) background);
+                        builder.put(cx * CellWidth + x, cy * CellHeight + y + YOffset, background);
                     }
                 }
             }
         }
         
         // Cells Content
-        SpriteFiller filler = new SpriteFiller(rnd);
         for (int cx = 0; cx < Width; cx++) {
             for (int cy = 0; cy < Height; cy++) {
                 Rect cellRect = new Rect(cx * CellWidth + 1, cy * CellHeight + 1 + YOffset, CellWidth - 2, CellHeight - 2);
-                int type = rnd.nextInt(4);
+                int type = rnd.nextInt(5);
                 // TODO (0) review, iterate on types and pick cell at random
                 if (type == 0) {
                     // Bonus
-                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), cellRect, filler.background(), 1);
+                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), cellRect, filler.background(), new MinMax(1, 2));
                     filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), cellRect, filler.background(), new MinMax(0, 1));
-                } else if (type == 1 || type == 2) {
+                } else if (type == 1 || type == 2 || type == 3) {
                     // Aliens
                     List<SpriteInfo> aliens = List.of(
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cAlienBox, 0),
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cAlienBox, 1),
+                            new SpriteInfo(Anims.ALIEN1, ChaosAlien.aCartoon, 0),
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCreatorC, chaos1Zone.pLife3),
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cNest, 0),
-                            new SpriteInfo(Anims.ALIEN1, ChaosAlien.aCartoon, 0),
                             new SpriteInfo(Anims.ALIEN1, ChaosAlien.aKamikaze, 0),
                             new SpriteInfo(Anims.ALIEN1, ChaosAlien.aTri, chaos1Zone.pLife2),
                             new SpriteInfo(Anims.ALIEN1, ChaosAlien.aColor, chaos1Zone.pLife3),
                             new SpriteInfo(Anims.MACHINE, ChaosMachine.mTurret, 0)
                             );
-                    SpriteInfo alien = aliens.get(rnd.nextInt(aliens.size()));
-                    int amount = 2 + rnd.nextInt(6);
-                    filler.placeRandom(alien, cellRect, filler.nearWall4(), amount);
+                    int index = rnd.nextInt(aliens.size());
+                    SpriteInfo alien = aliens.get(index);
+                    Predicate<Coord> isAllowed = filler.background();
+                    if (index < 3)
+                        isAllowed = filler.nearWall4();
+                    int amount = 4 + rnd.nextInt(12);
+                    filler.placeRandom(alien, cellRect, isAllowed, amount);
                 }
             }
         }

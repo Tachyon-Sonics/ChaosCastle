@@ -70,9 +70,9 @@ public class ChaosBase {
     public static enum Anims {
         PLAYER,
         WEAPON,
-        ALIEN3, // Family alien. ChaosAlien
+        ALIEN3, // Family alien
         ALIEN2, // Firing or creating alien. ChaosCreator
-        ALIEN1, // Basic alien
+        ALIEN1, // Basic alien. ChaosAlien
         MISSILE, // Bullet fired by ALIEN2 or ALIEN3
         STONE, // Animation item when hit or dying
         SMARTBONUS, // Extra life + Extra power
@@ -1363,9 +1363,9 @@ public class ChaosBase {
 //    private static final short MAXOBJ = ((1 << 8) - 1) /* MAX(SHORTCARD) */;
 //    private static final int MAXALIEN = MAXOBJ - 32;
 //    public static final int MAXSTONES = MAXOBJ - 64;
-    private static final short MAXOBJ = 512;
-    public static final int MAXALIEN = MAXOBJ - 64;
-    public static final int MAXSTONES = MAXOBJ - 128;
+    private static final short MAXOBJ = 1024;
+    public static final int MAXALIEN = MAXOBJ - 128;
+    public static final int MAXSTONES = MAXOBJ - 256;
 
 
     // PROCEDURE

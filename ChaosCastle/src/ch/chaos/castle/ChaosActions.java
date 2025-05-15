@@ -1142,7 +1142,7 @@ public class ChaosActions {
         ChaosBase.Obj testObj = null;
         int cnt = 0;
 
-        cnt = chaosBase.step;
+        cnt = chaosBase.step * 4;
         while (true) {
             if (leftObj == leftTail)
                 leftObj = (ChaosBase.Obj) chaosBase.FirstObj(chaosBase.leftObjList);

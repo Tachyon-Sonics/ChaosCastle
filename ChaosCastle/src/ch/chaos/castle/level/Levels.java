@@ -1,7 +1,7 @@
 package ch.chaos.castle.level;
 
 
-public class Levels { // TODO (1) warn if more than XX objects
+public class Levels {
     
     public final static int ENTRY = 1;
     public final static int GROOVE = 2;

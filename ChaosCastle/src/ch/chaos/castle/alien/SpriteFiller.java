@@ -97,9 +97,10 @@ public class SpriteFiller {
      * @param amount the number of sprites to place (a random amount is chosen between min and max)
      * @param statOrLife number of lives / stat of the placed sprites (a random amount is chosen between min and max). If
      * <tt>null</tt>, {@link SpriteInfo#statOrLife()} is used instead.
+     * @param maxFineShift max random fine shift of coordinates
      */
     public int placeRandom(List<SpriteInfo> types, Rect where, Predicate<Coord> isAllowed, 
-            MinMax amount, MinMax statOrLife) {
+            MinMax amount, MinMax statOrLife, int maxFineShift) {
         // Build list of available coordinates
         List<Coord> availableCoords = new ArrayList<>();
         for (int x = 0; x < where.w(); x++) {
@@ -131,16 +132,86 @@ public class SpriteFiller {
             if (statOrLife != null)
                 pickStat = statOrLife.pick(rnd);
             
+            SpriteInfo toPlace = new SpriteInfo(info.type(), info.subKind(), pickStat);
+            
             // Place it
-            chaosObjects.PutBlockObj(info.type(), (short) info.subKind(), pickStat, 
-                    (short) position.x(), (short) position.y());
+            if (maxFineShift == 0) {
+                putBlockObj(toPlace, position);
+            } else {
+                putBlockObjRandomShift(toPlace, position, maxFineShift);
+            }
         }
         return result;
     }
     
+    public int placeRandom(List<SpriteInfo> types, Rect where, Predicate<Coord> isAllowed, 
+            MinMax amount, MinMax statOrLife) {
+        return placeRandom(types, where, isAllowed, amount, statOrLife, 0);
+    }
+    
+    /**
+     * Put a sprite at the exact given coordinates
+     */
+    public void putObj(SpriteInfo info, Coord position) {
+        chaosObjects.PutObj(info.type(), (short) info.subKind(), (short) info.statOrLife(), 
+                (short) position.x(), (short) position.y());
+    }
+    
+    public void putObj(SpriteInfo info, int px, int py) {
+        putObj(info, new Coord(px, py));
+    }
+    
+    /**
+     * Put a sprite at the given tile coordinate. It will be centered on the tile
+     */
     public void putBlockObj(SpriteInfo info, Coord position) {
         chaosObjects.PutBlockObj(info.type(), (short) info.subKind(), info.statOrLife(), 
                 (short) position.x(), (short) position.y());
+    }
+    
+    public void putBlockBonus(int tbType, Coord position) {
+        chaosObjects.PutBlockBonus(tbType, (short) position.x(), (short) position.y());
+    }
+    
+    /**
+     * Put a sprite at the given quarter-tile coordinate. It will be centered on the tile's quarter
+     * @param position tile coordinate
+     * @param quarter tile's quarter. Must be between (0, 0) and (1, 1) (inclusives)
+     */
+    public void putQuarterObj(SpriteInfo info, Coord position, Coord quarter) {
+        if (quarter.x() < 0 || quarter.y() < 0 || quarter.x() > 1 || quarter.y() > 1)
+            throw new IllegalArgumentException();
+        chaosObjects.PutFineObj(info.type(), (short) info.subKind(), info.statOrLife(), 
+                (short) position.x(), (short) position.y(), (short) quarter.x(), (short) quarter.y());
+    }
+    
+    public void putPlayer(int x, int y) {
+        chaosObjects.PutPlayer((short) x, (short) y);
+    }
+    
+    public void putExit(int x, int y) {
+        chaosObjects.PutExit((short) x, (short) y);
+    }
+    
+    public void putBubbleMaker(int stat, int x, int y) {
+        chaosObjects.PutBubbleMaker(stat, (short) x, (short) y);
+    }
+    
+    /**
+     * Put a sprite at approximately at the center of the given tile coordinate.
+     * <p>
+     * The exact location is randomly shifted from the tile's center
+     * @param position the tile coordinate
+     * @param maxShift the maximum random displacement in both x and y. It will be between <tt>-maxShift</tt>
+     * and <tt>maxShift</tt> (inclusives)
+     */
+    public void putBlockObjRandomShift(SpriteInfo info, Coord position, int maxShift) {
+        int dx = rnd.nextInt(maxShift * 2 + 1) - maxShift;
+        int dy = rnd.nextInt(maxShift * 2 + 1) - maxShift;
+        Coord location = new Coord(
+                position.x() * ChaosGraphics.BW + ChaosGraphics.BW / 2 + dx,
+                position.y() * ChaosGraphics.BH + ChaosGraphics.BH / 2 + dy);
+        putObj(info, location);
     }
     
     public int placeRandom(List<SpriteInfo> types, Rect where, Predicate<Coord> isAllowed, 
@@ -155,6 +226,10 @@ public class SpriteFiller {
     
     public int placeRandom(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount) {
         return placeRandom(List.of(type), where, isAllowed, nb(amount));
+    }
+    
+    public int placeRandomS(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount, int maxShift) {
+        return placeRandom(List.of(type), where, isAllowed, nb(amount), null, maxShift);
     }
     
     public int placeRandom(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount, int stat) {
@@ -178,6 +253,14 @@ public class SpriteFiller {
         }
     }
     
+    public int pLife(int multiplier) {
+        return chaosBase.pLife * multiplier;
+    }
+    
+    public int life(int base, int playerLifeMultiplier, int difficultyMultiplier) {
+        return base + chaosBase.pLife * playerLifeMultiplier + chaosBase.difficulty * difficultyMultiplier;
+    }
+    
     /**
      * Create a {@link MinMax} corresponding to a fixed number
      */
@@ -194,6 +277,22 @@ public class SpriteFiller {
     
     public Predicate<Coord> backgroundOrFalse() {
         return this::isBackgroundOrFalse;
+    }
+    
+    /**
+     * Predicate for choosing a background tile whose 4 neighbours are also background
+     */
+    public Predicate<Coord> background4() {
+        return (Coord coord) -> {
+            if (!isBackground(coord))
+                return false;
+            for (Coord delta : Coord.n4()) {
+                Coord n = coord.add(delta);
+                if (!isBackground(n))
+                    return false;
+            }
+            return true;
+        };
     }
     
     /**

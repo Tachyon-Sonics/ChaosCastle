@@ -43,12 +43,13 @@ public class Pond extends LevelBase {
         generator.removeDiagonalsMakeHole();
         generator.fillOval(32, 20, 36, 20, false);
         
-        chaosObjects.Clear((short) 100, (short) 90);
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) 99, (short) 89, (short) Forest1, (short) Forest7, 
-                chaosObjects.All_ref, chaosObjects.Rnd_ref);
+        LevelBuilder builder = new LevelBuilder(100, 90, rnd);
+        builder.fillRandom(0, 0, 100, 90, Forest1, Forest7, builder::anywhere, builder::randomly);
         generator.forHoles((Coord coord) -> {
-            chaosObjects.Put((short) coord.x(), (short) coord.y(), (short) Ground);
+            builder.put(coord, Ground);
         });
+        
+        SpriteFiller filler = new SpriteFiller(rnd);
         
         // Player: left-most position
         {
@@ -56,8 +57,8 @@ public class Pond extends LevelBase {
             playerLoop:
             while (x < 100) {
                 for (int y = 0; y < 60; y++) {
-                    if (chaosObjects.OnlyBackground((short) x, (short) y)) {
-                        chaosObjects.PutPlayer((short) x, (short) y);
+                    if (builder.isBackground(x, y)) {
+                        filler.putPlayer(x, y);
                         break playerLoop;
                     }
                 }
@@ -71,8 +72,8 @@ public class Pond extends LevelBase {
             exitLoop:
             while (x >= 0) {
                 for (int y = 59; y >= 0; y--) {
-                    if (chaosObjects.OnlyBackground((short) x, (short) y)) {
-                        chaosObjects.PutExit((short) x, (short) y);
+                    if (builder.isBackground(x, y)) {
+                        filler.putExit(x, y);
                         break exitLoop;
                     }
                 }
@@ -80,32 +81,48 @@ public class Pond extends LevelBase {
             }
         }
         
-        SpriteFiller filler = new SpriteFiller(rnd);
-        
         // Place stuff on corners and dead ends
         Rect topHalf = new Rect(1, 1, 98, 58);
-        List<SpriteInfo> items = List.of(
-                new SpriteInfo(Anims.ALIEN2, ChaosCreator.cNest),
-                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aCartoon, 0),
-                new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.m1.ordinal()),
-                new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.m2.ordinal()),
-                new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal()),
-                new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal()),
-                new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal()),
-                SpriteInfo.tbBonus(ChaosBonus.tbBullet)
-                );
-        int nbPlaced = filler.placeRandom(items, topHalf, (Coord coord) -> {
-            return isCorner(generator, coord, 7);
-        }, MinMax.value(20));
-        nbPlaced += filler.placeRandom(items, topHalf, (Coord coord) -> {
-            return isCorner(generator, coord, 6);
-        }, MinMax.value(30 - nbPlaced));
-        nbPlaced += filler.placeRandom(items, topHalf, (Coord coord) -> {
-            return isCorner(generator, coord, 5);
-        }, MinMax.value(35 - nbPlaced));
-        filler.placeRandom(items, topHalf, (Coord coord) -> {
-            return isCorner(generator, coord, 4);
-        }, MinMax.value(40 - nbPlaced));
+        {
+            List<SpriteInfo> items = List.of(
+                    new SpriteInfo(Anims.ALIEN2, ChaosCreator.cNest),
+                    new SpriteInfo(Anims.ALIEN1, ChaosAlien.aCartoon, 0)
+                    );
+            int nbPlaced = filler.placeRandom(items, topHalf, (Coord coord) -> {
+                return isCorner(generator, coord, 7);
+            }, MinMax.value(5));
+            nbPlaced += filler.placeRandom(items, topHalf, (Coord coord) -> {
+                return isCorner(generator, coord, 6);
+            }, MinMax.value(6 - nbPlaced));
+            nbPlaced += filler.placeRandom(items, topHalf, (Coord coord) -> {
+                return isCorner(generator, coord, 5);
+            }, MinMax.value(8 - nbPlaced));
+            filler.placeRandom(items, topHalf, (Coord coord) -> {
+                return isCorner(generator, coord, 4);
+            }, MinMax.value(10 - nbPlaced));
+        }
+        {
+            List<SpriteInfo> items = List.of(
+                    new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.m1.ordinal()),
+                    new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.m2.ordinal()),
+                    new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal()),
+                    new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal()),
+                    new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal()),
+                    SpriteInfo.tbBonus(ChaosBonus.tbBullet)
+                    );
+            int nbPlaced = filler.placeRandom(items, topHalf, (Coord coord) -> {
+                return isCorner(generator, coord, 7);
+            }, MinMax.value(15), null, 8);
+            nbPlaced += filler.placeRandom(items, topHalf, (Coord coord) -> {
+                return isCorner(generator, coord, 6);
+            }, MinMax.value(24 - nbPlaced), null, 8);
+            nbPlaced += filler.placeRandom(items, topHalf, (Coord coord) -> {
+                return isCorner(generator, coord, 5);
+            }, MinMax.value(27 - nbPlaced), null, 8);
+            filler.placeRandom(items, topHalf, (Coord coord) -> {
+                return isCorner(generator, coord, 4);
+            }, MinMax.value(30 - nbPlaced), null, 8);
+        }
         
         // Place circles with cross
         for (int k = 0; k < 8; k++) {
@@ -138,15 +155,15 @@ public class Pond extends LevelBase {
                     Coord target = coord.add(position);
                     if (rnd.nextInt(3) == 0) {
                         int type = leafTypes[rnd.nextInt(leafTypes.length)];
-                        chaosObjects.Put((short) target.x(), (short) target.y(), (short) type);
+                        builder.put(target, type);
                     } else {
-                        chaosObjects.Put((short) target.x(), (short) target.y(), (short) SimpleBlock);
+                        builder.put(target, SimpleBlock);
                     }
                 });
                 circle.forHoles((Coord coord) -> {
                     Coord target = coord.add(position);
                     if (surround.isWall(coord)) { // Ground2 for interior
-                        chaosObjects.Put((short) target.x(), (short) target.y(), (short) Ground2);
+                        builder.put(target, Ground2);
                     }
                 });
                 Coord center = position.add(size / 2, size / 2);
@@ -159,14 +176,14 @@ public class Pond extends LevelBase {
                 filler.backgroundDistance(3), (chaosBase.difficulty - 3) * 2);
         filler.placeRandom(new SpriteInfo(Anims.MACHINE, ChaosMachine.mCannon3), anywhere, 
                 filler.backgroundDistance(3), (chaosBase.difficulty - 2));
-        filler.placeRandom(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cFour, chaos1Zone.pLife3), anywhere, 
-                filler.background(), 15);
+        filler.placeRandomS(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cFour, chaos1Zone.pLife3), anywhere, 
+                filler.background(), 15, 8);
         filler.placeRandom(List.of(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doBubbleMaker)), anywhere,
                 filler.background8(), MinMax.value(15), new MinMax(0, 1));
         
-        Rect lastThird = new Rect(66, 1, 99 - 66, 58);
-        filler.placeRandom(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doSand), lastThird,
-                filler.background(), new MinMax(1, 20));
+        Rect lastFourth = new Rect(75, 1, 99 - 75, 58);
+        filler.placeRandom(List.of(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doSand)), lastFourth,
+                filler.background(), new MinMax(80, 120), null, 16);
         
         filler.placeRandom(
                 new SpriteInfo(Anims.ALIEN1, ChaosAlien.aPic, 0), 
@@ -174,6 +191,9 @@ public class Pond extends LevelBase {
         filler.placeRandom(
                 new SpriteInfo(Anims.ALIEN1, ChaosAlien.aPic, 1), 
                 anywhere, filler.wallToBackground(new Coord(-1, 0), 6), 3 + chaosBase.difficulty);
+        filler.placeRandom(
+                List.of(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doMirror, 1)),
+                anywhere, filler.background8(), new MinMax(10, 20), null, 8);
         
         filler.addOptions(anywhere, filler.background(), 0, 6, 0, 2, 15, 5, 5);
         
@@ -209,7 +229,7 @@ public class Pond extends LevelBase {
                     Coord center = where.add(shape.getWidth() / 2, shape.getHeight() / 2 - 1);
                     while (fullPond.isWall(center) && center.y() > 1) {
                         fullPond.setWall(center, false);
-                        chaosObjects.Put((short) center.x(), (short) center.y(), (short) linkTypes[k]);
+                        builder.put(center, linkTypes[k]);
                         center = center.add(0, -1);
                     }
                     
@@ -218,7 +238,7 @@ public class Pond extends LevelBase {
                     fullPond.drawShape(shape, where, false);
                     shape.forWalls((Coord coord) -> {
                         Coord target = coord.add(where);
-                        chaosObjects.Put((short) target.x(), (short) target.y(), (short) type);
+                        builder.put(target, type);
                     });
                     
                     // Add curiosities
@@ -228,10 +248,10 @@ public class Pond extends LevelBase {
                         filler.placeRandom(SpriteInfo.tbBonus(tbTypes[k]), curRect, filler.backgroundOrFalse(), 1);
                     }
                     List<SpriteInfo> infos = List.of(
-                            new SpriteInfo(Anims.ALIEN1, ChaosAlien.aBumper, chaos1Zone.pLife3),
-                            new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCreatorC, chaos1Zone.pLife3 + 40 + chaosBase.difficulty * 4),
-                            new SpriteInfo(Anims.ALIEN2, ChaosCreator.cQuad, chaos1Zone.pLife3),
-                            new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCreatorR, chaos1Zone.pLife3 + 40 + chaosBase.difficulty * 4),
+                            new SpriteInfo(Anims.ALIEN1, ChaosAlien.aBumper, filler.pLife(3)),
+                            new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCreatorC, filler.life(40, 3, 4)),
+                            new SpriteInfo(Anims.ALIEN2, ChaosCreator.cQuad, filler.pLife(3)),
+                            new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCreatorR, filler.life(40, 3, 4)),
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cNest),
                             new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal())
                             );
@@ -255,9 +275,9 @@ public class Pond extends LevelBase {
         for (int x = 0; x < 100; x++) {
             for (int y = 0; y < 20; y++) {
                 int r = y + rnd.nextInt(11) - 5; // 0 .. 24
-                if (r >= 0 && chaosObjects.OnlyWall((short) x, (short) (y + 70))) {
+                if (r >= 0 && builder.isWall(x, y + 70)) {
                     int index = r / 4; // 0 .. 6
-                    chaosObjects.Put((short) x, (short) (y + 70), (short) btTypes[index]);
+                    builder.put(x, y + 70, btTypes[index]);
                 }
             }
         }

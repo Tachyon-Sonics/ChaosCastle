@@ -61,13 +61,15 @@ public class Pipeline extends LevelBase {
         int[] path = brickMask.toTravel(rnd.nextLong(), true); // Each value: y * width + x
         
         // Fill background
-        chaosObjects.Clear((short) 120, (short) 120);
-        chaosObjects.Fill((short) 0, (short) 0, (short) (BmSize * 4), (short) (BmSize * 4), (short) SimpleBlock);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 120, (short) 120, chaosObjects.OnlyWall_ref, (short) Leaf1, (short) 100);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 120, (short) 120, chaosObjects.OnlyWall_ref, (short) Leaf2, (short) 100);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 120, (short) 120, chaosObjects.OnlyWall_ref, (short) Leaf3, (short) 100);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 120, (short) 120, chaosObjects.OnlyWall_ref, (short) Leaf4, (short) 10);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 120, (short) 120, chaosObjects.OnlyWall_ref, (short) RGBBlock, (short) 5);
+        LevelBuilder builder = new LevelBuilder(120, 120, rnd);
+        builder.fill(0, 0, BmSize * 4, BmSize * 4, SimpleBlock);
+        builder.putRandom(0, 0, 120, 120, builder::isWall, Leaf1, 100);
+        builder.putRandom(0, 0, 120, 120, builder::isWall, Leaf2, 100);
+        builder.putRandom(0, 0, 120, 120, builder::isWall, Leaf3, 100);
+        builder.putRandom(0, 0, 120, 120, builder::isWall, Leaf4, 10);
+        builder.putRandom(0, 0, 120, 120, builder::isWall, RGBBlock, 5);
+
+        SpriteFiller filler = new SpriteFiller(rnd);
 
         // Draw pipeline
         int prevSize = 0;
@@ -103,12 +105,12 @@ public class Pipeline extends LevelBase {
                 int sizeL = size / 2;
                 chaosGenerator.FillEllipse((short) (x - sizeL), (short) (y - sizeL), size, size, (short) Back2x2);
                 if (i == 1 && k == 0) {
-                    chaosObjects.PutPlayer((short) x, (short) y);
+                    filler.putPlayer(x, y);
                 } else if (i == path.length - 2 && k == nbSteps - 1) {
-                    chaosObjects.PutExit((short) x, (short) y);
+                    filler.putExit(x, y);
                 } else if ((i + 5) % 7 == 0 && k == 0) {
                     if (chaosBase.water) {
-                        chaosObjects.PutBubbleMaker(1, (short) x, (short) y);
+                        filler.putBubbleMaker(1, x, y);
                     }
                 }
             }
@@ -133,25 +135,24 @@ public class Pipeline extends LevelBase {
         }
         
         // Add aliens
-        SpriteFiller filler = new SpriteFiller(rnd);
-        filler.placeRandom(
-                new SpriteInfo(Anims.ALIEN2, ChaosCreator.cFour, chaos1Zone.pLife3),
-                new Rect(0, 0, 60, 60), filler.background(), 60);
-        filler.placeRandom(
-                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aDbOval, chaos1Zone.pLife3),
-                new Rect(0, 0, 60, 60), filler.background(), 20);
+        filler.placeRandomS(
+                new SpriteInfo(Anims.ALIEN2, ChaosCreator.cFour, filler.pLife(3)),
+                new Rect(0, 0, 60, 60), filler.background(), 60, 8);
+        filler.placeRandomS(
+                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aDbOval, filler.pLife(3)),
+                new Rect(0, 0, 60, 60), filler.background(), 30, 8);
         
-        filler.placeRandom(
-                new SpriteInfo(Anims.ALIEN2, ChaosCreator.cQuad, chaos1Zone.pLife3),
-                new Rect(60, 0, 60, 60), filler.background(), 10);
+        filler.placeRandomS(
+                new SpriteInfo(Anims.ALIEN2, ChaosCreator.cQuad, filler.pLife(3)),
+                new Rect(60, 0, 60, 60), filler.background(), 10, 8);
         
-        filler.placeRandom(
-                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aDiese, chaos1Zone.pLife3),
-                new Rect(0, 60, 60, 60), filler.background(), 10);
+        filler.placeRandomS(
+                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aDiese, filler.pLife(3)),
+                new Rect(0, 60, 60, 60), filler.background(), 15, 8);
 
-        filler.placeRandom(
-                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aColor, chaos1Zone.pLife3),
-                new Rect(60, 60, 60, 60), filler.background(), 20);
+        filler.placeRandomS(
+                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aColor, filler.life(2, 2, 2) + rnd.nextInt(10)),
+                new Rect(60, 60, 60, 60), filler.background(), 30, 8);
         
         Rect anywhere = new Rect(1, 1, 118, 118);
         filler.placeRandom(
@@ -159,7 +160,7 @@ public class Pipeline extends LevelBase {
                 anywhere, filler.background8(), filler.nb(12), filler.nb(1));
         filler.placeRandom(
                 List.of(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doFireMaker)), 
-                anywhere, filler.background8(), filler.nb(6), filler.nb(0));
+                anywhere, filler.background8(), filler.nb(8), filler.nb(0));
         filler.placeRandom(
                 List.of(new SpriteInfo(Anims.MACHINE, ChaosMachine.mCannon3)), 
                 anywhere, filler.background(), filler.nb(10));
@@ -171,7 +172,7 @@ public class Pipeline extends LevelBase {
                 new SpriteInfo(Anims.ALIEN1, ChaosAlien.aPic, 1), 
                 anywhere, filler.wallToBackground(new Coord(-1, 0), 6), 10);
         
-        chaos1Zone.AddOptions((short) 1, (short) 1, (short) 119, (short) 119, 0, 0, 1, 0, 0, 20, 5);
+        filler.addOptions(anywhere, filler.background(), 0, 0, 1, 0, 0, 20, 5);
         
         // Add isolated brickmaks holes with link
         nbAdded = 0;
@@ -200,7 +201,7 @@ public class Pipeline extends LevelBase {
 
                     // Aliens
                     List<SpriteInfo> types = List.of(
-                            new SpriteInfo(Anims.ALIEN2, ChaosCreator.cNest, chaos1Zone.pLife3),
+                            new SpriteInfo(Anims.ALIEN2, ChaosCreator.cNest, 0),
                             new SpriteInfo(Anims.ALIEN2, ChaosCreator.cAlienA, chaos1Zone.pLife2),
                             new SpriteInfo(Anims.ALIEN1, ChaosAlien.aFlame, chaosBase.pLife),
                             new SpriteInfo(Anims.ALIEN1, ChaosAlien.aTrefle, chaos1Zone.pLife2),

@@ -49,7 +49,7 @@ public class ChaosDObj {
     public static final int doSand = 4;
     public static final int doWind = 5;
     public static final int doBubble = 6;
-    public static final int doMirror = 7;
+    public static final int doMirror = 7; // stat 0 = square, 1 = losange
     public static final int doWindMaker = 8;
     public static final int doBubbleMaker = 9;
     public static final int doFireMaker = 10;
