@@ -11,7 +11,7 @@ public class SimplexNoise {
     private double[] frequencys;
     private double[] amplitudes;
 
-    private double persistence;
+    private final double persistence;
 
 
     public SimplexNoise(int largestFeature, double persistence, int seed) {

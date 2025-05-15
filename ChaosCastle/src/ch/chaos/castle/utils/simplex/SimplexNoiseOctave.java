@@ -20,14 +20,14 @@ import java.util.Random;
  */
 class SimplexNoiseOctave { // Simplex noise in 2D, 3D and 4D
 
-    public static int RANDOMSEED = 0;
-    private static int NUMBEROFSWAPS = 400;
+    public final static int RANDOMSEED = 0;
+    private final static int NUMBEROFSWAPS = 400;
 
-    private static Grad grad3[] = { new Grad(1, 1, 0), new Grad(-1, 1, 0), new Grad(1, -1, 0), new Grad(-1, -1, 0),
+    private final static Grad grad3[] = { new Grad(1, 1, 0), new Grad(-1, 1, 0), new Grad(1, -1, 0), new Grad(-1, -1, 0),
             new Grad(1, 0, 1), new Grad(-1, 0, 1), new Grad(1, 0, -1), new Grad(-1, 0, -1),
             new Grad(0, 1, 1), new Grad(0, -1, 1), new Grad(0, 1, -1), new Grad(0, -1, -1) };
 
-    private static Grad grad4[] = { new Grad(0, 1, 1, 1), new Grad(0, 1, 1, -1), new Grad(0, 1, -1, 1), new Grad(0, 1, -1, -1),
+    private final static Grad grad4[] = { new Grad(0, 1, 1, 1), new Grad(0, 1, 1, -1), new Grad(0, 1, -1, 1), new Grad(0, 1, -1, -1),
             new Grad(0, -1, 1, 1), new Grad(0, -1, 1, -1), new Grad(0, -1, -1, 1), new Grad(0, -1, -1, -1),
             new Grad(1, 0, 1, 1), new Grad(1, 0, 1, -1), new Grad(1, 0, -1, 1), new Grad(1, 0, -1, -1),
             new Grad(-1, 0, 1, 1), new Grad(-1, 0, 1, -1), new Grad(-1, 0, -1, 1), new Grad(-1, 0, -1, -1),
@@ -36,7 +36,7 @@ class SimplexNoiseOctave { // Simplex noise in 2D, 3D and 4D
             new Grad(1, 1, 1, 0), new Grad(1, 1, -1, 0), new Grad(1, -1, 1, 0), new Grad(1, -1, -1, 0),
             new Grad(-1, 1, 1, 0), new Grad(-1, 1, -1, 0), new Grad(-1, -1, 1, 0), new Grad(-1, -1, -1, 0) };
 
-    private static short p_supply[] = { 151, 160, 137, 91, 90, 15, // this contains all the numbers between 0 and 255, these are put in a random order depending
+    private final static short p_supply[] = { 151, 160, 137, 91, 90, 15, // this contains all the numbers between 0 and 255, these are put in a random order depending
                                                                    // upon the seed
             131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140, 36, 103, 30, 69, 142, 8, 99, 37, 240, 21, 10, 23,
             190, 6, 148, 247, 120, 234, 75, 0, 26, 197, 62, 94, 252, 219, 203, 117, 35, 11, 32, 57, 177, 33,
@@ -61,7 +61,7 @@ class SimplexNoiseOctave { // Simplex noise in 2D, 3D and 4D
     public SimplexNoiseOctave(int seed) {
         p = p_supply.clone();
 
-        if (seed == RANDOMSEED) { // TODO (0) review (and the whole class too)
+        if (seed == RANDOMSEED) {
             Random rand = new Random();
             seed = rand.nextInt();
         }
