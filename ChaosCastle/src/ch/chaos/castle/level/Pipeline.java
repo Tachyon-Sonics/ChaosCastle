@@ -151,8 +151,8 @@ public class Pipeline extends LevelBase {
                 new Rect(0, 60, 60, 60), filler.background(), 15, 8);
 
         filler.placeRandomS(
-                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aColor, filler.life(2, 2, 2) + rnd.nextInt(10)),
-                new Rect(60, 60, 60, 60), filler.background(), 30, 8);
+                new SpriteInfo(Anims.ALIEN1, ChaosAlien.aColor, 10),
+                new Rect(60, 60, 60, 60), filler.background(), 30, new MinMax(5, filler.life(10, 3, 2)), 8);
         
         Rect anywhere = new Rect(1, 1, 118, 118);
         filler.placeRandom(

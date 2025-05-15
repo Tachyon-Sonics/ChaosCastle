@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import ch.chaos.castle.ChaosAlien;
 import ch.chaos.castle.ChaosBase;
 import ch.chaos.castle.ChaosBase.Anims;
+import ch.chaos.castle.ChaosBase.GameStat;
 import ch.chaos.castle.ChaosCreator;
 import ch.chaos.castle.ChaosGraphics;
 import ch.chaos.castle.ChaosObjects;
@@ -232,6 +233,10 @@ public class SpriteFiller {
         return placeRandom(List.of(type), where, isAllowed, nb(amount), null, maxShift);
     }
     
+    public int placeRandomS(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount, MinMax stat, int maxShift) {
+        return placeRandom(List.of(type), where, isAllowed, nb(amount), stat, maxShift);
+    }
+    
     public int placeRandom(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount, int stat) {
         return placeRandom(List.of(type), where, isAllowed, nb(amount), nb(stat));
     }
@@ -245,6 +250,16 @@ public class SpriteFiller {
         addIfDiff(where, new SpriteInfo(Anims.ALIEN2, ChaosCreator.cPopUp, stat), isAllowed, 6, nbPopup);
         addIfDiff(where, new SpriteInfo(Anims.ALIEN1, ChaosAlien.aBig, stat), isAllowed, 7, nbBig);
         addIfDiff(where, new SpriteInfo(Anims.ALIEN1, ChaosAlien.aSquare, stat), isAllowed, 8, nbSquare);
+    }
+    
+    public void asNested(Runnable task) {
+        GameStat stat = chaosBase.gameStat;
+        chaosBase.gameStat = GameStat.Playing;
+        try {
+            task.run();
+        } finally {
+            chaosBase.gameStat = stat;
+        }
     }
     
     private void addIfDiff(Rect where, SpriteInfo sprite, Predicate<Coord> isAllowed, int minDiff, int amount) {

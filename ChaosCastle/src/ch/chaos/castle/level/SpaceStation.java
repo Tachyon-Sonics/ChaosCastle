@@ -84,13 +84,12 @@ public class SpaceStation extends LevelBase {
         // Cells Content
         for (int cx = 0; cx < Width; cx++) {
             for (int cy = 0; cy < Height; cy++) {
-                Rect cellRect = new Rect(cx * CellWidth + 1, cy * CellHeight + 1 + YOffset, CellWidth - 2, CellHeight - 2);
+                Rect cellRect = new Rect(cx * CellWidth + 1, cy * CellHeight + 1 + YOffset, CellWidth - 1, CellHeight - 1);
                 int type = rnd.nextInt(5);
-                // TODO (0) review, iterate on types and pick cell at random
                 if (type == 0) {
                     // Bonus
-                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), cellRect, filler.background(), new MinMax(1, 2));
-                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), cellRect, filler.background(), new MinMax(0, 1));
+                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), cellRect, filler.background(), new MinMax(2, 3));
+                    filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), cellRect, filler.background(), 1);
                 } else if (type == 1 || type == 2 || type == 3) {
                     // Aliens
                     List<SpriteInfo> aliens = List.of(
@@ -106,11 +105,17 @@ public class SpaceStation extends LevelBase {
                             );
                     int index = rnd.nextInt(aliens.size());
                     SpriteInfo alien = aliens.get(index);
-                    Predicate<Coord> isAllowed = filler.background();
-                    if (index < 3)
-                        isAllowed = filler.nearWall4();
-                    int amount = 4 + rnd.nextInt(12);
-                    filler.placeRandom(alien, cellRect, isAllowed, amount);
+                    MinMax stat = MinMax.value(alien.statOrLife());
+                    if (alien.type() == Anims.ALIEN1 && alien.subKind() == ChaosAlien.aKamikaze)
+                        stat = new MinMax(0, 3);
+                    else if (alien.type() == Anims.ALIEN1 && alien.subKind() == ChaosAlien.aColor)
+                        stat = new MinMax(filler.life(2, 3, 2), filler.life(2, 3, 2) + 10);
+                    Predicate<Coord> isAllowed = (index < 3 ? filler.nearWall4() : filler.background());
+                    int amount = 4 + rnd.nextInt(7);
+                    int nonNested = amount / 5 + 1;
+                    final MinMax stat0 = stat;
+                    filler.placeRandom(List.of(alien), cellRect, isAllowed, filler.nb(nonNested), stat);
+                    filler.asNested(() -> filler.placeRandom(List.of(alien), cellRect, isAllowed, filler.nb(amount - nonNested), stat0));
                 }
             }
         }
