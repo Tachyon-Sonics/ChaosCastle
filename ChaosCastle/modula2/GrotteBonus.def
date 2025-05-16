@@ -1,8 +1,0 @@
-DEFINITION MODULE GrotteBonus;
-
- FROM Memory IMPORT INT8;
-
-
- PROCEDURE BonusLevel(VAR ax, ay: INT8);
-
-END GrotteBonus.
