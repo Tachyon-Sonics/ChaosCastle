@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
 
 import ch.chaos.castle.utils.Coord;
+import ch.chaos.castle.utils.CoordDistance;
+import ch.chaos.castle.utils.CoordPairDistance;
 
 public class BinaryLevel {
 
@@ -280,83 +283,107 @@ public class BinaryLevel {
     }
     
     /**
-     * Get the two coordinates that are the farthest from each other
-     * @param rnd a random generator to pick ties
-     * @return an array of size 2 with the two coordinates
+     * Get all 8-distances from the given coordinate.
+     * <p>
+     * 8-distance means that, from a given cell, only the 8 directions (as reported by {@link Coord#n8}) 
+     * are considered. They use distances of 1.0 or 1.414213 only.
+     * <p>
+     * The resulting list is sorted by {@link CoordDistance#distance()}, ascending.
      */
-    public Coord[] computeFarthestCoords(Random rnd) {
-        List<Coord> floors = new ArrayList<>();
-        forHoles(floors::add);
-        
-        Coord bestCoord = null;
-        int bestDistance = 0;
-        for (Coord coord : floors) {
-            List<List<Coord>> distances = getDistancesFrom(coord);
-            int distance = distances.size();
-            if (distance > bestDistance || (distance == bestDistance && rnd.nextBoolean())) {
-                bestDistance = distance;
-                bestCoord = coord;
+    public List<CoordDistance> getDistances8From(Coord coord) {
+        List<CoordDistance> result = new ArrayList<>();
+        // Dijkstra shortest-path
+        Set<Coord> processed = new HashSet<>();
+        PriorityQueue<CoordDistance> toVisit = new PriorityQueue<>();
+        toVisit.add(new CoordDistance(coord, 0.0));
+        processed.add(coord);
+        while (!toVisit.isEmpty()) {
+            CoordDistance current = toVisit.poll();
+            result.add(current);
+            for (Coord delta : Coord.n8()) {
+                Coord next = current.coord().add(delta);
+                if (!isWall(next) && !processed.contains(next)) {
+                    double distance = (delta.x() == 0 || delta.y() == 0 ? 1.0 : 1.414213);
+                    processed.add(next);
+                    toVisit.add(new CoordDistance(next, current.distance() + distance));
+                }
             }
         }
-        
-        return new Coord[] { bestCoord, pickFarthestFrom(bestCoord, rnd) };
-    }
-    
-    static record CoordAndDist(Coord coord, int distance) {
-        
+        return result;
     }
     
     /**
-     * Guess the two coordinates that are the farthest from each other using random sampling.
-     * In general, 10 samples are sufficient to find the same result as {@link #computeFarthestCoords(Random)},
-     * but is much faster.
-     * @param nbSamples the number of random samples
+     * Get the two coordinates that are the farthest from each other, using only
+     * the 8 directions, as per {@link Coord#n8()}.
      */
-    public Coord[] guessFarthestCoords(Random rnd, int nbSamples) {
+    public CoordPairDistance computeFarthest8Coords() {
         List<Coord> floors = new ArrayList<>();
         forHoles(floors::add);
         
         Coord bestCoord1 = null;
         Coord bestCoord2 = null;
-        int bestDistance = 0;
+        double bestDistance = 0.0;
+        for (Coord coord : floors) {
+            List<CoordDistance> distances = getDistances8From(coord);
+            CoordDistance farthest = distances.get(distances.size() - 1);
+            double distance = farthest.distance();
+            if (distance > bestDistance) {
+                bestDistance = distance;
+                bestCoord1 = coord;
+                bestCoord2 = farthest.coord();
+            }
+        }
+        
+        return new CoordPairDistance(bestCoord1, bestCoord2, bestDistance);
+    }
+    
+    /**
+     * Guess the two coordinates that are the farthest from each other using random sampling.
+     * In general, 10 samples are sufficient to find the same result as {@link #computeFarthest8Coords()},
+     * but is much faster.
+     * @param nbSamples the number of random samples
+     */
+    public CoordPairDistance guessFarthest8Coords(Random rnd, int nbSamples) {
+        List<Coord> floors = new ArrayList<>();
+        forHoles(floors::add);
+        
+        Coord bestCoord1 = null;
+        Coord bestCoord2 = null;
+        double bestDistance = 0;
         for (int k = 0; k < nbSamples; k++) {
             // Pick a random starting coord
             Coord coord1 = floors.get(rnd.nextInt(floors.size()));
             
             // Find farthest coordinate from the starting point
-            CoordAndDist coord2Dist = pickFarthestFrom0(coord1, rnd);
+            CoordDistance coord2Dist = pickFarthest8From(coord1);
             while (true) {
                 // From the previous result, find the farthest coordinate again
-                CoordAndDist coord3Dist = pickFarthestFrom0(coord2Dist.coord(), rnd);
+                CoordDistance coord3Dist = pickFarthest8From(coord2Dist.coord());
                 if (coord2Dist.distance() >= coord3Dist.distance()) {
                     // Cannot make farther than coord1 and coord2
                     break;
                 }
                 
                 // coord2 to coord3 is farter than coord1 to coord2.
-                // Replace coord1, coord2 by coord2, coord3 and try again
+                // Replace (coord1, coord2) by (coord2, coord3) and try again
                 coord1 = coord2Dist.coord();
                 coord2Dist = coord3Dist;
             }
             
             // Check if we get a topscore
-            int distance = coord2Dist.distance();
+            double distance = coord2Dist.distance();
             if (distance > bestDistance) {
-                System.out.println("Iteration " + k + " new distance " + distance);
                 bestDistance = distance;
                 bestCoord1 = coord1;
                 bestCoord2 = coord2Dist.coord();
             }
         }
-        return new Coord[] { bestCoord1, bestCoord2 };
+        return new CoordPairDistance(bestCoord1, bestCoord2, bestDistance);
     }
     
-    private CoordAndDist pickFarthestFrom0(Coord coord, Random rnd) {
-        List<List<Coord>> distances = getDistancesFrom(coord);
-        int distance = distances.size();
-        List<Coord> candidates = distances.get(distances.size() - 1);
-        Coord result = candidates.get(rnd.nextInt(candidates.size()));
-        return new CoordAndDist(result, distance);
+    private CoordDistance pickFarthest8From(Coord coord) {
+        List<CoordDistance> distances = getDistances8From(coord);
+        return distances.get(distances.size() - 1);
     }
     
     public void invert() {

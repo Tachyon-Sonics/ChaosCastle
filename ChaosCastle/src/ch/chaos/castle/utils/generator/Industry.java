@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 import ch.chaos.castle.utils.Coord;
+import ch.chaos.castle.utils.CoordPairDistance;
 
 public class Industry extends BinaryLevel {
     
@@ -55,7 +56,7 @@ public class Industry extends BinaryLevel {
     }
     
     /**
-     * Whether the built level is acceptable. The criteria here is that we have non-walls
+     * Whether the built level is acceptable. The criteria here is that we have floors
      * in all directions: top, left, bottom and right
      */
     private boolean acceptable() {
@@ -195,6 +196,9 @@ public class Industry extends BinaryLevel {
         Coord max2 = distances.get(maxDist2).get(0);
         int bonusDist = distanceMap.get(max2);
         System.out.println("Bonus: " + max2.toShortString() + "; " + maxDist2 + " from bomb, " + bonusDist + " from start");
+        
+        CoordPairDistance cpd = industry.guessFarthest8Coords(new Random(), 10);
+        System.out.println("Farthest: " + cpd);
     }
 
 }
