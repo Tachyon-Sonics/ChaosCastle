@@ -80,7 +80,7 @@ public class VoidGenerator extends BinaryLevel {
                 placed++;
             }
         }
-        System.out.println("" + placed + " ellipses placed");
+//        System.out.println("" + placed + " ellipses placed");
         
         removeDiagonalsMakeHole();
         

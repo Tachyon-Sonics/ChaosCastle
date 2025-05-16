@@ -81,7 +81,7 @@ public class Pond extends LevelBase {
             }
         }
         
-        // Place stuff on corners and dead ends
+        // Place stuff on corners and dead ends TODO cartoon first, then nothing on top of them
         Rect topHalf = new Rect(1, 1, 98, 58);
         {
             List<SpriteInfo> items = List.of(
@@ -171,6 +171,7 @@ public class Pond extends LevelBase {
             }
         }
         
+        // TODO mirror first, then nothing on top of them
         Rect anywhere = new Rect(1, 1, 98, 58);
         filler.placeRandom(new SpriteInfo(Anims.MACHINE, ChaosMachine.mTurret), anywhere, 
                 filler.backgroundDistance(3), (chaosBase.difficulty - 3) * 2);
@@ -281,13 +282,6 @@ public class Pond extends LevelBase {
                 }
             }
         }
-        
-        /*
-         * TODO continue Pond with:
-         * - Review Sand: cluster with fine positioning around exit
-         * - Small items like money: add random fine positioning
-         * - review all
-         */
     }
     
     private boolean isCorner(BinaryLevel level, Coord coord, int minConsecutive) {
