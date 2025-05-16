@@ -822,34 +822,34 @@ public class ChaosInterface {
             chaosBase.file = files.OpenFile(fileName, EnumSet.of(AccessFlags.accessRead));
             checks.Warn(chaosBase.file == files.noFile, fileName, files.FileErrorMsg());
             if (chaosBase.file != files.noFile) {
-                LoadGame_Get(Runtime.asByteArray(id), ok);
+                LoadGame_Get(Runtime.asByteArray(id, 4), ok);
                 if (id.get() != ID) {
                     checks.Warn(true, Runtime.castToRef(languages.ADL("Invalid format"), String.class), fileName);
                 } else {
-                    LoadGame_Get(new Runtime.FieldRef<>(chaosBase::getScore, chaosBase::setScore).asByteArray(), ok);
-                    LoadGame_Get(Runtime.asByteArray(ch), ok);
+                    LoadGame_Get(new Runtime.FieldRef<>(chaosBase::getScore, chaosBase::setScore).asByteArray(4), ok);
+                    LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
                     chaosBase.pLife = (short) (char) ch.get();
                     LoadGame_RangeChk(chaosBase.pLife, (short) 1, (short) 239, ok);
                     chaosBase.pLife = (short) (chaosBase.pLife % 30);
-                    LoadGame_Get(Runtime.asByteArray(ch), ok);
+                    LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
                     chaosBase.nbDollar = (short) (char) ch.get();
                     LoadGame_RangeChk(chaosBase.nbDollar, (short) 0, (short) 200, ok);
-                    LoadGame_Get(Runtime.asByteArray(ch), ok);
+                    LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
                     chaosBase.nbSterling = (short) (char) ch.get();
                     LoadGame_RangeChk(chaosBase.nbSterling, (short) 0, (short) 200, ok);
-                    LoadGame_Get(Runtime.asByteArray(ch), ok);
+                    LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
                     chaosBase.powerCountDown = (short) ((char) ch.get() / 10);
                     chaosBase.difficulty = (char) ch.get() % 10;
                     if (chaosBase.difficulty == 0)
                         chaosBase.difficulty = 10;
-                    LoadGame_Get(Runtime.asByteArray(ch), ok);
+                    LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
                     chaosBase.specialStage = (short) (char) ch.get();
                     chaosBase.stages = (short) (chaosBase.specialStage % 6);
                     chaosBase.specialStage = (short) (chaosBase.specialStage / 6);
                     chaosBase.zone = Zone.Chaos;
                     for (int _z = 0; _z < Zone.values().length; _z++) {
                         z = Zone.values()[_z];
-                        LoadGame_Get(Runtime.asByteArray(ch), ok);
+                        LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
                         chaosBase.level[z.ordinal()] = (short) (char) ch.get();
                     }
                     if (chaosBase.level[Zone.Family.ordinal()] > 10) {
@@ -866,7 +866,7 @@ public class ChaosInterface {
                         w = Weapon.values()[_w];
                         { // WITH
                             ChaosBase.WeaponAttr _weaponAttr = chaosBase.weaponAttr[w.ordinal()];
-                            LoadGame_Get(Runtime.asByteArray(v), ok);
+                            LoadGame_Get(Runtime.asByteArray(v, 2), ok);
                             _weaponAttr.nbBullet = (short) (v.get() % 100);
                             v.set(v.get() / 100);
                             _weaponAttr.nbBomb = (short) (v.get() % 10);
@@ -874,7 +874,7 @@ public class ChaosInterface {
                             LoadGame_RangeChk(_weaponAttr.power, (short) 0, (short) 4, ok);
                         }
                     }
-                    LoadGame_Get(new Runtime.FieldRef<>(chaosBase::getGameSeed, chaosBase::setGameSeed).asByteArray(), ok);
+                    LoadGame_Get(new Runtime.FieldRef<>(chaosBase::getGameSeed, chaosBase::setGameSeed).asByteArray(4), ok);
                 }
                 files.CloseFile(new Runtime.FieldRef<>(chaosBase::getFile, chaosBase::setFile));
                 if ((chaosBase.gameStat != GameStat.Start) && (Refresh != null))
@@ -920,25 +920,25 @@ public class ChaosInterface {
             chaosBase.file = files.OpenFile(fileName, EnumSet.of(AccessFlags.accessWrite));
             checks.Warn(chaosBase.file == files.noFile, fileName, files.FileErrorMsg());
             if (chaosBase.file != files.noFile) {
-                SaveGame_Put(Runtime.toByteArray(id), ok);
-                SaveGame_Put(Runtime.toByteArray(chaosBase.score), ok);
+                SaveGame_Put(Runtime.toByteArray(id, 4), ok);
+                SaveGame_Put(Runtime.toByteArray(chaosBase.score, 4), ok);
                 ch = (char) chaosBase.pLife;
-                SaveGame_Put(Runtime.toByteArray(ch), ok);
+                SaveGame_Put(Runtime.toByteArray(ch, 1), ok);
                 ch = (char) chaosBase.nbDollar;
-                SaveGame_Put(Runtime.toByteArray(ch), ok);
+                SaveGame_Put(Runtime.toByteArray(ch, 1), ok);
                 ch = (char) chaosBase.nbSterling;
-                SaveGame_Put(Runtime.toByteArray(ch), ok);
+                SaveGame_Put(Runtime.toByteArray(ch, 1), ok);
                 ch = (char) (chaosBase.powerCountDown * 10 + chaosBase.difficulty % 10);
-                SaveGame_Put(Runtime.toByteArray(ch), ok);
+                SaveGame_Put(Runtime.toByteArray(ch, 1), ok);
                 ch = (char) (chaosBase.specialStage * 6 + chaosBase.stages);
-                SaveGame_Put(Runtime.toByteArray(ch), ok);
+                SaveGame_Put(Runtime.toByteArray(ch, 1), ok);
                 for (int _z = 0; _z < Zone.values().length; _z++) {
                     z = Zone.values()[_z];
                     if ((z == Zone.Family) && chaosBase.password)
                         ch = (char) (chaosBase.level[z.ordinal()] + 10);
                     else
                         ch = (char) chaosBase.level[z.ordinal()];
-                    SaveGame_Put(Runtime.toByteArray(ch), ok);
+                    SaveGame_Put(Runtime.toByteArray(ch, 1), ok);
                 }
                 for (int _w = 0; _w < Weapon.values().length; _w++) {
                     w = Weapon.values()[_w];
@@ -949,10 +949,10 @@ public class ChaosInterface {
                         v += _weaponAttr.nbBomb;
                         v = v * 100;
                         v += _weaponAttr.nbBullet;
-                        SaveGame_Put(Runtime.toByteArray(v), ok);
+                        SaveGame_Put(Runtime.toByteArray(v, 2), ok);
                     }
                 }
-                SaveGame_Put(Runtime.toByteArray(chaosBase.gameSeed), ok);
+                SaveGame_Put(Runtime.toByteArray(chaosBase.gameSeed, 4), ok);
                 files.CloseFile(new Runtime.FieldRef<>(chaosBase::getFile, chaosBase::setFile));
                 if ((chaosBase.gameStat != GameStat.Start) && (Refresh != null))
                     Refresh.run();
