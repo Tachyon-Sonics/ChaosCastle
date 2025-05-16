@@ -279,6 +279,86 @@ public class BinaryLevel {
         return candidates.get(index);
     }
     
+    /**
+     * Get the two coordinates that are the farthest from each other
+     * @param rnd a random generator to pick ties
+     * @return an array of size 2 with the two coordinates
+     */
+    public Coord[] computeFarthestCoords(Random rnd) {
+        List<Coord> floors = new ArrayList<>();
+        forHoles(floors::add);
+        
+        Coord bestCoord = null;
+        int bestDistance = 0;
+        for (Coord coord : floors) {
+            List<List<Coord>> distances = getDistancesFrom(coord);
+            int distance = distances.size();
+            if (distance > bestDistance || (distance == bestDistance && rnd.nextBoolean())) {
+                bestDistance = distance;
+                bestCoord = coord;
+            }
+        }
+        
+        return new Coord[] { bestCoord, pickFarthestFrom(bestCoord, rnd) };
+    }
+    
+    static record CoordAndDist(Coord coord, int distance) {
+        
+    }
+    
+    /**
+     * Guess the two coordinates that are the farthest from each other using random sampling.
+     * In general, 10 samples are sufficient to find the same result as {@link #computeFarthestCoords(Random)},
+     * but is much faster.
+     * @param nbSamples the number of random samples
+     */
+    public Coord[] guessFarthestCoords(Random rnd, int nbSamples) {
+        List<Coord> floors = new ArrayList<>();
+        forHoles(floors::add);
+        
+        Coord bestCoord1 = null;
+        Coord bestCoord2 = null;
+        int bestDistance = 0;
+        for (int k = 0; k < nbSamples; k++) {
+            // Pick a random starting coord
+            Coord coord1 = floors.get(rnd.nextInt(floors.size()));
+            
+            // Find farthest coordinate from the starting point
+            CoordAndDist coord2Dist = pickFarthestFrom0(coord1, rnd);
+            while (true) {
+                // From the previous result, find the farthest coordinate again
+                CoordAndDist coord3Dist = pickFarthestFrom0(coord2Dist.coord(), rnd);
+                if (coord2Dist.distance() >= coord3Dist.distance()) {
+                    // Cannot make farther than coord1 and coord2
+                    break;
+                }
+                
+                // coord2 to coord3 is farter than coord1 to coord2.
+                // Replace coord1, coord2 by coord2, coord3 and try again
+                coord1 = coord2Dist.coord();
+                coord2Dist = coord3Dist;
+            }
+            
+            // Check if we get a topscore
+            int distance = coord2Dist.distance();
+            if (distance > bestDistance) {
+                System.out.println("Iteration " + k + " new distance " + distance);
+                bestDistance = distance;
+                bestCoord1 = coord1;
+                bestCoord2 = coord2Dist.coord();
+            }
+        }
+        return new Coord[] { bestCoord1, bestCoord2 };
+    }
+    
+    private CoordAndDist pickFarthestFrom0(Coord coord, Random rnd) {
+        List<List<Coord>> distances = getDistancesFrom(coord);
+        int distance = distances.size();
+        List<Coord> candidates = distances.get(distances.size() - 1);
+        Coord result = candidates.get(rnd.nextInt(candidates.size()));
+        return new CoordAndDist(result, distance);
+    }
+    
     public void invert() {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
