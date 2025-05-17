@@ -1412,10 +1412,9 @@ public class ChaosActions {
         obj.midx = (obj.x + oldx) / 2;
         obj.midy = (obj.y + oldy) / 2;
     }
-
+    
     public void NextFrame() {
         chaosBase.step = 5; // FIXME (int) (clock.GetTime(time) - chaosBase.lasttime);
-//        System.out.println("Step: " + chaosBase.step);
         chaosBase.lasttime += chaosBase.step;
         if (chaosBase.step > 60)
             chaosBase.step = 60;

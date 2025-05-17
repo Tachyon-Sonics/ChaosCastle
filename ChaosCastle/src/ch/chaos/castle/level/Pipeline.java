@@ -116,7 +116,7 @@ public class Pipeline extends LevelBase {
             }
         }
 
-        // Add isolated brickmask bricks
+        // Add isolated brickmask bricks TODO (2) prevent putting on player or exit
         int nbAdded = 0;
         for (int k = 0; k < 10 + chaosBase.difficulty; k++) {
             for (int tries = 0; tries < 40; tries++) {

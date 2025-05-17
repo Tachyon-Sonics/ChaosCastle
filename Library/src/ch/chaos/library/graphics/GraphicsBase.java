@@ -13,6 +13,7 @@ import ch.chaos.library.Graphics;
 import ch.chaos.library.Graphics.GraphicsErr;
 import ch.chaos.library.Graphics.TextModes;
 import ch.chaos.library.Memory;
+import ch.chaos.library.utils.AccurateSleeper;
 import ch.chaos.library.utils.FpsStats;
 import ch.pitchtech.modula.runtime.Runtime;
 
@@ -26,6 +27,7 @@ public abstract class GraphicsBase implements IGraphics {
 
     private long refreshPeriod;
     private long lastRefresh = System.nanoTime();
+    private AccurateSleeper mrSandman = new AccurateSleeper();
 
 
     public GraphicsBase() {
@@ -124,14 +126,11 @@ public abstract class GraphicsBase implements IGraphics {
         long now = System.nanoTime();
         if (now < nextRefresh) {
             long sleepTime = nextRefresh - now;
-            try {
-                Thread.sleep(sleepTime / 1000000, (int) (sleepTime % 1000000));
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            mrSandman.sleep(sleepTime);
             lastRefresh = nextRefresh;
-        } else if (now < nextRefresh + refreshPeriod * 2) {
-            // Try to recover up to two missed frames
+//            System.out.println("Missed: " + ((System.nanoTime() - nextRefresh) / 1000) + " us");
+        } else if (now < nextRefresh + refreshPeriod) {
+            // Try to recover up to two missed frames // TODO check vsync in ExtendedBufferCapabilities
             lastRefresh = nextRefresh;
         } else {
             lastRefresh = now;
