@@ -118,7 +118,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
              * This is invoked continuously from the game loop, without any pause.
              * Hence we wait here for one frame since last call, based on the refresh rate.
              */
-            super.WaitTOF();
+            super.WaitTOF(); // TODO (2) try exchanging with below
 
             frameArea.switchArea();
         }
