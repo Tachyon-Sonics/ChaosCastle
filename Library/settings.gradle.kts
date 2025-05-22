@@ -14,4 +14,4 @@ rootProject.name = "Library"
 // include("lib")
 
 include(":Modula2-Runtime")
-project(":Modula2-Runtime").projectDir = File("../../Modula2-Runtime/Modula2-Runtime")
+project(":Modula2-Runtime").projectDir = File("../../Modula2Java17/Modula2-Runtime")
