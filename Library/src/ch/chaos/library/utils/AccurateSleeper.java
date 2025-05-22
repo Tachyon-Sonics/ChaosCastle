@@ -5,7 +5,7 @@ public class AccurateSleeper { // TODO (0) review, javadoc
     
     private final static int KEEP_MAX_FOR = 60;
     private final static double MAX_DECAY = 0.999; // About 50% after 600 frames, or 10 seconds
-    private final static double SECURITY = 1.5;
+    private final static double SECURITY = 1.2;
     
     private long curMax;
     private int countDown;
@@ -50,11 +50,13 @@ public class AccurateSleeper { // TODO (0) review, javadoc
             // Update statistics
             long drift = stop - sleep - start;
             if (drift > curMax) {
-//                System.out.println("New max: " + (drift / 1000) + "us, was " + (curMax / 1000) + "us; ratio: " + ((double) drift / (double) curMax));
+                if ((double) drift > (double) curMax * SECURITY)
+                    System.out.println("New max: " + (drift / 1000) + "us, was " + (curMax / 1000) + "us; ratio: " + ((double) drift / (double) curMax));
                 curMax = drift;
                 countDown = KEEP_MAX_FOR;
             } else if ((double) drift * SECURITY > curMax) {
                 // Stabilize here
+                curMax = (long) ((double) drift * SECURITY);
             } else if (countDown > 0) {
                 countDown--;
             } else {

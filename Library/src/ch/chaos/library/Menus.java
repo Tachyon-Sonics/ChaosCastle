@@ -35,7 +35,7 @@ import ch.chaos.library.Input.Event;
 import ch.pitchtech.modula.runtime.Runtime;
 import ch.pitchtech.modula.runtime.Runtime.IRef;
 
-public class Menus {
+public class Menus { // TODO (1) quit from system tray if game paused: review, should confirm using a detached JOptionPane
 
     private static Menus instance;
 

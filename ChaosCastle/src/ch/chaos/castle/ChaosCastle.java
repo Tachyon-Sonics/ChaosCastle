@@ -129,7 +129,7 @@ public class ChaosCastle {
         chaosBase.level[Zone.Special.ordinal()] = 2;
         chaosBase.specialStage = 5; // 5 bonus levels
         chaosBase.stages = 0; // PMM active
-        chaosBase.difficulty = 6;
+        chaosBase.difficulty = 4;
         chaosBase.pLife = 10;
         
         for (int _w = 0; _w < Weapon.values().length; _w++) {

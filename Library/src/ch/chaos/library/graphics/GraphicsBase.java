@@ -126,7 +126,7 @@ public abstract class GraphicsBase implements IGraphics {
         long now = System.nanoTime();
         if (now < nextRefresh) {
             long sleepTime = nextRefresh - now;
-            mrSandman.sleep(sleepTime);
+            mrSandman.sleep(sleepTime); // TODO (1) only if called from SwitchArea. Else regular sleep
             lastRefresh = nextRefresh;
 //            System.out.println("Missed: " + ((System.nanoTime() - nextRefresh) / 1000) + " us");
         } else if (now < nextRefresh + refreshPeriod) {

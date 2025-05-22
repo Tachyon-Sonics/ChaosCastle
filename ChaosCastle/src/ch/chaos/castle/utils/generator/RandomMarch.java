@@ -209,7 +209,7 @@ public class RandomMarch extends BinaryLevel {
     }
     
     public static void main(String[] args) {
-        RandomMarch march = new RandomMarch(80, 80, 1500, 200, 300, 80); // (200, 300) - (600, Inf) according to difficulty
+        RandomMarch march = new RandomMarch(80, 80, 2500, 600, Integer.MAX_VALUE, 80); // (200, 300) - (600, Inf) according to difficulty
         march.build();
         System.out.println(march);
         System.out.println("NB holes: " + march.getNbHoles());
