@@ -121,12 +121,20 @@ public abstract class GraphicsBase implements IGraphics {
 
     @Override
     public void WaitTOF() {
+        vsync(false);
+    }
+    
+    public void vsync(boolean accurateSleep) {
         long prev = lastRefresh;
         long nextRefresh = lastRefresh + refreshPeriod;
         long now = System.nanoTime();
         if (now < nextRefresh) {
             long sleepTime = nextRefresh - now;
-            mrSandman.sleep(sleepTime); // TODO (1) only if called from SwitchArea. Else regular sleep
+            if (accurateSleep) {
+                mrSandman.sleep(sleepTime);
+            } else {
+                AccurateSleeper.threadSleep(sleepTime);
+            }
             lastRefresh = nextRefresh;
 //            System.out.println("Missed: " + ((System.nanoTime() - nextRefresh) / 1000) + " us");
         } else if (now < nextRefresh + refreshPeriod) {
@@ -137,9 +145,11 @@ public abstract class GraphicsBase implements IGraphics {
         }
 
         // Update FPS stats
-        long elapsed = System.nanoTime() - prev;
-        double fps = 1000000000.0 / (double) elapsed;
-        FpsStats.instance(FpsStats.INTERNAL).accumulate(fps);
+        if (accurateSleep) {
+            long elapsed = System.nanoTime() - prev;
+            double fps = 1000000000.0 / (double) elapsed;
+            FpsStats.instance(FpsStats.INTERNAL).accumulate(fps);
+        }
     }
 
 }
