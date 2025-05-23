@@ -27,7 +27,7 @@ public class AccurateSleeper { // TODO (0) review, javadoc
         countDown = KEEP_MAX_FOR;
     }
     
-    private void threadSleep(long nano) {
+    public static void threadSleep(long nano) {
         try {
             Thread.sleep(nano / 1000000, (int) (nano % 1000000));
         } catch (InterruptedException ex) {
