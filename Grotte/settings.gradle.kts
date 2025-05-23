@@ -14,6 +14,6 @@ rootProject.name = "Grotte"
 // include("app")
 
 include(":Modula2-Runtime")
-project(":Modula2-Runtime").projectDir = File("../../Modula2-Runtime/Modula2-Runtime")
+project(":Modula2-Runtime").projectDir = File("../../Modula2Java17/Modula2-Runtime")
 include(":Library")
 project(":Library").projectDir = File("../../ChaosCastle/Library")
