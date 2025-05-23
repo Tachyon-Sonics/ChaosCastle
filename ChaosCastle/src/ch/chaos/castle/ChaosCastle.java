@@ -120,7 +120,7 @@ public class ChaosCastle {
     }
     
     void setupCheat() {
-        chaosBase.nbDollar = 100;
+        chaosBase.nbDollar = 150;
 //        chaosBase.nbSterling = 200;
         chaosBase.zone = Zone.Castle;
         chaosBase.level[Zone.Chaos.ordinal()] = 20;
@@ -129,7 +129,7 @@ public class ChaosCastle {
         chaosBase.level[Zone.Special.ordinal()] = 2;
         chaosBase.specialStage = 5; // 5 bonus levels
         chaosBase.stages = 0; // PMM active
-        chaosBase.difficulty = 4;
+        chaosBase.difficulty = 5;
         chaosBase.pLife = 10;
         
         for (int _w = 0; _w < Weapon.values().length; _w++) {
@@ -194,7 +194,7 @@ public class ChaosCastle {
                 if (chaosBase.zone == Zone.Chaos)
                     maxl = 100;
                 else if (chaosBase.zone == Zone.Castle)
-                    maxl = 24; // [NEW LEVELS]
+                    maxl = 30; // [NEW LEVELS]
                 else if (chaosBase.zone == Zone.Family)
                     maxl = 10;
                 else

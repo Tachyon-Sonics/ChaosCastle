@@ -26,12 +26,11 @@ public class Levels {
     
     public final static int SPACE_STATION = 21;
     public final static int PIPELINE = 22;
-    public final static int SILENT_VOID = 23;
-    public final static int POND = 24;
-    
-    public final static int SNOW_TRACK = 23;
-    public final static int CITY_PARK = 24;
-    public final static int TWILIGHT = 26;
+    public final static int TWILIGHT = 23;
+    public final static int SNOW_TRACK = 24;
+    public final static int CITY_PARK = 25;
+    public final static int SILENT_VOID = 26;
+    public final static int POND = 27;
     public final static int BIG_CAVERN = 28;
     public final static int INDUSTRY = 29;
     public final static int JUNKYARD = 30;

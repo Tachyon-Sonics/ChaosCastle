@@ -65,7 +65,6 @@ public class JunkYardGenerator extends BinaryLevel {
     }
     
     public static void main(String[] args) {
-        // TODO https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
         JunkYardGenerator yard = new JunkYardGenerator(80, 80);
         Random rnd = new Random();
         boolean success;

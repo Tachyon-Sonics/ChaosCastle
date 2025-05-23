@@ -4,29 +4,19 @@ import java.util.Random;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 
-import ch.chaos.castle.ChaosBase;
-import ch.chaos.castle.ChaosGraphics;
 import ch.chaos.castle.ChaosObjects;
 import ch.chaos.castle.utils.Coord;
 
 public class LevelBuilder {
     
-    private final int width;
-    private final int height;
     private final Random rnd;
 
     private final ChaosObjects chaosObjects;
-    private final ChaosBase chaosBase;
-    private final ChaosGraphics chaosGraphics;
 
     
     public LevelBuilder(int width, int height, Random rnd) {
-        this.width = width;
-        this.height = height;
         this.rnd = rnd;
         this.chaosObjects = ChaosObjects.instance();
-        this.chaosBase = ChaosBase.instance();
-        this.chaosGraphics = ChaosGraphics.instance();
         
         chaosObjects.Clear((short) width, (short) height);
     }

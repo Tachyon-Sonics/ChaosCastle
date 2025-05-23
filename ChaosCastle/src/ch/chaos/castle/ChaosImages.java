@@ -1021,7 +1021,12 @@ public class ChaosImages {
                     else
                         SetMetalPalette();
                 }
-                case Levels.SPACE_STATION -> SetMetalPalette();
+                case Levels.SPACE_STATION, Levels.TWILIGHT -> SetMetalPalette();
+                case Levels.SNOW_TRACK -> SetWinterPalette();
+                case Levels.CITY_PARK -> SetForestPalette();
+                case Levels.BIG_CAVERN -> SetGraveyardPalette();
+                case Levels.INDUSTRY -> SetFactoryPalette();
+                case Levels.JUNKYARD -> SetJunglePalette();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }
             lastCastleLevel = chaosBase.level[Zone.Castle.ordinal()];
@@ -1073,7 +1078,7 @@ public class ChaosImages {
                 case 1, 4 -> {
                     SetForestPalette();
                 }
-                case 2, 3, 5, 7, 10, 14, 16, 17, 19, 21, 22, 23, 24 -> {
+                case 2, 3, 5, 7, 10, 14, 16, 17, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 -> {
                     SetMetalPalette();
                 }
                 case 6 -> {

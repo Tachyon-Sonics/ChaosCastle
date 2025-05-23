@@ -549,11 +549,29 @@ public class ChaosScreens {
             case Levels.PIPELINE -> {
                 return Runtime.castToRef(languages.ADL("Pipeline"), String.class);
             }
+            case Levels.TWILIGHT -> {
+                return Runtime.castToRef(languages.ADL("Twilight"), String.class);
+            }
+            case Levels.SNOW_TRACK -> {
+                return Runtime.castToRef(languages.ADL("Snow Track"), String.class);
+            }
+            case Levels.CITY_PARK -> {
+                return Runtime.castToRef(languages.ADL("City Park"), String.class);
+            }
             case Levels.SILENT_VOID -> {
                 return Runtime.castToRef(languages.ADL("Silent Void"), String.class);
             }
             case Levels.POND -> {
-                return Runtime.castToRef(languages.ADL("Deep Pond"), String.class);
+                return Runtime.castToRef(languages.ADL("Pond"), String.class);
+            }
+            case Levels.BIG_CAVERN -> {
+                return Runtime.castToRef(languages.ADL("Big Cavern"), String.class);
+            }
+            case Levels.INDUSTRY -> {
+                return Runtime.castToRef(languages.ADL("Industry"), String.class);
+            }
+            case Levels.JUNKYARD -> {
+                return Runtime.castToRef(languages.ADL("Junkyard"), String.class);
             }
             default -> throw new RuntimeException("Unhandled CASE value " + level);
         }

@@ -1389,7 +1389,7 @@ public class ChaosPlayer {
                     if (EnumSet.of(Weapon.LASER, Weapon.BUBBLE, Weapon.FIRE).contains(w))
                         bombToAdd++;
                 }
-                bulletToAdd = (short) (bulletToAdd / chaosWeapon.GetBulletPrice(w));
+                bulletToAdd = (short) (bulletToAdd / chaosWeapon.GetBulletPrice(w)); // TODO division by zero if unattributed key??
                 AddToWeapon(player, w, new Runtime.FieldRef<>(this::getBulletToAdd, this::setBulletToAdd), new Runtime.FieldRef<>(this::getBombToAdd, this::setBombToAdd));
                 bulletToAdd = 0;
             }

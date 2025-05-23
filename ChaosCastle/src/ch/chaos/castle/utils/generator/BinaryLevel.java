@@ -61,6 +61,32 @@ public class BinaryLevel {
         return walls[x][y];
     }
     
+    /**
+     * @return whether this coord and all 8-neighbours are 'wall'
+     */
+    public boolean isIsolated8(Coord coord, boolean wall) {
+        if (isWall(coord) != wall)
+            return false;
+        for (Coord delta : Coord.n8()) {
+            if (isWall(coord.add(delta)) != wall)
+                return false;
+        }
+        return true;
+    }
+    
+    /**
+     * @return whether this coord and all 4-neighbours are 'wall'
+     */
+    public boolean isIsolated4(Coord coord, boolean wall) {
+        if (isWall(coord) != wall)
+            return false;
+        for (Coord delta : Coord.n4()) {
+            if (isWall(coord.add(delta)) != wall)
+                return false;
+        }
+        return true;
+    }
+    
     public void setWall(Coord coord, boolean wall) {
         setWall(coord.x(), coord.y(), wall);
     }
@@ -473,7 +499,7 @@ public class BinaryLevel {
         }
     }
     
-    protected boolean isOutside(Coord coord) {
+    public boolean isOutside(Coord coord) {
         return isOutside(coord.x(), coord.y());
     }
     

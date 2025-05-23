@@ -1,7 +1,9 @@
 package ch.chaos.castle.utils.generator;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import ch.chaos.castle.utils.Coord;
@@ -14,6 +16,8 @@ public class Park extends BinaryLevel {
     private final int maxRingSize;
     
     private List<Coord> exits = new ArrayList<>();
+    private Map<BinaryLevel, Coord> blobs = new LinkedHashMap<>();
+    private BinaryLevel interior;
     private Coord start;
 
     
@@ -27,6 +31,7 @@ public class Park extends BinaryLevel {
         this.maxSize = maxSize;
         this.minRingSize = minRingSize;
         this.maxRingSize = maxRingSize;
+        this.interior = new BinaryLevel(width, height);
     }
     
     public void build() {
@@ -99,6 +104,19 @@ public class Park extends BinaryLevel {
                 }
             }
         }
+        
+        blobs.put(blob, where);
+        
+        BinaryLevel blobCopy = blob.copy();
+        BinaryLevel blobOutside = new BinaryLevel(blob.getWidth(), blob.getHeight());
+        blobCopy.fillFlood(new Coord(0, 0), false, (coord) -> blobOutside.setWall(coord, true));
+        for (int x = 0; x < blobOutside.getWidth(); x++) {
+            for (int y = 0; y < blobOutside.getHeight(); y++) {
+                if (!blobOutside.isWall(x, y)) {
+                    interior.setWall(where.add(x, y), true);
+                }
+            }
+        }
     }
     
     @FunctionalInterface
@@ -127,10 +145,10 @@ public class Park extends BinaryLevel {
         for (int x = 0; x < blob.getWidth(); x++) {
             for (int y = 0; y < blob.getHeight(); y++) {
                 if (!blob.isWall(x, y)) {
+                    if (!isWall(where.add(x, y))) {
+                        return false; // Must touch, but not cross
+                    }
                     for (Coord delta : Coord.n4()) {
-                        if (!isWall(where.add(x, y))) {
-                            return false; // Must touch, but not cross
-                        }
                         Coord target = where.add(x, y).add(delta);
                         if (!isWall(target)) {
                             touch = true;
@@ -177,6 +195,17 @@ public class Park extends BinaryLevel {
     
     public Coord getStart() {
         return start;
+    }
+    
+    public Map<BinaryLevel, Coord> getBlobs() {
+        return blobs;
+    }
+    
+    /**
+     * Wall whenever inside a blob (including blob's center)
+     */
+    public BinaryLevel getInterior() {
+        return interior;
     }
 
     public static void main(String[] args) {

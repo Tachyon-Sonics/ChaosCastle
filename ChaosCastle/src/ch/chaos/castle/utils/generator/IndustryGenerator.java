@@ -8,13 +8,13 @@ import java.util.Random;
 import ch.chaos.castle.utils.Coord;
 import ch.chaos.castle.utils.CoordPairDistance;
 
-public class Industry extends BinaryLevel {
+public class IndustryGenerator extends BinaryLevel {
     
     private final int nbPipes;
     private final Random rnd = new Random();
     
     
-    public Industry(int width, int height, int nbPipes) {
+    public IndustryGenerator(int width, int height, int nbPipes) {
         super(width, height);
         this.nbPipes = nbPipes;
     }
@@ -180,7 +180,7 @@ public class Industry extends BinaryLevel {
     }
     
     public static void main(String[] args) {
-        Industry industry = new Industry(120, 120, 40);
+        IndustryGenerator industry = new IndustryGenerator(120, 120, 40);
         industry.build();
         System.out.println(industry.toString());
         

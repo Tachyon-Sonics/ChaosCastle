@@ -58,7 +58,7 @@ public class VoidGenerator extends BinaryLevel {
         }
         
         // Ellipses
-        int placed = 0;
+//        int placed = 0;
         for (int k = 0; k < nbEllipses; k++) {
             int w = minEllipseSize + rnd.nextInt(maxEllipseSize - minEllipseSize + 1);
             int h = minEllipseSize + rnd.nextInt(maxEllipseSize - minEllipseSize + 1);
@@ -77,7 +77,7 @@ public class VoidGenerator extends BinaryLevel {
                 BinaryLevel ellipseMask = new BinaryLevel(width, height);
                 ellipseMask.drawShape(ellipse, position.add(1, 1), true);
                 this.ellipses.add(ellipseMask);
-                placed++;
+//                placed++;
             }
         }
 //        System.out.println("" + placed + " ellipses placed");

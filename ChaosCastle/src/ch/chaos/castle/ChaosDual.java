@@ -360,7 +360,7 @@ public class ChaosDual {
                     chaosGraphics.dualSpeed = 8;
                     GrooveTrans();
                 }
-                case 3, 5, 10, 19, 21, 22, 23, 24 -> { // [NEW LEVELS]
+                case 3, 5, 10, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 -> { // [NEW LEVELS]
                     DrawStars();
                     chaosGraphics.dualSpeed = 8;
                 }
