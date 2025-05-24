@@ -38,7 +38,8 @@ public class BigCavern extends LevelBase {
         builder.put(center, Ground);
         filler.putExit(center.x(), center.y());
         
-        // Review
+        // Review, add color aliens too, real cartoons, drawers, etc
+        // Create clusters by choosing a random point and adding all points within a given distance
         Rect anywhere = new Rect(0, 0, cavern.getWidth(), cavern.getHeight());
         filler.placeRandom(List.of(
                 new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doCartoon, 0),
