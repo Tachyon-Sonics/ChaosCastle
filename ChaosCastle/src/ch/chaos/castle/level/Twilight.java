@@ -114,6 +114,7 @@ public class Twilight extends LevelBase {
             .amount(10 + chaosBase.difficulty)
             .place();
         
+        // TODO use Groove blocks instead of lights
         // TODO 2 hidden passage to stars zones, one with sleeper, other with bomb
         
         filler.addOptions(anywhere, reachable::isHole, 8, 10, 2, 0, 10, 5, 10);

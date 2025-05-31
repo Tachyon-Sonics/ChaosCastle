@@ -180,7 +180,7 @@ public class IndustryGenerator extends BinaryLevel {
     }
     
     public static void main(String[] args) {
-        IndustryGenerator industry = new IndustryGenerator(120, 120, 40);
+        IndustryGenerator industry = new IndustryGenerator(120, 120, 60);
         industry.build();
         System.out.println(industry.toString());
         

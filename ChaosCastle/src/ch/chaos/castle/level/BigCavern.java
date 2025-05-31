@@ -20,7 +20,7 @@ public class BigCavern extends LevelBase {
     
     public void build() {
         Random rnd = new Random();
-        BrickMask mask = BrickMask.buildBrickMask(rnd.nextLong(), 100, 100);
+        BrickMask mask = BrickMask.buildBrickMask(rnd.nextLong(), 100, 100); // TOSO size based on difficulty, maxed at 8 or 9
         BinaryLevel cavern = mask.toExtendedBinaryLevel();
         
         LevelBuilder builder = new LevelBuilder(cavern.getWidth(), cavern.getHeight(), rnd);

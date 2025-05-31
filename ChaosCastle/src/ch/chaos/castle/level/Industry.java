@@ -20,7 +20,7 @@ public class Industry extends LevelBase {
         chaos1Zone.rotate = false;
         
         Random rnd = new Random();
-        IndustryGenerator industry = new IndustryGenerator(120, 120, 40);
+        IndustryGenerator industry = new IndustryGenerator(120, 120, 60);
         industry.build();
         
         Coord start = new Coord(industry.getWidth() / 2, industry.getHeight() / 2);
