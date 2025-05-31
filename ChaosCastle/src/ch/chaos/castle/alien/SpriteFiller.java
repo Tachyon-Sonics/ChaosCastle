@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import ch.chaos.castle.ChaosAlien;
@@ -95,12 +96,13 @@ public class SpriteFiller {
      * @param types the sprite types. Each placed sprite is chosen among this list
      * @param where the rectangle in which to place sprites (tile-index-coordinates)
      * @param isAllowed predicate to check if placement is allowed on a given coordinate
+     * @param selector how to randomly pick from the given types, possibly based on coordinate
      * @param amount the number of sprites to place (a random amount is chosen between min and max)
      * @param statOrLife number of lives / stat of the placed sprites (a random amount is chosen between min and max). If
      * <tt>null</tt>, {@link SpriteInfo#statOrLife()} is used instead.
      * @param maxFineShift max random fine shift of coordinates
      */
-    public int placeRandom(List<SpriteInfo> types, Rect where, Predicate<Coord> isAllowed, 
+    public int placeRandom(List<SpriteInfo> types, Rect where, Predicate<Coord> isAllowed, Function<Coord, Integer> selector,
             MinMax amount, MinMax statOrLife, int maxFineShift) {
         // Build list of available coordinates
         List<Coord> availableCoords = new ArrayList<>();
@@ -127,27 +129,72 @@ public class SpriteFiller {
             result++;
             
             // Choose a random sprite type and lives
-            int typeIndex = types.size() == 1 ? 0 : rnd.nextInt(types.size());
+            int typeIndex = selector.apply(position);
             SpriteInfo info = types.get(typeIndex);
-            int pickStat = info.statOrLife();
-            if (statOrLife != null)
-                pickStat = statOrLife.pick(rnd);
-            
-            SpriteInfo toPlace = new SpriteInfo(info.type(), info.subKind(), pickStat);
-            
-            // Place it
-            if (maxFineShift == 0) {
-                putBlockObj(toPlace, position);
-            } else {
-                putBlockObjRandomShift(toPlace, position, maxFineShift);
+            if (!info.equals(SpriteInfo.NONE)) {
+                int pickStat = info.statOrLife();
+                if (statOrLife != null)
+                    pickStat = statOrLife.pick(rnd);
+                
+                SpriteInfo toPlace = new SpriteInfo(info.type(), info.subKind(), pickStat);
+                
+                // Place it
+                if (maxFineShift == 0) {
+                    putBlockObj(toPlace, position);
+                } else {
+                    putBlockObjRandomShift(toPlace, position, maxFineShift);
+                }
             }
         }
         return result;
     }
     
     public int placeRandom(List<SpriteInfo> types, Rect where, Predicate<Coord> isAllowed, 
+            MinMax amount, MinMax statOrLife, int maxFineShift) {
+        return placeRandom(types, where, isAllowed,
+                (coord) -> types.size() == 1 ? 0 : rnd.nextInt(types.size()),
+                amount, statOrLife, maxFineShift);
+    }
+    
+    public int placeRandom(List<SpriteInfo> types, Rect where, Predicate<Coord> isAllowed, 
             MinMax amount, MinMax statOrLife) {
         return placeRandom(types, where, isAllowed, amount, statOrLife, 0);
+    }
+    
+    public int placeRandom(List<SpriteInfo> types, Rect where, Predicate<Coord> isAllowed, 
+            MinMax amount) {
+        return placeRandom(types, where, isAllowed, amount, null);
+    }
+    
+    public int placeRandom(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, 
+            MinMax amount) {
+        return placeRandom(List.of(type), where, isAllowed, amount, null);
+    }
+    
+    public int placeRandom(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount) {
+        return placeRandom(List.of(type), where, isAllowed, nb(amount));
+    }
+    
+    public int placeRandomS(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount, int maxShift) {
+        return placeRandom(List.of(type), where, isAllowed, nb(amount), null, maxShift);
+    }
+    
+    public int placeRandomS(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount, MinMax stat, int maxShift) {
+        return placeRandom(List.of(type), where, isAllowed, nb(amount), stat, maxShift);
+    }
+    
+    public int placeRandom(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount, int stat) {
+        return placeRandom(List.of(type), where, isAllowed, nb(amount), nb(stat));
+    }
+    
+    /**
+     * Builder-pattern version of {@link #placeRandom(List, Rect, Predicate, Function, MinMax, MinMax, int)}.
+     * <p>
+     * Set the different arguments using the different methods of the returned object, and then invoke
+     * {@link RandomPlacer#place()}.
+     */
+    public RandomPlacer randomPlacer() {
+        return new RandomPlacer(rnd, this);
     }
     
     /**
@@ -213,32 +260,6 @@ public class SpriteFiller {
                 position.x() * ChaosGraphics.BW + ChaosGraphics.BW / 2 + dx,
                 position.y() * ChaosGraphics.BH + ChaosGraphics.BH / 2 + dy);
         putObj(info, location);
-    }
-    
-    public int placeRandom(List<SpriteInfo> types, Rect where, Predicate<Coord> isAllowed, 
-            MinMax amount) {
-        return placeRandom(types, where, isAllowed, amount, null);
-    }
-    
-    public int placeRandom(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, 
-            MinMax amount) {
-        return placeRandom(List.of(type), where, isAllowed, amount, null);
-    }
-    
-    public int placeRandom(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount) {
-        return placeRandom(List.of(type), where, isAllowed, nb(amount));
-    }
-    
-    public int placeRandomS(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount, int maxShift) {
-        return placeRandom(List.of(type), where, isAllowed, nb(amount), null, maxShift);
-    }
-    
-    public int placeRandomS(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount, MinMax stat, int maxShift) {
-        return placeRandom(List.of(type), where, isAllowed, nb(amount), stat, maxShift);
-    }
-    
-    public int placeRandom(SpriteInfo type, Rect where, Predicate<Coord> isAllowed, int amount, int stat) {
-        return placeRandom(List.of(type), where, isAllowed, nb(amount), nb(stat));
     }
     
     public void addOptions(Rect where, Predicate<Coord> isAllowed, int nbGrid, int nbBumper, int nbChief, int nbGhost, int nbPopup, int nbBig, int nbSquare) {
@@ -371,6 +392,31 @@ public class SpriteFiller {
         };
     }
     
+    private Predicate<Coord> line(Coord delta, int minLength, int maxLength) {
+        return (Coord coord) -> {
+            if (isWall(coord))
+                return false;
+            while (isBackground(coord)) {
+                coord = coord.add(delta.neg());
+            }
+            coord = coord.add(delta);
+            int length = 0;
+            while (isBackground(coord)) {
+                length++;
+                coord = coord.add(delta);
+            }
+            return length >= minLength && length <= maxLength;
+        };
+    }
+    
+    public Predicate<Coord> horizontalLine(int minLength, int maxLength) {
+        return line(new Coord(1, 0), minLength, maxLength);
+    }
+    
+    public Predicate<Coord> verticalLine(int minLength, int maxLength) {
+        return line(new Coord(0, 1), minLength, maxLength);
+    }
+    
     /**
      * Must be a wall in -direction, then background in direction for nb tiles
      */
@@ -419,6 +465,10 @@ public class SpriteFiller {
             return false;
         }
         return !chaosObjects.OnlyWall((short) coord.x(), (short) coord.y());
+    }
+    
+    private boolean isWall(Coord coord) {
+        return !isBackgroundOrFalse(coord);
     }
     
 }

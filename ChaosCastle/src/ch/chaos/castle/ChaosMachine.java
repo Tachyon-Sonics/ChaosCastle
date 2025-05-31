@@ -38,7 +38,7 @@ public class ChaosMachine {
 
     // CONST
 
-    public static final int mTraverse = 0;
+    public static final int mTraverse = 0; // stat=0 -> horizontal
     public static final int mCannon1 = 1; // Horizontal firing
     public static final int mCannon2 = 2; // Vertical firing
     public static final int mCannon3 = 3; // Brown, octogon

@@ -16,6 +16,15 @@ import ch.chaos.castle.ChaosCreator;
  */
 public record SpriteInfo(Anims type, int subKind, int statOrLife) {
     
+    /**
+     * Special value recognized by
+     * {@link SpriteFiller#placeRandom(java.util.List, ch.chaos.castle.utils.Rect, java.util.function.Predicate, java.util.function.Function, ch.chaos.castle.utils.MinMax, ch.chaos.castle.utils.MinMax, int)}
+     * meaning not to place anything. Usually used when supplying a list, some list item can be this value, especially when
+     * {@link SimplexRandomizer} is used,.
+     */
+    public final static SpriteInfo NONE = new SpriteInfo(null, 0, 0);
+    
+    
     private static final Map<Integer, Integer> ALIENS_KIND_STAT = Map.of(
             ChaosAlien.aCartoon, 2,
             ChaosAlien.aSmallDrawer, 0,

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.function.Predicate;
 
 public record Coord(int x, int y) {
     
@@ -98,4 +99,17 @@ public record Coord(int x, int y) {
         }
         return result.toString();
     }
+    
+    /**
+     * Predicate for coordinates that are at least at the given euclidean distance from this coordinate
+     */
+    public Predicate<Coord> atAtLeast(double minDistance) {
+        return (Coord coord) -> {
+            int dx = coord.x() - this.x();
+            int dy = coord.y() - this.y();
+            double distance = Math.sqrt(dx * dx + dy * dy);
+            return distance >= minDistance;
+        };
+    }
+    
 }

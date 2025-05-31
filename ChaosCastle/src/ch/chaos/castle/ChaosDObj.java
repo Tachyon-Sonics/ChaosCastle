@@ -53,8 +53,8 @@ public class ChaosDObj {
     public static final int doWindMaker = 8;
     public static final int doBubbleMaker = 9;
     public static final int doFireMaker = 10;
-    public static final int doFireWall = 11;
-    public static final int doWave = 12;
+    public static final int doFireWall = 11; // Yellow trap
+    public static final int doWave = 12; // Blue bubbles under water
 
 
     // VAR

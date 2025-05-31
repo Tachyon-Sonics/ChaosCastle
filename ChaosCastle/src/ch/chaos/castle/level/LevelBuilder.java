@@ -22,7 +22,7 @@ public class LevelBuilder {
     }
     
     /**
-     * Fill with random wall for floor tiles
+     * Fill with random wall or floor tiles
      * @param min tile value, inclusive
      * @param max tile value, inclusive
      * @param where where to fill, such as {@link #onlyWall()} or {@link #onlyBackground()}
@@ -34,6 +34,23 @@ public class LevelBuilder {
             for (int y = 0; y < height; y++) {
                 if (where.test(x + px, y + py)) {
                     int value = min + how.apply(max - min + 1);
+                    put(x + px, y + py, value);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Fill with random wall or floor tiles
+     * @param where where to fill, such as {@link #onlyWall()} or {@link #onlyBackground()}
+     * @param how random function based on Coordinate, returning the tile value
+     */
+    public void fillRandom(int px, int py, int width, int height, 
+            BiPredicate<Integer, Integer> where, Function<Coord, Integer> how) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (where.test(x + px, y + py)) {
+                    int value = how.apply(new Coord(x + px, y + py));
                     put(x + px, y + py, value);
                 }
             }

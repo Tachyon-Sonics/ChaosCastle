@@ -33,9 +33,10 @@ public class TwilightGenerator extends BinaryLevel {
         fillRect(0, 0, width, height, false);
         drawRect(0, 0, width, height, true);
         
+        int circleness = rnd.nextInt(8);
         int nbFailures = 0;
         while (nbFailures < 2) {
-            BinaryLevel blob = createBlob(rnd);
+            BinaryLevel blob = createBlob(rnd, circleness);
             boolean success = placeBlob(blob, rnd);
             if (success) {
                 nbFailures = 0;
@@ -89,13 +90,13 @@ public class TwilightGenerator extends BinaryLevel {
         return true;
     }
     
-    private BinaryLevel createBlob(Random rnd) {
+    private BinaryLevel createBlob(Random rnd, int circleness) {
         int itemSize = 3 + rnd.nextInt(5); // 3 .. 7
         int size = itemSize * 2;
         BinaryLevel blob = new BinaryLevel(size, size);
         int nbItems = 2 + rnd.nextInt(4); // 2 .. 5
         double angle = (double) rnd.nextInt(360) * Math.PI * 2.0 / 360.0;
-        boolean circle = rnd.nextBoolean();
+        boolean circle = rnd.nextInt(8) < circleness;
         double div = 4.0;
         if (nbItems == 2 && circle)
             div = 5.0;
@@ -185,11 +186,12 @@ public class TwilightGenerator extends BinaryLevel {
     }
 
     public static void main(String[] args) {
-        TwilightGenerator generator = new TwilightGenerator(120, 120);
+        TwilightGenerator generator = new TwilightGenerator(80, 80);
         generator.build(new Random());
-        System.out.println(generator);
+//        System.out.println(generator);
         System.out.println(generator.getReachable().toString());
         System.out.println("EXIT: " + generator.getExit().toShortString());
+        System.out.println("Size: " + generator.getReachable().getNbHoles());
     }
 
 }

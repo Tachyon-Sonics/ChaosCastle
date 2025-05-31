@@ -541,6 +541,18 @@ public class BinaryLevel {
         return result;
     }
     
+    public int getNbHoles() {
+        int result = 0;
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (!isWall(x, y)) {
+                    result++;
+                }
+            }
+        }
+        return result;
+    }
+    
     public void forWalls(Consumer<Coord> onWall) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
