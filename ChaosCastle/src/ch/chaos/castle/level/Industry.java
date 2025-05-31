@@ -54,7 +54,7 @@ public class Industry extends LevelBase {
         
         /*
          * Add side chambers, including hidden ones
-         * Darker palette than Factory
+         * Darker palette than Factory, violet color should be present
          */
     }
 

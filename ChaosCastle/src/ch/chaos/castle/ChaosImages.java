@@ -1021,7 +1021,8 @@ public class ChaosImages {
                     else
                         SetMetalPalette();
                 }
-                case Levels.SPACE_STATION, Levels.TWILIGHT -> SetMetalPalette();
+                case Levels.SPACE_STATION -> SetMetalPalette();
+                case Levels.TWILIGHT -> SetAnimatedPalette2();
                 case Levels.SNOW_TRACK -> SetWinterPalette();
                 case Levels.CITY_PARK -> SetForestPalette();
                 case Levels.BIG_CAVERN -> SetGraveyardPalette();

@@ -124,12 +124,12 @@ public class ChaosCastle {
 //        chaosBase.nbSterling = 200;
         chaosBase.zone = Zone.Castle;
         chaosBase.level[Zone.Chaos.ordinal()] = 20;
-        chaosBase.level[Zone.Castle.ordinal()] = Levels.SPACE_STATION;
+        chaosBase.level[Zone.Castle.ordinal()] = Levels.TWILIGHT;
         chaosBase.level[Zone.Family.ordinal()] = 5;
         chaosBase.level[Zone.Special.ordinal()] = 2;
         chaosBase.specialStage = 5; // 5 bonus levels
         chaosBase.stages = 0; // PMM active
-        chaosBase.difficulty = 5;
+        chaosBase.difficulty = 6;
         chaosBase.pLife = 10;
         
         for (int _w = 0; _w < Weapon.values().length; _w++) {

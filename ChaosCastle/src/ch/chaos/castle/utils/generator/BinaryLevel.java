@@ -49,6 +49,10 @@ public class BinaryLevel {
         return isWall(coord.x(), coord.y());
     }
     
+    public boolean isHole(Coord coord) {
+        return !isWall(coord);
+    }
+    
     public boolean isWall(int x, int y) {
         if (isOutside(x, y))
             return true;
@@ -522,6 +526,18 @@ public class BinaryLevel {
     public BinaryLevel copy() {
         BinaryLevel result = new BinaryLevel(width, height);
         result.drawShape(this, new Coord(0, 0), true);
+        return result;
+    }
+    
+    public int getNbWalls() {
+        int result = 0;
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (isWall(x, y)) {
+                    result++;
+                }
+            }
+        }
         return result;
     }
     
