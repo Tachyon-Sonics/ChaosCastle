@@ -8,6 +8,7 @@ import ch.chaos.castle.ChaosCreator;
 import ch.chaos.castle.alien.SpriteFiller;
 import ch.chaos.castle.alien.SpriteInfo;
 import ch.chaos.castle.utils.Coord;
+import ch.chaos.castle.utils.MinMax;
 import ch.chaos.castle.utils.Rect;
 import ch.chaos.castle.utils.generator.BinaryLevel;
 import ch.chaos.castle.utils.generator.Park;
@@ -55,8 +56,12 @@ public class CityPark extends LevelBase {
         
         Rect anywhere = new Rect(0, 0, blobs.getWidth(), blobs.getHeight());
         filler.placeRandom(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cNest), anywhere, filler.background(), 200);
+        filler.placeRandom(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cAlienA, filler.pLife(2)), anywhere, filler.background(), 50);
+        filler.placeRandom(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cAlienV, filler.pLife(2)), anywhere, filler.background(), 50);
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), anywhere, filler.background(), 30);
-        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), anywhere, filler.background(), 30);
+        filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), anywhere, filler.background(), 10);
+        filler.placeRandom(new SpriteInfo(Anims.BONUS, ChaosBonus.Money, ChaosBonus.Moneys.m5.ordinal()),
+                anywhere, filler.background(), MinMax.value(16)); // remove
         
         // Inside of blobs, interior, TODO after placing alien
         for (BinaryLevel blob : blobs.getBlobs().keySet()) {

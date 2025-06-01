@@ -30,7 +30,7 @@ public class Industry extends LevelBase {
         SpriteFiller filler = new SpriteFiller(rnd);
         
         builder.fillRandom(0, 0, industry.getWidth(), industry.getHeight(), EmptyBlock, Fact3Block, builder::anywhere, 
-                (range) -> expRandom(rnd, range));
+                (range) -> expRandom(rnd, range)); // TODO less exp random ad we approach diff 10
         industry.forHoles((Coord coord) -> {
             builder.put(coord, BackBig);
         });
@@ -51,10 +51,13 @@ public class Industry extends LevelBase {
                 ), anywhere, (coord) -> isLocalMaxDist(coord, builder, distMap), MinMax.value(20));
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), anywhere, filler.background(), 15);
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), anywhere, filler.background(), 15);
+        filler.placeRandom(new SpriteInfo(Anims.BONUS, ChaosBonus.Money, ChaosBonus.Moneys.m5.ordinal()),
+                anywhere, filler.background(), MinMax.value(10)); // remove
         
         /*
          * Add side chambers, including hidden ones
          * Darker palette than Factory, violet color should be present
+         * Background: based on distance8 / 5 from exit
          */
     }
 

@@ -40,6 +40,7 @@ public class BigCavern extends LevelBase {
         
         // Review, add color aliens too, real cartoons, drawers, etc
         // Create clusters by choosing a random point and adding all points within a given distance
+        // Walls: Simplex noise on 7 forest blocks + 7 times brick. Then random leafs on bricks
         Rect anywhere = new Rect(0, 0, cavern.getWidth(), cavern.getHeight());
         filler.placeRandom(List.of(
                 new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doCartoon, 0),
@@ -51,6 +52,8 @@ public class BigCavern extends LevelBase {
                 ), anywhere, filler.background(), MinMax.value(300));
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), anywhere, filler.background(), 15);
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), anywhere, filler.background(), 30);
+        filler.placeRandom(new SpriteInfo(Anims.BONUS, ChaosBonus.Money, ChaosBonus.Moneys.m5.ordinal()),
+                anywhere, filler.background(), MinMax.value(16)); // remove
         
         filler.addOptions(anywhere, filler.background(), 3, 3, 1, 20, 10, 40, 5);
     }

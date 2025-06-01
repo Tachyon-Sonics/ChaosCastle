@@ -54,6 +54,8 @@ public class SnowTrack extends LevelBase {
                 ), anywhere, filler.background(), MinMax.value(10));
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), anywhere, filler.background(), 15);
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), anywhere, filler.background(), 15);
+        filler.placeRandom(new SpriteInfo(Anims.BONUS, ChaosBonus.Money, ChaosBonus.Moneys.m5.ordinal()),
+                anywhere, filler.background(), MinMax.value(16)); // remove
         
         filler.addOptions(anywhere, filler.background(), 3, 40, 1, 5, 10, 10, 10);
     }

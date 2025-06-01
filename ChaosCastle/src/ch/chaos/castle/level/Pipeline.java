@@ -162,7 +162,7 @@ public class Pipeline extends LevelBase {
                 List.of(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doFireMaker)), 
                 anywhere, filler.background8(), filler.nb(8), filler.nb(0));
         filler.placeRandom(
-                List.of(new SpriteInfo(Anims.MACHINE, ChaosMachine.mCannon3)), 
+                List.of(new SpriteInfo(Anims.MACHINE, ChaosMachine.mCannon3)), // TODO put more with cFour + dbOval
                 anywhere, filler.background(), filler.nb(10));
         
         filler.placeRandom(

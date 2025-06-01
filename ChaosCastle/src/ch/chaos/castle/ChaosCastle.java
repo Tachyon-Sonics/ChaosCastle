@@ -1,5 +1,7 @@
 package ch.chaos.castle;
 
+import java.util.EnumSet;
+
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosBase.BasicTypes;
 import ch.chaos.castle.ChaosBase.GameStat;
@@ -134,6 +136,7 @@ public class ChaosCastle {
         
         for (int _w = 0; _w < Weapon.values().length; _w++) {
             Weapon w = Weapon.values()[_w];
+            if (EnumSet.of(Weapon.GUN, Weapon.FB, Weapon.BUBBLE, Weapon.GRENADE).contains(w))
             { // WITH
                 ChaosBase.WeaponAttr _weaponAttr = chaosBase.weaponAttr[w.ordinal()];
                 _weaponAttr.power = 4;
