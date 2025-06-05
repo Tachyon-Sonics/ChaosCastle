@@ -23,6 +23,8 @@ import ch.pitchtech.modula.runtime.Runtime;
 
 
 public class ChaosPlayer {
+    
+    private final static boolean FPS_60_MODE = false;
 
     // Imports
     private final ChaosActions chaosActions;
@@ -1401,8 +1403,8 @@ public class ChaosPlayer {
 
     private void MovePlayer0(ChaosBase.Obj player) {
         // CONST
-        final int SDSpeed = 2100;
-        final int DDSpeed = 1485;
+        final int SDSpeed = (FPS_60_MODE ? 2520 : 2100);
+        final int DDSpeed = (FPS_60_MODE ? 1782 : 1485);
         final Runtime.RangeSet N = new Runtime.RangeSet(Memory.SET16_r);
         final Runtime.RangeSet U = new Runtime.RangeSet(Memory.SET16_r).with(Input.JoyUp);
         final Runtime.RangeSet UL = new Runtime.RangeSet(Memory.SET16_r).with(Input.JoyUp, Input.JoyLeft);
