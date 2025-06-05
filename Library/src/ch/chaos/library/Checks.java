@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -56,7 +57,7 @@ public class Checks {
         if (badCase)
             throw new RuntimeException("CheckMem failed");
     }
-
+    
     public boolean Ask(Runtime.IRef<String> s1, Runtime.IRef<String> s2, Runtime.IRef<String> pos, Runtime.IRef<String> neg) {
         String message = s1.get();
         if (s2 != null && s2.get() != null)
@@ -69,7 +70,7 @@ public class Checks {
     private boolean ask(String message, String okText, String cancelText) {
         Async<Boolean> result = new Async<>();
         if (okText != null) {
-            if (isFullScreen()) {
+            if (isFullScreenActive()) {
                 SwingUtilities.invokeLater(() -> {
                     JOptionPane pane = new JOptionPane(message, JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
                     JButton okButton = new JButton(okText);
@@ -83,17 +84,20 @@ public class Checks {
                         result.submit(false);
                     });
                     pane.setOptions(new JComponent[] { okButton, cancelButton });
-                    FullScreenUtils.addFullScreenDialog(pane, "Question");
+                    FullScreenUtils.addFullScreenDialog(pane, Runtime.getAppNameOrDefault() + " - Question");
                 });
             } else {
                 SwingUtilities.invokeLater(() -> {
-                    int option = JOptionPane.showConfirmDialog(Dialogs.instance().getMainFrame(), message, "Question", JOptionPane.YES_NO_OPTION);
+                    int option = JOptionPane.showConfirmDialog(owner(), message, Runtime.getAppNameOrDefault() + " - Question",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            new ImageIcon(Dialogs.instance().getAppImage()));
                     boolean reply = (option == JOptionPane.YES_OPTION);
                     result.submit(reply);
                 });
             }
         } else {
-            if (isFullScreen()) {
+            if (isFullScreenActive()) {
                 SwingUtilities.invokeLater(() -> {
                     JOptionPane pane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
                     JButton closeButton = new JButton(cancelText);
@@ -102,11 +106,13 @@ public class Checks {
                         result.submit(false);
                     });
                     pane.setOptions(new JComponent[] { closeButton });
-                    FullScreenUtils.addFullScreenDialog(pane, "Information");
+                    FullScreenUtils.addFullScreenDialog(pane, Runtime.getAppNameOrDefault() + " - Information");
                 });
             } else {
                 SwingUtilities.invokeLater(() -> {
-                    JOptionPane.showMessageDialog(Dialogs.instance().getMainFrame(), message);
+                    JOptionPane.showMessageDialog(owner(), message, Runtime.getAppNameOrDefault() + " - Information",
+                            JOptionPane.INFORMATION_MESSAGE,
+                            new ImageIcon(Dialogs.instance().getAppImage()));
                     result.submit(false);
                 });
             }
@@ -114,13 +120,25 @@ public class Checks {
         return result.retrieve();
     }
     
-    private boolean isFullScreen() {
+    /**
+     * Whether we are in full-screen mode, and the full screen window is visible
+     */
+    private boolean isFullScreenActive() {
         if (!Graphics.FULL_SCREEN)
             return false;
         JFrame fullScreenFrame = Dialogs.instance().getMainFrame();
         if (fullScreenFrame == null || !fullScreenFrame.isVisible())
             return false;
+        if (!fullScreenFrame.isFocused())
+            return false;
         return true;
+    }
+    
+    private JFrame owner() {
+        JFrame result = Dialogs.instance().getMainFrame();
+        if (Graphics.FULL_SCREEN && !result.isFocused())
+            return null; // We are in full screen mode, but the user ALT-TABed to hide us
+        return result;
     }
 
     public void AddTermProc(Runnable proc) {
