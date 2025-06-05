@@ -113,7 +113,7 @@ public class Checks {
         }
         return result.retrieve();
     }
-
+    
     private boolean isFullScreen() {
         if (!Graphics.FULL_SCREEN)
             return false;
