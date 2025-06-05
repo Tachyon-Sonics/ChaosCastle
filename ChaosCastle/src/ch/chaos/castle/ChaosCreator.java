@@ -2134,7 +2134,7 @@ public class ChaosCreator {
             w = Weapon.values()[_w];
             bullets += chaosBase.weaponAttr[w.ordinal()].nbBullet;
         }
-        if (bullets < 130 + trigo.RND() % 256) {
+        if (bullets < 100 + trigo.RND() % 200) {
             chaosActions.GetCenter(nest, px, py);
             bonus = chaosActions.CreateObj(Anims.BONUS, (short) ChaosBonus.TimedBonus, px.get(), py.get(), ChaosBonus.tbBullet, 1);
         }
