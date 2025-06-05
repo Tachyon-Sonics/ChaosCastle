@@ -1974,10 +1974,12 @@ public class ChaosCreator {
 
     private void DieFour(ChaosBase.Obj four) {
         BoumMissile(four, false);
-        if (four.subKind == cQuad)
-            chaosBonus.BoumMoney(four, EnumSet.of(Moneys.st), 1, 1);
-        else
+        if (four.subKind == cQuad) {
+            if (!four.flags.contains(ObjFlags.nested))
+                chaosBonus.BoumMoney(four, EnumSet.of(Moneys.st), 1, 1);
+        } else {
             chaosBase.addpt++;
+        }
         chaosSounds.SoundEffect(four, dieFourEffect);
     }
 
