@@ -79,8 +79,16 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
         if (type == Graphics.atDISPLAY) {
             return new JFrameArea(width, height);
         } else if (type == Graphics.atBUFFER) {
-            JFrameArea frameArea = new JFrameArea(width, height);
             int nbColors = Memory.tagInt(tags, Graphics.aCOLOR, 16);
+            
+            { // Temporary: reject > 1 scale and 256 colors until implemented:
+                if (width > 320 || height > 240)
+                    return null;
+                if (nbColors > 16) {
+                    return null;
+                }
+            }
+            JFrameArea frameArea = new JFrameArea(width, height);
             DoubleBufferArea area = new DoubleBufferArea(this, width, height, nbColors, SCALE);
             frameArea.setupBuffer(area);
             this.nbScreenColor = nbColors;

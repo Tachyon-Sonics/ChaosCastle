@@ -382,6 +382,10 @@ class JFrameArea extends AreaBase implements AreaPtr {
 
     @Override
     public void close() {
+        Dialogs.instance().setMainFrame(null);
+        Dialogs.instance().setHideArea(null);
+        Dialogs.instance().setShowArea(null);
+
         if (g != null)
             g.dispose();
         frame.dispose();
