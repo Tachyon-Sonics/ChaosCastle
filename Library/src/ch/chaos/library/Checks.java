@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -65,10 +66,10 @@ public class Checks {
         return ask(message, okText, cancelText);
     }
 
-    private boolean ask(String message, String okText, String cancelText) { // TODO (3) does not work of Grotte (for instances 'Samples' missing) in Graphics.FULL_SCREEN because there is no MainFrame
+    private boolean ask(String message, String okText, String cancelText) {
         Async<Boolean> result = new Async<>();
         if (okText != null) {
-            if (Graphics.FULL_SCREEN) {
+            if (isFullScreen()) {
                 SwingUtilities.invokeLater(() -> {
                     JOptionPane pane = new JOptionPane(message, JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
                     JButton okButton = new JButton(okText);
@@ -92,7 +93,7 @@ public class Checks {
                 });
             }
         } else {
-            if (Graphics.FULL_SCREEN) {
+            if (isFullScreen()) {
                 SwingUtilities.invokeLater(() -> {
                     JOptionPane pane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
                     JButton closeButton = new JButton(cancelText);
@@ -111,6 +112,15 @@ public class Checks {
             }
         }
         return result.retrieve();
+    }
+    
+    private boolean isFullScreen() {
+        if (!Graphics.FULL_SCREEN)
+            return false;
+        JFrame fullScreenFrame = Dialogs.instance().getMainFrame();
+        if (fullScreenFrame == null || !fullScreenFrame.isVisible())
+            return false;
+        return true;
     }
 
     public void AddTermProc(Runnable proc) {
