@@ -1,6 +1,5 @@
 package ch.chaos.castle;
 
-import java.lang.Runnable;
 import java.util.EnumSet;
 
 import ch.chaos.castle.ChaosBase.GameStat;
@@ -859,7 +858,7 @@ public class ChaosInterface {
                         chaosBase.password = false;
                     }
                     LoadGame_RangeChk(chaosBase.level[Zone.Chaos.ordinal()], (short) 1, (short) 100, ok);
-                    LoadGame_RangeChk(chaosBase.level[Zone.Castle.ordinal()], (short) 1, (short) 20, ok);
+                    LoadGame_RangeChk(chaosBase.level[Zone.Castle.ordinal()], (short) 1, (short) 30, ok);
                     LoadGame_RangeChk(chaosBase.level[Zone.Family.ordinal()], (short) 1, (short) 10, ok);
                     LoadGame_RangeChk(chaosBase.level[Zone.Special.ordinal()], (short) 1, (short) 24, ok);
                     for (int _w = 0; _w < Weapon.values().length; _w++) {

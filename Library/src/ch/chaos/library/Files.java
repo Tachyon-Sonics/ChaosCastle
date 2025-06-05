@@ -162,7 +162,7 @@ public class Files {
                 }
                 chooser.addActionListener(e -> {
                     Integer reply = null;
-                    if (e.getActionCommand().equals(JFileChooser.APPROVE_SELECTION)) {
+                    if (e.getActionCommand().equals(JFileChooser.APPROVE_SELECTION)) { // TODO (2) confirm overwrite
                         reply = JFileChooser.APPROVE_OPTION;
                         chosenFile.set(chooser.getSelectedFile());
                     } else if (e.getActionCommand().equals(JFileChooser.CANCEL_SELECTION)) {
