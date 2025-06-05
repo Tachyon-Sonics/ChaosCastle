@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.EnumSet;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.JFileChooser;
@@ -113,6 +114,13 @@ public class Files {
         String fileName = Memory.tagString(tags, fNAME, null);
         String title = Memory.tagString(tags, fTEXT, "Open...");
         int flags = Memory.tagInt(tags, fFLAGS, 0);
+        boolean saveDialog = (flags & Files.afNEWFILE) != 0;
+
+        AtomicReference<java.io.File> chosenFile = new AtomicReference<>();
+        AtomicBoolean approved = new AtomicBoolean(false);
+        
+        while (!approved.get()) {
+            // Create file chooser
         try {
             SwingUtilities.invokeAndWait(() -> {
                 UIManager.put("FileChooser.readOnly", Boolean.TRUE);
@@ -150,11 +158,11 @@ public class Files {
             throw new RuntimeException(ex);
         }
 
-        AtomicReference<java.io.File> chosenFile = new AtomicReference<>();
+            // Display file chooser
         Async<Integer> result = new Async<>();
         if (Graphics.FULL_SCREEN) {
             SwingUtilities.invokeLater(() -> {
-                if ((flags & Files.afNEWFILE) != 0) {
+                    if (saveDialog) {
                     chooser.setDialogType(JFileChooser.SAVE_DIALOG);
                 } else {
                     chooser.setDialogType(JFileChooser.OPEN_DIALOG);
@@ -178,7 +186,7 @@ public class Files {
         } else {
             SwingUtilities.invokeLater(() -> {
                 int reply;
-                if ((flags & Files.afNEWFILE) != 0) {
+                    if (saveDialog) {
                     reply = chooser.showSaveDialog(Dialogs.instance().getMainFrame());
                 } else {
                     reply = chooser.showOpenDialog(Dialogs.instance().getMainFrame());
@@ -190,10 +198,31 @@ public class Files {
             });
         }
 
+            // Check for cancel
         int reply = result.retrieve();
         if (reply != JFileChooser.APPROVE_OPTION) {
             return null;
         }
+            
+            // Check for confirm overwrite
+            if (saveDialog) {
+                java.io.File file = chosenFile.get();
+                if (file.exists()) {
+                    // File already exists, ask for confirmation
+                    boolean overwrite = Checks.instance().ask(
+                            "File already exists. Overwrite?",
+                            "Yes", "No");
+                    if (overwrite) {
+                        approved.set(true);
+                    } // else, open file chooser again to choose another file, or to cancel
+                } else {
+                    approved.set(true);
+                }
+            } else {
+                approved.set(true); // No confirmation on load
+            }
+        } // while (!approved.get())
+        
         java.io.File file = chosenFile.get();
         return new Runtime.Ref<>(file.getPath());
     }
