@@ -1357,7 +1357,7 @@ IMPLEMENTATION MODULE ChaosCreator;
   FOR w:= MIN(Weapon) TO MAX(Weapon) DO
    INC(bullets, weaponAttr[w].nbBullet)
   END;
-  IF bullets < 130 + RND() MOD 256 THEN
+  IF bullets < 100 + RND() MOD 200 THEN
    GetCenter(nest, px, py);
    bonus:= CreateObj(BONUS, TimedBonus, px, py, tbBullet, 1)
   END;
