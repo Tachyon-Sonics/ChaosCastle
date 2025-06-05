@@ -1414,7 +1414,7 @@ public class ChaosActions {
     }
     
     public void NextFrame() {
-        chaosBase.step = 5; // FIXME (int) (clock.GetTime(time) - chaosBase.lasttime);
+        chaosBase.step = (int) (clock.GetTime(time) - chaosBase.lasttime);
         chaosBase.lasttime += chaosBase.step;
         if (chaosBase.step > 60)
             chaosBase.step = 60;
