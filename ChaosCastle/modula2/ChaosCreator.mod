@@ -1239,7 +1239,9 @@ IMPLEMENTATION MODULE ChaosCreator;
  BEGIN
   BoumMissile(four, FALSE);
   IF four^.subKind = cQuad THEN
-   BoumMoney(four, MoneySet{st}, 1, 1)
+   IF NOT(nested IN four^.flags) THEN
+    BoumMoney(four, MoneySet{st}, 1, 1)
+   END
   ELSE
    INC(addpt)
   END;
