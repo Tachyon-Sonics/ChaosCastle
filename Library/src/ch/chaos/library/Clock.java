@@ -69,6 +69,9 @@ public class Clock {
 
     private final List<Runnable> idleListeners = new ArrayList<>();
     private final PriorityQueue<Long> timeEvents = new PriorityQueue<>();
+    
+    private long vsyncTime;
+    private long vsyncExpiration;
 
 
     public void addIdleListener(Runnable listener) {
@@ -85,6 +88,28 @@ public class Clock {
 
     public void StartTime(TimePtr t) {
         ((Time) t).startTime = System.nanoTime();
+    }
+    
+    /**
+     * Forces the clock to the given value until the given expiration time.
+     * <p>
+     * Both values use the same time as {@link System#nanoTime()}.
+     * <p>
+     * This method can be used to replace usage of {@link System#nanoTime()}
+     * for a short period. See the caller for explanations.
+     * @param vsyncTime the clock value to use until the expiration time
+     * @param expires the expiration time until which the value must be used
+     */
+    public void setVsyncTime(long vsyncTime, long expires) {
+        this.vsyncTime = vsyncTime;
+        this.vsyncExpiration = expires;
+    }
+    
+    private long nanoTime() {
+        long result = System.nanoTime();
+        if (result < vsyncExpiration)
+            result = vsyncTime;
+        return result;
     }
 
     public boolean WaitTime(TimePtr t0, long delay) {
@@ -171,7 +196,7 @@ public class Clock {
 
     public long GetTime(TimePtr t0) {
         Time t = (Time) t0;
-        long elapsed = System.nanoTime() - t.startTime;
+        long elapsed = nanoTime() - t.startTime;
         return elapsed * t.period / 1000000000L;
     }
 

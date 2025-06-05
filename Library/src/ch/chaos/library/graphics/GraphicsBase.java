@@ -9,6 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.EnumSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import ch.chaos.library.Clock;
 import ch.chaos.library.Graphics;
 import ch.chaos.library.Graphics.GraphicsErr;
 import ch.chaos.library.Graphics.TextModes;
@@ -132,11 +133,26 @@ public abstract class GraphicsBase implements IGraphics {
             long sleepTime = nextRefresh - now;
             if (accurateSleep) {
                 mrSandman.sleep(sleepTime);
+                
+                /*
+                 * This fixes a design bug in the original ChaosCastle's code. In order to calculate how many
+                 * frames were missed, it queried the clock not after vsync, but while moving the player. This could
+                 * occur quite at any moment because there is no guarantee that the player is the first or last
+                 * sprite. Furthermore, it queries the value in 300 FPS units, potentially resulting in fractional
+                 * missed frames.
+                 * 
+                 * The result is that, on a 60 FPS system, even when no frame is missed, it will randomly get values
+                 * among {4, 5, 6} instead of constantly getting 5 (300 / 60 - the duration of a single frame).
+                 * 
+                 * To fix this bug, we "lock" the clock at vsync, so it will not change until the next
+                 * vsync (or until 3 missed vsync, for instance if no vsync occur - like level finished and
+                 * displaying the Shop).
+                 */
+                Clock.instance().setVsyncTime(nextRefresh, nextRefresh + refreshPeriod * 3);
             } else {
                 AccurateSleeper.threadSleep(sleepTime);
             }
             lastRefresh = nextRefresh;
-//            System.out.println("Missed: " + ((System.nanoTime() - nextRefresh) / 1000) + " us");
         } else if (now < nextRefresh + refreshPeriod) {
             // Try to recover up to two missed frames // TODO check vsync in ExtendedBufferCapabilities
             lastRefresh = nextRefresh;
