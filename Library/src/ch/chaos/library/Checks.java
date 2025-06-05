@@ -67,7 +67,7 @@ public class Checks {
         return ask(message, okText, cancelText);
     }
 
-    private boolean ask(String message, String okText, String cancelText) {
+    boolean ask(String message, String okText, String cancelText) {
         Async<Boolean> result = new Async<>();
         if (okText != null) {
             if (isFullScreenActive()) {
