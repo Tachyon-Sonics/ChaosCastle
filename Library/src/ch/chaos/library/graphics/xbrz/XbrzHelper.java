@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Help decompose scale factor greater than 6 into multiple scale factors.
+ * Help decompose scale factors greater than 6 into multiple scale factors.
  * <p>
- * Not all scale factor can be expressed. {@link #getNearestScale(int)} gives
+ * Not all scale factors can be expressed. {@link #getNearestScale(int)} gives
  * the highest scale factor that can be expressed and that is less than or equal
  * to the given one.
  */
