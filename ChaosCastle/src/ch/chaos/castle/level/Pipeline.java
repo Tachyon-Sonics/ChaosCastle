@@ -77,7 +77,7 @@ public class Pipeline extends LevelBase {
 
         // Draw pipeline
         int prevSize = 0;
-        int nextSize = 2 + rnd.nextInt(5);
+        int nextSize = 2 + rnd.nextInt(6);
         int sizeCount = 0;
         int sizeIndex = 0;
         for (int i = 1; i < path.length - 1; i++) {
