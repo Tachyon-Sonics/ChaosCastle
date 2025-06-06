@@ -2,15 +2,21 @@ package ch.chaos.tools;
 
 import java.io.DataInputStream;
 import java.io.EOFException;
+import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class DecodeObjects {
     
-    private final static Map<Character, String> ARGS = Map.of(
-            'C', "vvv", // Color, pen, pat
+    private final static String PLAIN_FILE = "src/Objects_plain.txt";
+    
+    
+    final static Map<Character, String> ARGS = Map.of(
+            'C', "vvv", // pen (color), pen (b&w), pat
             'P', "vv", // Pat, bpen
-            'X', "vv", // Color (light), Color (drak)
+            'X', "vv", // Color (light), Color (dark)
             'M', "v", // Copy/Trans/Xor
             'R', "cccc",
             'E', "cccc",
@@ -21,7 +27,9 @@ public class DecodeObjects {
     public static void main(String[] unused) throws Exception {
         InputStream input = DecodeObjects.class.getResourceAsStream("/Objects");
         DataInputStream dInput = new DataInputStream(input);
-        try (dInput) {
+        FileWriter writer0 = new FileWriter(PLAIN_FILE, StandardCharsets.ISO_8859_1);
+        PrintWriter writer = new PrintWriter(writer0);
+        try (dInput; writer) {
             boolean highx = false;
             boolean highy = false;
             boolean x = true;
@@ -48,7 +56,7 @@ public class DecodeObjects {
                 }
                 if (!ARGS.containsKey(ch))
                     throw new IllegalStateException("Unexpected char: " + ch);
-                System.out.print(ch + " ");
+                writer.print(ch + " ");
                 String args = ARGS.get(ch);
                 for (int k = 0; k < args.length(); k++) {
                     int arg = dInput.readByte() & 0xff;
@@ -62,19 +70,20 @@ public class DecodeObjects {
                         }
                         x = !x;
                     }
-                    System.out.print(arg + " ");
+                    writer.print(arg + " ");
                 }
                 if (ch == 'T') {
-                    System.out.print("\"");
+                    writer.print("\"");
                     for (int i = 0; i < 4; i++) {
-                        char txt = (char) dInput.readByte();
+                        int b = dInput.readByte() & 0xff;
+                        char txt = (char) b;
                         if (txt == '"')
                             break;
-                        System.out.print(txt);
+                        writer.print(txt);
                     }
-                    System.out.print("\"");
+                    writer.print("\"");
                 }
-                System.out.println();
+                writer.println();
             }
         }
     }
