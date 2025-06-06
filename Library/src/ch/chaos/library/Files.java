@@ -129,81 +129,81 @@ public class Files {
         
         while (!approved.get()) {
             // Create file chooser
-            try {
-                SwingUtilities.invokeAndWait(() -> {
-                    UIManager.put("FileChooser.readOnly", Boolean.TRUE);
-                    if (chooser == null) {
-                        chooser = new JFileChooser();
-                        chooser.setFileFilter(new FileFilter() {
+        try {
+            SwingUtilities.invokeAndWait(() -> {
+                UIManager.put("FileChooser.readOnly", Boolean.TRUE);
+                if (chooser == null) {
+                    chooser = new JFileChooser();
+                    chooser.setFileFilter(new FileFilter() {
 
-                            @Override
-                            public String getDescription() {
-                                return "Saved Items";
-                            }
-
-                            @Override
-                            public boolean accept(java.io.File f) {
-                                if (f.getName().startsWith("."))
-                                    return false;
-                                return true;
-                            }
-                        });
-                        chooser.setCurrentDirectory(appDataDirectory());
-                    }
-                    chooser.setDialogTitle(title);
-                    if (fileName != null && !fileName.isBlank()) {
-                        chooser.setSelectedFile(new java.io.File(fileName));
-                    }
-                });
-            } catch (InvocationTargetException | InterruptedException ex) {
-                throw new RuntimeException(ex);
-            }
-
-            // Display file chooser
-            Async<Integer> result = new Async<>();
-            if (Graphics.FULL_SCREEN) {
-                SwingUtilities.invokeLater(() -> {
-                    if (saveDialog) {
-                        chooser.setDialogType(JFileChooser.SAVE_DIALOG);
-                    } else {
-                        chooser.setDialogType(JFileChooser.OPEN_DIALOG);
-                    }
-                    chooser.addActionListener(e -> {
-                        Integer reply = null;
-                        if (e.getActionCommand().equals(JFileChooser.APPROVE_SELECTION)) {
-                            reply = JFileChooser.APPROVE_OPTION;
-                            chosenFile.set(chooser.getSelectedFile());
-                        } else if (e.getActionCommand().equals(JFileChooser.CANCEL_SELECTION)) {
-                            reply = JFileChooser.CANCEL_OPTION;
+                        @Override
+                        public String getDescription() {
+                            return "Saved Items";
                         }
-                        if (reply != null) {
-                            FullScreenUtils.removeFullScreenDialog(chooser);
-                            chooser = null;
-                            result.submit(reply);
+
+                        @Override
+                        public boolean accept(java.io.File f) {
+                            if (f.getName().startsWith("."))
+                                return false;
+                            return true;
                         }
                     });
-                    FullScreenUtils.addFullScreenDialog(chooser, title);
-                });
-            } else {
-                SwingUtilities.invokeLater(() -> {
-                    int reply;
+                    chooser.setCurrentDirectory(appDataDirectory());
+                }
+                chooser.setDialogTitle(title);
+                if (fileName != null && !fileName.isBlank()) {
+                    chooser.setSelectedFile(new java.io.File(fileName));
+                }
+            });
+        } catch (InvocationTargetException | InterruptedException ex) {
+            throw new RuntimeException(ex);
+        }
+
+            // Display file chooser
+        Async<Integer> result = new Async<>();
+        if (Graphics.FULL_SCREEN) {
+            SwingUtilities.invokeLater(() -> {
                     if (saveDialog) {
-                        reply = chooser.showSaveDialog(Dialogs.instance().getMainFrame());
-                    } else {
-                        reply = chooser.showOpenDialog(Dialogs.instance().getMainFrame());
-                    }
-                    if (reply == JFileChooser.APPROVE_OPTION) {
+                    chooser.setDialogType(JFileChooser.SAVE_DIALOG);
+                } else {
+                    chooser.setDialogType(JFileChooser.OPEN_DIALOG);
+                }
+                chooser.addActionListener(e -> {
+                    Integer reply = null;
+                    if (e.getActionCommand().equals(JFileChooser.APPROVE_SELECTION)) {
+                        reply = JFileChooser.APPROVE_OPTION;
                         chosenFile.set(chooser.getSelectedFile());
+                    } else if (e.getActionCommand().equals(JFileChooser.CANCEL_SELECTION)) {
+                        reply = JFileChooser.CANCEL_OPTION;
                     }
-                    result.submit(reply);
+                    if (reply != null) {
+                        FullScreenUtils.removeFullScreenDialog(chooser);
+                        chooser = null;
+                        result.submit(reply);
+                    }
                 });
-            }
-    
+                FullScreenUtils.addFullScreenDialog(chooser, title);
+            });
+        } else {
+            SwingUtilities.invokeLater(() -> {
+                int reply;
+                    if (saveDialog) {
+                    reply = chooser.showSaveDialog(Dialogs.instance().getMainFrame());
+                } else {
+                    reply = chooser.showOpenDialog(Dialogs.instance().getMainFrame());
+                }
+                if (reply == JFileChooser.APPROVE_OPTION) {
+                    chosenFile.set(chooser.getSelectedFile());
+                }
+                result.submit(reply);
+            });
+        }
+
             // Check for cancel
-            int reply = result.retrieve();
-            if (reply != JFileChooser.APPROVE_OPTION) {
-                return null;
-            }
+        int reply = result.retrieve();
+        if (reply != JFileChooser.APPROVE_OPTION) {
+            return null;
+        }
             
             // Check for confirm overwrite
             if (saveDialog) {
