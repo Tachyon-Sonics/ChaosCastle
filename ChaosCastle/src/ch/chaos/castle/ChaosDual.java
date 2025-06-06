@@ -1,6 +1,7 @@
 package ch.chaos.castle;
 
 import ch.chaos.castle.ChaosBase.Zone;
+import ch.chaos.castle.level.Levels;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
 
@@ -431,7 +432,10 @@ public class ChaosDual {
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }
         } else if (chaosBase.zone == Zone.Family) {
-            switch (chaosBase.level[Zone.Family.ordinal()]) {
+            int levelValue = chaosBase.level[Zone.Family.ordinal()];
+            if (Levels.ENABLE_NEW_LEVELS)
+                levelValue = Levels.NEW_FAMILY_LEVELS[levelValue];
+            switch (levelValue) {
                 case 1 -> {
                     DrawForest();
                     chaosGraphics.dualSpeed = 4;

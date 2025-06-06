@@ -26,6 +26,10 @@ import ch.chaos.castle.utils.generator.BrickMask;
 import ch.chaos.castle.utils.generator.MaskAt;
 
 public class Pipeline extends LevelBase {
+    
+    private Coord player;
+    private Coord exit;
+    
 
     public void build() {
         chaos1Zone.rotate = false;
@@ -73,7 +77,7 @@ public class Pipeline extends LevelBase {
 
         // Draw pipeline
         int prevSize = 0;
-        int nextSize = 2 + rnd.nextInt(6);
+        int nextSize = 2 + rnd.nextInt(5);
         int sizeCount = 0;
         int sizeIndex = 0;
         for (int i = 1; i < path.length - 1; i++) {
@@ -103,11 +107,17 @@ public class Pipeline extends LevelBase {
                 int y = (int) (dy + 0.5);
 
                 int sizeL = size / 2;
+                if (sizeL > x)
+                    sizeL = x;
+                if (sizeL > y)
+                    sizeL = y;
                 chaosGenerator.FillEllipse((short) (x - sizeL), (short) (y - sizeL), size, size, (short) Back2x2);
                 if (i == 1 && k == 0) {
                     filler.putPlayer(x, y);
+                    player = new Coord(x, y);
                 } else if (i == path.length - 2 && k == nbSteps - 1) {
                     filler.putExit(x, y);
+                    exit = new Coord(x, y);
                 } else if ((i + 5) % 7 == 0 && k == 0) {
                     if (chaosBase.water) {
                         filler.putBubbleMaker(1, x, y);
@@ -116,7 +126,7 @@ public class Pipeline extends LevelBase {
             }
         }
 
-        // Add isolated brickmask bricks TODO (2) prevent putting on player or exit
+        // Add isolated brickmask bricks
         int nbAdded = 0;
         for (int k = 0; k < 10 + chaosBase.difficulty; k++) {
             for (int tries = 0; tries < 40; tries++) {
@@ -140,7 +150,7 @@ public class Pipeline extends LevelBase {
                 new Rect(0, 0, 60, 60), filler.background(), 60, 8);
         filler.placeRandomS(
                 new SpriteInfo(Anims.ALIEN1, ChaosAlien.aDbOval, filler.pLife(3)),
-                new Rect(0, 0, 60, 60), filler.background(), 30, 8);
+                new Rect(0, 0, 60, 60), filler.background(), 40, 8);
         
         filler.placeRandomS(
                 new SpriteInfo(Anims.ALIEN2, ChaosCreator.cQuad, filler.pLife(3)),
@@ -162,8 +172,11 @@ public class Pipeline extends LevelBase {
                 List.of(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doFireMaker)), 
                 anywhere, filler.background8(), filler.nb(8), filler.nb(0));
         filler.placeRandom(
-                List.of(new SpriteInfo(Anims.MACHINE, ChaosMachine.mCannon3)), // TODO put more with cFour + dbOval
-                anywhere, filler.background(), filler.nb(10));
+                List.of(new SpriteInfo(Anims.MACHINE, ChaosMachine.mCannon3)),
+                new Rect(0, 0, 60, 60), filler.background(), filler.nb(15));
+        filler.placeRandom(
+                List.of(new SpriteInfo(Anims.MACHINE, ChaosMachine.mCannon3)),
+                anywhere, filler.background(), filler.nb(5));
         
         filler.placeRandom(
                 new SpriteInfo(Anims.ALIEN1, ChaosAlien.aPic, 0), 
@@ -250,6 +263,9 @@ public class Pipeline extends LevelBase {
             for (int x = 0; x < width; x++) {
                 if (brickMask.isBrick(x, y)) {
                     if (!isIsolated4(px + x, py + y, filter))
+                        return null;
+                    Coord coord = new Coord(x, y);
+                    if (coord.equals(player) || coord.equals(exit))
                         return null;
                 }
             }

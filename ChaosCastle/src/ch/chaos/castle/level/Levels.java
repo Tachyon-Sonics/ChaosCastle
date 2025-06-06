@@ -3,6 +3,8 @@ package ch.chaos.castle.level;
 
 public class Levels {
     
+    public final static boolean ENABLE_NEW_LEVELS = true;
+    
     public final static int ENTRY = 1;
     public final static int GROOVE = 2;
     public final static int GARDEN = 3;
@@ -34,6 +36,25 @@ public class Levels {
     public final static int POND = 28;
     public final static int INDUSTRY = 29;
     public final static int JUNKYARD = 30;
+    
+    public final static int BROTHER = 1;
+    public final static int SISTER = 2;
+    public final static int MOTHER = 3;
+    public final static int FATHER = 4;
+    public final static int KIDS = 5;
+    public final static int PARENTS = 6;
+    public final static int MASTER = 7;
+    public final static int ILLUSION = 8;
+    public final static int MASTERS = 9;
+    public final static int FINAL = 10;
+    
+    public final static int[] NEW_FAMILY_LEVELS = {
+            0,
+            BROTHER, SISTER, MOTHER, FATHER,
+            BROTHER, SISTER, MOTHER, FATHER, KIDS, PARENTS,
+            BROTHER, SISTER, MOTHER, FATHER, KIDS, PARENTS, MASTER, ILLUSION,
+            BROTHER, SISTER, MOTHER, FATHER, KIDS, PARENTS, MASTER, ILLUSION, MASTERS, FINAL
+    };
     
 
 }

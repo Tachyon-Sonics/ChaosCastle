@@ -31,6 +31,7 @@ import ch.chaos.castle.ChaosSmartBonus;
 import ch.chaos.castle.ChaosSounds;
 import ch.chaos.castle.ChaosStone;
 import ch.chaos.castle.ChaosWeapon;
+import ch.chaos.castle.level.Levels;
 import ch.chaos.library.Checks;
 import ch.chaos.library.Clock;
 import ch.chaos.library.Dialogs;
@@ -45,7 +46,12 @@ import ch.chaos.library.Sounds;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
 
-public class GameSimulator {
+public class GameSimulator { 
+    /*
+     *  TODO (3) create a GameStressTester: create many castle zones, many difficulties, check for problems
+     *  - max nbObjs
+     *  - exit reachable
+     */
     
     /*
 With all skull bonuses:
@@ -88,9 +94,12 @@ Special: 51
 
      */
     
-    private final static int NB_RUNS = 50; // # runs for averaging
+    final static boolean NEW_MODE = Levels.ENABLE_NEW_LEVELS;
+    
+    private final static int NB_RUNS = NEW_MODE ? 20 : 50; // # runs for averaging
     private final static boolean SKIP_FIRST_LABYRINTH_SKULL = false;
-    private final static boolean SKIP_SUBSEQUENT_LABYRINTH_SKULL = false; // Only take labyrinth's skull bonus once
+    private final static boolean SKIP_SUBSEQUENT_LABYRINTH_SKULL = true; // Only take labyrinth's skull bonus once
+    private final static boolean SKIP_BONUS_LEVELS = false;
     
     private final ChaosLevels chaosLevels = ChaosLevels.instance();
     private final ChaosBase chaosBase = ChaosBase.instance();
@@ -347,8 +356,8 @@ Special: 51
         // Next
         int maxLevels = switch(chaosBase.zone) {
             case Chaos -> 100;
-            case Castle -> 20;
-            case Family -> 10;
+            case Castle -> (chaosBase.difficulty >= 3 && NEW_MODE ? 30 : 20);
+            case Family -> NEW_MODE ? 28 : 10;
             case Special -> 24;
         };
         int z = chaosBase.zone.ordinal();
@@ -429,6 +438,9 @@ Special: 51
                 if (levelName.equals("Labyrinth") && chaosBase.difficulty == 1)
                     nbSkulls = 0; // Do not take it
             }
+            if (SKIP_BONUS_LEVELS) {
+                nbBonusLevels = 0;
+            }
             
             // Collect money and bonuses
             collectBonus();
@@ -453,6 +465,8 @@ Special: 51
             simulator.init();
             simulator.initVars();
             simulator.startSimulation();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         } finally {
             simulator.close();
         }

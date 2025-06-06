@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosBonus.Moneys;
+import ch.chaos.castle.level.Levels;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Trigo;
 import ch.pitchtech.modula.runtime.Runtime;
@@ -715,7 +716,7 @@ public class Chaos2Zone {
         chaosObjects.PutBlockBonus(ChaosBonus.tbDBSpeed, (short) 13, (short) 40);
         chaosObjects.PutBlockBonus(ChaosBonus.tbSGSpeed, x, (short) 56);
         chaosObjects.Fill((short) 1, (short) 48, (short) 13, (short) 48, (short) FalseBlock);
-        if ((chaosBase.difficulty >= 3) && (chaosBase.difficulty <= 7))
+        if ((chaosBase.difficulty >= 3) && (chaosBase.difficulty <= (Levels.ENABLE_NEW_LEVELS ? 5 : 7)))
             chaosObjects.PutBlockBonus(ChaosBonus.tbDifficulty, x, (short) 49);
         chaosObjects.Put(x, (short) 48, (short) Round4);
         val = (short) (trigo.RND() % 3 + ChaosBonus.tbMagnet);

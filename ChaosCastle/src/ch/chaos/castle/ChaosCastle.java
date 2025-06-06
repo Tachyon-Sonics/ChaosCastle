@@ -197,9 +197,9 @@ public class ChaosCastle {
                 if (chaosBase.zone == Zone.Chaos)
                     maxl = 100;
                 else if (chaosBase.zone == Zone.Castle)
-                    maxl = 30; // [NEW LEVELS]
+                    maxl = (short) (chaosBase.difficulty >= 3 && Levels.ENABLE_NEW_LEVELS ? 30 : 20);
                 else if (chaosBase.zone == Zone.Family)
-                    maxl = 10;
+                    maxl = Levels.ENABLE_NEW_LEVELS ? 28 : 10;
                 else
                     maxl = 24;
                 chaosBase.level[chaosBase.zone.ordinal()]++;

@@ -1032,7 +1032,10 @@ public class ChaosImages {
             }
             lastCastleLevel = chaosBase.level[Zone.Castle.ordinal()];
         } else if (chaosBase.zone == Zone.Family) {
-            switch (chaosBase.level[Zone.Family.ordinal()]) {
+            int levelValue = chaosBase.level[Zone.Family.ordinal()];
+            if (Levels.ENABLE_NEW_LEVELS)
+                levelValue = Levels.NEW_FAMILY_LEVELS[levelValue];
+            switch (levelValue) {
                 case 1, 2, 4, 6, 8, 9, 10 -> SetOrPalette();
                 case 3 -> SetMetalPalette();
                 case 5 -> SetBluePalette();
@@ -1127,7 +1130,10 @@ public class ChaosImages {
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }
         } else if (chaosBase.zone == Zone.Family) {
-            switch (chaosBase.level[Zone.Family.ordinal()]) {
+            int levelValue = chaosBase.level[Zone.Family.ordinal()];
+            if (Levels.ENABLE_NEW_LEVELS)
+                levelValue = Levels.NEW_FAMILY_LEVELS[levelValue];
+            switch (levelValue) {
                 case 3, 7, 8, 10 -> SetMetalPalette();
                 case 1, 2, 9 -> SetForestPalette();
                 case 4 -> SetGraveyardPalette();

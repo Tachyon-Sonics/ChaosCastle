@@ -24,8 +24,8 @@ public class TwilightGenerator extends BinaryLevel {
         boolean success;
         do {
             success = tryBuild(rnd);
-            if (!success)
-                System.out.println("Retry...");
+//            if (!success)
+//                System.out.println("Retry...");
         } while (!success);
     }
     

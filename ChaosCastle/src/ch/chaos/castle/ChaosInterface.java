@@ -6,6 +6,7 @@ import ch.chaos.castle.ChaosBase.GameStat;
 import ch.chaos.castle.ChaosBase.Weapon;
 import ch.chaos.castle.ChaosBase.Zone;
 import ch.chaos.castle.ChaosGraphics.Explosions;
+import ch.chaos.castle.level.Levels;
 import ch.chaos.library.Checks;
 import ch.chaos.library.Dialogs;
 import ch.chaos.library.Files;
@@ -157,7 +158,7 @@ public class ChaosInterface {
 
     private static final String ConfigFileName = "Config";
     private static final String TopScoreFileName = "TopScores";
-    private static final int ID = 1128482669;
+    private static final int ID = Levels.ENABLE_NEW_LEVELS ? 1128482670 : 1128482669;
 
 
     // VAR
@@ -851,15 +852,17 @@ public class ChaosInterface {
                         LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
                         chaosBase.level[z.ordinal()] = (short) (char) ch.get();
                     }
-                    if (chaosBase.level[Zone.Family.ordinal()] > 10) {
-                        chaosBase.level[Zone.Family.ordinal()] -= 10;
+                    if (chaosBase.level[Zone.Family.ordinal()] > (Levels.ENABLE_NEW_LEVELS ? 50 : 10)) {
+                        chaosBase.level[Zone.Family.ordinal()] -= (Levels.ENABLE_NEW_LEVELS ? 50 : 10);
                         chaosBase.password = true;
                     } else {
                         chaosBase.password = false;
                     }
                     LoadGame_RangeChk(chaosBase.level[Zone.Chaos.ordinal()], (short) 1, (short) 100, ok);
-                    LoadGame_RangeChk(chaosBase.level[Zone.Castle.ordinal()], (short) 1, (short) 30, ok);
-                    LoadGame_RangeChk(chaosBase.level[Zone.Family.ordinal()], (short) 1, (short) 10, ok);
+                    LoadGame_RangeChk(chaosBase.level[Zone.Castle.ordinal()], (short) 1, 
+                            (short) (Levels.ENABLE_NEW_LEVELS ? 30 : 20), ok);
+                    LoadGame_RangeChk(chaosBase.level[Zone.Family.ordinal()], (short) 1, 
+                            (short) (Levels.ENABLE_NEW_LEVELS ? 10 : 38), ok);
                     LoadGame_RangeChk(chaosBase.level[Zone.Special.ordinal()], (short) 1, (short) 24, ok);
                     for (int _w = 0; _w < Weapon.values().length; _w++) {
                         w = Weapon.values()[_w];
@@ -934,7 +937,7 @@ public class ChaosInterface {
                 for (int _z = 0; _z < Zone.values().length; _z++) {
                     z = Zone.values()[_z];
                     if ((z == Zone.Family) && chaosBase.password)
-                        ch = (char) (chaosBase.level[z.ordinal()] + 10);
+                        ch = (char) (chaosBase.level[z.ordinal()] + (Levels.ENABLE_NEW_LEVELS ? 50 : 10));
                     else
                         ch = (char) chaosBase.level[z.ordinal()];
                     SaveGame_Put(Runtime.toByteArray(ch, 1), ok);

@@ -35,7 +35,7 @@ public class IndustryGenerator extends BinaryLevel {
     }
     
     public void tryBuild() {
-        System.out.println("Try build");
+//        System.out.println("Try build");
         // Initial: 5x5 empty place at the center
         int cx = width / 2;
         int cy = height / 2;
