@@ -37,6 +37,7 @@ import ch.pitchtech.modula.runtime.Runtime.IRef;
 public class GraphicsIndexedColorImpl extends GraphicsBase {
 
     private final static int SCALE = Graphics.SCALE;
+    private final static boolean CIRCULAR_XBRZ = true;
 
     int nbScreenColor;
     byte[] rScreenPalette;
@@ -447,7 +448,11 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
             int nbColors = bufferArea.getNbColors();
             if (nbColors == 16) {
                 if (Graphics.SCALE_XBRZ && Graphics.SCALE != 1) {
-                    scaleXbrz16(imageInfo, sx, sy, dx, dy, width, height, bufferArea);
+                    if (CIRCULAR_XBRZ) {
+                        scaleXbrz16Circular(imageInfo, sx, sy, dx, dy, width, height, bufferArea);
+                    } else {
+                        scaleXbrz16(imageInfo, sx, sy, dx, dy, width, height, bufferArea);
+                    }
                 } else {
                     scaleCubic16(imageInfo, sx, sy, dx, dy, width, height, bufferArea);
                 }
@@ -459,7 +464,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
         }
     }
 
-    private void scaleXbrz16(Graphics.Image imageInfo, short sx, short sy, 
+    void scaleXbrz16(Graphics.Image imageInfo, short sx, short sy, 
             short dx, short dy, short width, short height, MemoryArea bufferArea) {
         final int Scale = Graphics.SCALE;
         
@@ -511,6 +516,80 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
         g2 = dstImage.createGraphics();
         g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
         g2.drawImage(scaled, dx * Scale, dy * Scale, null);
+        g2.dispose();
+    }
+    
+    
+    private final static int CIRCULAR_PAD = 4;
+    
+    void scaleXbrz16Circular(Graphics.Image imageInfo, short sx, short sy, 
+            short dx, short dy, short width, short height, MemoryArea bufferArea) {
+        final int Scale = Graphics.SCALE;
+        
+        // Extract block to scale into an RGB image
+        int extWidth = width + CIRCULAR_PAD * 2;
+        int extHeight = height + CIRCULAR_PAD * 2;
+        BufferedImage srcImage = new BufferedImage(extWidth, extHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = srcImage.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+        short[] pixData = (short[]) imageInfo.data;
+        // Every short is actually two 4-bit pixels...
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                short value = pixData[((y + sy) * width + (x + sx)) / 2];
+                int pen = ((x % 2 == 0) ? value >>> 4 : value & 0xf);
+                g2.setColor(bufferArea.getColor(pen));
+                int px = x + CIRCULAR_PAD - width;
+                while (px < extWidth) {
+                    int py = y + CIRCULAR_PAD - height;
+                    while (py < extHeight) {
+                        if (px >= 0 && py >= 0)
+                            g2.fillRect(px, py, 1, 1);
+                        py += height;
+                    }
+                    px += width;
+                }
+            }
+        }
+        g2.dispose();
+        
+        // Decompose any large scale into multiple smaller steps
+        List<Integer> scales = XbrzHelper.getScales(Scale);
+
+        // Scale RGB image using xbrz
+        int[] srcPixels = srcImage.getRGB(0, 0, extWidth, extHeight, null, 0, extWidth);
+        int[] destPixels = null;
+        int curWidth = extWidth;
+        int curHeight = extHeight;
+        int destWidth = extWidth;
+        int destHeight = extHeight;
+
+        for (int scale : scales) {
+            destWidth = curWidth * scale;
+            destHeight = curHeight * scale;
+            ScalerCfg cfg = new ScalerCfg();
+            cfg.equalColorTolerance = 0.0;
+            destPixels = new Xbrz(scale, false, cfg).scaleImage(srcPixels, null, curWidth, curHeight);
+            
+            // Prepare for next iteration
+            curWidth = destWidth;
+            curHeight = destHeight;
+            srcPixels = destPixels;
+        }
+
+        BufferedImage scaled = new BufferedImage(destWidth, destHeight, BufferedImage.TYPE_INT_RGB);
+        scaled.setRGB(0, 0, destWidth, destHeight, destPixels, 0, destWidth);
+        
+        // Draw RGB image into target indexed image
+        BufferedImage dstImage = bufferArea.getInternalImage();
+        g2 = dstImage.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+        g2.drawImage(scaled, 
+                dx * Scale, dy * Scale, 
+                (dx + width) * Scale, (dy + height) * Scale,
+                CIRCULAR_PAD * Scale, CIRCULAR_PAD * Scale,
+                (CIRCULAR_PAD + width) * Scale, (CIRCULAR_PAD + height) * Scale, null);
+//        g2.drawImage(scaled, dx * Scale, dy * Scale, null);
         g2.dispose();
     }
     
