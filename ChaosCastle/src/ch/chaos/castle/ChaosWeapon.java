@@ -781,7 +781,10 @@ public class ChaosWeapon {
         }
         if (fire.shapeSeq != 0)
             px += sz;
-        chaosActions.SetObjLoc(fire, px, (short) 54, sz, sz);
+        if (px != 161)
+            chaosActions.SetObjLoc(fire, px, (short) 54, sz, sz);
+        else // Replace 161x54 by 248x236, because 161x54 overlaps Small Drawer and has been moved
+            chaosActions.SetObjLoc(fire, (short) 248, (short) 236, sz, sz);
         sz++;
         chaosActions.SetObjRect(fire, -1, -1, sz, sz);
     }
