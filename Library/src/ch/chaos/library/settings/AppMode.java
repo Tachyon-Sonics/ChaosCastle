@@ -2,6 +2,11 @@ package ch.chaos.library.settings;
 
 import ch.chaos.library.graphics.xbrz.XbrzHelper;
 
+/**
+ * Graphics settings for a given screen configuration.
+ * <p>
+ * If multiple screens exists, a separate {@link AppMode} is stored for each.
+ */
 public class AppMode {
     
     private boolean fullScreen;
@@ -9,6 +14,7 @@ public class AppMode {
     private GfxDisplayMode displayMode;
     private int innerScale;
     private int outerScale;
+    private VsyncType vsyncType;
     
     
     public boolean isFullScreen() {
@@ -51,10 +57,19 @@ public class AppMode {
         this.outerScale = outerScale;
     }
     
+    public VsyncType getVsyncType() {
+        return vsyncType;
+    }
+
+    public void setVsyncType(VsyncType vsyncType) {
+        this.vsyncType = vsyncType;
+    }
+
     public static AppMode createDefault(GfxDisplayMode mode) {
         AppMode appMode = new AppMode();
         appMode.fullScreen = true;
         appMode.gfxMode = GfxModeType.INDEXED;
+        appMode.vsyncType = VsyncType.BALANCED_LOW;
         
         // Scaling factors
         appMode.innerScale = 1;
