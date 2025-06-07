@@ -44,6 +44,8 @@ public class Pond extends LevelBase {
         generator.fillOval(32, 20, 36, 20, false);
         
         LevelBuilder builder = new LevelBuilder(100, 90, rnd);
+//        SimplexRandomizer simplex = new SimplexRandomizer(100, 90, 0.7, 7, rnd);
+//        builder.fillRandom(0, 0, 100, 90, builder::anywhere, (Coord coord) -> simplex.valueAt(coord) + Forest1);
         builder.fillRandom(0, 0, 100, 90, Forest1, Forest7, builder::anywhere, builder::randomly);
         generator.forHoles((Coord coord) -> {
             builder.put(coord, Ground);
