@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.Stack;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -27,6 +28,10 @@ public class SpriteFiller {
     private final ChaosBase chaosBase;
     private final ChaosGraphics chaosGraphics;
     private final Set<Coord> usedCoords = new HashSet<>();
+    
+    private final Stack<Set<Coord>> usedStack = new Stack<>();
+    private boolean markUsed = true;
+    private boolean preventUsed = true;
 
     
     public SpriteFiller(Random rnd) {
@@ -42,6 +47,46 @@ public class SpriteFiller {
      */
     public void reset() {
         usedCoords.clear();
+    }
+    
+    public boolean isMarkUsed() {
+        return markUsed;
+    }
+    
+    public void setMarkUsed(boolean markUsed) {
+        this.markUsed = markUsed;
+    }
+    
+    public boolean isPreventUsed() {
+        return preventUsed;
+    }
+    
+    public void setPreventUsed(boolean preventUsed) {
+        this.preventUsed = preventUsed;
+    }
+    
+    public void pushUsed() {
+        usedStack.push(new HashSet<>(usedCoords));
+    }
+    
+    public void popUsed() {
+        Set<Coord> popped = usedStack.pop();
+        usedCoords.clear();
+        usedCoords.addAll(popped);
+    }
+    
+    public void resetUsed() {
+        usedCoords.clear();
+    }
+    
+    private boolean isAlreadyUsed(Coord coord) {
+        return preventUsed && usedCoords.contains(coord);
+    }
+    
+    private void markUsed(Coord coord) {
+        if (markUsed) {
+            usedCoords.add(coord);
+        }
     }
 
     /**
@@ -68,10 +113,10 @@ public class SpriteFiller {
                 int x = where.x() + rnd.nextInt(where.w());
                 int y = where.y() + rnd.nextInt(where.h());
                 position = new Coord(x, y);
-            } while (tries >= 0 && (usedCoords.contains(position) || !isAllowed.test(position)));
+            } while (tries >= 0 && (isAlreadyUsed(position) || !isAllowed.test(position)));
             
             if (isAllowed.test(position)) {
-                usedCoords.add(position);
+                markUsed(position);
                 result++;
                 
                 // Choose a random sprite type and lives
@@ -109,7 +154,7 @@ public class SpriteFiller {
         for (int x = 0; x < where.w(); x++) {
             for (int y = 0; y < where.h(); y++) {
                 Coord coord = new Coord(where.x() + x, where.y() + y);
-                if (!usedCoords.contains(coord) && isAllowed.test(coord)) {
+                if (!isAlreadyUsed(coord) && isAllowed.test(coord)) {
                     availableCoords.add(coord);
                 }
             }
@@ -125,7 +170,9 @@ public class SpriteFiller {
             }
             
             int coordIndex = availableCoords.size() == 1 ? 0 : rnd.nextInt(availableCoords.size());
-            Coord position = availableCoords.remove(coordIndex);
+            Coord position = availableCoords.get(coordIndex);
+            if (markUsed && preventUsed)
+                availableCoords.remove(coordIndex);
             result++;
             
             // Choose a random sprite type and lives
@@ -144,6 +191,7 @@ public class SpriteFiller {
                 } else {
                     putBlockObjRandomShift(toPlace, position, maxFineShift);
                 }
+                markUsed(position);
             }
         }
         return result;
@@ -215,10 +263,12 @@ public class SpriteFiller {
     public void putBlockObj(SpriteInfo info, Coord position) {
         chaosObjects.PutBlockObj(info.type(), (short) info.subKind(), info.statOrLife(), 
                 (short) position.x(), (short) position.y());
+        markUsed(position);
     }
     
     public void putBlockBonus(int tbType, Coord position) {
         chaosObjects.PutBlockBonus(tbType, (short) position.x(), (short) position.y());
+        markUsed(position);
     }
     
     /**
@@ -231,18 +281,22 @@ public class SpriteFiller {
             throw new IllegalArgumentException();
         chaosObjects.PutFineObj(info.type(), (short) info.subKind(), info.statOrLife(), 
                 (short) position.x(), (short) position.y(), (short) quarter.x(), (short) quarter.y());
+        markUsed(position);
     }
     
     public void putPlayer(int x, int y) {
         chaosObjects.PutPlayer((short) x, (short) y);
+        markUsed(new Coord(x, y));
     }
     
     public void putExit(int x, int y) {
         chaosObjects.PutExit((short) x, (short) y);
+        markUsed(new Coord(x, y));
     }
     
     public void putBubbleMaker(int stat, int x, int y) {
         chaosObjects.PutBubbleMaker(stat, (short) x, (short) y);
+        markUsed(new Coord(x, y));
     }
     
     /**
@@ -260,6 +314,7 @@ public class SpriteFiller {
                 position.x() * ChaosGraphics.BW + ChaosGraphics.BW / 2 + dx,
                 position.y() * ChaosGraphics.BH + ChaosGraphics.BH / 2 + dy);
         putObj(info, location);
+        markUsed(position);
     }
     
     public void addOptions(Rect where, Predicate<Coord> isAllowed, int nbGrid, int nbBumper, int nbChief, int nbGhost, int nbPopup, int nbBig, int nbSquare) {

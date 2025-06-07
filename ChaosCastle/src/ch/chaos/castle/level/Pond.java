@@ -81,7 +81,7 @@ public class Pond extends LevelBase {
             }
         }
         
-        // Place stuff on corners and dead ends TODO cartoon first, then nothing on top of them
+        // Place stuff on corners and dead ends
         Rect topHalf = new Rect(1, 1, 98, 58);
         {
             List<SpriteInfo> items = List.of(
@@ -110,18 +110,26 @@ public class Pond extends LevelBase {
                     new SpriteInfo(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal()),
                     SpriteInfo.tbBonus(ChaosBonus.tbBullet)
                     );
+            filler.pushUsed();
             int nbPlaced = filler.placeRandom(items, topHalf, (Coord coord) -> {
                 return isCorner(generator, coord, 7);
             }, MinMax.value(15), null, 8);
+            filler.popUsed();
+            filler.pushUsed();
             nbPlaced += filler.placeRandom(items, topHalf, (Coord coord) -> {
                 return isCorner(generator, coord, 6);
             }, MinMax.value(24 - nbPlaced), null, 8);
+            filler.popUsed();
+            filler.pushUsed();
             nbPlaced += filler.placeRandom(items, topHalf, (Coord coord) -> {
                 return isCorner(generator, coord, 5);
             }, MinMax.value(27 - nbPlaced), null, 8);
+            filler.popUsed();
+            filler.pushUsed();
             filler.placeRandom(items, topHalf, (Coord coord) -> {
                 return isCorner(generator, coord, 4);
             }, MinMax.value(30 - nbPlaced), null, 8);
+            filler.popUsed();
         }
         
         // Place circles with cross
@@ -171,7 +179,6 @@ public class Pond extends LevelBase {
             }
         }
         
-        // TODO mirror first, then nothing on top of them
         Rect anywhere = new Rect(1, 1, 98, 58);
         filler.placeRandom(new SpriteInfo(Anims.MACHINE, ChaosMachine.mTurret), anywhere, 
                 filler.backgroundDistance(3), (chaosBase.difficulty - 3) * 2);
@@ -183,8 +190,12 @@ public class Pond extends LevelBase {
                 filler.background8(), MinMax.value(15), new MinMax(0, 1));
         
         Rect lastFourth = new Rect(75, 1, 99 - 75, 58);
+        filler.setMarkUsed(false);
+        filler.setPreventUsed(false);
         filler.placeRandom(List.of(new SpriteInfo(Anims.DEADOBJ, ChaosDObj.doSand)), lastFourth,
                 filler.background(), new MinMax(80, 120), null, 16);
+        filler.setMarkUsed(true);
+        filler.setPreventUsed(true);
         
         filler.placeRandom(
                 new SpriteInfo(Anims.ALIEN1, ChaosAlien.aPic, 0), 

@@ -56,14 +56,16 @@ public class CityPark extends LevelBase {
         
         Rect anywhere = new Rect(0, 0, blobs.getWidth(), blobs.getHeight());
         filler.placeRandom(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cNest), anywhere, filler.background(), 200);
+        filler.setPreventUsed(false);
         filler.placeRandom(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cAlienA, filler.pLife(2)), anywhere, filler.background(), 50);
         filler.placeRandom(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cAlienV, filler.pLife(2)), anywhere, filler.background(), 50);
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), anywhere, filler.background(), 30);
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), anywhere, filler.background(), 10);
         filler.placeRandom(new SpriteInfo(Anims.BONUS, ChaosBonus.Money, ChaosBonus.Moneys.m5.ordinal()),
                 anywhere, filler.background(), MinMax.value(16)); // remove
+        filler.setPreventUsed(true);
         
-        // Inside of blobs, interior, TODO after placing alien
+        // Inside of blobs, interior
         for (BinaryLevel blob : blobs.getBlobs().keySet()) {
             // Create blob's interior walls
             BinaryLevel plot = blob.copy();

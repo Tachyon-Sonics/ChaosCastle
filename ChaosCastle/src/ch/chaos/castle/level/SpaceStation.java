@@ -114,14 +114,18 @@ public class SpaceStation extends LevelBase {
                     int amount = 4 + rnd.nextInt(7);
                     int nonNested = amount / 5 + 1;
                     final MinMax stat0 = stat;
+                    filler.setPreventUsed(false);
                     filler.placeRandom(List.of(alien), cellRect, isAllowed, filler.nb(nonNested), stat);
                     filler.asNested(() -> filler.placeRandom(List.of(alien), cellRect, isAllowed, filler.nb(amount - nonNested), stat0));
+                    filler.setPreventUsed(true);
                 }
             }
         }
         
         Rect stationRect = new Rect(0, YOffset, Width * CellWidth, Height * CellHeight);
+        filler.setPreventUsed(false);
         filler.addOptions(stationRect, filler.background(), 4, 8, 1, 5, 0, 0, 2);
+        filler.setPreventUsed(true);
     }
 
 }
