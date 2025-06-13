@@ -104,6 +104,22 @@ public class Twilight extends LevelBase {
             .amount(nbCells / 12)
             .place();
         
+        generator.forWalls((Coord coord) -> {
+            int value = simplexRandom.valueAt(coord);
+            int blockType = new int[] {
+                    Sq4Block, EmptyBlock, TravBlock, BarDark, BarLight, BarLight 
+            } [value];
+            builder.put(coord, blockType);
+        });
+        
+        reachable.forHoles((Coord coord) -> {
+            int value = simplexRandom.valueAt(coord);
+            int blockType = new int[] {
+                    BackBig, Back8x8, Back4x4, Back2x2, Light, Light 
+            } [value];
+            builder.put(coord, blockType);
+        });
+
         SimplexRandomizer oneFourth = new SimplexRandomizer(width, height, 0.5, 4, rnd);
         filler.randomPlacer()
             .type(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cCircle, 120))
@@ -114,10 +130,10 @@ public class Twilight extends LevelBase {
             .amount(10 + chaosBase.difficulty)
             .place();
         
-        // TODO use Groove blocks instead of lights (instead if difficulty = 7?)
         // TODO 2 hidden passage to stars zones, one with sleeper, other with bomb
         // TODO in clusters: ?? (some money releasing aliens)
         // TODO here, or somewhere else: Double Oval with huge number of lives
+        // TODO add rectangular and circular turrets
         
         filler.addOptions(anywhere, reachable::isHole, 8, 10, 2, 0, 10, 5, 10);
     }

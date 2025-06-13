@@ -26,6 +26,10 @@ public class SnowTrack extends LevelBase {
     public void build() {
         chaosBase.snow = true;
         
+        /*
+         * TODO: use groove blocks, adapt palette
+         */
+        
         buildBinary(); // Creates 'dc', 'start', 'exit
 
         Random rnd = new Random();

@@ -126,7 +126,7 @@ public class ChaosCastle {
 //        chaosBase.nbSterling = 200;
         chaosBase.zone = Zone.Castle;
         chaosBase.level[Zone.Chaos.ordinal()] = 20;
-        chaosBase.level[Zone.Castle.ordinal()] = Levels.POND;
+        chaosBase.level[Zone.Castle.ordinal()] = Levels.TWILIGHT;
         chaosBase.level[Zone.Family.ordinal()] = 5;
         chaosBase.level[Zone.Special.ordinal()] = 2;
         chaosBase.specialStage = 5; // 5 bonus levels
@@ -136,7 +136,7 @@ public class ChaosCastle {
         
         for (int _w = 0; _w < Weapon.values().length; _w++) {
             Weapon w = Weapon.values()[_w];
-            if (EnumSet.of(Weapon.GUN, Weapon.STAR, Weapon.BALL, Weapon.FIRE).contains(w))
+            if (EnumSet.of(Weapon.GUN, Weapon.FB, Weapon.LASER, Weapon.BUBBLE).contains(w))
             { // WITH
                 ChaosBase.WeaponAttr _weaponAttr = chaosBase.weaponAttr[w.ordinal()];
                 _weaponAttr.power = 4;
