@@ -11,6 +11,7 @@ public class AppMode {
     
     private boolean fullScreen;
     private GfxModeType gfxMode;
+    private GfxPipelineType gfxPipeline;
     private GfxDisplayMode displayMode;
     private int innerScale;
     private int outerScale;
@@ -33,6 +34,14 @@ public class AppMode {
         this.gfxMode = gfxMode;
     }
     
+    public GfxPipelineType getGfxPipeline() {
+        return gfxPipeline;
+    }
+
+    public void setGfxPipeline(GfxPipelineType gfxPipeline) {
+        this.gfxPipeline = gfxPipeline;
+    }
+
     public GfxDisplayMode getDisplayMode() {
         return displayMode;
     }
@@ -69,6 +78,8 @@ public class AppMode {
         AppMode appMode = new AppMode();
         appMode.fullScreen = true;
         appMode.gfxMode = GfxModeType.INDEXED;
+        appMode.gfxPipeline = GfxPipelineType.DEFAULT;
+        appMode.displayMode = null;
         appMode.vsyncType = VsyncType.BALANCED_LOW;
         
         // Scaling factors

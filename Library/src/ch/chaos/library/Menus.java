@@ -110,6 +110,8 @@ public class Menus {
         }
 
         public boolean isEnabled() {
+            if ("Graphics...".equals(text)) // TODO re-enable once properly implemented
+                return false;
             return enabled;
         }
 
