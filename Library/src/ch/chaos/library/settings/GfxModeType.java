@@ -2,7 +2,9 @@ package ch.chaos.library.settings;
 
 
 public enum GfxModeType {
-    INDEXED,
+    INDEXED;
+    /*
     INDEXED_TO_RGB,
     TIERED;
+    */
 }

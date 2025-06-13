@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class AppSettings {
     
     private Map<GfxDisplayMode, AppMode> appModes = new HashMap<>();
-    private boolean enableSounds;
+    private AudioResamplingType audioResamplingType = AudioResamplingType.LINEAR;
 
     
     public Map<GfxDisplayMode, AppMode> getAppModes() {
@@ -22,18 +22,18 @@ public class AppSettings {
     public void setAppModes(Map<GfxDisplayMode, AppMode> appModes) {
         this.appModes = appModes;
     }
-
-    public boolean isEnableSounds() {
-        return enableSounds;
-    }
-
-    public void setEnableSounds(boolean enableSounds) {
-        this.enableSounds = enableSounds;
-    }
     
+    public AudioResamplingType getAudioResamplingType() {
+        return audioResamplingType;
+    }
+
+    public void setAudioResamplingType(AudioResamplingType audioResamplingType) {
+        this.audioResamplingType = audioResamplingType;
+    }
+
     public static AppSettings createDefault() {
         AppSettings settings = new AppSettings();
-        settings.enableSounds = true;
+        settings.audioResamplingType = AudioResamplingType.LINEAR;
         DisplayMode displayMode = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
         GfxDisplayMode gfxMode = GfxDisplayMode.from(displayMode);
         AppMode appMode = AppMode.createDefault(gfxMode);
