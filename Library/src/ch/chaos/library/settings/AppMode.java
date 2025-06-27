@@ -12,10 +12,11 @@ public class AppMode {
     private boolean fullScreen;
     private GfxModeType gfxMode;
     private GfxPipelineType gfxPipeline;
-    private GfxDisplayMode displayMode;
+    private GfxDisplayMode displayMode; // null => no change
     private int innerScale;
     private int outerScale;
     private VsyncType vsyncType;
+    private boolean doNotAskAgain;
     
     
     public boolean isFullScreen() {
@@ -73,6 +74,14 @@ public class AppMode {
     public void setVsyncType(VsyncType vsyncType) {
         this.vsyncType = vsyncType;
     }
+    
+    public boolean isDoNotAskAgain() {
+        return doNotAskAgain;
+    }
+    
+    public void setDoNotAskAgain(boolean doNotAskAgain) {
+        this.doNotAskAgain = doNotAskAgain;
+    }
 
     public static AppMode createDefault(GfxDisplayMode mode) {
         AppMode appMode = new AppMode();
@@ -81,6 +90,7 @@ public class AppMode {
         appMode.gfxPipeline = GfxPipelineType.DEFAULT;
         appMode.displayMode = null;
         appMode.vsyncType = VsyncType.BALANCED_LOW;
+        appMode.doNotAskAgain = false;
         
         // Scaling factors
         appMode.innerScale = 1;

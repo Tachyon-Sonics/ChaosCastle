@@ -1,4 +1,4 @@
-package ch.chaos.library.dialogs;
+package ch.chaos.library.utils;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;

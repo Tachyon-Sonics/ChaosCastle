@@ -1,7 +1,5 @@
 package ch.chaos.library.settings;
 
-import java.awt.DisplayMode;
-import java.awt.GraphicsEnvironment;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,12 +28,11 @@ public class AppSettings {
     public void setAudioResamplingType(AudioResamplingType audioResamplingType) {
         this.audioResamplingType = audioResamplingType;
     }
-
+    
     public static AppSettings createDefault() {
         AppSettings settings = new AppSettings();
         settings.audioResamplingType = AudioResamplingType.LINEAR;
-        DisplayMode displayMode = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
-        GfxDisplayMode gfxMode = GfxDisplayMode.from(displayMode);
+        GfxDisplayMode gfxMode = GfxDisplayMode.current();
         AppMode appMode = AppMode.createDefault(gfxMode);
         settings.appModes.put(gfxMode, appMode);
         return settings;

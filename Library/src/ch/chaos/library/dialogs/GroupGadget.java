@@ -11,6 +11,7 @@ import javax.swing.border.EtchedBorder;
 import ch.chaos.library.Dialogs;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Memory.TagItem;
+import ch.chaos.library.utils.TableLayout;
 
 public class GroupGadget extends Gadget {
 
