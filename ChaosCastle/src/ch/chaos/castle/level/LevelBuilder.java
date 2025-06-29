@@ -94,6 +94,10 @@ public class LevelBuilder {
     public boolean isWall(int x, int y) {
         return chaosObjects.OnlyWall((short) (int) x, (short) (int) y);
     }
+    
+    public boolean isBackground(Coord coord) {
+        return isBackground(coord.x(), coord.y());
+    }
 
     public boolean isBackground(int x, int y) {
         return chaosObjects.OnlyBackground((short) (int) x, (short) (int) y);

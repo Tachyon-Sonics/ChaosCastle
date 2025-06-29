@@ -79,7 +79,7 @@ public class SpriteFiller {
         usedCoords.clear();
     }
     
-    private boolean isAlreadyUsed(Coord coord) {
+    public boolean isAlreadyUsed(Coord coord) {
         return preventUsed && usedCoords.contains(coord);
     }
     
@@ -132,6 +132,25 @@ public class SpriteFiller {
             }
         }
         return result;
+    }
+    
+    public Coord getRandomPlace(Rect where, Predicate<Coord> isAllowed) {
+        // Build list of available coordinates
+        List<Coord> availableCoords = new ArrayList<>();
+        for (int x = 0; x < where.w(); x++) {
+            for (int y = 0; y < where.h(); y++) {
+                Coord coord = new Coord(where.x() + x, where.y() + y);
+                if (!isAlreadyUsed(coord) && isAllowed.test(coord)) {
+                    availableCoords.add(coord);
+                }
+            }
+        }
+        
+        // Pick one
+        if (availableCoords.isEmpty())
+            return null;
+        int index = rnd.nextInt(availableCoords.size());
+        return availableCoords.get(index);
     }
     
     /**
@@ -472,6 +491,25 @@ public class SpriteFiller {
         return line(new Coord(0, 1), minLength, maxLength);
     }
     
+    public Predicate<Coord> diagonalLine(Coord delta, int minLength, int maxLength) {
+        return (Coord coord) -> {
+            if (isWall(coord))
+                return false;
+            while (isBackground(coord)) {
+                coord = coord.add(delta.neg());
+            }
+            coord = coord.add(delta);
+            Coord deltaX = new Coord(delta.x(), 0);
+            Coord deltaY = new Coord(0, delta.y());
+            int length = 0;
+            while (isBackground(coord) && isBackground(coord.add(deltaX)) && isBackground(coord.add(deltaY))) {
+                length++;
+                coord = coord.add(delta);
+            }
+            return length >= minLength && length <= maxLength;
+        };
+    }
+    
     /**
      * Must be a wall in -direction, then background in direction for nb tiles
      */
@@ -501,7 +539,7 @@ public class SpriteFiller {
         };
     }
     
-    private boolean isBackground(Coord coord) {
+    public boolean isBackground(Coord coord) {
         if (coord.x() <= 0 || coord.y() <= 0 
                 || coord.x() >= chaosGraphics.castleWidth
                 || coord.y() >= chaosGraphics.castleHeight) {

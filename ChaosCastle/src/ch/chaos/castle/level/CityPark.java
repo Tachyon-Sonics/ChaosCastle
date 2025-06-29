@@ -2,13 +2,13 @@ package ch.chaos.castle.level;
 
 import java.util.Random;
 
+import ch.chaos.castle.ChaosAlien;
 import ch.chaos.castle.ChaosBase.Anims;
 import ch.chaos.castle.ChaosBonus;
 import ch.chaos.castle.ChaosCreator;
 import ch.chaos.castle.alien.SpriteFiller;
 import ch.chaos.castle.alien.SpriteInfo;
 import ch.chaos.castle.utils.Coord;
-import ch.chaos.castle.utils.MinMax;
 import ch.chaos.castle.utils.Rect;
 import ch.chaos.castle.utils.generator.BinaryLevel;
 import ch.chaos.castle.utils.generator.Park;
@@ -61,9 +61,57 @@ public class CityPark extends LevelBase {
         filler.placeRandom(new SpriteInfo(Anims.ALIEN2, ChaosCreator.cAlienV, filler.pLife(2)), anywhere, filler.background(), 50);
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbHospital), anywhere, filler.background(), 30);
         filler.placeRandom(SpriteInfo.tbBonus(ChaosBonus.tbBullet), anywhere, filler.background(), 10);
-        filler.placeRandom(new SpriteInfo(Anims.BONUS, ChaosBonus.Money, ChaosBonus.Moneys.m5.ordinal()),
-                anywhere, filler.background(), MinMax.value(16)); // remove
+        
+        // Cluster of white kamikazes
+        for (int k = 0; k < 20; k++) {
+            Coord coord = filler.getRandomPlace(anywhere, filler.backgroundDistance(2));
+            int statBase = rnd.nextInt(4);
+            /*
+             * stat:
+             * 0: ↘
+             * 1: ↙
+             * 2: ↗
+             * 3: ↖
+             * 
+             * base 0:
+             * ↘↙
+             * ↗↖
+             * 
+             * base 1:
+             * ↙↖
+             * ↘↗
+             * 
+             * base 2:
+             * ↗↘
+             * ↖↙
+             * 
+             * base 3:
+             * ↖↗
+             * ↙↘
+             */
+            int[][] stats = new int[][] {
+                {0, 1, 2, 3},
+                {1, 3, 0, 2},
+                {2, 0, 3, 1},
+                {3, 2, 1, 0}
+            };
+            for (int s = 0; s < 4; s++) {
+                Coord fineCoord = new Coord(s % 2, s / 2);
+                filler.putQuarterObj(new SpriteInfo(Anims.ALIEN1, ChaosAlien.aKamikaze, stats[statBase][s]), coord, fineCoord);
+            }
+        }
+        
+        // Random white kamikazes
         filler.setPreventUsed(true);
+        for (int k = 0; k < 50; k++) {
+            int stat = rnd.nextInt(4);
+            Coord delta = new Coord((stat % 2) * 2 - 1, (stat / 2) * 2 - 1).neg();
+            Coord coord = filler.getRandomPlace(anywhere, filler.diagonalLine(delta, 3, 20));
+            while (filler.isBackground(coord.add(delta.neg()))) {
+                coord = coord.add(delta.neg());
+            }
+            filler.putBlockObj(new SpriteInfo(Anims.ALIEN1, ChaosAlien.aKamikaze, stat), coord);
+        }
         
         // Inside of blobs, interior
         for (BinaryLevel blob : blobs.getBlobs().keySet()) {
@@ -99,7 +147,7 @@ public class CityPark extends LevelBase {
                     }
                 }
             } else {
-                if (!interior.isOutside(center) && interior.isWall(center) && plot.isWall(center)) {
+                if (!interior.isOutside(center) && interior.isWall(center) && plot.isWall(center) && !filler.isAlreadyUsed(center)) {
                     builder.put(center, Fact2Block);
                 }
             }
