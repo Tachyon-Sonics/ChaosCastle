@@ -44,7 +44,10 @@ public class Launcher {
         } else {
             // Open settings dialog
             AppSettings appSettings0 = appSettings;
-            SwingUtilities.invokeLater(() -> openSettingsDialog(appSettings0));
+            if (appMode == null)
+                appMode = AppMode.createDefault(currentDisplayMode);
+            AppMode appMode0 = appMode;
+            SwingUtilities.invokeLater(() -> openSettingsDialog(appSettings0, appMode0));
         }
     }
 
@@ -56,9 +59,9 @@ public class Launcher {
         return false;
     }
 
-    private static void openSettingsDialog(AppSettings appSettings) {
+    private static void openSettingsDialog(AppSettings appSettings, AppMode appMode) {
         GuiUtils.setupLookAndFeel();
-        LauncherFrame frame = new LauncherFrame(appSettings, Launcher::relaunchApp);
+        LauncherFrame frame = new LauncherFrame(appSettings, appMode, Launcher::relaunchApp);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
