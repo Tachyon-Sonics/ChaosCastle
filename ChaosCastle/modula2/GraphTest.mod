@@ -321,8 +321,10 @@ BEGIN
    |eTIMER: WriteString("TIMER")
    ELSE
   END;
+  (*
   WriteInt(event.menu, 4);
-  (*WriteInt(event.item, 4);*) WriteLn;
+  WriteInt(event.item, 4); WriteLn;
+  *)
   joy:= GetStick();
   FOR c:= 0 TO 15 DO
    IF c IN joy THEN Write("*") ELSE Write("-") END
@@ -344,6 +346,5 @@ CLOSE
  IF bob <> NIL THEN DeleteArea(bob) END;
  IF bobmsk <> NIL THEN  DeleteArea(bobmsk) END;
  RemoveMenus(NIL);
- *)
-
+*)
 END GraphTest.

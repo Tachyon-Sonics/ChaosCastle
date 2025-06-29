@@ -662,9 +662,13 @@ public class Memory {
         TagItemImpl tags = (TagItemImpl) tags0;
         while (tags != null) {
             if (tags.tag == tag) {
-                @SuppressWarnings("unchecked")
-                IRef<String> textRef = (IRef<String>) tags.addr;
-                return textRef.get();
+                if (tags.addr instanceof String str) {
+                    return str;
+                } else {
+                    @SuppressWarnings("unchecked")
+                    IRef<String> textRef = (IRef<String>) tags.addr;
+                    return textRef.get();
+                }
             }
             tags = next(tags);
         }

@@ -241,7 +241,7 @@ public class Dialogs {
             case dDialog -> new DialogGadget();
             case dProgress -> new ProgressGadget();
             case dGroup -> new GroupGadget();
-            case dBool -> new ToggleGadget();
+            case dBool, dSwitch -> new ToggleGadget();
             case dCheckbox -> new CheckBoxGadget();
             case dButton -> new ButtonGadget();
             case dLabel -> new LabelGadget();
@@ -252,8 +252,10 @@ public class Dialogs {
     }
 
     public GadgetPtr AllocGadget(short type) {
-        // todo implement AllocGadget
-        throw new UnsupportedOperationException("Not implemented: AllocGadget");
+        return invokeInSwing(() -> {
+            Gadget gadget = create(type);
+            return gadget;
+        });
     }
 
     public void ModifyGadget(GadgetPtr gadgetPtr, Memory.TagItem tags) {
@@ -280,9 +282,13 @@ public class Dialogs {
         });
     }
 
-    public void AddGadget(GadgetPtr parent, GadgetPtr gadget, GadgetPtr before) {
-        // not used
-        throw new UnsupportedOperationException("Not implemented: AddGadget");
+    public void AddGadget(GadgetPtr parent0, GadgetPtr gadget0, GadgetPtr before0) {
+        Gadget parent = (Gadget) parent0;
+        Gadget gadget = (Gadget) gadget0;
+//        Gadget before = (Gadget) before0;
+        invokeInSwing(() -> {
+            parent.addChild(gadget);
+        });
     }
 
     public GadgetPtr AddNewGadget(GadgetPtr parent0, short type, Memory.TagItem tags) {

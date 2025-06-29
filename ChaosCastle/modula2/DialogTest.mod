@@ -1,6 +1,7 @@
 MODULE DialogTest;
 
- FROM SYSTEM IMPORT ADR, ADDRESS, TAG;
+ FROM SYSTEM IMPORT ADR, ADDRESS, VAL;
+ IMPORT Memory;
  FROM Dialogs IMPORT GadgetPtr, DialogOk, DialogNoMem, dFLAGS, dMASK,
   dfACTIVE, dfSELECT, dfBORDER, dfCLOSE, dfDOWNEVENT, dfUPEVENT,
   dfAUTOLEFT, dfAUTORIGHT, dfAUTOUP, dfAUTODOWN, dfJUSTIFY, dfVDIR,
@@ -22,6 +23,7 @@ MODULE DialogTest;
   fill: CARDINAL;
   tags: ARRAY[0..20] OF LONGCARD;
   buffer: ARRAY[0..19] OF CHAR;
+  dummy: INTEGER;
 
 
  PROCEDURE Close;
@@ -43,41 +45,41 @@ BEGIN
  WriteString("Creating Dialog"); WriteLn;
  dialog:= AllocGadget(dDialog);
  IF dialog = NIL THEN HALT END;
- ModifyGadget(dialog, TAG(tags, dFLAGS, dfCLOSE + dfVDIR + dfSCROLLY + dfSIZE + dfDOWNEVENT, dHEIGHT, 50, dTEXT, ADR("Dialog")));
+ ModifyGadget(dialog, Memory.TAG3(dFLAGS, dfCLOSE + dfVDIR + dfSCROLLY + dfSIZE + dfDOWNEVENT, dHEIGHT, 50, dTEXT, ADR("Dialog")));
 
 (* WriteString("Creating Group"); WriteLn;
  group:= AllocGadget(dGroup);
  IF group = NIL THEN HALT END;
- ModifyGadget(group, TAG(tags, dFLAGS, dfVDIR, dSPAN, 0, 0));
+ ModifyGadget(group, Memory.TAG2(dFLAGS, dfVDIR, dSPAN, 0));
  AddGadget(dialog, group, noGadget); *)
  group:= dialog;
 
  WriteString("Creating Button"); WriteLn;
  button:= AllocGadget(dButton);
  IF button = NIL THEN HALT END;
- ModifyGadget(button, TAG(tags, dTEXT, ADR("Button"), dFLAGS, dfDOWNEVENT, 0));
+ ModifyGadget(button, Memory.TAG2(dTEXT, ADR("Button"), dFLAGS, dfDOWNEVENT));
  AddGadget(group, button, noGadget);
 
- bool:= CreateGadget(dBool, TAG(tags, dTEXT, ADR("Bool"), dFLAGS, dfAUTOLEFT + dfAUTORIGHT, 0));
+ bool:= CreateGadget(dBool, Memory.TAG2(dTEXT, ADR("Bool"), dFLAGS, dfAUTOLEFT + dfAUTORIGHT));
  IF bool = NIL THEN HALT END;
  AddGadget(group, bool, noGadget);
 
- cycle:= AddNewGadget(group, dCycle, TAG(tags, dTEXT, ADR("Cycle"), dFLAGS, dfAUTOUP + dfAUTODOWN, 0));
+ cycle:= AddNewGadget(group, dCycle, Memory.TAG2(dTEXT, ADR("Cycle"), dFLAGS, dfAUTOUP + dfAUTODOWN));
  IF cycle = NIL THEN HALT END;
 
- switch:= AddNewGadget(group, dSwitch, TAG(tags, dTEXT, ADR("Switch"), dFLAGS, dfAUTOLEFT + dfAUTOUP + dfAUTODOWN, 0));
+ switch:= AddNewGadget(group, dSwitch, Memory.TAG2(dTEXT, ADR("Switch"), dFLAGS, dfAUTOLEFT + dfAUTOUP + dfAUTODOWN));
  IF switch = NIL THEN HALT END;
 
- switch1:= AddNewGadget(group, dSwitch, TAG(tags, dTEXT, ADR("Sub-Switch 1"), dFLAGS, dfAUTOLEFT + dfAUTOUP + dfAUTODOWN, dFILL, 1, 0));
+ switch1:= AddNewGadget(group, dSwitch, Memory.TAG3(dTEXT, ADR("Sub-Switch 1"), dFLAGS, dfAUTOLEFT + dfAUTOUP + dfAUTODOWN, dFILL, 1));
  IF switch1 = NIL THEN HALT END;
 
- switch2:= AddNewGadget(group, dSwitch, TAG(tags, dTEXT, ADR("Sub-Switch 2"), dFLAGS, dfAUTOLEFT + dfAUTOUP + dfAUTODOWN, dFILL, 1, 0));
+ switch2:= AddNewGadget(group, dSwitch, Memory.TAG3(dTEXT, ADR("Sub-Switch 2"), dFLAGS, dfAUTOLEFT + dfAUTOUP + dfAUTODOWN, dFILL, 1));
  IF switch2 = NIL THEN HALT END;
 
- progress:= AddNewGadget(group, dProgress, TAG(tags, dTEXT, ADR("Progress"), dFLAGS, dfJUSTIFY, 0));
+ progress:= AddNewGadget(group, dProgress, Memory.TAG2(dTEXT, ADR("Progress"), dFLAGS, dfJUSTIFY));
  IF progress = NIL THEN HALT END;
 
- cb:= AddNewGadget(group, dCheckbox, TAG(tags, dTEXT, ADR("Checkbox"), dFLAGS, dfAUTOLEFT, 0));
+ cb:= AddNewGadget(group, dCheckbox, Memory.TAG2(dTEXT, ADR("Checkbox"), dFLAGS, dfAUTOLEFT));
  IF cb = NIL THEN HALT END;
 
  scroller:= AddNewGadget(group, dScroller, NIL);
@@ -87,13 +89,13 @@ BEGIN
  IF slider = NIL THEN HALT END;
 
  buffer:= "Text Edit";
- te:= AddNewGadget(group, dTextEdit, TAG(tags, dTEXT, ADR(buffer), dTXTLEN, 20, 0));
+ te:= AddNewGadget(group, dTextEdit, Memory.TAG2(dTEXT, ADR(buffer), dTXTLEN, 20));
  IF te = NIL THEN HALT END;
 
- int:= AddNewGadget(group, dIntEdit, TAG(tags, dINTVAL, -142857, 0));
+ int:= AddNewGadget(group, dIntEdit, Memory.TAG1(dINTVAL, -142857));
  IF int = NIL THEN HALT END;
 
- label:= AddNewGadget(group, dLabel, TAG(tags, dTEXT, ADR("Label"), 0));
+ label:= AddNewGadget(group, dLabel, Memory.TAG1(dTEXT, ADR("Label")));
  IF label = NIL THEN HALT END;
 
  IF RefreshGadget(dialog) <> DialogOk THEN HALT END;
@@ -104,7 +106,7 @@ BEGIN
   GetEvent(event);
   IF (event.type = eGADGET) THEN
    WriteString("Gadget Event: ");
-   WriteInt(LONGINT(event.gadget), -1);
+   WriteInt(VAL(LONGINT, event.gadget), -1);
    WriteLn;
    IF (event.gadget = dialog) AND (event.gadgetUp) THEN EXIT END
   ELSIF (event.type = eKEYBOARD) THEN
@@ -113,20 +115,20 @@ BEGIN
     IF RefreshGadget(dialog) <> DialogOk THEN HALT END
    END;
    IF event.ch = "+" THEN
-    ModifyGadget(scroller, TAG(tags, dFLAGS, dfACTIVE, 0))
+    ModifyGadget(scroller, Memory.TAG1(dFLAGS, dfACTIVE))
    ELSIF event.ch = "-" THEN
-    ModifyGadget(scroller, TAG(tags, dRFLAGS, dfACTIVE, 0))
+    ModifyGadget(scroller, Memory.TAG1(dRFLAGS, dfACTIVE))
    ELSIF event.ch = "*" THEN
-    ModifyGadget(cycle, TAG(tags, dFLAGS, dfSELECT, 0))
+    ModifyGadget(cycle, Memory.TAG1(dFLAGS, dfSELECT))
    ELSIF event.ch = "/" THEN
-    ModifyGadget(cycle, TAG(tags, dRFLAGS, dfSELECT, 0))
+    ModifyGadget(cycle, Memory.TAG1(dRFLAGS, dfSELECT))
    ELSIF event.ch = "t" THEN
-    ModifyGadget(cycle, TAG(tags, dTEXT, ADR("----- New Cycle -----"), 0));
-    IGNORE RefreshGadget(dialog)
+    ModifyGadget(cycle, Memory.TAG1(dTEXT, ADR("----- New Cycle -----")));
+    dummy:= RefreshGadget(dialog)
    END;
    IF event.ch = "f" THEN
     IF fill = 65535 THEN fill:= 0 ELSE INC(fill, 4369) END;
-    ModifyGadget(progress, TAG(tags, dFILL, fill, 0));
+    ModifyGadget(progress, Memory.TAG1(dFILL, fill));
    END;
    IF event.ch = "h" THEN HALT END;
    IF event.ch = "q" THEN EXIT END

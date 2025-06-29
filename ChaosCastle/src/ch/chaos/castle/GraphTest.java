@@ -604,8 +604,6 @@ public class GraphTest {
                 default -> {
                 }
             }
-            terminal.WriteInt((int) event.menu, (short) 4);
-            terminal.WriteLn();
             joy.copyFrom(input.GetStick());
             for (c = 0; c <= 15; c++) {
                 if (joy.contains(c))
