@@ -8,7 +8,7 @@ import java.text.NumberFormat;
 
 import ch.pitchtech.modula.runtime.Runtime;
 
-public class Terminal { // TODO (0) move modula-2 source code here. Adapt CompileXxx tools
+public class Terminal {
 
     private static Terminal instance;
 
