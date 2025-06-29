@@ -540,7 +540,7 @@ public class Input {
         if (controllers == null)
             return;
         ControllerState state = controllers.getState(0);
-        if (!mainFrame.isFocused())
+        if (mainFrame == null || !mainFrame.isFocused())
             return;
 
         addStickIf(state.dpadLeft || state.dpadLeftJustPressed, JoyLeft, target);

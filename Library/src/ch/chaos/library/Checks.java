@@ -10,12 +10,10 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import ch.chaos.library.utils.Async;
 import ch.chaos.library.utils.FullScreenUtils;
+import ch.chaos.library.utils.GuiUtils;
 import ch.pitchtech.modula.runtime.HaltException;
 import ch.pitchtech.modula.runtime.Runtime;
 
@@ -150,23 +148,8 @@ public class Checks {
     }
 
     public void begin() {
-        if (System.getProperty("swing.defaultlaf") != null) {
-            return; // Laf manually specified
-        }
         try {
-            SwingUtilities.invokeAndWait(() -> {
-                try {
-                    UIManager.setLookAndFeel(new NimbusLookAndFeel());
-                } catch (UnsupportedLookAndFeelException ex) {
-                    ex.printStackTrace();
-                }
-//                MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
-//                try {
-//                    UIManager.setLookAndFeel(new MetalLookAndFeel());
-//                } catch (UnsupportedLookAndFeelException ex) {
-//                    ex.printStackTrace();
-//                }
-            });
+            SwingUtilities.invokeAndWait(GuiUtils::setupLookAndFeel);
         } catch (InvocationTargetException | InterruptedException ex) {
             throw new RuntimeException(ex);
         }
