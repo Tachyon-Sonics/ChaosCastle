@@ -13,4 +13,9 @@ public record GfxDisplayMode(int width, int height, int depth, int refreshRate) 
         DisplayMode displayMode = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
         return from(displayMode);
     }
+    
+    @Override
+    public String toString() {
+        return width + "x" + height + ", " + depth + " bits, " + refreshRate + " Hz";
+    }
 }

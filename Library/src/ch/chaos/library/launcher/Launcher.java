@@ -13,9 +13,9 @@ import ch.chaos.library.settings.AppMode;
 import ch.chaos.library.settings.AppSettings;
 import ch.chaos.library.settings.GfxDisplayMode;
 import ch.chaos.library.settings.SettingsStore;
-import ch.chaos.library.utils.GuiUtils;
 import ch.chaos.library.utils.Platform;
 import ch.chaos.library.utils.RelauncherBuilder;
+import ch.chaos.library.utils.gui.GuiUtils;
 
 public class Launcher {
 
@@ -81,7 +81,7 @@ public class Launcher {
             }
         }
         
-        ProcessBuilder processBuilder = relauncher.build();
+        ProcessBuilder processBuilder = relauncher.build(true);
         // Add any environment variable related to the specified java2d pipeline
         if (appMode != null) {
             Map<String, String> additionalEnv = appMode.getGfxPipeline().getAdditionalEnv();

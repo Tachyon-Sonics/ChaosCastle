@@ -11,19 +11,21 @@ import ch.chaos.library.utils.Platform;
  * Java2D pipeline
  */
 public enum GfxPipelineType {
-    DEFAULT(),
-    SOFT(getArgsForSoftwarePipeline()),
-    DIRECT_DRAW("-Dsun.java2d.d3d=false", "-Dsun.java2d.noddraw=false"),
-    DIRECT_3D("-Dsun.java2d.d3d=True"),
-    OPENGL("-Dsun.java2d.opengl=True"),
-    XRENDER("-Dsun.java2d.xrender=True"),
-    METAL("-Dsun.java2d.metal=True"),
-    WAYLAND("-Dawt.toolkit.name=WLToolkit", "-Dsun.java2d.vulkan=True"); // Beta, based on https://wiki.openjdk.org/display/wakefield/Pure+Wayland+toolkit+prototype
+    DEFAULT("Default"),
+    SOFT("Software Loops", getArgsForSoftwarePipeline()),
+    DIRECT_DRAW("DirectDraw", "-Dsun.java2d.d3d=false", "-Dsun.java2d.noddraw=false"),
+    DIRECT_3D("Direct3D", "-Dsun.java2d.d3d=True"),
+    OPENGL("OpenGL", "-Dsun.java2d.opengl=True"),
+    XRENDER("XRender", "-Dsun.java2d.xrender=True"),
+    METAL("Metal", "-Dsun.java2d.metal=True"),
+    WAYLAND("Wayland", "-Dawt.toolkit.name=WLToolkit", "-Dsun.java2d.vulkan=True"); // Beta, based on https://wiki.openjdk.org/display/wakefield/Pure+Wayland+toolkit+prototype
     
     
+    private final String name;
     private final List<String> jvmArgs = new ArrayList<>();
     
-    private GfxPipelineType(String... jvmArgs) {
+    private GfxPipelineType(String name, String... jvmArgs) {
+        this.name = name;
         this.jvmArgs.addAll(Arrays.asList(jvmArgs));
     }
     
@@ -67,6 +69,11 @@ public enum GfxPipelineType {
             // Not clear what is available. Just assume the user is a geek and expose all
             return Arrays.asList(values());
         }
+    }
+    
+    @Override
+    public String toString() {
+        return name;
     }
     
 }

@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 
 import ch.chaos.library.Dialogs;
+import ch.chaos.library.utils.gui.TableLayout;
 
 public class FullScreenUtils {
 
