@@ -32,7 +32,8 @@ public class DoubleInput extends JPanel {
     private boolean isAdjusting = false;
 
 
-    public DoubleInput(DoubleProperty property, String namePrefix, double minValue, double maxValue, double tickSize) {
+    public DoubleInput(DoubleProperty property, String namePrefix, double minValue, double maxValue, double tickSize,
+            String decimalFormat) {
         this.property = property;
         this.minValue = minValue;
         this.maxValue = maxValue;
@@ -98,8 +99,11 @@ public class DoubleInput extends JPanel {
         };
         spinner.setModel(spinnerModel);
         final JFormattedTextField textField = ((JSpinner.NumberEditor) spinner.getEditor()).getTextField();
-        textField.setColumns(3);
-        textField.setFormatterFactory(new DefaultFormatterFactory(new NumberFormatter(new DecimalFormat("0.0")))); // Damn!
+        textField.setColumns(decimalFormat.length());
+        textField.setFormatterFactory(
+                new DefaultFormatterFactory(
+                        new NumberFormatter(
+                                new DecimalFormat(decimalFormat)))); // Damn!
         SelectAllOnFocus.installSelectAllOnFocus(textField);
         spinner.addChangeListener((ChangeEvent e) -> {
             if (isAdjusting)

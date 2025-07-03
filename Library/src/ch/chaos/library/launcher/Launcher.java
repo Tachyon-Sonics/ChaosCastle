@@ -32,6 +32,8 @@ public class Launcher {
         }
         GfxDisplayMode currentDisplayMode = GfxDisplayMode.current();
         AppMode appMode = appSettings.getAppModes().get(currentDisplayMode);
+        if (appMode == null)
+            appMode = AppMode.createDefault(currentDisplayMode);
 
         // Check if we must start the app now
         if (isLaunchNow(args)) {

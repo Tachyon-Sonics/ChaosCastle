@@ -254,7 +254,7 @@ public class Files {
             java.io.File baseDir = FileSystemView.getFileSystemView().getDefaultDirectory();
             java.io.File appDir = new java.io.File(baseDir, appName);
             appDir.mkdir();
-            java.io.File binDir = new java.io.File(appDir, ".settings");
+            java.io.File binDir = new java.io.File(appDir, ".data");
             binDir.mkdir();
             fileName = binDir.getPath() + java.io.File.separator + fileName;
         }
