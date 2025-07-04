@@ -9,6 +9,9 @@ import ch.chaos.library.graphics.xbrz.XbrzHelper;
  */
 public class AppMode {
     
+    public final static int BASE_WIDTH = 320;
+    public final static int BASE_HEIGHT = 240;
+    
     private boolean fullScreen;
     private GfxModeType gfxMode;
     private GfxPipelineType gfxPipeline;
@@ -97,8 +100,8 @@ public class AppMode {
         appMode.outerScale = 1;
         int innerScale = 1;
         int outerScale = 1;
-        int width = 320;
-        int height = 240;
+        int width = BASE_WIDTH;
+        int height = BASE_HEIGHT;
         while (width * innerScale * outerScale <= mode.width() 
                 && height * innerScale * outerScale <= mode.height()) {
             appMode.innerScale = XbrzHelper.getNearestScale(innerScale);
@@ -110,6 +113,12 @@ public class AppMode {
             }
         }
         return appMode;
+    }
+
+    @Override
+    public String toString() {
+        return "AppMode [fullScreen=" + fullScreen + ", gfxMode=" + gfxMode + ", gfxPipeline=" + gfxPipeline + ", displayMode=" + displayMode + ", innerScale="
+                + innerScale + ", outerScale=" + outerScale + ", vsyncType=" + vsyncType + ", doNotAskAgain=" + doNotAskAgain + "]";
     }
 
 }

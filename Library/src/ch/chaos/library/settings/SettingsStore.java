@@ -30,5 +30,5 @@ public class SettingsStore {
         String content = mapper.writeValueAsString(settings);
         java.nio.file.Files.writeString(settingsFile, content, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
-
+    
 }

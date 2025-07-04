@@ -13,9 +13,9 @@ import ch.chaos.library.settings.AppMode;
 import ch.chaos.library.settings.AppSettings;
 import ch.chaos.library.settings.GfxDisplayMode;
 import ch.chaos.library.settings.SettingsStore;
-import ch.chaos.library.utils.GuiUtils;
 import ch.chaos.library.utils.Platform;
 import ch.chaos.library.utils.RelauncherBuilder;
+import ch.chaos.library.utils.gui.GuiUtils;
 
 public class Launcher {
 
@@ -32,6 +32,8 @@ public class Launcher {
         }
         GfxDisplayMode currentDisplayMode = GfxDisplayMode.current();
         AppMode appMode = appSettings.getAppModes().get(currentDisplayMode);
+        if (appMode == null)
+            appMode = AppMode.createDefault(currentDisplayMode);
 
         // Check if we must start the app now
         if (isLaunchNow(args)) {
@@ -44,7 +46,10 @@ public class Launcher {
         } else {
             // Open settings dialog
             AppSettings appSettings0 = appSettings;
-            SwingUtilities.invokeLater(() -> openSettingsDialog(appSettings0));
+            if (appMode == null)
+                appMode = AppMode.createDefault(currentDisplayMode);
+            AppMode appMode0 = appMode;
+            SwingUtilities.invokeLater(() -> openSettingsDialog(appSettings0, appMode0));
         }
     }
 
@@ -56,9 +61,9 @@ public class Launcher {
         return false;
     }
 
-    private static void openSettingsDialog(AppSettings appSettings) {
+    private static void openSettingsDialog(AppSettings appSettings, AppMode appMode) {
         GuiUtils.setupLookAndFeel();
-        LauncherFrame frame = new LauncherFrame(appSettings, Launcher::relaunchApp);
+        LauncherFrame frame = new LauncherFrame(appSettings, appMode, Launcher::relaunchApp);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -78,7 +83,7 @@ public class Launcher {
             }
         }
         
-        ProcessBuilder processBuilder = relauncher.build();
+        ProcessBuilder processBuilder = relauncher.build(true);
         // Add any environment variable related to the specified java2d pipeline
         if (appMode != null) {
             Map<String, String> additionalEnv = appMode.getGfxPipeline().getAdditionalEnv();

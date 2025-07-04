@@ -13,7 +13,7 @@ import javax.swing.SwingUtilities;
 
 import ch.chaos.library.utils.Async;
 import ch.chaos.library.utils.FullScreenUtils;
-import ch.chaos.library.utils.GuiUtils;
+import ch.chaos.library.utils.gui.GuiUtils;
 import ch.pitchtech.modula.runtime.HaltException;
 import ch.pitchtech.modula.runtime.Runtime;
 

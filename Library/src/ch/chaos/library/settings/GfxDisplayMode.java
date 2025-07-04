@@ -13,4 +13,28 @@ public record GfxDisplayMode(int width, int height, int depth, int refreshRate) 
         DisplayMode displayMode = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
         return from(displayMode);
     }
+    
+    /**
+     * Used by JSON deserialization. Must be compatible with {@link #toString()}
+     */
+    public GfxDisplayMode(String fromString) {
+        this(num(fromString, 0), num(fromString, 1), num(fromString, 2), num(fromString, 3));
+    }
+    
+    private static int num(String fromString, int index) {
+        String[] parts = fromString.split("x");
+        return Integer.parseInt(parts[index]);
+    }
+    
+    /**
+     * Used by JSON serialization. Must be compatible with {@link GfxDisplayMode#GfxDisplayMode(String)}.
+     */
+    @Override
+    public String toString() {
+        return width + "x" + height + "x" + depth + "x" + refreshRate;
+    }
+    
+    public String toDisplayString() {
+        return width + "x" + height + ", " + depth + " bits, " + refreshRate + " Hz";
+    }
 }

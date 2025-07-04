@@ -33,9 +33,14 @@ public class RelauncherBuilder {
         additionalAppArgs.add(arg);
     }
     
-    public ProcessBuilder build() {
+    /**
+     * @param gui whether this is a gui app. This will select "javaw.exe" instead of "java.exe"
+     * on Windows
+     */
+    public ProcessBuilder build(boolean gui) {
         List<String> command = new ArrayList<>();
-        command.add(System.getProperty("java.home") + File.separator + "bin" + File.separator + "java");
+        String java = Platform.isWindows() && gui ? "javaw" : "java";
+        command.add(System.getProperty("java.home") + File.separator + "bin" + File.separator + java);
         
         // Append JVM arguments
         List<String> jvmArgs = ManagementFactory.getRuntimeMXBean().getInputArguments();

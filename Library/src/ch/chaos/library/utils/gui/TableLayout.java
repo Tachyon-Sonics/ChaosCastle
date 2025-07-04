@@ -1,4 +1,4 @@
-package ch.chaos.library.utils;
+package ch.chaos.library.utils.gui;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
