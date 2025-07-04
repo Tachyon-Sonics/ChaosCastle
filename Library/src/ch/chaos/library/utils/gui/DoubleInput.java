@@ -80,7 +80,7 @@ public class DoubleInput extends JPanel {
 
             @Override
             public Object getNextValue() {
-                double curValue = ((Number) super.getValue()).doubleValue(); // TODO (0) to audio code too
+                double curValue = ((Number) super.getValue()).doubleValue();
                 double result = curValue + super.getStepSize().doubleValue();
                 if (result > ((Number) getMaximum()).doubleValue())
                     result = ((Number) getMaximum()).doubleValue();
