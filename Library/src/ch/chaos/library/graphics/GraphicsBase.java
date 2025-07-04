@@ -29,6 +29,8 @@ public abstract class GraphicsBase implements IGraphics {
     private long refreshPeriod;
     private long lastRefresh = System.nanoTime();
     private AccurateSleeper mrSandman = new AccurateSleeper();
+    
+    private AliasedTextDrawer aliasedTextDrawer = new AliasedTextDrawer();
 
 
     public GraphicsBase() {
@@ -91,7 +93,8 @@ public abstract class GraphicsBase implements IGraphics {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.translate(x, y);
             g2.scale(TEXT_FONT_WIDEN, 1.0);
-            g2.drawString(t.get(), 0, 0);
+            aliasedTextDrawer.drawText(g, t.get()); // TODO (0) test, continue
+//            g2.drawString(t.get(), 0, 0);
             g2.dispose();
         });
         int width = TextWidth(t);
