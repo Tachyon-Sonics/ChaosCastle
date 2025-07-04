@@ -16,6 +16,7 @@ import ch.chaos.library.Graphics.TextModes;
 import ch.chaos.library.Memory;
 import ch.chaos.library.utils.AccurateSleeper;
 import ch.chaos.library.utils.FpsStats;
+import ch.chaos.library.utils.Platform;
 import ch.pitchtech.modula.runtime.Runtime;
 
 public abstract class GraphicsBase implements IGraphics {
@@ -30,17 +31,22 @@ public abstract class GraphicsBase implements IGraphics {
     private long lastRefresh = System.nanoTime();
     private AccurateSleeper mrSandman = new AccurateSleeper();
     
-    private AliasedTextDrawer aliasedTextDrawer = new AliasedTextDrawer();
+    private AliasedTextDrawer aliasedTextDrawer;
 
 
     public GraphicsBase() {
         GraphicsDevice displayDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         int refreshRate = displayDevice.getDisplayMode().getRefreshRate();
-        if (refreshRate < 10)
+        if (refreshRate < 10) // -1 if unknown: force 60 Hz
             refreshRate = 60;
         else if (refreshRate > 120)
             refreshRate = 120;
         this.refreshPeriod = 1000000000L / refreshRate;
+        
+        if (Platform.isMacOsX()) {
+            // Drawing text without antialiasing on macOS is challenging...
+            aliasedTextDrawer = new AliasedTextDrawer();
+        }
     }
 
     @Override
@@ -88,13 +94,16 @@ public abstract class GraphicsBase implements IGraphics {
     @Override
     public void DrawText(Runtime.IRef<String> t) {
         float x = textPosition.x + (Graphics.SCALE > 1 ? 0.5f : 0.0f);
-        float y = textPosition.y + textSize - 1;
+        float y = textPosition.y;
         currentArea.draw((g) -> {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.translate(x, y);
             g2.scale(TEXT_FONT_WIDEN, 1.0);
-            aliasedTextDrawer.drawText(g, t.get()); // TODO (0) test, continue
-//            g2.drawString(t.get(), 0, 0);
+            if (aliasedTextDrawer != null) {
+                aliasedTextDrawer.drawText(g2, t.get());
+            } else {
+                g2.drawString(t.get(), 0, textSize - 1);
+            }
             g2.dispose();
         });
         int width = TextWidth(t);
