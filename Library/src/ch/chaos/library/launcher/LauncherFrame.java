@@ -24,10 +24,13 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
@@ -69,6 +72,8 @@ public class LauncherFrame extends JFrame { // TODO (0) add small "Reset" button
     private List<Runnable> settingChangeListeners = new ArrayList<>();
     private final Duplexer dpx = new Duplexer();
     
+    private InfoHandler info;
+    
     
     public LauncherFrame(AppSettings appSettings, AppMode appMode, Consumer<AppSettings> onApply) {
         super(Runtime.getAppNameOrDefault() + " - Launcher");
@@ -98,9 +103,18 @@ public class LauncherFrame extends JFrame { // TODO (0) add small "Reset" button
         settingsPanel.setBorder(new TitledBorder("Graphics Settings"));
         centerPanel.add(settingsPanel);
         
-        JPanel infoPanel = new JPanel();
-        infoPanel.setBorder(new TitledBorder("Informations"));
+        JPanel infoPanel = new JPanel(new BorderLayout());
+        infoPanel.setBorder(new TitledBorder("Informations (Hold [⇧] key to lock)"));
         centerPanel.add(infoPanel);
+        JEditorPane txtInfo = new JEditorPane();
+        txtInfo.setEditable(false);
+        txtInfo.setAutoscrolls(true);
+        txtInfo.setContentType("text/html");
+        txtInfo.setText("<html><body>Information</body></html>");
+        txtInfo.setCaretPosition(0);
+        JScrollPane scroller = new JScrollPane(txtInfo);
+        infoPanel.add(scroller);
+        info = new InfoHandler(txtInfo);
         
         // Settings
         JLabel lblMode = new JLabel("Mode: ");
@@ -116,6 +130,7 @@ public class LauncherFrame extends JFrame { // TODO (0) add small "Reset" button
         grpMode.add(rbFullScreen);
         pnlMode.add(rbFullScreen);
         rbFullScreen.addActionListener(this::settingChangedInGui);
+        info.add("Mode", pnlMode, lblMode, rbWindow, rbFullScreen);
         
         JLabel lblDisplayMode = new JLabel("Display Mode: ");
         settingsPanel.add(lblDisplayMode);
@@ -127,6 +142,7 @@ public class LauncherFrame extends JFrame { // TODO (0) add small "Reset" button
         cbDisplayMode = new JComboBox<>(displayModes.toArray(String[]::new));
         cbDisplayMode.addActionListener(this::settingChangedInGui);
         settingsPanel.add(cbDisplayMode);
+        info.add("DisplayMode", lblDisplayMode, cbDisplayMode);
         
         gbc.gridwidth = 2;
         settingsPanel.add(Box.createVerticalStrut(8), gbc);
@@ -138,6 +154,8 @@ public class LauncherFrame extends JFrame { // TODO (0) add small "Reset" button
                 this::addSettingChangeListener, this::removeSettingChangeListener);
         DoubleInput diQuality = new DoubleInput(qualityProperty, "Quality_", 0.0, 1.0, 0.1, "0.0");
         settingsPanel.add(diQuality);
+        info.add("Quality", lblQuality);
+        info.add("Quality", diQuality.getAllComponents().toArray(JComponent[]::new));
         
         JLabel lblSize = new JLabel("Size (% of screen): ");
         settingsPanel.add(lblSize);
@@ -146,11 +164,14 @@ public class LauncherFrame extends JFrame { // TODO (0) add small "Reset" button
                 this::addSettingChangeListener, this::removeSettingChangeListener);
         DoubleInput diSize = new DoubleInput(sizeProperty, "Size_", 20.0, 100.0, 10.0, "#00");
         settingsPanel.add(diSize);
+        info.add("SizePercent", lblSize);
+        info.add("SizePercent", diSize.getAllComponents().toArray(JComponent[]::new));
         
         JLabel lblScale = new JLabel("Resulting Scalings: ");
         settingsPanel.add(lblScale);
         txtScale = new JLabel("<html><body>Inner <b>?</b>, Outer <b>?</b></body></html>");
         settingsPanel.add(txtScale);
+        info.add("Scales", lblScale, txtScale);
         
         gbc.gridwidth = 2;
         settingsPanel.add(Box.createVerticalStrut(15), gbc);
@@ -160,12 +181,14 @@ public class LauncherFrame extends JFrame { // TODO (0) add small "Reset" button
         cbPipeline = new JComboBox<>(GfxPipelineType.getPlatformSupportedTypes().toArray(GfxPipelineType[]::new));
         cbPipeline.addActionListener(this::settingChangedInGui);
         settingsPanel.add(cbPipeline);
+        info.add("Pipeline", lblPipeline, cbPipeline);
         
         JLabel lblVsync = new JLabel("V-Sync Mode: ");
         settingsPanel.add(lblVsync);
         cbVsync = new JComboBox<>(VsyncType.values());
         cbVsync.addActionListener(this::settingChangedInGui);
         settingsPanel.add(cbVsync);
+        info.add("Vsync", lblVsync, cbVsync);
         
         gbc.gridwidth = 2;
         settingsPanel.add(Box.createVerticalStrut(15), gbc);
@@ -175,6 +198,7 @@ public class LauncherFrame extends JFrame { // TODO (0) add small "Reset" button
         chkDoNotAskAgain = new JCheckBox("Use by default and do not ask again");
         chkDoNotAskAgain.addActionListener(this::settingChangedInGui);
         settingsPanel.add(chkDoNotAskAgain, gbc);
+        info.add("DoNotAskAgain", chkDoNotAskAgain);
 
         // Buttons
         JPanel buttonsPanel = new JPanel();
@@ -196,6 +220,8 @@ public class LauncherFrame extends JFrame { // TODO (0) add small "Reset" button
             buttonsPanel.add(cancelPanel);
             buttonsPanel.add(startPanel);
         }
+        info.add("Start", startButton);
+        info.add("Cancel", cancelButton);
         
         // Header
         JPanel headerPanel = new JPanel(new BorderLayout());
