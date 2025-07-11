@@ -57,6 +57,7 @@ public class LauncherFrame extends JFrame {
     private AppSettings appSettings;
     private AppMode appMode;
     private final Consumer<AppSettings> onApply;
+    private final Runnable onCancel;
     
     private JPanel mainPanel;
     private JRadioButton rbWindow;
@@ -77,11 +78,13 @@ public class LauncherFrame extends JFrame {
     private InfoHandler info;
     
     
-    public LauncherFrame(AppSettings appSettings, AppMode appMode, Consumer<AppSettings> onApply) {
+    public LauncherFrame(AppSettings appSettings, AppMode appMode, 
+            Consumer<AppSettings> onApply, Runnable onCancel) {
         super(Runtime.getAppNameOrDefault() + " - Launcher");
         this.appSettings = appSettings;
         this.appMode = appMode;
         this.onApply = onApply;
+        this.onCancel = onCancel;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setIconImages(Dialogs.instance().getAppImageList());
         
@@ -468,6 +471,8 @@ public class LauncherFrame extends JFrame {
     private void cancel(ActionEvent e) {
         setVisible(false);
         dispose();
+        if (onCancel != null)
+            onCancel.run();
     }
 
 }

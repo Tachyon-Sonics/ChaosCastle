@@ -30,5 +30,10 @@ public class Settings {
         }
         return appMode;
     }
+    
+    public static synchronized void reload() {
+        appSettings = null;
+        appMode = null;
+    }
 
 }

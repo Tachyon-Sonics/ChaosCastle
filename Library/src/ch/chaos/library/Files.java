@@ -7,8 +7,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.EnumSet;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
@@ -16,6 +18,8 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileSystemView;
 
+import ch.chaos.library.launcher.LauncherFrame;
+import ch.chaos.library.settings.AppSettings;
 import ch.chaos.library.settings.Settings;
 import ch.chaos.library.utils.Async;
 import ch.chaos.library.utils.FullScreenUtils;
@@ -476,8 +480,35 @@ public class Files {
     }
 
     public Runtime.RangeSet AskMiscSettings(Runtime.RangeSet which) {
-        // todo implement AskMiscSettings
-        throw new UnsupportedOperationException("Not implemented: AskMiscSettings");
+        CountDownLatch latch = new CountDownLatch(1);
+        Thread launcherThread = new Thread(() -> {
+            showLauncherSettings((as) -> {
+                // Save
+                which.incl(Files.msGraphic);
+                which.incl(Files.msMenus);
+                Settings.reload();
+                latch.countDown();
+            }, () -> {
+                // Cancel
+                latch.countDown();
+            });
+        }, "Show Launcher Settings");
+        launcherThread.start();
+        try {
+            latch.await();
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        }
+        return which;
+    }
+    
+    private void showLauncherSettings(Consumer<AppSettings> onSave, Runnable onCancel) {
+        SwingUtilities.invokeLater(() -> {
+            LauncherFrame launcherFrame = new LauncherFrame(Settings.appSettings(), Settings.appMode(), onSave, onCancel);
+            launcherFrame.pack();
+            launcherFrame.setLocationRelativeTo(null);
+            launcherFrame.setVisible(true);
+        });
     }
 
     public void begin() {

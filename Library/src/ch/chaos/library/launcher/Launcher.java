@@ -53,7 +53,7 @@ public class Launcher { // TODO (0) continue, use inside of game
             SwingUtilities.invokeLater(() -> openSettingsDialog(appSettings0, appMode0));
         }
     }
-
+    
     private static boolean isLaunchNow(String[] args) {
         for (String arg : args) {
             if (LAUNCH_ARG.equals(arg))
@@ -72,7 +72,7 @@ public class Launcher { // TODO (0) continue, use inside of game
 
     private static void openSettingsDialog(AppSettings appSettings, AppMode appMode) {
         GuiUtils.setupLookAndFeel();
-        LauncherFrame frame = new LauncherFrame(appSettings, appMode, Launcher::relaunchApp);
+        LauncherFrame frame = new LauncherFrame(appSettings, appMode, Launcher::relaunchApp, null);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
