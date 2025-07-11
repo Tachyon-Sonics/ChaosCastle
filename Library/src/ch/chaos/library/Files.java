@@ -16,6 +16,7 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileSystemView;
 
+import ch.chaos.library.settings.Settings;
 import ch.chaos.library.utils.Async;
 import ch.chaos.library.utils.FullScreenUtils;
 import ch.pitchtech.modula.runtime.Runtime;
@@ -161,7 +162,7 @@ public class Files {
 
             // Display file chooser
         Async<Integer> result = new Async<>();
-        if (Graphics.FULL_SCREEN) {
+        if (Settings.appMode().isFullScreen()) {
             SwingUtilities.invokeLater(() -> {
                     if (saveDialog) {
                     chooser.setDialogType(JFileChooser.SAVE_DIALOG);

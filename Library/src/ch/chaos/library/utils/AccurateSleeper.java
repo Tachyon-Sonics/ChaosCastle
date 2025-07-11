@@ -26,7 +26,6 @@ public class AccurateSleeper {
     
     private final static int KEEP_MAX_FOR = 60;
     private final static double MAX_DECAY = 0.999; // About 50% after 600 frames, or 10 seconds
-    private final static double SECURITY = 1.2;
     
     /**
      * If Thread.sleep() suddenly oversleeps by more than the currently calculated value
@@ -48,11 +47,13 @@ public class AccurateSleeper {
     private final static double DUBIOUS_INCREASE_RATIO = 1.1;
     
     
+    private final double security;
     private long curMax;
     private int countDown;
     
     
-    public AccurateSleeper() {
+    public AccurateSleeper(double security) {
+        this.security = security;
         initialProbe();
     }
     
@@ -111,7 +112,7 @@ public class AccurateSleeper {
      */
     public void sleep(long nano) {
         long start = System.nanoTime();
-        long busyWait = (long) ((double) curMax * SECURITY);
+        long busyWait = (long) ((double) curMax * security);
         if (busyWait > nano)
             busyWait = nano;
         long sleep = nano - busyWait;
@@ -129,13 +130,13 @@ public class AccurateSleeper {
                 curMax *= DUBIOUS_INCREASE_RATIO;
                 countDown = KEEP_MAX_FOR;
             } else if (drift > curMax) {
-                if ((double) drift > (double) curMax * SECURITY)
+                if ((double) drift > (double) curMax * security)
                     System.out.println("New max: " + (drift / 1000) + "us, was " + (curMax / 1000) + "us; ratio: " + ((double) drift / (double) curMax));
                 curMax = drift;
                 countDown = KEEP_MAX_FOR;
-            } else if ((double) drift * SECURITY > curMax) {
+            } else if ((double) drift * security > curMax) {
                 // Stabilize here
-                curMax = (long) ((double) drift * SECURITY);
+                curMax = (long) ((double) drift * security);
             } else if (countDown > 0) {
                 countDown--;
             } else {

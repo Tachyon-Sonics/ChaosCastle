@@ -14,6 +14,8 @@ import ch.chaos.library.Graphics;
 import ch.chaos.library.Graphics.GraphicsErr;
 import ch.chaos.library.Graphics.TextModes;
 import ch.chaos.library.Memory;
+import ch.chaos.library.settings.Settings;
+import ch.chaos.library.settings.VsyncType;
 import ch.chaos.library.utils.AccurateSleeper;
 import ch.chaos.library.utils.FpsStats;
 import ch.chaos.library.utils.Platform;
@@ -29,8 +31,9 @@ public abstract class GraphicsBase implements IGraphics {
 
     private long refreshPeriod;
     private long lastRefresh = System.nanoTime();
-    private AccurateSleeper mrSandman = new AccurateSleeper();
+    private AccurateSleeper mrSandman;
     
+    private VsyncType vsyncType;
     private AliasedTextDrawer aliasedTextDrawer;
 
 
@@ -46,6 +49,16 @@ public abstract class GraphicsBase implements IGraphics {
         if (Platform.isMacOsX()) {
             // Drawing text without antialiasing on macOS is challenging...
             aliasedTextDrawer = new AliasedTextDrawer();
+        }
+        
+        vsyncType = Settings.appMode().getVsyncType();
+        if (vsyncType == VsyncType.BALANCED_LOW || vsyncType == VsyncType.BALANCED_HIGH) {
+            double security = switch (vsyncType) {
+                case BALANCED_LOW -> 1.2;
+                case BALANCED_HIGH -> 1.5;
+                default -> throw new IllegalArgumentException("Unexpected value: " + vsyncType);
+            };
+            mrSandman = new AccurateSleeper(security);
         }
     }
 
@@ -144,7 +157,7 @@ public abstract class GraphicsBase implements IGraphics {
         if (now < nextRefresh) {
             long sleepTime = nextRefresh - now;
             if (accurateSleep) {
-                mrSandman.sleep(sleepTime);
+                accurateSleep(sleepTime);
                 
                 /*
                  * This fixes a design bug in the original ChaosCastle's code. In order to calculate how many
@@ -154,7 +167,7 @@ public abstract class GraphicsBase implements IGraphics {
                  * missed frames.
                  * 
                  * The result is that, on a 60 FPS system, even when no frame is missed, it will randomly get values
-                 * among {4, 5, 6} instead of constantly getting 5 (300 / 60 - the duration of a single frame).
+                 * among {4, 5, 6} instead of constantly getting 5 (300 / 60, or the duration of a single frame).
                  * 
                  * To fix this bug, we "lock" the clock at vsync, so it will not change until the next
                  * vsync (or until 3 missed vsync, for instance if no vsync occur - like level finished and
@@ -177,6 +190,25 @@ public abstract class GraphicsBase implements IGraphics {
             long elapsed = System.nanoTime() - prev;
             double fps = 1000000000.0 / (double) elapsed;
             FpsStats.instance(FpsStats.INTERNAL).accumulate(fps);
+        }
+    }
+    
+    // Accurate sleep, used for soft V-Sync
+    private void accurateSleep(long sleepTime) {
+        switch (vsyncType) {
+            case SLEEP -> {
+                AccurateSleeper.threadSleep(sleepTime);
+            }
+            case BALANCED_LOW, BALANCED_HIGH -> {
+                mrSandman.sleep(sleepTime);
+            }
+            case ACTIVE -> {
+                long start = System.nanoTime();
+                // Busy wait
+                while (System.nanoTime() < start + sleepTime) {
+                    
+                }
+            }
         }
     }
 

@@ -9,9 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import ch.chaos.library.Dialogs;
-import ch.chaos.library.Graphics;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Memory.TagItem;
+import ch.chaos.library.settings.Settings;
 
 public class DialogGadget extends Gadget {
 
@@ -49,7 +49,7 @@ public class DialogGadget extends Gadget {
     @Override
     public void refresh() {
         if (target == null) {
-            if (Graphics.FULL_SCREEN) {
+            if (Settings.appMode().isFullScreen()) {
                 target = new DialogGadgetFullScreen(panel, title);
             } else {
                 target = new DialogGadgetWindowed(panel, title);

@@ -1,6 +1,7 @@
 package ch.chaos.library.settings;
 
 import java.awt.DisplayMode;
+import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
 public record GfxDisplayMode(int width, int height, int depth, int refreshRate) {
@@ -12,6 +13,17 @@ public record GfxDisplayMode(int width, int height, int depth, int refreshRate) 
     public static GfxDisplayMode current() {
         DisplayMode displayMode = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
         return from(displayMode);
+    }
+    
+    public DisplayMode toDisplayMode() {
+        GraphicsDevice graphicsDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        DisplayMode result = null;
+        for (DisplayMode displayMode : graphicsDevice.getDisplayModes()) {
+            if (from(displayMode).equals(this)) {
+                result = displayMode;
+            }
+        }
+        return result;
     }
     
     /**
