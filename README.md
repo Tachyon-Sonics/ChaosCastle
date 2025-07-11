@@ -65,10 +65,10 @@ ChaosCastle was initially written in 1998 - 2000. It was written in the Modula-2
 
 - The operating system's libraries were always used instead of hitting the hardware directly.
 - No hardware-specific feature was used. For instance, hardware scrolling and hardware sprites (features of the Amiga computers of that time) were not used, although it was possible to use them through the operating system's libraries.
-- The operating system dependent parts of the code (graphics, input, sounds) were all abstracted in Modula-2  _definition modules_  (similar to .h header files in C, or interfaces in Java). The idea is that porting the game to another platform could be done by rewriting the implementation of these modules only. These modules were what I called the "Library" (think of it as a very simlified, cross-platform 2D game engine).
+- The operating system dependent parts of the code (graphics, input, sounds) were all abstracted in Modula-2  _definition modules_  (similar to .h header files in C, or interfaces in Java). The idea is that porting the game to another platform could be done by rewriting the implementation of these modules only. These modules were what I called the "Library" (think of it as a very simplified, cross-platform 2D game engine).
 - Backgrounds used bitmap images, and sprites used vector graphics.
 - The game used a base resolution of 320x240, and featured an integer "scaling" factor. With a scaling factor of 2, it could run in 640x480 resolution (if supported), with a scaling factor of 3 in 960x720, etc.
-- Both the background images and the sprite images were pre-rendered at the target scaling factor during startup. Hence no scaling or vector graphics (which were both quite slow on hardware of that time) occur during the game.
+- Both the background images and the sprite images were pre-rendered at the target scaling factor during startup. Hence no scaling or vector graphics (which were both quite slow on hardware of that time) occured during the game.
 - The game did not rely on a fixed FPS such as 50 FPS. Instead it used a clock to measure how much time passed between two frames, and ajusted the speed accordingly. Hence, even if the FPS dropped down to 4 FPS, the overal speed of the game did not slow down.
     - Note however that the game did not use a separate game loop and rendering loop. Hence at low FPS, some collisions were less accurate.
 - Sound effects supported 1 to 8 channels, and either mono or stereo. They used either the built-in audio device, or the third-party AHI library. Sounds could also be disabled altogether.
@@ -79,22 +79,22 @@ The game also could only use 4 mono channels or 2 stereo channels for sounds, wh
 
 There was, however, interesting results (and that was the goal of the choices above):
 - On more recent hardware, such as the Amiga 1200, 50 FPS could be achieved at 320x240
-- With dedicated graphic cards, 50 FPS could be achieved even at 640x480 or higher resolutions
+- With dedicated graphic cards, 50 FPS could be achieved even at 640x480 (scaling x2) or higher resolutions. No additional code was necessary to use dedicated graphic card as they were properly accessed through the operating system libraries.
 - With fast enough processors, such as the 68030 or 68060, sounds could use 8 stereo channels with the AHI library
 - The game could be ported without difficulties to the Macintosh range of computers
 
 
 ### The Macintosh and other ports - 2000
 
-By rewriting the system-dependent modules, a Macintosh port was done. Because of the lack of hardware dedicated to graphics, models with at least a 68020 processor were recommanded. While the Amiga version ran in fullscreen mode, the Macintosh port was windowed.
+By rewriting the system-dependent modules (the "Library"), a Macintosh port was successfully completed. Because of the lack of hardware dedicated to graphics, models with at least a 68020 processor were recommanded. Interestingly, the game had a "black&white" option in addition to the "16 colors" mode, and in this mode the game could even run on very old, black&white Macintosh computers. While the Amiga version ran in fullscreen mode, the Macintosh port was windowed.
 
-An Atari ST port was almost completed, but was never released. It was playable, but still had unresolved bugs, making it unstable. It ran only in 16 colors, and with no sounds.
+An Atari ST port was almost completed, but was never released. It was playable, but still had unresolved bugs, making it unstable. It ran only in 16 colors at 320x240 (scaling x1), and with no sounds.
 
 A Linux port was started, with graphics based on X11.
 
 At that time I also bought a licence to the MHC Modula-2 to Java compiler in order to start a Java port.
 
-However, at that time I also lost interest in the project, and this was the end of the "old" ChaosCastle years. Only the Amiga and Macintosh versions were ever released.
+However, at that time I lost interest in the project, and this was the end of the "old" ChaosCastle years. Only the Amiga and Macintosh versions were ever released.
 
 
 ### The void years - 2000 - 2024
@@ -113,45 +113,83 @@ Recently, playing a complete game with the UAE emulator, I got frustrated by dif
 
 #### Modula-2 to Java translation
 
-I recently remembered that I bought an MHC licence (a Modula-2 to Java translator) at that time, and that I could use it to create a proper Java port. In theory, I could then solve the two problems above that got me frustrated. Unfortunately, by digging for several hours in all my backups, I could not find the MHC licence, and it was probably lost when I trashed my old Amiga and Macintosh computers. I still found an unlicences MHC version, but it was way too limited. That was another frustration. I also searched for other existing Modula-2 to Java converter, but found none that was suitable. As a Java guy I also did not want to go the C/C++ route (also I found the excellent and fully working XDS Modula-2 C converter).
+I recently remembered that I bought an MHC licence (a Modula-2 to Java translator) at that time, and that I could use it to create a proper Java port. In theory, I could then solve the two problems above that got me frustrated. Unfortunately, by digging for several hours in all my backups, I could not find the MHC licence. It was probably lost when I trashed my old Amiga and Macintosh computers. I still found an unlicenced MHC version, but it was way too limited. That was another frustration. I also searched for other existing Modula-2 to Java converter, but found none that was suitable. As a Java guy I also did not want to go the C/C++ route (although I found the excellent and fully working XDS Modula-2 to C converter).
 
 Then I had this weird idea: what if I wrote my own Modula-2 to Java converter?
 
-The idea was not so weird after all: I had compiler courses. I also worked on Java code refactoring Eclipse plugins involving complex Java to Java code transformations; and I had a basic knowledge of the antlr parser.
+The idea was not so weird after all: I had compiler courses. I also worked on refactoring Eclipse plugins involving complex Java to Java code transformations; and I had a basic knowledge of the antlr parser library.
 
-Don't get me wrong, it still took the equivalent of *several weeks* at full time to finalize the Modula-2 to Java translator. And even if it could successfully convert the whole game:
+Don't get me wrong, it still took the equivalent of *several weeks* at full time to finalize the Modula-2 to Java translator. You can find it at ([www.github.com/Modula2Java17/Modula2Java17](https://github.com/Tachyon-Sonics/Modula2Java17)) if you are interested. And even if it could successfully convert the whole game:
 
-- It probably still has many bugs when applied on other Modula-2 applications, as my own game was the only "big" Modula-2 application on which I tested it
-- The resulting game did not run as it used pointer arithetic at some places. I had to manually modify the resulting Java code.
-    - I still plan to improve the Modula-2 to Java translator to handle pointer arithetic in the future
-- I still had to rewrite the operating system depedent parts in Java: graphics, sounds, etc.
+- The translator probably still has many bugs when used on other Modula-2 programs, as my own game was the only "big" Modula-2 program on which I tested it
+- The resulting game did not run as it used pointer arithetic at some places, which could not be converted in Java. I had to manually modify the resulting Java code.
+    - I still plan to improve the Modula-2 to Java translator to handle pointer arithmetic in the future
+- I had to "fix" a few non portable stuff in the original Modula-2 code, but I could keep it to a minimum.
+- I still had to rewrite the operating system dependent parts in Java (the "Library"): graphics, sounds, etc.
 
-The last point tooks a few additional weeks until the Java port of the game finally worked.
+The last point tooks a few additional weeks until the Java port of the game was finally playable.
 
 Believe it or not:
 
 - At that time I finally found my MHC licence (!). But I decided to continue with my own compiler...
-- Even a 60 FPS, scrolling was still jaggy. I finally found that the problem was in the original code (and hence UAE was not responsible for it)
+- Even at 60 FPS, scrolling was still jaggy on the Java version. I finally found that the problem was in the original code (and hence UAE was not responsible for it)
     - More precisely, the game tried to adjust to the actual frame rate in case it dropped below 60 FPS
-    - However, instead of couting the number of missed frames during vertical sync, I did it while moving the player. Unefortunately this could happend at any time during the game loop, because there was no guarantee that the player is the first or last sprite.
-    -Furthermore, it queried the value from an independent 300 Hz clock, potentially resulting in fractional missed frames.
+    - However, instead of counting the number of missed frames during vertical sync, it was done while moving the player. Unefortunately this could happend at any time during the game loop, because there was no guarantee that the player is the first or last sprite.
+    - Furthermore, it queried and deduced the value from an independent 300 Hz clock, potentially resulting in fractional missed frames.
 - Hopefully, I could fix the jaggy scrolling issue without touching the initial code, by locking the 300 Hz clock to the vertical sync in their Java implementation.
-    - Note that scrolling is still not as good as it can be. The reason is that it is still limited to unscaled pixels. So when the game is scaled by a factor of 4 for instance, it will only scroll by multiples of 4 pixels. In a future version I will fix this.
-    
+- Another problem is that Java's `Thread.nanoSleep` method is not as accurate as it may seem: it may sleep up to a few milliseconds more than requested (which is significant, as 60 FPS requires 16.6 milliseconds of sleeping). This also introduces jaggy scrolling, but from the Java side this time. To fix the problem I had to create an "accurate sleeper" class that combines sleeping (to prevent 100% CPU uage and battery drain) and active waiting...
+    - Note that scrolling is still not as good as it can be. The reason is that it is still limited to unscaled pixels. So when the game is scaled by a factor 4 for instance, it will only scroll by multiples of 4 pixels. In a future version I plan to fix this as well.    
     
 #### The Java "Library" implementation
 
-As I said earlier, the graphics, sounds and other operating system dependent modules had to be rewritten in Java. Thank to the original design of the game, I could:
+As I said earlier, the graphics, sounds and other operating system dependent modules (the "Library") had to be rewritten in Java. Thank to the original design of the game, I could:
 
-- Scale the bitmap images (for the backgrounds) using the high quality xBRZ algorithm. This algorithm probably does not run in real-time, but this is not important because the scaling occurs only once at game startup (this was the case in the original code and is still the case in the Java version, which is a straightforward conversion). This means that only graphics that are already scaled are used during the game.
-- Scale the sprited with high quality, as they are vector-based. Like the bitmap images this is only done once at application startup.
-- Implement an audio mixer that allows for 8 stereo channels.
+- Scale the bitmap images (for the backgrounds) using the high quality xBRZ algorithm. The Java implementation of that algorithm probably does not run in real-time, but this is not important because the scaling occurs only once at game startup (this was the case in the original code and is still the case in the Java version, which is a straightforward conversion). This means that only graphics that are already scaled are used during the game.
+- Scale the sprites with high quality, as they are vector-based. Like the bitmap images this is only done once at application startup.
+- Implement an audio mixer that allows for 8 stereo channels. Note however that the sounds are still the original 8 bit and low resolution ones (between 5 - 20 kHz only), so do not expect miracles here.
 
 Note that while the game has a "Graphics/Settings" menu which allowed you to choose the scaling factor (among other), in the Java version this setting is completely disabled. In fact the results were better if the original code thinks it is running at x1 scaling, and that scaling is done behind the scene in the Java code. The reason is that the scaling code in the original code did not properly scale the lines. With a x2 scaling this was ok. But with higher scalings, some sprites juste begin to have too thin outlines.
 
-There are also a few drawbacks:
+Another reason why I disabled the "Graphics/Settings" is that it provided a black&white mode and a "Color x2" mode (actually a mode with two independent 16 color playfields that scroll at different speeds) in addition to the default 16-color mode. I have not implemented them in Java yet, and I may not implement them ever (black&white really does not have any value today, and the "Color x2" was impressive in the old times, but it doesn't really bring anything to the game).
+
+The original game design also has a few drawbacks:
 
 - The game uses indexed colors (palette graphics). While supported by Java, they are in general *not* hardware optimised. 
 - For the same reason I could not use anti-aliasing.
+- No floating point was used (it was slow at that time). All arithmetic was integer-based. That means they are a few visible round-off errors, for instance when some bosses (Mother Alien, Master Alien) fire at you or explode.
 
-In a future version I plan to implement a version with true hardware accelerated RGB colors, but this will probably require changes in the original code.
+
+#### Other changes
+
+While the game was converted from Modula-2 to Java, and the "Library" was rewritten in Java, the operating system independent part of the code is still 98% the same as the old Amiga and Macintosh versions.
+
+I just changed a few things that went on my nerves while playing and testing, and all these small changes were done directly in the Modula-2 code. If you know about the original Amiga or Macintosh version you may hence notice a few differences. Here's some of the most important ones:
+
+- The levels of "Family" zone now cost 150£ instead of 100£. I found that "Family" levels were otherwise too frequent.
+- Some aliens release less "£" for the same reason
+- Less meteorites in the "Chaos" zone
+- The order of "Family" levels has slightly changed
+
+BTW if you saved games with the original Amiga or Macintosh version, you should be able to load them in the Java version. The format is compatible!
+
+
+## Future works
+
+Here's my plans for the future of ChaosCastle (but any of these things may or may not happen - this is a hobbyist project):
+
+- 10 new "Castle" levels. This has already started. Do not expect too much, these levels do not use new background images or new enemies / sprites. However:
+    - They have much more animation (sprites). The original game was limited to 256 sprites, I raised this limitation to 1024 in the Java version and took advantage of it in the new levels. Believe it or not, this changes the gameplay in a significant way.
+    - They feature much better procedural generation algorithms. At the old times I wrote the original version for the Amiga computers, I remember being quite frustrated by the results, most levels did not feel "random" enough.
+- Replace all the sounds with high quality versions, for instance from the freesounds site. Indeed, some sounds of the original version were well... not really from me, not really free, and hence not entirely legal.
+- Create a Java rendering engine that uses RGB colors so it can be hardware accelerated. This will probably involve changes in the original portable part of the game code to preserve the color animations.
+- Improve the Modula-2 to Java translator that was used to create this Java port.
+- Better graphics, but probably not from me. I still plan to at least convert them to standard formats like PNG (bitmaps) and SVG (vector graphics) so it can be easier for other interested people to contribute.
+- Add background musics. There are various sites with authors of "free" musics that can be used for that purpose.
+- Further improve scrolling, which is still not as smooth as it can be because of the way scaling is implemented.
+- Replace all integer-based arithmetic by floating point arithmetic.
+
+Here's my **NOT** plans, basically the things I do *not* want to change:
+
+- The game is 100% free and I want to keep it that way. It is in fact now also open source.
+- The game does not require any internet connection
+- The game has absolutely no ad, and no in-app purchase
