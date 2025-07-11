@@ -3,7 +3,9 @@ package ch.chaos.library.utils.gui;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.text.DecimalFormat;
+import java.util.List;
 
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -163,6 +165,12 @@ public class DoubleInput extends JPanel {
 
     public JSpinner getSpinner() {
         return spinner;
+    }
+    
+    public List<JComponent> getAllComponents() {
+        JSpinner.NumberEditor editor = (JSpinner.NumberEditor) spinner.getEditor();
+        JFormattedTextField textField = editor.getTextField();
+        return List.of(this, slider, spinner, editor, textField);
     }
 
 }

@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JPanel;
 
 import ch.chaos.library.Graphics;
+import ch.chaos.library.settings.Settings;
 
 class AreaPanel extends JPanel {
 
@@ -36,7 +37,7 @@ class AreaPanel extends JPanel {
     }
 
     public void paint(java.awt.Graphics g, BufferedImage image, boolean fromFrame) {
-        boolean fullScreen = JFrameArea.FULL_SCREEN;
+        boolean fullScreen = Settings.appMode().isFullScreen();
         Graphics2D g2 = (Graphics2D) g.create();
         if (frameArea != null) {
             // Buffered

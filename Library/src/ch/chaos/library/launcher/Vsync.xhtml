@@ -1,0 +1,17 @@
+<html>
+	<body>
+		<p><b>V-Sync Mode</b></p>
+		<p>
+			When hardware V-Sync (vertical sync) is not supported, this setting selects how to do it in software.
+		</p>
+		<ul>
+			<li><b>Sleep</b>: use software sleeping. This mode has the lowest CPU consumption and the least drain on the battery; however it might drift from a few milliseconds and hence result in jaggy scrolling</li>
+			<li><b>Balanced low</b>: use a dynamic combination of software sleeping and active waiting. This uses more CPU than <b>Sleep</b>, but significantly reduces jaggy scrolling.</li>
+			<li><b>Balanced high</b>: same as <b>Balanced low</b>, with less software sleeping and more active waiting. Uses even more CPU, but almost completely reduce jaggy scrolling.</li>
+			<li><b>Active</b>: use active wating only. In this mode the CPU is constantly used at 100%, and will drain the battery the most. It might be smoother than <b>Balanced high</b> in some cases.
+		</ul>
+		<p>
+			Note that the chosen mode may have no impact at all on slow computers that cannot achieve 60 FPS at all.
+		</p>
+	</body>
+</html>

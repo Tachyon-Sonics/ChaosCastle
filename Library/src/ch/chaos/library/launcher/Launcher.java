@@ -17,9 +17,10 @@ import ch.chaos.library.utils.Platform;
 import ch.chaos.library.utils.RelauncherBuilder;
 import ch.chaos.library.utils.gui.GuiUtils;
 
-public class Launcher {
+public class Launcher { // TODO (0) continue, use inside of game
 
     private static final String LAUNCH_ARG = "--launch";
+    private static final String SETTINGS_ARG = "--settings"; // Force show launcher dialog
 
 
     public static void showLauncherIfNeeded(String[] args, Runnable onComplete) {
@@ -39,7 +40,7 @@ public class Launcher {
         if (isLaunchNow(args)) {
             // Start app now
             onComplete.run();
-        } else if (appMode != null && appMode.isDoNotAskAgain()) {
+        } else if (appMode != null && appMode.isDoNotAskAgain() && !isOpenSettings(args)) {
             // Apply settings immediately
             // Some settings require adding JVM options (like Java2D pipeline, etc), hence relaunch
             relaunchApp(appSettings);
@@ -52,7 +53,7 @@ public class Launcher {
             SwingUtilities.invokeLater(() -> openSettingsDialog(appSettings0, appMode0));
         }
     }
-
+    
     private static boolean isLaunchNow(String[] args) {
         for (String arg : args) {
             if (LAUNCH_ARG.equals(arg))
@@ -60,10 +61,18 @@ public class Launcher {
         }
         return false;
     }
+    
+    private static boolean isOpenSettings(String[] args) {
+        for (String arg : args) {
+            if (SETTINGS_ARG.equals(arg))
+                return true;
+        }
+        return false;
+    }
 
     private static void openSettingsDialog(AppSettings appSettings, AppMode appMode) {
         GuiUtils.setupLookAndFeel();
-        LauncherFrame frame = new LauncherFrame(appSettings, appMode, Launcher::relaunchApp);
+        LauncherFrame frame = new LauncherFrame(appSettings, appMode, Launcher::relaunchApp, null);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

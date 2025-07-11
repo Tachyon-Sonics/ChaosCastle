@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import ch.chaos.library.settings.Settings;
 import ch.chaos.library.utils.Async;
 import ch.chaos.library.utils.FullScreenUtils;
 import ch.chaos.library.utils.gui.GuiUtils;
@@ -122,7 +123,7 @@ public class Checks {
      * Whether we are in full-screen mode, and the full screen window is visible
      */
     private boolean isFullScreenActive() {
-        if (!Graphics.FULL_SCREEN)
+        if (!Settings.appMode().isFullScreen())
             return false;
         JFrame fullScreenFrame = Dialogs.instance().getMainFrame();
         if (fullScreenFrame == null || !fullScreenFrame.isVisible())
@@ -134,7 +135,7 @@ public class Checks {
     
     private JFrame owner() {
         JFrame result = Dialogs.instance().getMainFrame();
-        if (Graphics.FULL_SCREEN && !result.isFocused())
+        if (Settings.appMode().isFullScreen() && !result.isFocused())
             return null; // We are in full screen mode, but the user ALT-TABed to hide us
         return result;
     }

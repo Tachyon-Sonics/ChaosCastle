@@ -11,9 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import ch.chaos.library.Dialogs;
-import ch.chaos.library.Graphics;
 import ch.chaos.library.Memory;
 import ch.chaos.library.Memory.TagItem;
+import ch.chaos.library.settings.Settings;
 
 public class DialogGadgetWindowed extends Gadget {
 
@@ -32,7 +32,7 @@ public class DialogGadgetWindowed extends Gadget {
     }
 
     private static JFrame owner() {
-        return (Graphics.FULL_SCREEN ? null : Dialogs.instance().getMainFrame());
+        return (Settings.appMode().isFullScreen() ? null : Dialogs.instance().getMainFrame());
     }
 
     @Override

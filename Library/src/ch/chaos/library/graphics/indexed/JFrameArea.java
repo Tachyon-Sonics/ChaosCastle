@@ -28,6 +28,8 @@ import ch.chaos.library.Graphics.AreaPtr;
 import ch.chaos.library.Input;
 import ch.chaos.library.Menus;
 import ch.chaos.library.graphics.AreaBase;
+import ch.chaos.library.settings.GfxDisplayMode;
+import ch.chaos.library.settings.Settings;
 import ch.chaos.library.utils.FpsStats;
 import ch.pitchtech.modula.runtime.Runtime;
 
@@ -37,7 +39,6 @@ import ch.pitchtech.modula.runtime.Runtime;
  */
 class JFrameArea extends AreaBase implements AreaPtr {
 
-    public final static boolean FULL_SCREEN = Graphics.FULL_SCREEN;
     private final static boolean SKIP_MODE = Graphics.SEPARATE_GAME_LOOP;
     private final static int NB_BUFFERS = 2; // Single / Double / Triple Buffering
 
@@ -75,8 +76,8 @@ class JFrameArea extends AreaBase implements AreaPtr {
         panel.setOpaque(true);
         panel.setBackground(Color.BLACK);
         frame.setBackground(Color.BLACK);
-        double corrX = (Graphics.FULL_SCREEN && Graphics.DISPLAY_MODE != null) ? 1.0 : scaleX;
-        double corrY = (Graphics.FULL_SCREEN && Graphics.DISPLAY_MODE != null) ? 1.0 : scaleY;
+        double corrX = (Settings.appMode().isFullScreen() && Settings.appMode().getDisplayMode() != null) ? 1.0 : scaleX;
+        double corrY = (Settings.appMode().isFullScreen() && Settings.appMode().getDisplayMode() != null) ? 1.0 : scaleY;
         int frameWidth = (int) (this.width / corrX + 0.5);
         int frameHeight = (int) (this.height / corrY + 0.5);
         panel.setPreferredSize(new Dimension(frameWidth, frameHeight));
@@ -118,7 +119,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
     @Override
     public void bringToFront() {
         if (!frame.isVisible()) {
-            if (FULL_SCREEN) {
+            if (Settings.appMode().isFullScreen()) {
                 frame.setUndecorated(true);
             } else {
                 frame.setTitle(Runtime.getAppNameOrDefault());
@@ -126,16 +127,17 @@ class JFrameArea extends AreaBase implements AreaPtr {
                 frame.setIconImages(Dialogs.instance().getAppImageList());
             }
             frame.pack();
-            if (FULL_SCREEN) {
+            if (Settings.appMode().isFullScreen()) {
                 frame.getContentPane().setBackground(Color.BLACK);
                 GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
                 device.setFullScreenWindow(frame);
-                if (Graphics.DISPLAY_MODE != null) {
-                    Dimension screenSize = new Dimension(Graphics.DISPLAY_MODE.getWidth(), Graphics.DISPLAY_MODE.getHeight());
+                GfxDisplayMode gfxDisplayMode = Settings.appMode().getDisplayMode();
+                if (gfxDisplayMode != null) {
+                    Dimension screenSize = new Dimension(gfxDisplayMode.width(), gfxDisplayMode.height());
                     DisplayMode switchTo = null;
                     DisplayMode current = device.getDisplayMode();
-                    if (!current.equals(Graphics.DISPLAY_MODE)) {
-                        switchTo = Graphics.DISPLAY_MODE;
+                    if (!current.equals(gfxDisplayMode.toDisplayMode())) {
+                        switchTo = gfxDisplayMode.toDisplayMode();
                     }
                     if (switchTo != null && device.isDisplayChangeSupported()) {
                         System.out.println("Switching to " + switchTo);
@@ -173,7 +175,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
             } else if (NB_BUFFERS > 1) {
                 frame.createBufferStrategy(NB_BUFFERS);
                 bufferStrategy = frame.getBufferStrategy();
-                if (!FULL_SCREEN) {
+                if (!Settings.appMode().isFullScreen()) {
                     // Offset according to frame's title and borders
                     Point panelLocation = panel.getLocationOnScreen();
                     Point frameLocation = frame.getLocationOnScreen();
@@ -181,8 +183,8 @@ class JFrameArea extends AreaBase implements AreaPtr {
                     panelOffsetY = (int) ((panelLocation.y - frameLocation.y) * scaleY);
                 } else {
                     // Center
-                    double corrX = (Graphics.DISPLAY_MODE == null ? scaleX : 1.0);
-                    double corrY = (Graphics.DISPLAY_MODE == null ? scaleY : 1.0);
+                    double corrX = (Settings.appMode().getDisplayMode() == null ? scaleX : 1.0);
+                    double corrY = (Settings.appMode().getDisplayMode() == null ? scaleY : 1.0);
                     Dimension preferredSize = panel.getPreferredSize();
                     Dimension actualSize = panel.getSize();
                     panelOffsetX = (int) ((actualSize.width - preferredSize.width) * corrX / 2 + 0.5);
@@ -284,7 +286,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
         } else {
             message = formatter.format(eFps) + " FPS";
         }
-        if (FULL_SCREEN) {
+        if (Settings.appMode().isFullScreen()) {
 //            System.out.println(message);
         } else {
             SwingUtilities.invokeLater(() -> {

@@ -1,18 +1,11 @@
 package ch.chaos.library;
 
-import java.awt.Dimension;
-import java.awt.DisplayMode;
 import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsEnvironment;
-import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.lang.reflect.InvocationTargetException;
 import java.util.EnumSet;
 import java.util.concurrent.atomic.AtomicReference;
 
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import ch.chaos.library.Memory.TagItem;
@@ -20,15 +13,12 @@ import ch.chaos.library.graphics.IGraphics;
 import ch.chaos.library.graphics.indexed.GraphicsIndexedColorImpl;
 import ch.chaos.library.graphics.rgb.GraphicsRgbColorImpl;
 import ch.chaos.library.graphics.xbrz.XbrzHelper;
+import ch.chaos.library.settings.Settings;
 import ch.pitchtech.modula.runtime.Runtime.IRef;
 
 public class Graphics {
 
     private final static boolean USE_RGB_MODE = false;
-    private final static double QUALITY = 1.0; // 0.0 - 1.0 (0.0 = full scaling afterwards, 1.0 = full scaling internally)
-    private final static double SCREEN_FRACTION = 1.0;
-    public static boolean FULL_SCREEN = true;
-    public static DisplayMode DISPLAY_MODE = new DisplayMode(1920, 1080, 32, 60);
     public final static boolean SEPARATE_GAME_LOOP = false;
     public final static boolean SCALE_XBRZ = true; // false: bicubic
 
@@ -210,47 +200,12 @@ public class Graphics {
          * Hence the simplest solution here is to disable any scale factor when a custom resolution is used:
          * TODO check on Linux and MacOS
          */
-        if (FULL_SCREEN && DISPLAY_MODE != null) {
+        if (Settings.appMode().isFullScreen()) {
             System.setProperty("sun.java2d.uiScale", "1.0");
         }
         
-        // System.setProperty("sun.java2d.trace", "timestamp,log,count");
-
-        // Determine default frame insets
-        JFrame testFrame = new JFrame();
-        testFrame.pack();
-        Insets frameInsets = testFrame.getInsets();
-        testFrame.dispose();
-
-        // Determine screen size and insets
-        GraphicsConfiguration graphicsConfiguration = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
-        AffineTransform screenTransform = graphicsConfiguration.getDefaultTransform();
-        double scaleX = screenTransform.getScaleX();
-        double scaleY = screenTransform.getScaleY();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Insets screenInsets = Toolkit.getDefaultToolkit().getScreenInsets(graphicsConfiguration);
-        if (FULL_SCREEN) {
-            if (Graphics.DISPLAY_MODE != null) {
-                screenSize = new Dimension(Graphics.DISPLAY_MODE.getWidth(), Graphics.DISPLAY_MODE.getHeight());
-                scaleX = 1.0;
-                scaleY = 1.0;
-            }
-            screenInsets = new Insets(0, 0, 0, 0);
-            frameInsets = new Insets(0, 0, 0, 0);
-        }
-        int availWidth = screenSize.width - screenInsets.left - screenInsets.right - frameInsets.left - frameInsets.right;
-        int availHeight = screenSize.height - screenInsets.top - screenInsets.bottom - frameInsets.top - frameInsets.bottom;
-        int screenWidth = (int) (availWidth * scaleX * SCREEN_FRACTION);
-        int screenHeight = (int) (availHeight * scaleY * SCREEN_FRACTION);
-        int baseWidth = 320;
-        int baseHeight = 240; // TODO (4) initialize on CreateArea so that it is not hard-coded
-        int frameScale = Math.min(screenWidth / baseWidth, screenHeight / baseHeight);
-        int innerScale = 1;
-        int steps = (int) (Math.exp(QUALITY * Math.log(frameScale)) + 0.5);
-        while (frameScale % steps != 0 && steps > 1)
-            steps--;
-        frameScale /= steps;
-        innerScale *= steps;
+        int frameScale = Settings.appMode().getOuterScale();
+        int innerScale = Settings.appMode().getInnerScale();
         if (SCALE_XBRZ) {
             // Xbrz does not support all scaling factors. Round to nearest
             innerScale = XbrzHelper.getNearestScale(innerScale);
