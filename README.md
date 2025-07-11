@@ -13,11 +13,51 @@ Oh, and there is no download yet. You have to compile the game from the sources 
 
 ## Screenshots
 
+The game has simple graphics. For instance, this is the main character:
+
+TODO
+
+And this is a screenshot of the "Garden" level of the "Castle" zone:
+
+TODO
+
+Do not like the graphics? then sorry this game is not for you. If on the other hand you are interested by the gameplay rather than by the graphics (or if you like retro games), you might be interested.
+
+
 ## Compiling
+
+To compile and run ChaosCastle, you must be familiar with the Command Prompt (Windows) or Terminal (Linux / macOS).
+
+First you need to install:
+
+- A Java JDK version 17 or greater
+    - You need a JDK and not just a JRE!
+    - The `JAVA_HOME` environment variable should properly locate the JDK's installation directory. If this environment variable is not properly created during the installation, you may need to create it manually.
+    - On Debian-based Linux, this can be done using `sudo apt install openjdk-17-jdk`
+    - On Windows and macOS, the JDK can be downloaded from www.adoptium.net
+- Git
+    - On Debian-based Linux, `sudo apt install git`
+    - On other systems, https://git-scm.com/downloads
+    
+Then open a Command Prompt or Terminal.
+
+- Change the current directory to some new empty directory
+- Get the sources of the Modula-2 to Java translator, using `git checkout https://github.com/Tachyon-Sonics/Modula2Java17`
+  - While the game is already translated to Java, you will still need the small Modula-2 runtime that comes with the compiler
+- Checkout the latest stable release: TODO
+- Get the sources of the ChaosCastle game: `git checkout https://github.com/Tachyon-Sonics/ChaosCastle`
+- Checkout the latest stable release: TODO
+- Compile it and create an executable .jar file:
+    - On Windows: `gradlew.bat jar`
+    - On Linux or macOS: `./gradle jar`, or `sh ./gradle jar` if the former does not work.
+    - This takes quite a time, and this will also download a few libraries used by the game. This is where most of the magics happens, and also where problems are most likely to occur...
+- If everything went well and without errors, the file `ChaosCastle.jar` can be found in the `ChaosCastle\build\libs` directory (relative to the current one). This is the only file you need to run the game. You can now place it somewhere else where it is easier to find. It still needs a Java JRE version 17 or more to run (which you already have as you installed a Java JDK (that includes a JRE) to compile the game). Also note that there is currently no way to do a "installation"; the game is just a portable, single file. Note that the `ChaosCastle.jar` file is 100% cross-platform: it can be used on other operating systems (Windows, Linux, macOS) as long as they have a Java JRE version 17 or greater installed.
+
+
 
 ## Starting the game
 
-TODO: launcher, in-game menu
+TODO: cmd, launcher, in-game menu
 
 ## Goals
 
