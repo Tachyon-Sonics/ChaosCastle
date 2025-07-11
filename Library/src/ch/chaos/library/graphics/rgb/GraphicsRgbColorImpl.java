@@ -35,8 +35,6 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
     // Whether to use alpha transparency, notable for SetPat()
     public final static boolean USE_ALPHA_TRANSPARENCY = true;
 
-    private final static int SCALE = Graphics.SCALE;
-
     int nbScreenColor;
     byte[] rScreenPalette;
     byte[] gScreenPalette;
@@ -88,7 +86,7 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
         } else if (type == Graphics.atBUFFER) {
             JFrameArea frameArea = new JFrameArea(width, height);
             int nbColors = Memory.tagInt(tags, Graphics.aCOLOR, 16);
-            BufferArea area = new BufferArea(this, width, height, nbColors, SCALE, false, true);
+            BufferArea area = new BufferArea(this, width, height, nbColors, scale(), false, true);
             frameArea.setupBuffer(area);
             this.nbScreenColor = nbColors;
             this.rScreenPalette = area.rPalette;
@@ -97,7 +95,7 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
             return frameArea;
         } else if (type == Graphics.atMEMORY || type == Graphics.atMASK) {
             int nbColors = Memory.tagInt(tags, Graphics.aCOLOR, 16);
-            BufferArea area = new BufferArea(this, width, height, nbColors, SCALE, type == Graphics.atMASK, false);
+            BufferArea area = new BufferArea(this, width, height, nbColors, scale(), type == Graphics.atMASK, false);
             return area;
         } else {
             throw new UnsupportedOperationException("Unsupported display type: " + type);
@@ -242,7 +240,7 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
                     }
                     // Note: incorrect when drawing directly on-screen (and not in a buffer)
                     TexturePaint texturePaint = new TexturePaint(texture,
-                            new Rectangle2D.Float(0.0f, 0.0f, 2.0f / (float) SCALE, 2.0f / (float) SCALE));
+                            new Rectangle2D.Float(0.0f, 0.0f, 2.0f / (float) scale(), 2.0f / (float) scale()));
                     g.setPaint(texturePaint);
                 }
             });

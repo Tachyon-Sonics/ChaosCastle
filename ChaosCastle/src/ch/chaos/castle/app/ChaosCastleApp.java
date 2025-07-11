@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 
 import ch.chaos.castle.ChaosCastle;
 import ch.chaos.library.Dialogs;
+import ch.chaos.library.launcher.Launcher;
 import ch.pitchtech.modula.runtime.Runtime;
 
 /**
@@ -43,10 +44,10 @@ public class ChaosCastleApp {
     
     public static void main(String[] args) {
         init();
-//        Launcher.showLauncherIfNeeded(args, () -> {
-//            ChaosCastle.main(args);
-//        });
-        ChaosCastle.main(args);
+        Launcher.showLauncherIfNeeded(args, () -> {
+            ChaosCastle.main(args);
+        });
+//        ChaosCastle.main(args);
     }
 
 }

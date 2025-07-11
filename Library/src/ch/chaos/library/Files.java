@@ -480,12 +480,13 @@ public class Files {
     }
 
     public Runtime.RangeSet AskMiscSettings(Runtime.RangeSet which) {
+        Runtime.RangeSet result = new Runtime.RangeSet(Memory.SET16_r);
+        result.incl(Files.msGraphic);
+        result.incl(Files.msMenus);
         CountDownLatch latch = new CountDownLatch(1);
         Thread launcherThread = new Thread(() -> {
             showLauncherSettings((as) -> {
                 // Save
-                which.incl(Files.msGraphic);
-                which.incl(Files.msMenus);
                 Settings.reload();
                 latch.countDown();
             }, () -> {
@@ -499,7 +500,7 @@ public class Files {
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-        return which;
+        return result;
     }
     
     private void showLauncherSettings(Consumer<AppSettings> onSave, Runnable onCancel) {

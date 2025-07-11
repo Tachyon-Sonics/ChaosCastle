@@ -61,6 +61,10 @@ public abstract class GraphicsBase implements IGraphics {
             mrSandman = new AccurateSleeper(security);
         }
     }
+    
+    public static int scale() {
+        return Settings.appMode().getInnerScale();
+    }
 
     @Override
     public void GetGraphicsSysAttr(/* VAR */ Memory.TagItem what) {
@@ -106,7 +110,7 @@ public abstract class GraphicsBase implements IGraphics {
 
     @Override
     public void DrawText(Runtime.IRef<String> t) {
-        float x = textPosition.x + (Graphics.SCALE > 1 ? 0.5f : 0.0f);
+        float x = textPosition.x + (scale() > 1 ? 0.5f : 0.0f);
         float y = textPosition.y;
         currentArea.draw((g) -> {
             Graphics2D g2 = (Graphics2D) g.create();

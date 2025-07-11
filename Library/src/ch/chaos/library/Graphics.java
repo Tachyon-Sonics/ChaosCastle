@@ -12,7 +12,6 @@ import ch.chaos.library.Memory.TagItem;
 import ch.chaos.library.graphics.IGraphics;
 import ch.chaos.library.graphics.indexed.GraphicsIndexedColorImpl;
 import ch.chaos.library.graphics.rgb.GraphicsRgbColorImpl;
-import ch.chaos.library.graphics.xbrz.XbrzHelper;
 import ch.chaos.library.settings.Settings;
 import ch.pitchtech.modula.runtime.Runtime.IRef;
 
@@ -188,9 +187,6 @@ public class Graphics {
     // Impl
 
 
-    public final static int SCALE;
-    public final static int FRAME_SCALE;
-
     static {
         /*
          * On Windows, 3840x2160 (default) may have a x2 scale, while another resolution like 1920x1080 may have a 1.5 scale.
@@ -203,16 +199,6 @@ public class Graphics {
         if (Settings.appMode().isFullScreen()) {
             System.setProperty("sun.java2d.uiScale", "1.0");
         }
-        
-        int frameScale = Settings.appMode().getOuterScale();
-        int innerScale = Settings.appMode().getInnerScale();
-        if (SCALE_XBRZ) {
-            // Xbrz does not support all scaling factors. Round to nearest
-            innerScale = XbrzHelper.getNearestScale(innerScale);
-        }
-        SCALE = innerScale;
-        FRAME_SCALE = frameScale;
-        System.out.println("Inner scale: " + SCALE + "; outer scale: " + FRAME_SCALE);
     }
 
     private static Graphics instance;
@@ -235,11 +221,12 @@ public class Graphics {
     }
 
     public static int scale(int value) {
-        return value * SCALE;
+        return value * Settings.appMode().getInnerScale();
     }
 
     public static int unscale(int value) {
-        return (value + SCALE / 2) / SCALE;
+        int scale = Settings.appMode().getInnerScale();
+        return (value + scale / 2) / scale;
     }
 
     public static void resetScale(Graphics2D g2) {

@@ -28,6 +28,7 @@ import ch.chaos.library.Graphics.AreaPtr;
 import ch.chaos.library.Input;
 import ch.chaos.library.Menus;
 import ch.chaos.library.graphics.AreaBase;
+import ch.chaos.library.graphics.GraphicsBase;
 import ch.chaos.library.settings.GfxDisplayMode;
 import ch.chaos.library.settings.Settings;
 import ch.chaos.library.utils.FpsStats;
@@ -68,8 +69,9 @@ class JFrameArea extends AreaBase implements AreaPtr {
 
 
     public JFrameArea(int width, int height) {
-        this.width = Graphics.scale(width) * Graphics.FRAME_SCALE;
-        this.height = Graphics.scale(height) * Graphics.FRAME_SCALE;
+        int frameScale = Settings.appMode().getOuterScale();
+        this.width = Graphics.scale(width) * frameScale;
+        this.height = Graphics.scale(height) * frameScale;
         this.frame = new JFrame();
         frame.setIconImages(Dialogs.instance().getAppImageList());
         this.panel = new AreaPanel();
@@ -170,7 +172,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
                 BufferedImage image = frame.getGraphicsConfiguration().createCompatibleImage(width, height);
                 panel.setImage(image);
                 g = panel.getImage().createGraphics();
-                g.scale(Graphics.SCALE / scaleX, Graphics.SCALE / scaleY);
+                g.scale(GraphicsBase.scale() / scaleX, GraphicsBase.scale() / scaleY);
                 GraphicsIndexedColorImpl.setupHighSpeed(g);
             } else if (NB_BUFFERS > 1) {
                 frame.createBufferStrategy(NB_BUFFERS);
@@ -190,13 +192,14 @@ class JFrameArea extends AreaBase implements AreaPtr {
                     panelOffsetX = (int) ((actualSize.width - preferredSize.width) * corrX / 2 + 0.5);
                     panelOffsetY = (int) ((actualSize.height - preferredSize.height) * corrY / 2 + 0.5);
                 }
-                if (Graphics.FRAME_SCALE > 1) {
+                int frameScale = Settings.appMode().getOuterScale();
+                if (frameScale > 1) {
                     /*
                      * Scaling an indexed image to an RGB one seems slower than converting to an RGB image
                      * first, and scaling then. At least for scale > 2. For 2 both ways seems similar in speed...
                      */
                     intermediateImage = frame.getGraphicsConfiguration()
-                            .createCompatibleImage(width / Graphics.FRAME_SCALE, height / Graphics.FRAME_SCALE);
+                            .createCompatibleImage(width / frameScale, height / frameScale);
                 }
             }
             repaintThread = new Thread(this::repaintLoop, "Paint Loop");

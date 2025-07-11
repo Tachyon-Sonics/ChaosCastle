@@ -36,7 +36,6 @@ import ch.pitchtech.modula.runtime.Runtime.IRef;
 
 public class GraphicsIndexedColorImpl extends GraphicsBase {
 
-    private final static int SCALE = Graphics.SCALE;
     private final static boolean CIRCULAR_XBRZ = true;
 
     int nbScreenColor;
@@ -90,7 +89,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
                 }
             }
             JFrameArea frameArea = new JFrameArea(width, height);
-            DoubleBufferArea area = new DoubleBufferArea(this, width, height, nbColors, SCALE);
+            DoubleBufferArea area = new DoubleBufferArea(this, width, height, nbColors, scale());
             frameArea.setupBuffer(area);
             this.nbScreenColor = nbColors;
             this.rScreenPalette = area.getrExtPalette();
@@ -99,7 +98,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
             return frameArea;
         } else if (type == Graphics.atMEMORY || type == Graphics.atMASK) {
             int nbColors = Memory.tagInt(tags, Graphics.aCOLOR, 16);
-            MemoryArea area = new MemoryArea(this, width, height, nbColors, SCALE);
+            MemoryArea area = new MemoryArea(this, width, height, nbColors, scale());
             return area;
         } else {
             throw new UnsupportedOperationException("Unsupported display type: " + type);
@@ -239,7 +238,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
                         gt.fillRect(1, 0, 1, 1);
                 }
                 TexturePaint texturePaint = new TexturePaint(texture,
-                        new Rectangle2D.Float(0.0f, 0.0f, 2.0f / (float) SCALE, 2.0f / (float) SCALE));
+                        new Rectangle2D.Float(0.0f, 0.0f, 2.0f / (float) scale(), 2.0f / (float) scale()));
                 g.setPaint(texturePaint);
             }
         });
@@ -447,7 +446,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
         } else if (currentArea instanceof MemoryArea bufferArea) {
             int nbColors = bufferArea.getNbColors();
             if (nbColors == 16) {
-                if (Graphics.SCALE_XBRZ && Graphics.SCALE != 1) {
+                if (Graphics.SCALE_XBRZ && scale() != 1) {
                     if (CIRCULAR_XBRZ) {
                         scaleXbrz16Circular(imageInfo, sx, sy, dx, dy, width, height, bufferArea);
                     } else {
@@ -466,7 +465,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
 
     void scaleXbrz16(Graphics.Image imageInfo, short sx, short sy, 
             short dx, short dy, short width, short height, MemoryArea bufferArea) {
-        final int Scale = Graphics.SCALE;
+        final int Scale = scale();
         
         // Extract block to scale into an RGB image
         BufferedImage srcImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -524,7 +523,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     
     void scaleXbrz16Circular(Graphics.Image imageInfo, short sx, short sy, 
             short dx, short dy, short width, short height, MemoryArea bufferArea) {
-        final int Scale = Graphics.SCALE;
+        final int Scale = scale();
         
         // Extract block to scale into an RGB image
         int extWidth = width + CIRCULAR_PAD * 2;
@@ -607,7 +606,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
         }
 
         IndexedImage dstImage;
-        final int Scale = Graphics.SCALE;
+        final int Scale = scale();
         if (Scale > 1) {
             // Scale
             IndexedImageScaler scaler = new IndexedImageScaler(Scale);
