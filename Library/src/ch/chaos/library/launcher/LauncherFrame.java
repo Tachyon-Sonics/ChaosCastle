@@ -226,14 +226,20 @@ public class LauncherFrame extends JFrame {
         // Buttons
         JPanel buttonsPanel = new JPanel();
         mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
-        buttonsPanel.setLayout(new GridLayout(1, 3));
+        buttonsPanel.setLayout(new GridLayout(1, onCancel == null ? 3 : 2));
         
         JPanel startPanel = new JPanel(new FlowLayout());
         JButton startButton = new JButton("Start");
-        startButton.setFont(startButton.getFont().deriveFont(Font.BOLD));
+        bolden(startButton);
         startPanel.add(startButton);
         startButton.addActionListener(this::start);
-        
+
+        JPanel okPanel = new JPanel(new FlowLayout());
+        JButton okButton = new JButton("Ok");
+        bolden(okButton);
+        okPanel.add(okButton);
+        okButton.addActionListener(this::start);
+
         JPanel savePanel = new JPanel(new FlowLayout());
         JButton saveButton = new JButton("Save");
         savePanel.add(saveButton);
@@ -244,18 +250,35 @@ public class LauncherFrame extends JFrame {
         quitPanel.add(quitButton);
         quitButton.addActionListener(this::cancel);
         
+        JPanel cancelPanel = new JPanel(new FlowLayout());
+        JButton cancelButton = new JButton("Cancel");
+        cancelPanel.add(cancelButton);
+        cancelButton.addActionListener(this::cancel);
+        
         if (Platform.isWindows()) {
-            buttonsPanel.add(startPanel);
-            buttonsPanel.add(savePanel);
-            buttonsPanel.add(quitPanel);
+            if (onCancel == null) {
+                buttonsPanel.add(startPanel);
+                buttonsPanel.add(savePanel);
+                buttonsPanel.add(quitPanel);
+            } else {
+                buttonsPanel.add(okPanel);
+                buttonsPanel.add(cancelPanel);
+            }
         } else {
-            buttonsPanel.add(quitPanel);
-            buttonsPanel.add(savePanel);
-            buttonsPanel.add(startPanel);
+            if (onCancel == null) {
+                buttonsPanel.add(quitPanel);
+                buttonsPanel.add(savePanel);
+                buttonsPanel.add(startPanel);
+            } else {
+                buttonsPanel.add(cancelPanel);
+                buttonsPanel.add(okPanel);
+            }
         }
         info.add("Start", startButton);
         info.add("Save", saveButton);
         info.add("Quit", quitButton);
+        info.add("Ok", okButton);
+        info.add("Cancel", cancelButton);
         
         getRootPane().setDefaultButton(startButton);
         
@@ -400,7 +423,8 @@ public class LauncherFrame extends JFrame {
             GraphicsEnvironment gEnv = GraphicsEnvironment.getLocalGraphicsEnvironment();
             for (GraphicsDevice gDev : gEnv.getScreenDevices()) {
                 for (DisplayMode displayMode : gDev.getDisplayModes()) {
-                    if (displayMode.getWidth() >= 320 && displayMode.getHeight() >= 240) {
+                    // Enforce minimum 640x480, or else some on-screen dialogs do not fit
+                    if (displayMode.getWidth() >= 640 && displayMode.getHeight() >= 480) {
                         GfxDisplayMode gfxDisplayMode = GfxDisplayMode.from(displayMode);
                         if (!availableDisplayModes.contains(gfxDisplayMode))
                             availableDisplayModes.add(gfxDisplayMode);

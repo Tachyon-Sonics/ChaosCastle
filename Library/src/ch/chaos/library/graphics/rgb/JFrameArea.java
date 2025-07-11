@@ -20,6 +20,7 @@ import ch.chaos.library.Graphics.AreaPtr;
 import ch.chaos.library.Input;
 import ch.chaos.library.Menus;
 import ch.chaos.library.graphics.AreaBase;
+import ch.chaos.library.settings.Settings;
 
 /**
  * {@link AreaPtr} implementation when displaying on screen (type {@link Graphics0#atDISPLAY})
@@ -28,6 +29,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
 
     private static int NB_BUFFERS = 2; // Single / Double / Triple Buffering
 
+    private final int scale = Settings.appMode().getInnerScale();
     private final JFrame frame;
     private final int width;
     private final int height;
@@ -53,12 +55,12 @@ class JFrameArea extends AreaBase implements AreaPtr {
     public JFrameArea(int width, int height) {
         this.frame = new JFrame();
         this.panel = new AreaPanel();
-        this.width = Graphics.scale(width) * Graphics.FRAME_SCALE;
-        this.height = Graphics.scale(height) * Graphics.FRAME_SCALE;
+        this.width = Graphics.scale(width) * scale;
+        this.height = Graphics.scale(height) * scale;
         panel.setOpaque(true);
         panel.setBackground(Color.black);
-        int frameWidth = (int) (Graphics.scale(width) * Graphics.FRAME_SCALE / JFrameArea.scaleX + 0.5);
-        int frameHeight = (int) (Graphics.scale(height) * Graphics.FRAME_SCALE / JFrameArea.scaleY + 0.5);
+        int frameWidth = (int) (Graphics.scale(width) * scale / JFrameArea.scaleX + 0.5);
+        int frameHeight = (int) (Graphics.scale(height) * scale / JFrameArea.scaleY + 0.5);
         panel.setPreferredSize(new Dimension(frameWidth, frameHeight));
         frame.getContentPane().add(panel);
         Input.instance().registerMainFrame(frame);
@@ -78,7 +80,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
                 BufferedImage image = gc.createCompatibleImage(width, height, Transparency.OPAQUE);
                 panel.setImage(image);
                 g = panel.getImage().createGraphics();
-                g.scale(Graphics.SCALE / JFrameArea.scaleX, Graphics.SCALE / JFrameArea.scaleY);
+                g.scale(scale / JFrameArea.scaleX, scale / JFrameArea.scaleY);
                 g.setColor(Color.black);
                 g.fillRect(0, 0, width, height);
                 GraphicsRgbColorImpl.setupHighQuality(g);

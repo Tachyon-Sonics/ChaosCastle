@@ -11,6 +11,7 @@ import ch.chaos.library.settings.Settings;
 
 class AreaPanel extends JPanel {
 
+    private final int frameScale = Settings.appMode().getOuterScale();
     private JFrameArea frameArea;
     private BufferedImage image;
 
@@ -51,7 +52,7 @@ class AreaPanel extends JPanel {
                 Graphics.resetScale(g2);
                 if (fromFrame || fullScreen)
                     g2.translate(frameArea.getPanelOffsetX(), frameArea.getPanelOffsetY());
-                g2.scale(Graphics.FRAME_SCALE, Graphics.FRAME_SCALE);
+                g2.scale(frameScale, frameScale);
                 if (image != null) {
                     g2.drawImage(image, 0, 0, this);
                     this.image = image;
@@ -62,7 +63,7 @@ class AreaPanel extends JPanel {
             }
         } else {
             // Not buffered
-            g2.scale(Graphics.FRAME_SCALE, Graphics.FRAME_SCALE);
+            g2.scale(frameScale, frameScale);
             g2.drawImage(this.image, 0, 0, this);
         }
         g2.dispose();

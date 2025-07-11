@@ -47,6 +47,7 @@ public class ChaosCastleApp {
         Launcher.showLauncherIfNeeded(args, () -> {
             ChaosCastle.main(args);
         });
+//        ChaosCastle.main(args);
     }
 
 }

@@ -7,8 +7,8 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.IndexColorModel;
 
-import ch.chaos.library.Graphics;
 import ch.chaos.library.graphics.indexed.GraphicsIndexedColorImpl;
+import ch.chaos.library.settings.Settings;
 
 /**
  * Once upon a time, some guy from the Java macOS team, decided that all texts on macOS
@@ -36,7 +36,7 @@ public class AliasedTextDrawer {
     
     
     public void drawText(Graphics2D g, String text) {
-        final int Scale = Graphics.SCALE;
+        final int Scale = Settings.appMode().getInnerScale();
         
         Rectangle2D textSize = g.getFontMetrics().getStringBounds(text, g);
         int width = (int) (textSize.getWidth() * SECURITY + 0.5);

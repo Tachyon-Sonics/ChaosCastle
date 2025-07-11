@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import ch.chaos.library.Graphics;
+import ch.chaos.library.settings.Settings;
 
 class AreaPanel extends JPanel {
 
@@ -36,7 +36,8 @@ class AreaPanel extends JPanel {
 
     public void paint(java.awt.Graphics g, boolean fromFrame) {
         Graphics2D g2 = (Graphics2D) g.create();
-        g2.scale(Graphics.FRAME_SCALE, Graphics.FRAME_SCALE);
+        int frameScale = Settings.appMode().getOuterScale();
+        g2.scale(frameScale, frameScale);
         if (frameArea != null) {
             if (frameArea.isVisible()) {
                 g2.scale(1.0 / JFrameArea.scaleX, 1.0 / JFrameArea.scaleY);
