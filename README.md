@@ -2,7 +2,7 @@
 
 ChaosCastle is a simple, retro-like, 2D shoot-them-up game with a slow pace.
 
-It starts with very simple levels. But as the game progress, the difficulty increases. Ultimately, you get boss fights.
+It starts with very simple levels. But as the game progresses, the difficulty and complexity increase. And boss fights await you.
 
 The game was initially released for the Amiga and Macintosh computers in 1999. This is a Java-port that runs on any modern hardware, and is very close to the original version (see **History** below).
 
@@ -15,7 +15,7 @@ Oh, and there is no download yet. You have to compile the game from the sources 
 
 The game has simple graphics. For instance, this is the main character:
 
-[<img src="./ChaosCastle/src/ch/chaos/castle/app/App64.png">]
+<img src="./ChaosCastle/src/ch/chaos/castle/app/App64.png">
 
 And this is a screenshot of the "Garden" level of the "Castle" zone:
 
@@ -32,9 +32,9 @@ First you need to install:
 
 - A Java JDK version 17 or greater
     - You need a JDK and not just a JRE!
-    - The `JAVA_HOME` environment variable should properly locate the JDK's installation directory. If this environment variable is not properly created during the installation, you may need to create it manually.
     - On Debian-based Linux, this can be done using `sudo apt install openjdk-17-jdk`
     - On Windows and macOS, the JDK can be downloaded from www.adoptium.net
+    - The `JAVA_HOME` environment variable should properly locate the JDK's installation directory. If this environment variable is not properly created during the installation, you may need to create it manually.
 - Git
     - On Debian-based Linux, `sudo apt install git`
     - On other systems, https://git-scm.com/downloads
@@ -44,22 +44,56 @@ Then open a Command Prompt or Terminal.
 - Change the current directory to some new empty directory
 - Get the sources of the Modula-2 to Java translator, using `git checkout https://github.com/Tachyon-Sonics/Modula2Java17`
   - While the game is already translated to Java, you will still need the small Modula-2 runtime that comes with the compiler
-- Checkout the latest stable release: TODO
+- Checkout the latest stable release:
+    - `cd Modula2Java17`
+    - `git switch release/1.0.0`
+    - `cd ..` 
 - Get the sources of the ChaosCastle game: `git checkout https://github.com/Tachyon-Sonics/ChaosCastle`
-- Checkout the latest stable release: TODO
+- Checkout the latest stable release:
+    - `cd ChaosCastle`
+    - `git switch release/1.0.0`
 - Compile it and create an executable .jar file:
     - On Windows: `gradlew.bat jar`
     - On Linux or macOS: `./gradle jar`, or `sh ./gradle jar` if the former does not work.
     - This takes quite a time, and this will also download a few libraries used by the game. This is where most of the magics happens, and also where problems are most likely to occur...
 - If everything went well and without errors, the file `ChaosCastle.jar` can be found in the `ChaosCastle\build\libs` directory (relative to the current one). This is the only file you need to run the game. You can now place it somewhere else where it is easier to find. It still needs a Java JRE version 17 or more to run (which you already have as you installed a Java JDK (that includes a JRE) to compile the game). Also note that there is currently no way to do a "installation"; the game is just a portable, single file. Note that the `ChaosCastle.jar` file is 100% cross-platform: it can be used on other operating systems (Windows, Linux, macOS) as long as they have a Java JRE version 17 or greater installed.
+- (Optional) cleanup: TODO
 
 
 
 ## Starting the game
 
-TODO: cmd, launcher, in-game menu
+You need to first install a Java Runtime Environment (JRE) version 17 or greater. If you compiled it from the source using the instructions above, this should already be done.
 
-## Goals
+From the command line:
+
+`java -jar ChaosCastle.jar`
+
+Or right-click on the `ChaosCastle.jar` file, and choose "Open with OpenJDK" or similar...
+
+This will open a **launcher** window. The original game for Amiga computers ran full-screen at 320x240, 16 colors, because this was the standard and was always supported. Because today's computer have a variety of screen resolutions (most of them are way bigger than 320x240), the **launcher** allows you to select how to scale the game from its base resolution of 320x240.
+
+If your computer has a resolution between 640x480 and 1920x1080, you can usually accept the default settings and click [**Start**] to start the game. If the resolution is bigger, it may fail to achieve 60 FPS. You may want to change some settings:
+
+- **Quality**: by reducing the value, part of the scaling will be done with lower quality
+- **Size (percent of screen)**: if reducing the quality is not enough, here you can make the game use a smaller portion of the screen
+- Note that the two above settings control the **Resulting Scales** shown below them. Be sure to modify in such a way on of the resulting scale changes
+- By default, the game starts in a window. If you change the **Mode** to "Full Screen", you can also optionally change the screen resolution in the **Display Mode** setting.
+
+The other settings are quite advanced and usually better left to defaults.
+
+Once started, the title screen appears. Note that the explanation text in the title screen is still exactly that of the original Amiga game, and basically explains how to use the numeric pad of the keyboard to control the main character.
+
+However, Gamepads are fully supported on Windows, macOS and Linux, as well as keyboards without numeric pad. See the **Controls** section below.
+
+Inside the game:
+- Move the mouse to pause the game (if in a level).
+- Click the right mouse button to open the in-game menu. You can quit using the "Quit" menu.
+- There are also menus to load and save games.
+- The menu is also accessible from a system tray icon.
+
+
+## Goals of the game
 
 The game has three "zones", each with several levels. The zones are "Chaos", "Castle" and "Family".
 
@@ -94,10 +128,70 @@ Levels in the "Castle" zone are procedurally generated. This means that you neve
 
 ## Controls
 
+There are three ways of controlling the main character:
+- Using a Gamepad
+- Using the keyboard (without numeric pad)
+- Using the keyboard (with numeric pad)
+
+All three ways can be used at any time and even combined. You do not have to "select" one at any time.
+
+
+### Gamepad
+
+- Move with the directional pad
+- (A): Fire with the gun
+- Left and right bumpers/shoulders (the buttons on the back of the pad): select and cycle through weapons ((A) to cancel)
+- (B), (X), (Y): other weapons (see **Weapons** section below)
+    - Analog controls (if any) can each be used for an additional weapon. The pressure and /or direction is however ignored.
+    - keys from the keyboard can also be used.
+
+### Keyboard (without numeric pad)
+
+- Move with the arrow keys
+- [CTRL] Fire with the gun
+- [Page up] and [Page down]: select and cycle through weapons ([CTRL] to cancel)
+- Any other key (except [p] to pause the game): other weapons  (see **Weapons** section below)
+
+### Keyboard (with numeric pad)
+
+- Move with the [1] - [9] keys of the numeric pad
+- [0] or [SPACE]: Fire with the gun
+- [+] and [-]: select and cycle through weapons ([0] or [SPACE] to cancel)
+- Any other key (except [p] to pause the game): other weapons  (see **Weapons** section below)
+
+
 ## Weapons
+
+The "**Gun**" is always available, and is always associated to
+- the (A) button when using a gamepad
+- the [SPACE] bar and the [CTRL] / [0] key (you can use any of them) when using the keyboard
+
+To use another weapon, three steps are necessary:
+1. Assign the weapon to a button or key
+    - First you must have started the game (and not be in the title screen). This can also be done in the "Shop" that appears between levels
+    - When using a Gamepad, use the left and right bumpers/shoulders to highlight the weapon (with the keyboard, use [Page up]/[Page down] or [+]/[-])
+    - The just press the button or key to which you want to assign the weapon.
+        - Or press (A) ([SPACE]/[CTRL]/[0]) to cancel (basically the button/key for the "Gun")
+    - This process can be done again at any time to assign a different button/key, or for a different weapon.
+    - Note: button/key assignment are not preserved when saving a game. Hence if you load a saved game you may need to re-assign a button/key to all your weapons.
+2. Add power to that weapon. Power can only be added by finding a power bonus, so you will have to seach for one. They are hidden in some "Castle" levels. A power bonus looks as follows: TODO: image of power bonus
+3. Add bullets to that weapon
+    - Bullets can be added by collecting bullet bonus, or by buying bullets in the shop between levels
+    
+I plan to simplify the process in a future version.
+
+Notes:
+
+- Each power bonus increases the power of a weapon of your choice by 1
+- The power of a weapon can be increased to a maximum of 4. The current power level is highlighted by the number of yellow square on the left of the weapon's name, if the right panel.
+- There are a total of 16 power bonuses hidden in "Castle" levels. Hence you won't be able to raise the power of all weapons to 4.
+- In general, it is better to choose a few weapons and to raise their power to the maximum, rather tham using many weapons that are not at full power.
+- If you are not sure, start with the "Laser" weapon and add power to the maximum. Then continue with "Ball" weapon.
 
 
 ## History
+
+This version of ChaosCastle is *not* using any kind of emulation. It uses the same source code as the original AMiga/Macintosh version, with the non portable parts rewritten. Here's the history...
 
 ### The initial Amiga version - 1998
 
@@ -222,6 +316,7 @@ Here's my plans for the future of ChaosCastle (but any of these things may or ma
     - They have much more animation (sprites). The original game was limited to 256 sprites, I raised this limitation to 1024 in the Java version and took advantage of it in the new levels. Believe it or not, this changes the gameplay in a significant way.
     - They feature much better procedural generation algorithms. At the old times I wrote the original version for the Amiga computers, I remember being quite frustrated by the results, most levels did not feel "random" enough.
 - A real ending
+- Improve assignment to weapons to keys / buttons. Ideally a popup-panel should appear when you get a power bonus, to choose the weapon and to assign a key or button.
 - Replace all the sounds with high quality versions, for instance from the freesounds site.
 - Create a Java rendering engine that uses RGB colors so it can be hardware accelerated. This will probably involve changes in the original portable part of the game code to preserve the color animations.
 - Improve the Modula-2 to Java translator that was used to create this Java port.
@@ -231,6 +326,7 @@ Here's my plans for the future of ChaosCastle (but any of these things may or ma
 - Replace all integer-based arithmetic by floating point arithmetic.
 - Replace in-game menu and dialogs (combining swing components with double-buffered, full-screen graphics does not work well in Java; it's surprising it could even be done).
 - Fixes (The "Factory" level for instance rarely, but sometimes, has an unreachable exit)
+- Add simpler "quests", for example a simple one with 9 castle levels and one final boss.
 
 Here's my **NOT** plans, basically the things I do *not* want to change:
 

@@ -82,7 +82,7 @@ public class Launcher { // TODO (0) continue, use inside of game
         RelauncherBuilder relauncher = new RelauncherBuilder();
         
         // Add launch argument so that we won't open settings again but just start the app
-        relauncher.addAdditionalAppArg(LAUNCH_ARG);
+        relauncher.addAdditionalAppArg(LAUNCH_ARG); // TODO (1) -XX:+UseZGC (add option to settings?)
         
         // Add jvm options related to the specified java2d pipeline
         AppMode appMode = appSettings.getAppModes().get(GfxDisplayMode.current());

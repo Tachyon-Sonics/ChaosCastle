@@ -88,7 +88,7 @@ public class AppMode {
 
     public static AppMode createDefault(GfxDisplayMode mode) {
         AppMode appMode = new AppMode();
-        appMode.fullScreen = true;
+        appMode.fullScreen = false;
         appMode.gfxMode = GfxModeType.INDEXED;
         appMode.gfxPipeline = GfxPipelineType.DEFAULT;
         appMode.displayMode = null;
