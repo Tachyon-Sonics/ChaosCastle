@@ -43,7 +43,7 @@ Then open a Command Prompt or Terminal.
 
 - Change the current directory to some new empty directory
 - Get the sources of the Modula-2 to Java translator, using `git checkout https://github.com/Tachyon-Sonics/Modula2Java17`
-  - While the game is already translated to Java, you will still need the small Modula-2 runtime that comes with the compiler
+    - Whilst the game is already translated to Java, you will still need the small Modula-2 runtime that comes with the translator
 - Checkout the latest stable release:
     - `cd Modula2Java17`
     - `git switch release/1.0.0`
@@ -82,7 +82,7 @@ If your computer has a resolution between 640x480 and 1920x1080, you can usually
 
 The other settings are quite advanced and usually better left to defaults.
 
-Once started, the title screen appears. Note that the explanation text in the title screen is still exactly that of the original Amiga game, and basically explains how to use the numeric pad of the keyboard to control the main character.
+Once started, the title screen of the game appears. Note that the explanation text in the title screen is still exactly that of the original Amiga game, and basically explains how to use the numeric pad of the keyboard to control the main character.
 
 However, Gamepads are fully supported on Windows, macOS and Linux, as well as keyboards without numeric pad. See the **Controls** section below.
 
@@ -97,13 +97,17 @@ Inside the game:
 
 The game has three "zones", each with several levels. The zones are "Chaos", "Castle" and "Family".
 
-You start in the "Chaos" zone at level 1. The goal of any level in this zone is to destroy everything and to collect $. Between every level, you enter the **shop**. Each time you have collected 100$, you can play a level of the "Castle" zone (by buying it in the shop); else you have to continue with the next level of the "Chaos" zone.
+You start in the "**Chaos**" zone at level 1. The goal of any level in this zone is to destroy everything and to collect $.
 
-In the "Castle" zone, the goal of any level is to collect both $ and £, and to find the "EXIT" panel. Levels in the "Castle" zone are big levels with scrolling. Each time you have collected 150£, you can play a level of the "Family" zone (by buying it in the shop).
+Between every level, you enter the **shop**. Each time you have collected 100$, you can play a level of the "Castle" zone (by buying it in the shop); else you have to continue with the next level of the "Chaos" zone.
 
-In the "Family" zone, each level is basically a fight against a boss.
+In the "**Castle**" zone, the goal of any level is to collect both $ and £, and to find the "EXIT" panel. Levels in the "Castle" zone are big levels with scrolling. Each time you have collected 150£, you can play a level of the "Family" zone (by buying it in the shop).
+
+In the "**Family**" zone, each level is basically a fight against a boss.
 
 Note that levels are cycling in every zones. Once the last level of a zone has been done, it restarts with the first one. As such the game never finishes. However, it takes several hours of playing until you can reach the last ("\*\*\* Final \*\*\*") boss in the "Family" zone. Note that there is an in-game menu (use the right-mouse button to show it) that allows you to load and save games, when you are in the shop between levels.
+
+The game has a few other "side" goals:
 
 During the game, you may eventually find "Skull" bonuses (and some of them cannot be avoided). Each time you get a skull bonus, the overal difficulty of the game increases (displayed in blue on the top of the right-panel).
 
@@ -141,14 +145,14 @@ All three ways can be used at any time and even combined. You do not have to "se
 - Move with the directional pad
 - (A): Fire with the gun
 - Left and right bumpers/shoulders (the buttons on the back of the pad): select and cycle through weapons ((A) to cancel)
-- (B), (X), (Y): other weapons (see **Weapons** section below)
+- (B), (X), (Y): other weapons (see **Weapons** section below). Basically if a weapon is selected, this assigns the button to that weapon. Else, this fires with the assigned weapon, or does nothing if no weapon has been assigned.
     - Analog controls (if any) can each be used for an additional weapon. The pressure and /or direction is however ignored.
     - keys from the keyboard can also be used.
 
 ### Keyboard (without numeric pad)
 
 - Move with the arrow keys
-- [CTRL] Fire with the gun
+- [CTRL]: Fire with the gun
 - [Page up] and [Page down]: select and cycle through weapons ([CTRL] to cancel)
 - Any other key (except [p] to pause the game): other weapons  (see **Weapons** section below)
 
@@ -163,8 +167,8 @@ All three ways can be used at any time and even combined. You do not have to "se
 ## Weapons
 
 The "**Gun**" is always available, and is always associated to
-- the (A) button when using a gamepad
-- the [SPACE] bar and the [CTRL] / [0] key (you can use any of them) when using the keyboard
+- the (A) button of the gamepad
+- the [SPACE] bar and the [CTRL] / [0] key (you can use any of them) of the keyboard
 
 To use another weapon, three steps are necessary:
 1. Assign the weapon to a button or key
@@ -175,23 +179,25 @@ To use another weapon, three steps are necessary:
     - This process can be done again at any time to assign a different button/key, or for a different weapon.
     - Note: button/key assignment are not preserved when saving a game. Hence if you load a saved game you may need to re-assign a button/key to all your weapons.
 2. Add power to that weapon. Power can only be added by finding a power bonus, so you will have to seach for one. They are hidden in some "Castle" levels. A power bonus looks as follows: TODO: image of power bonus
+    - When collecting a power bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon (or assign a key using step 1 first)
 3. Add bullets to that weapon
     - Bullets can be added by collecting bullet bonus, or by buying bullets in the shop between levels
+    - When collecting a bullet bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon
     
 I plan to simplify the process in a future version.
 
 Notes:
 
 - Each power bonus increases the power of a weapon of your choice by 1
-- The power of a weapon can be increased to a maximum of 4. The current power level is highlighted by the number of yellow square on the left of the weapon's name, if the right panel.
+- The power of a weapon can be increased to a maximum of 4. The current power level is highlighted by the number of yellow squares on the left of the weapon's name, in the right panel.
 - There are a total of 16 power bonuses hidden in "Castle" levels. Hence you won't be able to raise the power of all weapons to 4.
-- In general, it is better to choose a few weapons and to raise their power to the maximum, rather tham using many weapons that are not at full power.
-- If you are not sure, start with the "Laser" weapon and add power to the maximum. Then continue with "Ball" weapon.
+- In general, it is better to choose a few weapons and to raise their power to the maximum, rather than using many weapons that are not at full power.
+- If you are not sure, start with the "Laser" weapon and continue to add power to it up to the maximum. Then continue with "Ball" weapon.
 
 
 ## History
 
-This version of ChaosCastle is *not* using any kind of emulation. It uses the same source code as the original AMiga/Macintosh version, with the non portable parts rewritten. Here's the history...
+This version of ChaosCastle is *not* using any kind of emulation. It uses the same source code as the original Amiga/Macintosh version, with only the non portable parts rewritten. Here's the history...
 
 ### The initial Amiga version - 1998
 
@@ -199,28 +205,28 @@ ChaosCastle was initially written in 1998 - 2000. It was written in the Modula-2
 
 - The operating system's libraries were always used instead of hitting the hardware directly.
 - No hardware-specific feature was used. For instance, hardware scrolling and hardware sprites (features of the Amiga computers of that time) were not used, although it was possible to use them through the operating system's libraries.
-- The operating system dependent parts of the code (graphics, input, sounds) were all abstracted in Modula-2  _definition modules_  (similar to .h header files in C, or interfaces in Java). The idea is that porting the game to another platform could be done by rewriting the implementation of these modules only. These modules were what I called the "Library" (think of it as a very simplified, cross-platform 2D game engine). Apart from the implementation of the "Library", the remainder of the code is entirely portable.
+- The non-portable parts of the code (graphics, input, sounds) were all abstracted in Modula-2  _definition modules_  (similar to .h header files in C, or interfaces in Java). The idea was that porting the game to another platform could be done by rewriting the implementation of these modules only. These modules were what I called the "Library" (think of it as a very simplified, cross-platform 2D game engine). Apart from the implementation of the "Library", the remainder of the code is entirely portable.
 - Backgrounds used bitmap images, and sprites used vector graphics.
 - The game used a base resolution of 320x240, and featured an integer "scaling" factor. With a scaling factor of 2, it could run in 640x480 resolution (if supported), with a scaling factor of 3 in 960x720, etc.
 - Both the background images and the sprite images were pre-rendered at the target scaling factor during startup. Hence no scaling or vector graphics (which were both quite slow on hardware of that time) occured during the game.
-- The game did not rely on a fixed FPS such as 50 FPS. Instead it used a clock to measure how much time passed between two frames, and ajusted the speed accordingly. Hence, even if the FPS dropped down to 4 FPS, the overal speed of the game did not slow down.
+- The game did not rely on a fixed FPS such as 50 FPS. Instead it used a clock to measure how much time passed between two frames, and ajusted the speed accordingly. Hence, even if the FPS dropped below 50 FPS, the overal speed of the game did not slow down. It only started to slow down after reaching 4 FPS.
     - Note however that the game did not use a separate game loop and rendering loop. Hence at low FPS, some collisions were less accurate.
 - Sound effects supported 1 to 8 channels, and either mono or stereo. They used either the built-in audio device, or the third-party AHI library. Sounds could also be disabled altogether.
 
-The main result of these choices is that, on an Amiga 500 (one of the earliest model in the Amiga range of computers, featuring a Motorola 68000 processor), the game could not achieve 50 FPS (the typical screen refresh rate at that time) at all. It was rather running at 16 - 25 FPS, with drops down to 4 FPS under heavy animations. At that time, commercial games with similar animations all ran at 50 FPS on the same hardware, thank to the use of hardware scrolling, and more generally by hitting the hardware directly.
+The main result of these choices was that, on an Amiga 500 (one of the earliest model in the Amiga range of computers, featuring a Motorola 68000 processor), the game could not achieve 50 FPS (the typical screen refresh rate at that time) at all. It was rather running at 12 - 16 FPS, with drops down to 4 FPS under heavy animations. At that time, commercial games with similar animations all ran at 50 FPS on the same hardware, thank to the use of hardware scrolling, and more generally by hitting the hardware directly.
 
 The game also could only use 4 mono channels or 2 stereo channels for sounds, which was what the Amiga hardware provided.
 
 There was, however, interesting results (and that was the goal of the choices above):
 - On more recent hardware, such as the Amiga 1200, 50 FPS could be achieved at 320x240
-- With dedicated graphic cards, 50 FPS could be achieved even at 640x480 (scaling x2) or higher resolutions. No additional code was necessary to use dedicated graphic card as they were properly accessed through the operating system libraries.
+- With dedicated graphic cards, 50 FPS could be achieved even at 640x480 (scaling x2) or higher resolutions. No additional code was necessary to use a dedicated graphic card as they were properly accessed through the operating system libraries.
 - With fast enough processors, such as the 68030 or 68060, sounds could use 8 stereo channels with the AHI library
 - The game could be ported without difficulties to the Macintosh range of computers
 
 
 ### The Macintosh and other ports - 2000
 
-By rewriting the system-dependent modules (the "Library"), a Macintosh port was successfully completed. Because of the lack of hardware dedicated to graphics, models with at least a 68020 processor were recommanded. Interestingly, the game had a "black&white" option in addition to the "16 colors" mode, and in this mode the game could even run on very old, black&white Macintosh computers. While the Amiga version ran in fullscreen mode, the Macintosh port was windowed.
+By rewriting the non-portable part of the code only (the "Library"), a Macintosh port was successfully completed. Because of the lack of hardware dedicated to graphics, models with at least a 68020 processor were recommanded. Interestingly, the game had a "black&white" option in addition to the "16 colors" mode, and in this mode the game could even run on very old, black&white Macintosh computers. While the Amiga version ran in fullscreen mode, the Macintosh port was windowed.
 
 An Atari ST port was almost completed, but was never released. It was playable, but still had unresolved bugs, making it unstable. It ran only in 16 colors at 320x240 (scaling x1), and with no sounds.
 
@@ -247,7 +253,9 @@ Recently, playing a complete game with the UAE emulator, I got frustrated by dif
 
 #### Modula-2 to Java translation
 
-I recently remembered that I bought an MHC licence (a Modula-2 to Java translator) at that time, and that I could use it to create a proper Java port. In theory, I could then solve the two problems above that got me frustrated. Unfortunately, by digging for several hours in all my backups, I could not find the MHC licence. It was probably lost when I trashed my old Amiga and Macintosh computers. I still found an unlicenced MHC version, but it was way too limited. That was another frustration. I also searched for other existing Modula-2 to Java converter, but found none that was suitable. As a Java guy I also did not want to go the C/C++ route (although I found the excellent and fully working XDS Modula-2 to C converter).
+I recently remembered that I bought an MHC licence (a Modula-2 to Java translator) at that time, and that I could use it to create a proper Java port. This would involve, of course, to rewrite the non-portable part, but this could be done directly in the Java language.
+
+In theory, I could then solve the two problems above that got me frustrated. Unfortunately, by digging for several hours in all my backups, I could not find my MHC licence. It was probably lost when I trashed my old Amiga and Macintosh computers. I still found an unlicenced MHC version, but it was way too limited. And the company behind MHC no longer exists. That was another frustration. I also searched for other existing Modula-2 to Java converter, but found none that was suitable. As a Java guy I also did not want to go the C/C++ route (although I found the excellent and fully working XDS Modula-2 to C converter).
 
 Then I had this weird idea: what if I wrote my own Modula-2 to Java converter?
 
@@ -256,34 +264,34 @@ The idea was not so weird after all: I had compiler courses. I also worked on Ec
 Don't get me wrong, it still took the equivalent of *several weeks* at full time to finalize the Modula-2 to Java translator. You can find it at ([www.github.com/Modula2Java17/Modula2Java17](https://github.com/Tachyon-Sonics/Modula2Java17)) if you are interested. And even if it could successfully convert the whole game:
 
 - The translator probably still has many bugs when used on other Modula-2 programs, as my own game was the only "big" Modula-2 program on which I tested it
-- The resulting game did not run because it used pointer arithetic at some places, which could not be converted in Java. I had to manually modify the resulting Java code.
+- The resulting game did not run because it used pointer arithmetic at some places, which could not be converted in Java. I had to manually modify the resulting Java code.
     - I still plan to improve the Modula-2 to Java translator to handle pointer arithmetic in the future
 - I had to "fix" a few non portable stuff in the original Modula-2 code, but I could keep it to a minimum.
-- I still had to rewrite the operating system dependent parts in Java (the "Library"): graphics, sounds, etc.
+- I still had to rewrite the non-portable parts in Java (the "Library"): graphics, sounds, etc.
 
 The last point tooks a few additional weeks until the Java port of the game was finally playable.
 
 Believe it or not:
 
-- At that time I finally found my MHC licence hidden deep in some of my old external disks (!). But I decided to continue with my own compiler...
-- Even at 60 FPS, scrolling was still jaggy on the Java version. I finally found that the problem was in the original code (and hence UAE was not responsible for it)
+- At that time I finally found my MHC licence hidden deep in some of my old external disks (!). But I decided to continue with my own translator...
+- Even at 60 FPS at the minimal quality and size, scrolling was still jaggy on the Java version. I finally found that the problem was in the original code (and hence UAE was not responsible for it)
     - More precisely, the game tried to adjust to the actual frame rate in case it dropped below 60 FPS
     - However, instead of counting the number of missed frames during vertical sync, it was done while moving the player. Unefortunately this could happend at any time during the game loop, because there was no guarantee that the player is the first or last sprite.
     - Furthermore, it queried and deduced the value from an independent 300 Hz clock, potentially resulting in fractional missed frames.
 - Hopefully, I could fix the jaggy scrolling issue without touching the initial code, by locking the 300 Hz clock to the vertical sync in their Java implementation.
-- Another problem is that Java's `Thread.nanoSleep` method is not as accurate as it may seem: it may sleep up to a few milliseconds more than requested (which is significant, as 60 FPS requires 16.6 milliseconds of sleeping). This also introduces jaggy scrolling, but from the Java side this time. To fix the problem I had to create an "accurate sleeper" class that combines sleeping (to prevent 100% CPU uage and battery drain) and active waiting...
+- Another problem is that Java's `Thread.nanoSleep` method is not as accurate as it may seem: it may sleep up to a few milliseconds more than requested (which is significant, as 60 FPS requires 16.6 milliseconds of sleeping). This also introduces jaggy scrolling, but from the Java side this time. To fix the problem I had to create an "accurate sleeper" class that combines sleeping (to prevent 100% CPU usage and battery drain) and active waiting (using 100% CPU)...
     - Note that scrolling is still not as good as it can be. The reason is that it is still limited to unscaled pixels. So when the game is scaled by a factor 4 for instance, it will only scroll by multiples of 4 pixels. In a future version I plan to fix this as well.    
 
     
 #### The Java "Library" implementation
 
-As I said earlier, the graphics, sounds and other operating system dependent modules (the "Library") had to be rewritten in Java. Thank to the original design of the game, I could:
+As I said earlier, the non-portable parts of the code (the "Library") had to be rewritten in Java. Thank to the original design of the game, I could:
 
 - Scale the bitmap images (for the backgrounds) using the high quality xBRZ algorithm. The Java implementation of that algorithm probably does not run in real-time, but this is not important because the scaling occurs only once at game startup. This means that only graphics that are already scaled are used during the game.
 - Scale the sprites with high quality, as they are vector-based. Like the bitmap images this is only done once at application startup.
 - Implement an audio mixer that allows for 8 stereo channels. Note however that the sounds are still the original 8 bit and low resolution ones (between 5 - 20 kHz only), so do not expect miracles here.
 
-Note that while the game had a "Graphics/Settings" menu which allowed you to choose the scaling factor (among other), in the Java version this setting is completely disabled. In fact the results are better if the original code thinks it is running at x1 scaling, and that scaling is done behind the scene in the Java code. The reason is that the scaling code in the original code did not properly scale the lines. With a x2 scaling this was ok. But with higher scalings, some sprites juste begin to have too thin outlines.
+Note that while the game had a "Graphics/Settings" menu which allowed you to choose the scaling factor (among other), in the Java version this setting is completely disabled. In fact the results are better if the original code thinks it is running at x1 scaling, and that scaling is done behind the scene in the Java code. The reason is that the scaling logic in the original code did not properly scale the lines. With a x2 scaling this was ok. But with higher scalings, some sprites just begin to have too thin outlines.
 
 Another reason why I disabled the "Graphics/Settings" is that it provided a black&white mode and a "Color x2" mode (actually a mode with two independent 16 color playfields that scroll at different speeds) in addition to the default 16-color mode. I have not implemented them in Java yet, and I may not implement them ever (black&white really does not have any value today, and the "Color x2" was impressive in the old times, but it doesn't really bring anything to the game).
 
@@ -298,12 +306,13 @@ The original game design also has a few drawbacks:
 
 While the game was converted from Modula-2 to Java, and the "Library" was rewritten in Java, the "portable" part of the code is still 99% the same as the old Amiga and Macintosh versions.
 
-I just changed a few things that went on my nerves while playing and testing, and all these small changes were done directly in the Modula-2 code. If you know about the original Amiga or Macintosh version you may hence notice a few differences. Here's some of the most important ones:
+I just changed a few things that went on my nerves while playing and testing. All these small changes were done directly in the Modula-2 code, which was then converted again to Java. If you know about the original Amiga or Macintosh version you may hence notice a few differences. Here's some of the most important ones:
 
 - The levels of "Family" zone now cost 150£ instead of 100£. I found that "Family" levels were otherwise too frequent.
 - Some aliens release less "£" for the same reason
 - Less meteorites in the "Chaos" zone
 - The order of "Family" levels has slightly changed
+- 16 power bonuses instead of 20.
 
 BTW if you saved games with the original Amiga or Macintosh version, you should be able to load them in the Java version. The format is compatible!
 
@@ -313,10 +322,10 @@ BTW if you saved games with the original Amiga or Macintosh version, you should 
 Here's my plans for the future of ChaosCastle (but any of these things may or may not happen - this is a hobbyist project):
 
 - 10 new "Castle" levels. This has already started. Do not expect too much, these levels do not use new background images or new enemies / sprites. However:
-    - They have much more animation (sprites). The original game was limited to 256 sprites, I raised this limitation to 1024 in the Java version and took advantage of it in the new levels. Believe it or not, this changes the gameplay in a significant way.
-    - They feature much better procedural generation algorithms. At the old times I wrote the original version for the Amiga computers, I remember being quite frustrated by the results, most levels did not feel "random" enough.
+    - They have much more animation (sprites). The original game was limited to 256 sprites (couting off-screen ones), I raised this limitation to 1024 in the Java version and took advantage of it in the new levels. Believe it or not, this changes the gameplay in a significant way.
+    - They feature much better procedural generation algorithms.
 - A real ending
-- Improve assignment to weapons to keys / buttons. Ideally a popup-panel should appear when you get a power bonus, to choose the weapon and to assign a key or button.
+- Improve assignment to weapons to keys / buttons. Ideally a popup-panel should appear when you get a power bonus. It should allow you to choose the weapon and to assign a key or button at that time.
 - Replace all the sounds with high quality versions, for instance from the freesounds site.
 - Create a Java rendering engine that uses RGB colors so it can be hardware accelerated. This will probably involve changes in the original portable part of the game code to preserve the color animations.
 - Improve the Modula-2 to Java translator that was used to create this Java port.
@@ -324,9 +333,10 @@ Here's my plans for the future of ChaosCastle (but any of these things may or ma
 - Add background musics. There are various sites with authors of "free" musics that can be used for that purpose.
 - Further improve scrolling, which is still not as smooth as it can be because of the way scaling is implemented.
 - Replace all integer-based arithmetic by floating point arithmetic.
-- Replace in-game menu and dialogs (combining swing components with double-buffered, full-screen graphics does not work well in Java; it's surprising it could even be done).
-- Fixes (The "Factory" level for instance rarely, but sometimes, has an unreachable exit)
+- Replace in-game menus and dialogs (load/save could by shop entries for instance). Combining swing components with double-buffered, full-screen graphics does not work well in Java; it's surprising it could even be done (in fact it tends to be quite buggy when using Direct3D on Windows or OpenGL on Linux).
+- Fix some very old bugs (The "Factory" level for instance rarely, but sometimes, has an unreachable exit)
 - Add simpler "quests", for example a simple one with 9 castle levels and one final boss.
+- Create downloadable installers for Windows, macOS and Linux.
 
 Here's my **NOT** plans, basically the things I do *not* want to change:
 
