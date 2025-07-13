@@ -17,7 +17,7 @@ import ch.chaos.library.utils.Platform;
 import ch.chaos.library.utils.RelauncherBuilder;
 import ch.chaos.library.utils.gui.GuiUtils;
 
-public class Launcher { // TODO (0) continue, use inside of game
+public class Launcher {
 
     private static final String LAUNCH_ARG = "--launch";
     private static final String SETTINGS_ARG = "--settings"; // Force show launcher dialog
@@ -33,8 +33,10 @@ public class Launcher { // TODO (0) continue, use inside of game
         }
         GfxDisplayMode currentDisplayMode = GfxDisplayMode.current();
         AppMode appMode = appSettings.getAppModes().get(currentDisplayMode);
-        if (appMode == null)
+        if (appMode == null) {
             appMode = AppMode.createDefault(currentDisplayMode);
+            appSettings.getAppModes().put(currentDisplayMode, appMode);
+        }
 
         // Check if we must start the app now
         if (isLaunchNow(args)) {
@@ -83,6 +85,7 @@ public class Launcher { // TODO (0) continue, use inside of game
         
         // Add launch argument so that we won't open settings again but just start the app
         relauncher.addAdditionalAppArg(LAUNCH_ARG);
+        relauncher.addAdditionalJvmArg("-XX:+UseZGC"); // TODO add as an option to settings
         
         // Add jvm options related to the specified java2d pipeline
         AppMode appMode = appSettings.getAppModes().get(GfxDisplayMode.current());

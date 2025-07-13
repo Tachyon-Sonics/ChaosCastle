@@ -27,6 +27,9 @@ public class Settings {
     public static synchronized AppMode appMode() {
         if (appMode == null) {
             appMode = appSettings().getAppModes().get(GfxDisplayMode.current());
+            if (appMode == null) {
+                appMode = AppMode.createDefault(GfxDisplayMode.current());
+            }
         }
         return appMode;
     }
