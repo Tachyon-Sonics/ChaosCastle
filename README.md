@@ -15,7 +15,7 @@ Oh, and there is no download yet. You have to compile the game from the sources 
 
 The game has simple graphics. For instance, this is the main character:
 
-TODO
+[<img src="./ChaosCastle/src/ch/chaos/castle/app/App64.png">]
 
 And this is a screenshot of the "Garden" level of the "Castle" zone:
 
