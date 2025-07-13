@@ -105,7 +105,7 @@ ChaosCastle was initially written in 1998 - 2000. It was written in the Modula-2
 
 - The operating system's libraries were always used instead of hitting the hardware directly.
 - No hardware-specific feature was used. For instance, hardware scrolling and hardware sprites (features of the Amiga computers of that time) were not used, although it was possible to use them through the operating system's libraries.
-- The operating system dependent parts of the code (graphics, input, sounds) were all abstracted in Modula-2  _definition modules_  (similar to .h header files in C, or interfaces in Java). The idea is that porting the game to another platform could be done by rewriting the implementation of these modules only. These modules were what I called the "Library" (think of it as a very simplified, cross-platform 2D game engine).
+- The operating system dependent parts of the code (graphics, input, sounds) were all abstracted in Modula-2  _definition modules_  (similar to .h header files in C, or interfaces in Java). The idea is that porting the game to another platform could be done by rewriting the implementation of these modules only. These modules were what I called the "Library" (think of it as a very simplified, cross-platform 2D game engine). Apart from the implementation of the "Library", the remainder of the code is entirely portable.
 - Backgrounds used bitmap images, and sprites used vector graphics.
 - The game used a base resolution of 320x240, and featured an integer "scaling" factor. With a scaling factor of 2, it could run in 640x480 resolution (if supported), with a scaling factor of 3 in 960x720, etc.
 - Both the background images and the sprite images were pre-rendered at the target scaling factor during startup. Hence no scaling or vector graphics (which were both quite slow on hardware of that time) occured during the game.
@@ -179,16 +179,17 @@ Believe it or not:
 - Hopefully, I could fix the jaggy scrolling issue without touching the initial code, by locking the 300 Hz clock to the vertical sync in their Java implementation.
 - Another problem is that Java's `Thread.nanoSleep` method is not as accurate as it may seem: it may sleep up to a few milliseconds more than requested (which is significant, as 60 FPS requires 16.6 milliseconds of sleeping). This also introduces jaggy scrolling, but from the Java side this time. To fix the problem I had to create an "accurate sleeper" class that combines sleeping (to prevent 100% CPU uage and battery drain) and active waiting...
     - Note that scrolling is still not as good as it can be. The reason is that it is still limited to unscaled pixels. So when the game is scaled by a factor 4 for instance, it will only scroll by multiples of 4 pixels. In a future version I plan to fix this as well.    
+
     
 #### The Java "Library" implementation
 
 As I said earlier, the graphics, sounds and other operating system dependent modules (the "Library") had to be rewritten in Java. Thank to the original design of the game, I could:
 
-- Scale the bitmap images (for the backgrounds) using the high quality xBRZ algorithm. The Java implementation of that algorithm probably does not run in real-time, but this is not important because the scaling occurs only once at game startup (this was the case in the original code and is still the case in the Java version, which is a straightforward conversion). This means that only graphics that are already scaled are used during the game.
+- Scale the bitmap images (for the backgrounds) using the high quality xBRZ algorithm. The Java implementation of that algorithm probably does not run in real-time, but this is not important because the scaling occurs only once at game startup. This means that only graphics that are already scaled are used during the game.
 - Scale the sprites with high quality, as they are vector-based. Like the bitmap images this is only done once at application startup.
 - Implement an audio mixer that allows for 8 stereo channels. Note however that the sounds are still the original 8 bit and low resolution ones (between 5 - 20 kHz only), so do not expect miracles here.
 
-Note that while the game has a "Graphics/Settings" menu which allowed you to choose the scaling factor (among other), in the Java version this setting is completely disabled. In fact the results were better if the original code thinks it is running at x1 scaling, and that scaling is done behind the scene in the Java code. The reason is that the scaling code in the original code did not properly scale the lines. With a x2 scaling this was ok. But with higher scalings, some sprites juste begin to have too thin outlines.
+Note that while the game had a "Graphics/Settings" menu which allowed you to choose the scaling factor (among other), in the Java version this setting is completely disabled. In fact the results are better if the original code thinks it is running at x1 scaling, and that scaling is done behind the scene in the Java code. The reason is that the scaling code in the original code did not properly scale the lines. With a x2 scaling this was ok. But with higher scalings, some sprites juste begin to have too thin outlines.
 
 Another reason why I disabled the "Graphics/Settings" is that it provided a black&white mode and a "Color x2" mode (actually a mode with two independent 16 color playfields that scroll at different speeds) in addition to the default 16-color mode. I have not implemented them in Java yet, and I may not implement them ever (black&white really does not have any value today, and the "Color x2" was impressive in the old times, but it doesn't really bring anything to the game).
 
@@ -201,7 +202,7 @@ The original game design also has a few drawbacks:
 
 #### Other changes
 
-While the game was converted from Modula-2 to Java, and the "Library" was rewritten in Java, the operating system independent part of the code is still 98% the same as the old Amiga and Macintosh versions.
+While the game was converted from Modula-2 to Java, and the "Library" was rewritten in Java, the "portable" part of the code is still 99% the same as the old Amiga and Macintosh versions.
 
 I just changed a few things that went on my nerves while playing and testing, and all these small changes were done directly in the Modula-2 code. If you know about the original Amiga or Macintosh version you may hence notice a few differences. Here's some of the most important ones:
 
@@ -220,13 +221,16 @@ Here's my plans for the future of ChaosCastle (but any of these things may or ma
 - 10 new "Castle" levels. This has already started. Do not expect too much, these levels do not use new background images or new enemies / sprites. However:
     - They have much more animation (sprites). The original game was limited to 256 sprites, I raised this limitation to 1024 in the Java version and took advantage of it in the new levels. Believe it or not, this changes the gameplay in a significant way.
     - They feature much better procedural generation algorithms. At the old times I wrote the original version for the Amiga computers, I remember being quite frustrated by the results, most levels did not feel "random" enough.
-- Replace all the sounds with high quality versions, for instance from the freesounds site. Indeed, some sounds of the original version were well... not really from me, not really free, and hence not entirely legal.
+- A real ending
+- Replace all the sounds with high quality versions, for instance from the freesounds site.
 - Create a Java rendering engine that uses RGB colors so it can be hardware accelerated. This will probably involve changes in the original portable part of the game code to preserve the color animations.
 - Improve the Modula-2 to Java translator that was used to create this Java port.
 - Better graphics, but probably not from me. I still plan to at least convert them to standard formats like PNG (bitmaps) and SVG (vector graphics) so it can be easier for other interested people to contribute.
 - Add background musics. There are various sites with authors of "free" musics that can be used for that purpose.
 - Further improve scrolling, which is still not as smooth as it can be because of the way scaling is implemented.
 - Replace all integer-based arithmetic by floating point arithmetic.
+- Replace in-game menu and dialogs (combining swing components with double-buffered, full-screen graphics does not work well in Java; it's surprising it could even be done).
+- Fixes (The "Factory" level for instance rarely, but sometimes, has an unreachable exit)
 
 Here's my **NOT** plans, basically the things I do *not* want to change:
 
