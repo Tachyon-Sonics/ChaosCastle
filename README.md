@@ -6,7 +6,7 @@ It starts with very simple levels. But as the game progress, the difficulty incr
 
 The game was initially released for the Amiga and Macintosh computers in 1999. This is a Java-port that runs on any modern hardware, and is very close to the original version (see **History** below).
 
-Because this is an almost unmodified port of an old game, please read the instruction carefully (especially **Controls** and **Weapons**), because the game is far from having the conviviality and ease-of-use of your typical Smartphone game.
+Because this is an almost unmodified port of an old game, please read the instructions carefully (especially **Controls** and **Weapons**), because the game is far from having the conviviality and ease-of-use of your typical Smartphone game.
 
 Oh, and there is no download yet. You have to compile the game from the sources (see ** Compiling**).
 
@@ -145,7 +145,7 @@ I still very ocasionnaly played ChaosCastle, mostly using the UAE Amiga emulator
 
 Recently, playing a complete game with the UAE emulator, I got frustrated by different things:
 
-- While the game featured a scaling factor, I was not able to use it with UAE. It involved installing an UAE-specific gfx driver, but documentation is near zero and my knowledge of the Amiga computer vanished after all those years. I was never able to do it although it should definitely be possible; after all, UAE even emulates the exact Amiga graphic card I had on my Amiga 1200.
+- While the game featured a scaling factor, I was not able to use it properly (without interlacing) with UAE. It involved installing an UAE-specific gfx driver, but documentation is near zero and my knowledge of the Amiga computer vanished after all those years. I was never able to do it although it should definitely be possible; after all, UAE even emulates the exact Amiga graphic card I had on my Amiga 1200.
 - Altough it was possible to achieve 50 FPS (at 320x240 resolution) by tweaking some UAE settings, for some reason scrolling in the game was always jaggy. I blamed the UAE emulation.
 
 
@@ -157,12 +157,12 @@ I recently remembered that I bought an MHC licence (a Modula-2 to Java translato
 
 Then I had this weird idea: what if I wrote my own Modula-2 to Java converter?
 
-The idea was not so weird after all: I had compiler courses. I also worked on refactoring Eclipse plugins involving complex Java to Java code transformations; and I had a basic knowledge of the antlr parser library.
+The idea was not so weird after all: I had compiler courses. I also worked on Eclipse plugins involving complex Java to Java code transformations (refactoring); and I had a basic knowledge of the antlr parser library.
 
 Don't get me wrong, it still took the equivalent of *several weeks* at full time to finalize the Modula-2 to Java translator. You can find it at ([www.github.com/Modula2Java17/Modula2Java17](https://github.com/Tachyon-Sonics/Modula2Java17)) if you are interested. And even if it could successfully convert the whole game:
 
 - The translator probably still has many bugs when used on other Modula-2 programs, as my own game was the only "big" Modula-2 program on which I tested it
-- The resulting game did not run as it used pointer arithetic at some places, which could not be converted in Java. I had to manually modify the resulting Java code.
+- The resulting game did not run because it used pointer arithetic at some places, which could not be converted in Java. I had to manually modify the resulting Java code.
     - I still plan to improve the Modula-2 to Java translator to handle pointer arithmetic in the future
 - I had to "fix" a few non portable stuff in the original Modula-2 code, but I could keep it to a minimum.
 - I still had to rewrite the operating system dependent parts in Java (the "Library"): graphics, sounds, etc.
@@ -171,7 +171,7 @@ The last point tooks a few additional weeks until the Java port of the game was 
 
 Believe it or not:
 
-- At that time I finally found my MHC licence (!). But I decided to continue with my own compiler...
+- At that time I finally found my MHC licence hidden deep in some of my old external disks (!). But I decided to continue with my own compiler...
 - Even at 60 FPS, scrolling was still jaggy on the Java version. I finally found that the problem was in the original code (and hence UAE was not responsible for it)
     - More precisely, the game tried to adjust to the actual frame rate in case it dropped below 60 FPS
     - However, instead of counting the number of missed frames during vertical sync, it was done while moving the player. Unefortunately this could happend at any time during the game loop, because there was no guarantee that the player is the first or last sprite.
