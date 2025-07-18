@@ -26,6 +26,7 @@ import ch.chaos.library.Dialogs;
 import ch.chaos.library.Graphics;
 import ch.chaos.library.Graphics.AreaPtr;
 import ch.chaos.library.Input;
+import ch.chaos.library.Input.Event;
 import ch.chaos.library.Menus;
 import ch.chaos.library.graphics.AreaBase;
 import ch.chaos.library.graphics.GraphicsBase;
@@ -155,6 +156,20 @@ class JFrameArea extends AreaBase implements AreaPtr {
                     frame.validate();
                 }
                 frame.addWindowFocusListener(new WindowAdapter() {
+
+                    @Override
+                    public void windowLostFocus(WindowEvent e) {
+                        /*
+                         * This occurs when the full-screen window looses focus,
+                         * by using [ALT]-[TAB] for instance
+                         * 
+                         * Send a [p] key to pause the game
+                         */
+                        Event event = new Event();
+                        event.type = Input.eKEYBOARD;
+                        event.ch = 'p';
+                        Input.instance().SendEvent(event);
+                    }
 
                     @Override
                     public void windowGainedFocus(WindowEvent e) {
