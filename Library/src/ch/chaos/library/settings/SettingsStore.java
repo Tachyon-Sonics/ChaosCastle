@@ -17,7 +17,9 @@ public class SettingsStore {
         if (java.nio.file.Files.isRegularFile(settingsFile)) {
             String content = java.nio.file.Files.readString(settingsFile);
             ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
-            return mapper.readValue(content, AppSettings.class);
+            AppSettings appSettings = mapper.readValue(content, AppSettings.class);
+            appSettings.cleanup();
+            return appSettings;
         } else {
             return AppSettings.createDefault();
         }

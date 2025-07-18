@@ -38,6 +38,7 @@ import ch.chaos.library.Dialogs;
 import ch.chaos.library.graphics.xbrz.XbrzHelper;
 import ch.chaos.library.settings.AppMode;
 import ch.chaos.library.settings.AppSettings;
+import ch.chaos.library.settings.GarbageCollectorType;
 import ch.chaos.library.settings.GfxDisplayMode;
 import ch.chaos.library.settings.GfxPipelineType;
 import ch.chaos.library.settings.SettingsStore;
@@ -66,6 +67,7 @@ public class LauncherFrame extends JFrame {
     private JLabel txtScale;
     private JComboBox<GfxPipelineType> cbPipeline;
     private JComboBox<VsyncType> cbVsync;
+    private JComboBox<GarbageCollectorType> cbGarbageCollector;
     private JCheckBox chkDoNotAskAgain;
     
     private List<GfxDisplayMode> availableDisplayModes;
@@ -205,6 +207,14 @@ public class LauncherFrame extends JFrame {
         settingsPanel.add(cbVsync);
         info.add("Vsync", lblVsync, cbVsync);
         
+        JLabel lblGc = new JLabel("Garbage Collector: ");
+        bolden(lblGc);
+        settingsPanel.add(lblGc);
+        cbGarbageCollector = new JComboBox<>(GarbageCollectorType.values());
+        cbGarbageCollector.addActionListener(this::settingChangedInGui);
+        settingsPanel.add(cbGarbageCollector);
+        info.add("GarbageCollector", lblGc, cbGarbageCollector);
+        
         gbc.gridwidth = 2;
         settingsPanel.add(Box.createVerticalStrut(15), gbc);
         
@@ -314,6 +324,7 @@ public class LauncherFrame extends JFrame {
         
         cbPipeline.setSelectedItem(appMode.getGfxPipeline());
         cbVsync.setSelectedItem(appMode.getVsyncType());
+        cbGarbageCollector.setSelectedItem(appSettings.getGarbageCollectorType());
         chkDoNotAskAgain.setSelected(appMode.isDoNotAskAgain());
         
         applyGuiToGuiChanges();
@@ -343,6 +354,7 @@ public class LauncherFrame extends JFrame {
         
         appMode.setGfxPipeline(cbPipeline.getItemAt(cbPipeline.getSelectedIndex()));
         appMode.setVsyncType(cbVsync.getItemAt(cbVsync.getSelectedIndex()));
+        appSettings.setGarbageCollectorType(cbGarbageCollector.getItemAt(cbGarbageCollector.getSelectedIndex()));
         appMode.setDoNotAskAgain(chkDoNotAskAgain.isSelected());
         
         applyGuiToGuiChanges();
@@ -489,7 +501,7 @@ public class LauncherFrame extends JFrame {
         appMode = appSettings.getAppModes().get(currentDisplayMode);
         if (appMode == null)
             appMode = AppMode.createDefault(currentDisplayMode);
-        applySettingsToGui();
+        dpx.receive(this::applySettingsToGui);
     }
     
     private void cancel(ActionEvent e) {

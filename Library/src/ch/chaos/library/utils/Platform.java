@@ -14,6 +14,10 @@ public class Platform {
         return System.getProperty("os.name").toLowerCase().contains("linux");
     }
     
+    public static boolean is32bit() {
+        return "32".equals(System.getProperty("sun.arch.data.model"));
+    }
+    
     public static String getPlatformName() {
         if (isWindows())
             return "Windows";

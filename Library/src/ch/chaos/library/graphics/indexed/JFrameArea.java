@@ -36,7 +36,6 @@ import ch.pitchtech.modula.runtime.Runtime;
 
 /**
  * {@link AreaPtr} implementation when displaying on screen (type {@link Graphics0#atDISPLAY})
- * TODO (2) there is still antialiasing of texts on MacOS
  */
 class JFrameArea extends AreaBase implements AreaPtr {
 
