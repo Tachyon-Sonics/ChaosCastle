@@ -183,9 +183,6 @@ public class Sounds {
                 // Detect similarity with a recent sound
                 ControlledWave cWave = new ControlledWave(soundWave, controls);
                 float correction = similarSoundsDetector.submit(cWave);
-                if (correction != 1.0f) {
-                    System.out.println("Correction: " + correction);
-                }
                 soundVoice.setCorrection(correction);
                 // Apply controls if any
                 if (controls != null)
