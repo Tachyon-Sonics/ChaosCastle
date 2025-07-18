@@ -35,6 +35,8 @@ task ChaosCastleJar(type: Jar) {
     with jar
 }
 
+defaultTasks 'ChaosCastleJar'
+
 /*
 task jdepsGrotte(type: Exec) {
     group = 'build'
