@@ -114,6 +114,8 @@ Error: LinkageError occurred while loading main class ch.chaos.castle.app.ChaosC
 - The `ChaosCastle.jar` file was incorrectly built. Note that the default gradle target will create it as a library without the required dependencies. Be sure you create it with the `ChaosCastleJar` gradle task.
     - When this is the case, trying to launch it from the command line will display the following error message: `no main manifest attribute, in ChaosCastle.jar`.
     
+If the game crashes after starting, it might also be due to a corrupt configuration file. You can reset the settings by deleting the file `ChaosCastle/.settings` in your `Documents` folder. If the top-scores file is corrupted (top scores fail to load - [F1] on title screen), delete the `ChaosCastle/.data/TopScores` file. Note that games are saved by default in the `ChaosCastle` folder which is inside your `Documents` folder.
+    
 
 ## Goals of the game
 
@@ -150,7 +152,7 @@ All three ways can be used at any time and even combined. You do not have to "se
 - (A): Fire with the gun
 - Left and right bumpers/shoulders (the buttons on the back of the pad): select and cycle through weapons ((A) to cancel)
 - (B), (X), (Y): other weapons (see **Weapons** section below). Basically if a weapon is selected, this assigns the button to that weapon. Else, this fires with the assigned weapon, or does nothing if no weapon has been assigned.
-    - Analog controls (if any) can each be used for an additional weapon. The pressure and /or direction is however ignored.
+    - Analog controls (if any) can each be used for an additional weapon. The pressure and / or direction is however ignored.
     - keys from the keyboard can also be used.
 
 ### Keyboard (without numeric pad)
@@ -174,7 +176,7 @@ The "**Gun**" is always available, and is always associated to
 - the (A) button of the gamepad
 - the [SPACE] bar and the [CTRL] / [0] key (you can use any of them) of the keyboard
 
-To use another weapon, three steps are necessary:
+To use another weapon, three steps are necessary, in that order:
 1. Assign the weapon to a button or key
     - First you must have started the game (and not be in the title screen). This can also be done in the "Shop" that appears between levels
     - When using a Gamepad, use the left and right bumpers/shoulders to highlight the weapon (with the keyboard, use [Page up]/[Page down] or [+]/[-])
@@ -284,7 +286,7 @@ The last point tooks a few additional weeks until the Java port of the game was 
 
 Believe it or not:
 
-- At that time I finally found my MHC licence hidden deep in some of my old external backup disks (!). But I decided to continue with my own translator...
+- At that time I finally found my old MHC licence hidden deep in some of my old external backup disks (!). But I decided to continue with my own translator...
 - Even at 60 FPS at the minimal quality and size, scrolling was still jaggy on the Java version. I finally found that the problem was in the original code (and hence UAE was not responsible for it) and I could fix it.
     - Note that scrolling is still not as good as it can be. The reason is that it is still limited to unscaled pixels. So when the game is scaled by a factor 4 for instance, it will only scroll by multiples of 4 pixels. In a future version I plan to fix this as well.
 
@@ -314,11 +316,12 @@ While the game was converted from Modula-2 to Java, and the non-portable code wa
 
 I just changed a few things that went on my nerves while playing and testing. All these small changes were done directly in the Modula-2 code, which was then converted again to Java. If you know about the original Amiga or Macintosh version you may hence notice a few differences. Here's some of the most important ones:
 
-- The levels of "Family" zone now cost 150£ instead of 100£. I found that "Family" levels were otherwise too frequent.
+- The levels of the "Family" zone now cost 150£ instead of 100£. I found that "Family" levels were otherwise too frequent.
 - Some aliens release less "£" for the same reason
 - Less meteorites in the "Chaos" zone
 - The order of "Family" levels has slightly changed
 - 16 power bonuses instead of 20.
+- Laser bomb and Ball bomb throw more bullets
 
 BTW if you saved games with the original Amiga or Macintosh version, you should be able to load them in this Java version. The format is compatible!
 
