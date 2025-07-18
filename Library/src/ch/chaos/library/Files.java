@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.ByteBuffer;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.EnumSet;
@@ -300,8 +301,15 @@ public class Files {
         try {
             if (data instanceof IRef<?> ref) {
                 Class<?> dataType = ref.getDataType();
-                if (dataType.equals(Character.class)) {
-                    return readChar(file, ref, length);
+                if (dataType.equals(Character.class)
+                        || dataType.equals(Long.class)
+                        || dataType.equals(Integer.class)
+                        || dataType.equals(Short.class)
+                        || dataType.equals(Float.class)
+                        || dataType.equals(Double.class)
+                        || dataType.equals(Boolean.class)
+                        || dataType.isEnum()) {
+                    return readRef(file, ref, dataType, length);
                 } else if (dataType.equals(String.class)) {
                     return readString(file, ref, length);
                 } else if (dataType.equals(byte[].class)) {
@@ -328,21 +336,16 @@ public class Files {
         }
     }
 
-    private int readChar(File file, IRef<?> ref, int length) throws IOException {
-        if (length != 1)
-            throw new UnsupportedOperationException("Not implemented reading char length " + length);
-        @SuppressWarnings("unchecked")
-        IRef<Character> charRef = (IRef<Character>) ref;
-        int nextByte = file.file.read();
-        if (nextByte >= 0) {
-            charRef.set((char) nextByte);
-            return 1;
-        } else {
-            lastErrorMsg = "End of File reached";
-            return 0;
-        }
+    @SuppressWarnings("unchecked")
+    private int readRef(File file, @SuppressWarnings("rawtypes") IRef ref, Class<?> type, int length) throws IOException {
+        byte[] data = new byte[length];
+        file.file.readFully(data);
+        ByteBuffer byteBuffer = ByteBuffer.wrap(data);
+        Object value = Runtime.fromByteBuffer(byteBuffer, type);
+        ref.set(value);
+        return length;
     }
-
+    
     private int readString(File file, IRef<?> ref, int length) throws IOException {
         @SuppressWarnings("unchecked")
         IRef<String> stringRef = (IRef<String>) ref;
@@ -359,7 +362,7 @@ public class Files {
         stringRef.set(result.toString());
         return length;
     }
-
+    
     private int readBytes(File file, byte[] bytes, int length) throws IOException {
         int result = file.file.read(bytes, 0, length);
         if (result < length)
@@ -382,16 +385,54 @@ public class Files {
 
     public int WriteFileBytes(FilePtr f, Object data, int length) {
         File file = (File) f;
-        if (data instanceof byte[] bytes) {
-            try {
+        try {
+            if (data instanceof byte[] bytes) {
                 file.file.write(bytes, 0, length);
-            } catch (IOException ex) {
-                lastErrorMsg = ex.getMessage();
-                return 0;
+                return length;
+            } else if (data instanceof IRef<?> ref) {
+                Class<?> dataType = ref.getDataType();
+                if (dataType.equals(Character.class)
+                        || dataType.equals(Long.class)
+                        || dataType.equals(Integer.class)
+                        || dataType.equals(Short.class)
+                        || dataType.equals(Float.class)
+                        || dataType.equals(Double.class)
+                        || dataType.equals(Boolean.class)
+                        || dataType.isEnum()) {
+                    return writeRef(file, ref, dataType, length);
+                } else if (dataType.equals(String.class)) {
+                    return writeString(file, ref, length);
+                } else {
+                    throw new UnsupportedOperationException("Not implemented datatype " + dataType.getName());
+                }
             }
-            return length;
+            throw new UnsupportedOperationException("Not implemented: WriteFileBytes " + data);
+        } catch (IOException ex) {
+            lastErrorMsg = ex.getMessage();
+            return 0;
         }
-        throw new UnsupportedOperationException("Not implemented: WriteFileBytes " + data);
+    }
+
+    private int writeRef(File file, IRef<?> ref, Class<?> type, int length) throws IOException {
+        byte[] data = Runtime.toByteArray(ref.get(), length);
+        file.file.write(data);
+        return length;
+    }
+
+    private int writeString(File file, IRef<?> ref, int length) throws IOException {
+        @SuppressWarnings("unchecked")
+        IRef<String> stringRef = (IRef<String>) ref;
+        String str = stringRef.get();
+        for (int i = 0; i < length; i++) {
+            byte nextByte;
+            if (i < str.length()) {
+                nextByte = (byte) str.charAt(i);
+            } else {
+                nextByte = 0;
+            }
+            file.file.write(nextByte);
+        }
+        return length;
     }
 
     public int SkipFileBytes(FilePtr f, int count) {
