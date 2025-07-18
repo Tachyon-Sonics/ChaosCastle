@@ -1,5 +1,8 @@
 package ch.chaos.library.sounds;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * A sampled, monophonic sound wave, represented as floats between -1.0 and 1.0.
  * <p>
@@ -55,6 +58,27 @@ public class SoundWave implements ISoundData, IAudioWave {
         if (index < 0 || index >= length)
             return 0.0f;
         return wave[offset + index];
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Arrays.hashCode(wave);
+        result = prime * result + Objects.hash(length, offset);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SoundWave other = (SoundWave) obj;
+        return length == other.length && offset == other.offset && Arrays.equals(wave, other.wave);
     }
 
 }

@@ -33,6 +33,8 @@ public class SoundVoice {
     private final SoundControls currentControls;
     private boolean rateChanged;
     private final Object lock = new String("SoundVoice.Lock");
+    
+    private volatile float correction = 1.0f;
 
     // State variables used to change levels progressively
     private float currentLevel = 0.5f; // volume * correction
@@ -56,6 +58,10 @@ public class SoundVoice {
             if (currentControls.getModulatedRate() != prevRate)
                 rateChanged = true;
         }
+    }
+    
+    public void setCorrection(float correction) {
+        this.correction = correction;
     }
 
     /**
@@ -120,7 +126,7 @@ public class SoundVoice {
 
                 if (audioWave.getPosition() == 0) {
                     // It is safe to change levels abruptly when moving from one wave to the next
-                    currentLevel = controls.getVolume() * controls.getAm();
+                    currentLevel = controls.getVolume() * controls.getAm() * correction;
                     currentLeftLevel = leftLevel;
                     currentRightLevel = rightLevel;
                 }
@@ -129,7 +135,7 @@ public class SoundVoice {
                 while (offset < bufferSize && audioWave.getPosition() < audioWave.getLength()) {
                     float sampleValue = audioWave.getValue();
 
-                    float nextLevel = controls.getVolume() * controls.getAm();
+                    float nextLevel = controls.getVolume() * controls.getAm() * correction;
                     currentLevel = sweepTo(currentLevel, nextLevel);
                     currentLeftLevel = sweepTo(currentLeftLevel, leftLevel);
                     currentRightLevel = sweepTo(currentRightLevel, rightLevel);

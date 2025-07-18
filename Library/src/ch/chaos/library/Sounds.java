@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ch.chaos.library.sounds.ControlledWave;
+import ch.chaos.library.sounds.SimilarSoundsDetector;
 import ch.chaos.library.sounds.SoundControls;
 import ch.chaos.library.sounds.SoundMixer;
 import ch.chaos.library.sounds.SoundVoice;
@@ -73,6 +75,7 @@ public class Sounds {
     private Map<short[], float[]> waves = new HashMap<>();
     private List<Channel> channels = new ArrayList<>();
     private SoundMixer mixer;
+    private SimilarSoundsDetector similarSoundsDetector;
 
 
     private class Channel implements ChannelPtr {
@@ -177,6 +180,13 @@ public class Sounds {
             if (soundWave != null) {
                 // Drain so we can play the new sound wave immediately
                 soundVoice.drain();
+                // Detect similarity with a recent sound
+                ControlledWave cWave = new ControlledWave(soundWave, controls);
+                float correction = similarSoundsDetector.submit(cWave);
+                if (correction != 1.0f) {
+                    System.out.println("Correction: " + correction);
+                }
+                soundVoice.setCorrection(correction);
                 // Apply controls if any
                 if (controls != null)
                     soundVoice.enqueue(controls);
@@ -255,12 +265,14 @@ public class Sounds {
 
     public void begin() {
         mixer = new SoundMixer(NB_CHANNELS);
+        similarSoundsDetector = new SimilarSoundsDetector();
     }
 
     public void close() {
         if (mixer != null) {
             mixer.dispose();
             mixer = null;
+            similarSoundsDetector = null;
         }
     }
 }
