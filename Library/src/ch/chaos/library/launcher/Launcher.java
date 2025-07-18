@@ -85,7 +85,7 @@ public class Launcher {
         
         // Add launch argument so that we won't open settings again but just start the app
         relauncher.addAdditionalAppArg(LAUNCH_ARG);
-        relauncher.addAdditionalJvmArg("-XX:+UseZGC"); // TODO add as an option to settings
+        relauncher.addAdditionalJvmArg("-XX:+UseZGC");
         
         // Add jvm options related to the specified java2d pipeline
         AppMode appMode = appSettings.getAppModes().get(GfxDisplayMode.current());
