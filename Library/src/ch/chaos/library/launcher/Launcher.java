@@ -85,12 +85,18 @@ public class Launcher {
         
         // Add launch argument so that we won't open settings again but just start the app
         relauncher.addAdditionalAppArg(LAUNCH_ARG);
-        relauncher.addAdditionalJvmArg("-XX:+UseZGC");
         
         // Add jvm options related to the specified java2d pipeline
         AppMode appMode = appSettings.getAppModes().get(GfxDisplayMode.current());
         if (appMode != null) {
             for (String jvmArg : appMode.getGfxPipeline().getJvmArgs()) {
+                relauncher.addAdditionalJvmArg(jvmArg);
+            }
+        }
+        
+        // Add jvm options for the garbage collector
+        if (appSettings.getGarbageCollectorType() != null) {
+            for (String jvmArg : appSettings.getGarbageCollectorType().getJvmArgs()) {
                 relauncher.addAdditionalJvmArg(jvmArg);
             }
         }
