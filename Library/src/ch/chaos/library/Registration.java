@@ -1,6 +1,7 @@
 package ch.chaos.library;
 
 import ch.pitchtech.modula.runtime.Runtime;
+import ch.pitchtech.modula.runtime.Runtime.Ref;
 
 public class Registration {
 
@@ -59,7 +60,9 @@ public class Registration {
     }
 
     public void begin() {
-
+        this.userName = new Ref<>("Community (Open Source)");
+        this.userAddress = new Ref<>("Java port (C) 2025 Nicolas Juillerat");
+        this.userLoc = new Ref<>("Eclipse Public License - v 2.0");
     }
 
     public void close() {
