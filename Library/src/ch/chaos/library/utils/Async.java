@@ -1,26 +1,21 @@
 package ch.chaos.library.utils;
 
-import java.util.concurrent.Exchanger;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * Used when one thread eventually produces a result (using {@link #submit(Object)}),
  * and another thread must wait for and get that result (using {@link #retrieve()}).
  * <p>
  * The first thread is typically the EDT, and the other one is the main thread.
- * <p>
- * Warning: does not work with a single thread.
  */
 public class Async<V> {
 
-    private final Exchanger<V> exchanger = new Exchanger<>();
+    private final BlockingQueue<V> exchanger = new ArrayBlockingQueue<>(1);
 
 
     public void submit(V value) {
-        try {
-            exchanger.exchange(value);
-        } catch (InterruptedException ex) {
-            throw new RuntimeException(ex);
-        }
+        exchanger.add(value);
     }
 
     /**
@@ -29,7 +24,7 @@ public class Async<V> {
      */
     public V retrieve() {
         try {
-            return exchanger.exchange(null);
+            return exchanger.take();
         } catch (InterruptedException ex) {
             throw new RuntimeException(ex);
         }
