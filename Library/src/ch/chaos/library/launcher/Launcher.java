@@ -1,5 +1,7 @@
 package ch.chaos.library.launcher;
 
+import java.awt.GraphicsEnvironment;
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -99,6 +101,17 @@ public class Launcher {
             for (String jvmArg : appSettings.getGarbageCollectorType().getJvmArgs()) {
                 relauncher.addAdditionalJvmArg(jvmArg);
             }
+        }
+        
+        // In full-screen, reset scale to 1, but pass original scale
+        if (appMode.isFullScreen()) {
+            AffineTransform screenTransform = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration()
+                    .getDefaultTransform();
+            double scaleX = screenTransform.getScaleX();
+            double scaleY = screenTransform.getScaleY();
+            double scale = (scaleX + scaleY) / 2.0;
+            relauncher.addAdditionalJvmArg("-Dscale=" + scale);
+            relauncher.addAdditionalJvmArg("-Dsun.java2d.uiScale=1");
         }
         
         ProcessBuilder processBuilder = relauncher.build(true);

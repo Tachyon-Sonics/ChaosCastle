@@ -194,6 +194,7 @@ public class Graphics {
          * The scaling factor only appears quite lately, after a few paints.
          * 
          * Hence the simplest solution here is to disable any scale factor when a custom resolution is used:
+         * (Note: the launcher should already do it)
          * TODO check on Linux and MacOS
          */
         if (Settings.appMode().isFullScreen()) {
