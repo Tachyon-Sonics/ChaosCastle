@@ -1,6 +1,7 @@
 package ch.chaos.library;
 
 import java.awt.AWTException;
+import java.awt.Font;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
 import java.awt.MenuItem;
@@ -272,7 +273,7 @@ public class Menus {
                 JMenu target = new JMenu(menu.getText());
                 target.setEnabled(menu.isEnabled());
                 popupMenu.add(target);
-                addMenuItems(menu, target, null);
+                addMenuItems(menu, target, null, null);
             }
             this.popupMenu = popupMenu;
             popupMenu.addPopupMenuListener(new PopupMenuListener() {
@@ -383,18 +384,26 @@ public class Menus {
      * For some reason, AWT's {@link PopupMenu} sucks as it does not use the correct look&feel, it even seems
      * to use CDE Look&feel on Linux (!). Hopyfully, using {@link JPopupMenu} is better, despite of a few
      * caveats (see {@link EnterExitAdapter}).
-     * TODO (3) in full screen mode, menu is too small because uiScale is set to 1
+     * <p>
+     * In full-screen mode, the screen scaling, if any, is reset to 1. Use the "scale" property given
+     * by the launcher to scale the menu's font.
      */
     void installTrayIconSwing() {
         if (Dialogs.instance().getAppImage() != null && SystemTray.isSupported()) {
+            float scale = 1.0f;
+            String scaleStr = System.getProperty("scale"); // From launcher
+            if (scaleStr != null && !scaleStr.isBlank()) {
+                scale = (float) Double.parseDouble(scaleStr);
+            }
             trayPopupMenu = new JPopupMenu(Runtime.getAppName());
             for (Menu menu : menuBar) {
                 JMenu target = new JMenu(menu.getText());
+                resizeFont(target, scale);
                 EnterExitAdapter activityAdapter = new EnterExitAdapter();
                 target.addMouseListener(activityAdapter);
                 target.setEnabled(menu.isEnabled());
                 trayPopupMenu.add(target);
-                addMenuItems(menu, target, (item) -> {
+                addMenuItems(menu, target, scale, (item) -> {
                     item.addMouseListener(activityAdapter);
                 });
             }
@@ -444,8 +453,16 @@ public class Menus {
             }
         }
     }
+    
+    private static void resizeFont(JComponent component, float scale) {
+        if (scale == 1.0f)
+            return;
+        Font font = component.getFont();
+        float size = font.getSize2D() * scale;
+        component.setFont(font.deriveFont(size));
+    }
 
-    private void addMenuItems(Menu menu, JMenu target, Consumer<JComponent> onMenuItemCreated) {
+    private void addMenuItems(Menu menu, JMenu target, Float scale, Consumer<JComponent> onMenuItemCreated) {
         for (Menu item : menu.getItems()) {
             if (isSeparator(item)) {
                 JComponent separator = new JPopupMenu.Separator();
@@ -460,6 +477,8 @@ public class Menus {
                 } else {
                     menuItem = new JMenu(item.getText());
                 }
+                if (scale != null)
+                    resizeFont(menuItem, scale);
                 menuItem.setEnabled(item.isEnabled());
                 if (item.getShortcut() != null) {
                     KeyStroke keyStroke = KeyStroke.getKeyStroke(item.getShortcut());
@@ -474,7 +493,7 @@ public class Menus {
                 }
 
                 if (!item.getItems().isEmpty()) {
-                    addMenuItems(item, (JMenu) menuItem, onMenuItemCreated);
+                    addMenuItems(item, (JMenu) menuItem, scale, onMenuItemCreated);
                 }
             }
         }
