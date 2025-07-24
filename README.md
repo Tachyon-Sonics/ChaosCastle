@@ -119,7 +119,7 @@ Error: LinkageError occurred while loading main class ch.chaos.castle.app.ChaosC
     
 If the game crashes after starting, it might also be due to a corrupt configuration file. You can reset the settings by deleting the file `ChaosCastle/.settings` in your `Documents` folder. If the top-scores file is corrupted (top scores fail to load - [F1] on title screen), delete the `ChaosCastle/.data/TopScores` file. Note that games are saved by default in the `ChaosCastle` folder which is inside your `Documents` folder.
 
-If there are problems in full-screen mode (screen is black, visuals are partially out of screen, menu does not work), press [CTRL]-[Q] ([⌘]-[Q] on macOS) to quit the game. Then, in the launcher, choose a different value for **Java2D Pipeline**, or change **Mode** to "Window".
+If there are problems in full-screen mode (screen is black, visuals are partially out of screen, menu does not work), press [ALT]-[TAB] to leave full screen. You can then quit the game by choosing the "File / Quit" menu from the system tray icon. Then, in the launcher, choose a different value for **Java2D Pipeline**, or change **Mode** to "Window".
 
 If scrolling is jaggy during the game, you may change some settings in the launcher:
 
