@@ -19,7 +19,7 @@ The game has simple graphics. For instance, this is the main character:
 
 And this is a screenshot of the "Garden" level of the "Castle" zone:
 
-TODO
+<img src="./images/Garden-4-1.png">
 
 Do not like the graphics? then sorry this game is not for you. If on the other hand you are interested by the gameplay rather than by the graphics (or if you like retro games), you might be interested.
 
@@ -327,6 +327,21 @@ As I said earlier, the non-portable parts of the code (the "Library") had to be 
 Note that while the game had a "Graphics/Settings" menu which allowed you to choose the scaling factor (among other), in the Java version this setting is completely disabled. Indeed, the results are better if the original code thinks it is running at x1 scaling, and that scaling is done behind the scene in the Java code. The reason is that the scaling logic in the original code did not properly scale the lines. With a x2 scaling this was ok. But with higher scalings, some sprites just begin to have too thin outlines.
 
 Another reason why I disabled the "Graphics/Settings" is that it provided a black&white mode and a "Color x2" mode (actually a mode with two independent 16 color playfields that scroll at different speeds) in addition to the default 16-color mode. I have not implemented them in Java yet, and I may not implement them ever (black&white really does not have any value today, and the "Color x2" was impressive in the old times, but it doesn't really bring anything to the game IMHO).
+
+Here's a few results. For instance, this is a screenshot of the original version of the game, on an Amiga computer:
+
+<img src="./images/Garden-Original.png">
+
+This is a screenshot of the Java version, in windowed mode, with 4x scaling (the default on a 1920x1080 display) and the lowest quality setting (pixels are scaled as squares):
+
+<img src="./images/Garden-1-4.png">
+
+As you can see, many subtle things are different. Ok, first the level itself is different. Well, obviously, with randomly-generated level it's almost impossible to get the same screenshot twice. However, apart from that, the text fonts are different, and some vector graphics have subtle differences. In fact, Java is not particularly good at such a low resolution, but is still close enough to the original version.
+
+More interesting, this is a screenshot of the Java version, with 4x scaling at the highest quality setting:
+
+<img src="./images/Garden-4-1.png">
+
 
 However, the original game design also has a few drawbacks:
 
