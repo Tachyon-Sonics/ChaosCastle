@@ -114,10 +114,16 @@ Error: LinkageError occurred while loading main class ch.chaos.castle.app.ChaosC
 ```
 
 - The `.jar` extension is not set at the operating system level to be opened by the JRE. Use "Open with..." or use the command line.
-- The `ChaosCastle.jar` file was incorrectly built. Note that the default gradle target will create it as a library without the required dependencies. Be sure you create it with the `ChaosCastleJar` gradle task.
+- The `ChaosCastle.jar` file was incorrectly built. Note that the default gradle target will create it as a library without the required dependencies. Make sure you create it with the `ChaosCastleJar` gradle task.
     - When this is the case, trying to launch it from the command line will display the following error message: `no main manifest attribute, in ChaosCastle.jar`.
     
 If the game crashes after starting, it might also be due to a corrupt configuration file. You can reset the settings by deleting the file `ChaosCastle/.settings` in your `Documents` folder. If the top-scores file is corrupted (top scores fail to load - [F1] on title screen), delete the `ChaosCastle/.data/TopScores` file. Note that games are saved by default in the `ChaosCastle` folder which is inside your `Documents` folder.
+
+If scrolling is jaggy during the game, you may change some settings in the launcher:
+
+- Change **V-Sync mode** to "Balanced High" or "Active" (this will take more CPU)
+- On Linux, try changing the **Java2D Pipeline** to "OpenGL" (mind that in-game menus and dialogs may not work properly on hardware that is not fully compatible)
+- Reduce the values of the **Quality** and/or **Size (% of screen)** settings
   
   
 ## A few weird things
