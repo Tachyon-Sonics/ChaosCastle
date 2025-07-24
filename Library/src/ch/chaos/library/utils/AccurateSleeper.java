@@ -130,8 +130,8 @@ public class AccurateSleeper {
                 curMax *= DUBIOUS_INCREASE_RATIO;
                 countDown = KEEP_MAX_FOR;
             } else if (drift > curMax) {
-                if ((double) drift > (double) curMax * security)
-                    System.out.println("New max: " + (drift / 1000) + "us, was " + (curMax / 1000) + "us; ratio: " + ((double) drift / (double) curMax));
+//                if ((double) drift > (double) curMax * security)
+//                    System.out.println("New max: " + (drift / 1000) + "us, was " + (curMax / 1000) + "us; ratio: " + ((double) drift / (double) curMax));
                 curMax = drift;
                 countDown = KEEP_MAX_FOR;
             } else if ((double) drift * security > curMax) {
