@@ -119,6 +119,8 @@ Error: LinkageError occurred while loading main class ch.chaos.castle.app.ChaosC
     
 If the game crashes after starting, it might also be due to a corrupt configuration file. You can reset the settings by deleting the file `ChaosCastle/.settings` in your `Documents` folder. If the top-scores file is corrupted (top scores fail to load - [F1] on title screen), delete the `ChaosCastle/.data/TopScores` file. Note that games are saved by default in the `ChaosCastle` folder which is inside your `Documents` folder.
 
+If there are problems in full-screen mode (screen is black, visuals are partially out of screen, menu does not work), press [CTRL]-[Q] ([⌘]-[Q] on macOS) to quit the game. Then, in the launcher, choose a different value for **Java2D Pipeline**, or change **Mode** to "Window".
+
 If scrolling is jaggy during the game, you may change some settings in the launcher:
 
 - Change **V-Sync mode** to "Balanced High" or "Active" (this will take more CPU)
@@ -126,7 +128,7 @@ If scrolling is jaggy during the game, you may change some settings in the launc
 - Reduce the values of the **Quality** and/or **Size (% of screen)** settings
   
   
-## A few weird things
+## A few weird things to know
 
 - The original game was running in full-screen mode on the Amiga, yet it had a menu bar (to load and save the game, to change settings) and dialogs. Menu and dialogs in full-screen mode do not play really well in Java; they work but:
     - The menu is a context menu, even in windowed mode. Use the right mouse button to open it. The background may not refresh properly while the menu is opened.
@@ -134,7 +136,7 @@ If scrolling is jaggy during the game, you may change some settings in the launc
     - Menu and dialogs may not render properly when using OpenGL or Direct3D on hardware that is not fully compatible.
 - The original game had a "File / Hide" menu, that was basically a "bosskey" that fully hides the game. In the Amiga version it could be recalled from the Workbench menu. In the Macintosh version, the main window was hidden, but the menubar was kept, and the "File / Continue" menu could recall the game.
     - In this Java port, a tray icon is always present (it has the game's main character as icon), and has a menu that is the same as the application's one. The "File / Continue" menu can be choosen here to recall the game if you hid it using "File / Hide".
-    
+
 These weird features were implemented in order to fully support the original version of the game (with the original, portable part of the code untouched). Future versions will probably remove or change these features.
 
 
