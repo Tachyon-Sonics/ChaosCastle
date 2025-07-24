@@ -11,7 +11,7 @@ Because this is an almost unmodified port of an old game, please read the instru
 Oh, and there is no download yet. You have to compile the game from the sources (see ** Compiling**).
 
 
-## Screenshots
+# Screenshots
 
 The game has simple graphics. For instance, this is the main character:
 
@@ -23,6 +23,9 @@ TODO
 
 Do not like the graphics? then sorry this game is not for you. If on the other hand you are interested by the gameplay rather than by the graphics (or if you like retro games), you might be interested.
 
+
+
+# Installing and running
 
 ## Compiling
 
@@ -74,7 +77,7 @@ Or right-click on the `ChaosCastle.jar` file, and choose "Open with OpenJDK" or 
 
 This will open a **launcher** window, as shown below.
 
-TODO: launcher window
+<img src="./images/LauncherWindow.png">
 
 The original game for Amiga computers ran full-screen at 320x240, 16 colors, because this was the standard and was always supported. Because today's computer have a variety of screen resolutions (most of them are way bigger than 320x240), the **launcher** allows you to specify how to scale the game from its base resolution of 320x240.
 
@@ -115,9 +118,23 @@ Error: LinkageError occurred while loading main class ch.chaos.castle.app.ChaosC
     - When this is the case, trying to launch it from the command line will display the following error message: `no main manifest attribute, in ChaosCastle.jar`.
     
 If the game crashes after starting, it might also be due to a corrupt configuration file. You can reset the settings by deleting the file `ChaosCastle/.settings` in your `Documents` folder. If the top-scores file is corrupted (top scores fail to load - [F1] on title screen), delete the `ChaosCastle/.data/TopScores` file. Note that games are saved by default in the `ChaosCastle` folder which is inside your `Documents` folder.
-    
+  
+  
+## A few weird things
 
-## Goals of the game
+- The original game was running in full-screen mode on the Amiga, yet it had a menu bar (to load and save the game, to change settings) and dialogs. Menu and dialogs in full-screen mode do not play really well in Java; they work but:
+    - The menu is a context menu, even in windowed mode. Use the right mouse button to open it. The background may not refresh properly while the menu is opened.
+    - In full-screen mode, dialogs (settings, file chooser to load or save a game) are not resizable or movable.
+    - Menu and dialogs may not render properly when using OpenGL or Direct3D on hardware that is not fully compatible.
+- The original game had a "File / Hide" menu, that was basically a "bosskey" that fully hides the game. In the Amiga version it could be recalled from the Workbench menu. In the Macintosh version, the main windows was hidden, but the menu bar was kept, and the "File / Continue" menu could recall the game.
+    - In this Java port, a tray icon is always present (it has the game's main character as icon), and has a menu that is the same as the application's one. The "File / Continue" menu can be choosen here to recall the game if you hid it using "File / Hide".
+    
+These weird features were implemented in order to fully support the original version of the game (with the original, portable part of the code untouched). Future versions will probably remove or change these features.
+
+
+# The Game  
+
+## Goals
 
 The game has three "zones", each with several levels. The zones are named "Chaos", "Castle" and "Family".
 
@@ -201,12 +218,12 @@ Notes:
 - If you are not sure, start with the "Laser" weapon and continue to add power to it up to the maximum. Then continue with "Ball" weapon.
 
 
-## History
+# History
 
 This version of ChaosCastle is *not* using any kind of emulation. It uses the same source code as the original Amiga/Macintosh version, with only the non portable parts rewritten. Here's the history...
 
 
-### The initial Amiga version - 1998
+## The initial Amiga version - 1998
 
 ChaosCastle was initially written in 1998 - 2000. It was written in the Modula-2 programming language for the Amiga range of computers. Several choices were made, that were not common at that time:
 
@@ -231,7 +248,7 @@ There was, however, interesting results (and that was the goal of the choices ab
 - The game could be ported without difficulties to the Macintosh range of computers
 
 
-### The Macintosh and other ports - 2000
+## The Macintosh and other ports - 2000
 
 By rewriting the non-portable part of the code only, a Macintosh port was successfully completed. Because of the lack of hardware dedicated to graphics, models with at least a 68020 processor were recommanded. Interestingly, the game had a "black&white" option in addition to the "16 colors" mode, and in this mode the game could even run on very old, black&white Macintosh computers. While the Amiga version ran in fullscreen mode, the Macintosh port was windowed.
 
@@ -250,7 +267,7 @@ If you are interested in those old versions rather that this new Java port:
 - Macintosh .sit archive: https://www.pitchtech.ch/archive/ChaosCastle.sit
 
 
-### The void years - 2000 - 2024
+## The void years - 2000 - 2024
 
 During many years, I did absolutely nothing on the ChaosCastle game because I was working on other projects, in the Java language. I also stopped using Modula-2, which never got a mainstream programming language.
 
@@ -262,9 +279,9 @@ Recently, playing a complete game with the UAE emulator, I got frustrated by dif
 - Altough it was possible to achieve 50 FPS (at 320x240 resolution) by tweaking some UAE settings, for some reason scrolling in the game was always jaggy. I blamed the UAE emulation.
 
 
-### The Java version - 2024 - 2025
+## The Java version - 2024 - 2025
 
-#### Modula-2 to Java translation
+### Modula-2 to Java translation
 
 I recently remembered that I bought an MHC licence (a Modula-2 to Java translator) in the past, and that I could use it to create a proper Java port. This would involve, of course, to rewrite the non-portable part, but this could be done directly in the Java language.
 
@@ -291,7 +308,7 @@ Believe it or not:
     - Note that scrolling is still not as good as it can be. The reason is that it is still limited to unscaled pixels. So when the game is scaled by a factor 4 for instance, it will only scroll by multiples of 4 pixels. In a future version I plan to fix this as well.
 
     
-#### The Java "Library" implementation
+### The Java "Library" implementation
 
 As I said earlier, the non-portable parts of the code (the "Library") had to be rewritten in Java. Thank to the original design of the game, I could:
 
@@ -310,7 +327,7 @@ However, the original game design also has a few drawbacks:
 - No floating point was used (it was slow at that time). All arithmetic was integer-based. That means they are a few visible round-off errors, for instance when some bosses (Mother Alien, Master Alien) fire at you or explode.
 
 
-#### Other changes
+### Other changes
 
 While the game was converted from Modula-2 to Java, and the non-portable code was rewritten in Java; the "portable" part of the code is still 99% the same as the old Amiga and Macintosh versions.
 
