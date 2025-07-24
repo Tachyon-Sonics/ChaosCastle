@@ -78,6 +78,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
         this.panel = new AreaPanel();
         panel.setOpaque(true);
         panel.setBackground(Color.BLACK);
+        panel.setDoubleBuffered(false); // Disable double buffering as we will use a BufferStrategy instead
         frame.setBackground(Color.BLACK);
         double corrX = (Settings.appMode().isFullScreen() && Settings.appMode().getDisplayMode() != null) ? 1.0 : scaleX;
         double corrY = (Settings.appMode().isFullScreen() && Settings.appMode().getDisplayMode() != null) ? 1.0 : scaleY;
