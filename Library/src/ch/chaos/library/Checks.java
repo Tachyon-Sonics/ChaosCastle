@@ -65,12 +65,20 @@ public class Checks {
         String cancelText = neg.get();
         return ask(message, okText, cancelText);
     }
+    
+    private static void invokeInEdt(Runnable runnable) {
+        if (SwingUtilities.isEventDispatchThread()) {
+            runnable.run();
+        } else {
+            SwingUtilities.invokeLater(runnable);
+        }
+    }
 
-    boolean ask(String message, String okText, String cancelText) {
+    public boolean ask(String message, String okText, String cancelText) {
         Async<Boolean> result = new Async<>();
         if (okText != null) {
             if (isFullScreenActive()) {
-                SwingUtilities.invokeLater(() -> {
+                invokeInEdt(() -> {
                     JOptionPane pane = new JOptionPane(message, JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION);
                     JButton okButton = new JButton(okText);
                     okButton.addActionListener((e) -> {
@@ -86,7 +94,7 @@ public class Checks {
                     FullScreenUtils.addFullScreenDialog(pane, Runtime.getAppNameOrDefault() + " - Question");
                 });
             } else {
-                SwingUtilities.invokeLater(() -> {
+                invokeInEdt(() -> {
                     int option = JOptionPane.showConfirmDialog(owner(), message, Runtime.getAppNameOrDefault() + " - Question",
                             JOptionPane.YES_NO_OPTION,
                             JOptionPane.QUESTION_MESSAGE,
@@ -97,7 +105,7 @@ public class Checks {
             }
         } else {
             if (isFullScreenActive()) {
-                SwingUtilities.invokeLater(() -> {
+                invokeInEdt(() -> {
                     JOptionPane pane = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION);
                     JButton closeButton = new JButton(cancelText);
                     closeButton.addActionListener((e) -> {
@@ -108,7 +116,7 @@ public class Checks {
                     FullScreenUtils.addFullScreenDialog(pane, Runtime.getAppNameOrDefault() + " - Information");
                 });
             } else {
-                SwingUtilities.invokeLater(() -> {
+                invokeInEdt(() -> {
                     JOptionPane.showMessageDialog(owner(), message, Runtime.getAppNameOrDefault() + " - Information",
                             JOptionPane.INFORMATION_MESSAGE,
                             new ImageIcon(Dialogs.instance().getAppImage()));
