@@ -22,6 +22,7 @@ import java.util.function.Consumer;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import ch.chaos.library.Checks;
 import ch.chaos.library.Dialogs;
 import ch.chaos.library.Graphics;
 import ch.chaos.library.Graphics.AreaPtr;
@@ -90,6 +91,46 @@ class JFrameArea extends AreaBase implements AreaPtr {
         Dialogs.instance().setMainFrame(frame);
         Dialogs.instance().setHideArea(this::hide);
         Dialogs.instance().setShowArea(this::show);
+        
+        if (Settings.appMode().isFullScreen()) {
+            frame.addWindowFocusListener(new WindowAdapter() {
+    
+                @Override
+                public void windowLostFocus(WindowEvent e) {
+                    /*
+                     * This occurs when the full-screen window looses focus,
+                     * by using [ALT]-[TAB] for instance
+                     * 
+                     * Send a [p] key to pause the game
+                     */
+                    Event event = new Event();
+                    event.type = Input.eKEYBOARD;
+                    event.ch = 'p';
+                    Input.instance().SendEvent(event);
+                }
+    
+                @Override
+                public void windowGainedFocus(WindowEvent e) {
+                    SwingUtilities.invokeLater(() -> updateArea());
+                }
+    
+            });
+        } else {
+            frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            frame.addWindowListener(new WindowAdapter() {
+
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    boolean confirm = Checks.instance().ask("Quit application ?", "Yes", "No");
+                    if (confirm) {
+                        frame.setVisible(false);
+                        frame.dispose();
+                        System.exit(0);
+                    }
+                }
+                
+            });
+        }
     }
 
     private void hide() {
@@ -155,33 +196,10 @@ class JFrameArea extends AreaBase implements AreaPtr {
                     frame.setSize(screenSize);
                     frame.validate();
                 }
-                frame.addWindowFocusListener(new WindowAdapter() {
-
-                    @Override
-                    public void windowLostFocus(WindowEvent e) {
-                        /*
-                         * This occurs when the full-screen window looses focus,
-                         * by using [ALT]-[TAB] for instance
-                         * 
-                         * Send a [p] key to pause the game
-                         */
-                        Event event = new Event();
-                        event.type = Input.eKEYBOARD;
-                        event.ch = 'p';
-                        Input.instance().SendEvent(event);
-                    }
-
-                    @Override
-                    public void windowGainedFocus(WindowEvent e) {
-                        SwingUtilities.invokeLater(() -> updateArea());
-                    }
-
-                });
             } else {
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
             }
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // TODO review
             if (bufferArea == null) {
                 BufferedImage image = frame.getGraphicsConfiguration().createCompatibleImage(width, height);
                 panel.setImage(image);
