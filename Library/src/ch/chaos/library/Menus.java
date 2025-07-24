@@ -267,34 +267,35 @@ public class Menus {
         // Install context menu on main frame
         if (mainFrame == null)
             return;
-        {
-            JPopupMenu popupMenu = new JPopupMenu();
-            for (Menu menu : menuBar) {
-                JMenu target = new JMenu(menu.getText());
-                target.setEnabled(menu.isEnabled());
-                popupMenu.add(target);
-                addMenuItems(menu, target, null, null);
-            }
-            this.popupMenu = popupMenu;
-            popupMenu.addPopupMenuListener(new PopupMenuListener() {
 
-                @Override
-                public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-
-                }
-
-                @Override
-                public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-                    if (mainFrame != null)
-                        mainFrame.repaint();
-                }
-
-                @Override
-                public void popupMenuCanceled(PopupMenuEvent e) {
-
-                }
-            });
+        float scale = getFontScale();
+        JPopupMenu popupMenu = new JPopupMenu();
+        for (Menu menu : menuBar) {
+            JMenu target = new JMenu(menu.getText());
+            resizeFont(target, scale);
+            target.setEnabled(menu.isEnabled());
+            popupMenu.add(target);
+            addMenuItems(menu, target, scale, null);
         }
+        this.popupMenu = popupMenu;
+        popupMenu.addPopupMenuListener(new PopupMenuListener() {
+
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+
+            }
+
+            @Override
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+                if (mainFrame != null)
+                    mainFrame.repaint();
+            }
+
+            @Override
+            public void popupMenuCanceled(PopupMenuEvent e) {
+
+            }
+        });
     }
 
     void installTrayIconAwt() {
@@ -390,11 +391,7 @@ public class Menus {
      */
     void installTrayIconSwing() {
         if (Dialogs.instance().getAppImage() != null && SystemTray.isSupported()) {
-            float scale = 1.0f;
-            String scaleStr = System.getProperty("scale"); // From launcher
-            if (scaleStr != null && !scaleStr.isBlank()) {
-                scale = (float) Double.parseDouble(scaleStr);
-            }
+            float scale = getFontScale();
             trayPopupMenu = new JPopupMenu(Runtime.getAppName());
             for (Menu menu : menuBar) {
                 JMenu target = new JMenu(menu.getText());
@@ -453,6 +450,15 @@ public class Menus {
             }
         }
     }
+
+    private float getFontScale() {
+        float scale = 1.0f;
+        String scaleStr = System.getProperty("scale"); // From launcher
+        if (scaleStr != null && !scaleStr.isBlank()) {
+            scale = (float) Double.parseDouble(scaleStr);
+        }
+        return scale;
+    }
     
     private static void resizeFont(JComponent component, float scale) {
         if (scale == 1.0f)
@@ -462,7 +468,7 @@ public class Menus {
         component.setFont(font.deriveFont(size));
     }
 
-    private void addMenuItems(Menu menu, JMenu target, Float scale, Consumer<JComponent> onMenuItemCreated) {
+    private void addMenuItems(Menu menu, JMenu target, float scale, Consumer<JComponent> onMenuItemCreated) {
         for (Menu item : menu.getItems()) {
             if (isSeparator(item)) {
                 JComponent separator = new JPopupMenu.Separator();
@@ -477,8 +483,7 @@ public class Menus {
                 } else {
                     menuItem = new JMenu(item.getText());
                 }
-                if (scale != null)
-                    resizeFont(menuItem, scale);
+                resizeFont(menuItem, scale);
                 menuItem.setEnabled(item.isEnabled());
                 if (item.getShortcut() != null) {
                     KeyStroke keyStroke = KeyStroke.getKeyStroke(item.getShortcut());
