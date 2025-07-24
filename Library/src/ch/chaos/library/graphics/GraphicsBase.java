@@ -29,6 +29,8 @@ public abstract class GraphicsBase implements IGraphics {
     protected Point textPosition = new Point(0, 0);
     protected float textSize = 8.0f;
 
+    private static boolean hardwareVsync;
+    
     private long refreshPeriod;
     private long lastRefresh = System.nanoTime();
     private AccurateSleeper mrSandman;
@@ -154,6 +156,14 @@ public abstract class GraphicsBase implements IGraphics {
         vsync(false);
     }
     
+    public static boolean isHardwareVsync() {
+        return hardwareVsync;
+    }
+
+    public static void setHardwareVsync(boolean hardwareVsync) {
+        GraphicsBase.hardwareVsync = hardwareVsync;
+    }
+
     public void vsync(boolean accurateSleep) {
         long prev = lastRefresh;
         long nextRefresh = lastRefresh + refreshPeriod;
@@ -161,7 +171,16 @@ public abstract class GraphicsBase implements IGraphics {
         if (now < nextRefresh) {
             long sleepTime = nextRefresh - now;
             if (accurateSleep) {
-                accurateSleep(sleepTime);
+                if (hardwareVsync && sleepTime < 500000) {
+                    /*
+                     * Assume that harware V-sync did its job, and that we are juste facing a small drift
+                     * between the clocks of the graphics card and of the system.
+                     */
+                    // Do nothing
+                } else {
+                    // Soft V-Sync
+                    accurateSleep(sleepTime);
+                }
                 
                 /*
                  * This fixes a design bug in the original ChaosCastle's code. In order to calculate how many

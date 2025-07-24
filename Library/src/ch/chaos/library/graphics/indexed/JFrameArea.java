@@ -161,6 +161,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
 
     @Override
     public void bringToFront() {
+        GraphicsBase.setHardwareVsync(false);
         if (!frame.isVisible()) {
             if (Settings.appMode().isFullScreen()) {
                 frame.setUndecorated(true);
@@ -209,6 +210,15 @@ class JFrameArea extends AreaBase implements AreaPtr {
             } else if (NB_BUFFERS > 1) {
                 frame.createBufferStrategy(NB_BUFFERS);
                 bufferStrategy = frame.getBufferStrategy();
+                boolean pageFlipping = bufferStrategy.getCapabilities().isPageFlipping();
+                System.out.println("Page flipping: " + pageFlipping);
+                
+                /*
+                 * According to https://jvm-gaming.org/t/toggling-vsync/18019/3,
+                 * Hardware V-sync is enabled in full-screen mode, when page flipping is used.
+                 */
+                GraphicsBase.setHardwareVsync(Settings.appMode().isFullScreen() && pageFlipping);
+                
                 if (!Settings.appMode().isFullScreen()) {
                     // Offset according to frame's title and borders
                     Point panelLocation = panel.getLocationOnScreen();
