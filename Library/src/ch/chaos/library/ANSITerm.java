@@ -20,6 +20,8 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
@@ -36,6 +38,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 import ch.chaos.library.topaz.TopazFont;
 import ch.pitchtech.modula.runtime.Runtime;
@@ -103,6 +106,7 @@ public class ANSITerm {
     private int imageWidth;
     private int imageHeight;
     private Cursor blankCursor;
+    private Timer cursorTimer;
     private BufferedImage image;
     private Graphics2D gi;
     private Map<ColorChar, BufferedImage> charImages = new HashMap<>();
@@ -377,6 +381,19 @@ public class ANSITerm {
             }
 
         });
+        
+        if (!FULL_SCREEN) {
+            planifyHideCursor();
+            frame.addMouseMotionListener(new MouseMotionAdapter() {
+
+                @Override
+                public void mouseMoved(MouseEvent e) {
+                    frame.setCursor(Cursor.getDefaultCursor());
+                    planifyHideCursor();
+                }
+                
+            });
+        }
 
         // Listen to size changes
         panel.addComponentListener(new ComponentAdapter() {
@@ -397,6 +414,15 @@ public class ANSITerm {
         repaintThread = new Thread(this::repaintLoop, "Repaint Thread");
         repaintThread.setDaemon(true);
         repaintThread.start();
+    }
+    
+    private void planifyHideCursor() {
+        if (cursorTimer != null) {
+            cursorTimer.restart();
+        } else {
+            cursorTimer = new Timer(5000, (e) -> frame.setCursor(blankCursor));
+            cursorTimer.start();
+        }
     }
 
     private void repaintFull() {
