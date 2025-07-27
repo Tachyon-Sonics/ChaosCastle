@@ -128,6 +128,7 @@ public class ANSITerm { // TODO (0) Delete key in load
     private char lastCh;
     private boolean readAgain;
     private boolean useNumPadEmulation = false;
+    private boolean useKeyTyped = false;
     private boolean closeRequested = false;
 
 
@@ -320,6 +321,8 @@ public class ANSITerm { // TODO (0) Delete key in load
 
             @Override
             public void keyPressed(KeyEvent e) {
+                if (useKeyTyped)
+                    return;
                 closeRequested = false;
                 char ch = e.getKeyChar();
                 if (ch != KeyEvent.CHAR_UNDEFINED) {
@@ -360,6 +363,17 @@ public class ANSITerm { // TODO (0) Delete key in load
                     }
                 }
             }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!useKeyTyped)
+                    return;
+                char ch = e.getKeyChar();
+                if (ch != KeyEvent.CHAR_UNDEFINED) {
+                    typedChars.add(ch);
+                }
+            }
+            
         });
 
         // Listen to window closing. Send 'q', then CTRL-C
@@ -370,8 +384,12 @@ public class ANSITerm { // TODO (0) Delete key in load
                 if (closeRequested) {
                     typedChars.add((char) 03);
                 } else {
-                    typedChars.add('q');
-                    closeRequested = true;
+                    if (useKeyTyped) {
+                        typedChars.add('\n');
+                    } else {
+                        typedChars.add('q');
+                        closeRequested = true;
+                    }
                 }
             }
 
@@ -420,7 +438,11 @@ public class ANSITerm { // TODO (0) Delete key in load
         if (cursorTimer != null) {
             cursorTimer.restart();
         } else {
-            cursorTimer = new Timer(5000, (e) -> frame.setCursor(blankCursor));
+            cursorTimer = new Timer(5000, (e) -> {
+                if (frame != null && frame.isVisible()) {
+                    frame.setCursor(blankCursor);
+                }
+            });
             cursorTimer.start();
         }
     }
@@ -619,8 +641,10 @@ public class ANSITerm { // TODO (0) Delete key in load
     }
 
     public void ReadString(/* VAR */ Runtime.IRef<String> st) {
-        boolean previous = useNumPadEmulation;
+        boolean previousNpe = useNumPadEmulation;
         useNumPadEmulation = false;
+        boolean previousKt = useKeyTyped;
+        useKeyTyped = true;
         try {
             StringBuilder result = new StringBuilder();
             Runtime.IRef<Character> ch = new Runtime.Ref<>(' ');
@@ -628,12 +652,23 @@ public class ANSITerm { // TODO (0) Delete key in load
                 WaitChar(ch);
                 if (ch.get().equals('\n'))
                     break;
-                result.append(ch.get());
-                Write(ch.get());
+                if (ch.get() == (char) 127 || ch.get() == (char) 8) {
+                    // Delete
+                    if (result.length() > 0) {
+                        Goto((byte) (this.x - 1), (byte) this.y);
+                        Write(' ');
+                        Goto((byte) (this.x - 1), (byte) this.y);
+                        result.deleteCharAt(result.length() - 1);
+                    }
+                } else {
+                    result.append(ch.get());
+                    Write(ch.get());
+                }
             }
             st.set(result.toString());
         } finally {
-            useNumPadEmulation = previous;
+            useNumPadEmulation = previousNpe;
+            useKeyTyped = previousKt;
         }
     }
 
