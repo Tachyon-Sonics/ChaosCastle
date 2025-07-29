@@ -975,7 +975,7 @@ public class GrotteSounds {
         QueueSound(2, SoundList.CrashA, 330, 334, (short) 255, (short) 60);
         QueueSound(0, SoundList.Panflute, 785, 167, (short) 255, (short) 180);
         QueueSound(1, SoundList.Gong, 588, 1500, (short) 255, (short) 0);
-        QueueSound(0, SoundList.Panflute, 588, 5000, (short) 255, (short) 180);
+        QueueSound(0, SoundList.Panflute, 588, 500, (short) 255, (short) 180);
         QueueSound(0, SoundList.Panflute, 588, 1000, (short) 255, (short) 180);
         QueueSound(2, SoundList.CrashA, 294, 500, (short) 255, (short) 60);
         QueueSound(3, SoundList.Water, 700, 125, (short) 200, (short) -60);
