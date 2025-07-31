@@ -47,6 +47,9 @@ public record GfxDisplayMode(int width, int height, int depth, int refreshRate) 
     }
     
     public String toDisplayString() {
-        return width + "x" + height + ", " + depth + " bits, " + refreshRate + " Hz";
+        return width + "x" + height + ", "
+                + (depth <= 0 ? "??" : depth) + " bits, "
+                + (refreshRate <= 0 ? "??" : refreshRate) + " Hz";
     }
+    
 }

@@ -19,7 +19,7 @@ The game has simple graphics. For instance, this is the main character:
 
 And this is a screenshot of the "Garden" level of the "Castle" zone:
 
-TODO
+<img src="./images/Garden-4-1.png">
 
 Do not like the graphics? then sorry this game is not for you. If on the other hand you are interested by the gameplay rather than by the graphics (or if you like retro games), you might be interested.
 
@@ -119,6 +119,8 @@ Error: LinkageError occurred while loading main class ch.chaos.castle.app.ChaosC
     
 If the game crashes after starting, it might also be due to a corrupt configuration file. You can reset the settings by deleting the file `ChaosCastle/.settings` in your `Documents` folder. If the top-scores file is corrupted (top scores fail to load - [F1] on title screen), delete the `ChaosCastle/.data/TopScores` file. Note that games are saved by default in the `ChaosCastle` folder which is inside your `Documents` folder.
 
+If there are problems in full-screen mode (screen is black, visuals are partially out of screen, menu does not work), press [ALT]-[TAB] to leave full screen. You can then quit the game by choosing the "File / Quit" menu from the system tray icon. Then, in the launcher, choose a different value for **Java2D Pipeline**, or change **Mode** to "Window".
+
 If scrolling is jaggy during the game, you may change some settings in the launcher:
 
 - Change **V-Sync mode** to "Balanced High" or "Active" (this will take more CPU)
@@ -126,7 +128,7 @@ If scrolling is jaggy during the game, you may change some settings in the launc
 - Reduce the values of the **Quality** and/or **Size (% of screen)** settings
   
   
-## A few weird things
+## A few weird things to know
 
 - The original game was running in full-screen mode on the Amiga, yet it had a menu bar (to load and save the game, to change settings) and dialogs. Menu and dialogs in full-screen mode do not play really well in Java; they work but:
     - The menu is a context menu, even in windowed mode. Use the right mouse button to open it. The background may not refresh properly while the menu is opened.
@@ -134,7 +136,7 @@ If scrolling is jaggy during the game, you may change some settings in the launc
     - Menu and dialogs may not render properly when using OpenGL or Direct3D on hardware that is not fully compatible.
 - The original game had a "File / Hide" menu, that was basically a "bosskey" that fully hides the game. In the Amiga version it could be recalled from the Workbench menu. In the Macintosh version, the main window was hidden, but the menubar was kept, and the "File / Continue" menu could recall the game.
     - In this Java port, a tray icon is always present (it has the game's main character as icon), and has a menu that is the same as the application's one. The "File / Continue" menu can be choosen here to recall the game if you hid it using "File / Hide".
-    
+
 These weird features were implemented in order to fully support the original version of the game (with the original, portable part of the code untouched). Future versions will probably remove or change these features.
 
 
@@ -325,6 +327,21 @@ As I said earlier, the non-portable parts of the code (the "Library") had to be 
 Note that while the game had a "Graphics/Settings" menu which allowed you to choose the scaling factor (among other), in the Java version this setting is completely disabled. Indeed, the results are better if the original code thinks it is running at x1 scaling, and that scaling is done behind the scene in the Java code. The reason is that the scaling logic in the original code did not properly scale the lines. With a x2 scaling this was ok. But with higher scalings, some sprites just begin to have too thin outlines.
 
 Another reason why I disabled the "Graphics/Settings" is that it provided a black&white mode and a "Color x2" mode (actually a mode with two independent 16 color playfields that scroll at different speeds) in addition to the default 16-color mode. I have not implemented them in Java yet, and I may not implement them ever (black&white really does not have any value today, and the "Color x2" was impressive in the old times, but it doesn't really bring anything to the game IMHO).
+
+Here's a few results. For instance, this is a screenshot of the original version of the game, on an Amiga computer:
+
+<img src="./images/Garden-Original.png">
+
+This is a screenshot of the Java version, in windowed mode, with 4x scaling (the default on a 1920x1080 display) and the lowest quality setting (pixels are scaled as squares):
+
+<img src="./images/Garden-1-4.png">
+
+As you can see, many subtle things are different. Ok, first the level itself is different. Well, obviously, with randomly-generated level it's almost impossible to get the same screenshot twice. However, apart from that, the text fonts are different, and some vector graphics have subtle differences. In fact, Java is not particularly good at such a low resolution, but is still close enough to the original version.
+
+More interesting, this is a screenshot of the Java version, with 4x scaling at the highest quality setting:
+
+<img src="./images/Garden-4-1.png">
+
 
 However, the original game design also has a few drawbacks:
 

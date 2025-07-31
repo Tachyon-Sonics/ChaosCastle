@@ -20,6 +20,8 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
@@ -36,11 +38,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 import ch.chaos.library.topaz.TopazFont;
 import ch.pitchtech.modula.runtime.Runtime;
 
-public class ANSITerm {
+public class ANSITerm { // TODO (0) Delete key in load
 
     private final static boolean FULL_SCREEN; // TODO allow switching
     private final static boolean USE_NATIVE_FONT = false;
@@ -103,6 +106,7 @@ public class ANSITerm {
     private int imageWidth;
     private int imageHeight;
     private Cursor blankCursor;
+    private Timer cursorTimer;
     private BufferedImage image;
     private Graphics2D gi;
     private Map<ColorChar, BufferedImage> charImages = new HashMap<>();
@@ -124,6 +128,7 @@ public class ANSITerm {
     private char lastCh;
     private boolean readAgain;
     private boolean useNumPadEmulation = false;
+    private boolean useKeyTyped = false;
     private boolean closeRequested = false;
 
 
@@ -316,6 +321,8 @@ public class ANSITerm {
 
             @Override
             public void keyPressed(KeyEvent e) {
+                if (useKeyTyped)
+                    return;
                 closeRequested = false;
                 char ch = e.getKeyChar();
                 if (ch != KeyEvent.CHAR_UNDEFINED) {
@@ -356,6 +363,17 @@ public class ANSITerm {
                     }
                 }
             }
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (!useKeyTyped)
+                    return;
+                char ch = e.getKeyChar();
+                if (ch != KeyEvent.CHAR_UNDEFINED) {
+                    typedChars.add(ch);
+                }
+            }
+            
         });
 
         // Listen to window closing. Send 'q', then CTRL-C
@@ -366,8 +384,12 @@ public class ANSITerm {
                 if (closeRequested) {
                     typedChars.add((char) 03);
                 } else {
-                    typedChars.add('q');
-                    closeRequested = true;
+                    if (useKeyTyped) {
+                        typedChars.add('\n');
+                    } else {
+                        typedChars.add('q');
+                        closeRequested = true;
+                    }
                 }
             }
 
@@ -377,6 +399,19 @@ public class ANSITerm {
             }
 
         });
+        
+        if (!FULL_SCREEN) {
+            planifyHideCursor();
+            frame.addMouseMotionListener(new MouseMotionAdapter() {
+
+                @Override
+                public void mouseMoved(MouseEvent e) {
+                    frame.setCursor(Cursor.getDefaultCursor());
+                    planifyHideCursor();
+                }
+                
+            });
+        }
 
         // Listen to size changes
         panel.addComponentListener(new ComponentAdapter() {
@@ -397,6 +432,19 @@ public class ANSITerm {
         repaintThread = new Thread(this::repaintLoop, "Repaint Thread");
         repaintThread.setDaemon(true);
         repaintThread.start();
+    }
+    
+    private void planifyHideCursor() {
+        if (cursorTimer != null) {
+            cursorTimer.restart();
+        } else {
+            cursorTimer = new Timer(2500, (e) -> {
+                if (frame != null && frame.isVisible()) {
+                    frame.setCursor(blankCursor);
+                }
+            });
+            cursorTimer.start();
+        }
     }
 
     private void repaintFull() {
@@ -593,8 +641,10 @@ public class ANSITerm {
     }
 
     public void ReadString(/* VAR */ Runtime.IRef<String> st) {
-        boolean previous = useNumPadEmulation;
+        boolean previousNpe = useNumPadEmulation;
         useNumPadEmulation = false;
+        boolean previousKt = useKeyTyped;
+        useKeyTyped = true;
         try {
             StringBuilder result = new StringBuilder();
             Runtime.IRef<Character> ch = new Runtime.Ref<>(' ');
@@ -602,12 +652,23 @@ public class ANSITerm {
                 WaitChar(ch);
                 if (ch.get().equals('\n'))
                     break;
-                result.append(ch.get());
-                Write(ch.get());
+                if (ch.get() == (char) 127 || ch.get() == (char) 8) {
+                    // Delete
+                    if (result.length() > 0) {
+                        Goto((byte) (this.x - 1), (byte) this.y);
+                        Write(' ');
+                        Goto((byte) (this.x - 1), (byte) this.y);
+                        result.deleteCharAt(result.length() - 1);
+                    }
+                } else {
+                    result.append(ch.get());
+                    Write(ch.get());
+                }
             }
             st.set(result.toString());
         } finally {
-            useNumPadEmulation = previous;
+            useNumPadEmulation = previousNpe;
+            useKeyTyped = previousKt;
         }
     }
 

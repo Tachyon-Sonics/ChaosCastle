@@ -1135,7 +1135,7 @@ public class GrotteSupport {
             }
             grotteSounds.FinalMusic();
             clock.StartTime(time);
-            if (clock.WaitTime(time, 10000)) {
+            if (clock.WaitTime(time, 16000)) {
             }
             do {
                 score += 1000;

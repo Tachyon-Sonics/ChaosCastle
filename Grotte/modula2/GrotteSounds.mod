@@ -526,7 +526,7 @@ IMPLEMENTATION MODULE GrotteSounds;
    QueueSound(2, CrashA, 330, 334, 255, 60);
   QueueSound(0, Panflute, 785, 167, 255, 180); (* so *)
   QueueSound(1, Gong, 588, 1500, 255, 0); (* re *)
-  QueueSound(0, Panflute, 588, 5000, 255, 180); (* re *)
+  QueueSound(0, Panflute, 588, 500, 255, 180); (* re *)
   QueueSound(0, Panflute, 588, 1000, 255, 180); (* re *)
    QueueSound(2, CrashA, 294, 500, 255, 60);
    QueueSound(3, Water, 700, 125, 200, -60);

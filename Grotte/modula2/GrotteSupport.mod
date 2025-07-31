@@ -508,7 +508,7 @@ IMPLEMENTATION MODULE GrotteSupport;
    END;
    FinalMusic;
    StartTime(time);
-   IF WaitTime(time, 10000) THEN END;
+   IF WaitTime(time, 16000) THEN END;
    REPEAT
     INC(score, 1000); DEC(pvie);
     Color(7);
