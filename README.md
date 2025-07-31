@@ -136,6 +136,8 @@ If scrolling is jaggy during the game, you may change some settings in the launc
     - Menu and dialogs may not render properly when using OpenGL or Direct3D on hardware that is not fully compatible.
 - The original game had a "File / Hide" menu, that was basically a "bosskey" that fully hides the game. In the Amiga version it could be recalled from the Workbench menu. In the Macintosh version, the main window was hidden, but the menubar was kept, and the "File / Continue" menu could recall the game.
     - In this Java port, a tray icon is always present (it has the game's main character as icon), and has a menu that is the same as the application's one. The "File / Continue" menu can be choosen here to recall the game if you hid it using "File / Hide".
+- The original game had a "Settings / Misc..." menu to change OS-specific settings.
+    - In this Java port, this will show the **launcher** window again so that you can change the graphics settings. Note however that changes to some settings, like the "Java2D Pipeline", are not taken into account. You have to quit and restart the game to apply them.
 
 These weird features were implemented in order to fully support the original version of the game (with the original, portable part of the code untouched). Future versions will probably remove or change these features.
 
