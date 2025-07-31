@@ -438,7 +438,7 @@ public class ANSITerm { // TODO (0) Delete key in load
         if (cursorTimer != null) {
             cursorTimer.restart();
         } else {
-            cursorTimer = new Timer(5000, (e) -> {
+            cursorTimer = new Timer(2500, (e) -> {
                 if (frame != null && frame.isVisible()) {
                     frame.setCursor(blankCursor);
                 }
