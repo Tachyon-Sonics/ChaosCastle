@@ -528,10 +528,11 @@ public class Files {
         Thread launcherThread = new Thread(() -> {
             showLauncherSettings((as) -> {
                 // Save
-                Settings.reload();
+                Settings.reload(); // New settings have been sdaved. Reload them to reflect changes
                 latch.countDown();
             }, () -> {
                 // Cancel
+                Settings.reload(); // New settings have not been save. Reload to erase any in-place modification
                 latch.countDown();
             });
         }, "Show Launcher Settings");
