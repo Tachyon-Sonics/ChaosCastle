@@ -10,20 +10,17 @@ Because this is an almost unmodified port of an old game, please read the instru
 
 Oh, and there is no download yet. You have to compile the game from the sources (see ** Compiling**).
 
-
 # Screenshots
 
-The game has simple graphics. For instance, this is the main character:
+The game has simple graphics. For instance, this is the main character (on a brown background):
 
-<img src="./ChaosCastle/src/ch/chaos/castle/app/App64.png">
+<img title="" src="./images/MainCharacter.png" alt="" data-align="center">
 
 And this is a screenshot of the "Garden" level of the "Castle" zone:
 
 <img src="./images/Garden-4-1.png">
 
 Do not like the graphics? then sorry this game is not for you. If on the other hand you are interested by the gameplay rather than by the graphics (or if you like retro games), you might be interested.
-
-
 
 # Installing and running
 
@@ -34,36 +31,35 @@ To compile and run ChaosCastle, you must be familiar with the Command Prompt (Wi
 First you need to install:
 
 - A Java JDK version 17 or greater
-    - You need a JDK and not just a JRE!
-    - On Debian-based Linux, this can be done using `sudo apt install openjdk-17-jdk`
-    - On Windows and macOS, the JDK can be downloaded from www.adoptium.net
-    - The `JAVA_HOME` environment variable should properly locate the JDK's installation directory. If this environment variable is not properly created during the installation, you may need to create it manually.
+  - You need a JDK and not just a JRE!
+  - On Debian-based Linux, this can be done using `sudo apt install openjdk-17-jdk`
+  - On Windows and macOS, the JDK can be downloaded from www.adoptium.net
+  - The `JAVA_HOME` environment variable should properly locate the JDK's installation directory. If this environment variable is not properly created during the installation, you may need to create it manually.
 - Git
-    - On Debian-based Linux, `sudo apt install git`
-    - On other systems, https://git-scm.com/downloads
-    
+  - On Debian-based Linux, `sudo apt install git`
+  - On other systems, https://git-scm.com/downloads
+
 Then open a Command Prompt or a Terminal.
 
 - Change the current directory to some new empty directory
 - Get the sources of the Modula-2 to Java translator, using `git clone https://github.com/Tachyon-Sonics/Modula2Java17`
-    - Whilst the game is already translated to Java, it still needs the small Modula-2 runtime that comes with the translator
+  - Whilst the game is already translated to Java, it still needs the small Modula-2 runtime that comes with the translator
 - Switch to the latest stable release:
-    - `cd Modula2Java17`
-    - `git switch release/0.9.0`
-    - `cd ..` 
+  - `cd Modula2Java17`
+  - `git switch release/0.9.0`
+  - `cd ..` 
 - Get the sources of the ChaosCastle game: `git clone https://github.com/Tachyon-Sonics/ChaosCastle`
 - Switch to the latest stable release:
-    - `cd ChaosCastle`
-    - `git switch release/0.9.0`
+  - `cd ChaosCastle`
+  - `git switch release/0.9.0`
 - Compile it and create an executable .jar file:
-    - On Windows: `gradlew.bat ChaosCastleJar`
-    - On Linux or macOS: `./gradle ChaosCastleJar`, or `sh ./gradle ChaosCastleJar` if the former does not work.
-    - This takes quite a time, and this will also download a few libraries used by the game. This is where most of the magics happens, and also where problems are most likely to occur...
+  - On Windows: `gradlew.bat ChaosCastleJar`
+  - On Linux or macOS: `./gradle ChaosCastleJar`, or `sh ./gradle ChaosCastleJar` if the former does not work.
+  - This takes quite a time, and this will also download a few libraries used by the game. This is where most of the magics happens, and also where problems are most likely to occur...
 - If everything went well and without errors, the file `ChaosCastle.jar` can be found in the `ChaosCastle\build\libs` directory (relative to the current one). This is the only file you need to run the game. You can now place it somewhere else where it is easier to find. It still needs a Java JRE *version 17 or more* to run (which you already have as you installed a Java JDK (that includes a JRE) to compile the game). Also note that there is currently no way to do a "installation"; the game is just a portable, single file. Note that the `ChaosCastle.jar` file is 100% cross-platform: it can be used on other operating systems (Windows, Linux, macOS) as long as they have a Java JRE version 17 or greater installed.
 - (Optional) cleanup:
-    - Once you have copied the `ChaosCastle.jar` somewhere else, you can delete the directory created in the first step.
-    - The compilation process has downloaded libraries to the `.gradle` directory in your home. This directory can be deleted as well.
-
+  - Once you have copied the `ChaosCastle.jar` somewhere else, you can delete the directory created in the first step.
+  - The compilation process has downloaded libraries to the `.gradle` directory in your home. This directory can be deleted as well.
 
 ## Starting the game
 
@@ -95,18 +91,19 @@ Once started, the title screen of the game appears. Note that the explanation te
 However, Gamepads are fully supported on Windows, macOS and Linux, as well as keyboards without numeric pad. See the **Controls** section below.
 
 Inside the game:
+
 - Move the mouse to pause the game (if in a level).
 - Click the right mouse button to open the in-game menu. You can quit using the "Quit" menu.
 - There are also menus to load and save games.
 - The menu is also accessible from a system tray icon.
 
-
 ## Troubleshooting
 
 If the `ChaosCastle.jar` file does not start, this can be due to the following
+
 - No Java Runtime Environment (JRE) is installed. You must install a JRE version *17 or greater*.
 - A JRE of a version less than 17 is installed and used.
-    - When this is the case, trying to launch ChaosCastle from the command line will display the following error message (or similar):
+  - When this is the case, trying to launch ChaosCastle from the command line will display the following error message (or similar):
 
 ```
 Error: LinkageError occurred while loading main class ch.chaos.castle.app.ChaosCastleApp
@@ -115,8 +112,8 @@ Error: LinkageError occurred while loading main class ch.chaos.castle.app.ChaosC
 
 - The `.jar` extension is not set at the operating system level to be opened by the JRE. Use "Open with..." or use the command line.
 - The `ChaosCastle.jar` file was incorrectly built. Note that the default gradle target will create it as a library without the required dependencies. Make sure you create it with the `ChaosCastleJar` gradle task.
-    - When this is the case, trying to launch it from the command line will display the following error message: `no main manifest attribute, in ChaosCastle.jar`.
-    
+  - When this is the case, trying to launch it from the command line will display the following error message: `no main manifest attribute, in ChaosCastle.jar`.
+
 If the game crashes after starting, it might also be due to a corrupt configuration file. You can reset the settings by deleting the file `ChaosCastle/.settings` in your `Documents` folder. If the top-scores file is corrupted (top scores fail to load - [F1] on title screen), delete the `ChaosCastle/.data/TopScores` file. Note that games are saved by default in the `ChaosCastle` folder which is inside your `Documents` folder.
 
 If there are problems in full-screen mode (screen is black, visuals are partially out of screen, menu does not work), press [ALT]-[TAB] to leave full screen. You can then quit the game by choosing the "File / Quit" menu from the system tray icon. Then, in the launcher, choose a different value for **Java2D Pipeline**, or change **Mode** to "Window".
@@ -126,23 +123,21 @@ If scrolling is jaggy during the game, you may change some settings in the launc
 - Change **V-Sync mode** to "Balanced High" or "Active" (this will take more CPU)
 - On Linux, try changing the **Java2D Pipeline** to "OpenGL" (mind that in-game menus and dialogs may not work properly on hardware that is not fully compatible)
 - Reduce the values of the **Quality** and/or **Size (% of screen)** settings
-  
-  
+
 ## A few weird things to know
 
 - The original game was running in full-screen mode on the Amiga, yet it had a menu bar (to load and save the game, to change settings) and dialogs. Menu and dialogs in full-screen mode do not play really well in Java; they work but:
-    - The menu is a context menu, even in windowed mode. Use the right mouse button to open it. The background may not refresh properly while the menu is opened.
-    - In full-screen mode, dialogs (settings, file chooser to load or save a game) are not resizable or movable.
-    - Menu and dialogs may not render properly when using OpenGL or Direct3D on hardware that is not fully compatible.
+  - The menu is a context menu, even in windowed mode. Use the right mouse button to open it. The background may not refresh properly while the menu is opened.
+  - In full-screen mode, dialogs (settings, file chooser to load or save a game) are not resizable or movable.
+  - Menu and dialogs may not render properly when using OpenGL or Direct3D on hardware that is not fully compatible.
 - The original game had a "File / Hide" menu, that was basically a "bosskey" that fully hides the game. In the Amiga version it could be recalled from the Workbench menu. In the Macintosh version, the main window was hidden, but the menubar was kept, and the "File / Continue" menu could recall the game.
-    - In this Java port, a tray icon is always present (it has the game's main character as icon), and has a menu that is the same as the application's one. The "File / Continue" menu can be choosen here to recall the game if you hid it using "File / Hide".
+  - In this Java port, a tray icon is always present (it has the game's main character as icon), and has a menu that is the same as the application's one. The "File / Continue" menu can be choosen here to recall the game if you hid it using "File / Hide".
 - The original game had a "Settings / Misc..." menu to change OS-specific settings.
-    - In this Java port, this will show the **launcher** window again so that you can change the graphics settings. Note however that changes to some settings, like the "Java2D Pipeline", are not taken into account. You have to quit and restart the game to apply them.
+  - In this Java port, this will show the **launcher** window again so that you can change the graphics settings. Note however that changes to some settings, like the "Java2D Pipeline", are not taken into account. You have to quit and restart the game to apply them.
 
 These weird features were implemented in order to fully support the original version of the game (with the original, portable part of the code untouched). Future versions will probably remove or change these features.
 
-
-# The Game  
+# The Game
 
 ## Goals
 
@@ -160,18 +155,17 @@ Levels are cycling in every zones. Once the last level of a zone has been done, 
 
 There are 20 levels in the "Castle" zone. These levels are procedurally generated. This means that you never play exactly the same level twice, although each level typically has a distinct "feel", based on the procedural algorithm used to generate it. Many "Castle" levels may also appear with a different random orientation / rotation each time you play them.
 
-
 ## Controls
 
 There are three ways of controlling the main character:
+
 - Using a Gamepad
-    - Should run out of the box on Windows and macOS, requires libevdev and libudev on Linux, see https://github.com/libgdx/jamepad
-    - On Windows the controller is sometimes not recognized. Just unplug it and plug it again.
+  - Should run out of the box on Windows and macOS, requires libevdev and libudev on Linux, see https://github.com/libgdx/jamepad
+  - On Windows the controller is sometimes not recognized. Just unplug it and plug it again.
 - Using the keyboard (without numeric pad)
 - Using the keyboard (with numeric pad)
 
 All three ways can be used at any time and even combined. You do not have to "select" one at any time.
-
 
 ### Gamepad
 
@@ -179,8 +173,8 @@ All three ways can be used at any time and even combined. You do not have to "se
 - (A): Fire with the gun
 - Left and right bumpers/shoulders (the buttons on the back of the pad): select and cycle through weapons ((A) to cancel)
 - (B), (X), (Y): other weapons (see **Weapons** section below). Basically if a weapon is selected, this assigns the button to that weapon. Else, this fires with the assigned weapon, or does nothing if no weapon has been assigned.
-    - Analog controls (if any) can each be used for an additional weapon. The pressure and / or direction is however ignored.
-    - keys from the keyboard can also be used.
+  - Analog controls (if any) can each be used for an additional weapon. The pressure and / or direction is however ignored.
+  - keys from the keyboard can also be used.
 
 ### Keyboard (without numeric pad)
 
@@ -196,27 +190,28 @@ All three ways can be used at any time and even combined. You do not have to "se
 - [+] and [-]: select and cycle through weapons ([0] or [SPACE] to cancel)
 - Any other key (except [p] to pause the game): other weapons  (see **Weapons** section below)
 
-
 ## Weapons
 
 The "**Gun**" is always available, and is always associated to
+
 - the (A) button of the gamepad
 - the [SPACE] bar and the [CTRL] / [0] key (you can use any of them) of the keyboard
 
 To use another weapon, three steps are necessary, in that order:
+
 1. Assign the weapon to a button or key
-    - First you must have started the game (and not be in the title screen). This can also be done in the "Shop" that appears between levels
-    - When using a Gamepad, use the left and right bumpers/shoulders to highlight the weapon (with the keyboard, use [Page up]/[Page down] or [+]/[-])
-    - Then just press the button or key to which you want to assign the weapon.
-        - Or press (A) ([SPACE]/[CTRL]/[0]) to cancel (basically the button/key for the "Gun")
-    - This process can be done again at any time to assign a different button/key, or for a different weapon.
-    - Note: button/key assignment are not preserved when saving a game. Hence if you load a saved game you may need to re-assign a button/key to all your weapons.
-2. Add power to that weapon. Power can only be added by finding a power bonus, so you will have to seach for one. They are hidden in some "Castle" levels. A power bonus looks as follows: TODO: image of power bonus
-    - When collecting a power bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon (first assign a key using step 1 if you haven't done it yet)
+   - First you must have started the game (and not be in the title screen). This can also be done in the "Shop" that appears between levels
+   - When using a Gamepad, use the left and right bumpers/shoulders to highlight the weapon (with the keyboard, use [Page up]/[Page down] or [+]/[-])
+   - Then just press the button or key to which you want to assign the weapon.
+     - Or press (A) ([SPACE]/[CTRL]/[0]) to cancel (basically the button/key for the "Gun")
+   - This process can be done again at any time to assign a different button/key, or for a different weapon.
+   - Note: button/key assignment are not preserved when saving a game. Hence if you load a saved game you may need to re-assign a button/key to all your weapons.
+2. Add power to that weapon. Power can only be added by finding a power bonus, so you will have to seach for one. They are hidden in some "Castle" levels. A power bonus looks as follows: <img src="./images/PowerBonus.png">
+   - When collecting a power bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon (first assign a key using step 1 if you haven't done it yet)
 3. Add bullets to that weapon
-    - Bullets can be added by collecting bullet bonus, or by buying bullets in the shop between levels
-    - When collecting a bullet bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon
-    
+   - Bullets can be added by collecting bullet bonus, or by buying bullets in the shop between levels
+   - When collecting a bullet bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon
+
 I plan to simplify the process in a future version.
 
 Notes:
@@ -227,11 +222,9 @@ Notes:
 - In general, it is better to choose a few weapons and to raise their power to the maximum, rather than using many weapons that are not at full power.
 - If you are not sure, start with the "Laser" weapon and continue to add power to it up to the maximum. Then continue with "Ball" weapon.
 
-
 # History
 
 This version of ChaosCastle is *not* using any kind of emulation. It uses the same source code as the original Amiga/Macintosh version, with only the non portable parts rewritten. Here's the history...
-
 
 ## The initial Amiga version - 1998
 
@@ -244,7 +237,7 @@ ChaosCastle was initially written in 1998 - 2000. It was written in the Modula-2
 - The game used a base resolution of 320x240, and featured an integer "scaling" factor. With a scaling factor of 2, it could run in 640x480 resolution (if supported), with a scaling factor of 3 in 960x720, etc.
 - Both the background images and the sprite images were pre-rendered at the target scaling factor during startup. Hence no scaling or vector graphics (which were both quite slow on hardware of that time) occured during the game.
 - The game did not rely on a fixed FPS such as 50 FPS. Instead it used a clock to measure how much time passed between two frames, and ajusted the speed accordingly. Hence, even if the FPS dropped below 50 FPS, the overal speed of the game did not slow down. It only started to slow down after reaching 4 FPS.
-    - Note however that the game did not use a separate game loop and rendering loop. Hence at low FPS, some collisions were less accurate.
+  - Note however that the game did not use a separate game loop and rendering loop. Hence at low FPS, some collisions were less accurate.
 - Sound effects supported 1 to 8 channels, and either mono or stereo. They used either the built-in audio device (and even accessed it through the infamous "audio device"), or the third-party AHI library. Sounds could also be disabled altogether.
 
 The main result of these choices was that, on an Amiga 500 (one of the earliest model in the Amiga range of computers, featuring a Motorola 68000 processor), the game could not achieve 50 FPS *at all* (the typical screen refresh rate at that time). It was rather running at 12 - 16 FPS, with drops down to 4 FPS under heavy animations. At that time, commercial games with similar animations all ran at 50 FPS on the same hardware, thank to the use of hardware scrolling, and more generally by hitting the hardware directly.
@@ -252,11 +245,11 @@ The main result of these choices was that, on an Amiga 500 (one of the earliest 
 The game also could only use 4 mono channels or 2 stereo channels for sounds, which was what the Amiga hardware provided.
 
 There was, however, interesting results (and that was the goal of the choices above):
+
 - On more recent hardware, such as the Amiga 1200, 50 FPS could be achieved at 320x240
 - With dedicated graphic cards, 50 FPS could be achieved even at 640x480 (scaling x2) or higher resolutions. No additional code was necessary as graphic cards were properly accessed through the operating system libraries.
 - With fast enough processors, such as the 68030 or 68060, sounds could use 8 stereo channels with the AHI library
 - The game could be ported without difficulties to the Macintosh range of computers
-
 
 ## The Macintosh and other ports - 2000
 
@@ -271,11 +264,11 @@ At that time I also bought a licence to the MHC Modula-2 to Java compiler in ord
 However, at that time I lost interest in the project, and this was the end of the "old" ChaosCastle years. Only the Amiga and Macintosh versions were ever released.
 
 If you are interested in those old versions rather that this new Java port:
+
 - Amiga .lzx archive: https://www.pitchtech.ch/archive/ChaosCastle.lzx (requires unlzx from https://aminet.net/package/util/arc/lzx121r1)
 - Amiga .adf (to run with UAE): https://www.pitchtech.ch/archive/ChaosCastle.adf
-    - Hint with UAE: Choose expanded / high-end configuration, and configure game port
+  - Hint with UAE: Choose expanded / high-end configuration, and configure game port
 - Macintosh .sit archive: https://www.pitchtech.ch/archive/ChaosCastle.sit
-
 
 ## The void years - 2000 - 2024
 
@@ -287,7 +280,6 @@ Recently, playing a complete game with the UAE emulator, I got frustrated by dif
 
 - While the game featured a scaling factor, I was not able to use it properly (without interlacing) with UAE. It involved installing an UAE-specific gfx driver, but documentation is near zero and my knowledge of the Amiga computer vanished after all those years. I was never able to do it although it should definitely be possible; after all, UAE even emulates the exact Amiga graphic card I had on my Amiga 1200.
 - Altough it was possible to achieve 50 FPS (at 320x240 resolution) by tweaking some UAE settings, for some reason scrolling in the game was always jaggy. I blamed the UAE emulation.
-
 
 ## The Java version - 2024 - 2025
 
@@ -305,7 +297,7 @@ Don't get me wrong, it still took the equivalent of *several weeks* at full time
 
 - The translator probably still has many bugs when used on other Modula-2 programs, as my own game was the only "big" Modula-2 program on which I tested it
 - The resulting game did not run because it used pointer arithmetic at some places, which could not be converted in Java. I had to manually modify the resulting Java code.
-    - I still plan to improve the Modula-2 to Java translator to handle pointer arithmetic in the future
+  - I still plan to improve the Modula-2 to Java translator to handle pointer arithmetic in the future
 - I had to "fix" a few non portable stuff in the original Modula-2 code, but I could keep it to a minimum.
 - I still had to rewrite the non-portable parts in Java (the "Library"): graphics, sounds, etc.
 
@@ -315,9 +307,8 @@ Believe it or not:
 
 - At that time I finally found my old MHC licence hidden deep in some of my old external backup disks (!). But I decided to continue with my own translator...
 - Even at 60 FPS at the minimal quality and size, scrolling was still jaggy on the Java version. I finally found that the problem was in the original code (and hence UAE was not responsible for it) and I could fix it.
-    - Note that scrolling is still not as good as it can be. The reason is that it is still limited to unscaled pixels. So when the game is scaled by a factor 4 for instance, it will only scroll by multiples of 4 pixels. In a future version I plan to fix this as well.
+  - Note that scrolling is still not as good as it can be. The reason is that it is still limited to unscaled pixels. So when the game is scaled by a factor 4 for instance, it will only scroll by multiples of 4 pixels. In a future version I plan to fix this as well.
 
-    
 ### The Java "Library" implementation
 
 As I said earlier, the non-portable parts of the code (the "Library") had to be rewritten in Java. Thank to the original design of the game, I could:
@@ -344,13 +335,11 @@ More interesting, this is a screenshot of the Java version, with 4x scaling at t
 
 <img src="./images/Garden-4-1.png">
 
-
 However, the original game design also has a few drawbacks:
 
 - The game uses indexed colors (palette graphics). While supported by Java, they are in general *not* hardware optimised. 
 - For the same reason I could not use anti-aliasing.
 - No floating point was used (it was slow at that time). All arithmetic was integer-based. That means they are a few visible round-off errors, for instance when some bosses (Mother Alien, Master Alien) fire at you or explode.
-
 
 ### Other changes
 
@@ -367,14 +356,13 @@ I just changed a few things that went on my nerves while playing and testing. Al
 
 BTW if you saved games with the original Amiga or Macintosh version, you should be able to load them in this Java version. The format is compatible!
 
-
 ## Future works
 
 Here's my plans for the future of ChaosCastle (but any of these things may or may not happen - this is a hobbyist project):
 
 - 10 new "Castle" levels. This has already started. Do not expect too much, these levels do not use new background images or new enemies / sprites. However:
-    - They are big and have much more animation (sprites). I could change some limitations of the original code in the Java version for that.
-    - They feature much better procedural generation algorithms.
+  - They are big and have much more animation (sprites). I could change some limitations of the original code in the Java version for that.
+  - They feature much better procedural generation algorithms.
 - A real ending
 - Improve assignment to weapons to keys / buttons. Ideally a popup-panel should appear when you get a power bonus. It should allow you to choose the weapon and to assign a key or button at that time.
 - Replace all the sounds with high quality versions, for instance from Freesound.
