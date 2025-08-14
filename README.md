@@ -209,7 +209,7 @@ To use another weapon, three steps are necessary, in that order:
 2. Add power to that weapon. Power can only be added by finding a power bonus, so you will have to seach for one. They are hidden in some "Castle" levels. A power bonus looks as follows: <img src="./images/PowerBonus.png">
     - When collecting a power bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon (first assign a key using step 1 if you haven't done it yet)
 3. Add bullets to that weapon
-    - Bullets can be added by collecting bullet bonus (<img src="./images/BulletBonus.png" width="50%" height="50%">), or by buying bullets in the shop between levels
+    - Bullets can be added by collecting bullet bonus (<img src="./images/BulletBonus.png" width="24px" height="24px">), or by buying bullets in the shop between levels
     - When collecting a bullet bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon
 
 I plan to simplify the process in a future version.
