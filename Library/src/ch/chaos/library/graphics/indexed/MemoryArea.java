@@ -17,6 +17,7 @@ import java.util.function.Consumer;
 
 import ch.chaos.library.Graphics.AreaPtr;
 import ch.chaos.library.graphics.AreaBase;
+import ch.chaos.library.utils.GfxUtils;
 
 /**
  * {@link AreaPtr} implementation for off-screen buffers (type {@link Graphics0#atDISPLAY})
@@ -86,7 +87,7 @@ class MemoryArea extends AreaBase implements AreaPtr {
         image = new BufferedImage(colorModel, raster, false, null);
         g = image.createGraphics();
         g.scale(scale, scale);
-        GraphicsIndexedColorImpl.setupHighSpeed(g);
+        GfxUtils.setupHighSpeed(g);
         g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
         g.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 3.0f));
         g.setFont(new Font("Verdana", Font.PLAIN, 12)); // Seems to be the best one at SCALE 1

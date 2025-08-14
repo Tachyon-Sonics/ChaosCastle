@@ -11,6 +11,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JComponent;
 
 import ch.chaos.library.Dialogs;
+import ch.chaos.library.utils.GfxUtils;
 
 
 public class TitlePanel extends JComponent {
@@ -45,14 +46,19 @@ public class TitlePanel extends JComponent {
         g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, getWidth(), getHeight());
         
+        GfxUtils.setupHighQuality(g2);
         Dimension myDim = getPreferredSize();
         Dimension curDim = getSize();
         g2.translate(
                 Math.max(0, (curDim.width - myDim.width) / 2),
                 Math.max(0, (curDim.height - myDim.height) / 2));
         
-        g2.drawImage(icon, GAP, GAP * 2 + 3, GAP + SIZE, GAP * 2 + 3 + SIZE, 0, 0, SIZE * 2, SIZE * 2, this);
+        Graphics2D g3 = (Graphics2D) g2.create();
+        g3.scale(1.0 / 1.2, 1.0 / 1.2);
+        g3.translate(8.0, 8.0);
+        g3.drawImage(icon, GAP, GAP * 2 + 3, GAP + SIZE, GAP * 2 + 3 + SIZE, 0, 0, SIZE * 2, SIZE * 2, this);
         
+        GfxUtils.setupHighSpeed(g2);
         Rectangle2D rect1 = g.getFontMetrics(font).getStringBounds(TITLE, g);
         Rectangle2D rect2 = g.getFontMetrics(font).getStringBounds(SUB_TITLE, g);
         int subtitleOffset = (int) (rect1.getWidth() - rect2.getWidth() + 0.5);

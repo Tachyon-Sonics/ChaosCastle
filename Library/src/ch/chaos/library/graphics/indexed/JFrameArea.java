@@ -34,6 +34,7 @@ import ch.chaos.library.graphics.GraphicsBase;
 import ch.chaos.library.settings.GfxDisplayMode;
 import ch.chaos.library.settings.Settings;
 import ch.chaos.library.utils.FpsStats;
+import ch.chaos.library.utils.GfxUtils;
 import ch.pitchtech.modula.runtime.Runtime;
 
 /**
@@ -206,7 +207,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
                 panel.setImage(image);
                 g = panel.getImage().createGraphics();
                 g.scale(GraphicsBase.scale() / scaleX, GraphicsBase.scale() / scaleY);
-                GraphicsIndexedColorImpl.setupHighSpeed(g);
+                GfxUtils.setupHighSpeed(g);
             } else if (NB_BUFFERS > 1) {
                 frame.createBufferStrategy(NB_BUFFERS);
                 bufferStrategy = frame.getBufferStrategy();
@@ -264,7 +265,7 @@ class JFrameArea extends AreaBase implements AreaPtr {
             if (bufferStrategy != null) {
                 if (intermediateImage != null) {
                     Graphics2D g2 = intermediateImage.createGraphics();
-                    GraphicsIndexedColorImpl.setupHighSpeed(g2);
+                    GfxUtils.setupHighSpeed(g2);
                     g2.drawImage(area.getExternalImage(), 0, 0, null);
                     g2.dispose();
                 }
