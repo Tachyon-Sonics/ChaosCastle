@@ -949,10 +949,23 @@ public class ChaosImages {
         graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) 256), chaosGraphics.H.invoke((short) 256));
         dialogs.DeepFreeGadget(new Runtime.FieldRef<>(chaosBase::getD, chaosBase::setD));
         
+//        { // Extract shapes
+//            graphics.SetArea(chaosGraphics.shapeArea);
+//            SetForestPalette();
+//            MemoryArea area = (MemoryArea) chaosGraphics.shapeArea;
+//            BufferedImage image = area.getExternalImage();
+//            File targetFile = new File("C:\\Users\\Nicolas Juillerat\\Desktop\\shapes.png");
+//            try {
+//                ImageIO.write(image, "PNG", targetFile);
+//            } catch (IOException ex2) {
+//                ex2.printStackTrace();
+//            }
+//        }
+        
 //        graphics.SetArea(chaosGraphics.imageArea);
 //        SetForestPalette();
 //        chaosGraphics.AnimPalette(0);
-////        {
+////        { // Extract blocks
 ////            MemoryArea area = (MemoryArea) chaosGraphics.imageArea;
 ////            BufferedImage image = area.getExternalImage();
 ////            File targetDir = new File("C:\\Users\\Nicolas Juillerat\\Desktop\\img");
