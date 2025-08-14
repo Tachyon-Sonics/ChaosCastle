@@ -354,6 +354,8 @@ More interestingly, this is a screenshot of the Java version, with 4x scaling at
 
 <img src="./images/Garden-4-1.png">
 
+Quite impressive, considering that it is based on the original portable part of the code, untouched.
+
 However, the original game design also has a few drawbacks:
 
 - The game uses indexed colors (palette graphics). While supported by Java, they are in general *not* hardware optimised. 
