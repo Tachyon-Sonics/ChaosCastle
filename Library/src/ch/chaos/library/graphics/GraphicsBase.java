@@ -165,13 +165,14 @@ public abstract class GraphicsBase implements IGraphics {
                 
                 /*
                  * This fixes a design bug in the original ChaosCastle's code. In order to calculate how many
-                 * frames were missed, it queried the clock not after vsync, but while moving the player. This could
+                 * frames were missed, it queries the clock not after vsync, but while moving the player. This could
                  * occur quite at any moment because there is no guarantee that the player is the first or last
                  * sprite. Furthermore, it queries the value in 300 FPS units, potentially resulting in fractional
                  * missed frames.
                  * 
                  * The result is that, on a 60 FPS system, even when no frame is missed, it will randomly get values
                  * among {4, 5, 6} instead of constantly getting 5 (300 / 60, or the duration of a single frame).
+                 * Together with various rounding issues, this makes scrolling less smooth than it should be.
                  * 
                  * To fix this bug, we "lock" the clock at vsync, so it will not change until the next
                  * vsync (or until 3 missed vsync, for instance if no vsync occur - like level finished and
@@ -183,7 +184,7 @@ public abstract class GraphicsBase implements IGraphics {
             }
             lastRefresh = nextRefresh;
         } else if (now < nextRefresh + refreshPeriod) {
-            // Try to recover up to two missed frames // TODO check vsync in ExtendedBufferCapabilities
+            // Try to recover up to two missed frames
             lastRefresh = nextRefresh;
         } else {
             lastRefresh = now;

@@ -17,8 +17,8 @@ public enum GfxPipelineType {
     DIRECT_3D("Direct3D", "-Dsun.java2d.d3d=True"),
     OPENGL("OpenGL", "-Dsun.java2d.opengl=True"),
     XRENDER("XRender", "-Dsun.java2d.xrender=True"),
-    METAL("Metal", "-Dsun.java2d.metal=True"),
-    WAYLAND("Wayland", "-Dawt.toolkit.name=WLToolkit", "-Dsun.java2d.vulkan=True"); // Beta, based on https://wiki.openjdk.org/display/wakefield/Pure+Wayland+toolkit+prototype
+    METAL("Metal", "-Dsun.java2d.metal=True");
+//    WAYLAND("Wayland", "-Dawt.toolkit.name=WLToolkit", "-Dsun.java2d.vulkan=True"); // Beta, based on https://wiki.openjdk.org/display/wakefield/Pure+Wayland+toolkit+prototype
     
     
     private final String name;
@@ -64,7 +64,7 @@ public enum GfxPipelineType {
         } else if (Platform.isMacOsX()) {
             return List.of(DEFAULT, OPENGL, METAL);
         } else if (Platform.isLinux()) {
-            return List.of(DEFAULT, SOFT, XRENDER, OPENGL, WAYLAND);
+            return List.of(DEFAULT, SOFT, XRENDER, OPENGL);
         } else {
             // Not clear what is available. Just assume the user is a geek and expose all
             return Arrays.asList(values());
