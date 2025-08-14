@@ -43,7 +43,7 @@ import javax.swing.Timer;
 import ch.chaos.library.topaz.TopazFont;
 import ch.pitchtech.modula.runtime.Runtime;
 
-public class ANSITerm { // TODO (0) Delete key in load
+public class ANSITerm {
 
     private final static boolean FULL_SCREEN; // TODO allow switching
     private final static boolean USE_NATIVE_FONT = false;
