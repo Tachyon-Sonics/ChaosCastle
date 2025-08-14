@@ -13,7 +13,6 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.Point;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -41,6 +40,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import ch.chaos.library.topaz.TopazFont;
+import ch.chaos.library.utils.GfxUtils;
 import ch.pitchtech.modula.runtime.Runtime;
 
 public class ANSITerm {
@@ -311,7 +311,7 @@ public class ANSITerm {
         // Create off-screen image
         image = panel.getGraphicsConfiguration().createCompatibleImage(imageWidth, imageHeight);
         gi = image.createGraphics();
-        setupHighSpeed(gi);
+        GfxUtils.setupHighSpeed(gi);
         gi.setFont(topazFont.deriveFont((float) fontSize));
         gi.scale(SCALE_X, SCALE_Y);
         this.fontDescent = gi.getFontMetrics().getDescent();
@@ -524,28 +524,6 @@ public class ANSITerm {
         }
     }
 
-    private void setupHighQuality(Graphics2D g) {
-        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-        g.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-        g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
-        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-    }
-
-    private void setupHighSpeed(Graphics2D g) {
-        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-        g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-        g.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
-        g.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_DISABLE);
-        g.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
-        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
-    }
-
     private void update(int x, int y) {
         Graphics2D g2 = (Graphics2D) gi.create();
         BufferedImage charImage = getCharImage(realContent[y][x], color, g2);
@@ -569,7 +547,7 @@ public class ANSITerm {
             Graphics2D g2 = image.createGraphics();
             g2.setColor(Color.black);
             g2.fillRect(0, 0, fontSize, fontSize);
-            setupHighQuality(g2);
+            GfxUtils.setupHighQuality(g2);
 
             g2.setFont(topazFont.deriveFont((float) fontSize));
             g2.setColor(ANSI_COLORS[color]);
