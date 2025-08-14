@@ -156,7 +156,7 @@ You start in the "**Chaos**" zone at level 1. The goal of any level in this zone
 
 Between every level, you enter the **shop**. Each time you have collected 100$, you can play a level of the "Castle" zone (by buying it in the shop); else you have to continue with the next level of the "Chaos" zone.
 
-<img src="./images/Shop.png" width="640px" height="480px">
+<img src="./images/Shop.png" width="640px" height="480px" data-align="center">
 
 In the "**Castle**" zone, the goal of any level is to collect both $ and £, and to find the "EXIT" panel. Levels in the "Castle" zone are big levels with scrolling.
 
@@ -214,8 +214,7 @@ The "**Gun**" is always available, and is always associated to
 To use another weapon, three steps are necessary, in that order:
 
 1. Assign the weapon to a button or key
-    - Use the left and right bumpers/shoulders of the gamepad to highlight the weapon (with the keyboard, use [Page up]/[Page down] or [+]/[-]) - note that you must have started the game (and not be in the title screen). The following picture shows the panel on the right on the screen (during the game), with the "Bubble" weapon highlighted.
-     <img src="./images/WeaponSelection.png" width="80px" height="240px" align="right">
+    - Use the left and right bumpers/shoulders of the gamepad to highlight the weapon (with the keyboard, use [Page up]/[Page down] or [+]/[-]) - note that you must have started the game (and not be in the title screen). The following picture shows the panel on the right on the screen (during the game), with the "Bubble" weapon highlighted. <img src="./images/WeaponSelection.png" width="120px" height="360px" align="right">
     - Then just press the button or key to which you want to assign the weapon.
         - Or press (A) ([SPACE]/[CTRL]/[0]) to cancel (basically the button/key for the "Gun")
     - Notes: 
