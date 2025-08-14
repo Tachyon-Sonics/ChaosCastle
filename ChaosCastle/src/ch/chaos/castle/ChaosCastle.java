@@ -117,7 +117,7 @@ public class ChaosCastle {
         chaosBase.stages = 5;
         chaosBase.addpt = 0;
         chaosBase.score = 0;
-        setupCheat(); // FIXME remove
+//        setupCheat(); // FIXME remove
         InitPlayVars();
     }
     

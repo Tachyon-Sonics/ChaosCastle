@@ -3,7 +3,7 @@ package ch.chaos.castle.level;
 
 public class Levels {
     
-    public final static boolean ENABLE_NEW_LEVELS = true;
+    public final static boolean ENABLE_NEW_LEVELS = false;
     
     public final static int ENTRY = 1;
     public final static int GROOVE = 2;
