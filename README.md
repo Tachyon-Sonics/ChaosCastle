@@ -200,18 +200,18 @@ The "**Gun**" is always available, and is always associated to
 To use another weapon, three steps are necessary, in that order:
 
 1. Assign the weapon to a button or key
-    - Use the left and right bumpers/shoulders of the gamepad to highlight the weapon (with the keyboard, use [Page up]/[Page down] or [+]/[-]) - note that you must have started the game (and not be in the title screen). The follwing picture shows the panel on the right on the screen (during the game), with the "Bubble" weapon highlighted.
-<img src="./images/WeaponSelection.png" >
-    - Then just press the button or key to which you want to assign the weapon.
-         - Or press (A) ([SPACE]/[CTRL]/[0]) to cancel (basically the button/key for the "Gun")
-    - Notes: 
-        - This process can be done again at any time to assign a different button/key, or for a different weapon.
-        - Button/key assignment are not preserved when saving a game. Hence if you load a saved game you may need to re-assign a button/key to all your weapons.
+   - Use the left and right bumpers/shoulders of the gamepad to highlight the weapon (with the keyboard, use [Page up]/[Page down] or [+]/[-]) - note that you must have started the game (and not be in the title screen). The follwing picture shows the panel on the right on the screen (during the game), with the "Bubble" weapon highlighted.
+     <img src="./images/WeaponSelection.png" width="40px" height="120px" align="right">
+   - Then just press the button or key to which you want to assign the weapon.
+     - Or press (A) ([SPACE]/[CTRL]/[0]) to cancel (basically the button/key for the "Gun")
+   - Notes: 
+     - This process can be done again at any time to assign a different button/key, or for a different weapon.
+     - Button/key assignment are not preserved when saving a game. Hence if you load a saved game you may need to re-assign a button/key to all your weapons.
 2. Add power to that weapon. Power can only be added by finding a power bonus, so you will have to seach for one. They are hidden in some "Castle" levels. A power bonus looks as follows: <img src="./images/PowerBonus.png">
-    - When collecting a power bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon (first assign a key using step 1 if you haven't done it yet)
+   - When collecting a power bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon (first assign a key using step 1 if you haven't done it yet)
 3. Add bullets to that weapon
-    - Bullets can be added by collecting bullet bonus (<img src="./images/BulletBonus.png" width="24px" height="24px">), or by buying bullets in the shop between levels
-    - When collecting a bullet bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon
+   - Bullets can be added by collecting bullet bonus (<img src="./images/BulletBonus.png" width="24px" height="24px">), or by buying bullets in the shop between levels
+   - When collecting a bullet bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon
 
 I plan to simplify the process in a future version.
 
