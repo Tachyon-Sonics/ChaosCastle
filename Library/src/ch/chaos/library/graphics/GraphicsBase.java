@@ -158,6 +158,7 @@ public abstract class GraphicsBase implements IGraphics {
         long prev = lastRefresh;
         long nextRefresh = lastRefresh + refreshPeriod;
         long now = System.nanoTime();
+        
         if (now < nextRefresh) {
             long sleepTime = nextRefresh - now;
             if (accurateSleep) {
@@ -178,7 +179,8 @@ public abstract class GraphicsBase implements IGraphics {
                  * vsync (or until 3 missed vsync, for instance if no vsync occur - like level finished and
                  * displaying the Shop).
                  */
-                Clock.instance().setVsyncTime(nextRefresh, nextRefresh + refreshPeriod * 3);
+                // TODO (0) improve by also passing refreshPeriod, and using it as a rounding (for ever, but adjusted as current time + k * refreshPeriod)
+                Clock.instance().setVsyncTime(nextRefresh, nextRefresh + refreshPeriod);
             } else {
                 AccurateSleeper.threadSleep(sleepTime);
             }
