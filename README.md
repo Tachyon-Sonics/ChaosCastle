@@ -2,13 +2,13 @@
 
 ChaosCastle is a simple, retro-like, 2D shoot-them-up game with a slow pace.
 
-It starts with very simple levels. But as the game progresses, the difficulty, the complexity and the amount of animations increase.
+It starts with very simple levels. But as the game progresses, the difficulty, the complexity and the amount of animation increase.
 
 The game was initially released for the Amiga and Macintosh computers in 1999. This is a Java-port that runs on any modern hardware, and is very close to the original version (see **History** below).
 
 Because this is an almost unmodified port of an old game, please read the instructions carefully (especially **Controls** and **Weapons**), because the game is far from having the conviviality and ease-of-use of your typical Smartphone game.
 
-Oh, and there is no download yet. You have to compile the game from the sources (see ** Compiling**).
+Oh, and there is no download yet. You have to compile the game from the sources (see **Compiling**).
 
 
 # Screenshots
@@ -156,7 +156,9 @@ You start in the "**Chaos**" zone at level 1. The goal of any level in this zone
 
 Between every level, you enter the **shop**. Each time you have collected 100$, you can play a level of the "Castle" zone (by buying it in the shop); else you have to continue with the next level of the "Chaos" zone.
 
-<img src="./images/Shop.png" width="640px" height="480px" data-align="center">
+<p align="center">
+    <img src="./images/Shop.png" width="640px" height="480px">
+</p>
 
 In the "**Castle**" zone, the goal of any level is to collect both $ and £, and to find the "EXIT" panel. Levels in the "Castle" zone are big levels with scrolling.
 
@@ -214,7 +216,7 @@ The "**Gun**" is always available, and is always associated to
 To use another weapon, three steps are necessary, in that order:
 
 1. Assign the weapon to a button or key
-    - Use the left and right bumpers/shoulders of the gamepad to highlight the weapon (with the keyboard, use [Page up]/[Page down] or [+]/[-]) - note that you must have started the game (and not be in the title screen). The following picture shows the panel on the right on the screen (during the game), with the "Bubble" weapon highlighted. <img src="./images/WeaponSelection.png" width="120px" height="360px" align="right">
+    - Use the left and right bumpers/shoulders of the gamepad to highlight the weapon (with the keyboard, use [Page up]/[Page down] or [+]/[-]) - note that you must have started the game (and not be in the title screen). The following picture shows the panel on the right of the screen (during the game), with the "Bubble" weapon highlighted. <img src="./images/WeaponSelection.png" width="120px" height="360px" align="right">
     - Then just press the button or key to which you want to assign the weapon.
         - Or press (A) ([SPACE]/[CTRL]/[0]) to cancel (basically the button/key for the "Gun")
     - Notes: 
