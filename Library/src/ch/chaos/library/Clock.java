@@ -109,13 +109,14 @@ public class Clock {
     
     private long nanoTime() {
         long result = System.nanoTime();
-        if (result < vsyncExpiration)
+        if (result < vsyncExpiration) {
             result = vsyncTime;
-        else if (vsyncTime > 0 && refreshPeriod > 0) {
-            // Round to refresh period
-            long elapsed = result - vsyncTime;
-            elapsed -= (elapsed % refreshPeriod);
-            result = vsyncTime + elapsed;
+          // Disabled for now (does not seem to improve the shit):
+//        } else if (vsyncTime > 0 && refreshPeriod > 0) {
+//            // Round to refresh period
+//            long elapsed = result - vsyncTime;
+//            elapsed -= (elapsed % refreshPeriod);
+//            result = vsyncTime + elapsed;
         }
         return result;
     }
