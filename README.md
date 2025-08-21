@@ -55,8 +55,8 @@ Then open a Command Prompt or a Terminal.
     - `cd ChaosCastle`
     - `git switch release/1.1.0`
 - Compile it and create an executable .jar file:
-    - On Windows: `gradlew.bat ChaosCastleJar`
-    - On Linux or macOS: `./gradle ChaosCastleJar`, or `sh ./gradle ChaosCastleJar` if the former does not work.
+    - On Windows: `gradlew.bat executableJar`
+    - On Linux or macOS: `./gradle executableJar`, or `sh ./gradle executableJar` if the former does not work.
     - This takes quite a time, and this will also download a few libraries used by the game. This is where most of the magics happens, and also where problems are most likely to occur...
 - If everything went well and without errors, the file `ChaosCastle.jar` can be found in the `ChaosCastle\build\libs` directory (relative to the current one). This is the only file you need to run the game. You can now place it somewhere else where it is easier to find. It still needs a Java JRE *version 17 or more* to run. You already have one as you installed a Java JDK (that includes a JRE) to compile the game. Also note that there is currently no way to do an "installation"; the game is just a portable, single file. Note that the `ChaosCastle.jar` file is 100% cross-platform: it can be used on other operating systems (Windows, Linux, macOS) as long as they have a Java JRE version 17 or greater installed.
 - (Optional) cleanup:
@@ -115,7 +115,7 @@ Error: LinkageError occurred while loading main class ch.chaos.castle.app.ChaosC
 ```
 
 - The `.jar` extension is not set at the operating system level to be opened by the JRE. Use "Open with..." or use the command line.
-- The `ChaosCastle.jar` file was incorrectly built. Note that the default gradle target will create it as a library without the required dependencies. Make sure you create it with the `ChaosCastleJar` gradle task.
+- The `ChaosCastle.jar` file was incorrectly built. Note that the default gradle target will create it as a library without the required dependencies. Make sure you create it with the `executableJar` gradle task.
     - When this is the case, trying to launch it from the command line will display the following error message: `no main manifest attribute, in ChaosCastle.jar`.
 
 If the game crashes after starting, it might also be due to a corrupt configuration file. You can reset the settings by deleting the file `ChaosCastle/.settings` in your `Documents` folder. If the top-scores file is corrupted (top scores fail to load - [F1] on title screen), delete the `ChaosCastle/.data/TopScores` file. Note that games are saved by default in the `ChaosCastle` folder which is inside your `Documents` folder.
