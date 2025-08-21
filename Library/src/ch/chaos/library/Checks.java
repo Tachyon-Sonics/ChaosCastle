@@ -130,7 +130,7 @@ public class Checks {
     /**
      * Whether we are in full-screen mode, and the full screen window is visible
      */
-    private boolean isFullScreenActive() {
+    boolean isFullScreenActive() {
         if (!Settings.appMode().isFullScreen())
             return false;
         JFrame fullScreenFrame = Dialogs.instance().getMainFrame();
@@ -141,7 +141,7 @@ public class Checks {
         return true;
     }
     
-    private JFrame owner() {
+    JFrame owner() {
         JFrame result = Dialogs.instance().getMainFrame();
         if (Settings.appMode().isFullScreen() && !result.isFocused())
             return null; // We are in full screen mode, but the user ALT-TABed to hide us
