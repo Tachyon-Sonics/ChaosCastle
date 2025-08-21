@@ -219,10 +219,15 @@ class JFrameArea extends AreaBase implements AreaPtr {
                     panelOffsetY = (int) ((panelLocation.y - frameLocation.y) * scaleY);
                 } else {
                     // Center
-                    double corrX = (Settings.appMode().getDisplayMode() == null ? scaleX : 1.0);
-                    double corrY = (Settings.appMode().getDisplayMode() == null ? scaleY : 1.0);
+                    GfxDisplayMode displayMode = Settings.appMode().getDisplayMode();
+                    double corrX = (displayMode == null ? scaleX : 1.0);
+                    double corrY = (displayMode == null ? scaleY : 1.0);
                     Dimension preferredSize = panel.getPreferredSize();
                     Dimension actualSize = panel.getSize();
+                    if (displayMode != null) {
+                        // With Direct3D + full screen, panel.getSize() is not reliable. Use display mode instead
+                        actualSize = new Dimension(displayMode.width(), displayMode.height());
+                    }
                     panelOffsetX = (int) ((actualSize.width - preferredSize.width) * corrX / 2 + 0.5);
                     panelOffsetY = (int) ((actualSize.height - preferredSize.height) * corrY / 2 + 0.5);
                 }
