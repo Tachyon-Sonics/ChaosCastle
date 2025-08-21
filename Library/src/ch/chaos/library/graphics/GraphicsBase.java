@@ -179,8 +179,7 @@ public abstract class GraphicsBase implements IGraphics {
                  * vsync (or until 3 missed vsync, for instance if no vsync occur - like level finished and
                  * displaying the Shop).
                  */
-                // TODO (0) improve by also passing refreshPeriod, and using it as a rounding (for ever, but adjusted as current time + k * refreshPeriod)
-                Clock.instance().setVsyncTime(nextRefresh, nextRefresh + refreshPeriod);
+                Clock.instance().setVsyncTime(nextRefresh, nextRefresh + refreshPeriod, refreshPeriod);
             } else {
                 AccurateSleeper.threadSleep(sleepTime);
             }
