@@ -27,7 +27,7 @@ eclipse {
     pathVariables 'GRADLE_USER_HOME' : gradle.gradleUserHomeDir
 }
 
-task GrotteJar(type: Jar) {
+task executableJar(type: Jar) {
     manifest {
         attributes 'Main-Class': 'ch.chaos.grotte.app.GrotteApp'
     }
