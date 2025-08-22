@@ -4,11 +4,11 @@ ChaosCastle is a simple, retro-like, 2D shoot-them-up game with a slow pace.
 
 It starts with very simple levels. But as the game progresses, the difficulty, the complexity and the amount of animation increase.
 
-The game was initially released for the Amiga and Macintosh computers in 1999. This is a Java-port that runs on any modern hardware, and is very close to the original version (see **History** below).
+The game was initially released for the Amiga and Macintosh computers in 1999. This is a Java-port that runs on any modern hardware, and is very close to the original version (see **[History](#history)** below).
 
-Because this is an almost unmodified port of an old game, please read the instructions carefully (especially **Controls** and **Weapons**), because the game is far from having the conviviality and ease-of-use of your typical Smartphone game.
+Because this is an almost unmodified port of an old game, please read the instructions carefully (especially **[Controls](#controls)** and **[Weapons](#weapons)**), because the game is far from having the conviviality and ease-of-use of your typical Smartphone game.
 
-Oh, and there is no download yet. You have to compile the game from the sources (see **Compiling**).
+Oh, and there is no download yet. You have to compile the game from the sources (see **[Compiling](#compiling)**).
 
 
 # Screenshots
@@ -189,7 +189,7 @@ All three ways can be used at any time and even combined. You do not have to "se
 - Move with the directional pad
 - (A): Fire with the gun
 - Left and right bumpers/shoulders (the buttons on the back of the pad): select and cycle through weapons ((A) to cancel)
-- (B), (X), (Y): other weapons (see **Weapons** section below). Basically if a weapon is selected, this assigns the button to that weapon. Else, this fires with the assigned weapon, or does nothing if no weapon has been assigned.
+- (B), (X), (Y): other weapons (see **[Weapons](#weapons)** section below). Basically if a weapon is selected, this assigns the button to that weapon. Else, this fires with the assigned weapon, or does nothing if no weapon has been assigned.
     - Analog controls (if any) can each be used for an additional weapon. The pressure and / or direction is however ignored.
     - keys from the keyboard can also be used.
 
@@ -198,14 +198,14 @@ All three ways can be used at any time and even combined. You do not have to "se
 - Move with the arrow keys
 - [CTRL]: Fire with the gun
 - [Page up] and [Page down]: select and cycle through weapons ([CTRL] to cancel)
-- Any other key (except [p] to pause the game): other weapons  (see **Weapons** section below)
+- Any other key (except [p] to pause the game): other weapons  (see **[Weapons](#weapons)** section below)
 
 ### Keyboard (with numeric pad)
 
 - Move with the [1] - [9] keys of the numeric pad
 - [0] or [SPACE]: Fire with the gun
 - [+] and [-]: select and cycle through weapons ([0] or [SPACE] to cancel)
-- Any other key (except [p] to pause the game): other weapons  (see **Weapons** section below)
+- Any other key (except [p] to pause the game): other weapons  (see **[Weapons](#weapons)** section below)
 
 ## Weapons
 
