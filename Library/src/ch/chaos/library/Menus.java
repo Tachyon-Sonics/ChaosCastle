@@ -36,6 +36,7 @@ import ch.chaos.library.Input.Event;
 import ch.pitchtech.modula.runtime.Runtime;
 import ch.pitchtech.modula.runtime.Runtime.IRef;
 
+// TODO (2) use apple menu bar when not in full screen. Use basic os-integration
 public class Menus {
 
     private static Menus instance;
