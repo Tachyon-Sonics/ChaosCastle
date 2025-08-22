@@ -177,7 +177,7 @@ There are 20 levels in the "Castle" zone. These levels are procedurally generate
 There are three ways of controlling the main character:
 
 - Using a Gamepad
-    - Should run out of the box on 64-bit Windows and macOS, requires libevdev and libudev on Linux, see https://github.com/libgdx/jamepad
+    - Should run out of the box on 64-bit Windows and macOS, and requires `libevdev` and `libudev` on Linux, see https://github.com/libgdx/jamepad
     - On Windows the controller is sometimes not recognized. Just unplug it and plug it again.
 - Using the keyboard (without numeric pad)
 - Using the keyboard (with numeric pad)
@@ -212,7 +212,7 @@ All three ways can be used at any time and even combined. You do not have to "se
 The "**Gun**" is always available, and is always associated to
 
 - the (A) button of the gamepad
-- the [SPACE] bar and the [CTRL] / [0] key (you can use any of them) of the keyboard
+- the [SPACE] bar and the [CTRL] / [0] keys (you can use any of them) of the keyboard
 
 To use another weapon, three steps are necessary, in that order:
 
@@ -222,9 +222,10 @@ To use another weapon, three steps are necessary, in that order:
         - Or press (A) ([SPACE]/[CTRL]/[0]) to cancel (basically the button/key for the "Gun")
     - Notes: 
         - This process can be done again at any time to assign a different button/key, or for a different weapon.
+        - The assigned button/key is not displayed anywhere, you have to remember it.
         - Button/key assignment are not preserved when saving a game. Hence if you load a saved game you may need to re-assign a button/key to all your weapons.
 2. Add power to that weapon. Power can only be added by finding a power bonus, so you will have to seach for one. They are hidden in some "Castle" levels. A power bonus looks as follows: <img src="./images/PowerBonus.png">
-    - When collecting a power bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon (first assign a button/key using step 1 if you haven't done it yet)
+    - When collecting a power bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon (first assign a button/key using step 1 if you haven't done it yet).
 3. Add bullets to that weapon
     - Bullets can be added by collecting bullet bonus (<img src="./images/BulletBonus.png" width="24px" height="24px">), or by buying bullets in the shop between levels
     - When collecting a bullet bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon
@@ -298,8 +299,8 @@ I still very occasionally played ChaosCastle, mostly using the UAE Amiga emulato
 
 Recently, playing a complete game with the UAE emulator, I got frustrated by different things:
 
-- While the game featured a scaling factor, I was not able to use it properly (without interlacing) with UAE. It involved installing an UAE-specific gfx driver, but documentation is near zero and my knowledge of the Amiga computer vanished after all those years. I was never able to do it although it should definitely be possible; after all, UAE even emulates the exact Amiga graphic card I had on my Amiga 1200.
-- Altough it was possible to achieve 50 FPS (at 320x240 resolution) by tweaking some UAE settings, for some reason scrolling in the game was always jaggy. I blamed the UAE emulation (incorrectly - see below).
+- While the game featured a scaling factor, I was not able to use it properly (without interlacing) with UAE. It would involve installing an UAE-specific gfx driver, but documentation is near zero and my knowledge of the Amiga computer vanished after all those years. I was never able to do it although it should definitely be possible; after all, UAE even emulates the exact Amiga graphic card I had on my Amiga 1200.
+- Altough it was possible to achieve 50 FPS (at 320x240 resolution) by tweaking some UAE settings, for some reason scrolling in the game was always a bit jaggy. I blamed the UAE emulation (incorrectly - see below).
 
 
 ## The Java version - 2024 - 2025
@@ -317,10 +318,10 @@ The idea was not so weird after all: I had compiler courses. I also worked on Ec
 Don't get me wrong, it still took the equivalent of *several weeks* at full time to finalize the Modula-2 to Java translator. You can find it at https://github.com/Tachyon-Sonics/Modula2Java17 if you are interested. And even if it could successfully convert the whole game:
 
 - The translator probably still has many bugs when used on other Modula-2 programs, as my own game was the only "big" Modula-2 program on which I tested it
-- The resulting game did not run because it used pointer arithmetic at some places, which could not be converted in Java. I had to manually modify the resulting Java code.
+- The resulting game did not run out of the box because it used pointer arithmetic at some places, which could not be converted in Java. I had to manually modify the resulting Java code. Hopefully the modifications were quite localized and minor.
     - I still plan to improve the Modula-2 to Java translator to handle pointer arithmetic in the future
-- I had to "fix" a few non portable stuff in the original Modula-2 code, but I could keep it to a minimum.
-- I still had to rewrite the non-portable parts in Java (the "Library"): graphics, sounds, etc.
+- I had to "fix" a few other non portable stuff in the original Modula-2 code, but I could keep it to a minimum.
+- Obviously I had to rewrite the non-portable parts in Java (the "Library"): graphics, sounds, etc.
 
 The last point took a few additional weeks until the Java port of the game was finally playable.
 
@@ -343,7 +344,7 @@ Note that while the game had a "Graphics/Settings" menu which allowed you to cho
 
 Another reason why I disabled the "Graphics/Settings" is that it provided a black&white mode and a "Color x2" mode (actually a mode with two independent 16 color playfields that scroll at different speeds) in addition to the default 16-color mode. I have not implemented them in Java yet, and I may not implement them ever (black&white really does not have any value today, and the "Color x2" was impressive in the old times, but it doesn't really bring anything to the game IMHO).
 
-Here's a few results. For instance, this is a screenshot of the original version of the game, on an Amiga computer:
+Here's a few results. For instance, this is a screenshot of the original version of the game, on an Amiga computer ("Garden" level, in the "Castle" zone):
 
 <img src="./images/Garden-Original.png">
 
@@ -357,7 +358,7 @@ More interestingly, this is a screenshot of the Java version, with 4x scaling at
 
 <img src="./images/Garden-4-1.png">
 
-Quite impressive, considering that it is based on the original portable part of the code, untouched.
+Quite impressive, considering that it is based on the original portable part of the code from year 1999, untouched.
 
 However, the original game design also has a few drawbacks:
 
@@ -370,9 +371,9 @@ However, the original game design also has a few drawbacks:
 
 While the game was converted from Modula-2 to Java, and the non-portable code was rewritten in Java; the "portable" part of the code is still 99% the same as the old Amiga and Macintosh versions.
 
-I just changed a few things that went on my nerves while playing and testing. All these small changes were done directly in the Modula-2 code, which was then converted again to Java. If you know about the original Amiga or Macintosh version you may hence notice a few differences. See **changelog** at the end of this file for more.
+I just changed a few things that went on my nerves while playing and testing. All these small changes were done directly in the Modula-2 code, which was then converted again to Java. If you know about the original Amiga or Macintosh version you may hence notice a few differences. See **[changelog](#changelog)** at the end of this file for more.
 
-BTW if you saved games with the original Amiga or Macintosh version, you should be able to load them in this Java version. The format is compatible!
+BTW if you saved games with the original Amiga or Macintosh version, you should be able to load them in this Java version (provided that you can transfer the files). The format is compatible!
 
 
 ## Future works
