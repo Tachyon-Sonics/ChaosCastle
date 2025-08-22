@@ -1064,7 +1064,7 @@ public class ChaosLevels {
                 case Levels.JUNKYARD -> new JunkYard().build();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }
-            System.out.println("NB objs: " + chaosBase.getNbObj() + " / " + ChaosBase.MAXALIEN);
+//            System.out.println("NB objs: " + chaosBase.getNbObj() + " / " + ChaosBase.MAXALIEN);
         } else if (chaosBase.zone == Zone.Family) {
             chaos1Zone.flipVert = false;
             chaos1Zone.flipHorz = false;
