@@ -328,8 +328,8 @@ The last point took a few additional weeks until the Java port of the game was f
 Believe it or not:
 
 - At that time I finally found my old MHC license hidden deep in some of my old external backup disks (!). But I decided to continue with my own translator...
-- Even at 60 FPS at the minimal quality and size, scrolling was still jaggy on the Java version. I finally found that the problem was in the original code (and hence UAE was not responsible for it) and I could fix it.
-    - Note that scrolling is still not as good as it can be. The reason is that it is still limited to unscaled pixels. So when the game is scaled by a factor 4 for instance, it will only scroll by multiples of 4 pixels. In a future version I plan to fix this as well.
+- Even at 60 FPS at the minimal quality and size, scrolling was still jaggy on the Java version. I finally found that the problem was in the original code (and hence UAE was not responsible for it!) and I could fix it.
+    - Note that scrolling is still not as good as it can be. One reason is that it is still limited to unscaled pixels. So when the game is scaled by a factor 4 for instance, it will only scroll by multiples of 4 pixels. In a future version I plan to fix this as well. Another reason is the lack of access to hardware vertical sync from Java. The results are still better than with UAE though, especially when 60 FPS can be achieved.
 
 
 ### The Java "Library" implementation
