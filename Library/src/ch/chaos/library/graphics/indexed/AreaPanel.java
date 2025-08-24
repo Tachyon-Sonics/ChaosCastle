@@ -14,6 +14,7 @@ class AreaPanel extends JPanel {
     private final int frameScale = Settings.appMode().getOuterScale();
     private JFrameArea frameArea;
     private BufferedImage image;
+    private int borderCd = 0;
 
 
     public JFrameArea getFrameArea() {
@@ -37,20 +38,28 @@ class AreaPanel extends JPanel {
         paint(g, this.image, false);
     }
 
-    public void paint(java.awt.Graphics g, BufferedImage image, boolean fromFrame) {
+    /**
+     * @param fromGameLoop true if called from repaint loop, false if called by Swing's repaint
+     */
+    public void paint(java.awt.Graphics g, BufferedImage image, boolean fromGameLoop) {
         boolean fullScreen = Settings.appMode().isFullScreen();
         Graphics2D g2 = (Graphics2D) g.create();
         if (frameArea != null) {
             // Buffered
             if (frameArea.isVisible()) {
                 if (fullScreen) {
-                    if (!fromFrame) {
+                    if (!fromGameLoop) {
                         g2.setColor(Color.BLACK);
                         g2.fillRect(0, 0, frameArea.getFrame().getWidth(), frameArea.getFrame().getHeight());
+                        borderCd = 2; // Allow both buffers (in case of page flipping) to be fully erased as well
+                    } else if (borderCd > 0) {
+                        g2.setColor(Color.BLACK);
+                        g2.fillRect(0, 0, frameArea.getFrame().getWidth(), frameArea.getFrame().getHeight());
+                        borderCd--;
                     }
                 }
                 Graphics.resetScale(g2);
-                if (fromFrame || fullScreen)
+                if (fromGameLoop || fullScreen)
                     g2.translate(frameArea.getPanelOffsetX(), frameArea.getPanelOffsetY());
                 g2.scale(frameScale, frameScale);
                 if (image != null) {
