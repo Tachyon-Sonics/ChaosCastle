@@ -124,9 +124,9 @@ public class AccurateSleeper {
             
             // Update statistics
             long drift = stop - sleep - start;
-            if (drift > curMax * MIN_DUBIOUS_JUMP) {
+            if (drift > curMax * MIN_DUBIOUS_JUMP && curMax > 0) {
                 // The drift is way more than current calculated may. Assume an isolated event like gc and partially ignore
-                System.out.println("Dubious oversleep: " + (drift / 1000) + "us, was " + (curMax / 1000) + "us; ratio: " + ((double) drift / (double) curMax + " - smoothing out"));
+//                System.out.println("Dubious oversleep: " + (drift / 1000) + "us, was " + (curMax / 1000) + "us; ratio: " + ((double) drift / (double) curMax + " - smoothing out"));
                 curMax *= DUBIOUS_INCREASE_RATIO;
                 countDown = KEEP_MAX_FOR;
             } else if (drift > curMax) {
