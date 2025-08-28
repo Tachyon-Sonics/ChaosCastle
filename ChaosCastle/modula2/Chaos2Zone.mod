@@ -616,7 +616,7 @@ IMPLEMENTATION MODULE Chaos2Zone;
   PutBlockBonus(tbSGSpeed, x, 56);
   Fill(1, 48, 13, 48, FalseBlock);
   IF (difficulty >= 3) AND (difficulty <= 7) THEN
-   PutBlockBonus(tbDifficulty, x, 49)
+   PutBlockBonus(tbDifficulty, x, 47)
   END;
   Put(x, 48, Round4);
   val:= RND() MOD 3 + tbMagnet;
