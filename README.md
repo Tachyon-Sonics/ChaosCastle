@@ -33,13 +33,13 @@ To compile and run ChaosCastle, you must be familiar with the Command Prompt (Wi
 First you need to install:
 
 - A Java JDK version 17 or greater
-  - You need a JDK and not just a JRE!
-  - On Debian-based Linux, this can be done using `sudo apt install openjdk-17-jdk`
-  - On Windows and macOS, the JDK can be downloaded from https://www.adoptium.net
-  - The `JAVA_HOME` environment variable should properly locate the JDK's installation directory. If this environment variable is not properly created during the installation, you may need to create it manually.
+    - You need a JDK and not just a JRE!
+    - On Debian-based Linux, this can be done using `sudo apt install openjdk-17-jdk`
+    - On Windows and macOS, the JDK can be downloaded from https://www.adoptium.net
+    - The `JAVA_HOME` environment variable should properly locate the JDK's installation directory. If this environment variable is not properly created during the installation, you may need to create it manually.
 - Git
-  - On Debian-based Linux, `sudo apt install git`
-  - On other systems, use links from https://git-scm.com/downloads
+    - On Debian-based Linux, `sudo apt install git`
+    - On other systems, use links from https://git-scm.com/downloads
 
 Then open a Command Prompt or a Terminal.
 
@@ -331,7 +331,7 @@ Believe it or not:
 
 - At that time I finally found my old MHC license hidden deep in some of my old external backup disks (!). But I decided to continue with my own translator...
 - Even at 60 FPS at the minimal quality and size, scrolling was still jaggy on the Java version. I finally found that the problem was in the original code (and hence UAE was not responsible for it!) and I could fix it.
-    - Note that scrolling is still not as good as it can be. One reason is that it is still limited to unscaled pixels. So when the game is scaled by a factor 4 for instance, it will only scroll by multiples of 4 pixels. In a future version I plan to fix this as well. Another reason is the lack of access to hardware vertical sync from Java. The results are still better than with UAE though, especially when 60 FPS can be achieved.
+    - Note that scrolling is still not as good as it can be. One reason is that it is still limited to unscaled pixels. So when the game is scaled by a factor 4 for instance, it will only scroll by multiples of 4 pixels. In a future version I plan to fix this as well. Other reasons are the lack of access to hardware vertical sync from Java, or the fact the scrolling speed was "optimized" for 50 Hz refresh rate instead of 60 Hz. The results are still better than with UAE though, especially when 60 FPS can be achieved.
 
 
 ### The Java "Library" implementation
@@ -340,7 +340,7 @@ As I said earlier, the non-portable parts of the code (the "Library") had to be 
 
 - Scale the bitmap images (for the backgrounds) using the high quality xBRZ algorithm (based on https://github.com/stanio/xbrz-java). The Java implementation of that algorithm probably does not run in real-time, but this is not important because the scaling occurs only once at game startup. This means that only graphics that are already scaled are used during the game.
 - Scale the sprites with high quality, as they are vector-based. Like the bitmap images this is only done once at application startup.
-- Implement an audio mixer that allows for 8 stereo channels. Note however that the sounds are still the original 8 bit and low resolution ones (between 5 - 20 kHz only), so do not expect miracles here.
+- Implement a 48 kHz audio mixer that allows for 8 stereo channels. Note however that the sounds are still the original 8 bit and low resolution ones (between 5 - 20 kHz only), so do not expect miracles here.
 
 Note that while the game had a "Graphics/Settings" menu which allowed you to choose the scaling factor (among other), in the Java version this setting is completely disabled. Indeed, the results are better if the original code thinks it is running at x1 scaling, and that scaling is done behind the scene in the Java code. The reason is that the scaling logic in the original code did not properly scale the lines. With a x2 scaling this was ok. But with higher scalings, some sprites just begin to have too thin outlines.
 
@@ -361,6 +361,8 @@ More interestingly, this is a screenshot of the Java version, with 4x scaling at
 <img src="./images/Garden-4-1.png">
 
 Quite impressive, considering that it is based on the original portable part of the code from year 1999, untouched.
+
+And yes, it can even run at 120 Hz refresh rate if your graphic card supports it.
 
 However, the original game design also has a few drawbacks:
 
