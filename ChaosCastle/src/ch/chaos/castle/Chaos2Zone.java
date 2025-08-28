@@ -717,7 +717,7 @@ public class Chaos2Zone {
         chaosObjects.PutBlockBonus(ChaosBonus.tbSGSpeed, x, (short) 56);
         chaosObjects.Fill((short) 1, (short) 48, (short) 13, (short) 48, (short) FalseBlock);
         if ((chaosBase.difficulty >= 3) && (chaosBase.difficulty <= 7))
-            chaosObjects.PutBlockBonus(ChaosBonus.tbDifficulty, x, (short) 49);
+            chaosObjects.PutBlockBonus(ChaosBonus.tbDifficulty, x, (short) 47);
         chaosObjects.Put(x, (short) 48, (short) Round4);
         val = (short) (trigo.RND() % 3 + ChaosBonus.tbMagnet);
         chaosObjects.PutBlockBonus(val, (short) 1, (short) 48);
