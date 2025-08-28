@@ -196,16 +196,16 @@ public class LevelNamer {
                     return Runtime.castToRef(languages.ADL("FATHER ALIEN"), String.class);
                 }
                 case 5 -> {
-                    return Runtime.castToRef(languages.ADL("MASTER ALIEN"), String.class);
-                }
-                case 6 -> {
-                    return Runtime.castToRef(languages.ADL("MASTER ALIEN 2"), String.class);
-                }
-                case 7 -> {
                     return Runtime.castToRef(languages.ADL("KIDS"), String.class);
                 }
-                case 8 -> {
+                case 6 -> {
                     return Runtime.castToRef(languages.ADL("PARENTS"), String.class);
+                }
+                case 7 -> {
+                    return Runtime.castToRef(languages.ADL("MASTER ALIEN"), String.class);
+                }
+                case 8 -> {
+                    return Runtime.castToRef(languages.ADL("MASTER ALIEN 2"), String.class);
                 }
                 case 9 -> {
                     return Runtime.castToRef(languages.ADL("MASTERS"), String.class);
