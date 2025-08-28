@@ -84,7 +84,7 @@ If your computer has a resolution between 640x480 and 1920x1080, you can usually
 
 - **Quality**: by reducing the value, part of the scaling will be done with lower quality
 - **Size (percent of screen)**: if reducing the quality is not enough, here you can make the game use a smaller portion of the screen
-- Note that the two above settings control the **Resulting Scales** shown below them. Be sure to modify them in such a way one of the resulting scale changes
+- Note that the two above settings control the **Resulting Scales** shown below them. Be sure to modify them in such a way one of the resulting scales changes
 - By default, the game starts in a window. If you change the **Mode** to "Full Screen", you can also optionally change the screen resolution in the **Display Mode** setting.
 
 The other settings are quite advanced and usually better left to defaults.
