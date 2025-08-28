@@ -1,6 +1,7 @@
 package ch.chaos.library.settings;
 
 import ch.chaos.library.graphics.xbrz.XbrzHelper;
+import ch.chaos.library.utils.Platform;
 
 /**
  * Graphics settings for a given screen configuration.
@@ -90,7 +91,7 @@ public class AppMode {
         AppMode appMode = new AppMode();
         appMode.fullScreen = false;
         appMode.gfxMode = GfxModeType.INDEXED;
-        appMode.gfxPipeline = GfxPipelineType.DEFAULT;
+        appMode.gfxPipeline = (Platform.isWindows() ? GfxPipelineType.DIRECT_DRAW : GfxPipelineType.DEFAULT);
         appMode.displayMode = null;
         appMode.vsyncType = VsyncType.BALANCED_LOW;
         appMode.doNotAskAgain = false;
