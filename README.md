@@ -91,7 +91,7 @@ The other settings are quite advanced and usually better left to defaults.
 
 Once started, the title screen of the game appears. Note that the explanation text in the title screen is still exactly that of the original Amiga game, and basically explains how to use the numeric pad of the keyboard to control the main character.
 
-However, Gamepads are fully supported on most systems, as well as keyboards without numeric pad. See the **Controls** section below.
+However, Gamepads are fully supported on most systems, as well as keyboards without numeric pad. See the **[Controls](#controls)** section below.
 
 Inside the game:
 
@@ -278,7 +278,7 @@ The game also could only use 4 mono channels or 2 stereo channels for sounds, wh
 
 There was, however, interesting results (and that was the goal of the choices above):
 
-- On more recent hardware, such as the Amiga 1200, 50 FPS could be achieved at 320x240
+- On more recent hardware, such as the Amiga 1200, 50 FPS could be achieved at 320x240... sometimes.
 - With dedicated graphic cards, 50 FPS could be achieved even at 640x480 (scaling x2) or higher resolutions. No additional code was necessary as graphic cards were properly accessed through the operating system libraries.
 - With fast enough processors, such as the 68030 or 68060, sounds could use 8 stereo channels with the AHI library
 - The game could be ported without difficulties to the Macintosh range of computers
