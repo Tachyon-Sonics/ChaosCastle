@@ -211,6 +211,8 @@ All three ways can be used at any time and even combined. You do not have to "se
 
 ## Weapons
 
+### Buttons / Keys assignments
+
 The "**Gun**" is always available, and is always associated to
 
 - the (A) button of the gamepad
@@ -241,6 +243,15 @@ Notes:
 - There are a total of 16 power bonuses hidden in "Castle" levels. Hence you won't be able to raise the power of all weapons to 4.
 - In general, it is better to choose a few weapons and to raise their power to the maximum, rather than using many weapons that are not at full power.
 - If you are not sure, start with the "Laser" weapon and continue to add power to it up to the maximum. Then continue with "Ball" weapon.
+
+
+### Bombs
+
+Below every weapon on the right-side panel, two numbers are displayed, like `25 / 3`. The first number is the number of bullets remaining for that weapon. The second number is the number of **bombs** remaining for that weapon.
+
+Bombs can be added by collection bomb bonus (<img src="./images/BombBonus.png" width="24px" height="24px">), or by buying them in the shop between levels. When collecting a bomb bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon. Bombs can only be collected and used if the power of the corresponding weapon is at least 1.
+
+A bomb is, in general, much more powerful than the corresponding bullet. However, while the bomb of some weapons are just raw force, some of them are more "tactical", and are only effective in specific situations.
 
 
 # History
