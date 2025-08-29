@@ -91,7 +91,7 @@ The other settings are quite advanced and usually better left to defaults.
 
 Once started, the title screen of the game appears. Note that the explanation text in the title screen is still exactly that of the original Amiga game, and basically explains how to use the numeric pad of the keyboard to control the main character.
 
-However, Gamepads are fully supported on most systems, as well as keyboards without numeric pad. See the **Controls** section below.
+However, Gamepads are fully supported on most systems, as well as keyboards without numeric pad. See the **[Controls](#controls)** section below.
 
 Inside the game:
 
@@ -211,6 +211,8 @@ All three ways can be used at any time and even combined. You do not have to "se
 
 ## Weapons
 
+### Buttons / Keys assignments
+
 The "**Gun**" is always available, and is always associated to
 
 - the (A) button of the gamepad
@@ -243,6 +245,15 @@ Notes:
 - If you are not sure, start with the "Laser" weapon and continue to add power to it up to the maximum. Then continue with "Ball" weapon.
 
 
+### Bombs
+
+Below every weapon on the right-side panel, two numbers are displayed, like `25 / 3`. The first number is the number of bullets remaining for that weapon. The second number is the number of **bombs** remaining for that weapon.
+
+Bombs can be added by collection bomb bonus (<img src="./images/BombBonus.png" width="18px" height="18px">), or by buying them in the shop between levels. When collecting a bomb bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon. Bombs can only be collected and used if the power of the corresponding weapon is at least 1.
+
+A bomb is, in general, much more powerful than the corresponding bullet. However, while the bombs of some weapons are just raw force, some of them are more "tactical", and are only effective in specific situations.
+
+
 # History
 
 This version of ChaosCastle is *not* using any kind of emulation. It uses the same source code as the original Amiga/Macintosh version, with only the non portable parts rewritten. Here's the history...
@@ -267,7 +278,7 @@ The game also could only use 4 mono channels or 2 stereo channels for sounds, wh
 
 There was, however, interesting results (and that was the goal of the choices above):
 
-- On more recent hardware, such as the Amiga 1200, 50 FPS could be achieved at 320x240
+- On more recent hardware, such as the Amiga 1200, 50 FPS could be achieved at 320x240... sometimes.
 - With dedicated graphic cards, 50 FPS could be achieved even at 640x480 (scaling x2) or higher resolutions. No additional code was necessary as graphic cards were properly accessed through the operating system libraries.
 - With fast enough processors, such as the 68030 or 68060, sounds could use 8 stereo channels with the AHI library
 - The game could be ported without difficulties to the Macintosh range of computers
