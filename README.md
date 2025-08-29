@@ -249,7 +249,7 @@ Notes:
 
 Below every weapon on the right-side panel, two numbers are displayed, like `25 / 3`. The first number is the number of bullets remaining for that weapon. The second number is the number of **bombs** remaining for that weapon.
 
-Bombs can be added by collection bomb bonus (<img src="./images/BombBonus.png" width="24px" height="24px">), or by buying them in the shop between levels. When collecting a bomb bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon. Bombs can only be collected and used if the power of the corresponding weapon is at least 1.
+Bombs can be added by collection bomb bonus (<img src="./images/BombBonus.png" width="18px" height="18px">), or by buying them in the shop between levels. When collecting a bomb bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon. Bombs can only be collected and used if the power of the corresponding weapon is at least 1.
 
 A bomb is, in general, much more powerful than the corresponding bullet. However, while the bomb of some weapons are just raw force, some of them are more "tactical", and are only effective in specific situations.
 
