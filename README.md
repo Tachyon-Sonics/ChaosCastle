@@ -251,6 +251,13 @@ Below every weapon on the right-side panel, two numbers are displayed, like `25 
 
 Bombs can be added by collection bomb bonus (<img src="./images/BombBonus.png" width="18px" height="18px">), or by buying them in the shop between levels. When collecting a bomb bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon. Bombs can only be collected and used if the power of the corresponding weapon is at least 1.
 
+To use a bomb:
+- With the keyboard, just hold the <kbd>SHIFT</kbd> key while pressing the key corresponding to the weapon.
+- With the game pad:
+    - Press both the left and right bumpers/shoulders (the two buttons on the back of the pad) simultaneously. A message "Bomb activated" is displayed.
+    - Then just press the button corresponding to the weapon.
+    - Or press both the left and right bumpers/shoulders simultaneously again to cancel the bomb.
+
 A bomb is, in general, much more powerful than the corresponding bullet. However, while the bombs of some weapons are just raw force, some of them are more "tactical", and are only effective in specific situations.
 
 
