@@ -88,7 +88,7 @@ This will open a **launcher** window, as shown below.
 
 The original game for Amiga computers ran full-screen at 320x240, 16 colors, because this was the standard and was always supported. Because today's computer have a variety of screen resolutions (most of them are way bigger than 320x240), the **launcher** allows you to specify how to scale the game from its base resolution of 320x240.
 
-If your computer has a resolution between 640x480 and 1920x1080, you can usually accept the default settings and click [**Start**] to start the game. If the resolution is bigger, it may fail to achieve 60 FPS and animations can be jaggy. You may want to change some settings:
+If your computer has a resolution between 640x480 and 1920x1080, you can usually accept the default settings and click <kbd>**Start**</kbd> to start the game. If the resolution is bigger, it may fail to achieve 60 FPS and animations can be jaggy. You may want to change some settings:
 
 - **Quality**: by reducing the value, part of the scaling will be done with lower quality
 - **Size (percent of screen)**: if reducing the quality is not enough, here you can make the game use a smaller portion of the screen
@@ -126,9 +126,9 @@ Error: LinkageError occurred while loading main class ch.chaos.castle.app.ChaosC
 - The `ChaosCastle.jar` file was incorrectly built. Note that the default gradle target will create it as a library without the required dependencies. Make sure you create it with the `executableJar` gradle task.
     - When this is the case, trying to launch it from the command line will display the following error message: `no main manifest attribute, in ChaosCastle.jar`.
 
-If the game crashes after starting, it might also be due to a corrupt configuration file. You can reset the settings by deleting the file `ChaosCastle/.settings` in your `Documents` folder. If the top-scores file is corrupted (top scores fail to load - [F1] on title screen), delete the `ChaosCastle/.data/TopScores` file. Note that games are saved by default in the `ChaosCastle` folder which is inside your `Documents` folder.
+If the game crashes after starting, it might also be due to a corrupt configuration file. You can reset the settings by deleting the file `ChaosCastle/.settings` in your `Documents` folder. If the top-scores file is corrupted (top scores fail to load - <kbd>F1</kbd> on title screen), delete the `ChaosCastle/.data/TopScores` file. Note that games are saved by default in the `ChaosCastle` folder which is inside your `Documents` folder.
 
-If there are problems in full-screen mode (screen is black, visuals are partially out of screen, menu does not work), press [ALT]-[TAB] to leave full-screen. You can then quit the game by choosing the "File / Quit" menu from the system tray icon. On macOS you can just use [⌘]-[Q] to quit the application immediately at any time. Then, in the launcher, choose a different value for **Java2D Pipeline**, or change **Mode** to "Window".
+If there are problems in full-screen mode (screen is black, visuals are partially out of screen, menu does not work), press <kbd>ALT</kbd>-<kbd>TAB</kbd> to leave full-screen. You can then quit the game by choosing the "File / Quit" menu from the system tray icon. On macOS you can just use <kbd>⌘</kbd>-<kbd>Q</kbd> to quit the application immediately at any time. Then, in the launcher, choose a different value for **Java2D Pipeline**, or change **Mode** to "Window".
 
 Note: on macOS &gt;= 13, full-screen mode is only working with recent Java revisions (see https://bugs.openjdk.org/browse/JDK-8312518). If only a black screen is visible in full-screen mode, you may want to update your Java Runtime Environment to a more recent version or revision.
 
@@ -145,7 +145,7 @@ If scrolling is jaggy during the game, you may change some settings in the launc
     - The menu is a context menu, even in windowed mode. Use the right mouse button to open it. The background may not refresh properly while the menu is opened.
     - In full-screen mode, dialogs (settings, file chooser to load or save a game) are not resizable or movable.
     - Menu and dialogs may not render properly when using OpenGL on hardware that is not fully compatible.
-    - Menu and dialogs are not shown at all in full-screen mode when the Direct3D rendering pipeline is chosen. With this pipeline, if you want to use a menu (to load or save a game or to quit the application), you must first use [ALT]-[TAB] to leave full screen, and then use the menu from the system tray icon of the application. Then click on the application's icon on the task bar to return to full-screen. Do not try to open the context menu using a right-click in full-screen mode, as this will create an "invisible" menu that then interfers with other game controls.
+    - Menu and dialogs are not shown at all in full-screen mode when the Direct3D rendering pipeline is chosen. With this pipeline, if you want to use a menu (to load or save a game or to quit the application), you must first use <kbd>ALT</kbd>-<kbd>TAB</kbd> to leave full screen, and then use the menu from the system tray icon of the application. Then click on the application's icon on the task bar to return to full-screen. Do not try to open the context menu using a right-click in full-screen mode, as this will create an "invisible" menu that then interfers with other game controls.
 - The original game had a "File / Hide" menu, that was basically a "bosskey" that fully hides the game. In the Amiga version it could then be recalled from the Workbench menu. In the Macintosh version, the main window was hidden, but the menubar was kept, and the "File / Continue" menu could recall the game.
     - In this Java port, a tray icon is always present (it has the game's main character as icon), and has a menu that is the same as the application's one. The "File / Continue" menu can be chosen here to recall the game if you hid it using "File / Hide".
 - The original game had a "Settings / Misc..." menu to change OS-specific settings.
@@ -206,16 +206,16 @@ All three ways can be used at any time and even combined. You do not have to "se
 ### Keyboard (without numeric pad)
 
 - Move with the arrow keys
-- [CTRL]: Fire with the gun
-- [Page up] and [Page down]: select and cycle through weapons ([CTRL] to cancel)
-- Any other key (except [p] to pause the game): other weapons  (see **[Weapons](#weapons)** section below)
+- <kbd>CTRL</kbd>: Fire with the gun
+- <kbd>Page up</kbd> and <kbd>Page down</kbd>: select and cycle through weapons (<kbd>CTRL</kbd> to cancel)
+- Any other key (except <kbd>p</kbd> to pause the game): other weapons  (see **[Weapons](#weapons)** section below)
 
 ### Keyboard (with numeric pad)
 
-- Move with the [1] - [9] keys of the numeric pad
-- [0] or [SPACE]: Fire with the gun
-- [+] and [-]: select and cycle through weapons ([0] or [SPACE] to cancel)
-- Any other key (except [p] to pause the game): other weapons  (see **[Weapons](#weapons)** section below)
+- Move with the <kbd>1</kbd> - <kbd>9</kbd> keys of the numeric pad
+- <kbd>0</kbd> or <kbd>SPACE</kbd>: Fire with the gun
+- <kbd>+</kbd> and <kbd>-</kbd>: select and cycle through weapons (<kbd>0</kbd> or <kbd>SPACE</kbd> to cancel)
+- Any other key (except <kbd>p</kbd> to pause the game): other weapons  (see **[Weapons](#weapons)** section below)
 
 ## Weapons
 
@@ -224,14 +224,14 @@ All three ways can be used at any time and even combined. You do not have to "se
 The "**Gun**" is always available, and is always associated to
 
 - the (A) button of the gamepad
-- the [SPACE] bar and the [CTRL] / [0] keys (you can use any of them) of the keyboard
+- the <kbd>SPACE</kbd> bar and the <kbd>CTRL</kbd> / <kbd>0</kbd> keys (you can use any of them) of the keyboard
 
 To use another weapon, three steps are necessary, in that order:
 
 1. Assign the weapon to a button or key
-    - Use the left and right bumpers/shoulders of the gamepad to highlight the weapon (with the keyboard, use [Page up]/[Page down] or [+]/[-]) - note that you must have started the game (and not be in the title screen). The following picture shows the panel on the right of the screen (during the game), with the "Bubble" weapon highlighted. <img src="./images/WeaponSelection.png" width="120px" height="360px" align="right">
+    - Use the left and right bumpers/shoulders of the gamepad to highlight the weapon (with the keyboard, use <kbd>Page up</kbd>/<kbd>Page down</kbd> or <kbd>+</kbd>/<kbd>-</kbd>) - note that you must have started the game (and not be in the title screen). The following picture shows the panel on the right of the screen (during the game), with the "Bubble" weapon highlighted. <img src="./images/WeaponSelection.png" width="120px" height="360px" align="right">
     - Then just press the button or key to which you want to assign the weapon.
-        - Or press (A) ([SPACE]/[CTRL]/[0]) to cancel (basically the button/key for the "Gun")
+        - Or press (A) (<kbd>SPACE</kbd>/<kbd>CTRL</kbd>/<kbd>0</kbd>) to cancel (basically the button/key for the "Gun")
     - Notes: 
         - This process can be done again at any time to assign a different button/key, or for a different weapon.
         - The assigned button/key is not displayed anywhere, you have to remember it.
@@ -316,7 +316,8 @@ If you are interested in those old versions rather that this new Java port:
 - Amiga .lzx archive: https://www.pitchtech.ch/archive/ChaosCastle.lzx (requires unlzx from https://aminet.net/package/util/arc/lzx121r1 to decompress the file)
 - Amiga .adf (to run with UAE): https://www.pitchtech.ch/archive/ChaosCastle.adf
     - Hint with UAE: Choose expanded / high-end configuration, and configure the game port if you have a gamepad.
-- Macintosh .sit archive: https://www.pitchtech.ch/archive/ChaosCastle.sit
+    - You need a Kickstart ROM version 2.0 or greater (the .lzx version work on 1.3 but requires a Workbench disk to boot)
+- Macintosh .sit archive: https://www.pitchtech.ch/archive/ChaosCastle.sit (requires a 680x0-based Macintosh computer or emulator)
 
 
 ## The void years - 2000 - 2024
