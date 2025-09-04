@@ -48,12 +48,12 @@ Then open a Command Prompt or a Terminal.
     - Whilst the game is already translated to Java, it still needs the small Modula-2 runtime that comes with the translator
 - Switch to the latest stable release:
     - `cd Modula2Java17`
-    - `git switch release/0.9.0`
+    - `git checkout --detach v0.9.0`
     - `cd ..` 
 - Get the sources of the ChaosCastle game: `git clone https://github.com/Tachyon-Sonics/ChaosCastle`
 - Switch to the latest stable release:
     - `cd ChaosCastle`
-    - `git switch release/1.1.0`
+    - `git checkout --detach v1.1.0`
 - Compile it and create an executable .jar file:
     - On Windows: `gradlew.bat executableJar`
     - On Linux or macOS: `./gradle executableJar`, or `sh ./gradle executableJar` if the former does not work.
@@ -250,6 +250,13 @@ Notes:
 Below every weapon on the right-side panel, two numbers are displayed, like `25 / 3`. The first number is the number of bullets remaining for that weapon. The second number is the number of **bombs** remaining for that weapon.
 
 Bombs can be added by collection bomb bonus (<img src="./images/BombBonus.png" width="18px" height="18px">), or by buying them in the shop between levels. When collecting a bomb bonus, a message asks you to choose a weapon. Just click the button / key of the desired weapon. Bombs can only be collected and used if the power of the corresponding weapon is at least 1.
+
+To use a bomb:
+- With the keyboard, just hold the <kbd>SHIFT</kbd> key while pressing the key corresponding to the weapon.
+- With the game pad:
+    - Press both the left and right bumpers/shoulders (the two buttons on the back of the pad) simultaneously. A message "Bomb activated" is displayed.
+    - Then just press the button corresponding to the weapon.
+    - Or press both the left and right bumpers/shoulders simultaneously again to cancel the bomb.
 
 A bomb is, in general, much more powerful than the corresponding bullet. However, while the bombs of some weapons are just raw force, some of them are more "tactical", and are only effective in specific situations.
 
