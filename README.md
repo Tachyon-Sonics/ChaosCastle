@@ -54,11 +54,12 @@ Then open a Command Prompt or a Terminal.
 - Switch to the latest stable release:
     - `cd ChaosCastle`
     - `git checkout --detach v1.1.0`
+    - `cd ChaosCastle`
 - Compile it and create an executable .jar file:
     - On Windows: `gradlew.bat executableJar`
-    - On Linux or macOS: `./gradle executableJar`, or `sh ./gradle executableJar` if the former does not work.
+    - On Linux or macOS: `sh ./gradlew executableJar` if the former does not work.
     - This takes quite a time, and this will also download a few libraries used by the game. This is where most of the magics happens, and also where problems are most likely to occur...
-- If everything went well and without errors, the file `ChaosCastle.jar` can be found in the `ChaosCastle\build\libs` directory (relative to the current one). This is the only file you need to run the game. You can now place it somewhere else where it is easier to find. It still needs a Java JRE *version 17 or more* to run. You already have one as you installed a Java JDK (that includes a JRE) to compile the game. Also note that there is currently no way to do an "installation"; the game is just a portable, single file. Note that the `ChaosCastle.jar` file is 100% cross-platform: it can be used on other operating systems (Windows, Linux, macOS) as long as they have a Java JRE version 17 or greater installed.
+- If everything went well and without errors, the file `ChaosCastle.jar` can be found in the `build/libs` directory (relative to the current one). This is the only file you need to run the game. You can now place it somewhere else where it is easier to find. It still needs a Java JRE *version 17 or more* to run. You already have one as you installed a Java JDK (that includes a JRE) to compile the game. Also note that there is currently no way to do an "installation"; the game is just a portable, single file. Note that the `ChaosCastle.jar` file is 100% cross-platform: it can be used on other operating systems (Windows, Linux, macOS) as long as they have a Java JRE version 17 or greater installed.
 - (Optional) cleanup:
     - Once you have copied the `ChaosCastle.jar` somewhere else, you can delete the directory created in the first step.
     - The compilation process has downloaded libraries to the `.gradle` directory in your home. This directory can be deleted as well.
