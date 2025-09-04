@@ -36,7 +36,7 @@ First you need to install:
     - You need a JDK and not just a JRE!
     - On Debian-based Linux, this can be done using `sudo apt install openjdk-17-jdk`
     - On Windows and macOS, the JDK can be downloaded from https://www.adoptium.net
-    - The `JAVA_HOME` environment variable should properly locate the JDK's installation directory. If this environment variable is not properly created during the installation, you may need to create it manually.
+    - After the installation, the `java` command must be in the PATH. If this is not the case you may need to add it manually, or to set the `JAVA_HOME` environment variable to locate the JDK's installation directory.
 - Git
     - On Debian-based Linux, `sudo apt install git`
     - On other systems, use links from https://git-scm.com/downloads
@@ -49,15 +49,15 @@ Then open a Command Prompt or a Terminal.
 - Switch to the latest stable release:
     - `cd Modula2Java17`
     - `git checkout --detach v0.9.0`
-    - `cd ..` 
+    - Leave the project: `cd ..` 
 - Get the sources of the ChaosCastle game: `git clone https://github.com/Tachyon-Sonics/ChaosCastle`
 - Switch to the latest stable release:
     - `cd ChaosCastle`
     - `git checkout --detach v1.1.0`
-    - `cd ChaosCastle`
+    - Enter the sub-project: `cd ChaosCastle`
 - Compile it and create an executable .jar file:
     - On Windows: `gradlew.bat executableJar`
-    - On Linux or macOS: `sh ./gradlew executableJar` if the former does not work.
+    - On Linux or macOS: `sh ./gradlew executableJar`
     - This takes quite a time, and this will also download a few libraries used by the game. This is where most of the magics happens, and also where problems are most likely to occur...
 - If everything went well and without errors, the file `ChaosCastle.jar` can be found in the `build/libs` directory (relative to the current one). This is the only file you need to run the game. You can now place it somewhere else where it is easier to find. It still needs a Java JRE *version 17 or more* to run. You already have one as you installed a Java JDK (that includes a JRE) to compile the game. Also note that there is currently no way to do an "installation"; the game is just a portable, single file. Note that the `ChaosCastle.jar` file is 100% cross-platform: it can be used on other operating systems (Windows, Linux, macOS) as long as they have a Java JRE version 17 or greater installed.
 - (Optional) cleanup:
