@@ -48,12 +48,12 @@ Then open a Command Prompt or a Terminal.
     - Whilst the game is already translated to Java, it still needs the small Modula-2 runtime that comes with the translator
 - Switch to the latest stable release:
     - `cd Modula2Java17`
-    - `git checkout v0.9.0`
+    - `git checkout --detach v0.9.0`
     - `cd ..` 
 - Get the sources of the ChaosCastle game: `git clone https://github.com/Tachyon-Sonics/ChaosCastle`
 - Switch to the latest stable release:
     - `cd ChaosCastle`
-    - `git checkout v1.1.0`
+    - `git checkout --detach v1.1.0`
 - Compile it and create an executable .jar file:
     - On Windows: `gradlew.bat executableJar`
     - On Linux or macOS: `./gradle executableJar`, or `sh ./gradle executableJar` if the former does not work.
