@@ -72,7 +72,6 @@ public class Clock {
     
     private long vsyncTime;
     private long vsyncExpiration;
-    private long refreshPeriod;
 
 
     public void addIdleListener(Runnable listener) {
@@ -101,10 +100,9 @@ public class Clock {
      * @param vsyncTime the clock value to use until the expiration time
      * @param expires the expiration time until which the value must be used
      */
-    public void setVsyncTime(long vsyncTime, long expires, long refreshPeriod) {
+    public void setVsyncTime(long vsyncTime, long expires) {
         this.vsyncTime = vsyncTime;
         this.vsyncExpiration = expires;
-        this.refreshPeriod = refreshPeriod;
     }
     
     private long nanoTime() {
