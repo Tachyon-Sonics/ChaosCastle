@@ -179,7 +179,7 @@ public abstract class GraphicsBase implements IGraphics {
                  * vsync (or until 3 missed vsync, for instance if no vsync occur - like level finished and
                  * displaying the Shop).
                  */
-                Clock.instance().setVsyncTime(nextRefresh, nextRefresh + refreshPeriod, refreshPeriod);
+                Clock.instance().setVsyncTime(nextRefresh, nextRefresh + refreshPeriod);
                 // TODO review wrt https://gamedev.net/forums/topic/372033-java2d-vsync/ (last post of the page)
             } else {
                 AccurateSleeper.threadSleep(sleepTime);
