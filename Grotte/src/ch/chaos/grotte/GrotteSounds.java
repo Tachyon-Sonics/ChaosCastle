@@ -453,7 +453,7 @@ public class GrotteSounds {
 
     // PROCEDURE
 
-    private void InitEffects_SetEffect(/* var */ Effect e, SoundList sound, int time, int freq, short volume) {
+    private void InitEffects_SetEffect(/* VAR */ Effect e, SoundList sound, int time, int freq, short volume) {
         e.sound = soundList[sound.ordinal()];
         if (time != 0)
             e.length = (soundList[sound.ordinal()].rate * freq / 440) * time / 1000;

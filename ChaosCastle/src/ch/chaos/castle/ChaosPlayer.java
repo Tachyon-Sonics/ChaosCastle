@@ -1269,7 +1269,7 @@ public class ChaosPlayer {
 
     private final ChaosBase.AieProc AiePlayer_ref = this::AiePlayer;
 
-    public void CheckSelect(/* var */ Input.Event e, /* VAR */ Runtime.RangeSet stick, boolean update) {
+    public void CheckSelect(/* VAR */ Input.Event e, /* VAR */ Runtime.RangeSet stick, boolean update) {
         // VAR
         int c = 0;
         char oldkey = (char) 0;
