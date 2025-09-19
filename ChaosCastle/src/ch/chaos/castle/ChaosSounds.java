@@ -383,12 +383,12 @@ public class ChaosSounds {
 
     // PROCEDURE
 
-    private void FlushWave(/* var */ Sound sound) {
+    private void FlushWave(/* VAR */ Sound sound) {
         sounds.FreeWave(new Runtime.FieldExprRef<>(sound, Sound::getWave, Sound::setWave));
         sound.size = 0;
     }
 
-    private void SwitchSoundOn_LoadWave(/* var */ Sound sound, int size, Dialogs.GadgetPtr progress, /* VAR */ Runtime.IRef<Integer> fill, /* VAR */ Runtime.IRef<Boolean> loadOk) {
+    private void SwitchSoundOn_LoadWave(/* VAR */ Sound sound, int size, Dialogs.GadgetPtr progress, /* VAR */ Runtime.IRef<Integer> fill, /* VAR */ Runtime.IRef<Boolean> loadOk) {
         // VAR
         int res = 0;
 
@@ -536,7 +536,7 @@ public class ChaosSounds {
 
     public final Runnable SwitchSoundOff_ref = this::SwitchSoundOff;
 
-    public void SetEffect(/* var */ Effect effect, /* var */ Sound sound, int delay, int rate, short volume, short pri) {
+    public void SetEffect(/* VAR */ Effect effect, /* var */ Sound sound, int delay, int rate, short volume, short pri) {
         effect.sound = sound;
         effect.delay = delay;
         effect.rate = rate;
