@@ -1097,10 +1097,10 @@ public class ChaosGraphics {
                 dual[y][x] = castle[y][x];
             }
         }
-        dualPalette = Runtime.copyOf(true, palette);
-        dualCycle = Runtime.copyOf(true, cycle);
+        Runtime.copyArray(true, dualPalette, palette);
+        Runtime.copyArray(true, dualCycle, cycle);
         dualCycling.copyFrom(cycling);
-        dualCycleSpeed = Runtime.copyOf(true, cycleSpeed);
+        Runtime.copyArray(true, dualCycleSpeed, cycleSpeed);
     }
 
     private void AnimCycle(int c, Palette cycle, int speed, int step, /* VAR */ Runtime.IRef<Integer> pos, /* VAR */ Runtime.RangeSet flags, /* VAR */ Runtime.IRef<Integer> r, /* VAR */ Runtime.IRef<Integer> g, /* VAR */ Runtime.IRef<Integer> b) {
