@@ -116,8 +116,8 @@ public class LevelNamer {
             case Levels.POND -> {
                 return Runtime.castToRef(languages.ADL("Pond"), String.class);
             }
-            case Levels.INDUSTRY -> {
-                return Runtime.castToRef(languages.ADL("Industry"), String.class);
+            case Levels.ELECTRICAL_PLANT -> {
+                return Runtime.castToRef(languages.ADL("Electrical Plant"), String.class);
             }
             case Levels.JUNKYARD -> {
                 return Runtime.castToRef(languages.ADL("Junkyard"), String.class);

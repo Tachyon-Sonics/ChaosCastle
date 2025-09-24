@@ -34,7 +34,7 @@ public class Levels {
     public final static int BIG_CAVERN = 26;
     public final static int TWILIGHT = 27;
     public final static int POND = 28;
-    public final static int INDUSTRY = 29;
+    public final static int ELECTRICAL_PLANT = 29;
     public final static int JUNKYARD = 30;
     
     public final static int BROTHER = 1;

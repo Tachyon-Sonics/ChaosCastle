@@ -567,8 +567,8 @@ public class ChaosScreens {
             case Levels.BIG_CAVERN -> {
                 return Runtime.castToRef(languages.ADL("Big Cavern"), String.class);
             }
-            case Levels.INDUSTRY -> {
-                return Runtime.castToRef(languages.ADL("Industry"), String.class);
+            case Levels.ELECTRICAL_PLANT -> {
+                return Runtime.castToRef(languages.ADL("Electrical Plant"), String.class);
             }
             case Levels.JUNKYARD -> {
                 return Runtime.castToRef(languages.ADL("Junkyard"), String.class);

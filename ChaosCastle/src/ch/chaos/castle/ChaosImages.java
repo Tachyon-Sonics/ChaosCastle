@@ -1039,7 +1039,7 @@ public class ChaosImages {
                 case Levels.SNOW_TRACK -> SetWinterPalette();
                 case Levels.CITY_PARK -> SetForestPalette();
                 case Levels.BIG_CAVERN -> SetGraveyardPalette();
-                case Levels.INDUSTRY -> SetFactoryPalette();
+                case Levels.ELECTRICAL_PLANT -> SetFactoryPalette();
                 case Levels.JUNKYARD -> SetJunglePalette();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }

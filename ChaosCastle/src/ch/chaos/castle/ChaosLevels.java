@@ -1060,7 +1060,7 @@ public class ChaosLevels {
                 case Levels.SILENT_VOID -> new SilentVoid().build();
                 case Levels.POND -> new Pond().build();
                 case Levels.BIG_CAVERN -> new BigCavern().build();
-                case Levels.INDUSTRY -> new Industry().build();
+                case Levels.ELECTRICAL_PLANT -> new Industry().build();
                 case Levels.JUNKYARD -> new JunkYard().build();
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Castle.ordinal()]);
             }
