@@ -296,7 +296,7 @@ public class Files {
         }
     }
 
-    public int ReadFileBytes(FilePtr f, Object data, int length) {
+    public int ReadFileBytes(FilePtr f, Object data, long length) {
         File file = (File) f;
         try {
             if (data instanceof IRef<?> ref) {
@@ -309,23 +309,23 @@ public class Files {
                         || dataType.equals(Double.class)
                         || dataType.equals(Boolean.class)
                         || dataType.isEnum()) {
-                    return readRef(file, ref, dataType, length);
+                    return readRef(file, ref, dataType, (int) length);
                 } else if (dataType.equals(String.class)) {
-                    return readString(file, ref, length);
+                    return readString(file, ref, (int) length);
                 } else if (dataType.equals(byte[].class)) {
                     @SuppressWarnings("unchecked")
                     IRef<byte[]> byteRef = (IRef<byte[]>) ref;
                     byte[] bytes = byteRef.get();
-                    int result = readBytes(file, bytes, length);
+                    int result = readBytes(file, bytes, (int) length);
                     byteRef.set(bytes);
                     return result;
                 } else {
                     throw new UnsupportedOperationException("Not implemented datatype " + dataType.getName());
                 }
             } else if (data instanceof byte[] bytes) {
-                return readBytes(file, bytes, length);
+                return readBytes(file, bytes, (int) length);
             } else if (data instanceof short[] shorts) {
-                return readShorts(file, shorts, length);
+                return readShorts(file, shorts, (int) length);
             } else {
                 // todo implement ReadFileBytes
                 throw new UnsupportedOperationException("Not implemented: ReadFileBytes " + data.getClass().getName());
@@ -435,11 +435,11 @@ public class Files {
         return length;
     }
 
-    public int SkipFileBytes(FilePtr f, int count) {
+    public int SkipFileBytes(FilePtr f, long count) {
         File file = (File) f;
         try {
             file.file.seek(file.file.getFilePointer() + count);
-            return count;
+            return (int) count;
         } catch (IOException ex) {
             lastErrorMsg = ex.getMessage();
             return 0;

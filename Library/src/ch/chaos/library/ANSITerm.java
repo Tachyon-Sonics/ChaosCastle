@@ -650,7 +650,7 @@ public class ANSITerm {
         }
     }
 
-    public char Report(byte x, byte y) {
+    public char Report(short x, short y) {
         return reportContent[y][x];
     }
 
@@ -685,23 +685,23 @@ public class ANSITerm {
         y++;
     }
 
-    public void WriteAt(byte x, byte y, char ch) {
+    public void WriteAt(short x, short y, char ch) {
         Goto(x, y);
         Write(ch);
     }
 
-    public void MoveChar(byte sx, byte sy, char sch, byte dx, byte dy, char dch) {
+    public void MoveChar(short sx, short sy, char sch, short dx, short dy, char dch) {
         WriteAt(sx, sy, sch);
         WriteAt(dx, dy, dch);
     }
 
-    public void Ghost(byte x, byte y, char ch) {
+    public void Ghost(short x, short y, char ch) {
         char previous = reportContent[y][x];
         WriteAt(x, y, ch);
         reportContent[y][x] = previous;
     }
 
-    public void Goto(byte x, byte y) {
+    public void Goto(short x, short y) {
         this.x = x;
         this.y = y;
     }
@@ -714,13 +714,13 @@ public class ANSITerm {
         }
     }
 
-    public void ClearLine(byte y) {
+    public void ClearLine(short y) {
         for (int x = 0; x < TERM_WIDTH; x++) {
             WriteAt((byte) x, (byte) y, ' ');
         }
     }
 
-    public void Color(short c) {
+    public void Color(int c) {
         this.color = c;
     }
 
