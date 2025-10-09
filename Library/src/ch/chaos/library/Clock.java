@@ -211,9 +211,7 @@ public class Clock {
 
     }
 
-    public void GetCurrentTime(/* VAR */ Runtime.IRef<Integer> h,
-            /* VAR */ Runtime.IRef<Integer> m,
-            /* VAR */ Runtime.IRef<Integer> s) {
+    public void GetCurrentTime(/* VAR */ Runtime.IRef<Integer> h, /* VAR */ Runtime.IRef<Integer> m, /* VAR */ Runtime.IRef<Integer> s) {
         LocalTime localTime = LocalTime.now();
         h.set(localTime.getHour());
         m.set(localTime.getMinute());
