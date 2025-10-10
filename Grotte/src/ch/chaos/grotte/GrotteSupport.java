@@ -78,64 +78,64 @@ public class GrotteSupport {
 
     @FunctionalInterface
     public static interface CreateProc { // PROCEDURE Type
-        public void invoke(OBJECT arg1, byte arg2, byte arg3, byte arg4, byte arg5, char arg6);
+        public void invoke(OBJECT arg1, int arg2, int arg3, int arg4, int arg5, char arg6);
     }
 
     public static class Attr { // RECORD
 
-        public short nb;
-        public short dt;
-        public short nt;
-        public short timeout;
-        public short ct;
-        public short co;
+        public int nb;
+        public int dt;
+        public int nt;
+        public int timeout;
+        public int ct;
+        public int co;
 
 
-        public short getNb() {
+        public int getNb() {
             return this.nb;
         }
 
-        public void setNb(short nb) {
+        public void setNb(int nb) {
             this.nb = nb;
         }
 
-        public short getDt() {
+        public int getDt() {
             return this.dt;
         }
 
-        public void setDt(short dt) {
+        public void setDt(int dt) {
             this.dt = dt;
         }
 
-        public short getNt() {
+        public int getNt() {
             return this.nt;
         }
 
-        public void setNt(short nt) {
+        public void setNt(int nt) {
             this.nt = nt;
         }
 
-        public short getTimeout() {
+        public int getTimeout() {
             return this.timeout;
         }
 
-        public void setTimeout(short timeout) {
+        public void setTimeout(int timeout) {
             this.timeout = timeout;
         }
 
-        public short getCt() {
+        public int getCt() {
             return this.ct;
         }
 
-        public void setCt(short ct) {
+        public void setCt(int ct) {
             this.ct = ct;
         }
 
-        public short getCo() {
+        public int getCo() {
             return this.co;
         }
 
-        public void setCo(short co) {
+        public void setCo(int co) {
             this.co = co;
         }
 
@@ -166,23 +166,23 @@ public class GrotteSupport {
 
     public static class _Ppos { // RECORD
 
-        public byte x;
-        public byte y;
+        public int x;
+        public int y;
 
 
-        public byte getX() {
+        public int getX() {
             return this.x;
         }
 
-        public void setX(byte x) {
+        public void setX(int x) {
             this.x = x;
         }
 
-        public byte getY() {
+        public int getY() {
             return this.y;
         }
 
-        public void setY(byte y) {
+        public void setY(int y) {
             this.y = y;
         }
 
@@ -209,19 +209,19 @@ public class GrotteSupport {
     public long followscore;
     public Runtime.RangeSet[] made = Runtime.initArray(new Runtime.RangeSet[11], () -> new Runtime.RangeSet(Memory.SET16_r));
     public _Stat stat;
-    public short[][] drsK2 = new short[20][72];
-    public short[][] drK2 = new short[20][];
+    public int[][] drsK2 = new int[20][72];
+    public int[][] drK2 = new int[20][];
     public _Ppos[] ppos = Runtime.initArray(new _Ppos[4]);
-    public short l2count;
-    public short oldl2;
-    public short blvcount;
-    public short oldblv;
-    public short pcount;
-    public short ndoor;
-    public short level;
-    public short game;
-    public byte pvie;
-    public byte oldpvie;
+    public int l2count;
+    public int oldl2;
+    public int blvcount;
+    public int oldblv;
+    public int pcount;
+    public int ndoor;
+    public int level;
+    public int game;
+    public int pvie;
+    public int oldpvie;
     public Attr[] attr = Runtime.initArray(new Attr[OBJECT.values().length]);
 
 
@@ -273,19 +273,19 @@ public class GrotteSupport {
         this.stat = stat;
     }
 
-    public short[][] getDrsK2() {
+    public int[][] getDrsK2() {
         return this.drsK2;
     }
 
-    public void setDrsK2(short[][] drsK2) {
+    public void setDrsK2(int[][] drsK2) {
         this.drsK2 = drsK2;
     }
 
-    public short[][] getDrK2() {
+    public int[][] getDrK2() {
         return this.drK2;
     }
 
-    public void setDrK2(short[][] drK2) {
+    public void setDrK2(int[][] drK2) {
         this.drK2 = drK2;
     }
 
@@ -297,83 +297,83 @@ public class GrotteSupport {
         this.ppos = ppos;
     }
 
-    public short getL2count() {
+    public int getL2count() {
         return this.l2count;
     }
 
-    public void setL2count(short l2count) {
+    public void setL2count(int l2count) {
         this.l2count = l2count;
     }
 
-    public short getOldl2() {
+    public int getOldl2() {
         return this.oldl2;
     }
 
-    public void setOldl2(short oldl2) {
+    public void setOldl2(int oldl2) {
         this.oldl2 = oldl2;
     }
 
-    public short getBlvcount() {
+    public int getBlvcount() {
         return this.blvcount;
     }
 
-    public void setBlvcount(short blvcount) {
+    public void setBlvcount(int blvcount) {
         this.blvcount = blvcount;
     }
 
-    public short getOldblv() {
+    public int getOldblv() {
         return this.oldblv;
     }
 
-    public void setOldblv(short oldblv) {
+    public void setOldblv(int oldblv) {
         this.oldblv = oldblv;
     }
 
-    public short getPcount() {
+    public int getPcount() {
         return this.pcount;
     }
 
-    public void setPcount(short pcount) {
+    public void setPcount(int pcount) {
         this.pcount = pcount;
     }
 
-    public short getNdoor() {
+    public int getNdoor() {
         return this.ndoor;
     }
 
-    public void setNdoor(short ndoor) {
+    public void setNdoor(int ndoor) {
         this.ndoor = ndoor;
     }
 
-    public short getLevel() {
+    public int getLevel() {
         return this.level;
     }
 
-    public void setLevel(short level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 
-    public short getGame() {
+    public int getGame() {
         return this.game;
     }
 
-    public void setGame(short game) {
+    public void setGame(int game) {
         this.game = game;
     }
 
-    public byte getPvie() {
+    public int getPvie() {
         return this.pvie;
     }
 
-    public void setPvie(byte pvie) {
+    public void setPvie(int pvie) {
         this.pvie = pvie;
     }
 
-    public byte getOldpvie() {
+    public int getOldpvie() {
         return this.oldpvie;
     }
 
-    public void setOldpvie(byte oldpvie) {
+    public void setOldpvie(int oldpvie) {
         this.oldpvie = oldpvie;
     }
 
@@ -448,12 +448,12 @@ public class GrotteSupport {
     private boolean dm;
     private boolean no10;
     private boolean first;
-    private short lastgame;
-    private short lastlevel;
+    private int lastgame;
+    private int lastlevel;
     private int rndcount;
     private int randomcount;
     private String[] g /* POINTER */;
-    private short[] cols = new short[7];
+    private int[] cols = new int[7];
 
 
     public Files.FilePtr getFh() {
@@ -504,19 +504,19 @@ public class GrotteSupport {
         this.first = first;
     }
 
-    public short getLastgame() {
+    public int getLastgame() {
         return this.lastgame;
     }
 
-    public void setLastgame(short lastgame) {
+    public void setLastgame(int lastgame) {
         this.lastgame = lastgame;
     }
 
-    public short getLastlevel() {
+    public int getLastlevel() {
         return this.lastlevel;
     }
 
-    public void setLastlevel(short lastlevel) {
+    public void setLastlevel(int lastlevel) {
         this.lastlevel = lastlevel;
     }
 
@@ -544,11 +544,11 @@ public class GrotteSupport {
         this.g = g;
     }
 
-    public short[] getCols() {
+    public int[] getCols() {
         return this.cols;
     }
 
-    public void setCols(short[] cols) {
+    public void setCols(int[] cols) {
         this.cols = cols;
     }
 
@@ -566,7 +566,7 @@ public class GrotteSupport {
             checks.Terminate();
     }
 
-    private void WA(byte x, byte y, String s) {
+    private void WA(int x, int y, String s) {
         aNSITerm.Goto(x, y);
         aNSITerm.WriteString(s);
     }
@@ -637,7 +637,7 @@ public class GrotteSupport {
             }
         }
         aNSITerm.ClearScreen();
-        aNSITerm.Color((short) 1);
+        aNSITerm.Color(1);
         time = clock.AllocTime(1024);
         checks.CheckMemBool(time == clock.noTime);
         clock.StartTime(time);
@@ -682,8 +682,8 @@ public class GrotteSupport {
         final String l5 = "  T    OOO  P           SSSS   CCCC  OOO  R RRR EEEEE SSSS ";
 
         // VAR
-        byte x = 0;
-        byte y = 0;
+        int x = 0;
+        int y = 0;
         Runtime.Ref<Character> ch = new Runtime.Ref<>((char) 0);
         String[] lines = new String[5];
 
@@ -692,8 +692,8 @@ public class GrotteSupport {
         lines[2] = l3;
         lines[3] = l4;
         lines[4] = l5;
-        aNSITerm.Goto((byte) 0, (byte) 0);
-        aNSITerm.Color((short) 1);
+        aNSITerm.Goto(0, 0);
+        aNSITerm.Color(1);
         for (y = 0; y <= 19; y++) {
             for (x = 0; x <= 71; x++) {
                 aNSITerm.Write('#');
@@ -703,11 +703,11 @@ public class GrotteSupport {
         clock.StartTime(time);
         for (x = 6; x >= 0; x -= 1) {
             aNSITerm.Color(cols[x]);
-            WA((byte) 7, (byte) 6, " &&&&& &&&&& && && &&&&&        &&&  &   & &&&&& &&&&& ");
-            WA((byte) 7, (byte) 7, " &     &   & &&&&& &           &   & &   & &     &   & ");
-            WA((byte) 7, (byte) 8, " & &&& &&&&& & & & &&&&        &   &  & &  &&&&  &&&&& ");
-            WA((byte) 7, (byte) 9, " &   & &   & &   & &           &   &  & &  &     &&    ");
-            WA((byte) 7, (byte) 10, " &&&&& &   & &   & &&&&&        &&&    &   &&&&& & &&& ");
+            WA(7, 6, " &&&&& &&&&& && && &&&&&        &&&  &   & &&&&& &&&&& ");
+            WA(7, 7, " &     &   & &&&&& &           &   & &   & &     &   & ");
+            WA(7, 8, " & &&& &&&&& & & & &&&&        &   &  & &  &&&&  &&&&& ");
+            WA(7, 9, " &   & &   & &   & &           &   &  & &  &     &&    ");
+            WA(7, 10, " &&&&& &   & &   & &&&&&        &&&    &   &&&&& & &&& ");
             aNSITerm.WriteLn();
             if (!clock.WaitTime(time, 512))
                 clock.StartTime(time);
@@ -716,10 +716,10 @@ public class GrotteSupport {
         }
         for (x = 1; x <= 10; x++) {
             if (((x % 2) != 0))
-                aNSITerm.Color((short) 7);
+                aNSITerm.Color(7);
             else
-                aNSITerm.Color((short) 6);
-            WA((byte) 0, (byte) 21, "Score: ");
+                aNSITerm.Color(6);
+            WA(0, 21, "Score: ");
             WriteCard(score);
             if (clock.WaitTime(time, 100)) {
             }
@@ -772,10 +772,10 @@ public class GrotteSupport {
 
     private void WriteCode(int c, int s) {
         // VAR
-        short i = 0;
+        int i = 0;
 
         c = (c + s) % 64;
-        i = (short) c;
+        i = c;
         if (i == 'O' - 65)
             aNSITerm.Write('.');
         else if (i == 'I' - 65)
@@ -840,16 +840,16 @@ public class GrotteSupport {
             pass[x] = new Runtime.RangeSet(Memory.SET16_r);
         }
         aNSITerm.ClearScreen();
-        aNSITerm.Color((short) 1);
-        aNSITerm.Goto((byte) 30, (byte) 1);
+        aNSITerm.Color(1);
+        aNSITerm.Goto(30, 1);
         aNSITerm.WriteString("************");
-        aNSITerm.Goto((byte) 30, (byte) 3);
+        aNSITerm.Goto(30, 3);
         aNSITerm.WriteString("************");
-        aNSITerm.WriteAt((byte) 30, (byte) 2, '*');
-        aNSITerm.WriteAt((byte) 41, (byte) 2, '*');
-        aNSITerm.Color((short) 3);
+        aNSITerm.WriteAt(30, 2, '*');
+        aNSITerm.WriteAt(41, 2, '*');
+        aNSITerm.Color(3);
         p.set(0);
-        aNSITerm.Goto((byte) 32, (byte) 2);
+        aNSITerm.Goto(32, 2);
         aNSITerm.WriteString("PASSWORD");
         for (y = 0; y <= 9; y++) {
             for (x = 0; x <= 10; x++) {
@@ -864,8 +864,8 @@ public class GrotteSupport {
         SetVal(p, pass, pvie, 7);
         SetVal(p, pass, l2count, 6);
         p.set(0);
-        aNSITerm.Goto((byte) 21, (byte) 8);
-        aNSITerm.Color((short) 6);
+        aNSITerm.Goto(21, 8);
+        aNSITerm.Color(6);
         sum = 17;
         for (y = 0; y <= 26; y++) {
             x = (int) GetVal(p, pass, 6);
@@ -875,8 +875,8 @@ public class GrotteSupport {
                 sum -= 63;
         }
         WriteCode(sum, 27);
-        aNSITerm.Goto((byte) 4, (byte) 12);
-        aNSITerm.Color((short) 7);
+        aNSITerm.Goto(4, 12);
+        aNSITerm.Color(7);
         clock.StartTime(time);
         if (clock.WaitTime(time, 2048)) {
         }
@@ -905,23 +905,23 @@ public class GrotteSupport {
             pass[x] = new Runtime.RangeSet(Memory.SET16_r);
         }
         aNSITerm.ClearScreen();
-        aNSITerm.Color((short) 1);
-        aNSITerm.Goto((byte) 26, (byte) 1);
+        aNSITerm.Color(1);
+        aNSITerm.Goto(26, 1);
         aNSITerm.WriteString("*******************");
-        aNSITerm.Goto((byte) 26, (byte) 3);
+        aNSITerm.Goto(26, 3);
         aNSITerm.WriteString("*******************");
-        aNSITerm.WriteAt((byte) 26, (byte) 2, '*');
-        aNSITerm.WriteAt((byte) 44, (byte) 2, '*');
-        aNSITerm.Color((short) 2);
-        aNSITerm.Goto((byte) 28, (byte) 2);
+        aNSITerm.WriteAt(26, 2, '*');
+        aNSITerm.WriteAt(44, 2, '*');
+        aNSITerm.Color(2);
+        aNSITerm.Goto(28, 2);
         aNSITerm.WriteString("Enter Password:");
-        aNSITerm.Goto((byte) 21, (byte) 8);
-        aNSITerm.Color((short) 4);
+        aNSITerm.Goto(21, 8);
+        aNSITerm.Color(4);
         for (x = 0; x <= 27; x++) {
             aNSITerm.Write('#');
         }
-        aNSITerm.Goto((byte) 21, (byte) 8);
-        aNSITerm.Color((short) 6);
+        aNSITerm.Goto(21, 8);
+        aNSITerm.Color(6);
         aNSITerm.ReadString(str);
         sum = 17;
         p.set(0);
@@ -943,21 +943,21 @@ public class GrotteSupport {
                 }
             }
             no10 = Get(p, pass);
-            blvcount = (short) GetVal(p, pass, 6);
+            blvcount = (int) GetVal(p, pass, 6);
             if (blvcount > 0)
                 made[10].excl(0);
             else
                 made[10].incl(0);
             score = GetVal(p, pass, 32);
             followscore = ((score + 1000) / 1000) * 1000;
-            pvie = (byte) GetVal(p, pass, 7);
-            l2count = (short) GetVal(p, pass, 6);
+            pvie = (int) GetVal(p, pass, 7);
+            l2count = (int) GetVal(p, pass, 6);
         } else {
-            aNSITerm.Goto((byte) 25, (byte) 10);
-            aNSITerm.Color((short) 3);
+            aNSITerm.Goto(25, 10);
+            aNSITerm.Color(3);
             aNSITerm.WriteString("* Invalid password *");
-            aNSITerm.Goto((byte) 25, (byte) 11);
-            aNSITerm.Color((short) 7);
+            aNSITerm.Goto(25, 11);
+            aNSITerm.Color(7);
             aNSITerm.WriteString("Press any key");
             WaitAChar(ch);
         }
@@ -965,22 +965,22 @@ public class GrotteSupport {
             Gameover(0);
     }
 
-    private boolean ReadGame_Made(short level, short game) {
+    private boolean ReadGame_Made(int level, int game) {
         return made[level].contains(game);
     }
 
-    private void ReadGame_ViewGame(short level, short game, boolean on) {
+    private void ReadGame_ViewGame(int level, int game, boolean on) {
         // VAR
         boolean test1 = false;
         boolean test2 = false;
 
         if (level != 10) {
-            aNSITerm.Goto((byte) (game * 3 + 2), (byte) (level + 8));
+            aNSITerm.Goto(game * 3 + 2, level + 8);
         } else {
-            aNSITerm.Goto((byte) 2, (byte) 18);
+            aNSITerm.Goto(2, 18);
             if (on) {
-                if (!ReadGame_Made((short) 10, (short) 0)) {
-                    aNSITerm.Color((short) 2);
+                if (!ReadGame_Made(10, 0)) {
+                    aNSITerm.Color(2);
                     aNSITerm.WriteString("BONUS LEVEL");
                 }
             } else {
@@ -989,16 +989,16 @@ public class GrotteSupport {
             return;
         }
         if (ReadGame_Made(level, game)) {
-            aNSITerm.Color((short) 1);
+            aNSITerm.Color(1);
         } else {
             test1 = (game == 9);
             test2 = (level >= 7);
             if (test1 != test2)
-                aNSITerm.Color((short) 3);
+                aNSITerm.Color(3);
             else
-                aNSITerm.Color((short) 2);
+                aNSITerm.Color(2);
             if (test1 && test2)
-                aNSITerm.Color((short) 7);
+                aNSITerm.Color(7);
         }
         if (on) {
             if (ReadGame_Made(level, game)) {
@@ -1012,61 +1012,61 @@ public class GrotteSupport {
         }
     }
 
-    private void ReadGame_DisplayGrotte(byte x) {
-        WA(x, (byte) 0, " 00000  00000   000   00000  00000  00000");
-        WA(x, (byte) 1, " 0      0   0  0   0    0      0    0");
-        WA(x, (byte) 2, " 0 000  00000  0   0    0      0    0000");
-        WA(x, (byte) 3, " 0   0  00     0   0    0      0    0");
-        WA(x, (byte) 4, " 00000  0 000   000     0      0    00000");
-        aNSITerm.Goto((byte) 0, (byte) 0);
+    private void ReadGame_DisplayGrotte(int x) {
+        WA(x, 0, " 00000  00000   000   00000  00000  00000");
+        WA(x, 1, " 0      0   0  0   0    0      0    0");
+        WA(x, 2, " 0 000  00000  0   0    0      0    0000");
+        WA(x, 3, " 0   0  00     0   0    0      0    0");
+        WA(x, 4, " 00000  0 000   000     0      0    00000");
+        aNSITerm.Goto(0, 0);
     }
 
     private void ReadGame_Display(/* VAR */ Runtime.IRef<Integer> left) {
         // VAR
-        short c1 = 0;
-        short c2 = 0;
+        int c1 = 0;
+        int c2 = 0;
 
         aNSITerm.ClearScreen();
         clock.StartTime(time);
         if (first) {
             for (c1 = 1; c1 <= 3; c1++) {
                 aNSITerm.Color(c1);
-                ReadGame_DisplayGrotte((byte) 0);
+                ReadGame_DisplayGrotte(0);
                 if (!clock.WaitTime(time, 512))
                     clock.StartTime(time);
             }
             for (c1 = 1; c1 <= 14; c1++) {
-                ReadGame_DisplayGrotte((byte) c1);
+                ReadGame_DisplayGrotte(c1);
                 if (!clock.WaitTime(time, 200))
                     clock.StartTime(time);
             }
             first = false;
         }
-        aNSITerm.Color((short) 3);
-        ReadGame_DisplayGrotte((byte) 15);
-        aNSITerm.Color((short) 1);
-        WA((byte) 28, (byte) 5, "(C) 2000 Nicky");
-        aNSITerm.Color((short) 5);
-        WA((byte) 38, (byte) 7, "Use the following keys from the numeric");
-        WA((byte) 38, (byte) 8, "pad (Num Lock) to move during the game:");
-        WA((byte) 40, (byte) 9, "{4}: start moving to the left");
-        WA((byte) 40, (byte) 10, "{6}: start moving to the right");
-        WA((byte) 40, (byte) 11, "{5}: stop moving");
-        WA((byte) 40, (byte) 12, "<SPACE> or {0}: jump");
-        WA((byte) 40, (byte) 13, "{1}, {3}, {8}, {2}:");
-        WA((byte) 40, (byte) 14, " fire left, right, up and down");
-        WA((byte) 40, (byte) 15, "{7}, {9}: big fire left and right");
-        aNSITerm.Color((short) 4);
-        WA((byte) 38, (byte) 16, "{q}: quit      {e}: give up level");
-        WA((byte) 38, (byte) 17, "{r}: refresh   {m}: choose random");
-        WA((byte) 38, (byte) 18, "{p}: pause     {s}, {l}: save, load");
-        WA((byte) 38, (byte) 19, "{arrow}: move  {shift arrow}: fire");
-        aNSITerm.Color((short) 7);
-        WA((byte) 0, (byte) 7, "Choose a level and press <RETURN>:");
-        WA((byte) 0, (byte) 21, "Score: ");
+        aNSITerm.Color(3);
+        ReadGame_DisplayGrotte(15);
+        aNSITerm.Color(1);
+        WA(28, 5, "(C) 2000 Nicky");
+        aNSITerm.Color(5);
+        WA(38, 7, "Use the following keys from the numeric");
+        WA(38, 8, "pad (Num Lock) to move during the game:");
+        WA(40, 9, "{4}: start moving to the left");
+        WA(40, 10, "{6}: start moving to the right");
+        WA(40, 11, "{5}: stop moving");
+        WA(40, 12, "<SPACE> or {0}: jump");
+        WA(40, 13, "{1}, {3}, {8}, {2}:");
+        WA(40, 14, " fire left, right, up and down");
+        WA(40, 15, "{7}, {9}: big fire left and right");
+        aNSITerm.Color(4);
+        WA(38, 16, "{q}: quit      {e}: give up level");
+        WA(38, 17, "{r}: refresh   {m}: choose random");
+        WA(38, 18, "{p}: pause     {s}, {l}: save, load");
+        WA(38, 19, "{arrow}: move  {shift arrow}: fire");
+        aNSITerm.Color(7);
+        WA(0, 7, "Choose a level and press <RETURN>:");
+        WA(0, 21, "Score: ");
         WriteCard(score);
-        WA((byte) 36, (byte) 21, "Lives: ");
-        aNSITerm.Color((short) 3);
+        WA(36, 21, "Lives: ");
+        aNSITerm.Color(3);
         WriteCard(pvie);
         ShowClock();
         left.set(0);
@@ -1077,16 +1077,16 @@ public class GrotteSupport {
                 ReadGame_ViewGame(c1, c2, true);
             }
         }
-        if (!ReadGame_Made((short) 10, (short) 0))
-            ReadGame_ViewGame((short) 10, (short) 0, true);
+        if (!ReadGame_Made(10, 0))
+            ReadGame_ViewGame(10, 0, true);
     }
 
-    public void ReadGame(/* VAR */ Runtime.IRef<Short> level, /* VAR */ Runtime.IRef<Short> game) {
+    public void ReadGame(/* VAR */ Runtime.IRef<Integer> level, /* VAR */ Runtime.IRef<Integer> game) {
         // VAR
         boolean on = false;
-        short gc = 0;
-        short c1 = 0;
-        short c2 = 0;
+        int gc = 0;
+        int c1 = 0;
+        int c2 = 0;
         Runtime.Ref<Character> ch = new Runtime.Ref<>((char) 0);
         int best = 0;
         Runtime.Ref<Integer> left = new Runtime.Ref<>(0);
@@ -1098,7 +1098,7 @@ public class GrotteSupport {
         level.set(lastlevel);
         game.set(lastgame);
         if (level.get() > 10)
-            level.set((short) 0);
+            level.set(0);
         if (oldpvie == 0) {
             made[level.get()].excl(game.get());
             oldpvie = 1;
@@ -1111,10 +1111,10 @@ public class GrotteSupport {
             game.inc();
             gc--;
             if ((game.get() > 9) || ((game.get() > 0) && (level.get() == 10))) {
-                game.set((short) 0);
+                game.set(0);
                 level.inc();
                 if (level.get() > 10)
-                    level.set((short) 0);
+                    level.set(0);
             }
         }
         if (gc == 0) {
@@ -1122,11 +1122,11 @@ public class GrotteSupport {
             clock.StartTime(time);
             if (clock.WaitTime(time, 3072)) {
             }
-            aNSITerm.Color((short) 7);
-            aNSITerm.Goto((byte) 0, (byte) 20);
+            aNSITerm.Color(7);
+            aNSITerm.Goto(0, 20);
             aNSITerm.WriteString("**** YOU'VE FINISHED THE GAME !!! ****");
-            aNSITerm.Goto((byte) 0, (byte) 0);
-            aNSITerm.Color((short) 3);
+            aNSITerm.Goto(0, 0);
+            aNSITerm.Color(3);
             for (c1 = 0; c1 <= 19; c1++) {
                 for (c2 = 0; c2 <= 71; c2++) {
                     aNSITerm.Write('%');
@@ -1140,11 +1140,11 @@ public class GrotteSupport {
             do {
                 score += 1000;
                 pvie--;
-                aNSITerm.Color((short) 7);
-                WA((byte) 0, (byte) 21, "Score: ");
+                aNSITerm.Color(7);
+                WA(0, 21, "Score: ");
                 WriteCard(score);
-                WA((byte) 36, (byte) 21, "Lives: ");
-                aNSITerm.Color((short) 3);
+                WA(36, 21, "Lives: ");
+                aNSITerm.Color(3);
                 WriteCard(pvie);
                 aNSITerm.Write(' ');
                 if (clock.WaitTime(time, 1800)) {
@@ -1157,7 +1157,7 @@ public class GrotteSupport {
         c1 = 3;
         c2 = 0;
         do {
-            aNSITerm.Goto((byte) 0, (byte) 22);
+            aNSITerm.Goto(0, 22);
             if (Random() == 0) {
             }
             ReadDir(ch);
@@ -1180,7 +1180,7 @@ public class GrotteSupport {
                 game.inc();
             if ((ch.get() == '2') && (level.get() < 10))
                 level.inc();
-            if ((level.get() == 10) && (ReadGame_Made((short) 10, (short) 0)))
+            if ((level.get() == 10) && (ReadGame_Made(10, 0)))
                 level.dec();
             if ((ch.get() == '8') && (level.get() > 0))
                 level.dec();
@@ -1195,34 +1195,34 @@ public class GrotteSupport {
             if ((ch.get() == 'r') || (ch.get() == 'R') || (ch.get() == 'w') || (ch.get() == 'W'))
                 ReadGame_Display(left);
             if ((ch.get() == 'M') || (ch.get() == 'm')) {
-                if (!ReadGame_Made((short) 10, (short) 0)) {
-                    level.set((short) 10);
-                    game.set((short) 0);
+                if (!ReadGame_Made(10, 0)) {
+                    level.set(10);
+                    game.set(0);
                 } else {
                     if (pvie > 25)
-                        level.set((short) 125);
+                        level.set(125);
                     else
-                        level.set((short) (pvie * 5));
+                        level.set(pvie * 5);
                     level.inc(Rnd() % 32);
                     if (level.get() != 0)
                         level.dec();
                     best = level.get();
                     best = (left.get() * best) / 160;
-                    level.set((short) 0);
-                    game.set((short) 0);
+                    level.set(0);
+                    game.set(0);
                     while (ReadGame_Made(level.get(), game.get())) {
                         game.inc();
                         if (game.get() >= 10) {
-                            game.set((short) 0);
-                            level.set((short) ((level.get() + 1) % 10));
+                            game.set(0);
+                            level.set((level.get() + 1) % 10);
                         }
                     }
                     while (best > 0) {
                         do {
                             game.inc();
                             if (game.get() >= 10) {
-                                game.set((short) 0);
-                                level.set((short) ((level.get() + 1) % 10));
+                                game.set(0);
+                                level.set((level.get() + 1) % 10);
                             }
                         } while (ReadGame_Made(level.get(), game.get()));
                         best--;
@@ -1241,12 +1241,12 @@ public class GrotteSupport {
                 clock.StartTime(time);
             if (c2 == 0) {
                 ShowClock();
-                aNSITerm.Goto((byte) 1, (byte) 19);
-                aNSITerm.Color((short) 6);
+                aNSITerm.Goto(1, 19);
+                aNSITerm.Color(6);
                 c2 = 40;
                 aNSITerm.WriteString("Press {I} for more instructions");
             } else if (c2 == 1) {
-                aNSITerm.Goto((byte) 1, (byte) 19);
+                aNSITerm.Goto(1, 19);
                 aNSITerm.WriteString("                               ");
             }
             c1--;
@@ -1258,7 +1258,7 @@ public class GrotteSupport {
             }
         } while (!(((ch.get() == ((char) 015)) || (ch.get() == ((char) 012))) && (!ReadGame_Made(level.get(), game.get()))));
         if (level.get() == 10)
-            game.set((short) 0);
+            game.set(0);
         if (!made[level.get()].contains(10)) {
             made[level.get()].incl(10);
             made[level.get()].excl(9);
@@ -1282,8 +1282,8 @@ public class GrotteSupport {
         Runtime.Ref<Integer> s = new Runtime.Ref<>(0);
 
         clock.GetCurrentTime(h, m, s);
-        aNSITerm.Goto((byte) 67, (byte) 20);
-        aNSITerm.Color((short) 7);
+        aNSITerm.Goto(67, 20);
+        aNSITerm.Color(7);
         aNSITerm.Write((char) (h.get() / 10 + 48));
         aNSITerm.Write((char) (h.get() % 10 + 48));
         aNSITerm.Write(':');
@@ -1328,37 +1328,37 @@ public class GrotteSupport {
     public void SetColor(char ch) {
         switch (TypeOf(ch)) {
             case K1, K2, K3, K4, L3 -> {
-                aNSITerm.Color((short) 1);
+                aNSITerm.Color(1);
             }
             case K0 -> {
-                aNSITerm.Color((short) 3);
+                aNSITerm.Color(3);
             }
             case BM, BALL -> {
-                aNSITerm.Color((short) 6);
+                aNSITerm.Color(6);
             }
             case PLAYER, BN, DL, L1, L2, SBN -> {
-                aNSITerm.Color((short) 2);
+                aNSITerm.Color(2);
             }
             case ASC, PLAT, WOOF, TPLAT -> {
-                aNSITerm.Color((short) 4);
+                aNSITerm.Color(4);
             }
             case GN1, GN2, NID, BUB, PIC -> {
-                aNSITerm.Color((short) 5);
+                aNSITerm.Color(5);
             }
             default -> {
                 if ((ch == 'A') || (ch == '!'))
-                    aNSITerm.Color((short) 3);
+                    aNSITerm.Color(3);
                 else
-                    aNSITerm.Color((short) 7);
+                    aNSITerm.Color(7);
             }
         }
     }
 
-    private void Complete(OBJECT t, byte nvie, short count, char ch) {
+    private void Complete(OBJECT t, int nvie, int count, char ch) {
         // VAR
-        byte nx = 0;
-        byte ny = 0;
-        byte ns = 0;
+        int nx = 0;
+        int ny = 0;
+        int ns = 0;
 
         if ((t == OBJECT.K4) || (t == OBJECT.PIC))
             ns = 2;
@@ -1368,22 +1368,22 @@ public class GrotteSupport {
             do {
                 if (Random() == 0) {
                 }
-                nx = (byte) (Random() % 72);
-                ny = (byte) (Random() % 20);
+                nx = Random() % 72;
+                ny = Random() % 20;
             } while (aNSITerm.Report(nx, ny) != ' ');
             Create.invoke(t, nx, ny, nvie, ns, ch);
         }
     }
 
     private void NoMem() {
-        WA((byte) 0, (byte) 20, "***** Not enough memory *****");
+        WA(0, 20, "***** Not enough memory *****");
         clock.StartTime(time);
         if (clock.WaitTime(time, 1024)) {
         }
     }
 
     private void DosErr() {
-        WA((byte) 0, (byte) 20, "***** File input error *****");
+        WA(0, 20, "***** File input error *****");
         clock.StartTime(time);
         if (clock.WaitTime(time, 1024)) {
         }
@@ -1399,7 +1399,7 @@ public class GrotteSupport {
         ch.set(((char) 0));
         aNSITerm.ClearScreen();
         fch.set(((char) 0));
-        aNSITerm.Color((short) 7);
+        aNSITerm.Color(7);
         y = 0;
         fh.set(files.OpenFile(name, EnumSet.of(AccessFlags.accessRead)));
         if (fh.get() == files.noFile) {
@@ -1429,9 +1429,9 @@ public class GrotteSupport {
         Choice first = null;
         Runtime.Ref<Choice> _new = new Runtime.Ref<>(null);
         Choice current = null;
-        short count = 0;
-        short length = 0;
-        short c = 0;
+        int count = 0;
+        int length = 0;
+        int c = 0;
         Runtime.Ref<Character> ch = new Runtime.Ref<>((char) 0);
 
         count = 0;
@@ -1463,7 +1463,7 @@ public class GrotteSupport {
         files.CloseDirectory(d);
         do {
             aNSITerm.ClearScreen();
-            aNSITerm.Color((short) 7);
+            aNSITerm.Color(7);
             WL("{0}: <---");
             count = 0;
             while (true) {
@@ -1476,7 +1476,7 @@ public class GrotteSupport {
                 while (true) {
                     if (current == null)
                         break;
-                    length = (short) memory.StrLength(new Runtime.FieldExprRef<>(current, Choice::getName, Choice::setName));
+                    length = memory.StrLength(new Runtime.FieldExprRef<>(current, Choice::getName, Choice::setName));
                     if (Runtime.getChar(current.name, length - 1) == ch.get())
                         break;
                     current = current.next;
@@ -1486,8 +1486,8 @@ public class GrotteSupport {
                 aNSITerm.Write('{');
                 aNSITerm.Write(ch.get());
                 aNSITerm.WriteString("}: ");
-                length = (short) memory.StrLength(new Runtime.FieldExprRef<>(current, Choice::getName, Choice::setName));
-                c = (short) (length - 1);
+                length = memory.StrLength(new Runtime.FieldExprRef<>(current, Choice::getName, Choice::setName));
+                c = length - 1;
                 while (true) {
                     if (c <= 0) {
                         c = 0;
@@ -1509,7 +1509,7 @@ public class GrotteSupport {
             aNSITerm.WaitChar(ch);
             if ((ch.get() >= 'a') && (ch.get() <= 'k'))
                 ch.set((char) ((char) ch.get() - 32));
-            aNSITerm.Color((short) 6);
+            aNSITerm.Color(6);
             aNSITerm.Write(ch.get());
             if (ch.get() > '0') {
                 current = first;
@@ -1539,11 +1539,11 @@ public class GrotteSupport {
 
     private void InitK2Dirs_InitDir(boolean up, char d) {
         // VAR
-        short ppy = 0;
-        short px = 0;
-        short py = 0;
-        short x = 0;
-        short y = 0;
+        int ppy = 0;
+        int px = 0;
+        int py = 0;
+        int x = 0;
+        int y = 0;
         boolean H = false;
         char dd = (char) 0;
         char gd = (char) 0;
@@ -1552,10 +1552,10 @@ public class GrotteSupport {
         char ch1 = (char) 0;
         char ch2 = (char) 0;
         char ch3 = (char) 0;
-        short sd = 0;
-        short from = 0;
-        short to = 0;
-        short by = 0;
+        int sd = 0;
+        int from = 0;
+        int to = 0;
+        int by = 0;
         int c = 0;
 
         if (up) {
@@ -1591,7 +1591,7 @@ public class GrotteSupport {
             sd = 1;
         gd = d;
         for (c = 1; c <= 2; c++) {
-            y = (short) (from - by);
+            y = from - by;
             do {
                 y += by;
                 for (x = 1; x <= 70; x++) {
@@ -1603,7 +1603,7 @@ public class GrotteSupport {
                         ch = Runtime.getChar(g[px + sd], py);
                         while ((py > 0) && (px > 0) && (px < 71) && (Runtime.getChar(g[px], py) == dd) && ((ch == ' ') || (ch == gd)) && (Runtime.getChar(g[px + sd], py + 1) != 'H')) {
                             g[px] = Runtime.setChar(g[px], py, gd);
-                            ppy = (short) (py - 1);
+                            ppy = py - 1;
                             while (!up && (Runtime.getChar(g[px], ppy) == '|') && (ppy > 0)) {
                                 g[px] = Runtime.setChar(g[px], ppy, ' ');
                                 ppy--;
@@ -1616,7 +1616,7 @@ public class GrotteSupport {
                     }
                 }
             } while (y != to);
-            sd = (short) -sd;
+            sd = -sd;
             cd = gd;
             if (gd == '<')
                 gd = '>';
@@ -1644,7 +1644,7 @@ public class GrotteSupport {
                     px = 3;
                 else
                     px = 0;
-                drK2[y][x] = (short) ((drK2[y][x] * 4) + (short) px);
+                drK2[y][x] = (drK2[y][x] * 4) + (int) px;
             }
         }
     }
@@ -1653,24 +1653,24 @@ public class GrotteSupport {
         // VAR
         Runtime.Ref<Character> ch = new Runtime.Ref<>((char) 0);
         char d = (char) 0;
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
         OBJECT t = OBJECT.EMPTY;
 
         do {
             g = (String[]) memory.AllocMem(Runtime.sizeOf(2304, String[].class, 72));
             if (g == null) {
-                aNSITerm.ClearLine((byte) 20);
-                aNSITerm.ClearLine((byte) 21);
-                aNSITerm.Goto((byte) 0, (byte) 20);
-                aNSITerm.Color((short) 3);
+                aNSITerm.ClearLine(20);
+                aNSITerm.ClearLine(21);
+                aNSITerm.Goto(0, 20);
+                aNSITerm.Color(3);
                 WL("***** Not enough memory *****");
                 WL(" Retry [Y/N] ?");
                 do {
                     aNSITerm.WaitChar(ch);
                 } while (ch.get() == ((char) 014));
-                aNSITerm.ClearLine((byte) 20);
-                aNSITerm.ClearLine((byte) 21);
+                aNSITerm.ClearLine(20);
+                aNSITerm.ClearLine(21);
                 if ((ch.get() != 'y') && (ch.get() != 'Y'))
                     return;
             }
@@ -1678,7 +1678,7 @@ public class GrotteSupport {
         for (y = 0; y <= 19; y++) {
             for (x = 0; x <= 71; x++) {
                 drK2[y][x] = 0;
-                t = TypeOf(aNSITerm.Report((byte) x, (byte) y));
+                t = TypeOf(aNSITerm.Report(x, y));
                 if (t == OBJECT.BM)
                     g[x] = Runtime.setChar(g[x], y, 'H');
                 else if (t == OBJECT.MR)
@@ -1698,7 +1698,7 @@ public class GrotteSupport {
         memory.FreeMem(new Runtime.FieldRef<>(this::getG, this::setG).asAdrRef());
     }
 
-    private void Find(/* VAR */ Runtime.IRef<Short> x, /* VAR */ Runtime.IRef<Short> y, short sx, short sy, short dx, short dy) {
+    private void Find(/* VAR */ Runtime.IRef<Integer> x, /* VAR */ Runtime.IRef<Integer> y, int sx, int sy, int dx, int dy) {
         // VAR
         int w = 0;
         int h = 0;
@@ -1706,48 +1706,48 @@ public class GrotteSupport {
         w = dx - sx + 1;
         h = dy - sy + 1;
         do {
-            x.set((short) (Rnd() % w));
+            x.set(Rnd() % w);
             x.inc(sx);
-            y.set((short) (Rnd() % h));
+            y.set(Rnd() % h);
             y.inc(sy);
-        } while (aNSITerm.Report((byte) (short) x.get(), (byte) (short) y.get()) != ' ');
+        } while (aNSITerm.Report(x.get(), y.get()) != ' ');
     }
 
-    private void PutObj(OBJECT t, short n, short sx, short sy, short dx, short dy, short nvie, short nseq, char ch) {
+    private void PutObj(OBJECT t, int n, int sx, int sy, int dx, int dy, int nvie, int nseq, char ch) {
         // VAR
-        Runtime.Ref<Short> x = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y = new Runtime.Ref<>((short) 0);
-        short c = 0;
+        Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y = new Runtime.Ref<>(0);
+        int c = 0;
 
         for (c = 1; c <= n; c++) {
             Find(x, y, sx, sy, dx, dy);
-            Create.invoke(t, (byte) (short) x.get(), (byte) (short) y.get(), (byte) nvie, (byte) nseq, ch);
+            Create.invoke(t, x.get(), y.get(), nvie, nseq, ch);
         }
     }
 
-    public void LoadGame(CreateProc C, /* VAR+WRT */ Runtime.IRef<Byte> ax, /* VAR+WRT */ Runtime.IRef<Byte> ay) {
+    public void LoadGame(CreateProc C, /* VAR+WRT */ Runtime.IRef<Integer> ax, /* VAR+WRT */ Runtime.IRef<Integer> ay) {
         // VAR
         Runtime.Ref<String> posch = new Runtime.Ref<>("");
-        int pos = 0;
-        short bcount = 0;
-        short t = 0;
-        short c = 0;
-        short c1 = 0;
-        short c2 = 0;
+        long pos = 0L;
+        int bcount = 0;
+        int t = 0;
+        int c = 0;
+        int c1 = 0;
+        int c2 = 0;
         Runtime.Ref<Character> ch = new Runtime.Ref<>((char) 0);
         Runtime.Ref<Character> tmp = new Runtime.Ref<>((char) 0);
 
         Create = C;
         aNSITerm.ClearScreen();
-        aNSITerm.Goto((byte) 0, (byte) 20);
-        aNSITerm.Color((short) 7);
+        aNSITerm.Goto(0, 20);
+        aNSITerm.Color(7);
         aNSITerm.WriteString("Loading, please wait... ");
-        aNSITerm.Goto((byte) 0, (byte) 0);
+        aNSITerm.Goto(0, 0);
         ndoor = 0;
         if (level < 10) {
             fh = files.OpenFile(new Runtime.Ref<>(DecorFile), EnumSet.of(AccessFlags.accessRead));
             checks.Check(fh == files.noFile, Runtime.castToRef(memory.ADS("Can't open data file:"), String.class), Runtime.castToRef(memory.ADS(DecorFile), String.class));
-            c1 = (short) (level * 10 + game + 1);
+            c1 = level * 10 + game + 1;
             c2 = c1;
             while (c1 > 0) {
                 checks.Check(files.ReadFileBytes(fh, posch, 4) != 4, Runtime.castToRef(memory.ADS("Error reading table in file"), String.class), new Runtime.Ref<>(DecorFile));
@@ -1764,82 +1764,82 @@ public class GrotteSupport {
                         if (ch.get() > ((char) 0177)) {
                             ch.set((char) ((char) ch.get() - 128));
                             checks.Check(files.ReadFileBytes(fh, tmp, 1) != 1, Runtime.castToRef(memory.ADS("Read error in file"), String.class), new Runtime.Ref<>(DecorFile));
-                            bcount = (short) (char) tmp.get();
+                            bcount = (char) tmp.get();
                         } else {
                             bcount = 1;
                         }
                     }
                     bcount--;
-                    aNSITerm.Goto((byte) c2, (byte) c1);
+                    aNSITerm.Goto(c2, c1);
                     if (ch.get() == 'g')
                         ch.set('£');
                     switch (TypeOf(ch.get())) {
                         case PLAYER -> {
-                            Create.invoke(OBJECT.PLAYER, (byte) c2, (byte) c1, pvie, (byte) 0, '*');
+                            Create.invoke(OBJECT.PLAYER, c2, c1, pvie, 0, '*');
                         }
                         case K0 -> {
-                            Create.invoke(OBJECT.K0, (byte) c2, (byte) c1, (byte) (level + 2), (byte) 2, '&');
+                            Create.invoke(OBJECT.K0, c2, c1, level + 2, 2, '&');
                         }
                         case K1 -> {
-                            Create.invoke(OBJECT.K1, (byte) c2, (byte) c1, (byte) (level + 1), (byte) 0, '+');
+                            Create.invoke(OBJECT.K1, c2, c1, level + 1, 0, '+');
                         }
                         case K2 -> {
-                            Create.invoke(OBJECT.K2, (byte) c2, (byte) c1, (byte) (level / 2 + 1), (byte) 0, 'X');
+                            Create.invoke(OBJECT.K2, c2, c1, level / 2 + 1, 0, 'X');
                         }
                         case K3 -> {
-                            Create.invoke(OBJECT.K3, (byte) c2, (byte) c1, (byte) (level + 1), (byte) 0, '#');
+                            Create.invoke(OBJECT.K3, c2, c1, level + 1, 0, '#');
                         }
                         case K4 -> {
-                            Create.invoke(OBJECT.K4, (byte) c2, (byte) c1, (byte) 4, (byte) 2, 'x');
+                            Create.invoke(OBJECT.K4, c2, c1, 4, 2, 'x');
                         }
                         case GN1 -> {
-                            Create.invoke(OBJECT.GN1, (byte) c2, (byte) c1, (byte) 3, (byte) 0, ch.get());
+                            Create.invoke(OBJECT.GN1, c2, c1, 3, 0, ch.get());
                         }
                         case GN2 -> {
-                            Create.invoke(OBJECT.GN2, (byte) c2, (byte) c1, (byte) 1, (byte) 0, ch.get());
+                            Create.invoke(OBJECT.GN2, c2, c1, 1, 0, ch.get());
                         }
                         case DL -> {
-                            Create.invoke(OBJECT.DL, (byte) c2, (byte) c1, (byte) 1, (byte) 0, ' ');
+                            Create.invoke(OBJECT.DL, c2, c1, 1, 0, ' ');
                         }
                         case ASC -> {
-                            Create.invoke(OBJECT.ASC, (byte) c2, (byte) c1, (byte) 1, (byte) 0, '=');
+                            Create.invoke(OBJECT.ASC, c2, c1, 1, 0, '=');
                         }
                         case PIC -> {
-                            Create.invoke(OBJECT.PIC, (byte) c2, (byte) c1, (byte) level, (byte) 2, 'V');
+                            Create.invoke(OBJECT.PIC, c2, c1, level, 2, 'V');
                         }
                         case WOOF -> {
-                            Create.invoke(OBJECT.WOOF, (byte) c2, (byte) c1, (byte) 1, (byte) 0, 'W');
+                            Create.invoke(OBJECT.WOOF, c2, c1, 1, 0, 'W');
                         }
                         case TPLAT -> {
-                            Create.invoke(OBJECT.TPLAT, (byte) c2, (byte) c1, (byte) 1, (byte) 0, ' ');
+                            Create.invoke(OBJECT.TPLAT, c2, c1, 1, 0, ' ');
                         }
                         case NID -> {
-                            Create.invoke(OBJECT.NID, (byte) c2, (byte) c1, (byte) 2, (byte) 0, 'Z');
+                            Create.invoke(OBJECT.NID, c2, c1, 2, 0, 'Z');
                         }
                         case BUB -> {
-                            Create.invoke(OBJECT.BUB, (byte) c2, (byte) c1, (byte) 4, (byte) 0, 'N');
+                            Create.invoke(OBJECT.BUB, c2, c1, 4, 0, 'N');
                         }
                         case BN, SBN -> {
-                            aNSITerm.Color((short) 2);
+                            aNSITerm.Color(2);
                             aNSITerm.Write(ch.get());
                         }
                         default -> {
                             if (ch.get() == '!')
                                 ndoor++;
                             if (ch.get() == 'A') {
-                                ax.set((byte) c2);
-                                ay.set((byte) c1);
-                                aNSITerm.Color((short) 7);
+                                ax.set(c2);
+                                ay.set(c1);
+                                aNSITerm.Color(7);
                                 aNSITerm.Write('0');
                             } else if (ch.get() == 'a') {
-                                Create.invoke(OBJECT.PLAT, (byte) c2, (byte) c1, (byte) 1, (byte) 0, 'T');
-                                ppos[0].x = (byte) c2;
-                                ppos[0].y = (byte) c1;
+                                Create.invoke(OBJECT.PLAT, c2, c1, 1, 0, 'T');
+                                ppos[0].x = c2;
+                                ppos[0].y = c1;
                             } else if ((ch.get() >= 'b') && (ch.get() <= 'd')) {
-                                c = (short) ((char) ch.get() - 'a');
+                                c = (char) ch.get() - 'a';
                                 aNSITerm.Write(' ');
-                                ppos[c].x = (byte) c2;
-                                ppos[c].y = (byte) c1;
+                                ppos[c].x = c2;
+                                ppos[c].y = c1;
                                 t = c;
                                 if (pcount < t)
                                     pcount = t;
@@ -1863,8 +1863,8 @@ public class GrotteSupport {
                 c1 = 25;
             if (game % 2 == 0)
                 c1 = 15;
-            Complete(OBJECT.K3, (byte) (level + 1), c1, '#');
-            c1 = (short) (level / 2 + 1);
+            Complete(OBJECT.K3, level + 1, c1, '#');
+            c1 = level / 2 + 1;
             c2 = 0;
             if (game == 6)
                 c2 = 2;
@@ -1874,19 +1874,19 @@ public class GrotteSupport {
                 c2 = 6;
             if (pvie > 6)
                 c2++;
-            Complete(OBJECT.K2, (byte) c1, c2, 'X');
+            Complete(OBJECT.K2, c1, c2, 'X');
             if (game == 9)
-                Complete(OBJECT.K1, (byte) (level + 1), (short) 6, '+');
+                Complete(OBJECT.K1, level + 1, 6, '+');
             else
-                Complete(OBJECT.K1, (byte) (level + 1), (short) ((game % 3) * 3), '+');
+                Complete(OBJECT.K1, level + 1, (game % 3) * 3, '+');
             if ((game > 1) && (game != 5) && (game != 8))
-                Complete(OBJECT.K4, (byte) 4, (short) 1, 'x');
+                Complete(OBJECT.K4, 4, 1, 'x');
         } else {
             grotteBonus.BonusLevel(ax, ay);
         }
-        aNSITerm.ClearLine((byte) 20);
-        aNSITerm.Goto((byte) 0, (byte) 20);
-        aNSITerm.Color((short) 7);
+        aNSITerm.ClearLine(20);
+        aNSITerm.Goto(0, 20);
+        aNSITerm.Color(7);
     }
 
 

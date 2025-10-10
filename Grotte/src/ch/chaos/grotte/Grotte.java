@@ -41,7 +41,7 @@ public class Grotte {
                             _object.d = GrotteActions.B;
                     }
                 } else {
-                    _object.d = (byte) (grotteSupport.Random() % 5);
+                    _object.d = grotteSupport.Random() % 5;
                 }
                 _object.seq -= grotteSupport.Random() % 16;
             } else {
@@ -60,7 +60,7 @@ public class Grotte {
                 _object.y = grotteActions.oldy;
                 _object.seq = 0;
             } else {
-                grotteActions.MoveObj(k, (byte) 1, _object.x, _object.y, '+');
+                grotteActions.MoveObj(k, 1, _object.x, _object.y, '+');
             }
         }
     }
@@ -89,19 +89,19 @@ public class Grotte {
                 _object.seq++;
             }
             rd = grotteActions.GetK2Dir(_object.x, _object.y, _object.by);
-            grotteActions.ch = aNSITerm.Report(_object.x, (byte) (_object.y + 1));
+            grotteActions.ch = aNSITerm.Report(_object.x, _object.y + 1);
             if ((rd == DIRECTION.NUL) || (rd == DIRECTION.JUMP)) {
                 if (_object.dir != DIRECTION.NUL) {
                     _object.dir = DIRECTION.NUL;
                 } else {
                     if ((grotteActions.ch != ' ') && (grotteActions.ch != 'H') && (grotteActions.ch != '.')) {
                         if (_object.by >= 2) {
-                            _object.seq = (byte) (grotteSupport.Random() % 16);
-                            _object.seq = (byte) -_object.seq;
+                            _object.seq = grotteSupport.Random() % 16;
+                            _object.seq = -_object.seq;
                             if (grotteSupport.Random() % 2 == 0)
-                                _object.by = (byte) (7 - _object.by);
+                                _object.by = 7 - _object.by;
                             else
-                                _object.by = (byte) (_object.by % 2);
+                                _object.by = _object.by % 2;
                         } else {
                             _object.jump = 5;
                         }
@@ -144,7 +144,7 @@ public class Grotte {
                     _object.y = grotteActions.oldy;
                     _object.jump = 0;
                 } else {
-                    aNSITerm.Color((short) 1);
+                    aNSITerm.Color(1);
                     _object.x = grotteActions.oldx;
                     _object.y = grotteActions.oldy;
                     grotteActions.Boum(_object.x, _object.y);
@@ -156,7 +156,7 @@ public class Grotte {
                     _object.jump = 1;
                 _object.y = grotteActions.oldy;
             }
-            grotteActions.MoveObj(k, (byte) 1, _object.x, _object.y, 'X');
+            grotteActions.MoveObj(k, 1, _object.x, _object.y, 'X');
         }
     }
 
@@ -166,7 +166,7 @@ public class Grotte {
         if (grotteActions.first[OBJECT.K3.ordinal()] == k)
             grotteActions.k3c = 0;
         if (grotteActions.k3c > 8) {
-            grotteSupport.attr[OBJECT.K3.ordinal()].co = (short) k;
+            grotteSupport.attr[OBJECT.K3.ordinal()].co = k;
             return;
         }
         { // WITH
@@ -196,7 +196,7 @@ public class Grotte {
             } else if (grotteActions.ch != ' ') {
                 _object.y = grotteActions.oldy;
             }
-            grotteActions.MoveObj(k, (byte) 1, _object.x, _object.y, '#');
+            grotteActions.MoveObj(k, 1, _object.x, _object.y, '#');
             if ((grotteActions.oldx != _object.x) || (grotteActions.oldy != _object.y))
                 grotteActions.k3c++;
             if (_object.next != 0) {
@@ -236,7 +236,7 @@ public class Grotte {
             } else if ((grotteActions.ch != '.') && (grotteActions.ch != ' ')) {
                 _object.x = grotteActions.oldx;
                 if (grotteSupport.Random() % 4 == 0) {
-                    if (aNSITerm.Report(_object.x, (byte) (_object.y + 1)) != ' ')
+                    if (aNSITerm.Report(_object.x, _object.y + 1) != ' ')
                         _object.jump = 5;
                 }
                 if ((grotteSupport.Random() % 8 == 0) || (_object.jump == 0)) {
@@ -251,9 +251,9 @@ public class Grotte {
                 _object.y--;
             } else if (_object.jump == 1) {
                 if (_object.dir == DIRECTION.JUMP) {
-                    grotteActions.FireBall((byte) (_object.x - 1), _object.y, (short) 6, DIRECTION.LEFT);
-                    grotteActions.FireBall((byte) (_object.x + 1), _object.y, (short) 6, DIRECTION.RIGHT);
-                    grotteActions.FireBall(_object.x, (byte) (_object.y - 1), (short) 7, DIRECTION.NUL);
+                    grotteActions.FireBall(_object.x - 1, _object.y, 6, DIRECTION.LEFT);
+                    grotteActions.FireBall(_object.x + 1, _object.y, 6, DIRECTION.RIGHT);
+                    grotteActions.FireBall(_object.x, _object.y - 1, 7, DIRECTION.NUL);
                     grotteActions.Boum(_object.x, _object.y);
                     _object.x = grotteActions.oldx;
                     _object.y = grotteActions.oldy;
@@ -277,7 +277,7 @@ public class Grotte {
             } else if ((grotteActions.ch != '.') && (grotteActions.ch != ' ')) {
                 _object.y = grotteActions.oldy;
             }
-            grotteActions.MoveObj(k, (byte) 1, _object.x, _object.y, 'x');
+            grotteActions.MoveObj(k, 1, _object.x, _object.y, 'x');
         }
     }
 
@@ -307,7 +307,7 @@ public class Grotte {
             else
                 _object.d = GrotteActions.B;
             if (aNSITerm.Report(_object.x, _object.y) == ' ')
-                grotteActions.MoveObj(g, (byte) 5, _object.x, _object.y, _object.ch1);
+                grotteActions.MoveObj(g, 5, _object.x, _object.y, _object.ch1);
             else
                 _object.y = grotteActions.oldy;
             grotteActions.oldy = _object.y;
@@ -334,9 +334,9 @@ public class Grotte {
             if (_object.seq <= 0) {
                 grotteActions.Remove(g);
             } else if (_object.seq == 4) {
-                grotteActions.Fire(OBJECT.L1, _object.x, _object.y, (byte) GrotteActions.G, true);
-                grotteActions.Fire(OBJECT.L1, _object.x, _object.y, (byte) GrotteActions.D, true);
-                grotteActions.Fire(OBJECT.L1, _object.x, _object.y, (byte) GrotteActions.H, true);
+                grotteActions.Fire(OBJECT.L1, _object.x, _object.y, GrotteActions.G, true);
+                grotteActions.Fire(OBJECT.L1, _object.x, _object.y, GrotteActions.D, true);
+                grotteActions.Fire(OBJECT.L1, _object.x, _object.y, GrotteActions.H, true);
             }
         }
     }
@@ -346,7 +346,7 @@ public class Grotte {
     private void MoveAsc(int a) {
         { // WITH
             GrotteActions.Object _object = grotteActions.object[a];
-            if ((_object.y < 2) || grotteActions.Mur(aNSITerm.Report(_object.x, (byte) (_object.y - 2)))) {
+            if ((_object.y < 2) || grotteActions.Mur(aNSITerm.Report(_object.x, _object.y - 2))) {
                 aNSITerm.WriteAt(_object.x, _object.y, ' ');
                 _object.y = _object.by;
                 return;
@@ -364,11 +364,11 @@ public class Grotte {
                     grotteActions.e[grotteActions.oldy - 1][_object.x] = grotteActions.e[grotteActions.oldy][_object.x];
                     grotteActions.ch = aNSITerm.Report(_object.x, grotteActions.oldy);
                     grotteSupport.SetColor(grotteActions.ch);
-                    aNSITerm.WriteAt(_object.x, (byte) (grotteActions.oldy - 1), grotteActions.ch);
+                    aNSITerm.WriteAt(_object.x, grotteActions.oldy - 1, grotteActions.ch);
                     grotteActions.oldy++;
                 }
             } else if (_object.y != _object.by) {
-                grotteActions.oldy = (byte) (_object.y - 1);
+                grotteActions.oldy = _object.y - 1;
                 grotteActions.object[grotteActions.e[grotteActions.oldy][_object.x]].y++;
                 grotteActions.e[_object.y][_object.x] = grotteActions.e[grotteActions.oldy][_object.x];
                 grotteActions.ch = aNSITerm.Report(_object.x, grotteActions.oldy);
@@ -377,13 +377,13 @@ public class Grotte {
             }
             grotteActions.oldy = _object.y;
             _object.y--;
-            aNSITerm.Color((short) 4);
+            aNSITerm.Color(4);
             if (aNSITerm.Report(_object.x, grotteActions.oldy) != '=') {
-                aNSITerm.Color((short) 4);
+                aNSITerm.Color(4);
                 aNSITerm.WriteAt(_object.x, _object.y, '=');
-                grotteActions.e[_object.y][_object.x] = (short) a;
+                grotteActions.e[_object.y][_object.x] = a;
             } else {
-                grotteActions.MoveObj(a, (byte) 4, _object.x, _object.y, '=');
+                grotteActions.MoveObj(a, 4, _object.x, _object.y, '=');
             }
         }
     }
@@ -499,7 +499,7 @@ public class Grotte {
                 case K0, K1, K2, K3, K4, BALL, GN2, PIC -> {
                     bl = grotteActions.e[_object.y][_object.x];
                     grotteActions.WriteTo(_object.x, _object.y, grotteActions.ch);
-                    grotteActions.Aie(OBJECT.L1, grotteActions.object[bl].type, bl, (short) 1);
+                    grotteActions.Aie(OBJECT.L1, grotteActions.object[bl].type, bl, 1);
                     grotteActions.Boum(_object.x, _object.y);
                     grotteActions.Dispose(l);
                     return;
@@ -510,7 +510,7 @@ public class Grotte {
                         if ((_object2.x == grotteSupport.ppos[0].x) && (_object2.y == grotteSupport.ppos[0].y))
                             _object2.seq = 1;
                     }
-                    aNSITerm.Color((short) 4);
+                    aNSITerm.Color(4);
                     grotteActions.Boum(_object.x, _object.y);
                     grotteActions.WriteTo(_object.x, _object.y, 'T');
                     grotteActions.Dispose(l);
@@ -518,7 +518,7 @@ public class Grotte {
                 }
                 default -> {
                     if (grotteActions.ch == '/') {
-                        _object.d = (byte) (5 - _object.d);
+                        _object.d = 5 - _object.d;
                     } else if (grotteActions.ch == '\\') {
                         if (((_object.d % 2) != 0))
                             _object.d++;
@@ -540,7 +540,7 @@ public class Grotte {
                 }
             }
             if ((grotteActions.ch == ' ') || (grotteActions.ch == _object.ch1))
-                grotteActions.e[_object.y][_object.x] = (short) l;
+                grotteActions.e[_object.y][_object.x] = l;
             if (_object.seq >= 0)
                 grotteActions.Remove(l);
         }
@@ -572,20 +572,20 @@ public class Grotte {
             grotteActions.ch = aNSITerm.Report(_object.x, _object.y);
             if ((grotteActions.ch == ' ') || (grotteActions.ch == _object.ch1)) {
                 if (_object.ch2 == ' ') {
-                    grotteActions.MoveObj(l, (byte) 2, _object.x, _object.y, _object.ch1);
+                    grotteActions.MoveObj(l, 2, _object.x, _object.y, _object.ch1);
                 } else {
-                    grotteActions.e[_object.y][_object.x] = (short) l;
+                    grotteActions.e[_object.y][_object.x] = l;
                     grotteActions.WriteTo(grotteActions.oldx, _object.y, _object.ch2);
-                    aNSITerm.Color((short) 2);
+                    aNSITerm.Color(2);
                     aNSITerm.WriteAt(_object.x, _object.y, _object.ch1);
                 }
             } else {
                 if (_object.ch2 == ' ') {
-                    aNSITerm.Color((short) 2);
+                    aNSITerm.Color(2);
                     aNSITerm.WriteAt(grotteActions.oldx, _object.y, ' ');
                 } else {
                     grotteActions.WriteTo(grotteActions.oldx, _object.y, _object.ch2);
-                    aNSITerm.Color((short) 2);
+                    aNSITerm.Color(2);
                 }
                 if (grotteActions.ch != '*')
                     aNSITerm.Ghost(_object.x, _object.y, _object.ch1);
@@ -618,13 +618,13 @@ public class Grotte {
                     }
                     if (aNSITerm.Report(_object.x, _object.y) == ' ') {
                         aNSITerm.WriteAt(_object.x, _object.y, _object.ch1);
-                        grotteActions.e[_object.y][_object.x] = (short) l;
+                        grotteActions.e[_object.y][_object.x] = l;
                     }
                 }
                 default -> {
                     if (grotteActions.ch == '.') {
                         aNSITerm.WriteAt(_object.x, _object.y, _object.ch1);
-                        grotteActions.e[_object.y][_object.x] = (short) l;
+                        grotteActions.e[_object.y][_object.x] = l;
                     } else if ((grotteActions.ch == 'A') || (grotteSupport.TypeOf(grotteActions.ch) == OBJECT.SBN) || (grotteActions.ch == '%') || (grotteActions.ch == '!') || (grotteActions.ch == ':')) {
                         _object.seq += 5;
                         if (_object.d == GrotteActions.G) {
@@ -681,11 +681,11 @@ public class Grotte {
                     grotteActions.CreateObj(_object.x, _object.y);
             } else {
                 if (_object.ch2 == ' ') {
-                    grotteActions.MoveObj(l, (byte) 1, _object.x, _object.y, _object.ch1);
+                    grotteActions.MoveObj(l, 1, _object.x, _object.y, _object.ch1);
                 } else {
                     grotteActions.WriteTo(grotteActions.oldx, grotteActions.oldy, _object.ch2);
-                    grotteActions.e[_object.y][_object.x] = (short) l;
-                    aNSITerm.Color((short) 1);
+                    grotteActions.e[_object.y][_object.x] = l;
+                    aNSITerm.Color(1);
                     aNSITerm.WriteAt(_object.x, _object.y, _object.ch1);
                 }
             }
@@ -697,7 +697,7 @@ public class Grotte {
     private void MoveBall(int b) {
         // VAR
         int bo = 0;
-        byte z = 0;
+        int z = 0;
         OBJECT t = OBJECT.EMPTY;
 
         { // WITH
@@ -706,7 +706,7 @@ public class Grotte {
                 grotteActions.Remove(b);
                 return;
             }
-            aNSITerm.Color((short) 6);
+            aNSITerm.Color(6);
             grotteActions.oldx = _object.x;
             grotteActions.oldy = _object.y;
             if (_object.jump > 1) {
@@ -724,7 +724,7 @@ public class Grotte {
             } else if ((grotteActions.ch == '+') || (grotteActions.ch == 'X')) {
                 bo = grotteActions.e[_object.y][_object.x];
                 grotteActions.Boum(_object.x, _object.y);
-                grotteActions.Aie(OBJECT.BALL, grotteActions.object[bo].type, bo, (short) 1);
+                grotteActions.Aie(OBJECT.BALL, grotteActions.object[bo].type, bo, 1);
                 _object.x = grotteActions.oldx;
                 _object.y = grotteActions.oldy;
                 grotteActions.Remove(b);
@@ -753,7 +753,7 @@ public class Grotte {
                 return;
             }
             if (_object.dir != DIRECTION.NUL) {
-                z = (byte) (_object.x - grotteActions.oldx + _object.x);
+                z = _object.x - grotteActions.oldx + _object.x;
                 t = grotteSupport.TypeOf(aNSITerm.Report(z, _object.y));
                 if ((t != OBJECT.EMPTY) && (t != OBJECT.PLAYER) && (t != OBJECT.SBN) && (t != OBJECT.K1) && (t != OBJECT.K2) && (t != OBJECT.BALL)) {
                     if (_object.dir == DIRECTION.LEFT)
@@ -762,7 +762,7 @@ public class Grotte {
                         _object.dir = DIRECTION.LEFT;
                 }
             }
-            z = (byte) (_object.y - grotteActions.oldy + _object.y);
+            z = _object.y - grotteActions.oldy + _object.y;
             t = grotteSupport.TypeOf(aNSITerm.Report(_object.x, z));
             if ((t != OBJECT.EMPTY) && (t != OBJECT.PLAYER) && (t != OBJECT.SBN) && (t != OBJECT.K1) && (t != OBJECT.K2) && (t != OBJECT.BALL)) {
                 if (_object.jump > 0) {
@@ -774,7 +774,7 @@ public class Grotte {
                         _object.by--;
                 }
             }
-            grotteActions.MoveObj(b, (byte) 6, _object.x, _object.y, 'O');
+            grotteActions.MoveObj(b, 6, _object.x, _object.y, 'O');
         }
     }
 
@@ -783,7 +783,7 @@ public class Grotte {
     private void MovePic(int p) {
         // VAR
         int bo = 0;
-        byte i = 0;
+        int i = 0;
 
         { // WITH
             GrotteActions.Object _object = grotteActions.object[p];
@@ -794,7 +794,7 @@ public class Grotte {
             if (_object.seq == 2) {
                 grotteActions.SetPxPy(_object.x, _object.y);
                 _object.d = GrotteActions.N;
-                i = (byte) (grotteSupport.Random() % 8);
+                i = grotteSupport.Random() % 8;
                 if ((grotteActions.py > _object.y) && (Math.abs(_object.x - grotteActions.px) <= i) && (grotteSupport.Random() % 4 == 0))
                     _object.seq = 1;
             } else {
@@ -809,19 +809,19 @@ public class Grotte {
                 if (grotteActions.ch == '8')
                     grotteActions.ch = '.';
                 if ((grotteActions.ch == '>') || (grotteActions.ch == '\\')) {
-                    _object.ch1 = aNSITerm.Report((byte) (_object.x + 1), _object.y);
+                    _object.ch1 = aNSITerm.Report(_object.x + 1, _object.y);
                     if (_object.ch1 == ' ') {
                         _object.x++;
                         grotteActions.ch = _object.ch1;
                     }
                 } else if ((grotteActions.ch == '<') || (grotteActions.ch == '/')) {
-                    _object.ch1 = aNSITerm.Report((byte) (_object.x - 1), _object.y);
+                    _object.ch1 = aNSITerm.Report(_object.x - 1, _object.y);
                     if (_object.ch1 == ' ') {
                         _object.x--;
                         grotteActions.ch = _object.ch1;
                     }
                 }
-                aNSITerm.Color((short) 5);
+                aNSITerm.Color(5);
                 switch (grotteSupport.TypeOf(grotteActions.ch)) {
                     case PLAYER -> {
                         grotteActions.AiePlayer(_object.x, _object.y, 'V', p);
@@ -848,7 +848,7 @@ public class Grotte {
                         }
                     }
                 }
-                grotteActions.MoveObj(p, (byte) 5, _object.x, _object.y, 'V');
+                grotteActions.MoveObj(p, 5, _object.x, _object.y, 'V');
             }
         }
     }
@@ -857,9 +857,9 @@ public class Grotte {
 
     private void MovePlat(int p) {
         // VAR
-        byte dx = 0;
-        byte dy = 0;
-        short cc = 0;
+        int dx = 0;
+        int dy = 0;
+        int cc = 0;
         int pl = 0;
         char c1 = (char) 0;
         OBJECT t = OBJECT.EMPTY;
@@ -870,9 +870,9 @@ public class Grotte {
             _object.by = grotteSupport.ppos[_object.seq].y;
             if ((_object.x == _object.bx) && (_object.y == _object.by)) {
                 if (aNSITerm.Report(_object.x, _object.y) == ' ') {
-                    aNSITerm.Color((short) 4);
+                    aNSITerm.Color(4);
                     aNSITerm.WriteAt(_object.x, _object.y, 'T');
-                    grotteActions.e[_object.y][_object.x] = (short) p;
+                    grotteActions.e[_object.y][_object.x] = p;
                 }
                 if (_object.seq == 0)
                     return;
@@ -913,28 +913,28 @@ public class Grotte {
             if ((t == OBJECT.BM) || (t == OBJECT.MR) || (t == OBJECT.SBN) || (t == OBJECT.NID) || (t == OBJECT.BUB) || (t == OBJECT.PIC))
                 _object.flags.incl(0);
             if (_object.flags.contains(1)) {
-                aNSITerm.Color((short) 4);
+                aNSITerm.Color(4);
                 if (_object.flags.contains(0)) {
                     aNSITerm.Ghost(_object.x, _object.y, 'T');
                 } else {
-                    grotteActions.e[_object.y][_object.x] = (short) p;
+                    grotteActions.e[_object.y][_object.x] = p;
                     aNSITerm.WriteAt(_object.x, _object.y, 'T');
                 }
                 grotteActions.WriteTo(grotteActions.oldx, grotteActions.oldy, c1);
             } else {
                 if (_object.flags.contains(0)) {
-                    aNSITerm.Color((short) 4);
+                    aNSITerm.Color(4);
                     aNSITerm.Ghost(_object.x, _object.y, 'T');
                     if (grotteActions.e[grotteActions.oldy][grotteActions.oldx] == p)
                         aNSITerm.WriteAt(grotteActions.oldx, grotteActions.oldy, ' ');
                 } else {
-                    grotteActions.MoveObj(p, (byte) 4, _object.x, _object.y, 'T');
+                    grotteActions.MoveObj(p, 4, _object.x, _object.y, 'T');
                 }
             }
             grotteActions.Snd(OBJECT.PLAYER, OBJECT.GN2, _object.x, _object.y);
-            c1 = aNSITerm.Report(_object.x, (byte) (_object.y - 1));
-            dx = (byte) (_object.x - grotteActions.oldx);
-            dy = (byte) (_object.y - grotteActions.oldy);
+            c1 = aNSITerm.Report(_object.x, _object.y - 1);
+            dx = _object.x - grotteActions.oldx;
+            dy = _object.y - grotteActions.oldy;
             t = grotteSupport.TypeOf(c1);
             if ((grotteActions.px == grotteActions.oldx) && (grotteActions.py == grotteActions.oldy - 1) && ((t == OBJECT.EMPTY) || (t == OBJECT.BN) || (t == OBJECT.SBN) || (t == OBJECT.L1) || (t == OBJECT.L2))) {
                 { // WITH
@@ -943,8 +943,8 @@ public class Grotte {
                         aNSITerm.WriteAt(_object2.x, _object2.y, ' ');
                     _object2.x += dx;
                     _object2.y += dy;
-                    grotteActions.e[_object2.y][_object2.x] = (short) pl;
-                    aNSITerm.Color((short) 2);
+                    grotteActions.e[_object2.y][_object2.x] = pl;
+                    aNSITerm.Color(2);
                     if (c1 == ' ')
                         aNSITerm.WriteAt(_object2.x, _object2.y, '*');
                     else
@@ -974,7 +974,7 @@ public class Grotte {
             else
                 _object.x--;
             if (aNSITerm.Report(_object.x, _object.y) == ' ') {
-                grotteActions.MoveObj(p, (byte) 4, _object.x, _object.y, 'W');
+                grotteActions.MoveObj(p, 4, _object.x, _object.y, 'W');
                 grotteActions.Snd(OBJECT.PLAYER, OBJECT.GN2, _object.x, _object.y);
                 if ((grotteActions.px == grotteActions.oldx) && (grotteActions.py == _object.y - 1)) {
                     pl = grotteActions.e[grotteActions.py][grotteActions.px];
@@ -985,8 +985,8 @@ public class Grotte {
                             GrotteActions.Object _object2 = grotteActions.object[pl];
                             aNSITerm.WriteAt(_object2.x, _object2.y, ' ');
                             _object2.x = grotteActions.object[p].x;
-                            grotteActions.e[_object2.y][_object2.x] = (short) pl;
-                            aNSITerm.Color((short) 2);
+                            grotteActions.e[_object2.y][_object2.x] = pl;
+                            aNSITerm.Color(2);
                             if (ch == ' ')
                                 aNSITerm.WriteAt(_object2.x, _object2.y, '*');
                             else
@@ -1017,9 +1017,9 @@ public class Grotte {
                 ch = aNSITerm.Report(_object.x, _object.y);
                 if ((ch == ' ') || (ch == 'U')) {
                     _object.seq = 15;
-                    aNSITerm.Color((short) 4);
+                    aNSITerm.Color(4);
                     aNSITerm.WriteAt(_object.x, _object.y, 'U');
-                    grotteActions.e[_object.y][_object.x] = (short) p;
+                    grotteActions.e[_object.y][_object.x] = p;
                 }
             }
             if (_object.seq > 0) {
@@ -1049,18 +1049,18 @@ public class Grotte {
                 _object.bx = GrotteActions.D;
             else
                 _object.bx = GrotteActions.G;
-            if (aNSITerm.Report((byte) (_object.x + grotteActions.deltah[_object.bx]), _object.y) == ' ')
+            if (aNSITerm.Report(_object.x + grotteActions.deltah[_object.bx], _object.y) == ' ')
                 grotteActions.Fire(OBJECT.L3, _object.x, _object.y, _object.bx, true);
-            aNSITerm.Color((short) 5);
+            aNSITerm.Color(5);
             aNSITerm.WriteAt(_object.x, _object.y, 'Z');
-            grotteActions.e[_object.y][_object.x] = (short) n;
+            grotteActions.e[_object.y][_object.x] = n;
             if (grotteActions.mvie > 30)
                 _object.by = 120;
             else
-                _object.by = (byte) (grotteActions.mvie * 4);
+                _object.by = grotteActions.mvie * 4;
             c = 124 - _object.by;
-            _object.seq = (byte) (grotteSupport.Random() % c);
-            _object.seq = (byte) -_object.seq;
+            _object.seq = grotteSupport.Random() % c;
+            _object.seq = -_object.seq;
         }
     }
 
@@ -1077,19 +1077,19 @@ public class Grotte {
                 _object.seq++;
                 return;
             }
-            aNSITerm.Color((short) 5);
+            aNSITerm.Color(5);
             aNSITerm.WriteAt(_object.x, _object.y, 'N');
-            grotteActions.e[_object.y][_object.x] = (short) b;
-            grotteActions.FireBall((byte) (_object.x - 1), _object.y, (short) 6, DIRECTION.LEFT);
-            grotteActions.FireBall((byte) (_object.x + 1), _object.y, (short) 6, DIRECTION.RIGHT);
-            grotteActions.FireBall(_object.x, (byte) (_object.y + 1), (short) 6, DIRECTION.NUL);
+            grotteActions.e[_object.y][_object.x] = b;
+            grotteActions.FireBall(_object.x - 1, _object.y, 6, DIRECTION.LEFT);
+            grotteActions.FireBall(_object.x + 1, _object.y, 6, DIRECTION.RIGHT);
+            grotteActions.FireBall(_object.x, _object.y + 1, 6, DIRECTION.NUL);
             if (grotteActions.mvie > 20)
                 _object.by = 120;
             else
-                _object.by = (byte) (grotteActions.mvie * 4);
+                _object.by = grotteActions.mvie * 4;
             c = 124 - _object.by;
-            _object.seq = (byte) (grotteSupport.Random() % c);
-            _object.seq = (byte) (-_object.seq - 3);
+            _object.seq = grotteSupport.Random() % c;
+            _object.seq = -_object.seq - 3;
         }
     }
 
@@ -1110,7 +1110,7 @@ public class Grotte {
                 _object.x--;
             else if (aNSITerm.Report(_object.x, _object.y) == '\\')
                 _object.x++;
-            aNSITerm.Color((short) 2);
+            aNSITerm.Color(2);
             grotteActions.ch = aNSITerm.Report(_object.x, _object.y);
             if (grotteActions.ch == '.') {
                 grotteActions.Snd(OBJECT.K1, OBJECT.BN, _object.x, _object.y);
@@ -1134,7 +1134,7 @@ public class Grotte {
                     grotteActions.addpt += grotteActions.dispt[_object2.type.ordinal()] * 10;
                 }
             }
-            grotteActions.MoveObj(b, (byte) 2, _object.x, _object.y, '%');
+            grotteActions.MoveObj(b, 2, _object.x, _object.y, '%');
         }
     }
 
@@ -1151,7 +1151,7 @@ public class Grotte {
                 ch = aNSITerm.Report(_object.x, _object.y);
                 if (ch == ' ') {
                     grotteActions.Remove(dl);
-                    aNSITerm.Color((short) 2);
+                    aNSITerm.Color(2);
                     aNSITerm.WriteAt(_object.x, _object.y, '$');
                     grotteActions.Boum(_object.x, _object.y);
                 }
@@ -1163,15 +1163,15 @@ public class Grotte {
 
     private void EraseBoum(int b) {
         // VAR
-        byte c1 = 0;
-        byte c2 = 0;
+        int c1 = 0;
+        int c2 = 0;
 
         { // WITH
             GrotteActions.Object _object = grotteActions.object[b];
             for (c1 = -1; c1 <= 1; c1++) {
                 for (c2 = -1; c2 <= 1; c2++) {
                     if ((c1 != 0) || (c2 != 0))
-                        grotteActions.WriteTo((byte) (_object.x + c2), (byte) (_object.y + c1), aNSITerm.Report((byte) (_object.x + c2), (byte) (_object.y + c1)));
+                        grotteActions.WriteTo(_object.x + c2, _object.y + c1, aNSITerm.Report(_object.x + c2, _object.y + c1));
                 }
             }
         }
@@ -1295,8 +1295,8 @@ public class Grotte {
     private void GameFinish() {
         if (grotteSupport.stat != _Stat.Finish)
             return;
-        aNSITerm.Color((short) 7);
-        aNSITerm.Goto((byte) 0, (byte) 21);
+        aNSITerm.Color(7);
+        aNSITerm.Goto(0, 21);
         aNSITerm.WriteString("YOU MADE IT !!!");
         grotteActions.rfx = 0;
         grotteActions.rfy = 20;
@@ -1322,7 +1322,7 @@ public class Grotte {
     private void Play() {
         // VAR
         OBJECT t = OBJECT.EMPTY;
-        short nc = 0;
+        int nc = 0;
         int mo = 0;
 
         grotteActions.wtc = 0;
@@ -1341,7 +1341,7 @@ public class Grotte {
                         for (nc = 1; nc <= _attr.nt; nc++) {
                             if (_attr.co != 0) {
                                 mo = _attr.co;
-                                _attr.co = (short) grotteActions.object[_attr.co].next;
+                                _attr.co = grotteActions.object[_attr.co].next;
                                 grotteActions.Move[t.ordinal()].invoke(mo);
                             }
                         }
@@ -1353,7 +1353,7 @@ public class Grotte {
                     if (_attr.timeout == 0) {
                         _attr.timeout = grotteActions.speed[t.ordinal()];
                         grotteActions.SetAttr(t);
-                        _attr.co = (short) grotteActions.first[t.ordinal()];
+                        _attr.co = grotteActions.first[t.ordinal()];
                     }
                 }
             }

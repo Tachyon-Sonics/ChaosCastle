@@ -326,6 +326,15 @@ public class Files {
                 return readBytes(file, bytes, (int) length);
             } else if (data instanceof short[] shorts) {
                 return readShorts(file, shorts, (int) length);
+            } else if (data instanceof int[] ints) {
+            	/*
+            	 * Used by Grotte to read sounds. Use 16-bit
+            	 */
+                short[] shorts = new short[ints.length];
+                int result = readShorts(file, shorts, (int) length);
+                for (int i = 0; i < shorts.length; i++)
+                    ints[i] = shorts[i];
+                return result;
             } else {
                 // todo implement ReadFileBytes
                 throw new UnsupportedOperationException("Not implemented: ReadFileBytes " + data.getClass().getName());

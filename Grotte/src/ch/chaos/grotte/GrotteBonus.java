@@ -39,7 +39,7 @@ public class GrotteBonus {
 
     // PROCEDURE
 
-    private void WrAt(byte x, byte y, char ch) {
+    private void WrAt(int x, int y, char ch) {
         // VAR
         boolean w = false;
 
@@ -50,31 +50,31 @@ public class GrotteBonus {
 
     private void Cadre(boolean H) {
         // VAR
-        byte c = 0;
+        int c = 0;
 
-        aNSITerm.Goto((byte) 0, (byte) 0);
-        aNSITerm.Color((short) 7);
+        aNSITerm.Goto(0, 0);
+        aNSITerm.Color(7);
         for (c = 0; c <= 71; c++) {
             aNSITerm.Write('S');
         }
-        aNSITerm.Goto((byte) 0, (byte) 19);
+        aNSITerm.Goto(0, 19);
         for (c = 0; c <= 71; c++) {
             if (H) {
-                aNSITerm.Color((short) 6);
+                aNSITerm.Color(6);
                 aNSITerm.Write('H');
             } else {
-                aNSITerm.Color((short) 7);
+                aNSITerm.Color(7);
                 aNSITerm.Write('S');
             }
         }
-        aNSITerm.Color((short) 7);
+        aNSITerm.Color(7);
         for (c = 0; c <= 19; c++) {
-            WrAt((byte) 0, c, 'S');
-            WrAt((byte) 71, c, 'S');
+            WrAt(0, c, 'S');
+            WrAt(71, c, 'S');
         }
     }
 
-    private void Find(/* VAR */ Runtime.IRef<Short> x, /* VAR */ Runtime.IRef<Short> y, short sx, short sy, short dx, short dy) {
+    private void Find(/* VAR */ Runtime.IRef<Integer> x, /* VAR */ Runtime.IRef<Integer> y, int sx, int sy, int dx, int dy) {
         // VAR
         int w = 0;
         int h = 0;
@@ -82,176 +82,176 @@ public class GrotteBonus {
         w = dx - sx + 1;
         h = dy - sy + 1;
         do {
-            x.set((short) (grotteSupport.Rnd() % w));
+            x.set(grotteSupport.Rnd() % w);
             x.inc(sx);
-            y.set((short) (grotteSupport.Rnd() % h));
+            y.set(grotteSupport.Rnd() % h);
             y.inc(sy);
-        } while (aNSITerm.Report((byte) (short) x.get(), (byte) (short) y.get()) != ' ');
+        } while (aNSITerm.Report(x.get(), y.get()) != ' ');
     }
 
-    private void Put(char ch, short n, short sx, short sy, short dx, short dy) {
+    private void Put(char ch, int n, int sx, int sy, int dx, int dy) {
         // VAR
-        Runtime.Ref<Short> x = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y = new Runtime.Ref<>((short) 0);
-        short c = 0;
+        Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y = new Runtime.Ref<>(0);
+        int c = 0;
 
         for (c = 1; c <= n; c++) {
             Find(x, y, sx, sy, dx, dy);
-            WrAt((byte) (short) x.get(), (byte) (short) y.get(), ch);
+            WrAt(x.get(), y.get(), ch);
         }
     }
 
-    private void PutObj(OBJECT t, short n, short sx, short sy, short dx, short dy, short nvie, short nseq, char ch) {
+    private void PutObj(OBJECT t, int n, int sx, int sy, int dx, int dy, int nvie, int nseq, char ch) {
         // VAR
-        Runtime.Ref<Short> x = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y = new Runtime.Ref<>((short) 0);
-        short c = 0;
+        Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y = new Runtime.Ref<>(0);
+        int c = 0;
 
         for (c = 1; c <= n; c++) {
             Find(x, y, sx, sy, dx, dy);
-            grotteSupport.Create.invoke(t, (byte) (short) x.get(), (byte) (short) y.get(), (byte) nvie, (byte) nseq, ch);
+            grotteSupport.Create.invoke(t, x.get(), y.get(), nvie, nseq, ch);
         }
     }
 
-    private void PutDeltaObj(OBJECT t, short n, short sx, short sy, short dx, short dy, short h, short v, short nvie, short nseq, char ch) {
+    private void PutDeltaObj(OBJECT t, int n, int sx, int sy, int dx, int dy, int h, int v, int nvie, int nseq, char ch) {
         // VAR
-        Runtime.Ref<Short> x = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y = new Runtime.Ref<>((short) 0);
-        short c = 0;
+        Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y = new Runtime.Ref<>(0);
+        int c = 0;
 
         for (c = 1; c <= n; c++) {
             Find(x, y, sx, sy, dx, dy);
-            while (aNSITerm.Report((byte) (x.get() + h), (byte) (y.get() + v)) == ' ') {
+            while (aNSITerm.Report(x.get() + h, y.get() + v) == ' ') {
                 x.inc(h);
                 y.inc(v);
             }
-            grotteSupport.Create.invoke(t, (byte) (short) x.get(), (byte) (short) y.get(), (byte) nvie, (byte) nseq, ch);
+            grotteSupport.Create.invoke(t, x.get(), y.get(), nvie, nseq, ch);
         }
     }
 
-    private void DrawK0(short sx, short sy, short dx, short dy, short nseq) {
+    private void DrawK0(int sx, int sy, int dx, int dy, int nseq) {
         // VAR
-        short c1 = 0;
-        short c2 = 0;
+        int c1 = 0;
+        int c2 = 0;
 
         c1 = 0;
         c2 = 1;
         while ((grotteSupport.pvie > c2 + 2) && (c2 < 64)) {
             c1++;
-            c2 = (short) (c2 * 2);
+            c2 = c2 * 2;
         }
-        PutObj(OBJECT.K0, c1, sx, sy, dx, dy, (short) (grotteSupport.pvie / 4 + 1), nseq, '&');
+        PutObj(OBJECT.K0, c1, sx, sy, dx, dy, grotteSupport.pvie / 4 + 1, nseq, '&');
     }
 
-    private void BonusLevel1(/* VAR */ Runtime.IRef<Byte> ax, /* VAR */ Runtime.IRef<Byte> ay) {
+    private void BonusLevel1(/* VAR */ Runtime.IRef<Integer> ax, /* VAR */ Runtime.IRef<Integer> ay) {
         // VAR
-        short dx = 0;
-        short dy = 0;
-        short x = 0;
-        short y = 0;
-        short c = 0;
+        int dx = 0;
+        int dy = 0;
+        int x = 0;
+        int y = 0;
+        int c = 0;
 
         Cadre(false);
-        aNSITerm.Color((short) 6);
+        aNSITerm.Color(6);
         for (x = 40; x <= 71; x++) {
-            WrAt((byte) x, (byte) 19, 'H');
+            WrAt(x, 19, 'H');
         }
-        aNSITerm.Color((short) 7);
+        aNSITerm.Color(7);
         for (y = 2; y <= 18; y++) {
-            WrAt((byte) 39, (byte) y, 'S');
+            WrAt(39, y, 'S');
         }
-        ax.set((byte) 39);
-        ay.set((byte) 18);
+        ax.set(39);
+        ay.set(18);
         dx = 1;
         for (y = 2; y <= 14; y += 4) {
-            dy = (short) (grotteSupport.Rnd() % 3);
-            dx = (short) (2 - dy);
+            dy = grotteSupport.Rnd() % 3;
+            dx = 2 - dy;
             for (x = 1; x <= 30; x++) {
-                WrAt((byte) x, (byte) (y + dy), 'S');
+                WrAt(x, y + dy, 'S');
             }
             for (c = 1; c <= 4; c++) {
-                x = (short) (grotteSupport.Rnd() % 32 + 1);
-                for (dy = (short) (y + 1); dy <= y + dx; dy++) {
-                    WrAt((byte) x, (byte) dy, 'S');
+                x = grotteSupport.Rnd() % 32 + 1;
+                for (dy = y + 1; dy <= y + dx; dy++) {
+                    WrAt(x, dy, 'S');
                 }
             }
         }
         for (c = 1; c <= 200; c++) {
-            WrAt((byte) (grotteSupport.Rnd() % 35 + 1), (byte) (grotteSupport.Rnd() % 16 + 2), ' ');
+            WrAt(grotteSupport.Rnd() % 35 + 1, grotteSupport.Rnd() % 16 + 2, ' ');
         }
         for (y = 2; y <= 16; y += 2) {
             x = 39;
             while (true) {
                 x += grotteSupport.Rnd() % 8 + 1;
-                dy = (short) (grotteSupport.Rnd() % 2);
+                dy = grotteSupport.Rnd() % 2;
                 if (x > 69)
                     break;
-                WrAt((byte) x, (byte) (y + dy), 'S');
+                WrAt(x, y + dy, 'S');
                 if (grotteSupport.Rnd() % 2 == 1)
-                    WrAt((byte) (x + 1), (byte) (y + dy), 'S');
+                    WrAt(x + 1, y + dy, 'S');
             }
         }
-        grotteSupport.Create.invoke(OBJECT.PLAYER, (byte) 1, (byte) 1, grotteSupport.pvie, (byte) 0, '*');
-        grotteSupport.Create.invoke(OBJECT.ASC, (byte) 37, (byte) 16, (byte) 1, (byte) 0, '=');
-        aNSITerm.Color((short) 3);
-        WrAt((byte) 35, (byte) 1, '!');
+        grotteSupport.Create.invoke(OBJECT.PLAYER, 1, 1, grotteSupport.pvie, 0, '*');
+        grotteSupport.Create.invoke(OBJECT.ASC, 37, 16, 1, 0, '=');
+        aNSITerm.Color(3);
+        WrAt(35, 1, '!');
         grotteSupport.ndoor++;
-        PutObj(OBJECT.NID, (short) 15, (short) 1, (short) 1, (short) 70, (short) 18, (short) 2, (short) 0, 'Z');
-        aNSITerm.Color((short) 2);
-        Put('%', (short) 8, (short) 1, (short) 1, (short) 70, (short) 8);
-        Put('@', (short) 4, (short) 1, (short) 1, (short) 70, (short) 12);
+        PutObj(OBJECT.NID, 15, 1, 1, 70, 18, 2, 0, 'Z');
+        aNSITerm.Color(2);
+        Put('%', 8, 1, 1, 70, 8);
+        Put('@', 4, 1, 1, 70, 12);
     }
 
-    private void BonusLevel2(/* VAR */ Runtime.IRef<Byte> ax, /* VAR */ Runtime.IRef<Byte> ay) {
+    private void BonusLevel2(/* VAR */ Runtime.IRef<Integer> ax, /* VAR */ Runtime.IRef<Integer> ay) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short c = 0;
-        short d = 0;
-        short k = 0;
-        short mx = 0;
+        int x = 0;
+        int y = 0;
+        int c = 0;
+        int d = 0;
+        int k = 0;
+        int mx = 0;
 
         Cadre(false);
-        aNSITerm.Color((short) 7);
+        aNSITerm.Color(7);
         y = 1;
         x = 54;
         c = 0;
         while (y < 18) {
             if (c <= 0) {
-                c = (short) (grotteSupport.Rnd() % 4 + 1);
-                d = (short) (grotteSupport.Rnd() % 3);
+                c = grotteSupport.Rnd() % 4 + 1;
+                d = grotteSupport.Rnd() % 3;
                 d--;
             }
             if (x > 60)
-                d = (short) -Math.abs(d);
+                d = (int) -Math.abs(d);
             else if (x < 44)
-                d = (short) Math.abs(d);
-            WrAt((byte) x, (byte) y, ':');
+                d = (int) Math.abs(d);
+            WrAt(x, y, ':');
             y++;
             x += d;
             c--;
         }
         for (k = 0; k <= 2; k += 2) {
-            y = (short) (5 + k * 4);
-            x = (short) (k + 1);
-            mx = (short) (y + 3);
+            y = 5 + k * 4;
+            x = k + 1;
+            mx = y + 3;
             c = 0;
-            while ((aNSITerm.Report((byte) (x + 2 - k), (byte) y) == ' ') && (aNSITerm.Report((byte) (x + 3 - k), (byte) y) == ' ')) {
+            while ((aNSITerm.Report(x + 2 - k, y) == ' ') && (aNSITerm.Report(x + 3 - k, y) == ' ')) {
                 if (c <= 0) {
-                    c = (short) (grotteSupport.Rnd() % 4 + 2);
-                    d = (short) (grotteSupport.Rnd() % 3);
+                    c = grotteSupport.Rnd() % 4 + 2;
+                    d = grotteSupport.Rnd() % 3;
                     d--;
                 }
                 y += d;
-                if ((aNSITerm.Report((byte) x, (byte) (y - 1)) != ' ') || (aNSITerm.Report((byte) x, (byte) (y - 2)) != ' ')) {
+                if ((aNSITerm.Report(x, y - 1) != ' ') || (aNSITerm.Report(x, y - 2) != ' ')) {
                     y += 2;
-                    d = (short) Math.abs(d);
+                    d = (int) Math.abs(d);
                 }
                 if (y > mx) {
                     y = mx;
-                    d = (short) -Math.abs(d);
+                    d = (int) -Math.abs(d);
                 }
-                WrAt((byte) x, (byte) y, ':');
+                WrAt(x, y, ':');
                 x++;
                 c--;
             }
@@ -261,142 +261,142 @@ public class GrotteBonus {
             y = 18;
             do {
                 c--;
-            } while (!((aNSITerm.Report((byte) x, (byte) c) != ' ') || (c <= 9)));
+            } while (!((aNSITerm.Report(x, c) != ' ') || (c <= 9)));
             c += 6;
             while (y >= c) {
-                WrAt((byte) x, (byte) y, 'S');
+                WrAt(x, y, 'S');
                 y--;
             }
         }
-        aNSITerm.Color((short) 3);
-        WrAt((byte) 1, (byte) 18, '!');
+        aNSITerm.Color(3);
+        WrAt(1, 18, '!');
         grotteSupport.ndoor += 2;
-        WrAt((byte) 70, (byte) 18, '!');
-        ax.set((byte) 70);
-        ay.set((byte) 1);
-        aNSITerm.Color((short) 6);
-        WrAt((byte) 69, (byte) 19, 'H');
+        WrAt(70, 18, '!');
+        ax.set(70);
+        ay.set(1);
+        aNSITerm.Color(6);
+        WrAt(69, 19, 'H');
         y = 18;
         x = 65;
         while (y > 1) {
-            grotteSupport.Create.invoke(OBJECT.TPLAT, (byte) x, (byte) y, (byte) 1, (byte) 0, ' ');
-            d = (short) (grotteSupport.Rnd() % 3);
+            grotteSupport.Create.invoke(OBJECT.TPLAT, x, y, 1, 0, ' ');
+            d = grotteSupport.Rnd() % 3;
             y -= d + 1;
             do {
-                c = (short) (grotteSupport.Rnd() % 9);
+                c = grotteSupport.Rnd() % 9;
                 c -= 4;
                 if (x + c < 61)
-                    c = (short) Math.abs(c);
+                    c = (int) Math.abs(c);
                 else if (x + c > 70)
-                    c = (short) -Math.abs(c);
+                    c = (int) -Math.abs(c);
             } while (!((c != 0) && !((d == 0) && (Math.abs(c) == 1))));
             x += c;
         }
-        aNSITerm.Color((short) 7);
+        aNSITerm.Color(7);
         for (x = 61; x <= 70; x += 3) {
-            WrAt((byte) x, (byte) 3, ':');
+            WrAt(x, 3, ':');
         }
         for (c = 1; c <= 20; c++) {
-            WrAt((byte) (grotteSupport.Rnd() % 64 + 1), (byte) (grotteSupport.Rnd() % 16 + 2), ' ');
+            WrAt(grotteSupport.Rnd() % 64 + 1, grotteSupport.Rnd() % 16 + 2, ' ');
         }
-        Put(' ', (short) 20, (short) 10, (short) 1, (short) 44, (short) 18);
-        grotteSupport.Create.invoke(OBJECT.PLAYER, (byte) 1, (byte) 1, grotteSupport.pvie, (byte) 0, '*');
-        grotteSupport.Create.invoke(OBJECT.GN1, (byte) 70, (byte) 9, (byte) 3, (byte) 0, '<');
-        PutDeltaObj(OBJECT.PIC, (short) 12, (short) 5, (short) 1, (short) 68, (short) 17, (short) 0, (short) -1, (short) 1, (short) 2, 'V');
-        DrawK0((short) 36, (short) 1, (short) 70, (short) 18, (short) 0);
-        PutObj(OBJECT.K4, (short) 20, (short) 1, (short) 1, (short) 70, (short) 12, grotteSupport.pvie, (short) 2, 'x');
-        aNSITerm.Color((short) 2);
-        Put('.', (short) 80, (short) 1, (short) 1, (short) 44, (short) 18);
-        Put('%', (short) 8, (short) 1, (short) 1, (short) 70, (short) 18);
-        Put('@', (short) 3, (short) 1, (short) 1, (short) 64, (short) 18);
-        aNSITerm.Color((short) 7);
-        Put('8', (short) 20, (short) 1, (short) 1, (short) 70, (short) 18);
+        Put(' ', 20, 10, 1, 44, 18);
+        grotteSupport.Create.invoke(OBJECT.PLAYER, 1, 1, grotteSupport.pvie, 0, '*');
+        grotteSupport.Create.invoke(OBJECT.GN1, 70, 9, 3, 0, '<');
+        PutDeltaObj(OBJECT.PIC, 12, 5, 1, 68, 17, 0, -1, 1, 2, 'V');
+        DrawK0(36, 1, 70, 18, 0);
+        PutObj(OBJECT.K4, 20, 1, 1, 70, 12, grotteSupport.pvie, 2, 'x');
+        aNSITerm.Color(2);
+        Put('.', 80, 1, 1, 44, 18);
+        Put('%', 8, 1, 1, 70, 18);
+        Put('@', 3, 1, 1, 64, 18);
+        aNSITerm.Color(7);
+        Put('8', 20, 1, 1, 70, 18);
     }
 
-    private void BonusLevel3(/* VAR */ Runtime.IRef<Byte> ax, /* VAR */ Runtime.IRef<Byte> ay) {
+    private void BonusLevel3(/* VAR */ Runtime.IRef<Integer> ax, /* VAR */ Runtime.IRef<Integer> ay) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short c = 0;
+        int x = 0;
+        int y = 0;
+        int c = 0;
         int m = 0;
         boolean ok = false;
 
         m = grotteSupport.Rnd() % 4 + 2;
-        ax.set((byte) 65);
-        ay.set((byte) 0);
+        ax.set(65);
+        ay.set(0);
         Cadre(false);
-        aNSITerm.Color((short) 7);
+        aNSITerm.Color(7);
         for (y = 2; y <= 16; y += 2) {
             for (x = 2; x <= 60; x += 2) {
-                WrAt((byte) x, (byte) y, 'S');
+                WrAt(x, y, 'S');
                 ok = false;
                 for (c = 2; c <= 4; c += 2) {
-                    if ((y - c <= 0) || ((aNSITerm.Report((byte) (x - 1), (byte) (y - c)) == 'S') || (aNSITerm.Report((byte) (x - 2), (byte) (y - c + 1)) == ' ')))
+                    if ((y - c <= 0) || ((aNSITerm.Report(x - 1, y - c) == 'S') || (aNSITerm.Report(x - 2, y - c + 1) == ' ')))
                         ok = true;
                 }
                 if ((grotteSupport.Rnd() % m == 0) && ok)
-                    WrAt((byte) x, (byte) (y - 1), 'S');
+                    WrAt(x, y - 1, 'S');
                 else
-                    WrAt((byte) (x - 1), (byte) y, 'S');
+                    WrAt(x - 1, y, 'S');
             }
         }
         for (x = 1; x <= 59; x += 2) {
-            if (aNSITerm.Report((byte) x, (byte) 16) == ' ')
-                WrAt((byte) x, (byte) 18, ':');
+            if (aNSITerm.Report(x, 16) == ' ')
+                WrAt(x, 18, ':');
         }
         for (y = 1; y <= 16; y++) {
-            WrAt((byte) 62, (byte) y, 'S');
+            WrAt(62, y, 'S');
         }
-        WrAt((byte) 62, (byte) 3, ' ');
-        grotteSupport.Create.invoke(OBJECT.PLAYER, (byte) 1, (byte) 1, grotteSupport.pvie, (byte) 0, '*');
-        aNSITerm.Color((short) 2);
+        WrAt(62, 3, ' ');
+        grotteSupport.Create.invoke(OBJECT.PLAYER, 1, 1, grotteSupport.pvie, 0, '*');
+        aNSITerm.Color(2);
         for (x = 65; x <= 70; x++) {
-            WrAt((byte) x, (byte) 1, '@');
+            WrAt(x, 1, '@');
         }
-        aNSITerm.Color((short) 7);
-        WrAt((byte) 31, (byte) 18, 'S');
+        aNSITerm.Color(7);
+        WrAt(31, 18, 'S');
         for (y = 1; y <= 17; y += 2) {
-            grotteSupport.Create.invoke(OBJECT.GN1, (byte) 70, (byte) y, (byte) 3, (byte) 0, '<');
+            grotteSupport.Create.invoke(OBJECT.GN1, 70, y, 3, 0, '<');
         }
-        grotteSupport.Create.invoke(OBJECT.ASC, (byte) 64, (byte) 5, (byte) 1, (byte) 0, '=');
-        DrawK0((short) 62, (short) 1, (short) 64, (short) 18, (short) 2);
+        grotteSupport.Create.invoke(OBJECT.ASC, 64, 5, 1, 0, '=');
+        DrawK0(62, 1, 64, 18, 2);
         if (grotteSupport.pvie >= 40)
             c = 160;
         else
-            c = (short) (grotteSupport.pvie * 4);
-        PutObj(OBJECT.GN2, c, (short) 1, (short) 2, (short) 71, (short) 18, (short) 1, (short) 0, '£');
-        grotteSupport.Create.invoke(OBJECT.NID, (byte) 62, (byte) 3, (byte) 2, (byte) 0, 'Z');
-        grotteSupport.Create.invoke(OBJECT.NID, (byte) 62, (byte) 18, (byte) 2, (byte) 0, 'Z');
-        aNSITerm.Color((short) 2);
+            c = grotteSupport.pvie * 4;
+        PutObj(OBJECT.GN2, c, 1, 2, 71, 18, 1, 0, '£');
+        grotteSupport.Create.invoke(OBJECT.NID, 62, 3, 2, 0, 'Z');
+        grotteSupport.Create.invoke(OBJECT.NID, 62, 18, 2, 0, 'Z');
+        aNSITerm.Color(2);
         for (x = 3; x <= 57; x += 6) {
-            WrAt((byte) x, (byte) 1, '%');
+            WrAt(x, 1, '%');
         }
-        Put('.', (short) 150, (short) 1, (short) 1, (short) 71, (short) 18);
+        Put('.', 150, 1, 1, 71, 18);
     }
 
-    private void BonusLevel4(/* VAR */ Runtime.IRef<Byte> ax, /* VAR */ Runtime.IRef<Byte> ay) {
+    private void BonusLevel4(/* VAR */ Runtime.IRef<Integer> ax, /* VAR */ Runtime.IRef<Integer> ay) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short y2 = 0;
+        int x = 0;
+        int y = 0;
+        int y2 = 0;
         int c = 0;
 
         c = 0;
-        aNSITerm.Color((short) 7);
+        aNSITerm.Color(7);
         do {
             c = (c * 17 + 1) % 2048;
-            y = (short) (c / 64);
-            x = (short) (c % 64);
+            y = c / 64;
+            x = c % 64;
             if (y < 20) {
-                WrAt((byte) x, (byte) y, 'S');
+                WrAt(x, y, 'S');
                 if (x < 8)
-                    WrAt((byte) (x + 64), (byte) y, 'S');
+                    WrAt(x + 64, y, 'S');
             }
         } while (c != 0);
-        ax.set((byte) 0);
-        ay.set((byte) 11);
+        ax.set(0);
+        ay.set(11);
         for (y2 = 1; y2 <= 10; y2 += 9) {
-            y = (short) (y2 + 1);
+            y = y2 + 1;
             c = 1;
             for (x = 1; x <= 70; x++) {
                 if (c == 0) {
@@ -406,46 +406,46 @@ public class GrotteBonus {
                     if (y < y2)
                         y = y2;
                     else if (y > y2 + 4)
-                        y = (short) (y2 + 4);
+                        y = y2 + 4;
                 } else {
                     c--;
                 }
-                WrAt((byte) x, (byte) y, ' ');
-                WrAt((byte) x, (byte) (y + 1), ' ');
-                WrAt((byte) x, (byte) (y + 2), ' ');
-                WrAt((byte) x, (byte) (y + 3), ' ');
-                WrAt((byte) x, (byte) (y + 4), ' ');
+                WrAt(x, y, ' ');
+                WrAt(x, y + 1, ' ');
+                WrAt(x, y + 2, ' ');
+                WrAt(x, y + 3, ' ');
+                WrAt(x, y + 4, ' ');
             }
         }
         for (y = 1; y <= 18; y++) {
             for (x = 67; x <= 70; x++) {
-                WrAt((byte) x, (byte) y, ' ');
+                WrAt(x, y, ' ');
             }
         }
-        aNSITerm.Color((short) 4);
-        grotteSupport.Create.invoke(OBJECT.ASC, (byte) 68, (byte) 10, (byte) 1, (byte) 0, '=');
-        grotteSupport.Create.invoke(OBJECT.ASC, (byte) 69, (byte) 10, (byte) 1, (byte) 0, '=');
-        DrawK0((short) 1, (short) 1, (short) 70, (short) 18, (short) 2);
-        aNSITerm.Color((short) 5);
-        PutObj(OBJECT.GN2, grotteSupport.pvie, (short) 1, (short) 1, (short) 36, (short) 18, (short) 1, (short) 0, '£');
-        PutObj(OBJECT.GN1, (short) 6, (short) 36, (short) 1, (short) 70, (short) 9, (short) 3, (short) 0, '<');
-        PutObj(OBJECT.NID, (short) 6, (short) 1, (short) 10, (short) 36, (short) 18, (short) 2, (short) 0, 'Z');
-        PutDeltaObj(OBJECT.PIC, (short) 12, (short) 1, (short) 8, (short) 70, (short) 18, (short) 0, (short) -1, (short) 1, (short) 2, 'V');
-        aNSITerm.Color((short) 2);
-        grotteSupport.Create.invoke(OBJECT.PLAYER, (byte) 1, (byte) 1, grotteSupport.pvie, (byte) 0, '*');
-        Put('%', (short) 9, (short) 1, (short) 1, (short) 70, (short) 18);
-        Put('.', (short) 120, (short) 1, (short) 1, (short) 70, (short) 18);
+        aNSITerm.Color(4);
+        grotteSupport.Create.invoke(OBJECT.ASC, 68, 10, 1, 0, '=');
+        grotteSupport.Create.invoke(OBJECT.ASC, 69, 10, 1, 0, '=');
+        DrawK0(1, 1, 70, 18, 2);
+        aNSITerm.Color(5);
+        PutObj(OBJECT.GN2, grotteSupport.pvie, 1, 1, 36, 18, 1, 0, '£');
+        PutObj(OBJECT.GN1, 6, 36, 1, 70, 9, 3, 0, '<');
+        PutObj(OBJECT.NID, 6, 1, 10, 36, 18, 2, 0, 'Z');
+        PutDeltaObj(OBJECT.PIC, 12, 1, 8, 70, 18, 0, -1, 1, 2, 'V');
+        aNSITerm.Color(2);
+        grotteSupport.Create.invoke(OBJECT.PLAYER, 1, 1, grotteSupport.pvie, 0, '*');
+        Put('%', 9, 1, 1, 70, 18);
+        Put('.', 120, 1, 1, 70, 18);
     }
 
-    private void BonusLevel5(/* VAR */ Runtime.IRef<Byte> ax, /* VAR */ Runtime.IRef<Byte> ay) {
+    private void BonusLevel5(/* VAR */ Runtime.IRef<Integer> ax, /* VAR */ Runtime.IRef<Integer> ay) {
         // VAR
-        short miny = 0;
-        short maxy = 0;
-        short maxx = 0;
-        short minx = 0;
-        short x = 0;
-        short y = 0;
-        short c = 0;
+        int miny = 0;
+        int maxy = 0;
+        int maxx = 0;
+        int minx = 0;
+        int x = 0;
+        int y = 0;
+        int c = 0;
         int d = 0;
         boolean k = false;
         boolean s = false;
@@ -456,30 +456,30 @@ public class GrotteBonus {
         s = false;
         do {
             k = true;
-            miny = (short) (maxy + 2);
+            miny = maxy + 2;
             maxy += grotteSupport.Rnd() % 8 + 6;
             if (maxy > 12)
                 maxy = 19;
-            aNSITerm.Color((short) 7);
+            aNSITerm.Color(7);
             for (x = 2; x <= 70; x++) {
-                WrAt((byte) x, (byte) maxy, 'S');
+                WrAt(x, maxy, 'S');
             }
             maxy--;
             maxx = -1;
             do {
-                aNSITerm.Color((short) 7);
-                minx = (short) (maxx + 2);
+                aNSITerm.Color(7);
+                minx = maxx + 2;
                 maxx += grotteSupport.Rnd() % 16 + 16;
                 if (maxx > 64)
                     maxx = 71;
                 for (y = miny; y <= maxy; y++) {
-                    WrAt((byte) maxx, (byte) y, 'S');
+                    WrAt(maxx, y, 'S');
                 }
                 if (maxx < 71) {
                     if (k)
-                        WrAt((byte) maxx, (byte) maxy, ' ');
+                        WrAt(maxx, maxy, ' ');
                     else
-                        WrAt((byte) maxx, (byte) miny, ' ');
+                        WrAt(maxx, miny, ' ');
                 }
                 maxx--;
                 y = miny;
@@ -493,16 +493,16 @@ public class GrotteBonus {
                     if (y >= maxy)
                         break;
                     for (x = minx; x <= maxx; x++) {
-                        WrAt((byte) x, (byte) y, 'S');
+                        WrAt(x, y, 'S');
                     }
                     for (c = 1; c <= 5; c++) {
                         x = minx;
                         d = maxx - minx - 1;
                         x += grotteSupport.Rnd() % d;
-                        WrAt((byte) x, (byte) y, ' ');
+                        WrAt(x, y, ' ');
                     }
                 }
-                c = (short) (grotteSupport.Rnd() % 4);
+                c = grotteSupport.Rnd() % 4;
                 if (c == 0) {
                     x = 1;
                     ch = '@';
@@ -513,61 +513,61 @@ public class GrotteBonus {
                     x = 7;
                     ch = '.';
                 }
-                aNSITerm.Color((short) 2);
+                aNSITerm.Color(2);
                 Put(ch, x, minx, miny, maxx, maxy);
                 k = !k;
             } while (maxx < 70);
             s = true;
         } while (maxy < 18);
-        grotteSupport.Create.invoke(OBJECT.PLAYER, (byte) 70, (byte) 1, grotteSupport.pvie, (byte) 0, '*');
-        ax.set((byte) 70);
-        ay.set((byte) 18);
-        aNSITerm.Color((short) 3);
-        WrAt((byte) 1, (byte) 1, '!');
+        grotteSupport.Create.invoke(OBJECT.PLAYER, 70, 1, grotteSupport.pvie, 0, '*');
+        ax.set(70);
+        ay.set(18);
+        aNSITerm.Color(3);
+        WrAt(1, 1, '!');
         grotteSupport.ndoor++;
-        DrawK0((short) 1, (short) 1, (short) 50, (short) 18, (short) 2);
-        aNSITerm.Color((short) 2);
-        Put('%', (short) 5, (short) 1, (short) 1, (short) 70, (short) 18);
-        PutDeltaObj(OBJECT.PIC, (short) 8, (short) 1, (short) 1, (short) 70, (short) 18, (short) 0, (short) -1, (short) 1, (short) 2, 'V');
-        PutDeltaObj(OBJECT.GN1, (short) 3, (short) 1, (short) 1, (short) 70, (short) 18, (short) 1, (short) 0, (short) 3, (short) 0, '<');
-        PutDeltaObj(OBJECT.GN1, (short) 3, (short) 1, (short) 1, (short) 70, (short) 18, (short) -1, (short) 0, (short) 3, (short) 0, '>');
-        PutObj(OBJECT.NID, (short) 6, (short) 1, (short) 5, (short) 70, (short) 18, (short) 2, (short) 0, 'Z');
-        PutObj(OBJECT.GN2, (short) 12, (short) 1, (short) 1, (short) 50, (short) 18, (short) 1, (short) 0, '£');
+        DrawK0(1, 1, 50, 18, 2);
+        aNSITerm.Color(2);
+        Put('%', 5, 1, 1, 70, 18);
+        PutDeltaObj(OBJECT.PIC, 8, 1, 1, 70, 18, 0, -1, 1, 2, 'V');
+        PutDeltaObj(OBJECT.GN1, 3, 1, 1, 70, 18, 1, 0, 3, 0, '<');
+        PutDeltaObj(OBJECT.GN1, 3, 1, 1, 70, 18, -1, 0, 3, 0, '>');
+        PutObj(OBJECT.NID, 6, 1, 5, 70, 18, 2, 0, 'Z');
+        PutObj(OBJECT.GN2, 12, 1, 1, 50, 18, 1, 0, '£');
     }
 
-    private void BonusLevel6(/* VAR */ Runtime.IRef<Byte> ax, /* VAR */ Runtime.IRef<Byte> ay) {
+    private void BonusLevel6(/* VAR */ Runtime.IRef<Integer> ax, /* VAR */ Runtime.IRef<Integer> ay) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short px = 0;
-        short py = 0;
-        short c = 0;
-        short d = 0;
+        int x = 0;
+        int y = 0;
+        int px = 0;
+        int py = 0;
+        int c = 0;
+        int d = 0;
         int t = 0;
         boolean k = false;
 
-        aNSITerm.Color((short) 7);
+        aNSITerm.Color(7);
         Cadre(false);
         d = 0;
         py = 3;
         for (x = 1; x <= 70; x++) {
             if (d == 0) {
                 do {
-                    c = (short) (grotteSupport.Rnd() % 6);
+                    c = grotteSupport.Rnd() % 6;
                 } while (Math.abs(c - py) > 4);
                 py = c;
-                d = (short) (grotteSupport.Rnd() % 8 + 3);
+                d = grotteSupport.Rnd() % 8 + 3;
             } else {
                 d--;
             }
-            c = (short) (19 - py);
+            c = 19 - py;
             while (c < 19) {
-                WrAt((byte) x, (byte) c, 'S');
+                WrAt(x, c, 'S');
                 c++;
             }
             if (x == 1) {
-                grotteSupport.Create.invoke(OBJECT.PLAYER, (byte) 1, (byte) (18 - py), grotteSupport.pvie, (byte) 0, '*');
-                aNSITerm.Color((short) 7);
+                grotteSupport.Create.invoke(OBJECT.PLAYER, 1, 18 - py, grotteSupport.pvie, 0, '*');
+                aNSITerm.Color(7);
             }
         }
         y = 2;
@@ -576,80 +576,80 @@ public class GrotteBonus {
                 t = y;
                 k = (grotteSupport.Rnd() % 16) > t;
                 if (k)
-                    WrAt((byte) x, (byte) y, 'S');
+                    WrAt(x, y, 'S');
             }
             y += grotteSupport.Rnd() % 3 + 2;
         }
-        ax.set((byte) 70);
-        ay.set((byte) 5);
+        ax.set(70);
+        ay.set(5);
         grotteSupport.ndoor = 0;
-        WrAt((byte) 70, (byte) 6, ':');
+        WrAt(70, 6, ':');
         y = 18;
         x = 8;
         while (y > 3) {
             px = x;
             py = y;
-            if (aNSITerm.Report((byte) x, (byte) (y + 1)) != 'S')
-                WrAt((byte) x, (byte) y, 'S');
-            d = (short) (grotteSupport.Rnd() % 3);
+            if (aNSITerm.Report(x, y + 1) != 'S')
+                WrAt(x, y, 'S');
+            d = grotteSupport.Rnd() % 3;
             y -= d + 1;
             do {
-                c = (short) (grotteSupport.Rnd() % 9);
+                c = grotteSupport.Rnd() % 9;
                 c -= 4;
                 if (x + c < 1)
-                    c = (short) Math.abs(c);
+                    c = (int) Math.abs(c);
                 else if (x + c > 15)
-                    c = (short) -Math.abs(c);
+                    c = (int) -Math.abs(c);
             } while (!((c != 0) && !((d == 0) && (Math.abs(c) == 1))));
             x += c;
         }
         px++;
         if (px < 12) {
-            grotteSupport.Create.invoke(OBJECT.PLAT, (byte) px, (byte) py, (byte) 1, (byte) 0, 'T');
-            grotteSupport.ppos[0].x = (byte) px;
-            grotteSupport.ppos[0].y = (byte) py;
+            grotteSupport.Create.invoke(OBJECT.PLAT, px, py, 1, 0, 'T');
+            grotteSupport.ppos[0].x = px;
+            grotteSupport.ppos[0].y = py;
             grotteSupport.ppos[1].x = 15;
-            grotteSupport.ppos[1].y = (byte) py;
+            grotteSupport.ppos[1].y = py;
             grotteSupport.pcount = 1;
         }
-        grotteSupport.Create.invoke(OBJECT.ASC, (byte) 70, (byte) 10, (byte) 1, (byte) 0, '=');
-        PutDeltaObj(OBJECT.PIC, (short) 8, (short) 1, (short) 1, (short) 70, (short) 18, (short) 0, (short) -1, grotteSupport.pvie, (short) 2, 'V');
-        PutObj(OBJECT.GN2, (short) (grotteSupport.pvie / 8 + 1), (short) 1, (short) 1, (short) 70, (short) 18, (short) 2, (short) 0, '£');
-        PutObj(OBJECT.K2, (short) 16, (short) 16, (short) 1, (short) 70, (short) 18, (short) (grotteSupport.pvie / 4 + 1), (short) 0, 'X');
-        PutObj(OBJECT.NID, (short) 2, (short) 16, (short) 1, (short) 70, (short) 18, (short) 2, (short) 0, 'Z');
-        PutObj(OBJECT.K0, (short) 1, (short) 16, (short) 1, (short) 70, (short) 18, (short) (grotteSupport.pvie / 4 + 1), (short) 0, '&');
-        aNSITerm.Color((short) 2);
-        Put('%', (short) 10, (short) 1, (short) 1, (short) 69, (short) 12);
-        Put('@', (short) 3, (short) 1, (short) 1, (short) 69, (short) 18);
-        c = (short) ((grotteSupport.Rnd() % 4 + 1) * 16);
-        aNSITerm.Color((short) 6);
-        Put('H', c, (short) 16, (short) 3, (short) 69, (short) 18);
+        grotteSupport.Create.invoke(OBJECT.ASC, 70, 10, 1, 0, '=');
+        PutDeltaObj(OBJECT.PIC, 8, 1, 1, 70, 18, 0, -1, grotteSupport.pvie, 2, 'V');
+        PutObj(OBJECT.GN2, grotteSupport.pvie / 8 + 1, 1, 1, 70, 18, 2, 0, '£');
+        PutObj(OBJECT.K2, 16, 16, 1, 70, 18, grotteSupport.pvie / 4 + 1, 0, 'X');
+        PutObj(OBJECT.NID, 2, 16, 1, 70, 18, 2, 0, 'Z');
+        PutObj(OBJECT.K0, 1, 16, 1, 70, 18, grotteSupport.pvie / 4 + 1, 0, '&');
+        aNSITerm.Color(2);
+        Put('%', 10, 1, 1, 69, 12);
+        Put('@', 3, 1, 1, 69, 18);
+        c = (grotteSupport.Rnd() % 4 + 1) * 16;
+        aNSITerm.Color(6);
+        Put('H', c, 16, 3, 69, 18);
     }
 
-    private void BonusLevel7(/* VAR */ Runtime.IRef<Byte> ax, /* VAR */ Runtime.IRef<Byte> ay) {
+    private void BonusLevel7(/* VAR */ Runtime.IRef<Integer> ax, /* VAR */ Runtime.IRef<Integer> ay) {
         // VAR
-        short c = 0;
-        short x = 0;
-        short y = 0;
-        short dx = 0;
-        short dy = 0;
-        short sx = 0;
-        short ex = 0;
-        short sy = 0;
-        short ey = 0;
-        short ox = 0;
-        short oy = 0;
+        int c = 0;
+        int x = 0;
+        int y = 0;
+        int dx = 0;
+        int dy = 0;
+        int sx = 0;
+        int ex = 0;
+        int sy = 0;
+        int ey = 0;
+        int ox = 0;
+        int oy = 0;
         boolean platdisp = false;
 
-        aNSITerm.Color((short) 7);
+        aNSITerm.Color(7);
         for (c = 0; c <= 9; c++) {
             for (y = c; y <= 19 - c; y++) {
-                WrAt((byte) c, (byte) y, 'S');
-                WrAt((byte) (71 - c), (byte) y, 'S');
+                WrAt(c, y, 'S');
+                WrAt(71 - c, y, 'S');
             }
-            for (x = (short) (c + 1); x <= 70 - c; x++) {
-                WrAt((byte) x, (byte) c, 'S');
-                WrAt((byte) x, (byte) (19 - c), 'S');
+            for (x = c + 1; x <= 70 - c; x++) {
+                WrAt(x, c, 'S');
+                WrAt(x, 19 - c, 'S');
             }
         }
         platdisp = true;
@@ -665,287 +665,287 @@ public class GrotteBonus {
             if (dx > 64)
                 dx = 70;
             oy = dy;
-            dy = (short) (1 + grotteSupport.Rnd() % 8);
+            dy = 1 + grotteSupport.Rnd() % 8;
             if (dy > oy) {
-                sy = (short) (oy + 12);
-                ey = (short) (dy + 10);
+                sy = oy + 12;
+                ey = dy + 10;
             } else {
                 sy = dy;
-                ey = (short) (oy - 2);
+                ey = oy - 2;
             }
             do {
                 for (y = dy; y <= dy + 10; y++) {
-                    WrAt((byte) ex, (byte) y, ' ');
+                    WrAt(ex, y, ' ');
                 }
                 ex++;
             } while (ex <= dx);
             if (sx == 1) {
-                grotteSupport.Create.invoke(OBJECT.PLAYER, (byte) 1, (byte) (dy + 9), grotteSupport.pvie, (byte) 0, '*');
-                aNSITerm.Color((short) 7);
+                grotteSupport.Create.invoke(OBJECT.PLAYER, 1, dy + 9, grotteSupport.pvie, 0, '*');
+                aNSITerm.Color(7);
             }
-            c = (short) (grotteSupport.Rnd() % 4);
+            c = grotteSupport.Rnd() % 4;
             if (c == 0) {
-                for (y = (short) (dy + 6); y <= dy + 10; y++) {
+                for (y = dy + 6; y <= dy + 10; y++) {
                     for (x = sx; x < ex; x++) {
                         if (grotteSupport.Rnd() % 8 == 0)
-                            grotteSupport.Create.invoke(OBJECT.GN2, (byte) x, (byte) y, (byte) 1, (byte) 0, '£');
+                            grotteSupport.Create.invoke(OBJECT.GN2, x, y, 1, 0, '£');
                         if (grotteSupport.Rnd() % 2 == 0) {
-                            aNSITerm.Color((short) 2);
-                            WrAt((byte) x, (byte) y, '.');
-                            aNSITerm.Color((short) 7);
+                            aNSITerm.Color(2);
+                            WrAt(x, y, '.');
+                            aNSITerm.Color(7);
                         } else {
-                            WrAt((byte) x, (byte) y, '8');
+                            WrAt(x, y, '8');
                         }
                     }
                 }
             } else if ((c == 1) && (dy < 7)) {
-                aNSITerm.Color((short) 2);
-                for (x = (short) (sx + 1); x <= ex - 2; x++) {
-                    WrAt((byte) x, (byte) (dy + 12), '.');
+                aNSITerm.Color(2);
+                for (x = sx + 1; x <= ex - 2; x++) {
+                    WrAt(x, dy + 12, '.');
                 }
-                aNSITerm.Color((short) 7);
-                WrAt((byte) (sx + 1), (byte) (dy + 11), '8');
-                WrAt((byte) (ex - 2), (byte) (dy + 11), '8');
+                aNSITerm.Color(7);
+                WrAt(sx + 1, dy + 11, '8');
+                WrAt(ex - 2, dy + 11, '8');
             } else if (c == 2) {
-                aNSITerm.Color((short) 6);
+                aNSITerm.Color(6);
                 for (x = sx; x <= ex - 1; x += 2) {
-                    WrAt((byte) x, (byte) (dy + 11), 'H');
+                    WrAt(x, dy + 11, 'H');
                 }
-                aNSITerm.Color((short) 7);
+                aNSITerm.Color(7);
             } else if (c == 3) {
-                aNSITerm.Color((short) 2);
+                aNSITerm.Color(2);
                 for (x = sx; x < ex; x++) {
-                    c = (short) (grotteSupport.Rnd() % 4);
-                    for (y = (short) (dy + 10 - c); y <= dy + 10; y++) {
-                        WrAt((byte) x, (byte) y, '.');
+                    c = grotteSupport.Rnd() % 4;
+                    for (y = dy + 10 - c; y <= dy + 10; y++) {
+                        WrAt(x, y, '.');
                     }
                 }
-                aNSITerm.Color((short) 7);
+                aNSITerm.Color(7);
             }
             if ((ey - sy >= 3) && (oy != 0)) {
-                c = (short) (grotteSupport.Rnd() % 2);
-                aNSITerm.Color((short) 2);
+                c = grotteSupport.Rnd() % 2;
+                aNSITerm.Color(2);
                 for (y = sy; y <= ey; y++) {
-                    for (x = (short) (ox + 2); x < sx; x++) {
+                    for (x = ox + 2; x < sx; x++) {
                         if (c == 0)
-                            WrAt((byte) x, (byte) y, '.');
+                            WrAt(x, y, '.');
                         else
-                            WrAt((byte) x, (byte) y, ' ');
+                            WrAt(x, y, ' ');
                     }
                 }
             } else if ((ey > sy)) {
                 if (dy > oy) {
                     y = ey;
-                    x = (short) (sy - 1);
+                    x = sy - 1;
                 } else {
                     y = sy;
-                    x = (short) (ey + 1);
+                    x = ey + 1;
                 }
-                WrAt((byte) sx, (byte) x, '8');
-                grotteSupport.Create.invoke(OBJECT.GN1, (byte) sx, (byte) y, (byte) 3, (byte) 0, '>');
+                WrAt(sx, x, '8');
+                grotteSupport.Create.invoke(OBJECT.GN1, sx, y, 3, 0, '>');
             }
-            aNSITerm.Color((short) 7);
-            c = (short) (grotteSupport.Rnd() % 3);
+            aNSITerm.Color(7);
+            c = grotteSupport.Rnd() % 3;
             if (c == 0) {
-                grotteSupport.Create.invoke(OBJECT.ASC, (byte) (ex - 4), (byte) (dy + 6), (byte) 1, (byte) 0, '=');
-                aNSITerm.Color((short) 7);
+                grotteSupport.Create.invoke(OBJECT.ASC, ex - 4, dy + 6, 1, 0, '=');
+                aNSITerm.Color(7);
                 for (x = sx; x <= ex - 1; x += 4) {
-                    WrAt((byte) x, (byte) (dy + 3), '0');
+                    WrAt(x, dy + 3, '0');
                 }
             } else if ((c == 1) && platdisp) {
-                grotteSupport.Create.invoke(OBJECT.PLAT, (byte) sx, (byte) (dy + 7), (byte) 1, (byte) 0, 'T');
-                grotteSupport.ppos[0].x = (byte) sx;
-                grotteSupport.ppos[0].y = (byte) (dy + 7);
-                grotteSupport.ppos[1].x = (byte) (ex - 1);
-                grotteSupport.ppos[1].y = (byte) (dy + 1);
+                grotteSupport.Create.invoke(OBJECT.PLAT, sx, dy + 7, 1, 0, 'T');
+                grotteSupport.ppos[0].x = sx;
+                grotteSupport.ppos[0].y = dy + 7;
+                grotteSupport.ppos[1].x = ex - 1;
+                grotteSupport.ppos[1].y = dy + 1;
                 grotteSupport.pcount = 1;
                 platdisp = false;
             } else {
-                WrAt((byte) (sx + 4), (byte) (dy + 3), ':');
-                y = (short) (dy + 3);
-                x = (short) (ex - 5);
+                WrAt(sx + 4, dy + 3, ':');
+                y = dy + 3;
+                x = ex - 5;
                 while (true) {
                     y += grotteSupport.Rnd() % 4 + 1;
                     if (y > dy + 10)
                         break;
                     do {
-                        c = (short) (grotteSupport.Rnd() % 7);
+                        c = grotteSupport.Rnd() % 7;
                         c -= 3;
                     } while (!((c != 0) && (x + c < ex) && (x + c >= sx)));
                     x += c;
-                    WrAt((byte) x, (byte) y, ':');
+                    WrAt(x, y, ':');
                 }
             }
-            aNSITerm.Color((short) 7);
+            aNSITerm.Color(7);
         }
-        PutDeltaObj(OBJECT.PIC, (short) 16, (short) 1, (short) 1, (short) 70, (short) 18, (short) 0, (short) -1, grotteSupport.pvie, (short) 2, 'V');
-        PutObj(OBJECT.K1, (short) 16, (short) 16, (short) 1, (short) 70, (short) 18, (short) (grotteSupport.pvie / 4 + 1), (short) 0, '+');
-        aNSITerm.Color((short) 2);
-        Put('%', (short) 10, (short) 1, (short) 1, (short) 70, (short) 18);
-        Put('@', (short) 3, (short) 1, (short) 1, (short) 70, (short) 18);
-        ax.set((byte) 70);
-        ay.set((byte) (dy + 10));
+        PutDeltaObj(OBJECT.PIC, 16, 1, 1, 70, 18, 0, -1, grotteSupport.pvie, 2, 'V');
+        PutObj(OBJECT.K1, 16, 16, 1, 70, 18, grotteSupport.pvie / 4 + 1, 0, '+');
+        aNSITerm.Color(2);
+        Put('%', 10, 1, 1, 70, 18);
+        Put('@', 3, 1, 1, 70, 18);
+        ax.set(70);
+        ay.set(dy + 10);
     }
 
-    private void BonusLevel8(/* VAR */ Runtime.IRef<Byte> ax, /* VAR */ Runtime.IRef<Byte> ay) {
+    private void BonusLevel8(/* VAR */ Runtime.IRef<Integer> ax, /* VAR */ Runtime.IRef<Integer> ay) {
         // VAR
-        short minY = 0;
-        short x = 0;
-        short w = 0;
-        short y = 0;
-        short dx = 0;
-        short dy = 0;
-        short c = 0;
+        int minY = 0;
+        int x = 0;
+        int w = 0;
+        int y = 0;
+        int dx = 0;
+        int dy = 0;
+        int c = 0;
         int d = 0;
 
         Cadre(true);
-        aNSITerm.Color((short) 7);
-        WrAt((byte) 1, (byte) 17, ':');
-        aNSITerm.Color((short) 6);
-        WrAt((byte) 1, (byte) 12, 'H');
-        grotteSupport.Create.invoke(OBJECT.TPLAT, (byte) 70, (byte) 4, (byte) 1, (byte) 0, ' ');
-        grotteSupport.Create.invoke(OBJECT.PLAYER, (byte) 1, (byte) 16, grotteSupport.pvie, (byte) 0, '*');
+        aNSITerm.Color(7);
+        WrAt(1, 17, ':');
+        aNSITerm.Color(6);
+        WrAt(1, 12, 'H');
+        grotteSupport.Create.invoke(OBJECT.TPLAT, 70, 4, 1, 0, ' ');
+        grotteSupport.Create.invoke(OBJECT.PLAYER, 1, 16, grotteSupport.pvie, 0, '*');
         for (minY = 2; minY <= 14; minY += 6) {
             x = 2;
-            y = (short) (minY + 4);
+            y = minY + 4;
             while (true) {
                 if (minY < 6)
                     c = 4;
                 else
                     c = 8;
                 d = c;
-                w = (short) (grotteSupport.Rnd() % d + 1);
+                w = grotteSupport.Rnd() % d + 1;
                 c = y;
                 do {
-                    y = (short) (grotteSupport.Rnd() % 5);
+                    y = grotteSupport.Rnd() % 5;
                     y += minY;
-                    dy = (short) Math.abs(c - y);
+                    dy = (int) Math.abs(c - y);
                     d = 7 - dy;
-                    dx = (short) ((grotteSupport.Rnd() % d) + 1);
+                    dx = (grotteSupport.Rnd() % d) + 1;
                 } while (dy > 4);
                 x += dx;
                 if (x + w >= 70)
-                    w = (short) (69 - x);
+                    w = 69 - x;
                 if (w <= 0)
                     break;
-                aNSITerm.Color((short) 7);
+                aNSITerm.Color(7);
                 for (c = x; c <= (x + w - 1); c++) {
-                    WrAt((byte) c, (byte) y, ':');
+                    WrAt(c, y, ':');
                 }
                 x += w;
             }
         }
-        grotteSupport.Create.invoke(OBJECT.ASC, (byte) 1, (byte) 5, (byte) 1, (byte) 0, '=');
-        grotteSupport.Create.invoke(OBJECT.PLAT, (byte) 70, (byte) 12, (byte) 1, (byte) 0, 'T');
+        grotteSupport.Create.invoke(OBJECT.ASC, 1, 5, 1, 0, '=');
+        grotteSupport.Create.invoke(OBJECT.PLAT, 70, 12, 1, 0, 'T');
         grotteSupport.ppos[0].x = 70;
         grotteSupport.ppos[0].y = 17;
         grotteSupport.ppos[1].x = 70;
         grotteSupport.ppos[1].y = 12;
         grotteSupport.pcount = 1;
-        aNSITerm.Color((short) 7);
-        c = (short) ((grotteSupport.Rnd() % 4) * 20 + 1);
-        Put('8', c, (short) 2, (short) 1, (short) 69, (short) 18);
-        aNSITerm.Color((short) 2);
-        Put('.', (short) 40, (short) 1, (short) 1, (short) 70, (short) 9);
-        Put('%', (short) 20, (short) 1, (short) 1, (short) 70, (short) 15);
-        Put('@', (short) 4, (short) 1, (short) 1, (short) 70, (short) 9);
-        DrawK0((short) 1, (short) 1, (short) 70, (short) 10, (short) 2);
-        PutObj(OBJECT.GN2, grotteSupport.pvie, (short) 1, (short) 1, (short) 70, (short) 18, (short) 1, (short) 0, '£');
-        PutObj(OBJECT.GN1, (short) 10, (short) 50, (short) 1, (short) 70, (short) 18, (short) 3, (short) 0, '<');
-        PutObj(OBJECT.PIC, (short) 16, (short) 1, (short) 1, (short) 70, (short) 9, (short) (grotteSupport.pvie / 2 + 1), (short) 2, 'V');
-        ax.set((byte) 70);
-        ay.set((byte) 1);
+        aNSITerm.Color(7);
+        c = (grotteSupport.Rnd() % 4) * 20 + 1;
+        Put('8', c, 2, 1, 69, 18);
+        aNSITerm.Color(2);
+        Put('.', 40, 1, 1, 70, 9);
+        Put('%', 20, 1, 1, 70, 15);
+        Put('@', 4, 1, 1, 70, 9);
+        DrawK0(1, 1, 70, 10, 2);
+        PutObj(OBJECT.GN2, grotteSupport.pvie, 1, 1, 70, 18, 1, 0, '£');
+        PutObj(OBJECT.GN1, 10, 50, 1, 70, 18, 3, 0, '<');
+        PutObj(OBJECT.PIC, 16, 1, 1, 70, 9, grotteSupport.pvie / 2 + 1, 2, 'V');
+        ax.set(70);
+        ay.set(1);
     }
 
-    private void BonusLevelA(/* VAR */ Runtime.IRef<Byte> ax, /* VAR */ Runtime.IRef<Byte> ay) {
+    private void BonusLevelA(/* VAR */ Runtime.IRef<Integer> ax, /* VAR */ Runtime.IRef<Integer> ay) {
         // VAR
-        byte n = 0;
+        int n = 0;
 
         Cadre(true);
-        ax.set((byte) 70);
-        ay.set((byte) 18);
-        grotteSupport.Create.invoke(OBJECT.PLAYER, (byte) 1, (byte) 1, grotteSupport.pvie, (byte) 0, '*');
-        DrawK0((short) 40, (short) 1, (short) 70, (short) 18, (short) 2);
-        aNSITerm.Color((short) 7);
-        Put('S', (short) 150, (short) 1, (short) 1, (short) 70, (short) 18);
-        Put(':', (short) 80, (short) 1, (short) 1, (short) 70, (short) 18);
-        Put('/', (short) 10, (short) 1, (short) 1, (short) 70, (short) 18);
-        Put('\\', (short) 10, (short) 1, (short) 1, (short) 70, (short) 18);
-        aNSITerm.Color((short) 6);
-        Put('H', (short) 30, (short) 1, (short) 1, (short) 70, (short) 18);
+        ax.set(70);
+        ay.set(18);
+        grotteSupport.Create.invoke(OBJECT.PLAYER, 1, 1, grotteSupport.pvie, 0, '*');
+        DrawK0(40, 1, 70, 18, 2);
+        aNSITerm.Color(7);
+        Put('S', 150, 1, 1, 70, 18);
+        Put(':', 80, 1, 1, 70, 18);
+        Put('/', 10, 1, 1, 70, 18);
+        Put('\\', 10, 1, 1, 70, 18);
+        aNSITerm.Color(6);
+        Put('H', 30, 1, 1, 70, 18);
         for (n = 2; n <= 8; n++) {
-            WrAt((byte) 1, n, ' ');
+            WrAt(1, n, ' ');
         }
-        aNSITerm.Color((short) 2);
-        Put('.', (short) 120, (short) 1, (short) 1, (short) 70, (short) 18);
-        Put('%', (short) 8, (short) 1, (short) 1, (short) 70, (short) 18);
-        Put('@', (short) 3, (short) 36, (short) 1, (short) 70, (short) 18);
-        PutObj(OBJECT.TPLAT, (short) 4, (short) 1, (short) 1, (short) 70, (short) 18, (short) 1, (short) 0, ' ');
-        PutObj(OBJECT.GN2, grotteSupport.pvie, (short) 1, (short) 1, (short) 70, (short) 18, (short) 1, (short) 0, '£');
-        PutObj(OBJECT.GN1, (short) 6, (short) 36, (short) 1, (short) 70, (short) 18, (short) 3, (short) 0, '<');
-        PutObj(OBJECT.PIC, (short) 12, (short) 1, (short) 1, (short) 70, (short) 18, (short) 3, (short) 2, 'V');
-        PutObj(OBJECT.NID, (short) 4, (short) 1, (short) 1, (short) 70, (short) 18, (short) 2, (short) 0, 'Z');
+        aNSITerm.Color(2);
+        Put('.', 120, 1, 1, 70, 18);
+        Put('%', 8, 1, 1, 70, 18);
+        Put('@', 3, 36, 1, 70, 18);
+        PutObj(OBJECT.TPLAT, 4, 1, 1, 70, 18, 1, 0, ' ');
+        PutObj(OBJECT.GN2, grotteSupport.pvie, 1, 1, 70, 18, 1, 0, '£');
+        PutObj(OBJECT.GN1, 6, 36, 1, 70, 18, 3, 0, '<');
+        PutObj(OBJECT.PIC, 12, 1, 1, 70, 18, 3, 2, 'V');
+        PutObj(OBJECT.NID, 4, 1, 1, 70, 18, 2, 0, 'Z');
     }
 
-    private void BonusLevelB(/* VAR */ Runtime.IRef<Byte> ax, /* VAR */ Runtime.IRef<Byte> ay) {
+    private void BonusLevelB(/* VAR */ Runtime.IRef<Integer> ax, /* VAR */ Runtime.IRef<Integer> ay) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short c = 0;
+        int x = 0;
+        int y = 0;
+        int c = 0;
 
-        ax.set((byte) 70);
-        ay.set((byte) 14);
-        grotteSupport.Create.invoke(OBJECT.PLAYER, (byte) 1, (byte) 5, grotteSupport.pvie, (byte) 0, '*');
-        grotteSupport.Create.invoke(OBJECT.GN1, (byte) 1, (byte) 15, (byte) 3, (byte) 0, '>');
-        aNSITerm.Color((short) 6);
+        ax.set(70);
+        ay.set(14);
+        grotteSupport.Create.invoke(OBJECT.PLAYER, 1, 5, grotteSupport.pvie, 0, '*');
+        grotteSupport.Create.invoke(OBJECT.GN1, 1, 15, 3, 0, '>');
+        aNSITerm.Color(6);
         for (y = 0; y <= 19; y++) {
-            WrAt((byte) 0, (byte) y, 'H');
-            WrAt((byte) 71, (byte) y, 'H');
+            WrAt(0, y, 'H');
+            WrAt(71, y, 'H');
         }
         for (x = 1; x <= 70; x++) {
-            c = (short) (grotteSupport.Rnd() % 4);
+            c = grotteSupport.Rnd() % 4;
             for (y = 0; y <= c; y++) {
-                WrAt((byte) x, (byte) y, 'H');
+                WrAt(x, y, 'H');
             }
-            c = (short) (grotteSupport.Rnd() % 4);
-            for (y = (short) (19 - c); y <= 19; y++) {
-                WrAt((byte) x, (byte) y, 'H');
+            c = grotteSupport.Rnd() % 4;
+            for (y = 19 - c; y <= 19; y++) {
+                WrAt(x, y, 'H');
             }
         }
-        PutObj(OBJECT.GN2, (short) (grotteSupport.pvie / 4), (short) 1, (short) 1, (short) 70, (short) 18, (short) 1, (short) 0, '£');
+        PutObj(OBJECT.GN2, grotteSupport.pvie / 4, 1, 1, 70, 18, 1, 0, '£');
         for (x = 3; x <= 66; x += 7) {
-            grotteSupport.Create.invoke(OBJECT.ASC, (byte) x, (byte) (5 + grotteSupport.Rnd() % 8), (byte) 1, (byte) 0, '=');
+            grotteSupport.Create.invoke(OBJECT.ASC, x, 5 + grotteSupport.Rnd() % 8, 1, 0, '=');
         }
-        grotteSupport.Create.invoke(OBJECT.TPLAT, (byte) 70, (byte) 10, (byte) 1, (byte) 0, ' ');
-        aNSITerm.Color((short) 2);
-        WrAt((byte) 70, (byte) 5, '$');
-        WrAt((byte) 1, (byte) 6, '.');
-        WrAt((byte) 1, (byte) 7, '.');
+        grotteSupport.Create.invoke(OBJECT.TPLAT, 70, 10, 1, 0, ' ');
+        aNSITerm.Color(2);
+        WrAt(70, 5, '$');
+        WrAt(1, 6, '.');
+        WrAt(1, 7, '.');
     }
 
-    private void BonusLevelC(/* VAR */ Runtime.IRef<Byte> ax, /* VAR */ Runtime.IRef<Byte> ay) {
+    private void BonusLevelC(/* VAR */ Runtime.IRef<Integer> ax, /* VAR */ Runtime.IRef<Integer> ay) {
         Cadre(true);
-        aNSITerm.Color((short) 2);
-        Put('%', (short) 8, (short) 5, (short) 1, (short) 66, (short) 18);
-        Put('@', (short) 4, (short) 36, (short) 1, (short) 66, (short) 18);
-        PutObj(OBJECT.GN2, (short) (grotteSupport.pvie * 2), (short) 5, (short) 1, (short) 66, (short) 18, (short) 1, (short) 0, '£');
-        PutObj(OBJECT.NID, (short) 5, (short) 5, (short) 1, (short) 66, (short) 18, (short) 2, (short) 0, 'Z');
-        PutObj(OBJECT.GN1, (short) 2, (short) 1, (short) 1, (short) 4, (short) 18, (short) 3, (short) 0, '>');
-        PutObj(OBJECT.GN1, (short) 2, (short) 67, (short) 1, (short) 70, (short) 18, (short) 1, (short) 0, '<');
-        DrawK0((short) 5, (short) 1, (short) 66, (short) 18, (short) 2);
-        aNSITerm.Color((short) 7);
-        Put('8', (short) 600, (short) 5, (short) 1, (short) 66, (short) 18);
-        ax.set((byte) 70);
-        ay.set((byte) 18);
-        grotteSupport.Create.invoke(OBJECT.PLAYER, (byte) 1, (byte) 1, grotteSupport.pvie, (byte) 0, '*');
+        aNSITerm.Color(2);
+        Put('%', 8, 5, 1, 66, 18);
+        Put('@', 4, 36, 1, 66, 18);
+        PutObj(OBJECT.GN2, grotteSupport.pvie * 2, 5, 1, 66, 18, 1, 0, '£');
+        PutObj(OBJECT.NID, 5, 5, 1, 66, 18, 2, 0, 'Z');
+        PutObj(OBJECT.GN1, 2, 1, 1, 4, 18, 3, 0, '>');
+        PutObj(OBJECT.GN1, 2, 67, 1, 70, 18, 1, 0, '<');
+        DrawK0(5, 1, 66, 18, 2);
+        aNSITerm.Color(7);
+        Put('8', 600, 5, 1, 66, 18);
+        ax.set(70);
+        ay.set(18);
+        grotteSupport.Create.invoke(OBJECT.PLAYER, 1, 1, grotteSupport.pvie, 0, '*');
     }
 
-    public void BonusLevel(/* VAR+WRT */ Runtime.IRef<Byte> ax, /* VAR+WRT */ Runtime.IRef<Byte> ay) {
+    public void BonusLevel(/* VAR+WRT */ Runtime.IRef<Integer> ax, /* VAR+WRT */ Runtime.IRef<Integer> ay) {
         // VAR
-        short mod = 0;
+        int mod = 0;
 
         clock0 = clock.AllocTime(300);
-        mod = (short) (grotteSupport.score % 8);
+        mod = (int) (grotteSupport.score % 8);
         if ((grotteSupport.pvie > 10) && (grotteSupport.score % 9 == 0)) {
             BonusLevelB(ax, ay);
         } else if ((grotteSupport.pvie > 25) && (grotteSupport.score % 5 == 0)) {

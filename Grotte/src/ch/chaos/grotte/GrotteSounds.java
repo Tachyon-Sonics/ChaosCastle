@@ -168,8 +168,8 @@ public class GrotteSounds {
 
         private Sounds.ChannelPtr chan;
         private Object chanWave;
-        private short chanVolume;
-        private short chanStereo;
+        private int chanVolume;
+        private int chanStereo;
 
 
         public Sounds.ChannelPtr getChan() {
@@ -188,19 +188,19 @@ public class GrotteSounds {
             this.chanWave = chanWave;
         }
 
-        public short getChanVolume() {
+        public int getChanVolume() {
             return this.chanVolume;
         }
 
-        public void setChanVolume(short chanVolume) {
+        public void setChanVolume(int chanVolume) {
             this.chanVolume = chanVolume;
         }
 
-        public short getChanStereo() {
+        public int getChanStereo() {
             return this.chanStereo;
         }
 
-        public void setChanStereo(short chanStereo) {
+        public void setChanStereo(int chanStereo) {
             this.chanStereo = chanStereo;
         }
 
@@ -453,7 +453,7 @@ public class GrotteSounds {
 
     // PROCEDURE
 
-    private void InitEffects_SetEffect(/* VAR */ Effect e, SoundList sound, int time, int freq, short volume) {
+    private void InitEffects_SetEffect(/* VAR */ Effect e, SoundList sound, int time, int freq, int volume) {
         e.sound = soundList[sound.ordinal()];
         if (time != 0)
             e.length = (soundList[sound.ordinal()].rate * freq / 440) * time / 1000;
@@ -465,74 +465,74 @@ public class GrotteSounds {
 
     private void InitEffects() {
         // VAR
-        short c = 0;
-        short v = 0;
-        short f = 0;
-        short r1 = 0;
-        short r2 = 0;
+        int c = 0;
+        int v = 0;
+        int f = 0;
+        int r1 = 0;
+        int r2 = 0;
         int g = 0;
 
-        InitEffects_SetEffect(ptEffect[0], SoundList.Clock, 50, 880, (short) 255);
-        InitEffects_SetEffect(pt2Effect[0], SoundList.Clock, 50, 587, (short) 255);
+        InitEffects_SetEffect(ptEffect[0], SoundList.Clock, 50, 880, 255);
+        InitEffects_SetEffect(pt2Effect[0], SoundList.Clock, 50, 587, 255);
         for (c = 0; c <= 3; c++) {
-            InitEffects_SetEffect(ptEffect[c + 1], SoundList.Clock, 0, 880, (short) ((4 - c) * 24));
-            InitEffects_SetEffect(pt2Effect[c + 1], SoundList.Clock, 0, 587, (short) ((4 - c) * 24));
+            InitEffects_SetEffect(ptEffect[c + 1], SoundList.Clock, 0, 880, (4 - c) * 24);
+            InitEffects_SetEffect(pt2Effect[c + 1], SoundList.Clock, 0, 587, (4 - c) * 24);
         }
-        InitEffects_SetEffect(dieEffect1[0], SoundList.HHat, 0, 110, (short) 255);
+        InitEffects_SetEffect(dieEffect1[0], SoundList.HHat, 0, 110, 255);
         for (c = 1; c <= 6; c++) {
-            InitEffects_SetEffect(dieEffect1[c], SoundList.Noise, 0, 990, (short) (c * c * 4));
+            InitEffects_SetEffect(dieEffect1[c], SoundList.Noise, 0, 990, c * c * 4);
         }
-        InitEffects_SetEffect(dieEffect1[7], SoundList.Panflute, 100, 329, (short) 10);
-        InitEffects_SetEffect(dieEffect1[8], SoundList.Panflute, 100, 554, (short) 20);
-        InitEffects_SetEffect(dieEffect1[9], SoundList.Panflute, 150, 370, (short) 30);
-        InitEffects_SetEffect(dieEffect1[10], SoundList.Panflute, 100, 494, (short) 40);
-        InitEffects_SetEffect(dieEffect1[11], SoundList.Panflute, 120, 587, (short) 50);
-        InitEffects_SetEffect(dieEffect1[12], SoundList.Panflute, 100, 415, (short) 60);
-        InitEffects_SetEffect(dieEffect1[13], SoundList.Panflute, 100, 423, (short) 70);
-        InitEffects_SetEffect(dieEffect1[14], SoundList.Panflute, 100, 440, (short) 70);
-        InitEffects_SetEffect(dieEffect1[15], SoundList.Panflute, 140, 368, (short) 70);
-        InitEffects_SetEffect(dieEffect1[16], SoundList.Panflute, 120, 495, (short) 70);
-        InitEffects_SetEffect(dieEffect1[17], SoundList.Panflute, 120, 395, (short) 70);
-        InitEffects_SetEffect(dieEffect1[18], SoundList.Panflute, 100, 329, (short) 70);
-        InitEffects_SetEffect(dieEffect1[19], SoundList.Panflute, 100, 289, (short) 70);
-        InitEffects_SetEffect(dieEffect1[20], SoundList.Panflute, 130, 439, (short) 70);
-        InitEffects_SetEffect(dieEffect1[21], SoundList.Panflute, 100, 552, (short) 70);
-        InitEffects_SetEffect(dieEffect1[22], SoundList.Panflute, 120, 658, (short) 70);
-        InitEffects_SetEffect(dieEffect1[23], SoundList.Panflute, 100, 418, (short) 70);
-        InitEffects_SetEffect(dieEffect1[24], SoundList.Panflute, 100, 492, (short) 70);
-        InitEffects_SetEffect(dieEffect1[25], SoundList.Panflute, 100, 587, (short) 60);
-        InitEffects_SetEffect(dieEffect1[26], SoundList.Panflute, 150, 740, (short) 50);
-        InitEffects_SetEffect(dieEffect1[27], SoundList.Panflute, 100, 440, (short) 40);
-        InitEffects_SetEffect(dieEffect1[28], SoundList.Panflute, 120, 581, (short) 30);
-        InitEffects_SetEffect(dieEffect1[29], SoundList.Panflute, 100, 389, (short) 20);
-        InitEffects_SetEffect(dieEffect1[30], SoundList.Panflute, 100, 342, (short) 10);
-        InitEffects_SetEffect(dieEffect2[0], SoundList.Gong, 0, 220, (short) 255);
-        InitEffects_SetEffect(aieEffect[0], SoundList.CrashA, 0, 440, (short) 250);
+        InitEffects_SetEffect(dieEffect1[7], SoundList.Panflute, 100, 329, 10);
+        InitEffects_SetEffect(dieEffect1[8], SoundList.Panflute, 100, 554, 20);
+        InitEffects_SetEffect(dieEffect1[9], SoundList.Panflute, 150, 370, 30);
+        InitEffects_SetEffect(dieEffect1[10], SoundList.Panflute, 100, 494, 40);
+        InitEffects_SetEffect(dieEffect1[11], SoundList.Panflute, 120, 587, 50);
+        InitEffects_SetEffect(dieEffect1[12], SoundList.Panflute, 100, 415, 60);
+        InitEffects_SetEffect(dieEffect1[13], SoundList.Panflute, 100, 423, 70);
+        InitEffects_SetEffect(dieEffect1[14], SoundList.Panflute, 100, 440, 70);
+        InitEffects_SetEffect(dieEffect1[15], SoundList.Panflute, 140, 368, 70);
+        InitEffects_SetEffect(dieEffect1[16], SoundList.Panflute, 120, 495, 70);
+        InitEffects_SetEffect(dieEffect1[17], SoundList.Panflute, 120, 395, 70);
+        InitEffects_SetEffect(dieEffect1[18], SoundList.Panflute, 100, 329, 70);
+        InitEffects_SetEffect(dieEffect1[19], SoundList.Panflute, 100, 289, 70);
+        InitEffects_SetEffect(dieEffect1[20], SoundList.Panflute, 130, 439, 70);
+        InitEffects_SetEffect(dieEffect1[21], SoundList.Panflute, 100, 552, 70);
+        InitEffects_SetEffect(dieEffect1[22], SoundList.Panflute, 120, 658, 70);
+        InitEffects_SetEffect(dieEffect1[23], SoundList.Panflute, 100, 418, 70);
+        InitEffects_SetEffect(dieEffect1[24], SoundList.Panflute, 100, 492, 70);
+        InitEffects_SetEffect(dieEffect1[25], SoundList.Panflute, 100, 587, 60);
+        InitEffects_SetEffect(dieEffect1[26], SoundList.Panflute, 150, 740, 50);
+        InitEffects_SetEffect(dieEffect1[27], SoundList.Panflute, 100, 440, 40);
+        InitEffects_SetEffect(dieEffect1[28], SoundList.Panflute, 120, 581, 30);
+        InitEffects_SetEffect(dieEffect1[29], SoundList.Panflute, 100, 389, 20);
+        InitEffects_SetEffect(dieEffect1[30], SoundList.Panflute, 100, 342, 10);
+        InitEffects_SetEffect(dieEffect2[0], SoundList.Gong, 0, 220, 255);
+        InitEffects_SetEffect(aieEffect[0], SoundList.CrashA, 0, 440, 250);
         for (c = 1; c <= 5; c++) {
-            InitEffects_SetEffect(aieEffect[c], SoundList.Crash, 0, 440, (short) ((6 - c) * (6 - c) * 10));
+            InitEffects_SetEffect(aieEffect[c], SoundList.Crash, 0, 440, (6 - c) * (6 - c) * 10);
         }
-        InitEffects_SetEffect(atEffect[0], SoundList.CrashA, 0, 220, (short) 250);
+        InitEffects_SetEffect(atEffect[0], SoundList.CrashA, 0, 220, 250);
         for (c = 1; c <= 5; c++) {
-            InitEffects_SetEffect(atEffect[c], SoundList.Crash, 0, 220, (short) ((6 - c) * (6 - c) * 10));
+            InitEffects_SetEffect(atEffect[c], SoundList.Crash, 0, 220, (6 - c) * (6 - c) * 10);
         }
-        InitEffects_SetEffect(highGong[0], SoundList.Gong, 0, 880, (short) 230);
-        InitEffects_SetEffect(lowCannon[0], SoundList.Canon1, 0, 220, (short) 255);
-        InitEffects_SetEffect(low2Cannon[0], SoundList.Canon1, 0, 230, (short) 255);
-        InitEffects_SetEffect(blvEffect[0], SoundList.Water, 0, 110, (short) 255);
+        InitEffects_SetEffect(highGong[0], SoundList.Gong, 0, 880, 230);
+        InitEffects_SetEffect(lowCannon[0], SoundList.Canon1, 0, 220, 255);
+        InitEffects_SetEffect(low2Cannon[0], SoundList.Canon1, 0, 230, 255);
+        InitEffects_SetEffect(blvEffect[0], SoundList.Water, 0, 110, 255);
         for (c = 0; c <= 23; c++) {
-            v = (short) (Math.abs(c % 4 - 2) + 1);
-            InitEffects_SetEffect(dieNestEffect[c], SoundList.Noise, 84 - v * 14, 440 + v * 147, (short) ((24 - c) * v * 7 / 2));
+            v = Math.abs(c % 4 - 2) + 1;
+            InitEffects_SetEffect(dieNestEffect[c], SoundList.Noise, 84 - v * 14, 440 + v * 147, (24 - c) * v * 7 / 2);
         }
-        InitEffects_SetEffect(bonus1Effect[0], SoundList.HHat, 0, 220, (short) 255);
+        InitEffects_SetEffect(bonus1Effect[0], SoundList.HHat, 0, 220, 255);
         f = 440;
         for (c = 0; c <= 14; c++) {
-            v = (short) (((16 - c) * 16 - 1) * ((c + 1) % 2));
+            v = ((16 - c) * 16 - 1) * ((c + 1) % 2);
             InitEffects_SetEffect(bonus2Effect[c], SoundList.Panflute, 30, f, v);
             f -= 5;
         }
         for (c = 0; c <= 15; c++) {
-            f = (short) (c % 4);
-            v = (short) ((16 - c) * 16 - 1);
+            f = (c % 4);
+            v = (16 - c) * 16 - 1;
             if (f == 3)
                 v = 0;
             if (f == 0)
@@ -543,40 +543,40 @@ public class GrotteSounds {
                 f = 220;
             InitEffects_SetEffect(bumperEffect[c], SoundList.Noise, 50, f, v);
         }
-        InitEffects_SetEffect(bumper1Effect[0], SoundList.Noise, 70, 880, (short) 80);
-        InitEffects_SetEffect(bumper1Effect[1], SoundList.Noise, 70, 440, (short) 80);
-        InitEffects_SetEffect(bumper1Effect[2], SoundList.Noise, 70, 220, (short) 80);
-        InitEffects_SetEffect(createEffect[0], SoundList.Clock, 100, 131, (short) 250);
-        InitEffects_SetEffect(createEffect[1], SoundList.Clock, 100, 197, (short) 250);
-        InitEffects_SetEffect(createEffect[2], SoundList.Clock, 100, 164, (short) 250);
-        InitEffects_SetEffect(fireEffect[0], SoundList.Clock, 80, 131, (short) 250);
-        InitEffects_SetEffect(fireEffect[1], SoundList.Clock, 80, 262, (short) 250);
-        InitEffects_SetEffect(popupEffect[0], SoundList.Cymbales, 0, 220, (short) 150);
+        InitEffects_SetEffect(bumper1Effect[0], SoundList.Noise, 70, 880, 80);
+        InitEffects_SetEffect(bumper1Effect[1], SoundList.Noise, 70, 440, 80);
+        InitEffects_SetEffect(bumper1Effect[2], SoundList.Noise, 70, 220, 80);
+        InitEffects_SetEffect(createEffect[0], SoundList.Clock, 100, 131, 250);
+        InitEffects_SetEffect(createEffect[1], SoundList.Clock, 100, 197, 250);
+        InitEffects_SetEffect(createEffect[2], SoundList.Clock, 100, 164, 250);
+        InitEffects_SetEffect(fireEffect[0], SoundList.Clock, 80, 131, 250);
+        InitEffects_SetEffect(fireEffect[1], SoundList.Clock, 80, 262, 250);
+        InitEffects_SetEffect(popupEffect[0], SoundList.Cymbales, 0, 220, 150);
         r1 = 0;
         r2 = 0;
         for (c = 0; c <= 15; c++) {
-            r1 = (short) ((r1 * 17 + 5) % 8);
-            r2 = (short) ((r2 * 13 + 9) % 16);
-            v = (short) ((16 - c) * (r1 + 8));
+            r1 = (r1 * 17 + 5) % 8;
+            r2 = (r2 * 13 + 9) % 16;
+            v = (16 - c) * (r1 + 8);
             InitEffects_SetEffect(turretEffect[c], SoundList.HHat, 55 + r2, 554, v);
         }
         g = 220;
         v = 255;
-        InitEffects_SetEffect(gameEffect[0], SoundList.Panflute, 500, 440, (short) 0);
-        InitEffects_SetEffect(gameEffect[1], SoundList.Pic, 0, 440, (short) 255);
+        InitEffects_SetEffect(gameEffect[0], SoundList.Panflute, 500, 440, 0);
+        InitEffects_SetEffect(gameEffect[1], SoundList.Pic, 0, 440, 255);
         for (c = 2; c <= 25; c++) {
-            InitEffects_SetEffect(gameEffect[c], SoundList.Panflute, 25, g, (short) ((26 - c) * 10));
+            InitEffects_SetEffect(gameEffect[c], SoundList.Panflute, 25, g, (26 - c) * 10);
             g = g * 3118 / 2943;
         }
         for (c = 0; c <= 3; c++) {
-            InitEffects_SetEffect(picEffect[c], SoundList.Pic, 0, 440, (short) ((4 - c) * 64 - 1));
+            InitEffects_SetEffect(picEffect[c], SoundList.Pic, 0, 440, (4 - c) * 64 - 1);
         }
         for (c = 0; c <= 11; c++) {
-            InitEffects_SetEffect(metalEffect[c], SoundList.HHat, 40, 440, (short) ((12 - c) * 12));
+            InitEffects_SetEffect(metalEffect[c], SoundList.HHat, 40, 440, (12 - c) * 12);
         }
     }
 
-    private void InitSounds_LoadSound(SoundList which, int ssize, int srate, int spri, Files.FilePtr f, /* VAR */ Runtime.IRef<Boolean> ok) {
+    private void InitSounds_LoadSound(SoundList which, long ssize, int srate, int spri, Files.FilePtr f, /* VAR */ Runtime.IRef<Boolean> ok) {
         if (ok.get()) {
             { // WITH
                 Snd _snd = soundList[which.ordinal()];
@@ -601,11 +601,11 @@ public class GrotteSounds {
         Runtime.Ref<Boolean> ok = new Runtime.Ref<>(false);
         SoundList s = SoundList.CrashA;
         Memory.TagItem attr = new Memory.TagItem(); /* WRT */
-        short[] synth = null;
+        int[] synth = null;
         int c = 0;
         int d = 0;
-        short i = 0;
-        short v = 0;
+        int i = 0;
+        int v = 0;
         boolean stereo = false;
 
         attr.tag = Sounds.sNUMCHANS;
@@ -629,19 +629,19 @@ public class GrotteSounds {
             InitSounds_LoadSound(SoundList.Water, 10748, 16726, 4, f.get(), ok);
             InitSounds_LoadSound(SoundList.Pic, 248, 8363, 2, f.get(), ok);
             InitSounds_LoadSound(SoundList.Noise, 4326, 8363, 4, f.get(), ok);
-            synth = (short[]) sounds.AllocWave(4096);
+            synth = (int[]) sounds.AllocWave(4096);
             if (synth == null) {
                 ok.set(false);
             } else {
                 for (c = 0; c <= 7; c++) {
-                    i = (short) c;
+                    i = c;
                     i -= 3;
-                    v = (short) (trigo.SQRT(16 - i * i) * 8);
+                    v = trigo.SQRT(16 - i * i) * 8;
                     if (v > 127)
                         v = 127;
                     for (d = 0; d <= 255; d++) {
                         synth[d * 16 + c] = v;
-                        synth[d * 16 + c + 8] = (short) (255 - v);
+                        synth[d * 16 + c + 8] = 255 - v;
                     }
                 }
                 { // WITH
@@ -715,16 +715,16 @@ public class GrotteSounds {
 
     public final Runnable FlushSounds_ref = this::FlushSounds;
 
-    private short BestChan(Object w, short volume, short stereo) {
+    private int BestChan(Object w, int volume, int stereo) {
         // VAR
-        short bc = 0;
-        short c = 0;
-        short best = 0;
-        short score = 0;
+        int bc = 0;
+        int c = 0;
+        int best = 0;
+        int score = 0;
 
         bc = -1;
         best = 0;
-        c = (short) nbChan;
+        c = nbChan;
         while (c > 0) {
             c--;
             { // WITH
@@ -734,9 +734,9 @@ public class GrotteSounds {
                 if (_channel.chanWave == null)
                     score = 255;
                 else if (_channel.chanWave == w)
-                    score = (short) (320 - Math.abs(volume - _channel.chanVolume) - Math.abs(stereo - _channel.chanStereo) * 2);
+                    score = 320 - Math.abs(volume - _channel.chanVolume) - Math.abs(stereo - _channel.chanStereo) * 2;
                 else
-                    score = (short) (volume - _channel.chanVolume);
+                    score = volume - _channel.chanVolume;
                 if (score >= best) {
                     best = score;
                     bc = c;
@@ -754,13 +754,13 @@ public class GrotteSounds {
         return bc;
     }
 
-    private void PlaySound(SoundList s, short volume, short stereo, short balance) {
+    private void PlaySound(SoundList s, int volume, int stereo, int balance) {
         // VAR
-        short c = 0;
+        int c = 0;
         int v = 0;
 
         v = volume;
-        c = BestChan(soundList[s.ordinal()], (short) (v * (soundList[s.ordinal()].pri + 4) / 8), stereo);
+        c = BestChan(soundList[s.ordinal()], v * (soundList[s.ordinal()].pri + 4) / 8, stereo);
         if (c != -1) {
             { // WITH
                 Snd _snd = soundList[s.ordinal()];
@@ -769,14 +769,14 @@ public class GrotteSounds {
         }
     }
 
-    private void QueueSound(int c, SoundList s, int freq, int time, short volume, short stereo) {
+    private void QueueSound(int c, SoundList s, int freq, int time, int volume, int stereo) {
         // VAR
         Object w = null;
         int todo = 0;
         int len = 0;
         int sz = 0;
         int frq = 0;
-        short vol = 0;
+        int vol = 0;
 
         if (c < nbChan) {
             vol = volume;
@@ -806,11 +806,11 @@ public class GrotteSounds {
         }
     }
 
-    private void PlayEffect(/* var */ Effect[] effects, int vol, short stereo, short balance) {
+    private void PlayEffect(/* var */ Effect[] effects, int vol, int stereo, int balance) {
         // VAR
         Memory.TagItem tags = null;
-        short c = 0;
-        short e = 0;
+        int c = 0;
+        int e = 0;
         int v = 0;
         int frq = 0;
         int todo = 0;
@@ -820,7 +820,7 @@ public class GrotteSounds {
         if (nbChan <= 0)
             return;
         first = true;
-        c = BestChan(effects, (short) (vol * (effects[0].sound.pri + 4) / 8), stereo);
+        c = BestChan(effects, vol * (effects[0].sound.pri + 4) / 8, stereo);
         if (c != -1) {
             for (e = 0; e <= (effects.length - 1); e++) {
                 { // WITH
@@ -847,7 +847,7 @@ public class GrotteSounds {
         }
     }
 
-    public void Sound(OBJECT t1, OBJECT t2, short volume, short stereo, short balance) {
+    public void Sound(OBJECT t1, OBJECT t2, int volume, int stereo, int balance) {
         if (t2 == OBJECT.BN) {
             switch (t1) {
                 case K1 -> PlayEffect(ptEffect, volume, stereo, balance);
@@ -887,10 +887,10 @@ public class GrotteSounds {
                     PlayEffect(createEffect, volume, stereo, balance);
                 }
                 case L2 -> {
-                    PlaySound(SoundList.Cymbales, (short) (volume / 4), stereo, balance);
+                    PlaySound(SoundList.Cymbales, volume / 4, stereo, balance);
                 }
                 case BALL -> {
-                    PlaySound(SoundList.Water, (short) (volume / 2), stereo, balance);
+                    PlaySound(SoundList.Water, volume / 2, stereo, balance);
                 }
                 case PIC -> {
                     PlayEffect(metalEffect, volume, stereo, balance);
@@ -902,25 +902,25 @@ public class GrotteSounds {
                     PlayEffect(bonus2Effect, volume, stereo, balance);
                 }
                 case BM -> {
-                    PlaySound(SoundList.Pic, (short) (volume / 4), stereo, balance);
+                    PlaySound(SoundList.Pic, volume / 4, stereo, balance);
                 }
                 default -> {
                 }
             }
         } else if (t1 == OBJECT.EMPTY) {
             switch (t2) {
-                case L1 -> PlaySound(SoundList.Canon1, (short) (volume / 2), stereo, balance);
-                case L2 -> PlaySound(SoundList.Canon2, (short) (volume / 3 * 2), stereo, balance);
+                case L1 -> PlaySound(SoundList.Canon1, volume / 2, stereo, balance);
+                case L2 -> PlaySound(SoundList.Canon2, volume / 3 * 2, stereo, balance);
                 case L3 -> PlayEffect(fireEffect, volume, stereo, balance);
                 default -> PlayEffect(createEffect, volume / 2, stereo, balance);
             }
         } else if (t1 == OBJECT.PLAYER) {
             switch (t2) {
                 case GN1 -> {
-                    PlaySound(SoundList.Hit2, (short) (volume / 4), stereo, balance);
+                    PlaySound(SoundList.Hit2, volume / 4, stereo, balance);
                 }
                 case GN2 -> {
-                    PlaySound(SoundList.Hit1, (short) (volume / 4), stereo, balance);
+                    PlaySound(SoundList.Hit1, volume / 4, stereo, balance);
                 }
                 case PLAYER -> {
                     PlayEffect(gameEffect, volume, stereo, balance);
@@ -940,96 +940,96 @@ public class GrotteSounds {
     }
 
     public void GameOverSound() {
-        PlayEffect(dieEffect1, 255, (short) 45, (short) 45);
-        PlayEffect(dieEffect2, 255, (short) -45, (short) -45);
+        PlayEffect(dieEffect1, 255, 45, 45);
+        PlayEffect(dieEffect2, 255, -45, -45);
     }
 
     public void FinalMusic() {
-        QueueSound(3, SoundList.Gong, 440, 3500, (short) 0, (short) -60);
-        QueueSound(1, SoundList.Panflute, 660, 1000, (short) 180, (short) 180);
-        QueueSound(0, SoundList.Gong, 660, 250, (short) 255, (short) 0);
-        QueueSound(2, SoundList.HHat, 330, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 330, 125, (short) 180, (short) 60);
-        QueueSound(0, SoundList.Gong, 524, 250, (short) 255, (short) 0);
-        QueueSound(2, SoundList.HHat, 262, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 262, 125, (short) 180, (short) 60);
-        QueueSound(0, SoundList.Gong, 588, 500, (short) 255, (short) 0);
-        QueueSound(2, SoundList.HHat, 294, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 294, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 393, 250, (short) 180, (short) 60);
-        QueueSound(1, SoundList.Panflute, 880, 500, (short) 180, (short) 180);
-        QueueSound(0, SoundList.Gong, 880, 250, (short) 255, (short) 0);
-        QueueSound(2, SoundList.HHat, 262, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 262, 125, (short) 180, (short) 60);
-        QueueSound(0, SoundList.Gong, 700, 250, (short) 255, (short) 0);
-        QueueSound(2, SoundList.HHat, 330, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 330, 125, (short) 180, (short) 60);
-        QueueSound(0, SoundList.Panflute, 785, 333, (short) 180, (short) 180);
-        QueueSound(1, SoundList.Gong, 785, 1000, (short) 255, (short) 0);
-        QueueSound(2, SoundList.HHat, 392, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 350, 208, (short) 180, (short) 60);
-        QueueSound(0, SoundList.Panflute, 524, 167, (short) 255, (short) 180);
-        QueueSound(2, SoundList.CrashA, 330, 333, (short) 255, (short) 60);
-        QueueSound(0, SoundList.Panflute, 588, 166, (short) 255, (short) 180);
-        QueueSound(0, SoundList.Panflute, 660, 167, (short) 255, (short) 180);
-        QueueSound(2, SoundList.CrashA, 330, 334, (short) 255, (short) 60);
-        QueueSound(0, SoundList.Panflute, 785, 167, (short) 255, (short) 180);
-        QueueSound(1, SoundList.Gong, 588, 1500, (short) 255, (short) 0);
-        QueueSound(0, SoundList.Panflute, 588, 500, (short) 255, (short) 180);
-        QueueSound(0, SoundList.Panflute, 588, 1000, (short) 255, (short) 180);
-        QueueSound(2, SoundList.CrashA, 294, 500, (short) 255, (short) 60);
-        QueueSound(3, SoundList.Water, 700, 125, (short) 200, (short) -60);
-        QueueSound(3, SoundList.Water, 660, 125, (short) 200, (short) -60);
-        QueueSound(3, SoundList.Water, 588, 125, (short) 200, (short) -60);
-        QueueSound(3, SoundList.Water, 524, 125, (short) 200, (short) -60);
-        QueueSound(2, SoundList.Hit1, 440, 125, (short) 200, (short) -120);
-        QueueSound(2, SoundList.Hit2, 440, 125, (short) 200, (short) -120);
-        QueueSound(2, SoundList.Hit1, 440, 750, (short) 200, (short) -120);
-        QueueSound(1, SoundList.Gong, 660, 250, (short) 180, (short) 180);
-        QueueSound(0, SoundList.Panflute, 660, 250, (short) 255, (short) 0);
-        QueueSound(3, SoundList.Water, 495, 625, (short) 200, (short) -60);
-        QueueSound(2, SoundList.HHat, 660, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 660, 125, (short) 180, (short) 60);
-        QueueSound(1, SoundList.Gong, 660, 250, (short) 180, (short) 180);
-        QueueSound(0, SoundList.Panflute, 524, 250, (short) 255, (short) 0);
-        QueueSound(2, SoundList.HHat, 524, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 524, 125, (short) 180, (short) 60);
-        QueueSound(1, SoundList.Gong, 588, 500, (short) 180, (short) 180);
-        QueueSound(0, SoundList.Panflute, 588, 500, (short) 255, (short) 0);
-        QueueSound(2, SoundList.HHat, 588, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 588, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 393, 250, (short) 180, (short) 60);
-        QueueSound(3, SoundList.Pic, 440, 250, (short) 240, (short) -60);
-        QueueSound(3, SoundList.Pic, 440, 250, (short) 240, (short) -60);
-        QueueSound(1, SoundList.Gong, 880, 250, (short) 180, (short) 180);
-        QueueSound(0, SoundList.Panflute, 880, 250, (short) 255, (short) 0);
-        QueueSound(2, SoundList.HHat, 524, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 524, 125, (short) 180, (short) 60);
-        QueueSound(3, SoundList.Pic, 440, 250, (short) 240, (short) -60);
-        QueueSound(1, SoundList.Gong, 880, 250, (short) 180, (short) 180);
-        QueueSound(0, SoundList.Panflute, 700, 250, (short) 255, (short) 0);
-        QueueSound(2, SoundList.HHat, 660, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 660, 125, (short) 180, (short) 60);
-        QueueSound(3, SoundList.Pic, 440, 250, (short) 240, (short) -60);
-        QueueSound(0, SoundList.Gong, 785, 333, (short) 180, (short) 180);
-        QueueSound(1, SoundList.Panflute, 785, 1000, (short) 255, (short) 0);
-        QueueSound(2, SoundList.HHat, 784, 125, (short) 180, (short) 60);
-        QueueSound(2, SoundList.HHat, 700, 208, (short) 180, (short) 60);
-        QueueSound(3, SoundList.Pic, 440, 250, (short) 240, (short) -60);
-        QueueSound(3, SoundList.Pic, 440, 250, (short) 240, (short) -60);
-        QueueSound(0, SoundList.Gong, 524, 167, (short) 255, (short) 180);
-        QueueSound(2, SoundList.Canon1, 660, 333, (short) 255, (short) 60);
-        QueueSound(0, SoundList.Gong, 588, 166, (short) 255, (short) 180);
-        QueueSound(0, SoundList.Gong, 660, 167, (short) 255, (short) 180);
-        QueueSound(2, SoundList.Canon1, 660, 334, (short) 255, (short) 60);
-        QueueSound(3, SoundList.Pic, 440, 250, (short) 240, (short) -60);
-        QueueSound(3, SoundList.Pic, 440, 125, (short) 240, (short) -60);
-        QueueSound(0, SoundList.Gong, 785, 167, (short) 255, (short) 180);
-        QueueSound(1, SoundList.Panflute, 524, 500, (short) 255, (short) 0);
-        QueueSound(0, SoundList.Gong, 440, 2000, (short) 255, (short) 0);
-        QueueSound(2, SoundList.Canon2, 220, 2000, (short) 200, (short) 60);
-        QueueSound(3, SoundList.Water, 880, 125, (short) 200, (short) -60);
-        QueueSound(3, SoundList.Water, 110, 1500, (short) 240, (short) -60);
+        QueueSound(3, SoundList.Gong, 440, 3500, 0, -60);
+        QueueSound(1, SoundList.Panflute, 660, 1000, 180, 180);
+        QueueSound(0, SoundList.Gong, 660, 250, 255, 0);
+        QueueSound(2, SoundList.HHat, 330, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 330, 125, 180, 60);
+        QueueSound(0, SoundList.Gong, 524, 250, 255, 0);
+        QueueSound(2, SoundList.HHat, 262, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 262, 125, 180, 60);
+        QueueSound(0, SoundList.Gong, 588, 500, 255, 0);
+        QueueSound(2, SoundList.HHat, 294, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 294, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 393, 250, 180, 60);
+        QueueSound(1, SoundList.Panflute, 880, 500, 180, 180);
+        QueueSound(0, SoundList.Gong, 880, 250, 255, 0);
+        QueueSound(2, SoundList.HHat, 262, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 262, 125, 180, 60);
+        QueueSound(0, SoundList.Gong, 700, 250, 255, 0);
+        QueueSound(2, SoundList.HHat, 330, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 330, 125, 180, 60);
+        QueueSound(0, SoundList.Panflute, 785, 333, 180, 180);
+        QueueSound(1, SoundList.Gong, 785, 1000, 255, 0);
+        QueueSound(2, SoundList.HHat, 392, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 350, 208, 180, 60);
+        QueueSound(0, SoundList.Panflute, 524, 167, 255, 180);
+        QueueSound(2, SoundList.CrashA, 330, 333, 255, 60);
+        QueueSound(0, SoundList.Panflute, 588, 166, 255, 180);
+        QueueSound(0, SoundList.Panflute, 660, 167, 255, 180);
+        QueueSound(2, SoundList.CrashA, 330, 334, 255, 60);
+        QueueSound(0, SoundList.Panflute, 785, 167, 255, 180);
+        QueueSound(1, SoundList.Gong, 588, 1500, 255, 0);
+        QueueSound(0, SoundList.Panflute, 588, 500, 255, 180);
+        QueueSound(0, SoundList.Panflute, 588, 1000, 255, 180);
+        QueueSound(2, SoundList.CrashA, 294, 500, 255, 60);
+        QueueSound(3, SoundList.Water, 700, 125, 200, -60);
+        QueueSound(3, SoundList.Water, 660, 125, 200, -60);
+        QueueSound(3, SoundList.Water, 588, 125, 200, -60);
+        QueueSound(3, SoundList.Water, 524, 125, 200, -60);
+        QueueSound(2, SoundList.Hit1, 440, 125, 200, -120);
+        QueueSound(2, SoundList.Hit2, 440, 125, 200, -120);
+        QueueSound(2, SoundList.Hit1, 440, 750, 200, -120);
+        QueueSound(1, SoundList.Gong, 660, 250, 180, 180);
+        QueueSound(0, SoundList.Panflute, 660, 250, 255, 0);
+        QueueSound(3, SoundList.Water, 495, 625, 200, -60);
+        QueueSound(2, SoundList.HHat, 660, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 660, 125, 180, 60);
+        QueueSound(1, SoundList.Gong, 660, 250, 180, 180);
+        QueueSound(0, SoundList.Panflute, 524, 250, 255, 0);
+        QueueSound(2, SoundList.HHat, 524, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 524, 125, 180, 60);
+        QueueSound(1, SoundList.Gong, 588, 500, 180, 180);
+        QueueSound(0, SoundList.Panflute, 588, 500, 255, 0);
+        QueueSound(2, SoundList.HHat, 588, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 588, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 393, 250, 180, 60);
+        QueueSound(3, SoundList.Pic, 440, 250, 240, -60);
+        QueueSound(3, SoundList.Pic, 440, 250, 240, -60);
+        QueueSound(1, SoundList.Gong, 880, 250, 180, 180);
+        QueueSound(0, SoundList.Panflute, 880, 250, 255, 0);
+        QueueSound(2, SoundList.HHat, 524, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 524, 125, 180, 60);
+        QueueSound(3, SoundList.Pic, 440, 250, 240, -60);
+        QueueSound(1, SoundList.Gong, 880, 250, 180, 180);
+        QueueSound(0, SoundList.Panflute, 700, 250, 255, 0);
+        QueueSound(2, SoundList.HHat, 660, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 660, 125, 180, 60);
+        QueueSound(3, SoundList.Pic, 440, 250, 240, -60);
+        QueueSound(0, SoundList.Gong, 785, 333, 180, 180);
+        QueueSound(1, SoundList.Panflute, 785, 1000, 255, 0);
+        QueueSound(2, SoundList.HHat, 784, 125, 180, 60);
+        QueueSound(2, SoundList.HHat, 700, 208, 180, 60);
+        QueueSound(3, SoundList.Pic, 440, 250, 240, -60);
+        QueueSound(3, SoundList.Pic, 440, 250, 240, -60);
+        QueueSound(0, SoundList.Gong, 524, 167, 255, 180);
+        QueueSound(2, SoundList.Canon1, 660, 333, 255, 60);
+        QueueSound(0, SoundList.Gong, 588, 166, 255, 180);
+        QueueSound(0, SoundList.Gong, 660, 167, 255, 180);
+        QueueSound(2, SoundList.Canon1, 660, 334, 255, 60);
+        QueueSound(3, SoundList.Pic, 440, 250, 240, -60);
+        QueueSound(3, SoundList.Pic, 440, 125, 240, -60);
+        QueueSound(0, SoundList.Gong, 785, 167, 255, 180);
+        QueueSound(1, SoundList.Panflute, 524, 500, 255, 0);
+        QueueSound(0, SoundList.Gong, 440, 2000, 255, 0);
+        QueueSound(2, SoundList.Canon2, 220, 2000, 200, 60);
+        QueueSound(3, SoundList.Water, 880, 125, 200, -60);
+        QueueSound(3, SoundList.Water, 110, 1500, 240, -60);
     }
 
     private void Init() {
