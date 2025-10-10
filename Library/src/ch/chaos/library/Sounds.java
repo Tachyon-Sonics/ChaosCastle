@@ -72,7 +72,7 @@ public class Sounds {
 
     private final static int NB_CHANNELS = 8;
 
-    private Map<short[], float[]> waves = new HashMap<>();
+    private Map<int[], float[]> waves = new HashMap<>();
     private List<Channel> channels = new ArrayList<>();
     private SoundMixer mixer;
     private SimilarSoundsDetector similarSoundsDetector;
@@ -124,7 +124,7 @@ public class Sounds {
         SoundVoice soundVoice = mixer.getVoice(channel.getVoiceIndex());
 
         // Read arguments
-        short[] shortWave = (short[]) Memory.tagObject(params, sWAVE, null);
+        int[] intWave = (int[]) Memory.tagObject(params, sWAVE, null);
         int length = Memory.tagInt(params, sLENGTH, -1);
         int offset = Memory.tagInt(params, sOFFSET, 0);
         Integer rate = Memory.tagInteger(params, sRATE);
@@ -165,8 +165,8 @@ public class Sounds {
 
         // Create SoundWave
         SoundWave soundWave = null;
-        if (shortWave != null) {
-            float[] wave = waves.get(shortWave);
+        if (intWave != null) {
+            float[] wave = waves.get(intWave);
             soundWave = new SoundWave(wave);
             if (length > 0) {
                 soundWave.setLength(length);
@@ -238,26 +238,26 @@ public class Sounds {
     }
 
     public Object AllocWave(long size) {
-        return new short[(int) size];
+        return new int[(int) size];
     }
 
     public void FreeWave(/* VAR */ Runtime.IRef<Object> wave) {
         if (wave.get() != null) {
-            short[] shortData = (short[]) wave.get();
-            waves.remove(shortData);
+            int[] intData = (int[]) wave.get();
+            waves.remove(intData);
         }
         wave.set(null);
     }
 
     public void ConvertWave(/* VAR */ Runtime.IRef<Object> wave, long size) {
-        short[] shortData = (short[]) wave.get();
-        float[] floatData = new float[shortData.length];
-        for (int i = 0; i < shortData.length; i++) {
-            int value = (byte) shortData[i];
+        int[] intData = (int[]) wave.get();
+        float[] floatData = new float[intData.length];
+        for (int i = 0; i < intData.length; i++) {
+            int value = (byte) intData[i];
             float sample = (float) value / 128.0f;
             floatData[i] = sample;
         }
-        waves.put(shortData, floatData);
+        waves.put(intData, floatData);
     }
 
     public void begin() {
