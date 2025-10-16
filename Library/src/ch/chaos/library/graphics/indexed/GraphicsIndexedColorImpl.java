@@ -150,7 +150,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void SetPalette(short color, short red, short green, short blue) {
+    public void SetPalette(int color, int red, int green, int blue) {
         currentArea.setPalette(color, red, green, blue);
     }
 
@@ -196,7 +196,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void SetPat(short v) {
+    public void SetPat(int v) {
         currentArea.setCurrentPattern(v);
         applyColorAndPattern();
     }
@@ -239,27 +239,27 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void DrawPixel(short x, short y) {
+    public void DrawPixel(int x, int y) {
         currentArea.draw((g) -> {
             g.fillRect(x, y, 1, 1);
         });
     }
 
     @Override
-    public void DrawLine(short x1, short y1, short x2, short y2) {
+    public void DrawLine(int x1, int y1, int x2, int y2) {
         currentArea.draw((g) -> {
             g.drawLine(x1, y1, x2, y2);
         });
     }
 
     @Override
-    public void OpenPoly(short x, short y) {
+    public void OpenPoly(int x, int y) {
         currentArea.setCurrentPoly(new ArrayList<>());
         AddLine(x, y);
     }
 
     @Override
-    public void AddLine(short x, short y) {
+    public void AddLine(int x, int y) {
         currentArea.getCurrentPoly().add(new int[] { x, y });
     }
 
@@ -334,7 +334,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void FillRect(short x1, short y1, short x2, short y2) {
+    public void FillRect(int x1, int y1, int x2, int y2) {
         /*
          * The only situation in which we modify a BufferArea during the game is when we draw
          * a pop message, and this starts by filling the background with FillRect.
@@ -350,7 +350,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void FillEllipse(short x1, short y1, short x2, short y2) {
+    public void FillEllipse(int x1, int y1, int x2, int y2) {
         currentArea.draw((g) -> {
             Ellipse2D ellipse = new Ellipse2D.Double(x1, y1, x2 - x1, y2 - y1);
             g.fill(ellipse);
@@ -358,19 +358,19 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void FillFlood(short x, short y, long borderCol) {
+    public void FillFlood(int x, int y, long borderCol) {
         // not used
         throw new UnsupportedOperationException("Not implemented: FillFlood");
     }
 
     @Override
-    public void FillShadow(AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height) {
+    public void FillShadow(AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height) {
         // unused
         throw new UnsupportedOperationException("Not implemented: FillShadow");
     }
 
     @Override
-    public void DrawShadow(AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height) {
+    public void DrawShadow(AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height) {
         MemoryArea maskArea = (MemoryArea) ma;
 
         BufferedImage maskImage = maskArea.getInternalImage();
@@ -397,9 +397,9 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void DrawImage(Graphics.Image imageInfo, short sx, short sy, short dx, short dy, short width, short height) {
+    public void DrawImage(Graphics.Image imageInfo, int sx, int sy, int dx, int dy, int width, int height) {
         if (currentArea instanceof JFrameArea) {
-            if (imageInfo.data instanceof short[][] || imageInfo.data instanceof short[]) {
+            if (imageInfo.data instanceof int[][] || imageInfo.data instanceof int[]) {
                 // No palette. Use std color cube
                 BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_INDEXED);
                 WritableRaster raster = image.getRaster();
@@ -408,16 +408,16 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
                 int shifter = 8 - bitPerPix;
 
                 // Copy pixels
-                short[][] pixels2d = null;
-                short[] pixels1d = null;
-                if (imageInfo.data instanceof short[][] data2d)
+                int[][] pixels2d = null;
+                int[] pixels1d = null;
+                if (imageInfo.data instanceof int[][] data2d)
                     pixels2d = data2d;
-                else if (imageInfo.data instanceof short[] data1d)
+                else if (imageInfo.data instanceof int[] data1d)
                     pixels1d = data1d;
 
                 for (int y = 0; y < height; y++) {
                     for (int x = 0; x < width; x++) {
-                        short value;
+                        int value;
                         if (pixels2d != null)
                             value = pixels2d[y + sy][x + sy];
                         else
@@ -451,19 +451,19 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
         }
     }
 
-    void scaleXbrz16(Graphics.Image imageInfo, short sx, short sy, 
-            short dx, short dy, short width, short height, MemoryArea bufferArea) {
+    void scaleXbrz16(Graphics.Image imageInfo, int sx, int sy, 
+            int dx, int dy, int width, int height, MemoryArea bufferArea) {
         final int Scale = scale();
         
         // Extract block to scale into an RGB image
         BufferedImage srcImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = srcImage.createGraphics();
         g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-        short[] pixData = (short[]) imageInfo.data;
-        // Every short is actually two 4-bit pixels...
+        int[] pixData = (int[]) imageInfo.data;
+        // Every int is actually two 4-bit pixels...
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                short value = pixData[((y + sy) * width + (x + sx)) / 2];
+                int value = pixData[((y + sy) * width + (x + sx)) / 2];
                 int pen = ((x % 2 == 0) ? value >>> 4 : value & 0xf);
                 g2.setColor(bufferArea.getColor(pen));
                 g2.fillRect(x, y, 1, 1);
@@ -509,8 +509,8 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     
     private final static int CIRCULAR_PAD = 4;
     
-    void scaleXbrz16Circular(Graphics.Image imageInfo, short sx, short sy, 
-            short dx, short dy, short width, short height, MemoryArea bufferArea) {
+    void scaleXbrz16Circular(Graphics.Image imageInfo, int sx, int sy, 
+            int dx, int dy, int width, int height, MemoryArea bufferArea) {
         final int Scale = scale();
         
         // Extract block to scale into an RGB image
@@ -519,11 +519,11 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
         BufferedImage srcImage = new BufferedImage(extWidth, extHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = srcImage.createGraphics();
         g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
-        short[] pixData = (short[]) imageInfo.data;
-        // Every short is actually two 4-bit pixels...
+        int[] pixData = (int[]) imageInfo.data;
+        // Every int is actually two 4-bit pixels...
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                short value = pixData[((y + sy) * width + (x + sx)) / 2];
+                int value = pixData[((y + sy) * width + (x + sx)) / 2];
                 int pen = ((x % 2 == 0) ? value >>> 4 : value & 0xf);
                 g2.setColor(bufferArea.getColor(pen));
                 int px = x + CIRCULAR_PAD - width;
@@ -580,14 +580,14 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
         g2.dispose();
     }
     
-    private void scaleCubic16(Graphics.Image imageInfo, short sx, short sy, 
-            short dx, short dy, short width, short height, MemoryArea bufferArea) {
+    private void scaleCubic16(Graphics.Image imageInfo, int sx, int sy, 
+            int dx, int dy, int width, int height, MemoryArea bufferArea) {
         IndexedImage srcImage = new IndexedImage(width, height, bufferArea.getNbColors());
-        short[] pixData = (short[]) imageInfo.data;
-        // Every short is actually two 4-bit pixels... TODO (3) handle black&white
+        int[] pixData = (int[]) imageInfo.data;
+        // Every int is actually two 4-bit pixels... TODO (3) handle black&white
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                short value = pixData[((y + sy) * width + (x + sx)) / 2];
+                int value = pixData[((y + sy) * width + (x + sx)) / 2];
                 int pen = ((x % 2 == 0) ? value >>> 4 : value & 0xf);
                 srcImage.set(x, y, pen);
             }
@@ -617,7 +617,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void CopyRect(AreaPtr sa, short sx, short sy, short dx, short dy, short width, short height) {
+    public void CopyRect(AreaPtr sa, int sx, int sy, int dx, int dy, int width, int height) {
         AreaBase srcArea = (AreaBase) sa;
         BufferedImage srcImage = srcArea.getInternalImage();
         currentArea.draw((g) -> {
@@ -630,12 +630,12 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void CopyShadow(AreaPtr sa, AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height) {
+    public void CopyShadow(AreaPtr sa, AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height) {
         CopyMask(sa, ma, sx, sy, dx, dy, width, height);
     }
 
     @Override
-    public void CopyMask(AreaPtr sa, AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height) {
+    public void CopyMask(AreaPtr sa, AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height) {
         if (width <= 0 || height <= 0)
             return; // Damn, I REALLY called CopyMask with zero width/height !
 
@@ -708,8 +708,8 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     /**
      * Create a BITMASK-Transparent image using the given unused color as the transparent one.
      */
-    private BufferedImage createBlendedImageUsingTransPen(MemoryArea srcArea, MemoryArea maskArea, short sx, short sy,
-            short width, short height, int transPen) {
+    private BufferedImage createBlendedImageUsingTransPen(MemoryArea srcArea, MemoryArea maskArea, int sx, int sy,
+            int width, int height, int transPen) {
         // Convert mask into an image with two colors: transparent (0) and white (1)
         byte[] rgbMask = new byte[] { 0, -1 };
         IndexColorModel maskModel = new IndexColorModel(1, 2, rgbMask, rgbMask, rgbMask, 0);
@@ -754,8 +754,8 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     /**
      * Create a BITMASK-Transparent image using an additional color as the transparent one
      */
-    private BufferedImage createBlendedImageUsingAdditionalPen(MemoryArea srcArea, MemoryArea maskArea, short sx, short sy,
-            short width, short height) {
+    private BufferedImage createBlendedImageUsingAdditionalPen(MemoryArea srcArea, MemoryArea maskArea, int sx, int sy,
+            int width, int height) {
         // Convert mask into an image with two colors: transparent (0) and white (1)
         byte[] rgbMask = new byte[] { 0, -1 };
         IndexColorModel maskModel = new IndexColorModel(1, 2, rgbMask, rgbMask, rgbMask, 0);
@@ -810,7 +810,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
 
 
     @Override
-    public void ScrollRect(short x, short y, short width, short height, short dx, short dy) {
+    public void ScrollRect(int x, int y, int width, int height, int dx, int dy) {
         BufferedImage image = currentArea.getInternalImage();
         currentArea.draw((g) -> {
             // in-place copy does not seem to work...
@@ -851,7 +851,7 @@ public class GraphicsIndexedColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void ScaleRect(AreaPtr sa, short sx1, short sy1, short sx2, short sy2, short dx1, short dy1, short dx2, short dy2) {
+    public void ScaleRect(AreaPtr sa, int sx1, int sy1, int sx2, int sy2, int dx1, int dy1, int dx2, int dy2) {
         AreaBase srcArea = (AreaBase) sa;
         BufferedImage srcImage = srcArea.getInternalImage();
         currentArea.draw((g) -> {

@@ -86,63 +86,63 @@ public class ChaosDual {
 
     private void ResetTrans() {
         // VAR
-        short c = 0;
+        int c = 0;
 
-        chaosGraphics.SetTrans((short) 0, (short) 0);
+        chaosGraphics.SetTrans(0, 0);
         for (c = 1; c <= 15; c++) {
-            chaosGraphics.SetTrans(c, (short) 255);
+            chaosGraphics.SetTrans(c, 255);
         }
     }
 
     private void DrawStars() {
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) 63, (short) 63, (short) 0, (short) 7, chaosObjects.All_ref, chaosObjects.ExpRandom_ref);
+        chaosObjects.FillRandom(0, 0, 63, 63, 0, 7, chaosObjects.All_ref, chaosObjects.ExpRandom_ref);
     }
 
-    private void DrawEntry_DrawLetter_DrawPattern(int pat, /* VAR */ Runtime.IRef<Short> z) {
+    private void DrawEntry_DrawLetter_DrawPattern(int pat, /* VAR */ Runtime.IRef<Integer> z) {
         // VAR
-        short x = 0;
+        int x = 0;
 
         for (x = 0; x <= 8; x++) {
             if (((pat % 2) != 0)) {
-                chaosObjects.Set(z.get(), (short) (9 - x));
-                chaosObjects.Set((short) (x + 2), z.get());
+                chaosObjects.Set(z.get(), 9 - x);
+                chaosObjects.Set(x + 2, z.get());
             }
             pat = pat / 2;
         }
         z.inc();
     }
 
-    private void DrawEntry_DrawLetter(int b1, int b2, int b3, int b4, int b5, short add, /* VAR */ Runtime.IRef<Short> z) {
+    private void DrawEntry_DrawLetter(int b1, int b2, int b3, int b4, int b5, int add, /* VAR */ Runtime.IRef<Integer> z) {
         DrawEntry_DrawLetter_DrawPattern(b1, z);
         DrawEntry_DrawLetter_DrawPattern(b2, z);
         DrawEntry_DrawLetter_DrawPattern(b3, z);
         DrawEntry_DrawLetter_DrawPattern(b4, z);
         DrawEntry_DrawLetter_DrawPattern(b5, z);
-        z.set((short) (z.get() - 5 + add));
+        z.set(z.get() - 5 + add);
     }
 
     private void DrawEntry() {
         // VAR
-        Runtime.Ref<Short> z = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> z = new Runtime.Ref<>(0);
 
-        z.set((short) 6);
-        DrawEntry_DrawLetter(124, 130, 257, 257, 257, (short) 6, z);
-        DrawEntry_DrawLetter(511, 16, 16, 15, 0, (short) 5, z);
-        DrawEntry_DrawLetter(14, 17, 10, 31, 0, (short) 5, z);
-        DrawEntry_DrawLetter(14, 17, 17, 17, 14, (short) 6, z);
-        DrawEntry_DrawLetter(9, 21, 21, 21, 18, (short) 6, z);
-        DrawEntry_DrawLetter(124, 130, 257, 257, 257, (short) 6, z);
-        DrawEntry_DrawLetter(14, 17, 10, 31, 0, (short) 5, z);
-        DrawEntry_DrawLetter(9, 21, 21, 21, 18, (short) 6, z);
-        DrawEntry_DrawLetter(32, 510, 33, 0, 0, (short) 4, z);
-        DrawEntry_DrawLetter(511, 0, 0, 0, 0, (short) 2, z);
-        DrawEntry_DrawLetter(14, 21, 21, 21, 8, (short) 5, z);
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.OnlyWall_ref, (short) SimpleBlock);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.OnlyWall_ref, (short) Leaf2, (short) (trigo.RND() % 64 + 32));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.OnlyWall_ref, (short) Leaf3, (short) (trigo.RND() % 16 + 4));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.OnlyBackground_ref, (short) Sq1Block, (short) (trigo.RND() % 128 + 64));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.OnlyBackground_ref, (short) Sq4Block, (short) (trigo.RND() % 64 + 16));
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.OnlyBackground_ref, (short) EmptyBlock);
+        z.set(6);
+        DrawEntry_DrawLetter(124, 130, 257, 257, 257, 6, z);
+        DrawEntry_DrawLetter(511, 16, 16, 15, 0, 5, z);
+        DrawEntry_DrawLetter(14, 17, 10, 31, 0, 5, z);
+        DrawEntry_DrawLetter(14, 17, 17, 17, 14, 6, z);
+        DrawEntry_DrawLetter(9, 21, 21, 21, 18, 6, z);
+        DrawEntry_DrawLetter(124, 130, 257, 257, 257, 6, z);
+        DrawEntry_DrawLetter(14, 17, 10, 31, 0, 5, z);
+        DrawEntry_DrawLetter(9, 21, 21, 21, 18, 6, z);
+        DrawEntry_DrawLetter(32, 510, 33, 0, 0, 4, z);
+        DrawEntry_DrawLetter(511, 0, 0, 0, 0, 2, z);
+        DrawEntry_DrawLetter(14, 21, 21, 21, 8, 5, z);
+        chaosObjects.FillCond(0, 0, 63, 63, chaosObjects.OnlyWall_ref, SimpleBlock);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.OnlyWall_ref, Leaf2, trigo.RND() % 64 + 32);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.OnlyWall_ref, Leaf3, trigo.RND() % 16 + 4);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.OnlyBackground_ref, Sq1Block, trigo.RND() % 128 + 64);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.OnlyBackground_ref, Sq4Block, trigo.RND() % 64 + 16);
+        chaosObjects.FillCond(0, 0, 63, 63, chaosObjects.OnlyBackground_ref, EmptyBlock);
     }
 
     private void GrooveTrans() {
@@ -150,144 +150,144 @@ public class ChaosDual {
         int c = 0;
 
         for (c = 0; c <= 5; c++) {
-            chaosGraphics.SetTrans((short) (c + 9), (short) (255 - (5 - c) * (chaosBase.difficulty - 1) * 5));
+            chaosGraphics.SetTrans(c + 9, 255 - (5 - c) * (chaosBase.difficulty - 1) * 5);
         }
     }
 
     private void IceTrans(int deg) {
         // VAR
         int c = 0;
-        short t = 0;
+        int t = 0;
 
-        t = (short) (deg + trigo.RND() % (256 - deg) - chaosBase.difficulty * 6);
+        t = deg + trigo.RND() % (256 - deg) - chaosBase.difficulty * 6;
         for (c = 8; c <= 15; c++) {
-            chaosGraphics.SetTrans((short) c, t);
+            chaosGraphics.SetTrans(c, t);
         }
     }
 
     private void AnimTrans() {
-        chaosGraphics.SetTrans((short) 8, (short) 128);
-        chaosGraphics.SetTrans((short) 12, (short) 128);
-        chaosGraphics.SetTrans((short) 13, (short) 192);
-        chaosGraphics.SetTrans((short) 14, (short) 128);
+        chaosGraphics.SetTrans(8, 128);
+        chaosGraphics.SetTrans(12, 128);
+        chaosGraphics.SetTrans(13, 192);
+        chaosGraphics.SetTrans(14, 128);
     }
 
     private void DrawGround() {
-        chaosObjects.Fill((short) 0, (short) 0, (short) 63, (short) 63, (short) Ground);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.All_ref, (short) Ground2, (short) (trigo.RND() % 128 + 128));
+        chaosObjects.Fill(0, 0, 63, 63, Ground);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.All_ref, Ground2, trigo.RND() % 128 + 128);
     }
 
     private void DrawFactory() {
         // VAR
-        short c = 0;
-        Runtime.Ref<Short> a = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> x = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y = new Runtime.Ref<>((short) 0);
-        short sz = 0;
-        short d = 0;
+        int c = 0;
+        Runtime.Ref<Integer> a = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y = new Runtime.Ref<>(0);
+        int sz = 0;
+        int d = 0;
 
-        chaosObjects.Fill((short) 0, (short) 0, (short) 63, (short) 63, (short) SimpleBlock);
-        chaosObjects.Fill((short) 1, (short) 1, (short) 62, (short) 62, (short) BackNone);
+        chaosObjects.Fill(0, 0, 63, 63, SimpleBlock);
+        chaosObjects.Fill(1, 1, 62, 62, BackNone);
         for (c = 1; c <= 20; c++) {
-            sz = (short) (trigo.RND() % 4 + 1);
-            d = (short) (sz * 2 + 1);
-            if (chaosGenerator.FindIsolatedRect((short) 0, (short) 0, (short) 63, (short) 63, sz, (short) 60, a, x, y, false))
-                chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, (short) SimpleBlock);
+            sz = trigo.RND() % 4 + 1;
+            d = sz * 2 + 1;
+            if (chaosGenerator.FindIsolatedRect(0, 0, 63, 63, sz, 60, a, x, y, false))
+                chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, SimpleBlock);
         }
-        chaosObjects.FillRandom((short) 1, (short) 1, (short) 62, (short) 62, (short) Granit1, (short) Granit2, chaosObjects.OnlyWall_ref, chaosObjects.Rnd_ref);
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 62, (short) 62, chaosObjects.OnlyBackground_ref, (short) EmptyBlock, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 62, (short) 62, chaosObjects.OnlyBackground_ref, (short) Sq1Block, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 62, (short) 62, chaosObjects.OnlyBackground_ref, (short) Sq4Block, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 62, (short) 62, chaosObjects.OnlyBackground_ref, (short) Sq4TravBlock, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 62, (short) 62, chaosObjects.OnlyBackground_ref, (short) TravBlock, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 15, (short) 15, (short) 44, (short) 44, chaosObjects.OnlyBackground_ref, (short) Fact1Block, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 15, (short) 15, (short) 44, (short) 44, chaosObjects.OnlyBackground_ref, (short) Fact2Block, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 15, (short) 15, (short) 44, (short) 44, chaosObjects.OnlyBackground_ref, (short) Fact3Block, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 62, (short) 62, chaosObjects.OnlyBackground_ref, (short) BigBlock, (short) (trigo.RND() % 16));
-        chaosObjects.FillCond((short) 1, (short) 1, (short) 62, (short) 62, chaosObjects.OnlyBackground_ref, (short) SimpleBlock);
+        chaosObjects.FillRandom(1, 1, 62, 62, Granit1, Granit2, chaosObjects.OnlyWall_ref, chaosObjects.Rnd_ref);
+        chaosObjects.PutRandom(1, 1, 62, 62, chaosObjects.OnlyBackground_ref, EmptyBlock, trigo.RND() % 128);
+        chaosObjects.PutRandom(1, 1, 62, 62, chaosObjects.OnlyBackground_ref, Sq1Block, trigo.RND() % 128);
+        chaosObjects.PutRandom(1, 1, 62, 62, chaosObjects.OnlyBackground_ref, Sq4Block, trigo.RND() % 128);
+        chaosObjects.PutRandom(1, 1, 62, 62, chaosObjects.OnlyBackground_ref, Sq4TravBlock, trigo.RND() % 128);
+        chaosObjects.PutRandom(1, 1, 62, 62, chaosObjects.OnlyBackground_ref, TravBlock, trigo.RND() % 128);
+        chaosObjects.PutRandom(15, 15, 44, 44, chaosObjects.OnlyBackground_ref, Fact1Block, trigo.RND() % 128);
+        chaosObjects.PutRandom(15, 15, 44, 44, chaosObjects.OnlyBackground_ref, Fact2Block, trigo.RND() % 128);
+        chaosObjects.PutRandom(15, 15, 44, 44, chaosObjects.OnlyBackground_ref, Fact3Block, trigo.RND() % 128);
+        chaosObjects.PutRandom(1, 1, 62, 62, chaosObjects.OnlyBackground_ref, BigBlock, trigo.RND() % 16);
+        chaosObjects.FillCond(1, 1, 62, 62, chaosObjects.OnlyBackground_ref, SimpleBlock);
     }
 
     private void DrawFactory2() {
         // VAR
-        short c = 0;
-        Runtime.Ref<Short> a = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> x = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y = new Runtime.Ref<>((short) 0);
-        short sz = 0;
-        short d = 0;
+        int c = 0;
+        Runtime.Ref<Integer> a = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y = new Runtime.Ref<>(0);
+        int sz = 0;
+        int d = 0;
 
-        chaosObjects.Fill((short) 0, (short) 0, (short) 39, (short) 39, (short) SimpleBlock);
-        chaosObjects.Fill((short) 1, (short) 1, (short) 38, (short) 38, (short) BackNone);
+        chaosObjects.Fill(0, 0, 39, 39, SimpleBlock);
+        chaosObjects.Fill(1, 1, 38, 38, BackNone);
         for (c = 1; c <= 10; c++) {
-            sz = (short) (trigo.RND() % 3 + 1);
-            d = (short) (sz * 2 + 1);
-            if (chaosGenerator.FindIsolatedRect((short) 0, (short) 0, (short) 39, (short) 39, sz, (short) 40, a, x, y, false))
-                chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, (short) SimpleBlock);
+            sz = trigo.RND() % 3 + 1;
+            d = sz * 2 + 1;
+            if (chaosGenerator.FindIsolatedRect(0, 0, 39, 39, sz, 40, a, x, y, false))
+                chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, SimpleBlock);
         }
-        chaosObjects.FillRandom((short) 1, (short) 1, (short) 62, (short) 62, (short) Granit1, (short) Granit2, chaosObjects.OnlyWall_ref, chaosObjects.Rnd_ref);
+        chaosObjects.FillRandom(1, 1, 62, 62, Granit1, Granit2, chaosObjects.OnlyWall_ref, chaosObjects.Rnd_ref);
         for (c = 1; c <= 10; c++) {
-            sz = (short) (trigo.RND() % 3 + 1);
-            d = (short) (sz * 2 + 1);
-            if (chaosGenerator.FindIsolatedRect((short) 0, (short) 0, (short) 39, (short) 39, sz, (short) 40, a, x, y, false))
-                chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, (short) Bricks);
+            sz = trigo.RND() % 3 + 1;
+            d = sz * 2 + 1;
+            if (chaosGenerator.FindIsolatedRect(0, 0, 39, 39, sz, 40, a, x, y, false))
+                chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, Bricks);
         }
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, chaosObjects.OnlyBackground_ref, (short) Ground, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, chaosObjects.OnlyBackground_ref, (short) Ground2, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, chaosObjects.OnlyBackground_ref, (short) EmptyBlock, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, chaosObjects.OnlyBackground_ref, (short) Sq1Block, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, chaosObjects.OnlyBackground_ref, (short) Sq4Block, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, chaosObjects.OnlyBackground_ref, (short) Sq4TravBlock, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, chaosObjects.OnlyBackground_ref, (short) TravBlock, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 38, (short) 38, chaosObjects.OnlyBackground_ref, (short) BarDark, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 15, (short) 15, (short) 44, (short) 44, chaosObjects.OnlyBackground_ref, (short) Fact2Block, (short) (trigo.RND() % 16));
-        chaosObjects.PutRandom((short) 15, (short) 15, (short) 44, (short) 44, chaosObjects.OnlyBackground_ref, (short) Fact1Block, (short) (trigo.RND() % 8));
-        chaosObjects.PutRandom((short) 15, (short) 15, (short) 44, (short) 44, chaosObjects.OnlyBackground_ref, (short) Fact3Block, (short) (trigo.RND() % 8));
-        chaosObjects.PutRandom((short) 1, (short) 1, (short) 62, (short) 62, chaosObjects.OnlyBackground_ref, (short) BigBlock, (short) (trigo.RND() % 16));
-        chaosObjects.FillCond((short) 1, (short) 1, (short) 62, (short) 62, chaosObjects.OnlyBackground_ref, (short) SimpleBlock);
+        chaosObjects.PutRandom(1, 1, 38, 38, chaosObjects.OnlyBackground_ref, Ground, trigo.RND() % 128);
+        chaosObjects.PutRandom(1, 1, 38, 38, chaosObjects.OnlyBackground_ref, Ground2, trigo.RND() % 128);
+        chaosObjects.PutRandom(1, 1, 38, 38, chaosObjects.OnlyBackground_ref, EmptyBlock, trigo.RND() % 128);
+        chaosObjects.PutRandom(1, 1, 38, 38, chaosObjects.OnlyBackground_ref, Sq1Block, trigo.RND() % 128);
+        chaosObjects.PutRandom(1, 1, 38, 38, chaosObjects.OnlyBackground_ref, Sq4Block, trigo.RND() % 128);
+        chaosObjects.PutRandom(1, 1, 38, 38, chaosObjects.OnlyBackground_ref, Sq4TravBlock, trigo.RND() % 128);
+        chaosObjects.PutRandom(1, 1, 38, 38, chaosObjects.OnlyBackground_ref, TravBlock, trigo.RND() % 128);
+        chaosObjects.PutRandom(1, 1, 38, 38, chaosObjects.OnlyBackground_ref, BarDark, trigo.RND() % 128);
+        chaosObjects.PutRandom(15, 15, 44, 44, chaosObjects.OnlyBackground_ref, Fact2Block, trigo.RND() % 16);
+        chaosObjects.PutRandom(15, 15, 44, 44, chaosObjects.OnlyBackground_ref, Fact1Block, trigo.RND() % 8);
+        chaosObjects.PutRandom(15, 15, 44, 44, chaosObjects.OnlyBackground_ref, Fact3Block, trigo.RND() % 8);
+        chaosObjects.PutRandom(1, 1, 62, 62, chaosObjects.OnlyBackground_ref, BigBlock, trigo.RND() % 16);
+        chaosObjects.FillCond(1, 1, 62, 62, chaosObjects.OnlyBackground_ref, SimpleBlock);
     }
 
     private void DrawGroundLeaves() {
         // VAR
-        short c = 0;
+        int c = 0;
 
         DrawGround();
         for (c = Leaf1; c <= Leaf4; c++) {
-            chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.All_ref, c, (short) (trigo.RND() % 128 + 16));
+            chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.All_ref, c, trigo.RND() % 128 + 16);
         }
     }
 
     private void DrawSquares() {
-        chaosObjects.Fill((short) 0, (short) 0, (short) 63, (short) 63, (short) Back8x8);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.All_ref, (short) Back2x2, (short) (trigo.RND() % 256));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.All_ref, (short) Back4x4, (short) (trigo.RND() % 256));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.All_ref, (short) BackSmall, (short) (trigo.RND() % 256));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.All_ref, (short) BackBig, (short) (trigo.RND() % 256));
+        chaosObjects.Fill(0, 0, 63, 63, Back8x8);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.All_ref, Back2x2, trigo.RND() % 256);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.All_ref, Back4x4, trigo.RND() % 256);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.All_ref, BackSmall, trigo.RND() % 256);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.All_ref, BackBig, trigo.RND() % 256);
     }
 
     private void DrawBalls() {
-        chaosObjects.Fill((short) 0, (short) 0, (short) 63, (short) 63, (short) Balls);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.All_ref, (short) IceBlock, (short) (trigo.RND() % 256));
+        chaosObjects.Fill(0, 0, 63, 63, Balls);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.All_ref, IceBlock, trigo.RND() % 256);
     }
 
     private void DrawGranit() {
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) 63, (short) 63, (short) Granit1, (short) Granit2, chaosObjects.All_ref, chaosObjects.Rnd_ref);
+        chaosObjects.FillRandom(0, 0, 63, 63, Granit1, Granit2, chaosObjects.All_ref, chaosObjects.Rnd_ref);
     }
 
     private void DrawCastle() {
-        chaosObjects.Fill((short) 0, (short) 0, (short) 63, (short) 63, (short) Bricks);
+        chaosObjects.Fill(0, 0, 63, 63, Bricks);
     }
 
     private void DrawRound4(int n, int m) {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
         int c = 0;
         int r = 0;
-        short val = 0;
+        int val = 0;
 
-        chaosObjects.Fill((short) 0, (short) 0, (short) 63, (short) 63, (short) Round4);
+        chaosObjects.Fill(0, 0, 63, 63, Round4);
         for (c = 0; c <= trigo.RND() % n + m; c++) {
-            x = (short) (trigo.RND() % 64);
+            x = trigo.RND() % 64;
             r = trigo.RND() % 7;
             switch (r) {
                 case 0, 1, 2 -> val = BarDark;
@@ -296,8 +296,8 @@ public class ChaosDual {
                 case 6 -> val = BigBlock;
                 default -> throw new RuntimeException("Unhandled CASE value " + r);
             }
-            chaosObjects.Fill(x, (short) 0, x, (short) 63, val);
-            y = (short) (trigo.RND() % 64);
+            chaosObjects.Fill(x, 0, x, 63, val);
+            y = trigo.RND() % 64;
             r = trigo.RND() % 7;
             switch (r) {
                 case 0, 1, 2 -> val = BarDark;
@@ -306,43 +306,43 @@ public class ChaosDual {
                 case 6 -> val = BigBlock;
                 default -> throw new RuntimeException("Unhandled CASE value " + r);
             }
-            chaosObjects.Fill((short) 0, y, (short) 63, y, val);
+            chaosObjects.Fill(0, y, 63, y, val);
         }
     }
 
     private void DrawLights(int n) {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
         int c = 0;
 
-        chaosObjects.Fill((short) 0, (short) 0, (short) 63, (short) 63, (short) Light);
+        chaosObjects.Fill(0, 0, 63, 63, Light);
         for (c = 0; c <= trigo.RND() % n; c++) {
-            x = (short) (trigo.RND() % 64);
-            chaosObjects.Fill(x, (short) 0, x, (short) 63, (short) BarLight);
+            x = trigo.RND() % 64;
+            chaosObjects.Fill(x, 0, x, 63, BarLight);
         }
         for (c = 0; c <= trigo.RND() % n; c++) {
-            y = (short) (trigo.RND() % 64);
-            chaosObjects.Fill((short) 0, y, (short) 63, y, (short) BarLight);
+            y = trigo.RND() % 64;
+            chaosObjects.Fill(0, y, 63, y, BarLight);
         }
     }
 
     private void DrawForest() {
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) 63, (short) 63, (short) Forest1, (short) Forest7, chaosObjects.All_ref, chaosObjects.Rnd_ref);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.All_ref, (short) Leaf2, (short) (trigo.RND() % 32));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.All_ref, (short) Leaf3, (short) (trigo.RND() % 128));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.All_ref, (short) Ground, (short) (trigo.RND() % 64));
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 63, (short) 63, chaosObjects.All_ref, (short) Ground2, (short) (trigo.RND() % 16));
+        chaosObjects.FillRandom(0, 0, 63, 63, Forest1, Forest7, chaosObjects.All_ref, chaosObjects.Rnd_ref);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.All_ref, Leaf2, trigo.RND() % 32);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.All_ref, Leaf3, trigo.RND() % 128);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.All_ref, Ground, trigo.RND() % 64);
+        chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.All_ref, Ground2, trigo.RND() % 16);
     }
 
     private void DrawFade() {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
 
         for (y = 0; y <= 63; y++) {
             for (x = 0; x <= 63; x++) {
-                chaosObjects.Put(x, y, (short) (Fade1 + trigo.RND() % 3));
+                chaosObjects.Put(x, y, Fade1 + trigo.RND() % 3);
             }
         }
     }
@@ -389,7 +389,7 @@ public class ChaosDual {
                 }
                 case 9 -> {
                     DrawFactory();
-                    chaosGraphics.SetTrans((short) 8, (short) 128);
+                    chaosGraphics.SetTrans(8, 128);
                     chaosGraphics.dualSpeed = 2;
                 }
                 case 11 -> {

@@ -58,50 +58,50 @@ public class ChaosImages {
 
     // VAR
 
-    private short fadeMn1;
-    private short fadeMn2;
-    private short fadeMx1;
-    private short fadeMx2;
-    private short lastCastleLevel;
+    private int fadeMn1;
+    private int fadeMn2;
+    private int fadeMx1;
+    private int fadeMx2;
+    private int lastCastleLevel;
 
 
-    public short getFadeMn1() {
+    public int getFadeMn1() {
         return this.fadeMn1;
     }
 
-    public void setFadeMn1(short fadeMn1) {
+    public void setFadeMn1(int fadeMn1) {
         this.fadeMn1 = fadeMn1;
     }
 
-    public short getFadeMn2() {
+    public int getFadeMn2() {
         return this.fadeMn2;
     }
 
-    public void setFadeMn2(short fadeMn2) {
+    public void setFadeMn2(int fadeMn2) {
         this.fadeMn2 = fadeMn2;
     }
 
-    public short getFadeMx1() {
+    public int getFadeMx1() {
         return this.fadeMx1;
     }
 
-    public void setFadeMx1(short fadeMx1) {
+    public void setFadeMx1(int fadeMx1) {
         this.fadeMx1 = fadeMx1;
     }
 
-    public short getFadeMx2() {
+    public int getFadeMx2() {
         return this.fadeMx2;
     }
 
-    public void setFadeMx2(short fadeMx2) {
+    public void setFadeMx2(int fadeMx2) {
         this.fadeMx2 = fadeMx2;
     }
 
-    public short getLastCastleLevel() {
+    public int getLastCastleLevel() {
         return this.lastCastleLevel;
     }
 
-    public void setLastCastleLevel(short lastCastleLevel) {
+    public void setLastCastleLevel(int lastCastleLevel) {
         this.lastCastleLevel = lastCastleLevel;
     }
 
@@ -109,95 +109,95 @@ public class ChaosImages {
     // PROCEDURE
 
     private void SetMetalPalette() {
-        chaosGraphics.SetRGB((short) 8, (short) 238, (short) 87, (short) 0);
-        chaosGraphics.SetRGB((short) 9, (short) 35, (short) 35, (short) 35);
-        chaosGraphics.SetRGB((short) 10, (short) 92, (short) 92, (short) 92);
-        chaosGraphics.SetRGB((short) 11, (short) 153, (short) 153, (short) 153);
-        chaosGraphics.SetRGB((short) 12, (short) 68, (short) 102, (short) 204);
-        chaosGraphics.SetRGB((short) 13, (short) 221, (short) 85, (short) 85);
-        chaosGraphics.SetRGB((short) 14, (short) 51, (short) 221, (short) 68);
-        chaosGraphics.SetRGB((short) 15, (short) 238, (short) 238, (short) 238);
+        chaosGraphics.SetRGB(8, 238, 87, 0);
+        chaosGraphics.SetRGB(9, 35, 35, 35);
+        chaosGraphics.SetRGB(10, 92, 92, 92);
+        chaosGraphics.SetRGB(11, 153, 153, 153);
+        chaosGraphics.SetRGB(12, 68, 102, 204);
+        chaosGraphics.SetRGB(13, 221, 85, 85);
+        chaosGraphics.SetRGB(14, 51, 221, 68);
+        chaosGraphics.SetRGB(15, 238, 238, 238);
     }
 
     private void SetGhostPalette() {
         SetMetalPalette();
-        chaosGraphics.CycleRGB((short) 9, (short) 3, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 10, (short) 3, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 11, (short) 3, (short) 0, (short) 0, (short) 0);
+        chaosGraphics.CycleRGB(9, 3, 0, 0, 0);
+        chaosGraphics.CycleRGB(10, 3, 0, 0, 0);
+        chaosGraphics.CycleRGB(11, 3, 0, 0, 0);
     }
 
     private void SetOrPalette() {
-        chaosGraphics.SetRGB((short) 8, (short) 255, (short) 68, (short) 0);
-        chaosGraphics.SetRGB((short) 9, (short) 68, (short) 21, (short) 0);
-        chaosGraphics.SetRGB((short) 10, (short) 153, (short) 40, (short) 0);
-        chaosGraphics.SetRGB((short) 11, (short) 205, (short) 80, (short) 0);
-        chaosGraphics.SetRGB((short) 12, (short) 238, (short) 187, (short) 0);
-        chaosGraphics.SetRGB((short) 13, (short) 255, (short) 153, (short) 0);
-        chaosGraphics.SetRGB((short) 14, (short) 255, (short) 102, (short) 0);
-        chaosGraphics.SetRGB((short) 15, (short) 255, (short) 255, (short) 255);
+        chaosGraphics.SetRGB(8, 255, 68, 0);
+        chaosGraphics.SetRGB(9, 68, 21, 0);
+        chaosGraphics.SetRGB(10, 153, 40, 0);
+        chaosGraphics.SetRGB(11, 205, 80, 0);
+        chaosGraphics.SetRGB(12, 238, 187, 0);
+        chaosGraphics.SetRGB(13, 255, 153, 0);
+        chaosGraphics.SetRGB(14, 255, 102, 0);
+        chaosGraphics.SetRGB(15, 255, 255, 255);
     }
 
     private void SetBluePalette() {
-        chaosGraphics.SetRGB((short) 8, (short) 0, (short) 68, (short) 255);
-        chaosGraphics.SetRGB((short) 9, (short) 0, (short) 34, (short) 85);
-        chaosGraphics.SetRGB((short) 10, (short) 0, (short) 51, (short) 170);
-        chaosGraphics.SetRGB((short) 11, (short) 0, (short) 85, (short) 221);
-        chaosGraphics.SetRGB((short) 12, (short) 0, (short) 187, (short) 238);
-        chaosGraphics.SetRGB((short) 13, (short) 0, (short) 153, (short) 255);
-        chaosGraphics.SetRGB((short) 14, (short) 0, (short) 102, (short) 255);
-        chaosGraphics.SetRGB((short) 15, (short) 255, (short) 255, (short) 255);
+        chaosGraphics.SetRGB(8, 0, 68, 255);
+        chaosGraphics.SetRGB(9, 0, 34, 85);
+        chaosGraphics.SetRGB(10, 0, 51, 170);
+        chaosGraphics.SetRGB(11, 0, 85, 221);
+        chaosGraphics.SetRGB(12, 0, 187, 238);
+        chaosGraphics.SetRGB(13, 0, 153, 255);
+        chaosGraphics.SetRGB(14, 0, 102, 255);
+        chaosGraphics.SetRGB(15, 255, 255, 255);
     }
 
     private void SetForestPalette() {
-        chaosGraphics.SetRGB((short) 8, (short) 6, (short) 15, (short) 0);
-        chaosGraphics.SetRGB((short) 9, (short) 70, (short) 34, (short) 0);
-        chaosGraphics.SetRGB((short) 10, (short) 137, (short) 68, (short) 0);
-        chaosGraphics.SetRGB((short) 11, (short) 187, (short) 136, (short) 15);
-        chaosGraphics.SetRGB((short) 12, (short) 0, (short) 55, (short) 0);
-        chaosGraphics.SetRGB((short) 13, (short) 0, (short) 110, (short) 0);
-        chaosGraphics.SetRGB((short) 14, (short) 75, (short) 180, (short) 0);
-        chaosGraphics.SetRGB((short) 15, (short) 255, (short) 255, (short) 255);
+        chaosGraphics.SetRGB(8, 6, 15, 0);
+        chaosGraphics.SetRGB(9, 70, 34, 0);
+        chaosGraphics.SetRGB(10, 137, 68, 0);
+        chaosGraphics.SetRGB(11, 187, 136, 15);
+        chaosGraphics.SetRGB(12, 0, 55, 0);
+        chaosGraphics.SetRGB(13, 0, 110, 0);
+        chaosGraphics.SetRGB(14, 75, 180, 0);
+        chaosGraphics.SetRGB(15, 255, 255, 255);
     }
 
     private void SetBagleyPalette() {
-        chaosGraphics.SetRGB((short) 8, (short) 15, (short) 6, (short) 0);
-        chaosGraphics.SetRGB((short) 9, (short) 80, (short) 34, (short) 34);
-        chaosGraphics.SetRGB((short) 10, (short) 140, (short) 68, (short) 35);
-        chaosGraphics.SetRGB((short) 11, (short) 187, (short) 136, (short) 50);
-        chaosGraphics.SetRGB((short) 12, (short) 85, (short) 51, (short) 0);
-        chaosGraphics.SetRGB((short) 13, (short) 119, (short) 85, (short) 0);
-        chaosGraphics.SetRGB((short) 14, (short) 187, (short) 119, (short) 0);
-        chaosGraphics.SetRGB((short) 15, (short) 255, (short) 255, (short) 255);
+        chaosGraphics.SetRGB(8, 15, 6, 0);
+        chaosGraphics.SetRGB(9, 80, 34, 34);
+        chaosGraphics.SetRGB(10, 140, 68, 35);
+        chaosGraphics.SetRGB(11, 187, 136, 50);
+        chaosGraphics.SetRGB(12, 85, 51, 0);
+        chaosGraphics.SetRGB(13, 119, 85, 0);
+        chaosGraphics.SetRGB(14, 187, 119, 0);
+        chaosGraphics.SetRGB(15, 255, 255, 255);
     }
 
     private void SetGraveyardPalette() {
-        chaosGraphics.SetRGB((short) 8, (short) 3, (short) 3, (short) 3);
-        chaosGraphics.SetRGB((short) 9, (short) 68, (short) 68, (short) 68);
-        chaosGraphics.SetRGB((short) 10, (short) 102, (short) 102, (short) 102);
-        chaosGraphics.SetRGB((short) 11, (short) 136, (short) 136, (short) 136);
-        chaosGraphics.SetRGB((short) 12, (short) 51, (short) 51, (short) 51);
-        chaosGraphics.SetRGB((short) 13, (short) 119, (short) 119, (short) 119);
-        chaosGraphics.SetRGB((short) 14, (short) 187, (short) 187, (short) 187);
-        chaosGraphics.SetRGB((short) 15, (short) 255, (short) 255, (short) 255);
+        chaosGraphics.SetRGB(8, 3, 3, 3);
+        chaosGraphics.SetRGB(9, 68, 68, 68);
+        chaosGraphics.SetRGB(10, 102, 102, 102);
+        chaosGraphics.SetRGB(11, 136, 136, 136);
+        chaosGraphics.SetRGB(12, 51, 51, 51);
+        chaosGraphics.SetRGB(13, 119, 119, 119);
+        chaosGraphics.SetRGB(14, 187, 187, 187);
+        chaosGraphics.SetRGB(15, 255, 255, 255);
     }
 
     private void SetWinterPalette() {
-        chaosGraphics.SetRGB((short) 8, (short) 68, (short) 85, (short) 102);
-        chaosGraphics.SetRGB((short) 9, (short) 119, (short) 68, (short) 34);
-        chaosGraphics.SetRGB((short) 10, (short) 204, (short) 221, (short) 238);
-        chaosGraphics.SetRGB((short) 11, (short) 230, (short) 238, (short) 255);
-        chaosGraphics.SetRGB((short) 12, (short) 35, (short) 35, (short) 35);
-        chaosGraphics.SetRGB((short) 13, (short) 193, (short) 210, (short) 252);
-        chaosGraphics.SetRGB((short) 14, (short) 170, (short) 221, (short) 255);
-        chaosGraphics.SetRGB((short) 15, (short) 255, (short) 255, (short) 255);
+        chaosGraphics.SetRGB(8, 68, 85, 102);
+        chaosGraphics.SetRGB(9, 119, 68, 34);
+        chaosGraphics.SetRGB(10, 204, 221, 238);
+        chaosGraphics.SetRGB(11, 230, 238, 255);
+        chaosGraphics.SetRGB(12, 35, 35, 35);
+        chaosGraphics.SetRGB(13, 193, 210, 252);
+        chaosGraphics.SetRGB(14, 170, 221, 255);
+        chaosGraphics.SetRGB(15, 255, 255, 255);
     }
 
     private void SetJunglePalette() {
         SetForestPalette();
-        chaosGraphics.SetRGB((short) 14, (short) 0, (short) 68, (short) 204);
+        chaosGraphics.SetRGB(14, 0, 68, 204);
     }
 
-    private void DoFade(short fadeMin, short fadeMax, boolean cycle) {
+    private void DoFade(int fadeMin, int fadeMax, boolean cycle) {
         // VAR
         int sr = 0;
         int sg = 0;
@@ -233,145 +233,145 @@ public class ChaosImages {
             g = (sg * (5 - c) + dg * c) / 7;
             b = (sb * (5 - c) + db * c) / 7;
             if (cycle)
-                chaosGraphics.CycleRGB((short) (c + 9), (short) 2, (short) r, (short) g, (short) b);
+                chaosGraphics.CycleRGB(c + 9, 2, r, g, b);
             else
-                chaosGraphics.SetRGB((short) (c + 9), (short) r, (short) g, (short) b);
+                chaosGraphics.SetRGB(c + 9, r, g, b);
         }
     }
 
     private void SetFadePalette() {
         if (chaosBase.level[Zone.Castle.ordinal()] != lastCastleLevel) {
-            fadeMn1 = (short) (trigo.RND() % 4);
-            fadeMn2 = (short) (trigo.RND() % 4);
-            fadeMx1 = (short) (trigo.RND() % 4);
-            fadeMx2 = (short) (trigo.RND() % 4);
+            fadeMn1 = trigo.RND() % 4;
+            fadeMn2 = trigo.RND() % 4;
+            fadeMx1 = trigo.RND() % 4;
+            fadeMx2 = trigo.RND() % 4;
         }
         DoFade(fadeMn1, fadeMx1, false);
         if (chaosBase.difficulty >= 2)
             DoFade(fadeMn2, fadeMx2, true);
-        chaosGraphics.SetRGB((short) 8, (short) 68, (short) 68, (short) 68);
-        chaosGraphics.SetRGB((short) 15, (short) 255, (short) 255, (short) 255);
+        chaosGraphics.SetRGB(8, 68, 68, 68);
+        chaosGraphics.SetRGB(15, 255, 255, 255);
     }
 
     private void SetRGBIcePalette() {
-        chaosGraphics.SetRGB((short) 8, (short) 51, (short) 51, (short) 85);
-        chaosGraphics.SetRGB((short) 9, (short) 102, (short) 102, (short) 119);
-        chaosGraphics.SetRGB((short) 10, (short) 153, (short) 153, (short) 187);
-        chaosGraphics.SetRGB((short) 11, (short) 204, (short) 204, (short) 255);
-        chaosGraphics.SetRGB((short) 12, (short) 0, (short) 70, (short) 105);
-        chaosGraphics.SetRGB((short) 13, (short) 0, (short) 90, (short) 90);
-        chaosGraphics.SetRGB((short) 14, (short) 0, (short) 100, (short) 115);
-        chaosGraphics.SetRGB((short) 15, (short) 204, (short) 255, (short) 255);
+        chaosGraphics.SetRGB(8, 51, 51, 85);
+        chaosGraphics.SetRGB(9, 102, 102, 119);
+        chaosGraphics.SetRGB(10, 153, 153, 187);
+        chaosGraphics.SetRGB(11, 204, 204, 255);
+        chaosGraphics.SetRGB(12, 0, 70, 105);
+        chaosGraphics.SetRGB(13, 0, 90, 90);
+        chaosGraphics.SetRGB(14, 0, 100, 115);
+        chaosGraphics.SetRGB(15, 204, 255, 255);
     }
 
     private void SetAnimPalette() {
-        chaosGraphics.SetRGB((short) 8, (short) 0, (short) 255, (short) 153);
-        chaosGraphics.SetRGB((short) 9, (short) 51, (short) 51, (short) 51);
-        chaosGraphics.SetRGB((short) 10, (short) 102, (short) 102, (short) 102);
-        chaosGraphics.SetRGB((short) 11, (short) 153, (short) 153, (short) 153);
-        chaosGraphics.SetRGB((short) 12, (short) 0, (short) 255, (short) 0);
-        chaosGraphics.SetRGB((short) 13, (short) 204, (short) 0, (short) 0);
-        chaosGraphics.SetRGB((short) 14, (short) 0, (short) 0, (short) 153);
-        chaosGraphics.SetRGB((short) 15, (short) 255, (short) 255, (short) 255);
+        chaosGraphics.SetRGB(8, 0, 255, 153);
+        chaosGraphics.SetRGB(9, 51, 51, 51);
+        chaosGraphics.SetRGB(10, 102, 102, 102);
+        chaosGraphics.SetRGB(11, 153, 153, 153);
+        chaosGraphics.SetRGB(12, 0, 255, 0);
+        chaosGraphics.SetRGB(13, 204, 0, 0);
+        chaosGraphics.SetRGB(14, 0, 0, 153);
+        chaosGraphics.SetRGB(15, 255, 255, 255);
     }
 
     private void SetAnimatedPalette() {
-        chaosGraphics.SetRGB((short) 8, (short) 0, (short) 0, (short) 255);
-        chaosGraphics.CycleRGB((short) 8, (short) 4, (short) 0, (short) 255, (short) 0);
-        chaosGraphics.SetRGB((short) 9, (short) 51, (short) 51, (short) 51);
-        chaosGraphics.SetRGB((short) 10, (short) 102, (short) 102, (short) 102);
-        chaosGraphics.SetRGB((short) 11, (short) 153, (short) 153, (short) 153);
-        chaosGraphics.SetRGB((short) 12, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 12, (short) 4, (short) 0, (short) 255, (short) 0);
-        chaosGraphics.SetRGB((short) 13, (short) 255, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 13, (short) 17, (short) 0, (short) 68, (short) 0);
-        chaosGraphics.SetRGB((short) 14, (short) 0, (short) 0, (short) 255);
-        chaosGraphics.CycleRGB((short) 14, (short) 4, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.SetRGB((short) 15, (short) 255, (short) 255, (short) 255);
+        chaosGraphics.SetRGB(8, 0, 0, 255);
+        chaosGraphics.CycleRGB(8, 4, 0, 255, 0);
+        chaosGraphics.SetRGB(9, 51, 51, 51);
+        chaosGraphics.SetRGB(10, 102, 102, 102);
+        chaosGraphics.SetRGB(11, 153, 153, 153);
+        chaosGraphics.SetRGB(12, 0, 0, 0);
+        chaosGraphics.CycleRGB(12, 4, 0, 255, 0);
+        chaosGraphics.SetRGB(13, 255, 0, 0);
+        chaosGraphics.CycleRGB(13, 17, 0, 68, 0);
+        chaosGraphics.SetRGB(14, 0, 0, 255);
+        chaosGraphics.CycleRGB(14, 4, 0, 0, 0);
+        chaosGraphics.SetRGB(15, 255, 255, 255);
     }
 
     private void SetAnimatedPalette2() {
-        chaosGraphics.SetRGB((short) 8, (short) 255, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 8, (short) 6, (short) 0, (short) 255, (short) 0);
-        chaosGraphics.SetRGB((short) 9, (short) 51, (short) 51, (short) 51);
-        chaosGraphics.SetRGB((short) 10, (short) 102, (short) 102, (short) 102);
-        chaosGraphics.SetRGB((short) 11, (short) 153, (short) 153, (short) 153);
-        chaosGraphics.SetRGB((short) 12, (short) 255, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 12, (short) 6, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.SetRGB((short) 13, (short) 70, (short) 70, (short) 0);
-        chaosGraphics.CycleRGB((short) 13, (short) 13, (short) 0, (short) 180, (short) 180);
-        chaosGraphics.SetRGB((short) 14, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 14, (short) 6, (short) 0, (short) 255, (short) 0);
-        chaosGraphics.SetRGB((short) 15, (short) 255, (short) 255, (short) 255);
+        chaosGraphics.SetRGB(8, 255, 0, 0);
+        chaosGraphics.CycleRGB(8, 6, 0, 255, 0);
+        chaosGraphics.SetRGB(9, 51, 51, 51);
+        chaosGraphics.SetRGB(10, 102, 102, 102);
+        chaosGraphics.SetRGB(11, 153, 153, 153);
+        chaosGraphics.SetRGB(12, 255, 0, 0);
+        chaosGraphics.CycleRGB(12, 6, 0, 0, 0);
+        chaosGraphics.SetRGB(13, 70, 70, 0);
+        chaosGraphics.CycleRGB(13, 13, 0, 180, 180);
+        chaosGraphics.SetRGB(14, 0, 0, 0);
+        chaosGraphics.CycleRGB(14, 6, 0, 255, 0);
+        chaosGraphics.SetRGB(15, 255, 255, 255);
     }
 
     private void SetAnimatedPalette3() {
-        chaosGraphics.SetRGB((short) 8, (short) 180, (short) 180, (short) 180);
-        chaosGraphics.CycleRGB((short) 8, (short) 12, (short) 90, (short) 90, (short) 90);
-        chaosGraphics.SetRGB((short) 9, (short) 51, (short) 51, (short) 51);
-        chaosGraphics.SetRGB((short) 10, (short) 102, (short) 102, (short) 102);
-        chaosGraphics.SetRGB((short) 11, (short) 153, (short) 153, (short) 153);
-        chaosGraphics.SetRGB((short) 12, (short) 180, (short) 180, (short) 180);
-        chaosGraphics.CycleRGB((short) 12, (short) 6, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.SetRGB((short) 13, (short) 240, (short) 240, (short) 240);
-        chaosGraphics.CycleRGB((short) 13, (short) 13, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.SetRGB((short) 14, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 14, (short) 6, (short) 180, (short) 180, (short) 180);
-        chaosGraphics.SetRGB((short) 15, (short) 255, (short) 255, (short) 255);
+        chaosGraphics.SetRGB(8, 180, 180, 180);
+        chaosGraphics.CycleRGB(8, 12, 90, 90, 90);
+        chaosGraphics.SetRGB(9, 51, 51, 51);
+        chaosGraphics.SetRGB(10, 102, 102, 102);
+        chaosGraphics.SetRGB(11, 153, 153, 153);
+        chaosGraphics.SetRGB(12, 180, 180, 180);
+        chaosGraphics.CycleRGB(12, 6, 0, 0, 0);
+        chaosGraphics.SetRGB(13, 240, 240, 240);
+        chaosGraphics.CycleRGB(13, 13, 0, 0, 0);
+        chaosGraphics.SetRGB(14, 0, 0, 0);
+        chaosGraphics.CycleRGB(14, 6, 180, 180, 180);
+        chaosGraphics.SetRGB(15, 255, 255, 255);
     }
 
     private void SetFactoryPalette() {
         SetMetalPalette();
-        chaosGraphics.CycleRGB((short) 8, (short) 13, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 12, (short) 7, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 13, (short) 24, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 14, (short) 19, (short) 0, (short) 0, (short) 0);
+        chaosGraphics.CycleRGB(8, 13, 0, 0, 0);
+        chaosGraphics.CycleRGB(12, 7, 0, 0, 0);
+        chaosGraphics.CycleRGB(13, 24, 0, 0, 0);
+        chaosGraphics.CycleRGB(14, 19, 0, 0, 0);
     }
 
     private void SetDarkPalette() {
-        chaosGraphics.SetRGB((short) 8, (short) 119, (short) 44, (short) 0);
-        chaosGraphics.SetRGB((short) 9, (short) 18, (short) 18, (short) 18);
-        chaosGraphics.SetRGB((short) 10, (short) 46, (short) 46, (short) 46);
-        chaosGraphics.SetRGB((short) 11, (short) 77, (short) 77, (short) 77);
-        chaosGraphics.SetRGB((short) 12, (short) 34, (short) 51, (short) 102);
-        chaosGraphics.SetRGB((short) 13, (short) 111, (short) 43, (short) 43);
-        chaosGraphics.SetRGB((short) 14, (short) 26, (short) 111, (short) 34);
-        chaosGraphics.SetRGB((short) 15, (short) 119, (short) 119, (short) 119);
+        chaosGraphics.SetRGB(8, 119, 44, 0);
+        chaosGraphics.SetRGB(9, 18, 18, 18);
+        chaosGraphics.SetRGB(10, 46, 46, 46);
+        chaosGraphics.SetRGB(11, 77, 77, 77);
+        chaosGraphics.SetRGB(12, 34, 51, 102);
+        chaosGraphics.SetRGB(13, 111, 43, 43);
+        chaosGraphics.SetRGB(14, 26, 111, 34);
+        chaosGraphics.SetRGB(15, 119, 119, 119);
     }
 
     private void SetDarkFactoryPalette() {
         SetDarkPalette();
-        chaosGraphics.CycleRGB((short) 8, (short) 13, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 12, (short) 7, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 13, (short) 24, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.CycleRGB((short) 14, (short) 19, (short) 0, (short) 0, (short) 0);
+        chaosGraphics.CycleRGB(8, 13, 0, 0, 0);
+        chaosGraphics.CycleRGB(12, 7, 0, 0, 0);
+        chaosGraphics.CycleRGB(13, 24, 0, 0, 0);
+        chaosGraphics.CycleRGB(14, 19, 0, 0, 0);
     }
 
-    private void InitImages_DrawNextBlock(int BlockSize, Dialogs.GadgetPtr progress, short[] block, short[] dest, /* VAR */ Runtime.IRef<Short> bRead, /* VAR */ Runtime.IRef<Integer> pc, /* VAR */ Runtime.IRef<Short> px, /* VAR */ Runtime.IRef<Short> py, /* VAR */ Runtime.IRef<Integer> fill, int boost) {
+    private void InitImages_DrawNextBlock(int BlockSize, Dialogs.GadgetPtr progress, int[] block, int[] dest, /* VAR */ Runtime.IRef<Integer> bRead, /* VAR */ Runtime.IRef<Integer> pc, /* VAR */ Runtime.IRef<Integer> px, /* VAR */ Runtime.IRef<Integer> py, /* VAR */ Runtime.IRef<Integer> fill, int boost) {
         // VAR
         Graphics.Image image = new Graphics.Image();
         Input.Event e = new Input.Event(); /* WRT */
-        int p = 0;
-        short x = 0;
-        short y = 0;
-        short z = 0;
-        short dx = 0;
-        short dy = 0;
-        short v = 0;
+        long p = 0L;
+        int x = 0;
+        int y = 0;
+        int z = 0;
+        int dx = 0;
+        int dy = 0;
+        int v = 0;
         int patCnt = 0;
         int val = 0;
         int pix = 0;
         int add = 0;
 
         if (chaosGraphics.color) {
-            bRead.set((short) files.ReadFileBytes(chaosBase.file, block, BlockSize));
+            bRead.set((int) files.ReadFileBytes(chaosBase.file, block, BlockSize));
             if (bRead.get() != BlockSize)
                 checks.Check(true, Runtime.castToRef(languages.ADL(ReadIErrMsg), String.class), files.FileErrorMsg());
             if (chaosGraphics.dualpf) {
-                for (z = (short) (BlockSize - 1); z >= 0; z -= 1) {
+                for (z = BlockSize - 1; z >= 0; z -= 1) {
                     v = block[z];
-                    block[z * 2 + 1] = (short) (v % 16);
-                    block[z * 2] = (short) (v / 16);
+                    block[z * 2 + 1] = v % 16;
+                    block[z * 2] = v / 16;
                 }
                 y = 8;
             } else {
@@ -386,39 +386,39 @@ public class ChaosImages {
             image.zh = 1;
             if (chaosGraphics.mulS > 1) {
                 graphics.SetArea(chaosGraphics.shapeArea);
-                graphics.DrawImage(image, (short) 0, (short) 0, (short) 0, (short) 0, (short) ChaosGraphics.BW, (short) ChaosGraphics.BH);
+                graphics.DrawImage(image, 0, 0, 0, 0, ChaosGraphics.BW, ChaosGraphics.BH);
                 graphics.SetArea(chaosGraphics.imageArea);
-                graphics.ScaleRect(chaosGraphics.shapeArea, (short) 0, (short) 0, (short) ChaosGraphics.BW, (short) ChaosGraphics.BH, chaosGraphics.W.invoke(px.get()), chaosGraphics.H.invoke(py.get()), chaosGraphics.W.invoke((short) (px.get() + ChaosGraphics.BW)), chaosGraphics.H.invoke((short) (py.get() + ChaosGraphics.BH)));
+                graphics.ScaleRect(chaosGraphics.shapeArea, 0, 0, ChaosGraphics.BW, ChaosGraphics.BH, chaosGraphics.W.invoke(px.get()), chaosGraphics.H.invoke(py.get()), chaosGraphics.W.invoke(px.get() + ChaosGraphics.BW), chaosGraphics.H.invoke(py.get() + ChaosGraphics.BH));
             } else {
                 graphics.SetArea(chaosGraphics.imageArea);
-                graphics.DrawImage(image, (short) 0, (short) 0, px.get(), py.get(), (short) 32, (short) 32);
+                graphics.DrawImage(image, 0, 0, px.get(), py.get(), 32, 32);
             }
             if (chaosGraphics.dualpf) {
                 for (z = 0; z < BlockSize * 2; z++) {
-                    block[z] = (short) (block[z] * 16);
+                    block[z] = block[z] * 16;
                 }
                 if (chaosGraphics.mulS > 1) {
                     graphics.SetArea(chaosGraphics.shapeArea);
-                    graphics.DrawImage(image, (short) 0, (short) 0, (short) 0, (short) 0, (short) ChaosGraphics.BW, (short) ChaosGraphics.BH);
+                    graphics.DrawImage(image, 0, 0, 0, 0, ChaosGraphics.BW, ChaosGraphics.BH);
                     graphics.SetArea(chaosGraphics.image2Area);
-                    graphics.ScaleRect(chaosGraphics.shapeArea, (short) 0, (short) 0, (short) ChaosGraphics.BW, (short) ChaosGraphics.BH, chaosGraphics.W.invoke(px.get()), chaosGraphics.H.invoke(py.get()), chaosGraphics.W.invoke((short) (px.get() + ChaosGraphics.BW)), chaosGraphics.H.invoke((short) (py.get() + ChaosGraphics.BH)));
+                    graphics.ScaleRect(chaosGraphics.shapeArea, 0, 0, ChaosGraphics.BW, ChaosGraphics.BH, chaosGraphics.W.invoke(px.get()), chaosGraphics.H.invoke(py.get()), chaosGraphics.W.invoke(px.get() + ChaosGraphics.BW), chaosGraphics.H.invoke(py.get() + ChaosGraphics.BH));
                 } else {
                     graphics.SetArea(chaosGraphics.image2Area);
-                    graphics.DrawImage(image, (short) 0, (short) 0, px.get(), py.get(), (short) 32, (short) 32);
+                    graphics.DrawImage(image, 0, 0, px.get(), py.get(), 32, 32);
                 }
             }
         } else {
             graphics.SetPen(1);
             patCnt = 256;
             p = 0;
-            bRead.set((short) files.ReadFileBytes(chaosBase.file, block, BlockSize));
+            bRead.set((int) files.ReadFileBytes(chaosBase.file, block, BlockSize));
             if (bRead.get() != BlockSize)
                 checks.Check(true, Runtime.castToRef(languages.ADL(ReadIErrMsg), String.class), files.FileErrorMsg());
             for (y = 0; y < ChaosGraphics.BH; y++) {
                 for (dy = 0; dy < chaosGraphics.mulS; dy++) {
-                    z = (short) (y * ChaosGraphics.BW);
+                    z = y * ChaosGraphics.BW;
                     for (x = 0; x < ChaosGraphics.BW; x++) {
-                        pix = memory.GetBitField(new Runtime.ArrayElementRef<>(block, z / 2), (z % 2) * 4, (short) 4);
+                        pix = memory.GetBitField(new Runtime.ArrayElementRef<>(block, z / 2), (z % 2) * 4, 4);
                         for (dx = 0; dx < chaosGraphics.mulS; dx++) {
                             { // WITH
                                 ChaosGraphics.Palette _palette = chaosGraphics.palette[pix];
@@ -436,8 +436,8 @@ public class ChaosImages {
                             } else {
                                 val = 0;
                             }
-                            pc.set(p / 8);
-                            memory.SetBitField(new Runtime.ArrayElementRef<>(dest, pc.get()), (p % 8), (short) 1, (short) val);
+                            pc.set((int) (p / 8));
+                            memory.SetBitField(new Runtime.ArrayElementRef<>(dest, pc.get()), (p % 8), 1, val);
                             p++;
                         }
                         z++;
@@ -448,11 +448,11 @@ public class ChaosImages {
             image.data = dest;
             image.bitPerPix = 1;
             image.bytePerRow = chaosGraphics.mulS * 4;
-            image.width = (short) (ChaosGraphics.BW * chaosGraphics.mulS);
-            image.height = (short) (ChaosGraphics.BH * chaosGraphics.mulS);
+            image.width = ChaosGraphics.BW * chaosGraphics.mulS;
+            image.height = ChaosGraphics.BH * chaosGraphics.mulS;
             image.zw = 1;
             image.zh = 1;
-            graphics.DrawImage(image, (short) 0, (short) 0, (short) (px.get() * chaosGraphics.mulS), (short) (py.get() * chaosGraphics.mulS), (short) (ChaosGraphics.BW * chaosGraphics.mulS), (short) (ChaosGraphics.BH * chaosGraphics.mulS));
+            graphics.DrawImage(image, 0, 0, px.get() * chaosGraphics.mulS, py.get() * chaosGraphics.mulS, ChaosGraphics.BW * chaosGraphics.mulS, ChaosGraphics.BH * chaosGraphics.mulS);
         }
         fill.inc(1023);
         if (progress != dialogs.noGadget)
@@ -460,7 +460,7 @@ public class ChaosImages {
         input.GetEvent(e);
         px.inc(ChaosGraphics.BW);
         if (px.get() >= 256) {
-            px.set((short) 0);
+            px.set(0);
             py.inc(ChaosGraphics.BH);
         }
     }
@@ -473,14 +473,14 @@ public class ChaosImages {
 
         // VAR
         Dialogs.GadgetPtr progress = null;
-        Runtime.Ref<short[]> block = new Runtime.Ref<>(null);
-        Runtime.Ref<short[]> dest = new Runtime.Ref<>(null);
-        Runtime.Ref<Short> bRead = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<int[]> block = new Runtime.Ref<>(null);
+        Runtime.Ref<int[]> dest = new Runtime.Ref<>(null);
+        Runtime.Ref<Integer> bRead = new Runtime.Ref<>(0);
         int nbcolors = 0;
         int c = 0;
         Runtime.Ref<Integer> pc = new Runtime.Ref<>(0);
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
         Runtime.Ref<Integer> fill = new Runtime.Ref<>(0);
         int boost = 0;
         boolean oldWater = false;
@@ -498,40 +498,40 @@ public class ChaosImages {
         } else {
             nbcolors = 2;
         }
-        chaosGraphics.imageArea = graphics.CreateArea((Memory.TagItem) memory.TAG3(Graphics.aSIZEX, chaosGraphics.W.invoke((short) 256), Graphics.aSIZEY, chaosGraphics.H.invoke((short) 256), Graphics.aCOLOR, nbcolors));
+        chaosGraphics.imageArea = graphics.CreateArea((Memory.TagItem) memory.TAG3(Graphics.aSIZEX, chaosGraphics.W.invoke(256), Graphics.aSIZEY, chaosGraphics.H.invoke(256), Graphics.aCOLOR, nbcolors));
         if (chaosGraphics.imageArea == graphics.noArea)
             return false;
         if (chaosGraphics.dualpf) {
-            chaosGraphics.image2Area = graphics.CreateArea((Memory.TagItem) memory.TAG3(Graphics.aSIZEX, chaosGraphics.W.invoke((short) 256), Graphics.aSIZEY, chaosGraphics.H.invoke((short) 256), Graphics.aCOLOR, nbcolors));
+            chaosGraphics.image2Area = graphics.CreateArea((Memory.TagItem) memory.TAG3(Graphics.aSIZEX, chaosGraphics.W.invoke(256), Graphics.aSIZEY, chaosGraphics.H.invoke(256), Graphics.aCOLOR, nbcolors));
             if (chaosGraphics.image2Area == graphics.noArea) {
                 graphics.DeleteArea(new Runtime.FieldRef<>(chaosGraphics::getImageArea, chaosGraphics::setImageArea));
                 return false;
             }
         }
         if (chaosGraphics.dualpf)
-            block.set((short[]) memory.AllocMem(BlockSize * 2 * Runtime.sizeOf(2, short.class)));
+            block.set((int[]) memory.AllocMem(BlockSize * 2 * Runtime.sizeOf(4, int.class)));
         else
-            block.set((short[]) memory.AllocMem(BlockSize * Runtime.sizeOf(2, short.class)));
+            block.set((int[]) memory.AllocMem(BlockSize * Runtime.sizeOf(4, int.class)));
         if (block.get() == null)
             return false;
         if (chaosGraphics.mulS > 1)
-            dest.set((short[]) memory.AllocMem(chaosGraphics.mulS * chaosGraphics.mulS * 128 * Runtime.sizeOf(2, short.class)));
+            dest.set((int[]) memory.AllocMem(chaosGraphics.mulS * chaosGraphics.mulS * 128 * Runtime.sizeOf(4, int.class)));
         else
             dest.set(block.get());
         if (dest.get() == null) {
             memory.FreeMem(block.asAdrRef());
             return false;
         }
-        px.set((short) 0);
-        py.set((short) 0);
+        px.set(0);
+        py.set(0);
         fill.set(63);
         chaosBase.file = files.OpenFile(Runtime.castToRef(memory.ADS(ImagesFile), String.class), EnumSet.of(AccessFlags.accessRead));
         checks.Check(chaosBase.file == files.noFile, Runtime.castToRef(languages.ADL(OpenIErrMsg), String.class), files.FileErrorMsg());
         dTitle = languages.ADL(DTitle);
-        chaosBase.d = dialogs.CreateGadget((short) Dialogs.dDialog, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, dTitle, Dialogs.dRFLAGS, Dialogs.dfCLOSE));
+        chaosBase.d = dialogs.CreateGadget(Dialogs.dDialog, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, dTitle, Dialogs.dRFLAGS, Dialogs.dfCLOSE));
         progress = dialogs.noGadget;
         if (chaosBase.d != dialogs.noGadget) {
-            progress = dialogs.AddNewGadget(chaosBase.d, (short) Dialogs.dProgress, (Memory.TagItem) memory.TAG3(Dialogs.dRFLAGS, Dialogs.dfBORDER, Dialogs.dTEXT, memory.ADS(""), Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
+            progress = dialogs.AddNewGadget(chaosBase.d, Dialogs.dProgress, (Memory.TagItem) memory.TAG3(Dialogs.dRFLAGS, Dialogs.dfBORDER, Dialogs.dTEXT, memory.ADS(""), Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
             if ((progress == dialogs.noGadget) || (dialogs.RefreshGadget(chaosBase.d) != Dialogs.DialogOk))
                 dialogs.DeepFreeGadget(new Runtime.FieldRef<>(chaosBase::getD, chaosBase::setD));
         }
@@ -576,7 +576,7 @@ public class ChaosImages {
         SetMetalPalette();
         graphics.SetArea(chaosGraphics.shapeArea);
         graphics.SetPen(0);
-        graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) 256), chaosGraphics.H.invoke((short) 256));
+        graphics.FillRect(0, 0, chaosGraphics.W.invoke(256), chaosGraphics.H.invoke(256));
         dialogs.DeepFreeGadget(new Runtime.FieldRef<>(chaosBase::getD, chaosBase::setD));
         if (dest.get() != block.get())
             memory.FreeMem(dest.asAdrRef());
@@ -587,7 +587,7 @@ public class ChaosImages {
         return true;
     }
 
-    private void RenderObjects_GetChar(/* var */ Runtime.IRef<Character> ch, Dialogs.GadgetPtr progress, /* VAR */ Runtime.IRef<Long> size, long total, /* VAR */ Runtime.IRef<Integer> bRead, /* VAR */ Runtime.IRef<Integer> tofill) {
+    private void RenderObjects_GetChar(/* var */ Runtime.IRef<Character> ch, Dialogs.GadgetPtr progress, /* VAR */ Runtime.IRef<Long> size, long total, /* VAR */ Runtime.IRef<Long> bRead, /* VAR */ Runtime.IRef<Integer> tofill) {
         // VAR
         long fill = 0L;
 
@@ -604,15 +604,15 @@ public class ChaosImages {
         }
     }
 
-    private void RenderObjects_GetVal(/* VAR */ Runtime.IRef<Short> val, Dialogs.GadgetPtr progress, /* VAR */ Runtime.IRef<Long> size, long total, /* VAR */ Runtime.IRef<Integer> bRead, /* VAR */ Runtime.IRef<Integer> tofill) {
+    private void RenderObjects_GetVal(/* VAR */ Runtime.IRef<Integer> val, Dialogs.GadgetPtr progress, /* VAR */ Runtime.IRef<Long> size, long total, /* VAR */ Runtime.IRef<Long> bRead, /* VAR */ Runtime.IRef<Integer> tofill) {
         // VAR
         Runtime.Ref<Character> ch = new Runtime.Ref<>((char) 0);
 
         RenderObjects_GetChar(ch, progress, size, total, bRead, tofill);
-        val.set((short) (char) ch.get());
+        val.set((char) ch.get());
     }
 
-    private void RenderObjects_GetCoords(/* VAR+WRT */ Runtime.IRef<Short> x, /* VAR+WRT */ Runtime.IRef<Short> y, Dialogs.GadgetPtr progress, /* VAR */ Runtime.IRef<Long> size, long total, /* VAR */ Runtime.IRef<Integer> bRead, /* VAR */ Runtime.IRef<Integer> tofill, boolean highx, boolean highy) {
+    private void RenderObjects_GetCoords(/* VAR+WRT */ Runtime.IRef<Integer> x, /* VAR+WRT */ Runtime.IRef<Integer> y, Dialogs.GadgetPtr progress, /* VAR */ Runtime.IRef<Long> size, long total, /* VAR */ Runtime.IRef<Long> bRead, /* VAR */ Runtime.IRef<Integer> tofill, boolean highx, boolean highy) {
         RenderObjects_GetVal(x, progress, size, total, bRead, tofill);
         RenderObjects_GetVal(y, progress, size, total, bRead, tofill);
         if (highx && (x.get() < 64))
@@ -621,13 +621,13 @@ public class ChaosImages {
             y.inc(256);
     }
 
-    private void RenderObjects_XFillRect(short sx, short sy, short ex, short ey, short lightColor, short darkColor, short bpen, short pat, EnumSet<Modes> cm, /* VAR */ Runtime.IRef<Boolean> triColor) {
+    private void RenderObjects_XFillRect(int sx, int sy, int ex, int ey, int lightColor, int darkColor, int bpen, int pat, EnumSet<Modes> cm, /* VAR */ Runtime.IRef<Boolean> triColor) {
         // VAR
-        short i = 0;
+        int i = 0;
 
         graphics.SetCopyMode(Graphics.cmCopy);
         for (i = 0; i < chaosGraphics.mulS; i++) {
-            graphics.SetPat((short) ((i * 4 + chaosGraphics.mulS / 2) / chaosGraphics.mulS));
+            graphics.SetPat((i * 4 + chaosGraphics.mulS / 2) / chaosGraphics.mulS);
             graphics.SetBPen(lightColor);
             graphics.FillRect(sx, sy, ex, ey);
             sx++;
@@ -644,13 +644,13 @@ public class ChaosImages {
         graphics.SetCopyMode(cm);
     }
 
-    private void RenderObjects_XFillEllipse(short sx, short sy, short ex, short ey, short lightColor, short darkColor, short bpen, short pat, EnumSet<Modes> cm, /* VAR */ Runtime.IRef<Boolean> triColor) {
+    private void RenderObjects_XFillEllipse(int sx, int sy, int ex, int ey, int lightColor, int darkColor, int bpen, int pat, EnumSet<Modes> cm, /* VAR */ Runtime.IRef<Boolean> triColor) {
         // VAR
-        short i = 0;
+        int i = 0;
 
         graphics.SetCopyMode(Graphics.cmCopy);
         for (i = 0; i < chaosGraphics.mulS; i++) {
-            graphics.SetPat((short) ((i * 4 + chaosGraphics.mulS / 2) / chaosGraphics.mulS));
+            graphics.SetPat((i * 4 + chaosGraphics.mulS / 2) / chaosGraphics.mulS);
             graphics.SetBPen(lightColor);
             graphics.FillEllipse(sx, sy, ex, ey);
             sx++;
@@ -667,15 +667,15 @@ public class ChaosImages {
         graphics.SetCopyMode(cm);
     }
 
-    private void RenderObjects_XFillPoly(short[] xvect, short[] yvect, boolean[] xdec, boolean[] ydec, /* VAR */ Runtime.IRef<Integer> cnt, short lightColor, short darkColor, short bpen, short pat, EnumSet<Modes> cm, /* VAR */ Runtime.IRef<Boolean> triColor) {
+    private void RenderObjects_XFillPoly(int[] xvect, int[] yvect, boolean[] xdec, boolean[] ydec, /* VAR */ Runtime.IRef<Integer> cnt, int lightColor, int darkColor, int bpen, int pat, EnumSet<Modes> cm, /* VAR */ Runtime.IRef<Boolean> triColor) {
         // VAR
-        short i = 0;
+        int i = 0;
         int c = 0;
 
         graphics.SetArea(chaosGraphics.shapeArea);
         graphics.SetCopyMode(Graphics.cmCopy);
         for (i = 0; i < chaosGraphics.mulS; i++) {
-            graphics.SetPat((short) ((i * 4 + chaosGraphics.mulS / 2) / chaosGraphics.mulS));
+            graphics.SetPat((i * 4 + chaosGraphics.mulS / 2) / chaosGraphics.mulS);
             graphics.SetBPen(lightColor);
             for (c = 0; c < cnt.get(); c++) {
                 if (c > 0)
@@ -723,34 +723,34 @@ public class ChaosImages {
         Dialogs.GadgetPtr progress = null;
         Runtime.Ref<Long> size = new Runtime.Ref<>(0L);
         long total = 0L;
-        Runtime.Ref<Integer> bRead = new Runtime.Ref<>(0);
+        Runtime.Ref<Long> bRead = new Runtime.Ref<>(0L);
         Runtime.Ref<Integer> tofill = new Runtime.Ref<>(0);
         boolean highx = false;
         boolean highy = false;
         Object dTitle = null;
-        short[] xvect = new short[20];
-        short[] yvect = new short[20];
+        int[] xvect = new int[20];
+        int[] yvect = new int[20];
         boolean[] xdec = new boolean[20];
         boolean[] ydec = new boolean[20];
         Runtime.Ref<Integer> cnt = new Runtime.Ref<>(0);
         int c = 0;
-        Runtime.Ref<Short> lightColor = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> darkColor = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> bpen = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> x1 = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y1 = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> x2 = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y2 = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> sz = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> w = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> col = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> p = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> pat = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> msk = new Runtime.Ref<>((short) 0);
-        short sx = 0;
-        short sy = 0;
-        short ex = 0;
-        short ey = 0;
+        Runtime.Ref<Integer> lightColor = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> darkColor = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> bpen = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> x1 = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y1 = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> x2 = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y2 = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> sz = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> w = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> col = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> p = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> pat = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> msk = new Runtime.Ref<>(0);
+        int sx = 0;
+        int sy = 0;
+        int ex = 0;
+        int ey = 0;
         Runtime.Ref<String> str = new Runtime.Ref<>("");
         Runtime.Ref<Character> ch = new Runtime.Ref<>((char) 0);
         EnumSet<Modes> cm = EnumSet.noneOf(Modes.class);
@@ -758,9 +758,9 @@ public class ChaosImages {
 
         cnt.set(0);
         triColor.set(false);
-        pat.set((short) 4);
-        bpen.set((short) 0);
-        chaosGraphics.SetOrigin((short) 0, (short) 0);
+        pat.set(4);
+        bpen.set(0);
+        chaosGraphics.SetOrigin(0, 0);
         graphics.SetArea(chaosGraphics.maskArea);
         graphics.SetPen(1);
         graphics.SetArea(chaosGraphics.shapeArea);
@@ -768,14 +768,14 @@ public class ChaosImages {
         chaosBase.file = files.OpenFile(Runtime.castToRef(memory.ADS(ObjectsFile), String.class), EnumSet.of(AccessFlags.accessRead));
         checks.Check(chaosBase.file == files.noFile, Runtime.castToRef(languages.ADL(OpenOErrMsg), String.class), files.FileErrorMsg());
         dTitle = languages.ADL(DTitle);
-        chaosBase.d = dialogs.CreateGadget((short) Dialogs.dDialog, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, dTitle, Dialogs.dRFLAGS, Dialogs.dfCLOSE));
+        chaosBase.d = dialogs.CreateGadget(Dialogs.dDialog, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, dTitle, Dialogs.dRFLAGS, Dialogs.dfCLOSE));
         progress = dialogs.noGadget;
         if (chaosBase.d != dialogs.noGadget) {
-            progress = dialogs.AddNewGadget(chaosBase.d, (short) Dialogs.dProgress, (Memory.TagItem) memory.TAG3(Dialogs.dRFLAGS, Dialogs.dfBORDER, Dialogs.dTEXT, memory.ADS(""), Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
+            progress = dialogs.AddNewGadget(chaosBase.d, Dialogs.dProgress, (Memory.TagItem) memory.TAG3(Dialogs.dRFLAGS, Dialogs.dfBORDER, Dialogs.dTEXT, memory.ADS(""), Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
             if ((progress == dialogs.noGadget) || (dialogs.RefreshGadget(chaosBase.d) != Dialogs.DialogOk))
                 dialogs.DeepFreeGadget(new Runtime.FieldRef<>(chaosBase::getD, chaosBase::setD));
         }
-        size.set((long) files.FileLength(chaosBase.file));
+        size.set(files.FileLength(chaosBase.file));
         tofill.set(200);
         total = size.get();
         while (size.get() > 0) {
@@ -877,7 +877,7 @@ public class ChaosImages {
                     Runtime.setChar(str, c, ((char) 0));
                     graphics.SetArea(chaosGraphics.shapeArea);
                     graphics.SetTextSize(chaosGraphics.H.invoke(sz.get()));
-                    x1.set((short) (chaosGraphics.X.invoke(x1.get()) + (chaosGraphics.W.invoke((short) (w.get() - 1)) - graphics.TextWidth(str)) / 2));
+                    x1.set(chaosGraphics.X.invoke(x1.get()) + (chaosGraphics.W.invoke(w.get() - 1) - graphics.TextWidth(str)) / 2);
                     y1.set(chaosGraphics.Y.invoke(y1.get()));
                     graphics.SetTextPos(x1.get(), y1.get());
                     if (!chaosGraphics.color)
@@ -933,19 +933,19 @@ public class ChaosImages {
         }
         files.CloseFile(new Runtime.FieldRef<>(chaosBase::getFile, chaosBase::setFile));
         graphics.SetArea(chaosGraphics.maskArea);
-        graphics.SetPat((short) 4);
+        graphics.SetPat(4);
         graphics.SetBPen(0);
         graphics.SetPen(1);
         graphics.SetCopyMode(Graphics.cmXor);
-        graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) 256), chaosGraphics.H.invoke((short) 256));
+        graphics.FillRect(0, 0, chaosGraphics.W.invoke(256), chaosGraphics.H.invoke(256));
         graphics.SetArea(chaosGraphics.shapeArea);
-        graphics.SetPat((short) 4);
+        graphics.SetPat(4);
         graphics.SetBPen(0);
         graphics.SetPen(0);
         graphics.SetCopyMode(Graphics.cmTrans);
-        graphics.DrawShadow(chaosGraphics.maskArea, (short) 0, (short) 0, (short) 0, (short) 0, chaosGraphics.W.invoke((short) 256), chaosGraphics.H.invoke((short) 256));
+        graphics.DrawShadow(chaosGraphics.maskArea, 0, 0, 0, 0, chaosGraphics.W.invoke(256), chaosGraphics.H.invoke(256));
         graphics.SetArea(chaosGraphics.maskArea);
-        graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) 256), chaosGraphics.H.invoke((short) 256));
+        graphics.FillRect(0, 0, chaosGraphics.W.invoke(256), chaosGraphics.H.invoke(256));
         dialogs.DeepFreeGadget(new Runtime.FieldRef<>(chaosBase::getD, chaosBase::setD));
     }
 
@@ -954,20 +954,20 @@ public class ChaosImages {
         int rnd = 0;
 
         if (chaosGraphics.color) {
-            chaosGraphics.SetRGB((short) 0, (short) 0, (short) 0, (short) 0);
-            chaosGraphics.SetRGB((short) 1, (short) 127, (short) 127, (short) 127);
+            chaosGraphics.SetRGB(0, 0, 0, 0);
+            chaosGraphics.SetRGB(1, 127, 127, 127);
         } else {
-            chaosGraphics.SetRGB((short) 0, (short) 0, (short) 0, (short) 0);
-            chaosGraphics.SetRGB((short) 1, (short) 255, (short) 255, (short) 255);
+            chaosGraphics.SetRGB(0, 0, 0, 0);
+            chaosGraphics.SetRGB(1, 255, 255, 255);
         }
-        chaosGraphics.SetRGB((short) 2, (short) 255, (short) 255, (short) 255);
-        chaosGraphics.CycleRGB((short) 2, (short) 40, (short) 127, (short) 255, (short) 255);
-        chaosGraphics.SetRGB((short) 3, (short) 255, (short) 255, (short) 0);
-        chaosGraphics.CycleRGB((short) 3, (short) 200, (short) 255, (short) 200, (short) 0);
-        chaosGraphics.SetRGB((short) 4, (short) 255, (short) 0, (short) 0);
-        chaosGraphics.SetRGB((short) 5, (short) 0, (short) 255, (short) 0);
-        chaosGraphics.SetRGB((short) 6, (short) 0, (short) 0, (short) 255);
-        chaosGraphics.SetRGB((short) 7, (short) 216, (short) 152, (short) 0);
+        chaosGraphics.SetRGB(2, 255, 255, 255);
+        chaosGraphics.CycleRGB(2, 40, 127, 255, 255);
+        chaosGraphics.SetRGB(3, 255, 255, 0);
+        chaosGraphics.CycleRGB(3, 200, 255, 200, 0);
+        chaosGraphics.SetRGB(4, 255, 0, 0);
+        chaosGraphics.SetRGB(5, 0, 255, 0);
+        chaosGraphics.SetRGB(6, 0, 0, 255);
+        chaosGraphics.SetRGB(7, 216, 152, 0);
         if (chaosBase.zone == Zone.Chaos) {
             SetMetalPalette();
         } else if (chaosBase.zone == Zone.Castle) {
@@ -1015,16 +1015,16 @@ public class ChaosImages {
     }
 
     public void InitDualPalette() {
-        chaosGraphics.SetRGB((short) 0, (short) 0, (short) 0, (short) 0);
-        chaosGraphics.SetRGB((short) 1, (short) 127, (short) 127, (short) 127);
-        chaosGraphics.SetRGB((short) 2, (short) 255, (short) 255, (short) 255);
-        chaosGraphics.CycleRGB((short) 2, (short) 40, (short) 127, (short) 255, (short) 255);
-        chaosGraphics.SetRGB((short) 3, (short) 255, (short) 255, (short) 0);
-        chaosGraphics.CycleRGB((short) 3, (short) 200, (short) 255, (short) 200, (short) 0);
-        chaosGraphics.SetRGB((short) 4, (short) 255, (short) 0, (short) 0);
-        chaosGraphics.SetRGB((short) 5, (short) 0, (short) 255, (short) 0);
-        chaosGraphics.SetRGB((short) 6, (short) 0, (short) 0, (short) 255);
-        chaosGraphics.SetRGB((short) 7, (short) 216, (short) 152, (short) 0);
+        chaosGraphics.SetRGB(0, 0, 0, 0);
+        chaosGraphics.SetRGB(1, 127, 127, 127);
+        chaosGraphics.SetRGB(2, 255, 255, 255);
+        chaosGraphics.CycleRGB(2, 40, 127, 255, 255);
+        chaosGraphics.SetRGB(3, 255, 255, 0);
+        chaosGraphics.CycleRGB(3, 200, 255, 200, 0);
+        chaosGraphics.SetRGB(4, 255, 0, 0);
+        chaosGraphics.SetRGB(5, 0, 255, 0);
+        chaosGraphics.SetRGB(6, 0, 0, 255);
+        chaosGraphics.SetRGB(7, 216, 152, 0);
         if (chaosBase.zone == Zone.Chaos) {
             SetMetalPalette();
         } else if (chaosBase.zone == Zone.Castle) {

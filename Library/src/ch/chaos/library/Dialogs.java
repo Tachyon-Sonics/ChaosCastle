@@ -236,8 +236,8 @@ public class Dialogs {
             invokeInSwing(showArea);
     }
 
-    private Gadget create(short type) {
-        return switch ((int) type) {
+    private Gadget create(int type) {
+        return switch (type) {
             case dDialog -> new DialogGadget();
             case dProgress -> new ProgressGadget();
             case dGroup -> new GroupGadget();
@@ -247,7 +247,7 @@ public class Dialogs {
             case dLabel -> new LabelGadget();
             case dIntEdit -> new NumberGadget();
             case dCycle -> new CycleGadget();
-            default -> throw new IllegalArgumentException("Unhandled gadget type: " + (int) type);
+            default -> throw new IllegalArgumentException("Unhandled gadget type: " + type);
         };
     }
 
@@ -266,7 +266,7 @@ public class Dialogs {
         });
     }
 
-    public GadgetPtr CreateGadget(short type, Memory.TagItem tags) {
+    public GadgetPtr CreateGadget(int type, Memory.TagItem tags) {
         return invokeInSwing(() -> {
             Gadget gadget = create(type);
             gadget.apply(tags);
@@ -291,7 +291,7 @@ public class Dialogs {
         });
     }
 
-    public GadgetPtr AddNewGadget(GadgetPtr parent0, short type, Memory.TagItem tags) {
+    public GadgetPtr AddNewGadget(GadgetPtr parent0, int type, Memory.TagItem tags) {
         return invokeInSwing(() -> {
             Gadget gadget = create(type);
             gadget.apply(tags);

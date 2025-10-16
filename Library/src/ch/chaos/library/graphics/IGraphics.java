@@ -32,7 +32,7 @@ public interface IGraphics {
 
     public void SetArea(AreaPtr a);
 
-    public void SetPalette(short color, short red, short green, short blue);
+    public void SetPalette(int color, int red, int green, int blue);
 
     public void SetCopyMode(EnumSet<Modes> dm);
 
@@ -42,51 +42,51 @@ public interface IGraphics {
 
     public void SetBPen(long color);
 
-    public void SetPat(short v);
+    public void SetPat(int v);
 
     public void SetPattern(/* VAR */ byte[] pattern);
 
-    public void DrawPixel(short x, short y);
+    public void DrawPixel(int x, int y);
 
-    public void DrawLine(short x1, short y1, short x2, short y2);
+    public void DrawLine(int x1, int y1, int x2, int y2);
 
-    public void OpenPoly(short x, short y);
+    public void OpenPoly(int x, int y);
 
-    public void AddLine(short x, short y);
+    public void AddLine(int x, int y);
 
     public void FillPoly();
 
-    public void FillRect(short x1, short y1, short x2, short y2);
+    public void FillRect(int x1, int y1, int x2, int y2);
 
-    public void FillEllipse(short x1, short y1, short x2, short y2);
+    public void FillEllipse(int x1, int y1, int x2, int y2);
 
-    public void FillFlood(short x, short y, long borderCol);
+    public void FillFlood(int x, int y, long borderCol);
 
     public void SetTextMode(EnumSet<TextModes> tm);
 
-    public void SetTextSize(short s);
+    public void SetTextSize(int s);
 
-    public void SetTextPos(short x, short y);
+    public void SetTextPos(int x, int y);
 
-    public short TextWidth(Runtime.IRef<String> t);
+    public int TextWidth(Runtime.IRef<String> t);
 
     public void DrawText(Runtime.IRef<String> t);
 
-    public void FillShadow(AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height);
+    public void FillShadow(AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height);
 
-    public void DrawShadow(AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height);
+    public void DrawShadow(AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height);
 
-    public void DrawImage(Image image, short sx, short sy, short dx, short dy, short width, short height);
+    public void DrawImage(Image image, int sx, int sy, int dx, int dy, int width, int height);
 
-    public void CopyRect(AreaPtr sa, short sx, short sy, short dx, short dy, short width, short height);
+    public void CopyRect(AreaPtr sa, int sx, int sy, int dx, int dy, int width, int height);
 
-    public void CopyShadow(AreaPtr sa, AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height);
+    public void CopyShadow(AreaPtr sa, AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height);
 
-    public void CopyMask(AreaPtr sa, AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height);
+    public void CopyMask(AreaPtr sa, AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height);
 
-    public void ScrollRect(short x, short y, short width, short height, short dx, short dy);
+    public void ScrollRect(int x, int y, int width, int height, int dx, int dy);
 
-    public void ScaleRect(AreaPtr sa, short sx1, short sy1, short sx2, short sy2, short dx1, short dy1, short dx2, short dy2);
+    public void ScaleRect(AreaPtr sa, int sx1, int sy1, int sx2, int sy2, int dx1, int dy1, int dx2, int dy2);
 
     public void WaitTOF();
 

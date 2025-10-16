@@ -144,7 +144,7 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void SetPalette(short color, short red, short green, short blue) {
+    public void SetPalette(int color, int red, int green, int blue) {
         currentArea.setPalette(color, red, green, blue);
     }
 
@@ -189,7 +189,7 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void SetPat(short v) {
+    public void SetPat(int v) {
         currentPattern = v;
         applyColorAndPattern();
     }
@@ -254,7 +254,7 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void DrawPixel(short x, short y) {
+    public void DrawPixel(int x, int y) {
         currentArea.draw((g) -> {
             g = (Graphics2D) g.create();
             GraphicsRgbColorImpl.setupHighSpeed(g);
@@ -264,7 +264,7 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void DrawLine(short x1, short y1, short x2, short y2) {
+    public void DrawLine(int x1, int y1, int x2, int y2) {
         currentArea.draw((g) -> {
             Line2D shape = new Line2D.Double(x1, y1, x2, y2);
             g.draw(shape);
@@ -272,13 +272,13 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void OpenPoly(short x, short y) {
+    public void OpenPoly(int x, int y) {
         currentPoly = new ArrayList<>();
         AddLine(x, y);
     }
 
     @Override
-    public void AddLine(short x, short y) {
+    public void AddLine(int x, int y) {
         currentPoly.add(new int[] { x, y });
     }
 
@@ -298,7 +298,7 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void FillRect(short x1, short y1, short x2, short y2) {
+    public void FillRect(int x1, int y1, int x2, int y2) {
         currentArea.draw((g) -> {
             g = (Graphics2D) g.create();
             GraphicsRgbColorImpl.setupHighSpeed(g);
@@ -308,7 +308,7 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void FillEllipse(short x1, short y1, short x2, short y2) {
+    public void FillEllipse(int x1, int y1, int x2, int y2) {
         currentArea.draw((g) -> {
             Shape shape = new Ellipse2D.Double(x1, y1, x2 - x1, y2 - y1);
             g.fill(shape);
@@ -316,27 +316,27 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void FillFlood(short x, short y, long borderCol) {
+    public void FillFlood(int x, int y, long borderCol) {
         // unused
         throw new UnsupportedOperationException("Not implemented: FillFlood");
     }
 
     @Override
-    public void FillShadow(AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height) {
+    public void FillShadow(AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height) {
         // unused
         throw new UnsupportedOperationException("Not implemented: FillShadow");
     }
 
     @Override
-    public void DrawShadow(AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height) {
+    public void DrawShadow(AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height) {
         // todo implement DrawShadow
         throw new UnsupportedOperationException("Not implemented: DrawShadow");
     }
 
     @Override
-    public void DrawImage(Graphics.Image imageInfo, short sx, short sy, short dx, short dy, short width, short height) {
+    public void DrawImage(Graphics.Image imageInfo, int sx, int sy, int dx, int dy, int width, int height) {
         if (currentArea instanceof JFrameArea) {
-            if (imageInfo.data instanceof short[][] || imageInfo.data instanceof short[]) {
+            if (imageInfo.data instanceof int[][] || imageInfo.data instanceof int[]) {
                 // No palette. Use std color cube
                 BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_INDEXED);
                 WritableRaster raster = image.getRaster();
@@ -345,16 +345,16 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
                 int shifter = 8 - bitPerPix;
 
                 // Copy pixels
-                short[][] pixels2d = null;
-                short[] pixels1d = null;
-                if (imageInfo.data instanceof short[][] data2d)
+                int[][] pixels2d = null;
+                int[] pixels1d = null;
+                if (imageInfo.data instanceof int[][] data2d)
                     pixels2d = data2d;
-                else if (imageInfo.data instanceof short[] data1d)
+                else if (imageInfo.data instanceof int[] data1d)
                     pixels1d = data1d;
 
                 for (int y = 0; y < height; y++) {
                     for (int x = 0; x < width; x++) {
-                        short value;
+                        int value;
                         if (pixels2d != null)
                             value = pixels2d[y][x];
                         else
@@ -369,11 +369,11 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
                 });
             }
         } else if (currentArea instanceof BufferArea bufferArea) {
-            short[] pixData = (short[]) imageInfo.data;
-            // Every short is actually two 4-bit pixels...
+            int[] pixData = (int[]) imageInfo.data;
+            // Every int is actually two 4-bit pixels...
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
-                    short value = pixData[((y + sy) * width + (x + sx)) / 2];
+                    int value = pixData[((y + sy) * width + (x + sx)) / 2];
                     int pen = ((x % 2 == 0) ? value >>> 4 : value & 0xf);
                     bufferArea.writePixel(x + dx, y + dy, pen);
                 }
@@ -384,7 +384,7 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void CopyRect(AreaPtr sa, short sx, short sy, short dx, short dy, short width, short height) {
+    public void CopyRect(AreaPtr sa, int sx, int sy, int dx, int dy, int width, int height) {
         AreaBase srcArea = (AreaBase) sa;
         BufferedImage srcImage = srcArea.getInternalImage();
         currentArea.draw((g) -> {
@@ -397,7 +397,7 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void CopyShadow(AreaPtr sa, AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height) {
+    public void CopyShadow(AreaPtr sa, AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height) {
         CopyMask(sa, ma, sx, sy, dx, dy, width, height);
     }
 
@@ -406,7 +406,7 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
 
 
     @Override
-    public void CopyMask(AreaPtr sa, AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height) {
+    public void CopyMask(AreaPtr sa, AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height) {
         if (USE_ALPHA_TRANSPARENCY) {
             BufferArea srcArea = (BufferArea) sa;
             BufferedImage srcImage = srcArea.getInternalImage();
@@ -445,7 +445,7 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
         }
     }
 
-    private BufferedImage createBlendedImage(short sx, short sy, short width, short height, BufferedImage srcImage, BufferedImage maskImage) {
+    private BufferedImage createBlendedImage(int sx, int sy, int width, int height, BufferedImage srcImage, BufferedImage maskImage) {
         Graphics2D g = srcImage.createGraphics();
         GraphicsConfiguration gc = g.getDeviceConfiguration();
         BufferedImage blendedImage = gc.createCompatibleImage(scale(width), scale(height), Transparency.BITMASK);
@@ -463,13 +463,13 @@ public class GraphicsRgbColorImpl extends GraphicsBase {
     }
 
     @Override
-    public void ScrollRect(short x, short y, short width, short height, short dx, short dy) {
+    public void ScrollRect(int x, int y, int width, int height, int dx, int dy) {
         // todo implement ScrollRect
         throw new UnsupportedOperationException("Not implemented: ScrollRect");
     }
 
     @Override
-    public void ScaleRect(AreaPtr sa, short sx1, short sy1, short sx2, short sy2, short dx1, short dy1, short dx2, short dy2) {
+    public void ScaleRect(AreaPtr sa, int sx1, int sy1, int sx2, int sy2, int dx1, int dy1, int dx2, int dy2) {
         AreaBase srcArea = (AreaBase) sa;
         BufferedImage srcImage = srcArea.getInternalImage();
         currentArea.draw((g) -> {

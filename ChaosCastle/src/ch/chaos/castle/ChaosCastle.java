@@ -104,7 +104,7 @@ public class ChaosCastle {
         // VAR
         ChaosBase.Obj obj = null;
         ChaosBase.Obj tail = null;
-        short maxl = 0;
+        int maxl = 0;
         Anims a = Anims.PLAYER;
 
         while ((chaosBase.gameStat != GameStat.Gameover) && (chaosBase.gameStat != GameStat.Break)) {

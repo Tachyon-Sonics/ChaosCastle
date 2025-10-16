@@ -40,14 +40,14 @@ public class ChaosSmartBonus {
 
     private void MakeBonus(ChaosBase.Obj bonus) {
         // VAR
-        short py = 0;
+        int py = 0;
 
         bonus.hitSubLife = 1;
         if (bonus.subKind == sbExtraLife)
             py = 32;
         else
             py = 44;
-        chaosActions.SetObjLoc(bonus, (short) 52, py, (short) 12, (short) 12);
+        chaosActions.SetObjLoc(bonus, 52, py, 12, 12);
         chaosActions.SetObjRect(bonus, 0, 0, 12, 12);
     }
 
@@ -62,7 +62,7 @@ public class ChaosSmartBonus {
     private final ChaosActions.DoToPlayerProc Life_ref = this::Life;
 
     private void Power(ChaosBase.Obj player, ChaosBase.Obj bonus) {
-        chaosPlayer.AddPower(player, (short) 1);
+        chaosPlayer.AddPower(player, 1);
         if (chaosBase.powerCountDown > 0)
             chaosBase.powerCountDown--;
         chaosActions.Die(bonus);
@@ -85,7 +85,7 @@ public class ChaosSmartBonus {
             chaosActions.Die(bonus);
             return;
         }
-        chaosActions.AvoidBackground(bonus, (short) 1);
+        chaosActions.AvoidBackground(bonus, 1);
         if (bonus.subKind == sbExtraLife)
             What = Life_ref;
         else
@@ -94,7 +94,7 @@ public class ChaosSmartBonus {
         f.set(200);
         chaosActions.DoCollision(bonus, EnumSet.of(Anims.ALIEN3, Anims.ALIEN2, Anims.ALIEN1, Anims.MISSILE, Anims.DEADOBJ, Anims.MACHINE), chaosActions.Aie_ref, h, f);
         if ((h.get() < 200) || (f.get() < 200)) {
-            bonus.vy = (short) -Math.abs(bonus.vy);
+            bonus.vy = (int) -Math.abs(bonus.vy);
             if (bonus.vy < -1024)
                 bonus.vy = -1024;
             bonus.dvy = bonus.vy;
@@ -108,7 +108,7 @@ public class ChaosSmartBonus {
         // VAR
         ChaosBase.ObjAttr attr = null;
 
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = MakeBonus_as_ChaosBase_ResetProc;
         attr.Make = MakeBonus_as_ChaosBase_MakeProc;

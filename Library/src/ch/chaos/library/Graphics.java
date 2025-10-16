@@ -81,10 +81,10 @@ public class Graphics {
         public long[] palette /* POINTER */;
         public int bitPerPix;
         public int bytePerRow;
-        public short width;
-        public short height;
-        public short zw;
-        public short zh;
+        public int width;
+        public int height;
+        public int zw;
+        public int zh;
 
 
         public Object getData() {
@@ -119,35 +119,35 @@ public class Graphics {
             this.bytePerRow = bytePerRow;
         }
 
-        public short getWidth() {
+        public int getWidth() {
             return this.width;
         }
 
-        public void setWidth(short width) {
+        public void setWidth(int width) {
             this.width = width;
         }
 
-        public short getHeight() {
+        public int getHeight() {
             return this.height;
         }
 
-        public void setHeight(short height) {
+        public void setHeight(int height) {
             this.height = height;
         }
 
-        public short getZw() {
+        public int getZw() {
             return this.zw;
         }
 
-        public void setZw(short zw) {
+        public void setZw(int zw) {
             this.zw = zw;
         }
 
-        public short getZh() {
+        public int getZh() {
             return this.zh;
         }
 
-        public void setZh(short zh) {
+        public void setZh(int zh) {
             this.zh = zh;
         }
 
@@ -288,7 +288,7 @@ public class Graphics {
         target.SetArea(a);
     }
 
-    public void SetPalette(short color, short red, short green, short blue) {
+    public void SetPalette(int color, int red, int green, int blue) {
         target.SetPalette(color, red, green, blue);
     }
 
@@ -308,7 +308,7 @@ public class Graphics {
         target.SetBPen(color);
     }
 
-    public void SetPat(short v) {
+    public void SetPat(int v) {
         target.SetPat(v);
     }
 
@@ -316,19 +316,19 @@ public class Graphics {
         target.SetPattern(pattern);
     }
 
-    public void DrawPixel(short x, short y) {
+    public void DrawPixel(int x, int y) {
         target.DrawPixel(x, y);
     }
 
-    public void DrawLine(short x1, short y1, short x2, short y2) {
+    public void DrawLine(int x1, int y1, int x2, int y2) {
         target.DrawLine(x1, y1, x2, y2);
     }
 
-    public void OpenPoly(short x, short y) {
+    public void OpenPoly(int x, int y) {
         target.OpenPoly(x, y);
     }
 
-    public void AddLine(short x, short y) {
+    public void AddLine(int x, int y) {
         target.AddLine(x, y);
     }
 
@@ -336,15 +336,15 @@ public class Graphics {
         target.FillPoly();
     }
 
-    public void FillRect(short x1, short y1, short x2, short y2) {
+    public void FillRect(int x1, int y1, int x2, int y2) {
         target.FillRect(x1, y1, x2, y2);
     }
 
-    public void FillEllipse(short x1, short y1, short x2, short y2) {
+    public void FillEllipse(int x1, int y1, int x2, int y2) {
         target.FillEllipse(x1, y1, x2, y2);
     }
 
-    public void FillFlood(short x, short y, long borderCol) {
+    public void FillFlood(int x, int y, long borderCol) {
         target.FillFlood(x, y, borderCol);
     }
 
@@ -352,15 +352,15 @@ public class Graphics {
         target.SetTextMode(tm);
     }
 
-    public void SetTextSize(short s) {
+    public void SetTextSize(int s) {
         target.SetTextSize(s);
     }
 
-    public void SetTextPos(short x, short y) {
+    public void SetTextPos(int x, int y) {
         target.SetTextPos(x, y);
     }
 
-    public short TextWidth(IRef<String> t) {
+    public int TextWidth(IRef<String> t) {
         return target.TextWidth(t);
     }
 
@@ -368,35 +368,35 @@ public class Graphics {
         target.DrawText(t);
     }
 
-    public void FillShadow(AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height) {
+    public void FillShadow(AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height) {
         target.FillShadow(ma, sx, sy, dx, dy, width, height);
     }
 
-    public void DrawShadow(AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height) {
+    public void DrawShadow(AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height) {
         target.DrawShadow(ma, sx, sy, dx, dy, width, height);
     }
 
-    public void DrawImage(Image image, short sx, short sy, short dx, short dy, short width, short height) {
+    public void DrawImage(Image image, int sx, int sy, int dx, int dy, int width, int height) {
         target.DrawImage(image, sx, sy, dx, dy, width, height);
     }
 
-    public void CopyRect(AreaPtr sa, short sx, short sy, short dx, short dy, short width, short height) {
+    public void CopyRect(AreaPtr sa, int sx, int sy, int dx, int dy, int width, int height) {
         target.CopyRect(sa, sx, sy, dx, dy, width, height);
     }
 
-    public void CopyShadow(AreaPtr sa, AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height) {
+    public void CopyShadow(AreaPtr sa, AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height) {
         target.CopyShadow(sa, ma, sx, sy, dx, dy, width, height);
     }
 
-    public void CopyMask(AreaPtr sa, AreaPtr ma, short sx, short sy, short dx, short dy, short width, short height) {
+    public void CopyMask(AreaPtr sa, AreaPtr ma, int sx, int sy, int dx, int dy, int width, int height) {
         target.CopyMask(sa, ma, sx, sy, dx, dy, width, height);
     }
 
-    public void ScrollRect(short x, short y, short width, short height, short dx, short dy) {
+    public void ScrollRect(int x, int y, int width, int height, int dx, int dy) {
         target.ScrollRect(x, y, width, height, dx, dy);
     }
 
-    public void ScaleRect(AreaPtr sa, short sx1, short sy1, short sx2, short sy2, short dx1, short dy1, short dx2, short dy2) {
+    public void ScaleRect(AreaPtr sa, int sx1, int sy1, int sx2, int sy2, int dx1, int dy1, int dx2, int dy2) {
         target.ScaleRect(sa, sx1, sy1, sx2, sy2, dx1, dy1, dx2, dy2);
     }
 

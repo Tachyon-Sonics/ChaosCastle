@@ -2,8 +2,15 @@ package ch.chaos.castle;
 
 import java.util.EnumSet;
 
-import ch.chaos.library.*;
+import ch.chaos.library.Checks;
+import ch.chaos.library.Clock;
+import ch.chaos.library.Dialogs;
+import ch.chaos.library.Graphics;
 import ch.chaos.library.Graphics.Modes;
+import ch.chaos.library.Input;
+import ch.chaos.library.Memory;
+import ch.chaos.library.Menus;
+import ch.chaos.library.Terminal;
 import ch.pitchtech.modula.runtime.HaltException;
 import ch.pitchtech.modula.runtime.Runtime;
 
@@ -93,8 +100,8 @@ public class GraphTest {
     private int y;
     private int k;
     private int l;
-    private short mx;
-    private short my;
+    private int mx;
+    private int my;
     private Graphics.AreaPtr a1;
     private Graphics.AreaPtr a2;
     private Graphics.AreaPtr a3;
@@ -161,19 +168,19 @@ public class GraphTest {
         this.l = l;
     }
 
-    public short getMx() {
+    public int getMx() {
         return this.mx;
     }
 
-    public void setMx(short mx) {
+    public void setMx(int mx) {
         this.mx = mx;
     }
 
-    public short getMy() {
+    public int getMy() {
         return this.my;
     }
 
-    public void setMy(short my) {
+    public void setMy(int my) {
         this.my = my;
     }
 

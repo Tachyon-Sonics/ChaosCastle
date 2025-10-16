@@ -50,37 +50,37 @@ public class ChaosStone {
 
     // PROCEDURE
 
-    private void MakeStone0_Set(short nl, short nt, short nr, short nb, /* VAR */ Runtime.IRef<Short> l, /* VAR */ Runtime.IRef<Short> t, /* VAR */ Runtime.IRef<Short> r, /* VAR */ Runtime.IRef<Short> b) {
-        l.set((short) (nl + 128));
-        r.set((short) (nr + 128));
+    private void MakeStone0_Set(int nl, int nt, int nr, int nb, /* VAR */ Runtime.IRef<Integer> l, /* VAR */ Runtime.IRef<Integer> t, /* VAR */ Runtime.IRef<Integer> r, /* VAR */ Runtime.IRef<Integer> b) {
+        l.set(nl + 128);
+        r.set(nr + 128);
         t.set(nt);
         b.set(nb);
     }
 
     private void MakeStone0(ChaosBase.Obj stone) {
         // VAR
-        Runtime.Ref<Short> l = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> t = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> r = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> b = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> l = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> t = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> r = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> b = new Runtime.Ref<>(0);
 
         switch (stone.stat) {
-            case 0 -> MakeStone0_Set((short) 0, (short) 0, (short) 5, (short) 5, l, t, r, b);
-            case 1 -> MakeStone0_Set((short) 0, (short) 20, (short) 6, (short) 26, l, t, r, b);
-            case 2 -> MakeStone0_Set((short) 10, (short) 16, (short) 12, (short) 18, l, t, r, b);
-            case 3 -> MakeStone0_Set((short) 6, (short) 20, (short) 12, (short) 26, l, t, r, b);
-            case 4 -> MakeStone0_Set((short) 12, (short) 20, (short) 18, (short) 26, l, t, r, b);
-            case 5 -> MakeStone0_Set((short) 10, (short) 0, (short) 17, (short) 7, l, t, r, b);
-            case 6 -> MakeStone0_Set((short) 10, (short) 8, (short) 18, (short) 16, l, t, r, b);
-            case 7 -> MakeStone0_Set((short) 6, (short) 26, (short) 9, (short) 29, l, t, r, b);
-            case 8 -> MakeStone0_Set((short) -88, (short) 56, (short) -76, (short) 68, l, t, r, b);
-            case 9 -> MakeStone0_Set((short) -76, (short) 56, (short) -64, (short) 68, l, t, r, b);
-            case 10 -> MakeStone0_Set((short) 58, (short) 26, (short) 60, (short) 28, l, t, r, b);
-            case 11 -> MakeStone0_Set((short) 58, (short) 24, (short) 59, (short) 25, l, t, r, b);
-            case 12 -> MakeStone0_Set((short) 18, (short) 24, (short) 26, (short) 32, l, t, r, b);
-            case 13 -> MakeStone0_Set((short) 42, (short) 24, (short) 50, (short) 32, l, t, r, b);
-            case 14 -> MakeStone0_Set((short) 60, (short) 0, (short) 72, (short) 12, l, t, r, b);
-            case 15 -> MakeStone0_Set((short) 30, (short) 0, (short) 38, (short) 8, l, t, r, b);
+            case 0 -> MakeStone0_Set(0, 0, 5, 5, l, t, r, b);
+            case 1 -> MakeStone0_Set(0, 20, 6, 26, l, t, r, b);
+            case 2 -> MakeStone0_Set(10, 16, 12, 18, l, t, r, b);
+            case 3 -> MakeStone0_Set(6, 20, 12, 26, l, t, r, b);
+            case 4 -> MakeStone0_Set(12, 20, 18, 26, l, t, r, b);
+            case 5 -> MakeStone0_Set(10, 0, 17, 7, l, t, r, b);
+            case 6 -> MakeStone0_Set(10, 8, 18, 16, l, t, r, b);
+            case 7 -> MakeStone0_Set(6, 26, 9, 29, l, t, r, b);
+            case 8 -> MakeStone0_Set(-88, 56, -76, 68, l, t, r, b);
+            case 9 -> MakeStone0_Set(-76, 56, -64, 68, l, t, r, b);
+            case 10 -> MakeStone0_Set(58, 26, 60, 28, l, t, r, b);
+            case 11 -> MakeStone0_Set(58, 24, 59, 25, l, t, r, b);
+            case 12 -> MakeStone0_Set(18, 24, 26, 32, l, t, r, b);
+            case 13 -> MakeStone0_Set(42, 24, 50, 32, l, t, r, b);
+            case 14 -> MakeStone0_Set(60, 0, 72, 12, l, t, r, b);
+            case 15 -> MakeStone0_Set(30, 0, 38, 8, l, t, r, b);
             default -> throw new RuntimeException("Unhandled CASE value " + stone.stat);
         }
         r.dec(l.get());
@@ -93,7 +93,7 @@ public class ChaosStone {
 
     private void MakeStone1(ChaosBase.Obj stone) {
         // VAR
-        short py = 0;
+        int py = 0;
         int cnt = 0;
 
         cnt = 18;
@@ -102,7 +102,7 @@ public class ChaosStone {
             py += cnt;
             cnt -= 3;
         }
-        chaosActions.SetObjLoc(stone, (short) 224, py, (short) cnt, (short) cnt);
+        chaosActions.SetObjLoc(stone, 224, py, cnt, cnt);
     }
 
     private final ChaosBase.MakeProc MakeStone1_ref = this::MakeStone1;
@@ -140,11 +140,11 @@ public class ChaosStone {
 
     private final ChaosBase.ResetProc ResetStone1_ref = this::ResetStone1;
 
-    private void MoveStone0_Switch(int os, int ns, short nx, short ny, ChaosBase.Obj stone, /* VAR */ Runtime.IRef<Boolean> switched) {
+    private void MoveStone0_Switch(int os, int ns, int nx, int ny, ChaosBase.Obj stone, /* VAR */ Runtime.IRef<Boolean> switched) {
         if (!switched.get() && (os == stone.shapeSeq)) {
             switched.set(true);
             stone.shapeSeq = ns;
-            chaosActions.SetObjPos(stone, (short) (nx + 128), ny);
+            chaosActions.SetObjPos(stone, nx + 128, ny);
         }
     }
 
@@ -168,62 +168,62 @@ public class ChaosStone {
             switched.set(false);
             switch (stone.stat) {
                 case 0 -> {
-                    MoveStone0_Switch(0, 1, (short) 0, (short) 5, stone, switched);
-                    MoveStone0_Switch(1, 0, (short) 0, (short) 0, stone, switched);
+                    MoveStone0_Switch(0, 1, 0, 5, stone, switched);
+                    MoveStone0_Switch(1, 0, 0, 0, stone, switched);
                 }
                 case 1 -> {
-                    MoveStone0_Switch(0, 1, (short) 0, (short) 26, stone, switched);
-                    MoveStone0_Switch(1, 0, (short) 0, (short) 20, stone, switched);
+                    MoveStone0_Switch(0, 1, 0, 26, stone, switched);
+                    MoveStone0_Switch(1, 0, 0, 20, stone, switched);
                 }
                 case 2 -> {
-                    MoveStone0_Switch(0, 1, (short) 14, (short) 16, stone, switched);
-                    MoveStone0_Switch(1, 0, (short) 10, (short) 16, stone, switched);
+                    MoveStone0_Switch(0, 1, 14, 16, stone, switched);
+                    MoveStone0_Switch(1, 0, 10, 16, stone, switched);
                 }
                 case 7 -> {
-                    MoveStone0_Switch(0, 1, (short) 12, (short) 26, stone, switched);
-                    MoveStone0_Switch(1, 0, (short) 6, (short) 26, stone, switched);
+                    MoveStone0_Switch(0, 1, 12, 26, stone, switched);
+                    MoveStone0_Switch(1, 0, 6, 26, stone, switched);
                 }
                 case 8 -> {
-                    MoveStone0_Switch(0, 1, (short) -88, (short) 68, stone, switched);
-                    MoveStone0_Switch(1, 0, (short) -88, (short) 56, stone, switched);
+                    MoveStone0_Switch(0, 1, -88, 68, stone, switched);
+                    MoveStone0_Switch(1, 0, -88, 56, stone, switched);
                 }
                 case 9 -> {
-                    MoveStone0_Switch(0, 1, (short) -76, (short) 68, stone, switched);
-                    MoveStone0_Switch(1, 0, (short) -76, (short) 56, stone, switched);
+                    MoveStone0_Switch(0, 1, -76, 68, stone, switched);
+                    MoveStone0_Switch(1, 0, -76, 56, stone, switched);
                 }
                 case 10 -> {
-                    MoveStone0_Switch(0, 1, (short) 58, (short) 28, stone, switched);
-                    MoveStone0_Switch(1, 2, (short) 58, (short) 30, stone, switched);
-                    MoveStone0_Switch(2, 0, (short) 58, (short) 26, stone, switched);
+                    MoveStone0_Switch(0, 1, 58, 28, stone, switched);
+                    MoveStone0_Switch(1, 2, 58, 30, stone, switched);
+                    MoveStone0_Switch(2, 0, 58, 26, stone, switched);
                 }
                 case 11 -> {
-                    MoveStone0_Switch(0, 1, (short) 58, (short) 25, stone, switched);
-                    MoveStone0_Switch(1, 2, (short) 59, (short) 24, stone, switched);
-                    MoveStone0_Switch(2, 3, (short) 59, (short) 25, stone, switched);
-                    MoveStone0_Switch(3, 0, (short) 58, (short) 24, stone, switched);
+                    MoveStone0_Switch(0, 1, 58, 25, stone, switched);
+                    MoveStone0_Switch(1, 2, 59, 24, stone, switched);
+                    MoveStone0_Switch(2, 3, 59, 25, stone, switched);
+                    MoveStone0_Switch(3, 0, 58, 24, stone, switched);
                 }
                 case 12 -> {
-                    MoveStone0_Switch(0, 1, (short) 26, (short) 24, stone, switched);
-                    MoveStone0_Switch(1, 2, (short) 34, (short) 24, stone, switched);
+                    MoveStone0_Switch(0, 1, 26, 24, stone, switched);
+                    MoveStone0_Switch(1, 2, 34, 24, stone, switched);
                 }
                 case 13 -> {
-                    MoveStone0_Switch(0, 1, (short) 50, (short) 24, stone, switched);
-                    MoveStone0_Switch(1, 2, (short) 52, (short) 16, stone, switched);
+                    MoveStone0_Switch(0, 1, 50, 24, stone, switched);
+                    MoveStone0_Switch(1, 2, 52, 16, stone, switched);
                 }
                 case 14 -> {
-                    MoveStone0_Switch(0, 1, (short) 72, (short) 0, stone, switched);
-                    MoveStone0_Switch(1, 2, (short) 60, (short) 12, stone, switched);
-                    MoveStone0_Switch(2, 3, (short) 72, (short) 12, stone, switched);
-                    MoveStone0_Switch(3, 4, (short) 84, (short) 0, stone, switched);
+                    MoveStone0_Switch(0, 1, 72, 0, stone, switched);
+                    MoveStone0_Switch(1, 2, 60, 12, stone, switched);
+                    MoveStone0_Switch(2, 3, 72, 12, stone, switched);
+                    MoveStone0_Switch(3, 4, 84, 0, stone, switched);
                 }
                 case 15 -> {
-                    MoveStone0_Switch(0, 1, (short) 38, (short) 0, stone, switched);
-                    MoveStone0_Switch(1, 2, (short) 46, (short) 0, stone, switched);
-                    MoveStone0_Switch(2, 3, (short) 30, (short) 8, stone, switched);
-                    MoveStone0_Switch(3, 4, (short) 38, (short) 8, stone, switched);
-                    MoveStone0_Switch(4, 5, (short) 46, (short) 8, stone, switched);
-                    MoveStone0_Switch(5, 6, (short) 30, (short) 16, stone, switched);
-                    MoveStone0_Switch(6, 7, (short) 38, (short) 16, stone, switched);
+                    MoveStone0_Switch(0, 1, 38, 0, stone, switched);
+                    MoveStone0_Switch(1, 2, 46, 0, stone, switched);
+                    MoveStone0_Switch(2, 3, 30, 8, stone, switched);
+                    MoveStone0_Switch(3, 4, 38, 8, stone, switched);
+                    MoveStone0_Switch(4, 5, 46, 8, stone, switched);
+                    MoveStone0_Switch(5, 6, 30, 16, stone, switched);
+                    MoveStone0_Switch(6, 7, 38, 16, stone, switched);
                 }
                 default -> {
                 }
@@ -266,8 +266,8 @@ public class ChaosStone {
         // VAR
         ChaosBase.ObjAttr attr = null;
 
-        chaosSounds.SetEffect(stoneEffect[0], chaosSounds.soundList[SoundList.sGun.ordinal()], 0, 0, (short) 12, (short) 1);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        chaosSounds.SetEffect(stoneEffect[0], chaosSounds.soundList[SoundList.sGun.ordinal()], 0, 0, 12, 1);
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetStone0_ref;
         attr.Make = MakeStone0_ref;
@@ -277,7 +277,7 @@ public class ChaosStone {
         attr.priority = 80;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.STONE.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetStone1_ref;
         attr.Make = MakeStone1_ref;

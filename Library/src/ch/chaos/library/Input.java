@@ -266,7 +266,7 @@ public class Input {
     private ControllerManager controllers;
 
     private Cursor blankCursor;
-    private short busyStat;
+    private int busyStat;
 
 
     public void registerMainFrame(JFrame frame) {
@@ -493,7 +493,7 @@ public class Input {
         return true;
     }
 
-    public void SetBusyStat(short stat) {
+    public void SetBusyStat(int stat) {
         this.busyStat = stat;
         if (mainFrame == null)
             return;
@@ -519,9 +519,9 @@ public class Input {
         Toolkit.getDefaultToolkit().beep();
     }
 
-    public void GetMouse(/* VAR */ Runtime.IRef<Short> x, /* VAR */ Runtime.IRef<Short> y) {
-        x.set((short) mouseX);
-        y.set((short) mouseY);
+    public void GetMouse(/* VAR */ Runtime.IRef<Integer> x, /* VAR */ Runtime.IRef<Integer> y) {
+        x.set(mouseX);
+        y.set(mouseY);
     }
 
     public Runtime.RangeSet GetStick() {

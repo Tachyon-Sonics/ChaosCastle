@@ -50,32 +50,32 @@ public class ChaosGraphics {
 
     public static class Palette { // RECORD
 
-        public short red;
-        public short green;
-        public short blue;
+        public int red;
+        public int green;
+        public int blue;
 
 
-        public short getRed() {
+        public int getRed() {
             return this.red;
         }
 
-        public void setRed(short red) {
+        public void setRed(int red) {
             this.red = red;
         }
 
-        public short getGreen() {
+        public int getGreen() {
             return this.green;
         }
 
-        public void setGreen(short green) {
+        public void setGreen(int green) {
             this.green = green;
         }
 
-        public short getBlue() {
+        public int getBlue() {
             return this.blue;
         }
 
-        public void setBlue(short blue) {
+        public void setBlue(int blue) {
             this.blue = blue;
         }
 
@@ -102,22 +102,22 @@ public class ChaosGraphics {
 
     @FunctionalInterface
     public static interface AdjustProc { // PROCEDURE Type
-        public short invoke(short arg1);
+        public int invoke(int arg1);
     }
 
 
     // VAR
 
-    public short[][] castle /* POINTER */;
-    public short[][] dual /* POINTER */;
-    public short castleWidth;
-    public short castleHeight;
-    public short gameWidth;
-    public short gameHeight;
-    public short backpx;
-    public short backpy;
-    public short dualpx;
-    public short dualpy;
+    public int[][] castle /* POINTER */;
+    public int[][] dual /* POINTER */;
+    public int castleWidth;
+    public int castleHeight;
+    public int gameWidth;
+    public int gameHeight;
+    public int backpx;
+    public int backpy;
+    public int dualpx;
+    public int dualpy;
     public Graphics.AreaPtr mainArea;
     public Graphics.AreaPtr buffArea;
     public Graphics.AreaPtr dualArea;
@@ -125,8 +125,8 @@ public class ChaosGraphics {
     public Graphics.AreaPtr maskArea;
     public Graphics.AreaPtr imageArea;
     public Graphics.AreaPtr image2Area;
-    public short mulS;
-    public short dualSpeed;
+    public int mulS;
+    public int dualSpeed;
     public boolean color;
     public boolean dualpf;
     public boolean dfltGraphic;
@@ -137,92 +137,92 @@ public class ChaosGraphics {
     public Palette[] cycle = Runtime.initArray(new Palette[16]);
     public Palette[] dualPalette = Runtime.initArray(new Palette[16]);
     public Palette[] dualCycle = Runtime.initArray(new Palette[16]);
-    public short[] cycleSpeed = new short[16];
-    public short[] dualCycleSpeed = new short[16];
-    public short[] transparent = new short[16];
+    public int[] cycleSpeed = new int[16];
+    public int[] dualCycleSpeed = new int[16];
+    public int[] transparent = new int[16];
     public AdjustProc X;
     public AdjustProc Y;
     public AdjustProc W;
     public AdjustProc H;
 
 
-    public short[][] getCastle() {
+    public int[][] getCastle() {
         return this.castle;
     }
 
-    public void setCastle(short[][] castle) {
+    public void setCastle(int[][] castle) {
         this.castle = castle;
     }
 
-    public short[][] getDual() {
+    public int[][] getDual() {
         return this.dual;
     }
 
-    public void setDual(short[][] dual) {
+    public void setDual(int[][] dual) {
         this.dual = dual;
     }
 
-    public short getCastleWidth() {
+    public int getCastleWidth() {
         return this.castleWidth;
     }
 
-    public void setCastleWidth(short castleWidth) {
+    public void setCastleWidth(int castleWidth) {
         this.castleWidth = castleWidth;
     }
 
-    public short getCastleHeight() {
+    public int getCastleHeight() {
         return this.castleHeight;
     }
 
-    public void setCastleHeight(short castleHeight) {
+    public void setCastleHeight(int castleHeight) {
         this.castleHeight = castleHeight;
     }
 
-    public short getGameWidth() {
+    public int getGameWidth() {
         return this.gameWidth;
     }
 
-    public void setGameWidth(short gameWidth) {
+    public void setGameWidth(int gameWidth) {
         this.gameWidth = gameWidth;
     }
 
-    public short getGameHeight() {
+    public int getGameHeight() {
         return this.gameHeight;
     }
 
-    public void setGameHeight(short gameHeight) {
+    public void setGameHeight(int gameHeight) {
         this.gameHeight = gameHeight;
     }
 
-    public short getBackpx() {
+    public int getBackpx() {
         return this.backpx;
     }
 
-    public void setBackpx(short backpx) {
+    public void setBackpx(int backpx) {
         this.backpx = backpx;
     }
 
-    public short getBackpy() {
+    public int getBackpy() {
         return this.backpy;
     }
 
-    public void setBackpy(short backpy) {
+    public void setBackpy(int backpy) {
         this.backpy = backpy;
     }
 
-    public short getDualpx() {
+    public int getDualpx() {
         return this.dualpx;
     }
 
-    public void setDualpx(short dualpx) {
+    public void setDualpx(int dualpx) {
         this.dualpx = dualpx;
     }
 
-    public short getDualpy() {
+    public int getDualpy() {
         return this.dualpy;
     }
 
-    public void setDualpy(short dualpy) {
+    public void setDualpy(int dualpy) {
         this.dualpy = dualpy;
     }
 
@@ -282,19 +282,19 @@ public class ChaosGraphics {
         this.image2Area = image2Area;
     }
 
-    public short getMulS() {
+    public int getMulS() {
         return this.mulS;
     }
 
-    public void setMulS(short mulS) {
+    public void setMulS(int mulS) {
         this.mulS = mulS;
     }
 
-    public short getDualSpeed() {
+    public int getDualSpeed() {
         return this.dualSpeed;
     }
 
-    public void setDualSpeed(short dualSpeed) {
+    public void setDualSpeed(int dualSpeed) {
         this.dualSpeed = dualSpeed;
     }
 
@@ -378,27 +378,27 @@ public class ChaosGraphics {
         this.dualCycle = dualCycle;
     }
 
-    public short[] getCycleSpeed() {
+    public int[] getCycleSpeed() {
         return this.cycleSpeed;
     }
 
-    public void setCycleSpeed(short[] cycleSpeed) {
+    public void setCycleSpeed(int[] cycleSpeed) {
         this.cycleSpeed = cycleSpeed;
     }
 
-    public short[] getDualCycleSpeed() {
+    public int[] getDualCycleSpeed() {
         return this.dualCycleSpeed;
     }
 
-    public void setDualCycleSpeed(short[] dualCycleSpeed) {
+    public void setDualCycleSpeed(int[] dualCycleSpeed) {
         this.dualCycleSpeed = dualCycleSpeed;
     }
 
-    public short[] getTransparent() {
+    public int[] getTransparent() {
         return this.transparent;
     }
 
-    public void setTransparent(short[] transparent) {
+    public void setTransparent(int[] transparent) {
         this.transparent = transparent;
     }
 
@@ -437,138 +437,138 @@ public class ChaosGraphics {
 
     // VAR
 
-    private short buffdx;
-    private short buffdy;
-    private short buffpx;
-    private short buffpy;
-    private short dbuffdx;
-    private short dbuffdy;
-    private short dbuffpx;
-    private short dbuffpy;
-    private short backox;
-    private short backoy;
-    private short backaddx;
-    private short backaddy;
-    private short backtox;
-    private short backtoy;
+    private int buffdx;
+    private int buffdy;
+    private int buffpx;
+    private int buffpy;
+    private int dbuffdx;
+    private int dbuffdy;
+    private int dbuffpx;
+    private int dbuffpy;
+    private int backox;
+    private int backoy;
+    private int backaddx;
+    private int backaddy;
+    private int backtox;
+    private int backtoy;
     private int stepmod;
     private int[] cpPos = new int[16];
     private int[] dcpPos = new int[16];
     private Runtime.RangeSet cpReverse = new Runtime.RangeSet(Memory.SET16_r);
     private Runtime.RangeSet dcpReverse = new Runtime.RangeSet(Memory.SET16_r);
-    private short OX;
-    private short OY;
+    private int OX;
+    private int OY;
 
 
-    public short getBuffdx() {
+    public int getBuffdx() {
         return this.buffdx;
     }
 
-    public void setBuffdx(short buffdx) {
+    public void setBuffdx(int buffdx) {
         this.buffdx = buffdx;
     }
 
-    public short getBuffdy() {
+    public int getBuffdy() {
         return this.buffdy;
     }
 
-    public void setBuffdy(short buffdy) {
+    public void setBuffdy(int buffdy) {
         this.buffdy = buffdy;
     }
 
-    public short getBuffpx() {
+    public int getBuffpx() {
         return this.buffpx;
     }
 
-    public void setBuffpx(short buffpx) {
+    public void setBuffpx(int buffpx) {
         this.buffpx = buffpx;
     }
 
-    public short getBuffpy() {
+    public int getBuffpy() {
         return this.buffpy;
     }
 
-    public void setBuffpy(short buffpy) {
+    public void setBuffpy(int buffpy) {
         this.buffpy = buffpy;
     }
 
-    public short getDbuffdx() {
+    public int getDbuffdx() {
         return this.dbuffdx;
     }
 
-    public void setDbuffdx(short dbuffdx) {
+    public void setDbuffdx(int dbuffdx) {
         this.dbuffdx = dbuffdx;
     }
 
-    public short getDbuffdy() {
+    public int getDbuffdy() {
         return this.dbuffdy;
     }
 
-    public void setDbuffdy(short dbuffdy) {
+    public void setDbuffdy(int dbuffdy) {
         this.dbuffdy = dbuffdy;
     }
 
-    public short getDbuffpx() {
+    public int getDbuffpx() {
         return this.dbuffpx;
     }
 
-    public void setDbuffpx(short dbuffpx) {
+    public void setDbuffpx(int dbuffpx) {
         this.dbuffpx = dbuffpx;
     }
 
-    public short getDbuffpy() {
+    public int getDbuffpy() {
         return this.dbuffpy;
     }
 
-    public void setDbuffpy(short dbuffpy) {
+    public void setDbuffpy(int dbuffpy) {
         this.dbuffpy = dbuffpy;
     }
 
-    public short getBackox() {
+    public int getBackox() {
         return this.backox;
     }
 
-    public void setBackox(short backox) {
+    public void setBackox(int backox) {
         this.backox = backox;
     }
 
-    public short getBackoy() {
+    public int getBackoy() {
         return this.backoy;
     }
 
-    public void setBackoy(short backoy) {
+    public void setBackoy(int backoy) {
         this.backoy = backoy;
     }
 
-    public short getBackaddx() {
+    public int getBackaddx() {
         return this.backaddx;
     }
 
-    public void setBackaddx(short backaddx) {
+    public void setBackaddx(int backaddx) {
         this.backaddx = backaddx;
     }
 
-    public short getBackaddy() {
+    public int getBackaddy() {
         return this.backaddy;
     }
 
-    public void setBackaddy(short backaddy) {
+    public void setBackaddy(int backaddy) {
         this.backaddy = backaddy;
     }
 
-    public short getBacktox() {
+    public int getBacktox() {
         return this.backtox;
     }
 
-    public void setBacktox(short backtox) {
+    public void setBacktox(int backtox) {
         this.backtox = backtox;
     }
 
-    public short getBacktoy() {
+    public int getBacktoy() {
         return this.backtoy;
     }
 
-    public void setBacktoy(short backtoy) {
+    public void setBacktoy(int backtoy) {
         this.backtoy = backtoy;
     }
 
@@ -612,19 +612,19 @@ public class ChaosGraphics {
         this.dcpReverse = dcpReverse;
     }
 
-    public short getOX() {
+    public int getOX() {
         return this.OX;
     }
 
-    public void setOX(short OX) {
+    public void setOX(int OX) {
         this.OX = OX;
     }
 
-    public short getOY() {
+    public int getOY() {
         return this.OY;
     }
 
-    public void setOY(short OY) {
+    public void setOY(int OY) {
         this.OY = OY;
     }
 
@@ -637,7 +637,7 @@ public class ChaosGraphics {
         GraphicsErr err = GraphicsErr.gOk;
 
         CloseScreen();
-        SetOrigin((short) 0, (short) 0);
+        SetOrigin(0, 0);
         if (color) {
             if (dualpf)
                 nbColor = 256;
@@ -647,21 +647,21 @@ public class ChaosGraphics {
             nbColor = 2;
         }
         err = graphics.GetGraphicsErr();
-        mainArea = graphics.CreateArea((Memory.TagItem) memory.TAG4(Graphics.aSIZEX, W.invoke((short) SW), Graphics.aSIZEY, H.invoke((short) SH), Graphics.aCOLOR, nbColor, Graphics.aTYPE, Graphics.atBUFFER));
+        mainArea = graphics.CreateArea((Memory.TagItem) memory.TAG4(Graphics.aSIZEX, W.invoke(SW), Graphics.aSIZEY, H.invoke(SH), Graphics.aCOLOR, nbColor, Graphics.aTYPE, Graphics.atBUFFER));
         if (mainArea == graphics.noArea)
             return false;
-        buffArea = graphics.CreateArea((Memory.TagItem) memory.TAG3(Graphics.aSIZEX, W.invoke((short) OW), Graphics.aSIZEY, H.invoke((short) OH), Graphics.aCOLOR, nbColor));
+        buffArea = graphics.CreateArea((Memory.TagItem) memory.TAG3(Graphics.aSIZEX, W.invoke(OW), Graphics.aSIZEY, H.invoke(OH), Graphics.aCOLOR, nbColor));
         if (buffArea == graphics.noArea)
             return false;
         if (dualpf) {
-            dualArea = graphics.CreateArea((Memory.TagItem) memory.TAG3(Graphics.aSIZEX, W.invoke((short) OW), Graphics.aSIZEY, H.invoke((short) OH), Graphics.aCOLOR, nbColor));
+            dualArea = graphics.CreateArea((Memory.TagItem) memory.TAG3(Graphics.aSIZEX, W.invoke(OW), Graphics.aSIZEY, H.invoke(OH), Graphics.aCOLOR, nbColor));
             if (dualArea == graphics.noArea)
                 return false;
         }
-        shapeArea = graphics.CreateArea((Memory.TagItem) memory.TAG3(Graphics.aSIZEX, W.invoke((short) 256), Graphics.aSIZEY, H.invoke((short) 296), Graphics.aCOLOR, nbColor));
+        shapeArea = graphics.CreateArea((Memory.TagItem) memory.TAG3(Graphics.aSIZEX, W.invoke(256), Graphics.aSIZEY, H.invoke(296), Graphics.aCOLOR, nbColor));
         if (shapeArea == graphics.noArea)
             return false;
-        maskArea = graphics.CreateArea((Memory.TagItem) memory.TAG4(Graphics.aSIZEX, W.invoke((short) 256), Graphics.aSIZEY, H.invoke((short) 296), Graphics.aCOLOR, 2, Graphics.aTYPE, Graphics.atMASK));
+        maskArea = graphics.CreateArea((Memory.TagItem) memory.TAG4(Graphics.aSIZEX, W.invoke(256), Graphics.aSIZEY, H.invoke(296), Graphics.aCOLOR, 2, Graphics.aTYPE, Graphics.atMASK));
         if (maskArea == graphics.noArea)
             return false;
         graphics.SetArea(mainArea);
@@ -671,22 +671,22 @@ public class ChaosGraphics {
         return true;
     }
 
-    private void SetBackgroundPos(short px, short py) {
+    private void SetBackgroundPos(int px, int py) {
         // CONST
         final int RW = PW / 2;
         final int RH = PH / 2;
 
         // VAR
-        short maxx = 0;
-        short maxy = 0;
-        short xstep = 0;
-        short ystep = 0;
+        int maxx = 0;
+        int maxy = 0;
+        int xstep = 0;
+        int ystep = 0;
 
-        maxx = (short) (gameWidth - PW);
-        maxy = (short) (gameHeight - PH);
+        maxx = gameWidth - PW;
+        maxy = gameHeight - PH;
         backox = backpx;
         backoy = backpy;
-        xstep = (short) ((chaosBase.step + stepmod) / 3);
+        xstep = (chaosBase.step + stepmod) / 3;
         ystep = xstep;
         stepmod = (chaosBase.step + 2) % 3;
         if (chaosBase.mainPlayer.dvx > 0)
@@ -697,12 +697,12 @@ public class ChaosGraphics {
             backaddy = 32;
         else if (chaosBase.mainPlayer.dvy < 0)
             backaddy = -32;
-        backtox = (short) (px + backaddx - RW);
-        backtoy = (short) (py + backaddy - RH);
+        backtox = px + backaddx - RW;
+        backtoy = py + backaddy - RH;
         if (Math.abs(backtox - backpx) > 100)
-            xstep = (short) (xstep * 2);
+            xstep = xstep * 2;
         if (Math.abs(backtoy - backpy) > 100)
-            ystep = (short) (ystep * 2);
+            ystep = ystep * 2;
         if (Math.abs(backtox - backpx) < xstep)
             backpx = backtox;
         else if (backpx < backtox)
@@ -724,22 +724,22 @@ public class ChaosGraphics {
         else if (backpy > maxy)
             backpy = maxy;
         if (dualpf) {
-            dualpx = (short) (backpx / dualSpeed);
-            dualpy = (short) (backpy / dualSpeed);
+            dualpx = backpx / dualSpeed;
+            dualpy = backpy / dualSpeed;
         }
     }
 
-    private void DrawBlocks(short x, short y, short w, short h) {
+    private void DrawBlocks(int x, int y, int w, int h) {
         // VAR
-        short bx = 0;
-        short by = 0;
-        short cx = 0;
-        short cy = 0;
-        short dx = 0;
-        short dy = 0;
+        int bx = 0;
+        int by = 0;
+        int cx = 0;
+        int cy = 0;
+        int dx = 0;
+        int dy = 0;
 
-        dy = (short) ((buffdy + h) % (SOH + 1));
-        cy = (short) (y + h);
+        dy = (buffdy + h) % (SOH + 1);
+        cy = y + h;
         graphics.SetArea(buffArea);
         if (dualpf)
             graphics.SetPlanes(15, true);
@@ -749,8 +749,8 @@ public class ChaosGraphics {
                 dy = SOH;
             else
                 dy--;
-            dx = (short) ((buffdx + w) % (SOW + 1));
-            cx = (short) (x + w);
+            dx = (buffdx + w) % (SOW + 1);
+            cx = x + w;
             while (cx > x) {
                 cx--;
                 if (dx == 0)
@@ -759,25 +759,25 @@ public class ChaosGraphics {
                     dx--;
                 if ((cx < castleWidth) && (cy < castleHeight)) {
                     bx = (castle[cy][cx]);
-                    by = (short) ((bx / 8) * BH);
-                    bx = (short) ((bx % 8) * BW);
-                    graphics.CopyRect(imageArea, W.invoke(bx), H.invoke(by), W.invoke((short) (dx * BW)), H.invoke((short) (dy * BH)), W.invoke((short) BW), H.invoke((short) BH));
+                    by = (bx / 8) * BH;
+                    bx = (bx % 8) * BW;
+                    graphics.CopyRect(imageArea, W.invoke(bx), H.invoke(by), W.invoke(dx * BW), H.invoke(dy * BH), W.invoke(BW), H.invoke(BH));
                 }
             }
         }
     }
 
-    private void DrawDBlocks(short x, short y, short w, short h) {
+    private void DrawDBlocks(int x, int y, int w, int h) {
         // VAR
-        short bx = 0;
-        short by = 0;
-        short cx = 0;
-        short cy = 0;
-        short dx = 0;
-        short dy = 0;
+        int bx = 0;
+        int by = 0;
+        int cx = 0;
+        int cy = 0;
+        int dx = 0;
+        int dy = 0;
 
-        dy = (short) ((dbuffdy + h) % (SOH + 1));
-        cy = (short) (y + h);
+        dy = (dbuffdy + h) % (SOH + 1);
+        cy = y + h;
         graphics.SetArea(dualArea);
         graphics.SetPlanes(240, true);
         while (cy > y) {
@@ -786,8 +786,8 @@ public class ChaosGraphics {
                 dy = SOH;
             else
                 dy--;
-            dx = (short) ((dbuffdx + w) % (SOW + 1));
-            cx = (short) (x + w);
+            dx = (dbuffdx + w) % (SOW + 1);
+            cx = x + w;
             while (cx > x) {
                 cx--;
                 if (dx == 0)
@@ -796,9 +796,9 @@ public class ChaosGraphics {
                     dx--;
                 if ((cx < 64) && (cy < 64)) {
                     bx = (dual[cy][cx]);
-                    by = (short) ((bx / 8) * BH);
-                    bx = (short) ((bx % 8) * BW);
-                    graphics.CopyRect(image2Area, W.invoke(bx), H.invoke(by), W.invoke((short) (dx * BW)), H.invoke((short) (dy * BH)), W.invoke((short) BW), H.invoke((short) BH));
+                    by = (bx / 8) * BH;
+                    bx = (bx % 8) * BW;
+                    graphics.CopyRect(image2Area, W.invoke(bx), H.invoke(by), W.invoke(dx * BW), H.invoke(dy * BH), W.invoke(BW), H.invoke(BH));
                 }
             }
         }
@@ -806,23 +806,23 @@ public class ChaosGraphics {
 
     private void RenderBlocks() {
         // VAR
-        short px = 0;
-        short py = 0;
-        short mx = 0;
-        short my = 0;
-        short w1 = 0;
-        short w2 = 0;
-        short h1 = 0;
-        short h2 = 0;
+        int px = 0;
+        int py = 0;
+        int mx = 0;
+        int my = 0;
+        int w1 = 0;
+        int w2 = 0;
+        int h1 = 0;
+        int h2 = 0;
 
-        px = (short) (backpx / BW);
-        py = (short) (backpy / BH);
-        mx = (short) (backpx % BW);
-        my = (short) (backpy % BH);
+        px = backpx / BW;
+        py = backpy / BH;
+        mx = backpx % BW;
+        my = backpy % BH;
         while (buffpx < px) {
-            DrawBlocks((short) (buffpx + SOW + 1), buffpy, (short) 1, (short) (SOH + 1));
+            DrawBlocks(buffpx + SOW + 1, buffpy, 1, SOH + 1);
             buffpx++;
-            buffdx = (short) ((buffdx + 1) % (SOW + 1));
+            buffdx = (buffdx + 1) % (SOW + 1);
         }
         while (buffpx > px) {
             if (buffdx <= 0)
@@ -830,12 +830,12 @@ public class ChaosGraphics {
             else
                 buffdx--;
             buffpx--;
-            DrawBlocks(buffpx, buffpy, (short) 1, (short) (SOH + 1));
+            DrawBlocks(buffpx, buffpy, 1, SOH + 1);
         }
         while (buffpy < py) {
-            DrawBlocks(buffpx, (short) (buffpy + SOH + 1), (short) (SOW + 1), (short) 1);
+            DrawBlocks(buffpx, buffpy + SOH + 1, SOW + 1, 1);
             buffpy++;
-            buffdy = (short) ((buffdy + 1) % (SOH + 1));
+            buffdy = (buffdy + 1) % (SOH + 1);
         }
         while (buffpy > py) {
             if (buffdy <= 0)
@@ -843,16 +843,16 @@ public class ChaosGraphics {
             else
                 buffdy--;
             buffpy--;
-            DrawBlocks(buffpx, buffpy, (short) (SOW + 1), (short) 1);
+            DrawBlocks(buffpx, buffpy, SOW + 1, 1);
         }
-        px = (short) (buffdx * BW + mx);
-        py = (short) (buffdy * BH + my);
-        w1 = (short) (OW - px);
-        w2 = (short) (PW - w1);
+        px = buffdx * BW + mx;
+        py = buffdy * BH + my;
+        w1 = OW - px;
+        w2 = PW - w1;
         if (w1 > PW)
             w1 = PW;
-        h1 = (short) (OH - py);
-        h2 = (short) (PH - h1);
+        h1 = OH - py;
+        h2 = PH - h1;
         if (h1 > PH)
             h1 = PH;
         graphics.SetArea(mainArea);
@@ -861,25 +861,25 @@ public class ChaosGraphics {
             graphics.SetPlanes(15, true);
         if (h1 > 0) {
             if (w1 > 0)
-                graphics.CopyRect(buffArea, W.invoke(px), H.invoke(py), (short) 0, (short) 0, W.invoke(w1), H.invoke(h1));
+                graphics.CopyRect(buffArea, W.invoke(px), H.invoke(py), 0, 0, W.invoke(w1), H.invoke(h1));
             if (w2 > 0)
-                graphics.CopyRect(buffArea, (short) 0, H.invoke(py), W.invoke(w1), (short) 0, W.invoke(w2), H.invoke(h1));
+                graphics.CopyRect(buffArea, 0, H.invoke(py), W.invoke(w1), 0, W.invoke(w2), H.invoke(h1));
         }
         if (h2 > 0) {
             if (w1 > 0)
-                graphics.CopyRect(buffArea, W.invoke(px), (short) 0, (short) 0, H.invoke(h1), W.invoke(w1), H.invoke(h2));
+                graphics.CopyRect(buffArea, W.invoke(px), 0, 0, H.invoke(h1), W.invoke(w1), H.invoke(h2));
             if (w2 > 0)
-                graphics.CopyRect(buffArea, (short) 0, (short) 0, H.invoke(w1), H.invoke(h1), W.invoke(w2), H.invoke(h2));
+                graphics.CopyRect(buffArea, 0, 0, H.invoke(w1), H.invoke(h1), W.invoke(w2), H.invoke(h2));
         }
         if (dualpf) {
-            px = (short) (dualpx / BW);
-            py = (short) (dualpy / BH);
-            mx = (short) (dualpx % BW);
-            my = (short) (dualpy % BH);
+            px = dualpx / BW;
+            py = dualpy / BH;
+            mx = dualpx % BW;
+            my = dualpy % BH;
             while (dbuffpx < px) {
-                DrawDBlocks((short) (dbuffpx + SOW + 1), dbuffpy, (short) 1, (short) (SOH + 1));
+                DrawDBlocks(dbuffpx + SOW + 1, dbuffpy, 1, SOH + 1);
                 dbuffpx++;
-                dbuffdx = (short) ((dbuffdx + 1) % (SOW + 1));
+                dbuffdx = (dbuffdx + 1) % (SOW + 1);
             }
             while (dbuffpx > px) {
                 if (dbuffdx <= 0)
@@ -887,12 +887,12 @@ public class ChaosGraphics {
                 else
                     dbuffdx--;
                 dbuffpx--;
-                DrawDBlocks(dbuffpx, dbuffpy, (short) 1, (short) (SOH + 1));
+                DrawDBlocks(dbuffpx, dbuffpy, 1, SOH + 1);
             }
             while (dbuffpy < py) {
-                DrawDBlocks(dbuffpx, (short) (dbuffpy + SOH + 1), (short) (SOW + 1), (short) 1);
+                DrawDBlocks(dbuffpx, dbuffpy + SOH + 1, SOW + 1, 1);
                 dbuffpy++;
-                dbuffdy = (short) ((dbuffdy + 1) % (SOH + 1));
+                dbuffdy = (dbuffdy + 1) % (SOH + 1);
             }
             while (dbuffpy > py) {
                 if (dbuffdy <= 0)
@@ -900,16 +900,16 @@ public class ChaosGraphics {
                 else
                     dbuffdy--;
                 dbuffpy--;
-                DrawDBlocks(dbuffpx, dbuffpy, (short) (SOW + 1), (short) 1);
+                DrawDBlocks(dbuffpx, dbuffpy, SOW + 1, 1);
             }
-            px = (short) (dbuffdx * BW + mx);
-            py = (short) (dbuffdy * BH + my);
-            w1 = (short) (OW - px);
-            w2 = (short) (PW - w1);
+            px = dbuffdx * BW + mx;
+            py = dbuffdy * BH + my;
+            w1 = OW - px;
+            w2 = PW - w1;
             if (w1 > PW)
                 w1 = PW;
-            h1 = (short) (OH - py);
-            h2 = (short) (PH - h1);
+            h1 = OH - py;
+            h2 = PH - h1;
             if (h1 > PH)
                 h1 = PH;
             graphics.SetArea(mainArea);
@@ -917,15 +917,15 @@ public class ChaosGraphics {
             graphics.SetPlanes(240, false);
             if (h1 > 0) {
                 if (w1 > 0)
-                    graphics.CopyRect(dualArea, W.invoke(px), H.invoke(py), (short) 0, (short) 0, W.invoke(w1), H.invoke(h1));
+                    graphics.CopyRect(dualArea, W.invoke(px), H.invoke(py), 0, 0, W.invoke(w1), H.invoke(h1));
                 if (w2 > 0)
-                    graphics.CopyRect(dualArea, (short) 0, H.invoke(py), W.invoke(w1), (short) 0, W.invoke(w2), H.invoke(h1));
+                    graphics.CopyRect(dualArea, 0, H.invoke(py), W.invoke(w1), 0, W.invoke(w2), H.invoke(h1));
             }
             if (h2 > 0) {
                 if (w1 > 0)
-                    graphics.CopyRect(dualArea, W.invoke(px), (short) 0, (short) 0, H.invoke(h1), W.invoke(w1), H.invoke(h2));
+                    graphics.CopyRect(dualArea, W.invoke(px), 0, 0, H.invoke(h1), W.invoke(w1), H.invoke(h2));
                 if (w2 > 0)
-                    graphics.CopyRect(dualArea, (short) 0, (short) 0, H.invoke(w1), H.invoke(h1), W.invoke(w2), H.invoke(h2));
+                    graphics.CopyRect(dualArea, 0, 0, H.invoke(w1), H.invoke(h1), W.invoke(w2), H.invoke(h2));
             }
             graphics.SetPlanes(255, true);
             graphics.SetCopyMode(Graphics.cmCopy);
@@ -936,35 +936,35 @@ public class ChaosGraphics {
         // VAR
         ChaosBase.Obj obj = null;
         ChaosBase.Obj tail = null;
-        short nwdth = 0;
-        short px = 0;
-        short py = 0;
+        int nwdth = 0;
+        int px = 0;
+        int py = 0;
 
         graphics.SetArea(mainArea);
         obj = (ChaosBase.Obj) chaosBase.FirstObj(chaosBase.objList);
         tail = (ChaosBase.Obj) chaosBase.TailObj(chaosBase.objList);
         if (mulS != 1) {
             while (obj != tail) {
-                px = (short) (obj.x / ChaosBase.Frac);
-                py = (short) (obj.y / ChaosBase.Frac);
-                px = W.invoke((short) (px - backpx));
-                py = H.invoke((short) (py - backpy));
+                px = (int) (obj.x / ChaosBase.Frac);
+                py = (int) (obj.y / ChaosBase.Frac);
+                px = W.invoke(px - backpx);
+                py = H.invoke(py - backpy);
                 nwdth = obj.width;
-                if (px + nwdth > W.invoke((short) PW))
-                    nwdth = (short) (W.invoke((short) PW) - px);
+                if (px + nwdth > W.invoke(PW))
+                    nwdth = W.invoke(PW) - px;
                 if (nwdth > 0)
                     graphics.CopyShadow(shapeArea, maskArea, obj.posX, obj.posY, px, py, nwdth, obj.height);
                 obj = (ChaosBase.Obj) chaosBase.NextObj(obj.objNode);
             }
         } else {
             while (obj != tail) {
-                px = (short) (obj.x / ChaosBase.Frac);
-                py = (short) (obj.y / ChaosBase.Frac);
+                px = (int) (obj.x / ChaosBase.Frac);
+                py = (int) (obj.y / ChaosBase.Frac);
                 px -= backpx;
                 py -= backpy;
                 nwdth = obj.width;
                 if (px + nwdth > PW)
-                    nwdth = (short) (PW - px);
+                    nwdth = PW - px;
                 if (nwdth > 0)
                     graphics.CopyShadow(shapeArea, maskArea, obj.posX, obj.posY, px, py, nwdth, obj.height);
                 obj = (ChaosBase.Obj) chaosBase.NextObj(obj.objNode);
@@ -974,35 +974,35 @@ public class ChaosGraphics {
 
     public void DrawBackground() {
         // VAR
-        short px = 0;
-        short py = 0;
+        int px = 0;
+        int py = 0;
 
-        px = (short) (chaosBase.mainPlayer.x / ChaosBase.Frac);
+        px = (int) (chaosBase.mainPlayer.x / ChaosBase.Frac);
         px += chaosBase.mainPlayer.cx;
-        py = (short) (chaosBase.mainPlayer.y / ChaosBase.Frac);
+        py = (int) (chaosBase.mainPlayer.y / ChaosBase.Frac);
         py += chaosBase.mainPlayer.cy;
         SetBackgroundPos(px, py);
-        buffpx = (short) (backpx / BW);
-        buffpy = (short) (backpy / BH);
+        buffpx = backpx / BW;
+        buffpy = backpy / BH;
         buffdx = 0;
         buffdy = 0;
-        DrawBlocks(buffpx, buffpy, (short) (SOW + 1), (short) (SOH + 1));
+        DrawBlocks(buffpx, buffpy, SOW + 1, SOH + 1);
         if (dualpf) {
-            dbuffpx = (short) (dualpx / BW);
-            dbuffpy = (short) (dualpy / BH);
+            dbuffpx = dualpx / BW;
+            dbuffpy = dualpy / BH;
             dbuffdx = 0;
             dbuffdy = 0;
-            DrawDBlocks(dbuffpx, dbuffpy, (short) (SOW + 1), (short) (SOH + 1));
+            DrawDBlocks(dbuffpx, dbuffpy, SOW + 1, SOH + 1);
         }
         RenderBlocks();
     }
 
-    public void MoveBackground(short px, short py) {
+    public void MoveBackground(int px, int py) {
         if ((chaosBase.screenInverted > 0) && !color) {
             graphics.SetArea(mainArea);
             graphics.SetCopyMode(Graphics.cmXor);
             graphics.SetPen(1);
-            graphics.FillRect((short) 0, (short) 0, W.invoke((short) PW), H.invoke((short) PH));
+            graphics.FillRect(0, 0, W.invoke(PW), H.invoke(PH));
             graphics.SetCopyMode(Graphics.cmCopy);
         }
         RenderObjects();
@@ -1025,21 +1025,21 @@ public class ChaosGraphics {
         graphics.DeleteArea(new Runtime.FieldRef<>(this::getMainArea, this::setMainArea));
     }
 
-    public void WaterPalette(/* VAR */ Runtime.IRef<Short> r, /* VAR */ Runtime.IRef<Short> g, /* VAR */ Runtime.IRef<Short> b) {
+    public void WaterPalette(/* VAR */ Runtime.IRef<Integer> r, /* VAR */ Runtime.IRef<Integer> g, /* VAR */ Runtime.IRef<Integer> b) {
         if (chaosBase.water) {
-            r.set((short) (r.get() / 4));
+            r.set(r.get() / 4);
             if (255 - r.get() < b.get())
-                b.set((short) 255);
+                b.set(255);
             else
                 b.inc(r.get());
             g.dec(g.get() / 5);
         }
     }
 
-    public void SetRGB(short col, /* WRT */ short _r, /* WRT */ short _g, /* WRT */ short _b) {
-        Runtime.Ref<Short> r = new Runtime.Ref<>(_r);
-        Runtime.Ref<Short> g = new Runtime.Ref<>(_g);
-        Runtime.Ref<Short> b = new Runtime.Ref<>(_b);
+    public void SetRGB(int col, /* WRT */ int _r, /* WRT */ int _g, /* WRT */ int _b) {
+        Runtime.Ref<Integer> r = new Runtime.Ref<>(_r);
+        Runtime.Ref<Integer> g = new Runtime.Ref<>(_g);
+        Runtime.Ref<Integer> b = new Runtime.Ref<>(_b);
 
         cycling.excl(col);
         WaterPalette(r, g, b);
@@ -1051,10 +1051,10 @@ public class ChaosGraphics {
         }
     }
 
-    public void CycleRGB(short col, short spd, /* WRT */ short _r, /* WRT */ short _g, /* WRT */ short _b) {
-        Runtime.Ref<Short> r = new Runtime.Ref<>(_r);
-        Runtime.Ref<Short> g = new Runtime.Ref<>(_g);
-        Runtime.Ref<Short> b = new Runtime.Ref<>(_b);
+    public void CycleRGB(int col, int spd, /* WRT */ int _r, /* WRT */ int _g, /* WRT */ int _b) {
+        Runtime.Ref<Integer> r = new Runtime.Ref<>(_r);
+        Runtime.Ref<Integer> g = new Runtime.Ref<>(_g);
+        Runtime.Ref<Integer> b = new Runtime.Ref<>(_b);
 
         cycling.incl(col);
         WaterPalette(r, g, b);
@@ -1067,10 +1067,10 @@ public class ChaosGraphics {
         }
     }
 
-    public void DualCycleRGB(short col, short spd, /* WRT */ short _r, /* WRT */ short _g, /* WRT */ short _b) {
-        Runtime.Ref<Short> r = new Runtime.Ref<>(_r);
-        Runtime.Ref<Short> g = new Runtime.Ref<>(_g);
-        Runtime.Ref<Short> b = new Runtime.Ref<>(_b);
+    public void DualCycleRGB(int col, int spd, /* WRT */ int _r, /* WRT */ int _g, /* WRT */ int _b) {
+        Runtime.Ref<Integer> r = new Runtime.Ref<>(_r);
+        Runtime.Ref<Integer> g = new Runtime.Ref<>(_g);
+        Runtime.Ref<Integer> b = new Runtime.Ref<>(_b);
 
         dualCycling.incl(col);
         WaterPalette(r, g, b);
@@ -1083,14 +1083,14 @@ public class ChaosGraphics {
         }
     }
 
-    public void SetTrans(short col, short trans) {
+    public void SetTrans(int col, int trans) {
         transparent[col] = trans;
     }
 
     public void CopyToDual() {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
 
         for (y = 0; y <= 63; y++) {
             for (x = 0; x <= 63; x++) {
@@ -1106,13 +1106,13 @@ public class ChaosGraphics {
     private void AnimCycle(int c, Palette cycle, int speed, int step, /* VAR */ Runtime.IRef<Integer> pos, /* VAR */ Runtime.RangeSet flags, /* VAR */ Runtime.IRef<Integer> r, /* VAR */ Runtime.IRef<Integer> g, /* VAR */ Runtime.IRef<Integer> b) {
         // VAR
         int add = 0;
-        int dred = 0;
-        int dgreen = 0;
-        int dblue = 0;
-        int red = 0;
-        int green = 0;
-        int blue = 0;
-        int p = 0;
+        long dred = 0L;
+        long dgreen = 0L;
+        long dblue = 0L;
+        long red = 0L;
+        long green = 0L;
+        long blue = 0L;
+        long p = 0L;
 
         dred = cycle.red;
         dgreen = cycle.green;
@@ -1144,9 +1144,9 @@ public class ChaosGraphics {
         red += dred * p / 4096;
         green += dgreen * p / 4096;
         blue += dblue * p / 4096;
-        r.set(red);
-        g.set(green);
-        b.set(blue);
+        r.set((int) red);
+        g.set((int) green);
+        b.set((int) blue);
     }
 
     public void AnimPalette(int step) {
@@ -1160,8 +1160,8 @@ public class ChaosGraphics {
         Runtime.Ref<Integer> b2 = new Runtime.Ref<>(0);
         int t1 = 0;
         int t2 = 0;
-        short c = 0;
-        short d = 0;
+        int c = 0;
+        int d = 0;
 
         graphics.SetArea(mainArea);
         if (color) {
@@ -1169,56 +1169,56 @@ public class ChaosGraphics {
                 for (c = 0; c <= 15; c++) {
                     { // WITH
                         Palette _palette = palette[c];
-                        r1.set((int) _palette.red);
-                        g1.set((int) _palette.green);
-                        b1.set((int) _palette.blue);
+                        r1.set(_palette.red);
+                        g1.set(_palette.green);
+                        b1.set(_palette.blue);
                     }
                     if (cycling.contains(c))
                         AnimCycle(c, cycle[c], cycleSpeed[c], step, new Runtime.ArrayElementRef<>(cpPos, c), cpReverse, r1, g1, b1);
                     { // WITH
                         Palette _palette = frtPalette[c];
-                        _palette.red = (short) (int) r1.get();
-                        _palette.green = (short) (int) g1.get();
-                        _palette.blue = (short) (int) b1.get();
+                        _palette.red = r1.get();
+                        _palette.green = g1.get();
+                        _palette.blue = b1.get();
                     }
                 }
                 for (d = 0; d <= 15; d++) {
                     { // WITH
                         Palette _palette = dualPalette[d];
-                        r2.set((int) _palette.red);
-                        g2.set((int) _palette.green);
-                        b2.set((int) _palette.blue);
+                        r2.set(_palette.red);
+                        g2.set(_palette.green);
+                        b2.set(_palette.blue);
                     }
                     if (dualCycling.contains(d))
                         AnimCycle(d, dualCycle[d], dualCycleSpeed[d], step, new Runtime.ArrayElementRef<>(dcpPos, d), dcpReverse, r2, g2, b2);
                     for (c = 0; c <= 15; c++) {
                         { // WITH
                             Palette _palette = frtPalette[c];
-                            r1.set((int) _palette.red);
-                            g1.set((int) _palette.green);
-                            b1.set((int) _palette.blue);
+                            r1.set(_palette.red);
+                            g1.set(_palette.green);
+                            b1.set(_palette.blue);
                         }
                         t1 = transparent[c];
                         t2 = 255 - t1;
-                        graphics.SetPalette((short) (d * 16 + c), (short) ((r1.get() * t1 + r2.get() * t2) / 255), (short) ((g1.get() * t1 + g2.get() * t2) / 255), (short) ((b1.get() * t1 + b2.get() * t2) / 255));
+                        graphics.SetPalette(d * 16 + c, (r1.get() * t1 + r2.get() * t2) / 255, (g1.get() * t1 + g2.get() * t2) / 255, (b1.get() * t1 + b2.get() * t2) / 255);
                     }
                 }
             } else {
                 for (c = 0; c <= 15; c++) {
                     { // WITH
                         Palette _palette = palette[c];
-                        r1.set((int) _palette.red);
-                        g1.set((int) _palette.green);
-                        b1.set((int) _palette.blue);
+                        r1.set(_palette.red);
+                        g1.set(_palette.green);
+                        b1.set(_palette.blue);
                     }
                     if (cycling.contains(c))
                         AnimCycle(c, cycle[c], cycleSpeed[c], step, new Runtime.ArrayElementRef<>(cpPos, c), cpReverse, r1, g1, b1);
-                    graphics.SetPalette(c, (short) (int) r1.get(), (short) (int) g1.get(), (short) (int) b1.get());
+                    graphics.SetPalette(c, r1.get(), g1.get(), b1.get());
                 }
             }
         } else {
-            graphics.SetPalette((short) 0, (short) 0, (short) 0, (short) 0);
-            graphics.SetPalette((short) 1, (short) 255, (short) 255, (short) 255);
+            graphics.SetPalette(0, 0, 0, 0);
+            graphics.SetPalette(1, 255, 255, 255);
         }
     }
 
@@ -1240,29 +1240,29 @@ public class ChaosGraphics {
             } else {
                 { // WITH
                     Palette _palette = palette[c];
-                    r.set((int) _palette.red);
-                    g.set((int) _palette.green);
-                    b.set((int) _palette.blue);
+                    r.set(_palette.red);
+                    g.set(_palette.green);
+                    b.set(_palette.blue);
                 }
                 AnimCycle(c, cycle[c], cycleSpeed[c], 0, new Runtime.ArrayElementRef<>(cpPos, c), cpReverse, r, g, b);
                 { // WITH
                     Palette _palette = palette[c];
-                    _palette.red = (short) (int) r.get();
-                    _palette.green = (short) (int) g.get();
-                    _palette.blue = (short) (int) b.get();
+                    _palette.red = r.get();
+                    _palette.green = g.get();
+                    _palette.blue = b.get();
                 }
                 { // WITH
                     Palette _palette = dualPalette[c];
-                    r.set((int) _palette.red);
-                    g.set((int) _palette.green);
-                    b.set((int) _palette.blue);
+                    r.set(_palette.red);
+                    g.set(_palette.green);
+                    b.set(_palette.blue);
                 }
                 AnimCycle(c, dualCycle[c], dualCycleSpeed[c], 0, new Runtime.ArrayElementRef<>(dcpPos, c), dcpReverse, r, g, b);
                 { // WITH
                     Palette _palette = dualPalette[c];
-                    _palette.red = (short) (int) r.get();
-                    _palette.green = (short) (int) g.get();
-                    _palette.blue = (short) (int) b.get();
+                    _palette.red = r.get();
+                    _palette.green = g.get();
+                    _palette.blue = b.get();
                 }
                 cpPos[c] = 0;
                 dcpPos[c] = 0;
@@ -1279,14 +1279,14 @@ public class ChaosGraphics {
         }
     }
 
-    public void WriteAt(short x, short y, Runtime.IRef<String> t) {
+    public void WriteAt(int x, int y, Runtime.IRef<String> t) {
         graphics.SetTextPos(x, y);
         graphics.DrawText(t);
     }
 
-    public void CenterText(short x, short y, short w, Runtime.IRef<String> t) {
+    public void CenterText(int x, int y, int w, Runtime.IRef<String> t) {
         // VAR
-        short pw = 0;
+        int pw = 0;
 
         pw = graphics.TextWidth(t);
         x += (w - pw) / 2;
@@ -1297,13 +1297,13 @@ public class ChaosGraphics {
     private void WriteShort(boolean z, int v) {
         // VAR
         int q = 0;
-        short d = 0;
+        int d = 0;
         Runtime.Ref<String> ch = new Runtime.Ref<>("");
 
         Runtime.setChar(ch, 1, ((char) 0));
         q = 1000;
         while (q > 0) {
-            d = (short) (v / q);
+            d = v / q;
             v = v % q;
             q = q / 10;
             if (q == 0)
@@ -1316,11 +1316,11 @@ public class ChaosGraphics {
         }
     }
 
-    public void WriteCard(short x, short y, long v) {
+    public void WriteCard(int x, int y, long v) {
         // VAR
         boolean z = false;
         long q = 0L;
-        short d = 0;
+        int d = 0;
         Runtime.Ref<String> ch = new Runtime.Ref<>("");
 
         graphics.SetTextPos(x, y);
@@ -1329,7 +1329,7 @@ public class ChaosGraphics {
         if (v >= 10000) {
             q = 1000000000;
             while (q >= 10000) {
-                d = (short) (v / q);
+                d = (int) (v / q);
                 v = v % q;
                 q = q / 10;
                 if ((d != 0) || z) {
@@ -1342,45 +1342,45 @@ public class ChaosGraphics {
         WriteShort(z, (int) v);
     }
 
-    private short FastS(short s) {
+    private int FastS(int s) {
         return s;
     }
 
     private final AdjustProc FastS_ref = this::FastS;
 
-    private short MultS(short s) {
-        return (short) (s * mulS);
+    private int MultS(int s) {
+        return s * mulS;
     }
 
     private final AdjustProc MultS_ref = this::MultS;
 
-    private short FastX(short x) {
-        return (short) (x + OX);
+    private int FastX(int x) {
+        return x + OX;
     }
 
     private final AdjustProc FastX_ref = this::FastX;
 
-    private short FastY(short y) {
-        return (short) (y + OY);
+    private int FastY(int y) {
+        return y + OY;
     }
 
     private final AdjustProc FastY_ref = this::FastY;
 
-    private short MultX(short x) {
-        return (short) (x * mulS + OX);
+    private int MultX(int x) {
+        return x * mulS + OX;
     }
 
     private final AdjustProc MultX_ref = this::MultX;
 
-    private short MultY(short y) {
-        return (short) (y * mulS + OY);
+    private int MultY(int y) {
+        return y * mulS + OY;
     }
 
     private final AdjustProc MultY_ref = this::MultY;
 
-    public void SetOrigin(short ox, short oy) {
-        OX = (short) (ox * mulS);
-        OY = (short) (oy * mulS);
+    public void SetOrigin(int ox, int oy) {
+        OX = ox * mulS;
+        OY = oy * mulS;
         if (mulS == 1) {
             W = FastS_ref;
             H = FastS_ref;
@@ -1420,7 +1420,7 @@ public class ChaosGraphics {
         int f = 0;
 
         for (c = 0; c <= 15; c++) {
-            SetRGB((short) c, (short) 0, (short) 0, (short) 0);
+            SetRGB(c, 0, 0, 0);
             cycle[c].copyFrom(palette[c]);
             cpPos[c] = 0;
             dcpPos[c] = 0;
@@ -1428,22 +1428,22 @@ public class ChaosGraphics {
             dcpReverse = new Runtime.RangeSet(Memory.SET16_r);
         }
         CopyToDual();
-        SetRGB((short) 0, (short) 0, (short) 0, (short) 0);
-        SetRGB((short) 1, (short) 127, (short) 127, (short) 127);
+        SetRGB(0, 0, 0, 0);
+        SetRGB(1, 127, 127, 127);
         for (c = 8; c <= 15; c++) {
             f = c * 17;
-            SetRGB((short) c, (short) f, (short) f, (short) f);
+            SetRGB(c, f, f, f);
         }
-        SetRGB((short) 2, (short) 255, (short) 255, (short) 255);
-        CycleRGB((short) 2, (short) 40, (short) 127, (short) 255, (short) 255);
-        SetRGB((short) 3, (short) 255, (short) 255, (short) 0);
-        CycleRGB((short) 3, (short) 200, (short) 255, (short) 200, (short) 0);
-        SetRGB((short) 4, (short) 255, (short) 0, (short) 0);
-        SetRGB((short) 5, (short) 0, (short) 255, (short) 0);
-        SetRGB((short) 6, (short) 0, (short) 0, (short) 255);
-        SetRGB((short) 7, (short) 210, (short) 140, (short) 0);
+        SetRGB(2, 255, 255, 255);
+        CycleRGB(2, 40, 127, 255, 255);
+        SetRGB(3, 255, 255, 0);
+        CycleRGB(3, 200, 255, 200, 0);
+        SetRGB(4, 255, 0, 0);
+        SetRGB(5, 0, 255, 0);
+        SetRGB(6, 0, 0, 255);
+        SetRGB(7, 210, 140, 0);
         for (c = 0; c <= 15; c++) {
-            SetTrans((short) c, (short) 255);
+            SetTrans(c, 255);
         }
     }
 
@@ -1480,12 +1480,12 @@ public class ChaosGraphics {
         castle = null;
         dual = null;
         checks.AddTermProc(Close_ref);
-        castle = (short[][]) memory.AllocMem(Runtime.sizeOf(32512, short[][].class, 127, 128));
+        castle = (int[][]) memory.AllocMem(Runtime.sizeOf(65024, int[][].class, 127, 128));
         checks.CheckMem(castle);
-        dual = (short[][]) memory.AllocMem(Runtime.sizeOf(8192, short[][].class, 64, 64));
+        dual = (int[][]) memory.AllocMem(Runtime.sizeOf(16384, int[][].class, 64, 64));
         checks.CheckMem(dual);
         mulS = 1;
-        SetOrigin((short) 0, (short) 0);
+        SetOrigin(0, 0);
         InitColors();
     }
 

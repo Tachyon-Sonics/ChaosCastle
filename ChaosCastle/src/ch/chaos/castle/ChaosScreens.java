@@ -72,14 +72,14 @@ public class ChaosScreens {
 
     // VAR
 
-    private short p1;
-    private short p2;
-    private short p3;
+    private int p1;
+    private int p2;
+    private int p3;
     private boolean joy2pressed;
     private String levelName = "";
     private boolean gameMade;
     private boolean[][] wActive = new boolean[Weapon.values().length][2];
-    private short[] available = new short[Weapon.values().length];
+    private int[] available = new int[Weapon.values().length];
     private boolean[] dActive = new boolean[5];
     private boolean bomb;
     private boolean up;
@@ -95,27 +95,27 @@ public class ChaosScreens {
     private ChaosInterface.TopScore[] topScores = Runtime.initArray(new ChaosInterface.TopScore[10]);
 
 
-    public short getP1() {
+    public int getP1() {
         return this.p1;
     }
 
-    public void setP1(short p1) {
+    public void setP1(int p1) {
         this.p1 = p1;
     }
 
-    public short getP2() {
+    public int getP2() {
         return this.p2;
     }
 
-    public void setP2(short p2) {
+    public void setP2(int p2) {
         this.p2 = p2;
     }
 
-    public short getP3() {
+    public int getP3() {
         return this.p3;
     }
 
-    public void setP3(short p3) {
+    public void setP3(int p3) {
         this.p3 = p3;
     }
 
@@ -151,11 +151,11 @@ public class ChaosScreens {
         this.wActive = wActive;
     }
 
-    public short[] getAvailable() {
+    public int[] getAvailable() {
         return this.available;
     }
 
-    public void setAvailable(short[] available) {
+    public void setAvailable(int[] available) {
         this.available = available;
     }
 
@@ -266,7 +266,7 @@ public class ChaosScreens {
 
     // PROCEDURE
 
-    private void SetP(short p) {
+    private void SetP(int p) {
         if (chaosGraphics.color)
             graphics.SetPen(p);
         else if (p > 0)
@@ -275,9 +275,9 @@ public class ChaosScreens {
             graphics.SetPen(0);
     }
 
-    private void TripleWrite(short x, short y, Runtime.IRef<String> s) {
+    private void TripleWrite(int x, int y, Runtime.IRef<String> s) {
         SetP(p3);
-        chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) (x + 1)), chaosGraphics.Y.invoke((short) (y + 1)), s);
+        chaosGraphics.WriteAt(chaosGraphics.X.invoke(x + 1), chaosGraphics.Y.invoke(y + 1), s);
         SetP(p2);
         chaosGraphics.WriteAt(chaosGraphics.X.invoke(x), chaosGraphics.Y.invoke(y), s);
         if (chaosGraphics.color)
@@ -286,37 +286,37 @@ public class ChaosScreens {
             graphics.SetPen(1);
         else
             graphics.SetPen(0);
-        chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) (x + 1)), chaosGraphics.Y.invoke(y), s);
+        chaosGraphics.WriteAt(chaosGraphics.X.invoke(x + 1), chaosGraphics.Y.invoke(y), s);
     }
 
-    private void TripleCard(short x, short y, long val) {
+    private void TripleCard(int x, int y, long val) {
         SetP(p3);
-        chaosGraphics.WriteCard(chaosGraphics.X.invoke((short) (x + 1)), chaosGraphics.Y.invoke((short) (y + 1)), val);
+        chaosGraphics.WriteCard(chaosGraphics.X.invoke(x + 1), chaosGraphics.Y.invoke(y + 1), val);
         SetP(p2);
         chaosGraphics.WriteCard(chaosGraphics.X.invoke(x), chaosGraphics.Y.invoke(y), val);
         if (chaosGraphics.color)
             graphics.SetPen(p1);
         else
             graphics.SetPen(0);
-        chaosGraphics.WriteCard(chaosGraphics.X.invoke((short) (x + 1)), chaosGraphics.Y.invoke(y), val);
+        chaosGraphics.WriteCard(chaosGraphics.X.invoke(x + 1), chaosGraphics.Y.invoke(y), val);
     }
 
-    private void Center(short x, short y, short w, Runtime.IRef<String> s) {
+    private void Center(int x, int y, int w, Runtime.IRef<String> s) {
         // VAR
-        short d = 0;
+        int d = 0;
 
-        d = (short) ((chaosGraphics.W.invoke(w) - graphics.TextWidth(s)) / 2);
-        TripleWrite((short) (x + d / chaosGraphics.mulS), y, s);
+        d = (chaosGraphics.W.invoke(w) - graphics.TextWidth(s)) / 2;
+        TripleWrite(x + d / chaosGraphics.mulS, y, s);
     }
 
-    private void TripleCenter(short w, short y, Runtime.IRef<String> s) {
-        Center((short) 0, y, w, s);
+    private void TripleCenter(int w, int y, Runtime.IRef<String> s) {
+        Center(0, y, w, s);
     }
 
     private void ResetGraphics() {
         graphics.SetArea(chaosGraphics.mainArea);
         graphics.SetBuffer(true, true);
-        chaosGraphics.SetOrigin((short) 0, (short) 0);
+        chaosGraphics.SetOrigin(0, 0);
         graphics.SetPen(0);
         graphics.SetCopyMode(Graphics.cmTrans);
         graphics.SetTextMode(EnumSet.noneOf(TextModes.class));
@@ -361,7 +361,7 @@ public class ChaosScreens {
         while (true) {
             if (chaosBase.gameStat != oldstat)
                 break;
-            input.SetBusyStat((short) Input.statWaiting);
+            input.SetBusyStat(Input.statWaiting);
             input.WaitEvent();
             stick.copyFrom(input.GetStick());
             tmp.copyFrom(stick);
@@ -392,9 +392,9 @@ public class ChaosScreens {
 
     private void DrawStart() {
         ResetGraphics();
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 9));
+        graphics.SetTextSize(chaosGraphics.H.invoke(9));
         p1 = 2;
-        TripleCenter((short) ChaosGraphics.PW, (short) 230, Runtime.castToRef(languages.ADL("Press [SPACE] to start"), String.class));
+        TripleCenter(ChaosGraphics.PW, 230, Runtime.castToRef(languages.ADL("Press [SPACE] to start"), String.class));
         UpdateScreen();
     }
 
@@ -405,48 +405,48 @@ public class ChaosScreens {
         chaosActions.ZoomMessage(Runtime.castToRef(memory.ADS("ChaosCastle"), String.class), 7, 3, 4);
         graphics.SetBuffer(true, false);
         graphics.SetPen(0);
-        graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) ChaosGraphics.SW), chaosGraphics.H.invoke((short) ChaosGraphics.SH));
+        graphics.FillRect(0, 0, chaosGraphics.W.invoke(ChaosGraphics.SW), chaosGraphics.H.invoke(ChaosGraphics.SH));
     }
 
     private void DrawStartScreen() {
         ResetGraphics();
         if (chaosGraphics.color) {
-            chaosGraphics.SetRGB((short) 8, (short) 0, (short) 0, (short) 0);
-            graphics.SetPalette((short) 8, (short) 0, (short) 0, (short) 0);
+            chaosGraphics.SetRGB(8, 0, 0, 0);
+            graphics.SetPalette(8, 0, 0, 0);
             graphics.SetPen(8);
         }
-        graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) ChaosGraphics.SW), chaosGraphics.H.invoke((short) ChaosGraphics.SH));
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 27));
+        graphics.FillRect(0, 0, chaosGraphics.W.invoke(ChaosGraphics.SW), chaosGraphics.H.invoke(ChaosGraphics.SH));
+        graphics.SetTextSize(chaosGraphics.H.invoke(27));
         p1 = 7;
         p2 = 3;
         p3 = 4;
-        TripleCenter((short) ChaosGraphics.SW, (short) 0, Runtime.castToRef(memory.ADS("Chaos Castle"), String.class));
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 9));
-        TripleCenter((short) ChaosGraphics.SW, (short) 27, Runtime.castToRef(memory.ADS("(C) 1999 by Nicky"), String.class));
+        TripleCenter(ChaosGraphics.SW, 0, Runtime.castToRef(memory.ADS("Chaos Castle"), String.class));
+        graphics.SetTextSize(chaosGraphics.H.invoke(9));
+        TripleCenter(ChaosGraphics.SW, 27, Runtime.castToRef(memory.ADS("(C) 1999 by Nicky"), String.class));
         if (registration.registered) {
-            TripleCenter((short) ChaosGraphics.SW, (short) 40, Runtime.castToRef(languages.ADL("Full Version"), String.class));
-            TripleCenter((short) ChaosGraphics.SW, (short) 49, Runtime.castToRef(languages.ADL("FreeWare"), String.class));
+            TripleCenter(ChaosGraphics.SW, 40, Runtime.castToRef(languages.ADL("Full Version"), String.class));
+            TripleCenter(ChaosGraphics.SW, 49, Runtime.castToRef(languages.ADL("FreeWare"), String.class));
         } else {
-            TripleCenter((short) ChaosGraphics.SW, (short) 40, Runtime.castToRef(languages.ADL("Demo version - limited playtime"), String.class));
-            TripleCenter((short) ChaosGraphics.SW, (short) 49, Runtime.castToRef(languages.ADL("Register to get a full version"), String.class));
+            TripleCenter(ChaosGraphics.SW, 40, Runtime.castToRef(languages.ADL("Demo version - limited playtime"), String.class));
+            TripleCenter(ChaosGraphics.SW, 49, Runtime.castToRef(languages.ADL("Register to get a full version"), String.class));
         }
-        TripleCenter((short) ChaosGraphics.SW, (short) 63, Runtime.castToRef(languages.ADL("Use the following keys to move:"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 72, Runtime.castToRef(languages.ADL("[7] [8] [9]"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 81, Runtime.castToRef(languages.ADL("[4] [5] [6]"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 90, Runtime.castToRef(languages.ADL("[1] [2] [3]"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 100, Runtime.castToRef(languages.ADL("Use [SPACE] to fire with the Gun."), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 110, Runtime.castToRef(languages.ADL("To use another weapon, you must first"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 119, Runtime.castToRef(languages.ADL("choose yourself the key to use as follow"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 128, Runtime.castToRef(languages.ADL("-Select the weapon with [+] / [-]"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 137, Runtime.castToRef(languages.ADL("-Choose the key ([F1]..[F8] or [a]..[z])"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 146, Runtime.castToRef(languages.ADL("to use or press [SPACE] to cancel."), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 156, Runtime.castToRef(languages.ADL("To make a bomb with any weapon, hold"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 165, Runtime.castToRef(languages.ADL("[SHIFT] while firing or press & release"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 174, Runtime.castToRef(languages.ADL("[+] & [-] simultaneously before you fire"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 184, Runtime.castToRef(languages.ADL("Warning: bombs and bullets are limited."), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 195, Runtime.castToRef(languages.ADL("If you have a joystick / joypad,"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 204, Runtime.castToRef(languages.ADL("[SPACE], [F1]..[F3] = button 1 to 4,"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 213, Runtime.castToRef(languages.ADL("[+], [-] = forward, reverse."), String.class));
+        TripleCenter(ChaosGraphics.SW, 63, Runtime.castToRef(languages.ADL("Use the following keys to move:"), String.class));
+        TripleCenter(ChaosGraphics.SW, 72, Runtime.castToRef(languages.ADL("[7] [8] [9]"), String.class));
+        TripleCenter(ChaosGraphics.SW, 81, Runtime.castToRef(languages.ADL("[4] [5] [6]"), String.class));
+        TripleCenter(ChaosGraphics.SW, 90, Runtime.castToRef(languages.ADL("[1] [2] [3]"), String.class));
+        TripleCenter(ChaosGraphics.SW, 100, Runtime.castToRef(languages.ADL("Use [SPACE] to fire with the Gun."), String.class));
+        TripleCenter(ChaosGraphics.SW, 110, Runtime.castToRef(languages.ADL("To use another weapon, you must first"), String.class));
+        TripleCenter(ChaosGraphics.SW, 119, Runtime.castToRef(languages.ADL("choose yourself the key to use as follow"), String.class));
+        TripleCenter(ChaosGraphics.SW, 128, Runtime.castToRef(languages.ADL("-Select the weapon with [+] / [-]"), String.class));
+        TripleCenter(ChaosGraphics.SW, 137, Runtime.castToRef(languages.ADL("-Choose the key ([F1]..[F8] or [a]..[z])"), String.class));
+        TripleCenter(ChaosGraphics.SW, 146, Runtime.castToRef(languages.ADL("to use or press [SPACE] to cancel."), String.class));
+        TripleCenter(ChaosGraphics.SW, 156, Runtime.castToRef(languages.ADL("To make a bomb with any weapon, hold"), String.class));
+        TripleCenter(ChaosGraphics.SW, 165, Runtime.castToRef(languages.ADL("[SHIFT] while firing or press & release"), String.class));
+        TripleCenter(ChaosGraphics.SW, 174, Runtime.castToRef(languages.ADL("[+] & [-] simultaneously before you fire"), String.class));
+        TripleCenter(ChaosGraphics.SW, 184, Runtime.castToRef(languages.ADL("Warning: bombs and bullets are limited."), String.class));
+        TripleCenter(ChaosGraphics.SW, 195, Runtime.castToRef(languages.ADL("If you have a joystick / joypad,"), String.class));
+        TripleCenter(ChaosGraphics.SW, 204, Runtime.castToRef(languages.ADL("[SPACE], [F1]..[F3] = button 1 to 4,"), String.class));
+        TripleCenter(ChaosGraphics.SW, 213, Runtime.castToRef(languages.ADL("[+], [-] = forward, reverse."), String.class));
         chaosActions.WhiteFade();
         DrawStart();
         UpdateScreen();
@@ -465,11 +465,11 @@ public class ChaosScreens {
 
     private final Runnable RefreshPlay_ref = this::RefreshPlay;
 
-    private Runtime.IRef<String> GetChaosName(short level) {
+    private Runtime.IRef<String> GetChaosName(int level) {
         // VAR
-        short d = 0;
+        int d = 0;
 
-        d = (short) (level / 10);
+        d = level / 10;
         if (d == 0) {
             levelName = Runtime.setChar(levelName, 0, (char) (48 + level));
             levelName = Runtime.setChar(levelName, 1, ((char) 0));
@@ -481,7 +481,7 @@ public class ChaosScreens {
         return new Runtime.FieldRef<>(this::getLevelName, this::setLevelName);
     }
 
-    private Runtime.IRef<String> GetCastleName(short level) {
+    private Runtime.IRef<String> GetCastleName(int level) {
         switch (level) {
             case 1 -> {
                 return Runtime.castToRef(languages.ADL("Entry"), String.class);
@@ -547,7 +547,7 @@ public class ChaosScreens {
         }
     }
 
-    private Runtime.IRef<String> GetSpecialName(short level) {
+    private Runtime.IRef<String> GetSpecialName(int level) {
         if (level == 24)
             return Runtime.castToRef(languages.ADL("ChaosCastle"), String.class);
         else if (level % 8 == 0)
@@ -560,7 +560,7 @@ public class ChaosScreens {
             return Runtime.castToRef(languages.ADL("Baby Aliens"), String.class);
     }
 
-    private Runtime.IRef<String> GetFamilyName(short level) {
+    private Runtime.IRef<String> GetFamilyName(int level) {
         switch (level) {
             case 1 -> {
                 return Runtime.castToRef(languages.ADL("Brother Alien"), String.class);
@@ -602,12 +602,12 @@ public class ChaosScreens {
         Runtime.IRef<String> st2 = null;
 
         ResetGraphics();
-        graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) ChaosGraphics.SW), chaosGraphics.H.invoke((short) ChaosGraphics.SH));
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 27));
+        graphics.FillRect(0, 0, chaosGraphics.W.invoke(ChaosGraphics.SW), chaosGraphics.H.invoke(ChaosGraphics.SH));
+        graphics.SetTextSize(chaosGraphics.H.invoke(27));
         p1 = 7;
         p2 = 3;
         p3 = 4;
-        TripleCenter((short) ChaosGraphics.PW, (short) 0, Runtime.castToRef(languages.ADL("Zone:"), String.class));
+        TripleCenter(ChaosGraphics.PW, 0, Runtime.castToRef(languages.ADL("Zone:"), String.class));
         switch (chaosBase.zone) {
             case Chaos -> str = Runtime.castToRef(languages.ADL("Chaos"), String.class);
             case Castle -> str = Runtime.castToRef(languages.ADL("Castle"), String.class);
@@ -615,24 +615,24 @@ public class ChaosScreens {
             case Special -> str = Runtime.castToRef(languages.ADL("* BONUS *"), String.class);
             default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.zone);
         }
-        TripleCenter((short) ChaosGraphics.PW, (short) 30, str);
-        TripleCenter((short) ChaosGraphics.PW, (short) 120, Runtime.castToRef(languages.ADL("Level:"), String.class));
+        TripleCenter(ChaosGraphics.PW, 30, str);
+        TripleCenter(ChaosGraphics.PW, 120, Runtime.castToRef(languages.ADL("Level:"), String.class));
         if (chaosBase.zone == Zone.Family) {
-            graphics.SetTextSize(chaosGraphics.H.invoke((short) 18));
+            graphics.SetTextSize(chaosGraphics.H.invoke(18));
             str = GetFamilyName(chaosBase.level[Zone.Family.ordinal()]);
         } else if (chaosBase.zone == Zone.Castle) {
             str = GetCastleName(chaosBase.level[Zone.Castle.ordinal()]);
         } else if (chaosBase.zone == Zone.Special) {
-            graphics.SetTextSize(chaosGraphics.H.invoke((short) 18));
+            graphics.SetTextSize(chaosGraphics.H.invoke(18));
             str = GetSpecialName(chaosBase.level[Zone.Special.ordinal()]);
         } else {
             str = GetChaosName(chaosBase.level[chaosBase.zone.ordinal()]);
         }
-        TripleCenter((short) ChaosGraphics.PW, (short) 150, str);
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 9));
+        TripleCenter(ChaosGraphics.PW, 150, str);
+        graphics.SetTextSize(chaosGraphics.H.invoke(9));
         str = Runtime.castToRef(languages.ADL("Target:"), String.class);
-        TripleCenter((short) ChaosGraphics.PW, (short) 60, str);
-        TripleCenter((short) ChaosGraphics.PW, (short) 180, str);
+        TripleCenter(ChaosGraphics.PW, 60, str);
+        TripleCenter(ChaosGraphics.PW, 180, str);
         switch (chaosBase.zone) {
             case Chaos -> {
                 str = Runtime.castToRef(languages.ADL("Get enough $ to enter"), String.class);
@@ -652,8 +652,8 @@ public class ChaosScreens {
             }
             default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.zone);
         }
-        TripleCenter((short) ChaosGraphics.PW, (short) 70, str);
-        TripleCenter((short) ChaosGraphics.PW, (short) 80, st2);
+        TripleCenter(ChaosGraphics.PW, 70, str);
+        TripleCenter(ChaosGraphics.PW, 80, st2);
         switch (chaosBase.zone) {
             case Chaos -> {
                 str = Runtime.castToRef(languages.ADL("Destroy everything"), String.class);
@@ -669,7 +669,7 @@ public class ChaosScreens {
             }
             default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.zone);
         }
-        TripleCenter((short) ChaosGraphics.PW, (short) 190, str);
+        TripleCenter(ChaosGraphics.PW, 190, str);
         chaosPlayer.DrawInfos(false);
         if (gameMade)
             DrawStart();
@@ -701,53 +701,53 @@ public class ChaosScreens {
         chaosGraphics.UpdateAnim();
     }
 
-    private void WeaponToPrice(Weapon w, /* VAR */ Runtime.IRef<Short> bullet, /* VAR */ Runtime.IRef<Short> bombd, /* VAR */ Runtime.IRef<Short> bombs) {
+    private void WeaponToPrice(Weapon w, /* VAR */ Runtime.IRef<Integer> bullet, /* VAR */ Runtime.IRef<Integer> bombd, /* VAR */ Runtime.IRef<Integer> bombs) {
         bullet.set(chaosWeapon.GetBulletPrice(w));
-        bombs.set((short) 0);
+        bombs.set(0);
         switch (w) {
             case GUN -> {
-                bombd.set((short) 5);
+                bombd.set(5);
             }
             case FB -> {
-                bombd.set((short) 0);
-                bombs.set((short) 90);
+                bombd.set(0);
+                bombs.set(90);
             }
             case LASER -> {
-                bombd.set((short) 40);
+                bombd.set(40);
             }
             case BUBBLE -> {
-                bombd.set((short) 30);
+                bombd.set(30);
             }
             case FIRE -> {
-                bombd.set((short) 25);
+                bombd.set(25);
             }
             case STAR -> {
-                bombd.set((short) 60);
+                bombd.set(60);
             }
             case BALL -> {
-                bombd.set((short) 20);
+                bombd.set(20);
             }
             case GRENADE -> {
-                bombd.set((short) 10);
+                bombd.set(10);
             }
             default -> throw new RuntimeException("Unhandled CASE value " + w);
         }
     }
 
-    private Runtime.IRef<String> ItemToPrice(int item, /* VAR */ Runtime.IRef<Short> itemD, /* VAR */ Runtime.IRef<Short> itemS) {
-        itemD.set((short) 0);
-        itemS.set((short) 0);
+    private Runtime.IRef<String> ItemToPrice(int item, /* VAR */ Runtime.IRef<Integer> itemD, /* VAR */ Runtime.IRef<Integer> itemS) {
+        itemD.set(0);
+        itemS.set(0);
         switch (item) {
             case 0 -> {
-                itemD.set((short) 15);
+                itemD.set(15);
                 return Runtime.castToRef(memory.ADS("15$"), String.class);
             }
             case 2 -> {
-                itemS.set((short) 150);
+                itemS.set(150);
                 return Runtime.castToRef(memory.ADS("150£"), String.class);
             }
             case 3 -> {
-                itemD.set((short) 100);
+                itemD.set(100);
                 return Runtime.castToRef(memory.ADS("100$"), String.class);
             }
             default -> {
@@ -756,7 +756,7 @@ public class ChaosScreens {
         }
     }
 
-    private boolean DrawWeapon_SetPens(boolean xc, boolean av, short d, short s, Weapon w, /* VAR */ Runtime.IRef<Boolean> weaponOk) {
+    private boolean DrawWeapon_SetPens(boolean xc, boolean av, int d, int s, Weapon w, /* VAR */ Runtime.IRef<Boolean> weaponOk) {
         // VAR
         boolean tst1 = false;
         boolean tst2 = false;
@@ -794,16 +794,16 @@ public class ChaosScreens {
 
     private void DrawWeapon(Weapon w) {
         // VAR
-        short y = 0;
+        int y = 0;
         Runtime.IRef<String> str = null;
-        Runtime.Ref<Short> bullet = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> bombd = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> bombs = new Runtime.Ref<>((short) 0);
-        short val = 0;
+        Runtime.Ref<Integer> bullet = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> bombd = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> bombs = new Runtime.Ref<>(0);
+        int val = 0;
         Runtime.Ref<String> ch = new Runtime.Ref<>("");
         Runtime.Ref<Boolean> weaponOk = new Runtime.Ref<>(false);
 
-        y = (short) (w.ordinal() * 10 + 60);
+        y = w.ordinal() * 10 + 60;
         str = chaosPlayer.WeaponToStr(w);
         WeaponToPrice(w, bullet, bombd, bombs);
         weaponOk.set(false);
@@ -814,10 +814,10 @@ public class ChaosScreens {
         } else {
             ch.set("NA");
             graphics.SetPen(0);
-            graphics.FillRect(chaosGraphics.W.invoke((short) x1), chaosGraphics.H.invoke(y), chaosGraphics.W.invoke((short) ChaosGraphics.PW), chaosGraphics.H.invoke((short) (y + 10)));
+            graphics.FillRect(chaosGraphics.W.invoke(x1), chaosGraphics.H.invoke(y), chaosGraphics.W.invoke(ChaosGraphics.PW), chaosGraphics.H.invoke(y + 10));
         }
-        wActive[w.ordinal()][0] = DrawWeapon_SetPens(!bomb, true, bullet.get(), (short) 0, w, weaponOk);
-        Center((short) x1, y, (short) (ChaosGraphics.PW / 4), ch);
+        wActive[w.ordinal()][0] = DrawWeapon_SetPens(!bomb, true, bullet.get(), 0, w, weaponOk);
+        Center(x1, y, ChaosGraphics.PW / 4, ch);
         val = bombd.get();
         if (available[w.ordinal()] > 0) {
             if (bombs.get() != 0) {
@@ -833,16 +833,16 @@ public class ChaosScreens {
             ch.set("---");
         }
         wActive[w.ordinal()][1] = DrawWeapon_SetPens(bomb, true, bombd.get(), bombs.get(), w, weaponOk);
-        Center((short) x2, y, (short) (ChaosGraphics.PW / 4), ch);
-        weaponOk.set(DrawWeapon_SetPens(true, weaponOk.get(), (short) 0, (short) 0, w, weaponOk));
-        TripleWrite((short) 0, y, str);
+        Center(x2, y, ChaosGraphics.PW / 4, ch);
+        weaponOk.set(DrawWeapon_SetPens(true, weaponOk.get(), 0, 0, w, weaponOk));
+        TripleWrite(0, y, str);
     }
 
     private void UpdateWeapon(Weapon w) {
         // VAR
-        Runtime.Ref<Short> bullet = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> bombd = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> bombs = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> bullet = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> bombd = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> bombs = new Runtime.Ref<>(0);
         boolean t1 = false;
         boolean t2 = false;
         boolean t3 = false;
@@ -858,14 +858,14 @@ public class ChaosScreens {
 
     private void BuyWeapon(boolean ten) {
         // VAR
-        Runtime.Ref<Short> bullet = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> bombd = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> bombs = new Runtime.Ref<>((short) 0);
-        byte bS = 0;
-        byte bD = 0;
-        byte bl = 0;
-        Runtime.Ref<Short> addBullet = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> addBomb = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> bullet = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> bombd = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> bombs = new Runtime.Ref<>(0);
+        int bS = 0;
+        int bD = 0;
+        int bl = 0;
+        Runtime.Ref<Integer> addBullet = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> addBomb = new Runtime.Ref<>(0);
 
         if (!wActive[yw.ordinal()][Runtime.ord(bomb)]) {
             if (available[yw.ordinal()] > 0)
@@ -876,26 +876,26 @@ public class ChaosScreens {
         }
         WeaponToPrice(yw, bullet, bombd, bombs);
         available[yw.ordinal()]--;
-        bl = (byte) (short) bullet.get();
-        bS = (byte) (short) bombs.get();
-        bD = (byte) (short) bombd.get();
+        bl = bullet.get();
+        bS = bombs.get();
+        bD = bombd.get();
         if (bomb) {
-            addBullet.set((short) 0);
-            addBomb.set((short) 1);
+            addBullet.set(0);
+            addBomb.set(1);
             chaosPlayer.AddToWeapon(chaosBase.mainPlayer, yw, addBullet, addBomb);
             if (addBomb.get() == 0) {
                 chaosSounds.SimpleSound(chaosSounds.soundList[SoundList.sMoney.ordinal()]);
-                chaosPlayer.AddMoney(chaosBase.mainPlayer, (short) -bD, (short) -bS);
+                chaosPlayer.AddMoney(chaosBase.mainPlayer, -bD, -bS);
             } else {
                 chaosSounds.SimpleSound(chaosSounds.soundList[SoundList.sHurryUp.ordinal()]);
             }
         } else {
-            addBullet.set((short) 1);
-            addBomb.set((short) 0);
+            addBullet.set(1);
+            addBomb.set(0);
             chaosPlayer.AddToWeapon(chaosBase.mainPlayer, yw, addBullet, addBomb);
             if (addBullet.get() == 0) {
                 chaosSounds.SimpleSound(chaosSounds.soundList[SoundList.sMoney.ordinal()]);
-                chaosPlayer.AddMoney(chaosBase.mainPlayer, (short) -bl, (short) 0);
+                chaosPlayer.AddMoney(chaosBase.mainPlayer, -bl, 0);
             } else {
                 chaosSounds.SimpleSound(chaosSounds.soundList[SoundList.sHurryUp.ordinal()]);
             }
@@ -907,9 +907,9 @@ public class ChaosScreens {
         Runtime.IRef<String> str = null;
         Runtime.IRef<String> txt1 = null;
         Runtime.IRef<String> txt2 = null;
-        short py = 0;
-        Runtime.Ref<Short> itemD = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> itemS = new Runtime.Ref<>((short) 0);
+        int py = 0;
+        Runtime.Ref<Integer> itemD = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> itemS = new Runtime.Ref<>(0);
         boolean test = false;
 
         str = ItemToPrice(item, itemD, itemS);
@@ -967,18 +967,18 @@ public class ChaosScreens {
             }
             default -> throw new RuntimeException("Unhandled CASE value " + item);
         }
-        TripleWrite((short) 0, py, txt1);
+        TripleWrite(0, py, txt1);
         if (txt2 != null)
-            TripleWrite((short) (graphics.TextWidth(txt1) / chaosGraphics.mulS), py, txt2);
+            TripleWrite(graphics.TextWidth(txt1) / chaosGraphics.mulS, py, txt2);
         if (str != null)
-            TripleWrite((short) (ChaosGraphics.PW - graphics.TextWidth(str) / chaosGraphics.mulS - 4), py, str);
+            TripleWrite(ChaosGraphics.PW - graphics.TextWidth(str) / chaosGraphics.mulS - 4, py, str);
     }
 
     private void UpdateItem(int item) {
         // VAR
         Runtime.IRef<String> str = null;
-        Runtime.Ref<Short> itemD = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> itemS = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> itemD = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> itemS = new Runtime.Ref<>(0);
         boolean t = false;
 
         str = ItemToPrice(item, itemD, itemS);
@@ -990,10 +990,10 @@ public class ChaosScreens {
     private boolean BuyItem() {
         // VAR
         Runtime.IRef<String> str = null;
-        Runtime.Ref<Short> itemD = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> itemS = new Runtime.Ref<>((short) 0);
-        short iD = 0;
-        short iS = 0;
+        Runtime.Ref<Integer> itemD = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> itemS = new Runtime.Ref<>(0);
+        int iD = 0;
+        int iS = 0;
 
         if (!dActive[yd]) {
             chaosSounds.SimpleSound(chaosSounds.soundList[SoundList.sPoubelle.ordinal()]);
@@ -1002,7 +1002,7 @@ public class ChaosScreens {
         str = ItemToPrice(yd, itemD, itemS);
         iS = itemS.get();
         iD = itemD.get();
-        chaosPlayer.AddMoney(chaosBase.mainPlayer, (short) -iD, (short) -iS);
+        chaosPlayer.AddMoney(chaosBase.mainPlayer, -iD, -iS);
         if (yd == 0) {
             chaosSounds.SimpleSound(chaosSounds.soundList[SoundList.sMoney.ordinal()]);
             chaosPlayer.AddLife(chaosBase.mainPlayer);
@@ -1030,9 +1030,9 @@ public class ChaosScreens {
         // VAR
         Runtime.Ref<String> hour = new Runtime.Ref<>("");
 
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 9));
+        graphics.SetTextSize(chaosGraphics.H.invoke(9));
         graphics.SetPen(0);
-        graphics.FillRect((short) 0, chaosGraphics.H.invoke((short) 30), chaosGraphics.W.invoke((short) ChaosGraphics.PW), chaosGraphics.H.invoke((short) 40));
+        graphics.FillRect(0, chaosGraphics.H.invoke(30), chaosGraphics.W.invoke(ChaosGraphics.PW), chaosGraphics.H.invoke(40));
         clock.GetCurrentTime(new Runtime.FieldRef<>(this::getH, this::setH), new Runtime.FieldRef<>(this::getM, this::setM), new Runtime.FieldRef<>(this::getS, this::setS));
         om = m;
         Runtime.setChar(hour, 0, (char) (h / 10 + 48));
@@ -1044,7 +1044,7 @@ public class ChaosScreens {
         p1 = 0;
         p2 = 3;
         p3 = 4;
-        TripleWrite((short) (ChaosGraphics.PW - graphics.TextWidth(hour) - chaosGraphics.mulS), (short) 30, hour);
+        TripleWrite(ChaosGraphics.PW - graphics.TextWidth(hour) - chaosGraphics.mulS, 30, hour);
         clock.StartTime(chaosActions.time);
         clock.TimeEvent(chaosActions.time, ChaosBase.Period * 59);
     }
@@ -1059,16 +1059,16 @@ public class ChaosScreens {
         ResetGraphics();
         chaosPlayer.DrawInfos(false);
         ResetGraphics();
-        graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) ChaosGraphics.PW), chaosGraphics.H.invoke((short) ChaosGraphics.PH));
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 18));
+        graphics.FillRect(0, 0, chaosGraphics.W.invoke(ChaosGraphics.PW), chaosGraphics.H.invoke(ChaosGraphics.PH));
+        graphics.SetTextSize(chaosGraphics.H.invoke(18));
         p1 = 7;
         p2 = 3;
         p3 = 4;
-        TripleCenter((short) ChaosGraphics.PW, (short) 10, Runtime.castToRef(languages.ADL("Chaos' Shop"), String.class));
+        TripleCenter(ChaosGraphics.PW, 10, Runtime.castToRef(languages.ADL("Chaos' Shop"), String.class));
         DrawTime();
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 9));
+        graphics.SetTextSize(chaosGraphics.H.invoke(9));
         if (shopClosed) {
-            Center((short) 0, (short) 50, (short) ChaosGraphics.PW, Runtime.castToRef(languages.ADL("Sorry, the shop is closed."), String.class));
+            Center(0, 50, ChaosGraphics.PW, Runtime.castToRef(languages.ADL("Sorry, the shop is closed."), String.class));
             rnd = trigo.RND() % 8;
             switch (rnd) {
                 case 0 -> str = "conflagration";
@@ -1081,15 +1081,15 @@ public class ChaosScreens {
                 case 7 -> str = "flood";
                 default -> throw new RuntimeException("Unhandled CASE value " + rnd);
             }
-            Center((short) 0, (short) 70, (short) ChaosGraphics.PW, Runtime.castToRef(languages.ADL("Cause:"), String.class));
-            Center((short) 0, (short) 80, (short) ChaosGraphics.PW, Runtime.castToRef(languages.ADL(str), String.class));
+            Center(0, 70, ChaosGraphics.PW, Runtime.castToRef(languages.ADL("Cause:"), String.class));
+            Center(0, 80, ChaosGraphics.PW, Runtime.castToRef(languages.ADL(str), String.class));
             DrawItem(4);
         } else {
             graphics.SetTextMode(EnumSet.of(TextModes.italic));
             p1 = 7;
-            TripleWrite((short) 0, (short) 50, Runtime.castToRef(languages.ADL("Item:"), String.class));
-            Center((short) x1, (short) 50, (short) (ChaosGraphics.PW / 4), Runtime.castToRef(languages.ADL("Bullet"), String.class));
-            Center((short) x2, (short) 50, (short) (ChaosGraphics.PW / 4), Runtime.castToRef(languages.ADL("Bomb"), String.class));
+            TripleWrite(0, 50, Runtime.castToRef(languages.ADL("Item:"), String.class));
+            Center(x1, 50, ChaosGraphics.PW / 4, Runtime.castToRef(languages.ADL("Bullet"), String.class));
+            Center(x2, 50, ChaosGraphics.PW / 4, Runtime.castToRef(languages.ADL("Bomb"), String.class));
             graphics.SetTextMode(EnumSet.noneOf(TextModes.class));
             for (int _yw = 0; _yw < Weapon.values().length; _yw++) {
                 yw = Weapon.values()[_yw];
@@ -1121,7 +1121,7 @@ public class ChaosScreens {
         yd = 4;
         for (int _weapon = 0; _weapon < Weapon.values().length; _weapon++) {
             weapon = Weapon.values()[_weapon];
-            available[weapon.ordinal()] = (short) (20 - chaosBase.difficulty * 2 + trigo.RND() % (32 - 2 * chaosBase.difficulty));
+            available[weapon.ordinal()] = 20 - chaosBase.difficulty * 2 + trigo.RND() % (32 - 2 * chaosBase.difficulty);
         }
         shopClosed = (chaosBase.difficulty >= 5) && (trigo.RND() % 48 == 0);
         chaosBase.zone = Zone.Chaos;
@@ -1134,7 +1134,7 @@ public class ChaosScreens {
         chaosInterface.EnableFileMenus();
         WaitRelease();
         while (true) {
-            input.SetBusyStat((short) Input.statWaiting);
+            input.SetBusyStat(Input.statWaiting);
             input.WaitEvent();
             input.GetEvent(event);
             fe.copyFrom(event);
@@ -1142,7 +1142,7 @@ public class ChaosScreens {
             fj.copyFrom(joy);
             chaosPlayer.CheckSelect(event, joy, true);
             graphics.SetBuffer(true, true);
-            chaosGraphics.SetOrigin((short) 0, (short) 0);
+            chaosGraphics.SetOrigin(0, 0);
             if (shopClosed)
                 joy = Runtime.RangeSet.minus(joy, new Runtime.RangeSet(Memory.SET16_r).with(Input.JoyLeft, Input.JoyRight, Input.JoyUp, Input.JoyDown));
             if (!Runtime.RangeSet.mul(joy, new Runtime.RangeSet(Memory.SET16_r).with(Input.JoyLeft, Input.JoyRight, Input.JoyUp, Input.JoyDown, Input.JoyForward, Input.JoyReverse)).equals(new Runtime.RangeSet(Memory.SET16_r))) {
@@ -1213,7 +1213,7 @@ public class ChaosScreens {
                     UpdateItem(item);
                 }
                 chaosPlayer.UpdateInfos();
-                chaosGraphics.SetOrigin((short) 0, (short) 0);
+                chaosGraphics.SetOrigin(0, 0);
                 graphics.SetCopyMode(Graphics.cmTrans);
             }
             if (up)
@@ -1233,20 +1233,20 @@ public class ChaosScreens {
                 break;
         }
         chaosPlayer.UpdateInfos();
-        chaosGraphics.SetOrigin((short) 0, (short) 0);
+        chaosGraphics.SetOrigin(0, 0);
         UpdateScreen();
     }
 
     private void DrawStatistics_ShowDecor() {
         // VAR
         Runtime.IRef<String> str = null;
-        short x = 0;
-        short y = 0;
-        short dx = 0;
-        short dy = 0;
-        short sx = 0;
-        short sy = 0;
-        short w = 0;
+        int x = 0;
+        int y = 0;
+        int dx = 0;
+        int dy = 0;
+        int sx = 0;
+        int sy = 0;
+        int w = 0;
         int p = 0;
         int red = 0;
         int c = 0;
@@ -1259,32 +1259,32 @@ public class ChaosScreens {
             p = 1;
             graphics.SetCopyMode(Graphics.cmCopy);
             graphics.SetPen(0);
-            graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) ChaosGraphics.PW), chaosGraphics.H.invoke((short) ChaosGraphics.PH));
+            graphics.FillRect(0, 0, chaosGraphics.W.invoke(ChaosGraphics.PW), chaosGraphics.H.invoke(ChaosGraphics.PH));
         }
         graphics.SetCopyMode(Graphics.cmXor);
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 18));
+        graphics.SetTextSize(chaosGraphics.H.invoke(18));
         graphics.SetPen(p);
         if (chaosBase.zone == Zone.Castle)
             str = GetCastleName(chaosBase.level[Zone.Castle.ordinal()]);
         else
             str = GetSpecialName(chaosBase.level[Zone.Special.ordinal()]);
-        w = (short) (graphics.TextWidth(str) / chaosGraphics.mulS);
-        dx = (short) ((ChaosGraphics.PW - w) / 2);
-        chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) (dx + 1)), chaosGraphics.Y.invoke((short) 21), str);
-        chaosGraphics.WriteAt(chaosGraphics.X.invoke(dx), chaosGraphics.Y.invoke((short) 20), str);
+        w = graphics.TextWidth(str) / chaosGraphics.mulS;
+        dx = (ChaosGraphics.PW - w) / 2;
+        chaosGraphics.WriteAt(chaosGraphics.X.invoke(dx + 1), chaosGraphics.Y.invoke(21), str);
+        chaosGraphics.WriteAt(chaosGraphics.X.invoke(dx), chaosGraphics.Y.invoke(20), str);
         str = Runtime.castToRef(languages.ADL("Post Mortem Map"), String.class);
-        w = (short) (graphics.TextWidth(str) / chaosGraphics.mulS);
-        dx = (short) ((ChaosGraphics.PW - w) / 2);
-        chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) (dx + 1)), chaosGraphics.Y.invoke((short) 41), str);
-        chaosGraphics.WriteAt(chaosGraphics.X.invoke(dx), chaosGraphics.Y.invoke((short) 40), str);
-        graphics.SetTextSize((short) 9);
+        w = graphics.TextWidth(str) / chaosGraphics.mulS;
+        dx = (ChaosGraphics.PW - w) / 2;
+        chaosGraphics.WriteAt(chaosGraphics.X.invoke(dx + 1), chaosGraphics.Y.invoke(41), str);
+        chaosGraphics.WriteAt(chaosGraphics.X.invoke(dx), chaosGraphics.Y.invoke(40), str);
+        graphics.SetTextSize(9);
         graphics.SetPen(p);
-        dx = (short) ((ChaosGraphics.PW - chaosGraphics.castleWidth) / 2);
-        dy = (short) ((ChaosGraphics.PH - 40 - chaosGraphics.castleHeight) / 2 + 40);
+        dx = (ChaosGraphics.PW - chaosGraphics.castleWidth) / 2;
+        dy = (ChaosGraphics.PH - 40 - chaosGraphics.castleHeight) / 2 + 40;
         for (y = 0; y < chaosGraphics.castleHeight; y++) {
             sx = 0;
             lwall = false;
-            sy = (short) (y + dy);
+            sy = y + dy;
             for (x = 0; x < chaosGraphics.castleWidth; x++) {
                 wall = chaosGraphics.castle[y][x] >= ChaosGraphics.NbClear;
                 if (wall) {
@@ -1292,12 +1292,12 @@ public class ChaosScreens {
                         sx = x;
                 } else {
                     if (lwall)
-                        graphics.FillRect(chaosGraphics.W.invoke((short) (sx + dx)), chaosGraphics.H.invoke(sy), chaosGraphics.W.invoke((short) (x + dx)), chaosGraphics.H.invoke((short) (sy + 1)));
+                        graphics.FillRect(chaosGraphics.W.invoke(sx + dx), chaosGraphics.H.invoke(sy), chaosGraphics.W.invoke(x + dx), chaosGraphics.H.invoke(sy + 1));
                 }
                 lwall = wall;
             }
             if (lwall)
-                graphics.FillRect(chaosGraphics.W.invoke((short) (sx + dx)), chaosGraphics.H.invoke(sy), chaosGraphics.W.invoke((short) (chaosGraphics.castleWidth + dx)), chaosGraphics.H.invoke((short) (sy + 1)));
+                graphics.FillRect(chaosGraphics.W.invoke(sx + dx), chaosGraphics.H.invoke(sy), chaosGraphics.W.invoke(chaosGraphics.castleWidth + dx), chaosGraphics.H.invoke(sy + 1));
         }
         graphics.SetCopyMode(Graphics.cmCopy);
         if (chaosBase.water)
@@ -1306,10 +1306,10 @@ public class ChaosScreens {
             red = 216;
         if (chaosGraphics.color) {
             for (c = 0; c <= 7; c++) {
-                graphics.SetPalette((short) c, (short) 0, (short) 0, (short) 0);
+                graphics.SetPalette(c, 0, 0, 0);
             }
             for (c = 8; c <= 15; c++) {
-                graphics.SetPalette((short) c, (short) red, (short) 152, (short) 0);
+                graphics.SetPalette(c, red, 152, 0);
             }
             for (c = 0; c <= 7; c++) {
                 chaosGraphics.palette[c + 8].copyFrom(chaosGraphics.palette[c]);
@@ -1317,25 +1317,25 @@ public class ChaosScreens {
         }
         UpdateScreen();
         WaitRelease();
-        input.SetBusyStat((short) Input.statWaiting);
+        input.SetBusyStat(Input.statWaiting);
         do {
             input.FlushEvents();
             input.WaitEvent();
         } while (input.GetStick().equals(new Runtime.RangeSet(Memory.SET16_r)));
         if (chaosGraphics.color)
-            chaosActions.FadeFrom((short) red, (short) 152, (short) 0);
+            chaosActions.FadeFrom(red, 152, 0);
         chaosInterface.Refresh = DrawStatistics_ref;
         DrawStatistics();
     }
 
-    private void DrawStatistics_DrawStatistic(short y, Runtime.IRef<String> str, ChaosBase.Statistic stat, short add, int x1, int x2, int x3, /* VAR */ Runtime.IRef<Short> cnt, /* VAR */ Runtime.IRef<Integer> total) {
+    private void DrawStatistics_DrawStatistic(int y, Runtime.IRef<String> str, ChaosBase.Statistic stat, int add, int x1, int x2, int x3, /* VAR */ Runtime.IRef<Integer> cnt, /* VAR */ Runtime.IRef<Integer> total) {
         // VAR
         long ratio = 0L;
         long div = 0L;
 
-        TripleWrite((short) 0, y, str);
-        TripleCard((short) x1, y, stat.total);
-        TripleCard((short) x2, y, stat.done);
+        TripleWrite(0, y, str);
+        TripleCard(x1, y, stat.total);
+        TripleCard(x2, y, stat.done);
         ratio = stat.done;
         ratio = ratio * 100;
         if (stat.total != 0) {
@@ -1347,7 +1347,7 @@ public class ChaosScreens {
             ratio = 0;
         }
         total.inc(ratio);
-        TripleCard((short) x3, y, ratio);
+        TripleCard(x3, y, ratio);
         if (ratio >= 75) {
             str = Runtime.castToRef(languages.ADL("Good"), String.class);
             p1 = 7;
@@ -1357,14 +1357,14 @@ public class ChaosScreens {
             str = Runtime.castToRef(languages.ADL("Bad"), String.class);
             p1 = 0;
         }
-        TripleWrite((short) (ChaosGraphics.PW - graphics.TextWidth(str) / chaosGraphics.mulS - 4), y, str);
+        TripleWrite(ChaosGraphics.PW - graphics.TextWidth(str) / chaosGraphics.mulS - 4, y, str);
         p1 = 7;
     }
 
-    private void DrawStatistics_Push(String string, /* VAR */ Runtime.IRef<Short> cnt) {
+    private void DrawStatistics_Push(String string, /* VAR */ Runtime.IRef<Integer> cnt) {
         // VAR
         String text = "";
-        short c = 0;
+        int c = 0;
 
         if (cnt.get() == 0) {
             for (c = 0; c <= (string.length() - 1); c++) {
@@ -1374,7 +1374,7 @@ public class ChaosScreens {
             p1 = 4;
             p2 = 3;
             p3 = 6;
-            TripleWrite((short) 16, (short) 180, Runtime.castToRef(languages.ADL(text), String.class));
+            TripleWrite(16, 180, Runtime.castToRef(languages.ADL(text), String.class));
             p1 = 7;
             p2 = 3;
             p3 = 4;
@@ -1389,7 +1389,7 @@ public class ChaosScreens {
         final int x3 = ChaosGraphics.PW * 17 / 24;
 
         // VAR
-        Runtime.Ref<Short> cnt = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> cnt = new Runtime.Ref<>(0);
         Runtime.Ref<Integer> total = new Runtime.Ref<>(0);
         Runtime.IRef<String> str = null;
         int c = 0;
@@ -1398,10 +1398,10 @@ public class ChaosScreens {
         chaosPlayer.DrawInfos(false);
         ResetGraphics();
         for (c = 0; c <= 15; c++) {
-            chaosGraphics.SetTrans((short) c, (short) 255);
+            chaosGraphics.SetTrans(c, 255);
         }
-        graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) ChaosGraphics.PW), chaosGraphics.H.invoke((short) ChaosGraphics.PH));
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 27));
+        graphics.FillRect(0, 0, chaosGraphics.W.invoke(ChaosGraphics.PW), chaosGraphics.H.invoke(ChaosGraphics.PH));
+        graphics.SetTextSize(chaosGraphics.H.invoke(27));
         p1 = 7;
         p2 = 3;
         p3 = 4;
@@ -1409,26 +1409,26 @@ public class ChaosScreens {
             str = GetCastleName(chaosBase.level[Zone.Castle.ordinal()]);
         else
             str = GetSpecialName(chaosBase.level[Zone.Special.ordinal()]);
-        TripleCenter((short) ChaosGraphics.PW, (short) 0, str);
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 18));
-        TripleCenter((short) ChaosGraphics.PW, (short) 30, Runtime.castToRef(languages.ADL("Statistics"), String.class));
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 9));
+        TripleCenter(ChaosGraphics.PW, 0, str);
+        graphics.SetTextSize(chaosGraphics.H.invoke(18));
+        TripleCenter(ChaosGraphics.PW, 30, Runtime.castToRef(languages.ADL("Statistics"), String.class));
+        graphics.SetTextSize(chaosGraphics.H.invoke(9));
         graphics.SetTextMode(EnumSet.of(TextModes.italic));
-        TripleWrite((short) 0, (short) 70, Runtime.castToRef(languages.ADL("What:"), String.class));
-        TripleWrite((short) x1, (short) 70, Runtime.castToRef(languages.ADL("Total"), String.class));
-        TripleWrite((short) x2, (short) 70, Runtime.castToRef(languages.ADL("Done"), String.class));
-        TripleWrite((short) x3, (short) 70, Runtime.castToRef(languages.ADL("%"), String.class));
+        TripleWrite(0, 70, Runtime.castToRef(languages.ADL("What:"), String.class));
+        TripleWrite(x1, 70, Runtime.castToRef(languages.ADL("Total"), String.class));
+        TripleWrite(x2, 70, Runtime.castToRef(languages.ADL("Done"), String.class));
+        TripleWrite(x3, 70, Runtime.castToRef(languages.ADL("%"), String.class));
         graphics.SetTextMode(EnumSet.noneOf(TextModes.class));
         if (chaosBase.shoot.done > chaosBase.shoot.total)
             chaosBase.shoot.done = chaosBase.shoot.total;
-        cnt.set((short) 0);
+        cnt.set(0);
         total.set(0);
-        DrawStatistics_DrawStatistic((short) 90, Runtime.castToRef(languages.ADL("Shoots:"), String.class), chaosBase.shoot, (short) 16, x1, x2, x3, cnt, total);
-        DrawStatistics_DrawStatistic((short) 100, Runtime.castToRef(languages.ADL("Treasure:"), String.class), chaosBase.basics[BasicTypes.Bonus.ordinal() - BasicTypes.Bonus.ordinal()], (short) 8, x1, x2, x3, cnt, total);
-        DrawStatistics_DrawStatistic((short) 120, Runtime.castToRef(languages.ADL("Mineral:"), String.class), chaosBase.basics[BasicTypes.Mineral.ordinal() - BasicTypes.Bonus.ordinal()], (short) 4, x1, x2, x3, cnt, total);
-        DrawStatistics_DrawStatistic((short) 130, Runtime.castToRef(languages.ADL("Vegetal:"), String.class), chaosBase.basics[BasicTypes.Vegetal.ordinal() - BasicTypes.Bonus.ordinal()], (short) 2, x1, x2, x3, cnt, total);
-        DrawStatistics_DrawStatistic((short) 140, Runtime.castToRef(languages.ADL("Animal:"), String.class), chaosBase.basics[BasicTypes.Animal.ordinal() - BasicTypes.Bonus.ordinal()], (short) 1, x1, x2, x3, cnt, total);
-        TripleWrite((short) 0, (short) 170, Runtime.castToRef(languages.ADL("Advised career:"), String.class));
+        DrawStatistics_DrawStatistic(90, Runtime.castToRef(languages.ADL("Shoots:"), String.class), chaosBase.shoot, 16, x1, x2, x3, cnt, total);
+        DrawStatistics_DrawStatistic(100, Runtime.castToRef(languages.ADL("Treasure:"), String.class), chaosBase.basics[BasicTypes.Bonus.ordinal() - BasicTypes.Bonus.ordinal()], 8, x1, x2, x3, cnt, total);
+        DrawStatistics_DrawStatistic(120, Runtime.castToRef(languages.ADL("Mineral:"), String.class), chaosBase.basics[BasicTypes.Mineral.ordinal() - BasicTypes.Bonus.ordinal()], 4, x1, x2, x3, cnt, total);
+        DrawStatistics_DrawStatistic(130, Runtime.castToRef(languages.ADL("Vegetal:"), String.class), chaosBase.basics[BasicTypes.Vegetal.ordinal() - BasicTypes.Bonus.ordinal()], 2, x1, x2, x3, cnt, total);
+        DrawStatistics_DrawStatistic(140, Runtime.castToRef(languages.ADL("Animal:"), String.class), chaosBase.basics[BasicTypes.Animal.ordinal() - BasicTypes.Bonus.ordinal()], 1, x1, x2, x3, cnt, total);
+        TripleWrite(0, 170, Runtime.castToRef(languages.ADL("Advised career:"), String.class));
         DrawStatistics_Push("Milksop", cnt);
         DrawStatistics_Push("Vampire", cnt);
         DrawStatistics_Push("Dabbler", cnt);
@@ -1463,15 +1463,15 @@ public class ChaosScreens {
         DrawStatistics_Push("Terrorist", cnt);
         if (total.get() == 500) {
             graphics.SetPen(0);
-            graphics.FillRect(chaosGraphics.W.invoke((short) 16), chaosGraphics.H.invoke((short) 180), chaosGraphics.W.invoke((short) ChaosGraphics.PW), chaosGraphics.H.invoke((short) 190));
-            cnt.set((short) 0);
+            graphics.FillRect(chaosGraphics.W.invoke(16), chaosGraphics.H.invoke(180), chaosGraphics.W.invoke(ChaosGraphics.PW), chaosGraphics.H.invoke(190));
+            cnt.set(0);
             DrawStatistics_Push("> Nightmare <", cnt);
         }
         p1 = 2;
         if (((chaosBase.stages == 0) || chaosBase.password) && (chaosInterface.Refresh != DrawStatistics_ref))
             DrawStatistics_ShowDecor();
         ResetGraphics();
-        TripleCenter((short) ChaosGraphics.PW, (short) 230, Runtime.castToRef(languages.ADL("Press [SPACE] to continue"), String.class));
+        TripleCenter(ChaosGraphics.PW, 230, Runtime.castToRef(languages.ADL("Press [SPACE] to continue"), String.class));
         UpdateScreen();
     }
 
@@ -1484,7 +1484,7 @@ public class ChaosScreens {
         if (chaosBase.gameStat != GameStat.Finish)
             return;
         chaosInterface.DisableFileMenus();
-        input.SetBusyStat((short) Input.statBusy);
+        input.SetBusyStat(Input.statBusy);
         if ((chaosBase.zone == Zone.Castle) || (chaosBase.zone == Zone.Special)) {
             DrawStatistics();
             chaosInterface.Refresh = DrawStatistics_ref;
@@ -1494,11 +1494,11 @@ public class ChaosScreens {
         if (chaosBase.water) {
             graphics.SetPen(0);
             graphics.SetCopyMode(Graphics.cmCopy);
-            graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) ChaosGraphics.SW), chaosGraphics.H.invoke((short) ChaosGraphics.SH));
+            graphics.FillRect(0, 0, chaosGraphics.W.invoke(ChaosGraphics.SW), chaosGraphics.H.invoke(ChaosGraphics.SH));
             chaosBase.water = false;
             chaosImages.InitPalette();
             for (c = 0; c <= 15; c++) {
-                graphics.SetPalette((short) c, (short) 0, (short) 0, (short) 0);
+                graphics.SetPalette(c, 0, 0, 0);
             }
         }
         chaosInterface.EnableFileMenus();
@@ -1506,32 +1506,32 @@ public class ChaosScreens {
 
     private void DrawEndScreen() {
         ResetGraphics();
-        graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) ChaosGraphics.SW), chaosGraphics.H.invoke((short) ChaosGraphics.SH));
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 18));
+        graphics.FillRect(0, 0, chaosGraphics.W.invoke(ChaosGraphics.SW), chaosGraphics.H.invoke(ChaosGraphics.SH));
+        graphics.SetTextSize(chaosGraphics.H.invoke(18));
         p1 = 7;
         p2 = 3;
         p3 = 4;
-        TripleCenter((short) ChaosGraphics.SW, (short) 10, Runtime.castToRef(languages.ADL("About this game"), String.class));
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 9));
-        TripleCenter((short) ChaosGraphics.SW, (short) 50, Runtime.castToRef(languages.ADL("Minerals, Vegetals and Animals;"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 60, Runtime.castToRef(languages.ADL("or in short, Chaos Castle,"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 70, Runtime.castToRef(languages.ADL("has been designed and programmed"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 80, Runtime.castToRef(languages.ADL("in Modula-2 by"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 92, Runtime.castToRef(languages.ADL("Nicky"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 112, Runtime.castToRef(languages.ADL("Thanks to all my friends"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 122, Runtime.castToRef(languages.ADL("for a lot of ideas"), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 132, Runtime.castToRef(languages.ADL("and for play testing."), String.class));
-        TripleCenter((short) ChaosGraphics.SW, (short) 155, Runtime.castToRef(languages.ADL("This piece of software is"), String.class));
+        TripleCenter(ChaosGraphics.SW, 10, Runtime.castToRef(languages.ADL("About this game"), String.class));
+        graphics.SetTextSize(chaosGraphics.H.invoke(9));
+        TripleCenter(ChaosGraphics.SW, 50, Runtime.castToRef(languages.ADL("Minerals, Vegetals and Animals;"), String.class));
+        TripleCenter(ChaosGraphics.SW, 60, Runtime.castToRef(languages.ADL("or in short, Chaos Castle,"), String.class));
+        TripleCenter(ChaosGraphics.SW, 70, Runtime.castToRef(languages.ADL("has been designed and programmed"), String.class));
+        TripleCenter(ChaosGraphics.SW, 80, Runtime.castToRef(languages.ADL("in Modula-2 by"), String.class));
+        TripleCenter(ChaosGraphics.SW, 92, Runtime.castToRef(languages.ADL("Nicky"), String.class));
+        TripleCenter(ChaosGraphics.SW, 112, Runtime.castToRef(languages.ADL("Thanks to all my friends"), String.class));
+        TripleCenter(ChaosGraphics.SW, 122, Runtime.castToRef(languages.ADL("for a lot of ideas"), String.class));
+        TripleCenter(ChaosGraphics.SW, 132, Runtime.castToRef(languages.ADL("and for play testing."), String.class));
+        TripleCenter(ChaosGraphics.SW, 155, Runtime.castToRef(languages.ADL("This piece of software is"), String.class));
         if (registration.registered) {
-            TripleCenter((short) ChaosGraphics.SW, (short) 165, Runtime.castToRef(languages.ADL("registered to"), String.class));
-            TripleCenter((short) ChaosGraphics.SW, (short) 180, registration.userName);
-            TripleCenter((short) ChaosGraphics.SW, (short) 190, registration.userAddress);
-            TripleCenter((short) ChaosGraphics.SW, (short) 200, registration.userLoc);
+            TripleCenter(ChaosGraphics.SW, 165, Runtime.castToRef(languages.ADL("registered to"), String.class));
+            TripleCenter(ChaosGraphics.SW, 180, registration.userName);
+            TripleCenter(ChaosGraphics.SW, 190, registration.userAddress);
+            TripleCenter(ChaosGraphics.SW, 200, registration.userLoc);
         } else {
-            TripleCenter((short) ChaosGraphics.SW, (short) 165, Runtime.castToRef(languages.ADL("SHAREWARE"), String.class));
-            TripleCenter((short) ChaosGraphics.SW, (short) 180, Runtime.castToRef(languages.ADL("I spent a lot of time making this game;"), String.class));
-            TripleCenter((short) ChaosGraphics.SW, (short) 190, Runtime.castToRef(languages.ADL("If you like it, please register."), String.class));
-            TripleCenter((short) ChaosGraphics.SW, (short) 200, Runtime.castToRef(languages.ADL("(more in the documentation)"), String.class));
+            TripleCenter(ChaosGraphics.SW, 165, Runtime.castToRef(languages.ADL("SHAREWARE"), String.class));
+            TripleCenter(ChaosGraphics.SW, 180, Runtime.castToRef(languages.ADL("I spent a lot of time making this game;"), String.class));
+            TripleCenter(ChaosGraphics.SW, 190, Runtime.castToRef(languages.ADL("If you like it, please register."), String.class));
+            TripleCenter(ChaosGraphics.SW, 200, Runtime.castToRef(languages.ADL("(more in the documentation)"), String.class));
         }
         UpdateScreen();
     }
@@ -1541,13 +1541,13 @@ public class ChaosScreens {
     private void UpdateTopScore(/* var */ ChaosInterface.TopScore topScore, int c, int s, int n) {
         // VAR
         Runtime.Ref<String> str = new Runtime.Ref<>("");
-        short y = 0;
+        int y = 0;
 
         graphics.SetBuffer(true, true);
-        y = (short) (c * 10 + 50);
+        y = c * 10 + 50;
         graphics.SetPen(0);
         graphics.SetCopyMode(Graphics.cmTrans);
-        graphics.FillRect((short) 0, chaosGraphics.H.invoke(y), chaosGraphics.W.invoke((short) ChaosGraphics.SW), chaosGraphics.H.invoke((short) (y + 10)));
+        graphics.FillRect(0, chaosGraphics.H.invoke(y), chaosGraphics.W.invoke(ChaosGraphics.SW), chaosGraphics.H.invoke(y + 10));
         if (c == n) {
             p1 = 4;
             p2 = 3;
@@ -1568,9 +1568,9 @@ public class ChaosScreens {
         Runtime.setChar(str, 1, (char) (48 + c % 10));
         Runtime.setChar(str, 2, '.');
         Runtime.setChar(str, 3, ((char) 0));
-        TripleWrite((short) 0, y, str);
-        TripleWrite((short) 30, y, new Runtime.FieldRef<>(topScore::getName, topScore::setName));
-        TripleCard((short) (ChaosGraphics.SW * 2 / 3), y, topScore.score);
+        TripleWrite(0, y, str);
+        TripleWrite(30, y, new Runtime.FieldRef<>(topScore::getName, topScore::setName));
+        TripleCard(ChaosGraphics.SW * 2 / 3, y, topScore.score);
     }
 
     private boolean EditTopScore(/* VAR+WRT */ ChaosInterface.TopScore topScore, int n) {
@@ -1584,14 +1584,14 @@ public class ChaosScreens {
         p3 = 4;
         graphics.SetBuffer(true, true);
         graphics.SetCopyMode(Graphics.cmTrans);
-        TripleCenter((short) ChaosGraphics.PW, (short) (n * 10 + 50), Runtime.castToRef(languages.ADL("Enter your name !"), String.class));
+        TripleCenter(ChaosGraphics.PW, n * 10 + 50, Runtime.castToRef(languages.ADL("Enter your name !"), String.class));
         UpdateScreen();
         chaosActions.WhiteFade();
         input.FlushEvents();
         pos = 0;
         exit = false;
         do {
-            input.SetBusyStat((short) Input.statWaiting);
+            input.SetBusyStat(Input.statWaiting);
             input.WaitEvent();
             input.GetEvent(event);
             if (event.type == Input.eKEYBOARD) {
@@ -1618,23 +1618,23 @@ public class ChaosScreens {
             }
             chaosInterface.CommonEvent(event);
         } while (!(exit || (chaosBase.gameStat == GameStat.Break)));
-        input.SetBusyStat((short) Input.statBusy);
+        input.SetBusyStat(Input.statBusy);
         return pos > 0;
     }
 
     private void UpdateTopScores() {
         // VAR
         int c = 0;
-        short pa = 0;
-        short pb = 0;
+        int pa = 0;
+        int pb = 0;
 
         ResetGraphics();
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 9));
+        graphics.SetTextSize(chaosGraphics.H.invoke(9));
         for (c = 1; c <= 10; c++) {
             UpdateTopScore(topScores[c - 1], c, sl, n);
         }
         graphics.SetPen(0);
-        graphics.FillRect((short) 0, chaosGraphics.H.invoke((short) 170), chaosGraphics.W.invoke((short) ChaosGraphics.SW), chaosGraphics.H.invoke((short) ChaosGraphics.SH));
+        graphics.FillRect(0, chaosGraphics.H.invoke(170), chaosGraphics.W.invoke(ChaosGraphics.SW), chaosGraphics.H.invoke(ChaosGraphics.SH));
         if (sl != n) {
             pa = 0;
             pb = 1;
@@ -1645,42 +1645,42 @@ public class ChaosScreens {
         p1 = pa;
         p2 = 3;
         p3 = 4;
-        TripleCenter((short) ChaosGraphics.SW, (short) 170, Runtime.castToRef(languages.ADL("was killed at"), String.class));
+        TripleCenter(ChaosGraphics.SW, 170, Runtime.castToRef(languages.ADL("was killed at"), String.class));
         { // WITH
             ChaosInterface.TopScore _topScore = topScores[sl - 1];
             if (_topScore.endZone == Zone.Chaos)
                 p1 = pb;
             else
                 p1 = pa;
-            TripleWrite((short) 10, (short) 180, Runtime.castToRef(languages.ADL("Chaos level"), String.class));
-            TripleWrite((short) (ChaosGraphics.SW / 2), (short) 180, GetChaosName(_topScore.endLevel[Zone.Chaos.ordinal()]));
+            TripleWrite(10, 180, Runtime.castToRef(languages.ADL("Chaos level"), String.class));
+            TripleWrite(ChaosGraphics.SW / 2, 180, GetChaosName(_topScore.endLevel[Zone.Chaos.ordinal()]));
             if (_topScore.endZone == Zone.Castle)
                 p1 = pb;
             else
                 p1 = pa;
-            TripleWrite((short) 10, (short) 190, Runtime.castToRef(languages.ADL("Castle:"), String.class));
-            TripleWrite((short) (ChaosGraphics.SW / 2), (short) 190, GetCastleName(_topScore.endLevel[Zone.Castle.ordinal()]));
+            TripleWrite(10, 190, Runtime.castToRef(languages.ADL("Castle:"), String.class));
+            TripleWrite(ChaosGraphics.SW / 2, 190, GetCastleName(_topScore.endLevel[Zone.Castle.ordinal()]));
             if (_topScore.endZone == Zone.Family)
                 p1 = pb;
             else
                 p1 = pa;
-            TripleWrite((short) 10, (short) 200, Runtime.castToRef(languages.ADL("Family:"), String.class));
-            TripleWrite((short) (ChaosGraphics.SW / 2), (short) 200, GetFamilyName(_topScore.endLevel[Zone.Family.ordinal()]));
+            TripleWrite(10, 200, Runtime.castToRef(languages.ADL("Family:"), String.class));
+            TripleWrite(ChaosGraphics.SW / 2, 200, GetFamilyName(_topScore.endLevel[Zone.Family.ordinal()]));
             p1 = pa;
-            TripleWrite((short) 10, (short) 210, Runtime.castToRef(languages.ADL("Difficulty:"), String.class));
-            TripleCard((short) (ChaosGraphics.SW / 2), (short) 210, _topScore.endDifficulty);
+            TripleWrite(10, 210, Runtime.castToRef(languages.ADL("Difficulty:"), String.class));
+            TripleCard(ChaosGraphics.SW / 2, 210, _topScore.endDifficulty);
         }
         UpdateScreen();
     }
 
     private void DrawTopScores() {
         ResetGraphics();
-        graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) ChaosGraphics.SW), chaosGraphics.H.invoke((short) ChaosGraphics.SH));
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 27));
+        graphics.FillRect(0, 0, chaosGraphics.W.invoke(ChaosGraphics.SW), chaosGraphics.H.invoke(ChaosGraphics.SH));
+        graphics.SetTextSize(chaosGraphics.H.invoke(27));
         p1 = 7;
         p2 = 3;
         p3 = 4;
-        TripleCenter((short) ChaosGraphics.SW, (short) 10, Runtime.castToRef(languages.ADL("HIGHSCORES"), String.class));
+        TripleCenter(ChaosGraphics.SW, 10, Runtime.castToRef(languages.ADL("HIGHSCORES"), String.class));
         UpdateTopScores();
     }
 
@@ -1692,7 +1692,7 @@ public class ChaosScreens {
         Runtime.RangeSet joy = new Runtime.RangeSet(Memory.SET16_r);
 
         do {
-            input.SetBusyStat((short) Input.statWaiting);
+            input.SetBusyStat(Input.statWaiting);
             input.WaitEvent();
             input.GetEvent(event);
             joy.copyFrom(input.GetStick());
@@ -1712,7 +1712,7 @@ public class ChaosScreens {
         graphics.SetBuffer(true, false);
         graphics.SetPen(0);
         graphics.SetCopyMode(Graphics.cmCopy);
-        graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) ChaosGraphics.SW), chaosGraphics.H.invoke((short) ChaosGraphics.SH));
+        graphics.FillRect(0, 0, chaosGraphics.W.invoke(ChaosGraphics.SW), chaosGraphics.H.invoke(ChaosGraphics.SH));
         chaosImages.InitPalette();
         DrawStartScreen();
         chaosInterface.Refresh = DrawStartScreen_ref;
@@ -1755,11 +1755,11 @@ public class ChaosScreens {
         chaosBase.water = false;
         chaosImages.InitPalette();
         ResetGraphics();
-        graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) ChaosGraphics.SW), chaosGraphics.H.invoke((short) ChaosGraphics.SH));
+        graphics.FillRect(0, 0, chaosGraphics.W.invoke(ChaosGraphics.SW), chaosGraphics.H.invoke(ChaosGraphics.SH));
         graphics.SetBuffer(true, false);
         graphics.SetPen(0);
         graphics.SetCopyMode(Graphics.cmTrans);
-        graphics.FillRect((short) 0, (short) 0, chaosGraphics.W.invoke((short) ChaosGraphics.SW), chaosGraphics.H.invoke((short) ChaosGraphics.SH));
+        graphics.FillRect(0, 0, chaosGraphics.W.invoke(ChaosGraphics.SW), chaosGraphics.H.invoke(ChaosGraphics.SH));
         chaosActions.ZoomMessage(Runtime.castToRef(languages.ADL("Game Over"), String.class), 0, 3, 4);
         ResetGraphics();
         chaosInterface.ReadTopScoreList(topScores);
@@ -1806,7 +1806,7 @@ public class ChaosScreens {
                     _topScore.endLevel[z.ordinal()] = chaosBase.level[z.ordinal()];
                 }
                 _topScore.endZone = chaosBase.zone;
-                _topScore.endDifficulty = (short) chaosBase.difficulty;
+                _topScore.endDifficulty = chaosBase.difficulty;
             }
         }
         DrawTopScores();

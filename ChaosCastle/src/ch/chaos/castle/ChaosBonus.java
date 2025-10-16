@@ -220,10 +220,10 @@ public class ChaosBonus {
 
     public void BoumMoney(ChaosBase.Obj obj, EnumSet<Moneys> coins, int ns, int nb) {
         // VAR
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        short vx = 0;
-        short vy = 0;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        int vx = 0;
+        int vy = 0;
         ChaosBase.Obj money = null;
         int rnd = 0;
         Moneys kind = Moneys.m1;
@@ -244,16 +244,16 @@ public class ChaosBonus {
                 kind = Runtime.next(kind);
                 rnd--;
             }
-            vx = (short) (trigo.RND() % 1024);
+            vx = trigo.RND() % 1024;
             vx -= 512;
             vx += obj.vx / 4;
-            vy = (short) (trigo.RND() % 1024);
+            vy = trigo.RND() % 1024;
             vy -= 896;
             vy += obj.vy / 4;
-            money = chaosActions.CreateObj(Anims.BONUS, (short) Money, px.get(), py.get(), kind.ordinal(), 1);
+            money = chaosActions.CreateObj(Anims.BONUS, Money, px.get(), py.get(), kind.ordinal(), 1);
             chaosActions.SetObjVXY(money, vx, vy);
             if (chaosBase.zone != Zone.Castle) {
-                chaosActions.SetObjAXY(money, (byte) 0, (byte) 16);
+                chaosActions.SetObjAXY(money, 0, 16);
             } else {
                 money.dvx = 0;
                 money.dvy = 0;
@@ -263,9 +263,9 @@ public class ChaosBonus {
 
     private void MakeMoney(ChaosBase.Obj money) {
         // VAR
-        short px = 0;
-        short py = 0;
-        short ps = 0;
+        int px = 0;
+        int py = 0;
+        int ps = 0;
 
         money.hitSubLife = 1;
         if (money.stat > 4) {
@@ -274,7 +274,7 @@ public class ChaosBonus {
             ps = 12;
         } else {
             px = 246;
-            py = (short) (money.stat * 10);
+            py = money.stat * 10;
             ps = 10;
         }
         chaosActions.SetObjLoc(money, px, py, ps, ps);
@@ -286,10 +286,10 @@ public class ChaosBonus {
 
     private void MakeBonus(ChaosBase.Obj bonus) {
         // VAR
-        short px = 0;
-        short py = 0;
-        short pw = 0;
-        short ph = 0;
+        int px = 0;
+        int py = 0;
+        int pw = 0;
+        int ph = 0;
 
         pw = 12;
         ph = 12;
@@ -372,8 +372,8 @@ public class ChaosBonus {
 
     private void GiveToPlayer(ChaosBase.Obj p, ChaosBase.Obj m) {
         // VAR
-        byte dollar = 0;
-        byte sterling = 0;
+        int dollar = 0;
+        int sterling = 0;
 
         dollar = 0;
         sterling = 0;
@@ -405,9 +405,9 @@ public class ChaosBonus {
             return;
         }
         if (chaosBase.zone != Zone.Chaos)
-            chaosActions.AvoidBackground(money, (short) 2);
+            chaosActions.AvoidBackground(money, 2);
         chaosActions.UpdateXY(money);
-        chaosActions.LimitSpeed(money, (short) 1920);
+        chaosActions.LimitSpeed(money, 1920);
         chaosActions.DoToPlayer(money, GiveToPlayer_ref);
     }
 
@@ -415,7 +415,7 @@ public class ChaosBonus {
 
     private void DBSpeed(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.doubleSpeed = 1;
-        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("High speed"), String.class), (short) ChaosActions.statPos, (short) 2);
+        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("High speed"), String.class), ChaosActions.statPos, 2);
         chaosSounds.StereoEffect();
         chaosSounds.SoundEffect(p, dbSpeedEffectR);
         chaosSounds.SoundEffect(p, dbSpeedEffectL);
@@ -426,7 +426,7 @@ public class ChaosBonus {
 
     private void SGSpeed(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.doubleSpeed = 0;
-        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Normal speed"), String.class), (short) ChaosActions.statPos, (short) 1);
+        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Normal speed"), String.class), ChaosActions.statPos, 1);
         chaosSounds.StereoEffect();
         chaosSounds.SoundEffect(p, sgSpeedEffectL);
         chaosSounds.SoundEffect(p, sgSpeedEffectR);
@@ -438,7 +438,7 @@ public class ChaosBonus {
     private void Magnet(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.magnet += ChaosBase.Period * 40;
         chaosSounds.SoundEffect(p, magnetEffect);
-        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Magnet"), String.class), (short) ChaosActions.statPos, (short) 3);
+        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Magnet"), String.class), ChaosActions.statPos, 3);
         chaosActions.Die(o);
     }
 
@@ -449,7 +449,7 @@ public class ChaosBonus {
         chaosSounds.StereoEffect();
         chaosSounds.SoundEffect(p, invEffectR);
         chaosSounds.SoundEffect(p, invEffectL);
-        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Invinsibility"), String.class), (short) ChaosActions.statPos, (short) 3);
+        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Invinsibility"), String.class), ChaosActions.statPos, 3);
         chaosActions.Die(o);
     }
 
@@ -460,21 +460,21 @@ public class ChaosBonus {
         chaosSounds.StereoEffect();
         chaosSounds.SoundEffect(p, sleeperEffectL);
         chaosSounds.SoundEffect(p, sleeperEffectR);
-        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("* Soporific *"), String.class), (short) ChaosActions.statPos, (short) 3);
+        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("* Soporific *"), String.class), ChaosActions.statPos, 3);
         chaosActions.Die(o);
     }
 
     private final ChaosActions.DoToPlayerProc Sleeper_ref = this::Sleeper;
 
     private void Bullet(ChaosBase.Obj p, ChaosBase.Obj o) {
-        chaosPlayer.AddWeapon(p, (short) 40);
+        chaosPlayer.AddWeapon(p, 40);
         chaosActions.Die(o);
     }
 
     private final ChaosActions.DoToPlayerProc Bullet_ref = this::Bullet;
 
     private void Bomb(ChaosBase.Obj p, ChaosBase.Obj o) {
-        chaosPlayer.AddBomb(p, (short) 1);
+        chaosPlayer.AddBomb(p, 1);
         chaosActions.Die(o);
     }
 
@@ -499,7 +499,7 @@ public class ChaosBonus {
 
     private void FreeFire(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.freeFire += ChaosBase.Period * 50;
-        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Free Fire"), String.class), (short) ChaosActions.statPos, (short) 3);
+        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Free Fire"), String.class), ChaosActions.statPos, 3);
         chaosSounds.StereoEffect();
         chaosSounds.SoundEffect(p, ffEffectL);
         chaosSounds.SoundEffect(p, ffEffectR);
@@ -510,7 +510,7 @@ public class ChaosBonus {
 
     private void MaxPower(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.maxPower += ChaosBase.Period * 40;
-        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Maximum Power"), String.class), (short) ChaosActions.statPos, (short) 3);
+        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Maximum Power"), String.class), ChaosActions.statPos, 3);
         chaosSounds.SoundEffect(p, maxPowerEffect);
         chaosActions.Die(o);
     }
@@ -519,7 +519,7 @@ public class ChaosBonus {
 
     private void NoMissile(ChaosBase.Obj p, ChaosBase.Obj o) {
         chaosBase.noMissile += ChaosBase.Period * 60;
-        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("No missile"), String.class), (short) ChaosActions.statPos, (short) 3);
+        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("No missile"), String.class), ChaosActions.statPos, 3);
         chaosActions.Die(o);
     }
 
@@ -529,7 +529,7 @@ public class ChaosBonus {
         // VAR
         Runtime.Ref<String> str = new Runtime.Ref<>("");
         int c = 0;
-        short a = 0;
+        int a = 0;
         Weapon w = Weapon.GUN;
 
         chaosSounds.SoundEffect(p, diffEffect);
@@ -552,8 +552,8 @@ public class ChaosBonus {
                     Runtime.setChar(str, c + 3, ((char) 0));
                 }
             }
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Increasing difficulty"), String.class), (short) ChaosActions.lifePos, (short) 8);
-            chaosActions.PopMessage(str, (short) ChaosActions.actionPos, (short) 8);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Increasing difficulty"), String.class), ChaosActions.lifePos, 8);
+            chaosActions.PopMessage(str, ChaosActions.actionPos, 8);
         } else {
             checks.Check(chaosBase.password, Runtime.castToRef(languages.ADL("Ok, you finished the game."), String.class), Runtime.castToRef(languages.ADL("But now, try it without the password !"), String.class));
             a = 0;
@@ -696,9 +696,9 @@ public class ChaosBonus {
             }
         }
         if (str1 != null)
-            chaosActions.PopMessage(str1, (short) ChaosActions.statPos, (short) 8);
+            chaosActions.PopMessage(str1, ChaosActions.statPos, 8);
         if (str2 != null)
-            chaosActions.PopMessage(str2, (short) ChaosActions.moneyPos, (short) 8);
+            chaosActions.PopMessage(str2, ChaosActions.moneyPos, 8);
         chaosActions.Die(o);
     }
 
@@ -713,9 +713,9 @@ public class ChaosBonus {
             return;
         }
         chaosActions.UpdateXY(bonus);
-        chaosActions.AvoidBackground(bonus, (short) 2);
+        chaosActions.AvoidBackground(bonus, 2);
         if (bonus.stat == tbDifficulty)
-            chaosActions.AvoidBounds(bonus, (short) 3);
+            chaosActions.AvoidBounds(bonus, 3);
         if (chaosActions.OutOfBounds(bonus) || (chaosActions.InBackground(bonus) && (bonus.stat != tbBomb))) {
             chaosActions.Die(bonus);
             return;
@@ -752,50 +752,50 @@ public class ChaosBonus {
         int d = 0;
         int v = 0;
 
-        chaosSounds.SetEffect(sleeperEffectL[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 4181, (short) 80, (short) 14);
-        chaosSounds.SetEffect(sleeperEffectR[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 4694, (short) 80, (short) 12);
-        chaosSounds.SetEffect(blvEffect[0], chaosSounds.soundList[SoundList.wJans.ordinal()], 0, 0, (short) 200, (short) 13);
-        chaosSounds.SetEffect(magnetEffect[0], chaosSounds.soundList[SoundList.wWhite.ordinal()], 697, 0, (short) 8, (short) 13);
-        chaosSounds.SetEffect(magnetEffect[8], chaosSounds.nulSound, 0, 0, (short) 8, (short) 1);
+        chaosSounds.SetEffect(sleeperEffectL[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 4181, 80, 14);
+        chaosSounds.SetEffect(sleeperEffectR[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 4694, 80, 12);
+        chaosSounds.SetEffect(blvEffect[0], chaosSounds.soundList[SoundList.wJans.ordinal()], 0, 0, 200, 13);
+        chaosSounds.SetEffect(magnetEffect[0], chaosSounds.soundList[SoundList.wWhite.ordinal()], 697, 0, 8, 13);
+        chaosSounds.SetEffect(magnetEffect[8], chaosSounds.nulSound, 0, 0, 8, 1);
         for (c = 1; c <= 4; c++) {
             d = 8 - c;
             v = (c + 1) * 50;
             v = (v * v) / 280;
-            chaosSounds.SetEffect(magnetEffect[c], chaosSounds.nulSound, 697, 0, (short) v, (short) 13);
-            chaosSounds.SetEffect(magnetEffect[d], chaosSounds.nulSound, 0, 0, (short) v, (short) (c * 3 + 1));
+            chaosSounds.SetEffect(magnetEffect[c], chaosSounds.nulSound, 697, 0, v, 13);
+            chaosSounds.SetEffect(magnetEffect[d], chaosSounds.nulSound, 0, 0, v, c * 3 + 1);
         }
-        chaosSounds.SetEffect(sgSpeedEffectL[0], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 16726, 25089, (short) 110, (short) 6);
-        chaosSounds.SetEffect(sgSpeedEffectL[1], chaosSounds.nulSound, 1742, 20908, (short) 110, (short) 6);
-        chaosSounds.SetEffect(sgSpeedEffectL[2], chaosSounds.nulSound, 1394, 16726, (short) 110, (short) 6);
-        chaosSounds.SetEffect(sgSpeedEffectR[0], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 11152, 16726, (short) 110, (short) 4);
-        chaosSounds.SetEffect(sgSpeedEffectR[1], chaosSounds.nulSound, 1565, 18774, (short) 110, (short) 4);
-        chaosSounds.SetEffect(sgSpeedEffectR[2], chaosSounds.nulSound, 1394, 16726, (short) 110, (short) 4);
-        chaosSounds.SetEffect(dbSpeedEffectR[0], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 11151, 16726, (short) 220, (short) 11);
-        chaosSounds.SetEffect(dbSpeedEffectR[1], chaosSounds.nulSound, 1742, 20908, (short) 220, (short) 11);
-        chaosSounds.SetEffect(dbSpeedEffectR[2], chaosSounds.nulSound, 2091, 25089, (short) 220, (short) 11);
-        chaosSounds.SetEffect(dbSpeedEffectL[0], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 16726, 25089, (short) 220, (short) 9);
-        chaosSounds.SetEffect(dbSpeedEffectL[1], chaosSounds.nulSound, 1863, 22352, (short) 220, (short) 9);
-        chaosSounds.SetEffect(dbSpeedEffectL[2], chaosSounds.nulSound, 2091, 25089, (short) 220, (short) 9);
-        chaosSounds.SetEffect(invEffectL[0], chaosSounds.soundList[SoundList.sGong.ordinal()], 0, 16726, (short) 240, (short) 12);
-        chaosSounds.SetEffect(invEffectR[0], chaosSounds.soundList[SoundList.sGong.ordinal()], 0, 14901, (short) 240, (short) 14);
-        chaosSounds.SetEffect(ffEffectL[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 2000, 12544, (short) 140, (short) 11);
-        chaosSounds.SetEffect(ffEffectL[1], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 12544, (short) 100, (short) 11);
-        chaosSounds.SetEffect(ffEffectR[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 160, 8363, (short) 0, (short) 11);
-        chaosSounds.SetEffect(ffEffectR[1], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 2000, 12544, (short) 140, (short) 11);
-        chaosSounds.SetEffect(ffEffectR[2], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 12544, (short) 100, (short) 11);
+        chaosSounds.SetEffect(sgSpeedEffectL[0], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 16726, 25089, 110, 6);
+        chaosSounds.SetEffect(sgSpeedEffectL[1], chaosSounds.nulSound, 1742, 20908, 110, 6);
+        chaosSounds.SetEffect(sgSpeedEffectL[2], chaosSounds.nulSound, 1394, 16726, 110, 6);
+        chaosSounds.SetEffect(sgSpeedEffectR[0], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 11152, 16726, 110, 4);
+        chaosSounds.SetEffect(sgSpeedEffectR[1], chaosSounds.nulSound, 1565, 18774, 110, 4);
+        chaosSounds.SetEffect(sgSpeedEffectR[2], chaosSounds.nulSound, 1394, 16726, 110, 4);
+        chaosSounds.SetEffect(dbSpeedEffectR[0], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 11151, 16726, 220, 11);
+        chaosSounds.SetEffect(dbSpeedEffectR[1], chaosSounds.nulSound, 1742, 20908, 220, 11);
+        chaosSounds.SetEffect(dbSpeedEffectR[2], chaosSounds.nulSound, 2091, 25089, 220, 11);
+        chaosSounds.SetEffect(dbSpeedEffectL[0], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 16726, 25089, 220, 9);
+        chaosSounds.SetEffect(dbSpeedEffectL[1], chaosSounds.nulSound, 1863, 22352, 220, 9);
+        chaosSounds.SetEffect(dbSpeedEffectL[2], chaosSounds.nulSound, 2091, 25089, 220, 9);
+        chaosSounds.SetEffect(invEffectL[0], chaosSounds.soundList[SoundList.sGong.ordinal()], 0, 16726, 240, 12);
+        chaosSounds.SetEffect(invEffectR[0], chaosSounds.soundList[SoundList.sGong.ordinal()], 0, 14901, 240, 14);
+        chaosSounds.SetEffect(ffEffectL[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 2000, 12544, 140, 11);
+        chaosSounds.SetEffect(ffEffectL[1], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 12544, 100, 11);
+        chaosSounds.SetEffect(ffEffectR[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 160, 8363, 0, 11);
+        chaosSounds.SetEffect(ffEffectR[1], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 2000, 12544, 140, 11);
+        chaosSounds.SetEffect(ffEffectR[2], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 12544, 100, 11);
         for (c = 0; c <= 3; c++) {
-            chaosSounds.SetEffect(diffEffect[c], chaosSounds.soundList[SoundList.sHa.ordinal()], 0, 0, (short) (240 - c * 60), (short) (15 - c * 4));
+            chaosSounds.SetEffect(diffEffect[c], chaosSounds.soundList[SoundList.sHa.ordinal()], 0, 0, 240 - c * 60, 15 - c * 4);
         }
-        chaosSounds.SetEffect(maxPowerEffect[0], chaosSounds.soundList[SoundList.wShakuhachi.ordinal()], 929, 8363, (short) 150, (short) 11);
-        chaosSounds.SetEffect(maxPowerEffect[1], chaosSounds.nulSound, 1595, 11163, (short) 150, (short) 11);
-        chaosSounds.SetEffect(maxPowerEffect[2], chaosSounds.nulSound, 1043, 9387, (short) 150, (short) 11);
-        chaosSounds.SetEffect(maxPowerEffect[3], chaosSounds.nulSound, 1790, 12530, (short) 150, (short) 11);
-        chaosSounds.SetEffect(hospitalEffect[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 16726, (short) 240, (short) 14);
-        chaosSounds.SetEffect(hospitalEffect[1], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1440, 17623, (short) 30, (short) 13);
+        chaosSounds.SetEffect(maxPowerEffect[0], chaosSounds.soundList[SoundList.wShakuhachi.ordinal()], 929, 8363, 150, 11);
+        chaosSounds.SetEffect(maxPowerEffect[1], chaosSounds.nulSound, 1595, 11163, 150, 11);
+        chaosSounds.SetEffect(maxPowerEffect[2], chaosSounds.nulSound, 1043, 9387, 150, 11);
+        chaosSounds.SetEffect(maxPowerEffect[3], chaosSounds.nulSound, 1790, 12530, 150, 11);
+        chaosSounds.SetEffect(hospitalEffect[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 16726, 240, 14);
+        chaosSounds.SetEffect(hospitalEffect[1], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1440, 17623, 30, 13);
         for (c = 2; c <= 12; c++) {
-            chaosSounds.SetEffect(hospitalEffect[c], chaosSounds.nulSound, 1440, 16726 + 897 * c, (short) ((16 - c) * 2), (short) 12);
+            chaosSounds.SetEffect(hospitalEffect[c], chaosSounds.nulSound, 1440, 16726 + 897 * c, (16 - c) * 2, 12);
         }
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = MakeMoney_as_ChaosBase_ResetProc;
         attr.Make = MakeMoney_as_ChaosBase_MakeProc;
@@ -807,7 +807,7 @@ public class ChaosBonus {
         attr.priority = 60;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.BONUS.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = MakeBonus_as_ChaosBase_ResetProc;
         attr.Make = MakeBonus_as_ChaosBase_MakeProc;
@@ -823,7 +823,7 @@ public class ChaosBonus {
         attr.priority = 75;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.BONUS.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = MakeBonus_as_ChaosBase_ResetProc;
         attr.Make = MakeBonus_as_ChaosBase_MakeProc;

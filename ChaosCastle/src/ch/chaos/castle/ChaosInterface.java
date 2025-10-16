@@ -68,9 +68,9 @@ public class ChaosInterface {
         public String name = "";
         public long score;
         public long seed;
-        public short[] endLevel = new short[Zone.Family.ordinal() - Zone.Chaos.ordinal() + 1];
+        public int[] endLevel = new int[Zone.Family.ordinal() - Zone.Chaos.ordinal() + 1];
         public Zone endZone;
-        public short endDifficulty;
+        public int endDifficulty;
 
 
         public String getName() {
@@ -97,11 +97,11 @@ public class ChaosInterface {
             this.seed = seed;
         }
 
-        public short[] getEndLevel() {
+        public int[] getEndLevel() {
             return this.endLevel;
         }
 
-        public void setEndLevel(short[] endLevel) {
+        public void setEndLevel(int[] endLevel) {
             this.endLevel = endLevel;
         }
 
@@ -113,11 +113,11 @@ public class ChaosInterface {
             this.endZone = endZone;
         }
 
-        public short getEndDifficulty() {
+        public int getEndDifficulty() {
             return this.endDifficulty;
         }
 
-        public void setEndDifficulty(short endDifficulty) {
+        public void setEndDifficulty(int endDifficulty) {
             this.endDifficulty = endDifficulty;
         }
 
@@ -163,7 +163,7 @@ public class ChaosInterface {
 
     // VAR
 
-    private short dfltLanguage;
+    private int dfltLanguage;
     private boolean dfltLang;
     private Menus.MenuPtr fileMenu;
     private Menus.MenuPtr settingsMenu;
@@ -182,11 +182,11 @@ public class ChaosInterface {
     private String lsFile = "";
 
 
-    public short getDfltLanguage() {
+    public int getDfltLanguage() {
         return this.dfltLanguage;
     }
 
-    public void setDfltLanguage(short dfltLanguage) {
+    public void setDfltLanguage(int dfltLanguage) {
         this.dfltLanguage = dfltLanguage;
     }
 
@@ -323,7 +323,7 @@ public class ChaosInterface {
 
     public void ReadTopScoreList(/* var */ TopScore[] topScores) {
         // VAR
-        int res = 0;
+        long res = 0L;
         int c = 0;
         int d = 0;
         Zone z = Zone.Chaos;
@@ -356,10 +356,10 @@ public class ChaosInterface {
                     for (int _z = Zone.Chaos.ordinal(); _z <= Zone.Family.ordinal(); _z++) {
                         z = Zone.values()[_z];
                         res = files.ReadFileBytes(chaosBase.file, ch, 1);
-                        _topScore.endLevel[z.ordinal()] = (short) (char) ch.get();
+                        _topScore.endLevel[z.ordinal()] = (char) ch.get();
                     }
                     res = files.ReadFileBytes(chaosBase.file, new Runtime.FieldRef<>(_topScore::getEndZone, _topScore::setEndZone), Runtime.sizeOf(1, Zone.class));
-                    res = files.ReadFileBytes(chaosBase.file, new Runtime.FieldRef<>(_topScore::getEndDifficulty, _topScore::setEndDifficulty), Runtime.sizeOf(2, short.class));
+                    res = files.ReadFileBytes(chaosBase.file, new Runtime.FieldRef<>(_topScore::getEndDifficulty, _topScore::setEndDifficulty), Runtime.sizeOf(4, int.class));
                     if (res <= 0) {
                         files.CloseFile(new Runtime.FieldRef<>(chaosBase::getFile, chaosBase::setFile));
                         return;
@@ -372,7 +372,7 @@ public class ChaosInterface {
 
     public void WriteTopScoreList(TopScore[] topScores) {
         // VAR
-        int res = 0;
+        long res = 0L;
         int c = 0;
         Zone z = Zone.Chaos;
         Runtime.Ref<Character> ch = new Runtime.Ref<>((char) 0);
@@ -391,7 +391,7 @@ public class ChaosInterface {
                         res = files.WriteFileBytes(chaosBase.file, ch, 1);
                     }
                     res = files.WriteFileBytes(chaosBase.file, new Runtime.FieldRef<>(_topScore::getEndZone, _topScore::setEndZone), Runtime.sizeOf(1, Zone.class));
-                    res = files.WriteFileBytes(chaosBase.file, new Runtime.FieldRef<>(_topScore::getEndDifficulty, _topScore::setEndDifficulty), Runtime.sizeOf(2, short.class));
+                    res = files.WriteFileBytes(chaosBase.file, new Runtime.FieldRef<>(_topScore::getEndDifficulty, _topScore::setEndDifficulty), Runtime.sizeOf(4, int.class));
                     if (res <= 0) {
                         checks.Warn(true, Runtime.castToRef(languages.ADL("Error writing file 'TopScores':"), String.class), files.FileErrorMsg());
                         files.CloseFile(new Runtime.FieldRef<>(chaosBase::getFile, chaosBase::setFile));
@@ -427,16 +427,16 @@ public class ChaosInterface {
     private void DefaultGraphic() {
         // VAR
         Memory.TagItem what = new Memory.TagItem(); /* WRT */
-        short sizex = 0;
-        short sizey = 0;
+        int sizex = 0;
+        int sizey = 0;
 
         chaosGraphics.dfltGraphic = true;
         what.tag = Graphics.aSIZEX;
         graphics.GetGraphicsSysAttr(what);
-        sizex = (short) what.data;
+        sizex = (int) what.data;
         what.tag = Graphics.aSIZEY;
         graphics.GetGraphicsSysAttr(what);
-        sizey = (short) what.data;
+        sizey = (int) what.data;
         if ((sizex >= 640) && (sizey >= 480))
             chaosGraphics.mulS = 2;
         else
@@ -461,7 +461,7 @@ public class ChaosInterface {
         chaosGraphics.mulS = 1;
         chaosGraphics.color = false;
         chaosGraphics.dualpf = false;
-        languages.SetLanguage((short) 0);
+        languages.SetLanguage(0);
     }
 
     private void LoadConfig() {
@@ -480,7 +480,7 @@ public class ChaosInterface {
                 if (dfltLang)
                     languages.SetLanguage(dfltLanguage);
                 else
-                    languages.SetLanguage((short) (char) ch.get());
+                    languages.SetLanguage((char) ch.get());
                 chaosGraphics.dfltGraphic = false;
                 chaosSounds.dfltSound = false;
                 chaosSounds.sound = (data.contains(0));
@@ -599,7 +599,7 @@ public class ChaosInterface {
     }
 
     private void ColdInit() {
-        input.SetBusyStat((short) Input.statBusy);
+        input.SetBusyStat(Input.statBusy);
         dfltLanguage = languages.language;
         LoadConfig();
         InitMenus();
@@ -629,7 +629,7 @@ public class ChaosInterface {
         GraphicsErr gerr = GraphicsErr.gOk;
 
         input.RemEvents(new Runtime.RangeSet(Input.EventTypes).with(Input.eMENU, Input.eREFRESH));
-        input.SetBusyStat((short) Input.statBusy);
+        input.SetBusyStat(Input.statBusy);
         if (!chaosGraphics.OpenScreen() || !chaosImages.InitImages()) {
             gerr = graphics.GetGraphicsErr();
             chaosGraphics.CloseScreen();
@@ -735,12 +735,12 @@ public class ChaosInterface {
 
     private void NumToString(long val, /* VAR */ Runtime.IRef<String> str) {
         // VAR
-        short c = 0;
-        short d = 0;
+        int c = 0;
+        int d = 0;
         char ch = (char) 0;
 
         Runtime.setChar(str, (str.get().length() - 1), ((char) 0));
-        c = (short) (str.get().length() - 1);
+        c = (str.get().length() - 1);
         do {
             c--;
             Runtime.setChar(str, c, (char) (48 + val % 10));
@@ -757,7 +757,7 @@ public class ChaosInterface {
 
     private void LoadGame_Get(/* var */ Runtime.IRef<byte[]> data, /* VAR */ Runtime.IRef<Boolean> ok) {
         // VAR
-        int size = 0;
+        long size = 0L;
 
         if (ok.get()) {
             size = (data.get().length - 1) + 1;
@@ -765,7 +765,7 @@ public class ChaosInterface {
         }
     }
 
-    private void LoadGame_RangeChk(short val, short min, short max, /* VAR */ Runtime.IRef<Boolean> ok) {
+    private void LoadGame_RangeChk(int val, int min, int max, /* VAR */ Runtime.IRef<Boolean> ok) {
         if ((val < min) || (val > max))
             ok.set(false);
     }
@@ -798,7 +798,7 @@ public class ChaosInterface {
                         ChaosBase.WeaponAttr _weaponAttr = chaosBase.weaponAttr[w.ordinal()];
                         _weaponAttr.nbBullet = 0;
                         _weaponAttr.nbBomb = 0;
-                        _weaponAttr.power = (short) (w == Weapon.GUN ? 1 : 0);
+                        _weaponAttr.power = (w == Weapon.GUN ? 1 : 0);
                     }
                 }
                 chaosBase.weaponAttr[Weapon.GUN.ordinal()].nbBullet = 99;
@@ -828,29 +828,29 @@ public class ChaosInterface {
                 } else {
                     LoadGame_Get(new Runtime.FieldRef<>(chaosBase::getScore, chaosBase::setScore).asByteArray(4), ok);
                     LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
-                    chaosBase.pLife = (short) (char) ch.get();
-                    LoadGame_RangeChk(chaosBase.pLife, (short) 1, (short) 239, ok);
-                    chaosBase.pLife = (short) (chaosBase.pLife % 30);
+                    chaosBase.pLife = (char) ch.get();
+                    LoadGame_RangeChk(chaosBase.pLife, 1, 239, ok);
+                    chaosBase.pLife = chaosBase.pLife % 30;
                     LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
-                    chaosBase.nbDollar = (short) (char) ch.get();
-                    LoadGame_RangeChk(chaosBase.nbDollar, (short) 0, (short) 200, ok);
+                    chaosBase.nbDollar = (char) ch.get();
+                    LoadGame_RangeChk(chaosBase.nbDollar, 0, 200, ok);
                     LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
-                    chaosBase.nbSterling = (short) (char) ch.get();
-                    LoadGame_RangeChk(chaosBase.nbSterling, (short) 0, (short) 200, ok);
+                    chaosBase.nbSterling = (char) ch.get();
+                    LoadGame_RangeChk(chaosBase.nbSterling, 0, 200, ok);
                     LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
-                    chaosBase.powerCountDown = (short) ((char) ch.get() / 10);
+                    chaosBase.powerCountDown = (char) ch.get() / 10;
                     chaosBase.difficulty = (char) ch.get() % 10;
                     if (chaosBase.difficulty == 0)
                         chaosBase.difficulty = 10;
                     LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
-                    chaosBase.specialStage = (short) (char) ch.get();
-                    chaosBase.stages = (short) (chaosBase.specialStage % 6);
-                    chaosBase.specialStage = (short) (chaosBase.specialStage / 6);
+                    chaosBase.specialStage = (char) ch.get();
+                    chaosBase.stages = chaosBase.specialStage % 6;
+                    chaosBase.specialStage = chaosBase.specialStage / 6;
                     chaosBase.zone = Zone.Chaos;
                     for (int _z = 0; _z < Zone.values().length; _z++) {
                         z = Zone.values()[_z];
                         LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
-                        chaosBase.level[z.ordinal()] = (short) (char) ch.get();
+                        chaosBase.level[z.ordinal()] = (char) ch.get();
                     }
                     if (chaosBase.level[Zone.Family.ordinal()] > 10) {
                         chaosBase.level[Zone.Family.ordinal()] -= 10;
@@ -858,20 +858,20 @@ public class ChaosInterface {
                     } else {
                         chaosBase.password = false;
                     }
-                    LoadGame_RangeChk(chaosBase.level[Zone.Chaos.ordinal()], (short) 1, (short) 100, ok);
-                    LoadGame_RangeChk(chaosBase.level[Zone.Castle.ordinal()], (short) 1, (short) 20, ok);
-                    LoadGame_RangeChk(chaosBase.level[Zone.Family.ordinal()], (short) 1, (short) 10, ok);
-                    LoadGame_RangeChk(chaosBase.level[Zone.Special.ordinal()], (short) 1, (short) 24, ok);
+                    LoadGame_RangeChk(chaosBase.level[Zone.Chaos.ordinal()], 1, 100, ok);
+                    LoadGame_RangeChk(chaosBase.level[Zone.Castle.ordinal()], 1, 20, ok);
+                    LoadGame_RangeChk(chaosBase.level[Zone.Family.ordinal()], 1, 10, ok);
+                    LoadGame_RangeChk(chaosBase.level[Zone.Special.ordinal()], 1, 24, ok);
                     for (int _w = 0; _w < Weapon.values().length; _w++) {
                         w = Weapon.values()[_w];
                         { // WITH
                             ChaosBase.WeaponAttr _weaponAttr = chaosBase.weaponAttr[w.ordinal()];
                             LoadGame_Get(Runtime.asByteArray(v, 2), ok);
-                            _weaponAttr.nbBullet = (short) (v.get() % 100);
+                            _weaponAttr.nbBullet = v.get() % 100;
                             v.set(v.get() / 100);
-                            _weaponAttr.nbBomb = (short) (v.get() % 10);
-                            _weaponAttr.power = (short) (v.get() / 10);
-                            LoadGame_RangeChk(_weaponAttr.power, (short) 0, (short) 4, ok);
+                            _weaponAttr.nbBomb = v.get() % 10;
+                            _weaponAttr.power = v.get() / 10;
+                            LoadGame_RangeChk(_weaponAttr.power, 0, 4, ok);
                         }
                     }
                     LoadGame_Get(new Runtime.FieldRef<>(chaosBase::getGameSeed, chaosBase::setGameSeed).asByteArray(4), ok);
@@ -888,7 +888,7 @@ public class ChaosInterface {
 
     private void SaveGame_Put(byte[] data, /* VAR */ Runtime.IRef<Boolean> ok) {
         // VAR
-        int size = 0;
+        long size = 0L;
 
         if (ok.get()) {
             size = (data.length - 1) + 1;
@@ -962,7 +962,7 @@ public class ChaosInterface {
     }
 
     private void ColdFlush() {
-        input.SetBusyStat((short) Input.statBusy);
+        input.SetBusyStat(Input.statBusy);
         WarmFlush();
         chaosBase.FlushAllObjs();
         input.RemEvents(new Runtime.RangeSet(Input.EventTypes).with(Input.eKEYBOARD, Input.eMENU, Input.eGADGET, Input.eREFRESH, Input.eSYS));
@@ -997,12 +997,12 @@ public class ChaosInterface {
         boolean olddflt = false;
         boolean olddual = false;
         Explosions oldexplosions = Explosions.Low;
-        short oldmulS = 0;
-        short c = 0;
+        int oldmulS = 0;
+        int c = 0;
         boolean change = false;
 
         DisableFileMenus();
-        input.SetBusyStat((short) Input.statBusy);
+        input.SetBusyStat(Input.statBusy);
         input.FlushEvents();
         oldmulS = chaosGraphics.mulS;
         olddflt = chaosGraphics.dfltGraphic;
@@ -1012,20 +1012,20 @@ public class ChaosInterface {
         oldRefresh = Refresh;
         Refresh = null;
         busy = languages.ADL(Busy);
-        chaosBase.d = dialogs.CreateGadget((short) Dialogs.dDialog, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Graphics settings:"), Dialogs.dFLAGS, Dialogs.dfCLOSE + Dialogs.dfSELECT));
-        group1 = dialogs.AddNewGadget(chaosBase.d, (short) Dialogs.dGroup, (Memory.TagItem) memory.TAG1(Dialogs.dFLAGS, Dialogs.dfVDIR));
-        autoconf = dialogs.AddNewGadget(group1, (short) Dialogs.dBool, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Auto configure"), Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
-        group2 = dialogs.AddNewGadget(group1, (short) Dialogs.dGroup, (Memory.TagItem) memory.TAG2(Dialogs.dSPAN, 3, Dialogs.dFLAGS, Dialogs.dfBORDER + Dialogs.dfVDIR));
-        gadget = dialogs.AddNewGadget(group2, (short) Dialogs.dLabel, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Explosions:"), Dialogs.dRFLAGS, Dialogs.dfAUTOLEFT));
-        gadget = dialogs.AddNewGadget(group2, (short) Dialogs.dLabel, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Rendering:"), Dialogs.dRFLAGS, Dialogs.dfAUTOLEFT));
-        gadget = dialogs.AddNewGadget(group2, (short) Dialogs.dLabel, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Size:"), Dialogs.dRFLAGS, Dialogs.dfAUTOLEFT));
-        expl = dialogs.AddNewGadget(group2, (short) Dialogs.dCycle, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, busy, Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
-        render = dialogs.AddNewGadget(group2, (short) Dialogs.dCycle, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, busy, Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
-        size = dialogs.AddNewGadget(group2, (short) Dialogs.dIntEdit, (Memory.TagItem) memory.TAG3(Dialogs.dINTVAL, chaosGraphics.mulS, Dialogs.dTXTLEN, 2, Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
-        group3 = dialogs.AddNewGadget(group1, (short) Dialogs.dGroup, null);
-        save = dialogs.AddNewGadget(group3, (short) Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Save")));
-        use = dialogs.AddNewGadget(group3, (short) Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Use")));
-        cancel = dialogs.AddNewGadget(group3, (short) Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Cancel")));
+        chaosBase.d = dialogs.CreateGadget(Dialogs.dDialog, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Graphics settings:"), Dialogs.dFLAGS, Dialogs.dfCLOSE + Dialogs.dfSELECT));
+        group1 = dialogs.AddNewGadget(chaosBase.d, Dialogs.dGroup, (Memory.TagItem) memory.TAG1(Dialogs.dFLAGS, Dialogs.dfVDIR));
+        autoconf = dialogs.AddNewGadget(group1, Dialogs.dBool, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Auto configure"), Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
+        group2 = dialogs.AddNewGadget(group1, Dialogs.dGroup, (Memory.TagItem) memory.TAG2(Dialogs.dSPAN, 3, Dialogs.dFLAGS, Dialogs.dfBORDER + Dialogs.dfVDIR));
+        gadget = dialogs.AddNewGadget(group2, Dialogs.dLabel, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Explosions:"), Dialogs.dRFLAGS, Dialogs.dfAUTOLEFT));
+        gadget = dialogs.AddNewGadget(group2, Dialogs.dLabel, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Rendering:"), Dialogs.dRFLAGS, Dialogs.dfAUTOLEFT));
+        gadget = dialogs.AddNewGadget(group2, Dialogs.dLabel, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Size:"), Dialogs.dRFLAGS, Dialogs.dfAUTOLEFT));
+        expl = dialogs.AddNewGadget(group2, Dialogs.dCycle, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, busy, Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
+        render = dialogs.AddNewGadget(group2, Dialogs.dCycle, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, busy, Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
+        size = dialogs.AddNewGadget(group2, Dialogs.dIntEdit, (Memory.TagItem) memory.TAG3(Dialogs.dINTVAL, chaosGraphics.mulS, Dialogs.dTXTLEN, 2, Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
+        group3 = dialogs.AddNewGadget(group1, Dialogs.dGroup, null);
+        save = dialogs.AddNewGadget(group3, Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Save")));
+        use = dialogs.AddNewGadget(group3, Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Use")));
+        cancel = dialogs.AddNewGadget(group3, Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Cancel")));
         checks.CheckMemBool(dialogs.RefreshGadget(chaosBase.d) != Dialogs.DialogOk);
         do {
             if (chaosGraphics.explosions == Explosions.Low)
@@ -1051,7 +1051,7 @@ public class ChaosInterface {
             do {
                 if (chaosBase.gameStat == GameStat.Break)
                     return;
-                input.SetBusyStat((short) Input.statWaiting);
+                input.SetBusyStat(Input.statWaiting);
                 input.WaitEvent();
                 input.GetEvent(event);
                 if (event.type == Input.eGADGET) {
@@ -1085,11 +1085,11 @@ public class ChaosInterface {
             } while (event.type != Input.eGADGET);
             tagItem.tag = Dialogs.dINTVAL;
             dialogs.GetGadgetAttr(size, tagItem);
-            chaosGraphics.mulS = (short) tagItem.data;
+            chaosGraphics.mulS = (int) tagItem.data;
             if ((chaosGraphics.mulS < 1) || (chaosGraphics.mulS > 9))
                 chaosGraphics.mulS = 1;
         } while (!((event.gadget == save) || (event.gadget == use) || (event.gadget == cancel) || (event.gadget == chaosBase.d)));
-        input.SetBusyStat((short) Input.statBusy);
+        input.SetBusyStat(Input.statBusy);
         change = (chaosGraphics.mulS != oldmulS) || (chaosGraphics.color != oldcolor) || (chaosGraphics.dualpf != olddual);
         if ((event.gadget != cancel) && (event.gadget != chaosBase.d)) {
             input.FlushEvents();
@@ -1135,12 +1135,12 @@ public class ChaosInterface {
         boolean oldmusic = false;
         boolean oldstereo = false;
         boolean olddflt = false;
-        short oldmusicPri = 0;
+        int oldmusicPri = 0;
         int oldnbChannel = 0;
         boolean change = false;
 
         DisableFileMenus();
-        input.SetBusyStat((short) Input.statBusy);
+        input.SetBusyStat(Input.statBusy);
         input.FlushEvents();
         oldsound = chaosSounds.sound;
         oldmusic = chaosSounds.music;
@@ -1148,20 +1148,20 @@ public class ChaosInterface {
         oldmusicPri = chaosSounds.musicPri;
         oldnbChannel = chaosSounds.nbChannel;
         olddflt = chaosSounds.dfltSound;
-        chaosBase.d = dialogs.CreateGadget((short) Dialogs.dDialog, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Sounds settings"), Dialogs.dFLAGS, Dialogs.dfCLOSE + Dialogs.dfSELECT));
-        group1 = dialogs.AddNewGadget(chaosBase.d, (short) Dialogs.dGroup, (Memory.TagItem) memory.TAG1(Dialogs.dFLAGS, Dialogs.dfVDIR));
-        autoconf = dialogs.AddNewGadget(group1, (short) Dialogs.dBool, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Auto configure"), Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
-        group3 = dialogs.AddNewGadget(group1, (short) Dialogs.dGroup, (Memory.TagItem) memory.TAG1(Dialogs.dFLAGS, Dialogs.dfBORDER + Dialogs.dfVDIR));
-        group2 = dialogs.AddNewGadget(group3, (short) Dialogs.dGroup, null);
-        cbsound = dialogs.AddNewGadget(group2, (short) Dialogs.dCheckbox, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Sounds")));
-        cbstereo = dialogs.AddNewGadget(group2, (short) Dialogs.dCheckbox, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Stereo")));
-        group2 = dialogs.AddNewGadget(group3, (short) Dialogs.dGroup, null);
-        gadget = dialogs.AddNewGadget(group2, (short) Dialogs.dLabel, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Number of channels:")));
-        tchan = dialogs.AddNewGadget(group2, (short) Dialogs.dIntEdit, (Memory.TagItem) memory.TAG2(Dialogs.dINTVAL, chaosSounds.nbChannel, Dialogs.dTXTLEN, 3));
-        group3 = dialogs.AddNewGadget(group1, (short) Dialogs.dGroup, null);
-        save = dialogs.AddNewGadget(group3, (short) Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Save")));
-        use = dialogs.AddNewGadget(group3, (short) Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Use")));
-        cancel = dialogs.AddNewGadget(group3, (short) Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Cancel")));
+        chaosBase.d = dialogs.CreateGadget(Dialogs.dDialog, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Sounds settings"), Dialogs.dFLAGS, Dialogs.dfCLOSE + Dialogs.dfSELECT));
+        group1 = dialogs.AddNewGadget(chaosBase.d, Dialogs.dGroup, (Memory.TagItem) memory.TAG1(Dialogs.dFLAGS, Dialogs.dfVDIR));
+        autoconf = dialogs.AddNewGadget(group1, Dialogs.dBool, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, languages.ADL("Auto configure"), Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
+        group3 = dialogs.AddNewGadget(group1, Dialogs.dGroup, (Memory.TagItem) memory.TAG1(Dialogs.dFLAGS, Dialogs.dfBORDER + Dialogs.dfVDIR));
+        group2 = dialogs.AddNewGadget(group3, Dialogs.dGroup, null);
+        cbsound = dialogs.AddNewGadget(group2, Dialogs.dCheckbox, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Sounds")));
+        cbstereo = dialogs.AddNewGadget(group2, Dialogs.dCheckbox, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Stereo")));
+        group2 = dialogs.AddNewGadget(group3, Dialogs.dGroup, null);
+        gadget = dialogs.AddNewGadget(group2, Dialogs.dLabel, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Number of channels:")));
+        tchan = dialogs.AddNewGadget(group2, Dialogs.dIntEdit, (Memory.TagItem) memory.TAG2(Dialogs.dINTVAL, chaosSounds.nbChannel, Dialogs.dTXTLEN, 3));
+        group3 = dialogs.AddNewGadget(group1, Dialogs.dGroup, null);
+        save = dialogs.AddNewGadget(group3, Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Save")));
+        use = dialogs.AddNewGadget(group3, Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Use")));
+        cancel = dialogs.AddNewGadget(group3, Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Cancel")));
         checks.CheckMemBool(dialogs.RefreshGadget(chaosBase.d) != Dialogs.DialogOk);
         do {
             dialogs.ModifyGadget(cbsound, (Memory.TagItem) memory.TAG2(Dialogs.dFLAGS, Dialogs.dfACTIVE * (!chaosSounds.dfltSound ? 1 : 0) + Dialogs.dfSELECT * (chaosSounds.sound ? 1 : 0), Dialogs.dMASK, Dialogs.dfSELECT + Dialogs.dfACTIVE));
@@ -1171,7 +1171,7 @@ public class ChaosInterface {
             do {
                 if (chaosBase.gameStat == GameStat.Break)
                     return;
-                input.SetBusyStat((short) Input.statWaiting);
+                input.SetBusyStat(Input.statWaiting);
                 input.WaitEvent();
                 input.GetEvent(event);
                 if (event.type == Input.eGADGET) {
@@ -1197,7 +1197,7 @@ public class ChaosInterface {
             if (chaosSounds.nbChannel < 1)
                 chaosSounds.sound = false;
         } while (!((event.gadget == save) || (event.gadget == use) || (event.gadget == cancel) || (event.gadget == chaosBase.d)));
-        input.SetBusyStat((short) Input.statBusy);
+        input.SetBusyStat(Input.statBusy);
         change = (chaosSounds.sound != oldsound) || (chaosSounds.stereo != oldstereo) || (chaosSounds.nbChannel != oldnbChannel) || (chaosSounds.music != oldmusic) || (chaosSounds.musicPri != oldmusicPri);
         if ((event.gadget != cancel) && (event.gadget != chaosBase.d)) {
             if (chaosSounds.nbChannel > 16)
@@ -1235,24 +1235,24 @@ public class ChaosInterface {
         Dialogs.GadgetPtr cancel = null;
         Input.Event event = new Input.Event(); /* WRT */
         Object name = null;
-        short newlanguage = 0;
+        int newlanguage = 0;
         boolean change = false;
 
         DisableFileMenus();
-        input.SetBusyStat((short) Input.statBusy);
+        input.SetBusyStat(Input.statBusy);
         input.FlushEvents();
         newlanguage = languages.language;
-        chaosBase.d = dialogs.CreateGadget((short) Dialogs.dDialog, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Language:")));
-        group1 = dialogs.AddNewGadget(chaosBase.d, (short) Dialogs.dGroup, (Memory.TagItem) memory.TAG1(Dialogs.dFLAGS, Dialogs.dfVDIR));
-        cycle = dialogs.AddNewGadget(group1, (short) Dialogs.dCycle, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL(Busy)));
-        group2 = dialogs.AddNewGadget(group1, (short) Dialogs.dGroup, null);
-        save = dialogs.AddNewGadget(group2, (short) Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Save")));
-        use = dialogs.AddNewGadget(group2, (short) Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Use")));
-        cancel = dialogs.AddNewGadget(group2, (short) Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Cancel")));
+        chaosBase.d = dialogs.CreateGadget(Dialogs.dDialog, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Language:")));
+        group1 = dialogs.AddNewGadget(chaosBase.d, Dialogs.dGroup, (Memory.TagItem) memory.TAG1(Dialogs.dFLAGS, Dialogs.dfVDIR));
+        cycle = dialogs.AddNewGadget(group1, Dialogs.dCycle, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL(Busy)));
+        group2 = dialogs.AddNewGadget(group1, Dialogs.dGroup, null);
+        save = dialogs.AddNewGadget(group2, Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Save")));
+        use = dialogs.AddNewGadget(group2, Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Use")));
+        cancel = dialogs.AddNewGadget(group2, Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Cancel")));
         checks.CheckMemBool(dialogs.RefreshGadget(chaosBase.d) != Dialogs.DialogOk);
         do {
             while (true) {
-                input.SetBusyStat((short) Input.statBusy);
+                input.SetBusyStat(Input.statBusy);
                 if (dfltLang)
                     name = languages.ADL("<Default>");
                 else
@@ -1266,7 +1266,7 @@ public class ChaosInterface {
             do {
                 if (chaosBase.gameStat == GameStat.Break)
                     return;
-                input.SetBusyStat((short) Input.statWaiting);
+                input.SetBusyStat(Input.statWaiting);
                 input.WaitEvent();
                 input.GetEvent(event);
                 if (event.type == Input.eGADGET) {
@@ -1281,7 +1281,7 @@ public class ChaosInterface {
                 }
             } while (event.type != Input.eGADGET);
         } while (event.gadget == cycle);
-        input.SetBusyStat((short) Input.statBusy);
+        input.SetBusyStat(Input.statBusy);
         if (dfltLang)
             newlanguage = dfltLanguage;
         change = (newlanguage != languages.language);
@@ -1334,7 +1334,7 @@ public class ChaosInterface {
                     AskLanguage();
             } else if (menu == miscMenu) {
                 if ((chaosBase.d == dialogs.noGadget) && fmEnabled) {
-                    input.SetBusyStat((short) Input.statBusy);
+                    input.SetBusyStat(Input.statBusy);
                     DisableFileMenus();
                     FlushSounds();
                     miscChanges.copyFrom(files.AskMiscSettings(new Runtime.RangeSet(Memory.SET16_r).with(Files.msGraphic, Files.msSound, Files.msInput, Files.msClock, Files.msDialogs, Files.msMenus)));

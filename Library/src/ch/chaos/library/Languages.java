@@ -28,14 +28,14 @@ public class Languages {
     // VAR
 
 
-    public short language;
+    public int language;
 
 
-    public short getLanguage() {
+    public int getLanguage() {
         return this.language;
     }
 
-    public void setLanguage(short language) {
+    public void setLanguage(int language) {
         this.language = language;
     }
 
@@ -46,7 +46,7 @@ public class Languages {
     private final Map<String, String> germanMap = new HashMap<>();
 
 
-    public Runtime.IRef<String> GetLanguageName(short num) {
+    public Runtime.IRef<String> GetLanguageName(int num) {
         String result = switch (num) {
             case 0 -> "English";
             case 1 -> "Français";
@@ -58,7 +58,7 @@ public class Languages {
         return new Runtime.Ref<>(result);
     }
 
-    public void SetLanguage(short num) {
+    public void SetLanguage(int num) {
         this.language = num;
         Menus.instance().clear(); // This sucks... but the original code does not clear the menu bar...
     }

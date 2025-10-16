@@ -287,7 +287,7 @@ public class Files {
         }
     }
 
-    public int FileLength(FilePtr f) {
+    public long FileLength(FilePtr f) {
         File file = (File) f;
         try {
             return (int) file.file.length();
@@ -296,7 +296,7 @@ public class Files {
         }
     }
 
-    public int ReadFileBytes(FilePtr f, Object data, long length) {
+    public long ReadFileBytes(FilePtr f, Object data, long length) {
         File file = (File) f;
         try {
             if (data instanceof IRef<?> ref) {
@@ -392,11 +392,11 @@ public class Files {
         return length;
     }
 
-    public int WriteFileBytes(FilePtr f, Object data, int length) {
+    public long WriteFileBytes(FilePtr f, Object data, long length) {
         File file = (File) f;
         try {
             if (data instanceof byte[] bytes) {
-                file.file.write(bytes, 0, length);
+                file.file.write(bytes, 0, (int) length);
                 return length;
             } else if (data instanceof IRef<?> ref) {
                 Class<?> dataType = ref.getDataType();
@@ -408,9 +408,9 @@ public class Files {
                         || dataType.equals(Double.class)
                         || dataType.equals(Boolean.class)
                         || dataType.isEnum()) {
-                    return writeRef(file, ref, dataType, length);
+                    return writeRef(file, ref, dataType, (int) length);
                 } else if (dataType.equals(String.class)) {
-                    return writeString(file, ref, length);
+                    return writeString(file, ref, (int) length);
                 } else {
                     throw new UnsupportedOperationException("Not implemented datatype " + dataType.getName());
                 }
