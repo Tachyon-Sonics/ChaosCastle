@@ -1213,7 +1213,7 @@ public class ChaosScreens {
             graphics.SetBuffer(true, true);
             chaosGraphics.SetOrigin((short) 0, (short) 0);
             if (shopClosed)
-                joy.copyFrom(Runtime.RangeSet.minus(joy, new Runtime.RangeSet(Memory.SET16_r).with(Input.JoyLeft, Input.JoyRight, Input.JoyUp, Input.JoyDown)));
+                joy = Runtime.RangeSet.minus(joy, new Runtime.RangeSet(Memory.SET16_r).with(Input.JoyLeft, Input.JoyRight, Input.JoyUp, Input.JoyDown));
             if (!Runtime.RangeSet.mul(joy, new Runtime.RangeSet(Memory.SET16_r).with(Input.JoyLeft, Input.JoyRight, Input.JoyUp, Input.JoyDown, Input.JoyForward, Input.JoyReverse)).equals(new Runtime.RangeSet(Memory.SET16_r))) {
                 up = !up;
                 if (!up)

@@ -1349,7 +1349,7 @@ public class ChaosPlayer {
 
         nextTime = clock.GetTime(chaosActions.time);
         if ((prevTime > nextTime) || (nextTime - prevTime > ChaosBase.Period / 40)) {
-            chaosBase.lastJoy.copyFrom(Runtime.RangeSet.mul(chaosBase.lastJoy, input.GetStick()));
+            chaosBase.lastJoy = Runtime.RangeSet.mul(chaosBase.lastJoy, input.GetStick());
             prevTime = nextTime;
         }
     }
@@ -1448,9 +1448,9 @@ public class ChaosPlayer {
         input.GetEvent(event);
         dir.copyFrom((Runtime.RangeSet.mul(joy, DirMask)));
         if (Runtime.RangeSet.mul(dir, BDH).equals(BDH))
-            dir.copyFrom(Runtime.RangeSet.minus(dir, BDH));
+            dir = Runtime.RangeSet.minus(dir, BDH);
         if (Runtime.RangeSet.mul(dir, BDV).equals(BDV))
-            dir.copyFrom(Runtime.RangeSet.minus(dir, BDV));
+            dir = Runtime.RangeSet.minus(dir, BDV);
         if (dir.equals(N)) {
             player.dvx = 0;
             player.dvy = 0;
