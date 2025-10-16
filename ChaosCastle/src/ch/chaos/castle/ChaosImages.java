@@ -609,7 +609,7 @@ public class ChaosImages {
         Runtime.Ref<Character> ch = new Runtime.Ref<>((char) 0);
 
         RenderObjects_GetChar(ch, progress, size, total, bRead, tofill);
-        val.set((char) ch.get());
+        val.set((int) ch.get());
     }
 
     private void RenderObjects_GetCoords(/* VAR+WRT */ Runtime.IRef<Integer> x, /* VAR+WRT */ Runtime.IRef<Integer> y, Dialogs.GadgetPtr progress, /* VAR */ Runtime.IRef<Long> size, long total, /* VAR */ Runtime.IRef<Long> bRead, /* VAR */ Runtime.IRef<Integer> tofill, boolean highx, boolean highy) {

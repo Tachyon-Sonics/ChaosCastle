@@ -2,15 +2,8 @@ package ch.chaos.castle;
 
 import java.util.EnumSet;
 
-import ch.chaos.library.Checks;
-import ch.chaos.library.Clock;
-import ch.chaos.library.Dialogs;
-import ch.chaos.library.Graphics;
+import ch.chaos.library.*;
 import ch.chaos.library.Graphics.Modes;
-import ch.chaos.library.Input;
-import ch.chaos.library.Memory;
-import ch.chaos.library.Menus;
-import ch.chaos.library.Terminal;
 import ch.pitchtech.modula.runtime.HaltException;
 import ch.pitchtech.modula.runtime.Runtime;
 
@@ -37,41 +30,41 @@ public class GraphTest {
 
     private static class _Nested0 { // RECORD
 
-        private short a;
-        private short r;
-        private short g;
-        private short b;
+        private int a;
+        private int r;
+        private int g;
+        private int b;
 
 
-        public short getA() {
+        public int getA() {
             return this.a;
         }
 
-        public void setA(short a) {
+        public void setA(int a) {
             this.a = a;
         }
 
-        public short getR() {
+        public int getR() {
             return this.r;
         }
 
-        public void setR(short r) {
+        public void setR(int r) {
             this.r = r;
         }
 
-        public short getG() {
+        public int getG() {
             return this.g;
         }
 
-        public void setG(short g) {
+        public void setG(int g) {
             this.g = g;
         }
 
-        public short getB() {
+        public int getB() {
             return this.b;
         }
 
-        public void setB(short b) {
+        public void setB(int b) {
             this.b = b;
         }
 
@@ -96,10 +89,10 @@ public class GraphTest {
 
     private long col;
     private int c;
-    private int x;
-    private int y;
-    private int k;
-    private int l;
+    private long x;
+    private long y;
+    private long k;
+    private long l;
     private int mx;
     private int my;
     private Graphics.AreaPtr a1;
@@ -108,7 +101,7 @@ public class GraphTest {
     private Graphics.AreaPtr msk;
     private Graphics.AreaPtr bob;
     private Graphics.AreaPtr bobmsk;
-    private short[][] pix /* POINTER */;
+    private int[][] pix /* POINTER */;
     private _Nested0[][] tc /* POINTER */;
     private boolean b;
     private boolean ok;
@@ -136,35 +129,35 @@ public class GraphTest {
         this.c = c;
     }
 
-    public int getX() {
+    public long getX() {
         return this.x;
     }
 
-    public void setX(int x) {
+    public void setX(long x) {
         this.x = x;
     }
 
-    public int getY() {
+    public long getY() {
         return this.y;
     }
 
-    public void setY(int y) {
+    public void setY(long y) {
         this.y = y;
     }
 
-    public int getK() {
+    public long getK() {
         return this.k;
     }
 
-    public void setK(int k) {
+    public void setK(long k) {
         this.k = k;
     }
 
-    public int getL() {
+    public long getL() {
         return this.l;
     }
 
-    public void setL(int l) {
+    public void setL(long l) {
         this.l = l;
     }
 
@@ -232,11 +225,11 @@ public class GraphTest {
         this.bobmsk = bobmsk;
     }
 
-    public short[][] getPix() {
+    public int[][] getPix() {
         return this.pix;
     }
 
-    public void setPix(short[][] pix) {
+    public void setPix(int[][] pix) {
         this.pix = pix;
     }
 
@@ -336,7 +329,7 @@ public class GraphTest {
         terminal.WriteString("Drawings: ");
         clock.StartTime(t);
         graphics.SetPen(0xFFFF00);
-        graphics.DrawLine((short) 0, (short) 0, (short) 319, (short) 199);
+        graphics.DrawLine(0, 0, 319, 199);
         b = false;
         for (c = 90; c >= 2; c -= 4) {
             if (b)
@@ -344,47 +337,47 @@ public class GraphTest {
             else
                 graphics.SetPen(0x00FF00);
             b = !b;
-            graphics.FillEllipse((short) (160 - c), (short) (100 - c), (short) (160 + c), (short) (100 + c));
+            graphics.FillEllipse(160 - c, 100 - c, 160 + c, 100 + c);
         }
         for (x = 20; x <= 300; x += 20) {
-            graphics.FillEllipse((short) (x - 8), (short) 5, (short) (x + 8), (short) 35);
+            graphics.FillEllipse((int) (x - 8), 5, (int) (x + 8), 35);
         }
         graphics.SetPen(0x00FFFF);
-        graphics.FillRect((short) 100, (short) 100, (short) 200, (short) 200);
+        graphics.FillRect(100, 100, 200, 200);
         graphics.SetPen(0x0000FF);
-        graphics.FillEllipse((short) 100, (short) 100, (short) 200, (short) 200);
+        graphics.FillEllipse(100, 100, 200, 200);
         graphics.SetPen(0xDD9900);
-        graphics.OpenPoly((short) 10, (short) 10);
-        graphics.AddLine((short) 80, (short) 10);
-        graphics.AddLine((short) 40, (short) 20);
-        graphics.AddLine((short) 80, (short) 30);
-        graphics.AddLine((short) 10, (short) 30);
+        graphics.OpenPoly(10, 10);
+        graphics.AddLine(80, 10);
+        graphics.AddLine(40, 20);
+        graphics.AddLine(80, 30);
+        graphics.AddLine(10, 30);
         graphics.FillPoly();
         graphics.SetCopyMode(EnumSet.of(Modes.snd, Modes.sd, Modes.nsd));
         for (c = 0; c <= 4; c++) {
-            graphics.SetPat((short) c);
-            graphics.FillRect((short) 160, (short) (c * 16), (short) 260, (short) (c * 16 + 16));
+            graphics.SetPat(c);
+            graphics.FillRect(160, c * 16, 260, c * 16 + 16);
         }
         graphics.AreaToFront();
         graphics.SetCopyMode(EnumSet.of(Modes.nsd, Modes.sd, Modes.snd));
-        graphics.SetTextSize((short) 48);
+        graphics.SetTextSize(48);
         c = graphics.TextWidth(Runtime.castToRef("Text", String.class));
-        graphics.SetTextPos((short) ((320 - c) / 2), (short) 50);
+        graphics.SetTextPos((320 - c) / 2, 50);
         graphics.DrawText(Runtime.castToRef("Text", String.class));
         graphics.SetCopyMode(EnumSet.of(Modes.nsd, Modes.snd));
         for (x = 0; x <= 190; x += 10) {
-            graphics.DrawLine((short) 0, (short) x, (short) 319, (short) x);
+            graphics.DrawLine(0, (int) x, 319, (int) x);
         }
         graphics.SetArea(a1);
         graphics.SetCopyMode(EnumSet.of(Modes.snd, Modes.sd));
-        input.SetBusyStat((short) 1);
+        input.SetBusyStat(1);
         graphics.SetPen(0);
-        graphics.FillRect((short) 0, (short) 0, (short) 32, (short) 32);
+        graphics.FillRect(0, 0, 32, 32);
         graphics.SetPen(0x00FF00);
-        graphics.FillEllipse((short) 0, (short) 0, (short) 24, (short) 24);
+        graphics.FillEllipse(0, 0, 24, 24);
         graphics.SetPen(0x0044FF);
-        graphics.FillEllipse((short) 6, (short) 6, (short) 18, (short) 18);
-        terminal.WriteInt((int) clock.GetTime(t), (short) -1);
+        graphics.FillEllipse(6, 6, 18, 18);
+        terminal.WriteInt(clock.GetTime(t), -1);
         terminal.WriteLn();
         clock.StartTime(t);
         b0 = clock.WaitTime(t, 2000);
@@ -393,16 +386,16 @@ public class GraphTest {
         graphics.SetArea(a1);
         for (y = 50; y <= 149; y += 10) {
             for (x = 1; x <= 100; x += 10) {
-                graphics.ScaleRect(a1, (short) 0, (short) 0, (short) 24, (short) 24, (short) x, (short) y, (short) (x + 100), (short) (y + 50));
+                graphics.ScaleRect(a1, 0, 0, 24, 24, (int) x, (int) y, (int) (x + 100), (int) (y + 50));
             }
         }
-        graphics.ScaleRect(a1, (short) 0, (short) 0, (short) 240, (short) 200, (short) 240, (short) 0, (short) 320, (short) 200);
-        graphics.ScaleRect(a1, (short) 0, (short) 0, (short) 240, (short) 150, (short) 0, (short) 150, (short) 240, (short) 200);
-        graphics.ScaleRect(a1, (short) 0, (short) 0, (short) 240, (short) 150, (short) 240, (short) 150, (short) 320, (short) 200);
+        graphics.ScaleRect(a1, 0, 0, 240, 200, 240, 0, 320, 200);
+        graphics.ScaleRect(a1, 0, 0, 240, 150, 0, 150, 240, 200);
+        graphics.ScaleRect(a1, 0, 0, 240, 150, 240, 150, 320, 200);
         for (x = 5; x <= 200; x += 5) {
-            graphics.ScaleRect(a1, (short) 0, (short) 0, (short) 24, (short) 24, (short) (160 - x), (short) 30, (short) (160 + x), (short) (30 + x));
+            graphics.ScaleRect(a1, 0, 0, 24, 24, (int) (160 - x), 30, (int) (160 + x), (int) (30 + x));
         }
-        terminal.WriteInt((int) clock.GetTime(t), (short) -1);
+        terminal.WriteInt(clock.GetTime(t), -1);
         terminal.WriteLn();
         terminal.WriteString("Write pixel: ");
         clock.StartTime(t);
@@ -411,21 +404,21 @@ public class GraphTest {
             for (x = 0; x <= 255; x++) {
                 col = (long) x * 65536 + (long) (255 - x) * 256 + (long) y * 2;
                 graphics.SetPen(col);
-                graphics.DrawPixel((short) x, (short) y);
+                graphics.DrawPixel((int) x, (int) y);
             }
         }
-        terminal.WriteInt((int) clock.GetTime(t), (short) -1);
+        terminal.WriteInt(clock.GetTime(t), -1);
         terminal.WriteLn();
         b0 = clock.WaitTime(t, 1000);
-        tc = (_Nested0[][]) memory.AllocMem(Runtime.sizeOf(614400, _Nested0[][].class, 240, 320));
+        tc = (_Nested0[][]) memory.AllocMem(Runtime.sizeOf(1228800, _Nested0[][].class, 240, 320));
         checks.CheckMem(tc);
         for (y = 0; y <= 239; y++) {
             for (x = 0; x <= 319; x++) {
                 { // WITH
-                    _Nested0 __Nested0 = tc[y][x];
-                    __Nested0.r = (short) ((x * y) % 256);
-                    __Nested0.g = (short) ((x * 256 / (y + 1)) % 256);
-                    __Nested0.b = (short) ((x * x + y * y) % 256);
+                    _Nested0 __Nested0 = tc[(int) y][(int) x];
+                    __Nested0.r = (int) ((x * y) % 256);
+                    __Nested0.g = (int) ((x * 256 / (y + 1)) % 256);
+                    __Nested0.b = (int) ((x * x + y * y) % 256);
                 }
             }
         }
@@ -438,8 +431,8 @@ public class GraphTest {
         image.height = 240;
         image.zw = 1;
         image.zh = 1;
-        graphics.DrawImage(image, (short) 0, (short) 0, (short) 0, (short) 0, (short) 320, (short) 240);
-        terminal.WriteInt((int) clock.GetTime(t), (short) -1);
+        graphics.DrawImage(image, 0, 0, 0, 0, 320, 240);
+        terminal.WriteInt(clock.GetTime(t), -1);
         terminal.WriteLn();
         memory.FreeMem(new Runtime.FieldRef<>(this::getTc, this::setTc).asAdrRef());
         input.AddEvents(new Runtime.RangeSet(Input.EventTypes).with(Input.eMOUSE));
@@ -447,14 +440,14 @@ public class GraphTest {
             input.WaitEvent();
             input.GetEvent(event);
         } while (event.type != Input.eMOUSE);
-        pix = (short[][]) memory.AllocMem(Runtime.sizeOf(131072, short[][].class, 256, 256));
+        pix = (int[][]) memory.AllocMem(Runtime.sizeOf(262144, int[][].class, 256, 256));
         checks.CheckMem(pix);
         for (y = 0; y <= 255; y++) {
             for (x = 0; x <= 255; x++) {
-                pix[y][x] = (short) x;
+                pix[(int) y][(int) x] = (int) x;
             }
         }
-        graphics.FillRect((short) 0, (short) 0, (short) 320, (short) 256);
+        graphics.FillRect(0, 0, 320, 256);
         terminal.WriteString("Chunky (8bit) -> Planar: ");
         clock.StartTime(t);
         image.data = pix;
@@ -464,12 +457,12 @@ public class GraphTest {
         image.height = 256;
         image.zw = 1;
         image.zh = 1;
-        graphics.DrawImage(image, (short) 0, (short) 0, (short) 0, (short) 0, (short) 256, (short) 256);
-        terminal.WriteInt((int) clock.GetTime(t), (short) -1);
+        graphics.DrawImage(image, 0, 0, 0, 0, 256, 256);
+        terminal.WriteInt(clock.GetTime(t), -1);
         terminal.WriteLn();
         clock.StartTime(t);
         b0 = clock.WaitTime(t, 1000);
-        graphics.FillRect((short) 0, (short) 0, (short) 256, (short) 256);
+        graphics.FillRect(0, 0, 256, 256);
         terminal.WriteString("PixMap (4bit) -> Planar: ");
         clock.StartTime(t);
         image.data = pix;
@@ -477,12 +470,12 @@ public class GraphTest {
         image.bytePerRow = 256;
         image.width = 256;
         image.height = 256;
-        graphics.DrawImage(image, (short) 0, (short) 0, (short) 0, (short) 0, (short) 256, (short) 256);
-        terminal.WriteInt((int) clock.GetTime(t), (short) -1);
+        graphics.DrawImage(image, 0, 0, 0, 0, 256, 256);
+        terminal.WriteInt(clock.GetTime(t), -1);
         terminal.WriteLn();
         clock.StartTime(t);
         b0 = clock.WaitTime(t, 1000);
-        graphics.FillRect((short) 0, (short) 0, (short) 256, (short) 256);
+        graphics.FillRect(0, 0, 256, 256);
         terminal.WriteString("Pixmap (1bit) -> Planar: ");
         clock.StartTime(t);
         image.data = pix;
@@ -490,8 +483,8 @@ public class GraphTest {
         image.bytePerRow = 256;
         image.width = 256;
         image.height = 256;
-        graphics.DrawImage(image, (short) 0, (short) 0, (short) 0, (short) 0, (short) 256, (short) 256);
-        terminal.WriteInt((int) clock.GetTime(t), (short) -1);
+        graphics.DrawImage(image, 0, 0, 0, 0, 256, 256);
+        terminal.WriteInt(clock.GetTime(t), -1);
         terminal.WriteLn();
         clock.StartTime(t);
         b0 = clock.WaitTime(t, 1000);
@@ -501,13 +494,13 @@ public class GraphTest {
         if (a1 == null)
             throw new HaltException();
         graphics.SetArea(a1);
-        graphics.SetPalette((short) 0, (short) 0, (short) 0, (short) 0);
-        graphics.SetPalette((short) 1, (short) 255, (short) 0, (short) 0);
-        graphics.SetPalette((short) 2, (short) 0, (short) 255, (short) 0);
-        graphics.SetPalette((short) 3, (short) 0, (short) 0, (short) 255);
-        graphics.SetPalette((short) 4, (short) 255, (short) 255, (short) 255);
-        graphics.SetPalette((short) 5, (short) 255, (short) 255, (short) 0);
-        graphics.SetPalette((short) 15, (short) 0, (short) 255, (short) 255);
+        graphics.SetPalette(0, 0, 0, 0);
+        graphics.SetPalette(1, 255, 0, 0);
+        graphics.SetPalette(2, 0, 255, 0);
+        graphics.SetPalette(3, 0, 0, 255);
+        graphics.SetPalette(4, 255, 255, 255);
+        graphics.SetPalette(5, 255, 255, 0);
+        graphics.SetPalette(15, 0, 255, 255);
         a2 = graphics.CreateArea((Memory.TagItem) memory.TAG3(Graphics.aSIZEX, 32, Graphics.aSIZEY, 32, Graphics.aCOLOR, COL));
         msk = graphics.CreateArea((Memory.TagItem) memory.TAG4(Graphics.aSIZEX, 32, Graphics.aSIZEY, 32, Graphics.aCOLOR, 2, Graphics.aTYPE, Graphics.atMASK));
         if ((a1 == null) || (a2 == null) || (msk == null))
@@ -516,68 +509,68 @@ public class GraphTest {
         graphics.AreaToFront();
         graphics.SetArea(a2);
         graphics.SetPen(1);
-        graphics.FillEllipse((short) 0, (short) 0, (short) 32, (short) 32);
+        graphics.FillEllipse(0, 0, 32, 32);
         graphics.SetArea(msk);
         graphics.SetPen(1);
-        graphics.SetPat((short) 1);
-        graphics.FillEllipse((short) 0, (short) 0, (short) 32, (short) 32);
+        graphics.SetPat(1);
+        graphics.FillEllipse(0, 0, 32, 32);
         bob = graphics.CreateArea((Memory.TagItem) memory.TAG3(Graphics.aSIZEX, 64, Graphics.aSIZEY, 24, Graphics.aCOLOR, COL));
         bobmsk = graphics.CreateArea((Memory.TagItem) memory.TAG4(Graphics.aSIZEX, 64, Graphics.aSIZEY, 24, Graphics.aCOLOR, 2, Graphics.aTYPE, Graphics.atMASK));
         if ((bob == null) || (bobmsk == null))
             throw new HaltException();
         graphics.SetArea(bob);
         graphics.SetPen(5);
-        graphics.FillEllipse((short) 0, (short) 0, (short) 24, (short) 24);
+        graphics.FillEllipse(0, 0, 24, 24);
         graphics.SetArea(bobmsk);
         graphics.SetPen(1);
-        graphics.FillEllipse((short) 0, (short) 0, (short) 24, (short) 24);
+        graphics.FillEllipse(0, 0, 24, 24);
         graphics.SetArea(a1);
-        input.SetBusyStat((short) 2);
+        input.SetBusyStat(2);
         graphics.SetCopyMode(EnumSet.of(Modes.snd, Modes.sd));
         a3 = graphics.CreateArea((Memory.TagItem) memory.TAG3(Graphics.aSIZEX, W + 32, Graphics.aSIZEY, H + 32, Graphics.aCOLOR, COL));
         if (a3 == null)
             throw new HaltException();
         graphics.SetArea(a3);
-        graphics.FillRect((short) 0, (short) 0, (short) (W + 32), (short) (H + 32));
+        graphics.FillRect(0, 0, W + 32, H + 32);
         for (y = 0; y <= H + 31; y += 32) {
             for (x = 0; x <= W + 31; x += 32) {
-                graphics.CopyRect(a2, (short) 0, (short) 0, (short) x, (short) y, (short) 32, (short) 32);
+                graphics.CopyRect(a2, 0, 0, (int) x, (int) y, 32, 32);
             }
         }
         graphics.SetArea(a1);
         terminal.WriteString("Blit test 2: ");
         clock.StartTime(t);
         for (k = 0; k <= 239; k++) {
-            graphics.CopyRect(a3, (short) (k % 32), (short) (k % 32), (short) 0, (short) 0, (short) 32, (short) 32);
-            graphics.CopyRect(a3, (short) (32 + k % 32), (short) (k % 32), (short) 32, (short) 0, (short) (W - 32), (short) 32);
-            graphics.CopyRect(a3, (short) (k % 32), (short) (32 + k % 32), (short) 0, (short) 32, (short) 32, (short) (H - 32));
-            graphics.CopyRect(a3, (short) (32 + k % 32), (short) (32 + k % 32), (short) 32, (short) 32, (short) (W - 32), (short) (H - 32));
-            graphics.SetPalette((short) 1, (short) ((k % 16) * 16), (short) 0, (short) (255 - (k % 16) * 16));
-            graphics.SetPalette((short) 5, (short) (255 - (k % 16) * 16), (short) 255, (short) 0);
+            graphics.CopyRect(a3, (int) (k % 32), (int) (k % 32), 0, 0, 32, 32);
+            graphics.CopyRect(a3, (int) (32 + k % 32), (int) (k % 32), 32, 0, W - 32, 32);
+            graphics.CopyRect(a3, (int) (k % 32), (int) (32 + k % 32), 0, 32, 32, H - 32);
+            graphics.CopyRect(a3, (int) (32 + k % 32), (int) (32 + k % 32), 32, 32, W - 32, H - 32);
+            graphics.SetPalette(1, (int) ((k % 16) * 16), 0, (int) (255 - (k % 16) * 16));
+            graphics.SetPalette(5, (int) (255 - (k % 16) * 16), 255, 0);
             x = 0;
             for (y = 0; y <= H - 25; y += 25) {
-                graphics.CopyMask(bob, bobmsk, (short) 0, (short) 0, (short) k, (short) y, (short) 24, (short) 24);
+                graphics.CopyMask(bob, bobmsk, 0, 0, (int) k, (int) y, 24, 24);
             }
             graphics.SwitchArea();
         }
-        terminal.WriteInt((int) clock.GetTime(t), (short) -1);
+        terminal.WriteInt(clock.GetTime(t), -1);
         terminal.WriteLn();
-        input.SetBusyStat((short) 0);
+        input.SetBusyStat(0);
         clock.StartTime(t);
         while (true) {
-            k = (int) (clock.GetTime(t) / 20);
+            k = clock.GetTime(t) / 20;
             if (k >= 240)
                 break;
-            graphics.CopyRect(a3, (short) (k % 32), (short) (k % 32), (short) 0, (short) 0, (short) 32, (short) 32);
-            graphics.CopyRect(a3, (short) (32 + k % 32), (short) (k % 32), (short) 32, (short) 0, (short) (W - 32), (short) 32);
-            graphics.CopyRect(a3, (short) (k % 32), (short) (32 + k % 32), (short) 0, (short) 32, (short) 32, (short) (H - 32));
-            graphics.CopyRect(a3, (short) (32 + k % 32), (short) (32 + k % 32), (short) 32, (short) 32, (short) (W - 32), (short) (H - 32));
-            graphics.SetPalette((short) 1, (short) ((k % 16) * 16), (short) 0, (short) (255 - (k % 16) * 16));
-            graphics.SetPalette((short) 5, (short) (255 - (k % 16) * 16), (short) 255, (short) 0);
+            graphics.CopyRect(a3, (int) (k % 32), (int) (k % 32), 0, 0, 32, 32);
+            graphics.CopyRect(a3, (int) (32 + k % 32), (int) (k % 32), 32, 0, W - 32, 32);
+            graphics.CopyRect(a3, (int) (k % 32), (int) (32 + k % 32), 0, 32, 32, H - 32);
+            graphics.CopyRect(a3, (int) (32 + k % 32), (int) (32 + k % 32), 32, 32, W - 32, H - 32);
+            graphics.SetPalette(1, (int) ((k % 16) * 16), 0, (int) (255 - (k % 16) * 16));
+            graphics.SetPalette(5, (int) (255 - (k % 16) * 16), 255, 0);
             x = 0;
             for (y = 0; y <= H - 25; y += 25) {
                 for (x = 0; x <= 100; x += 25) {
-                    graphics.CopyMask(bob, bobmsk, (short) 0, (short) 0, (short) (k + x), (short) y, (short) 24, (short) 24);
+                    graphics.CopyMask(bob, bobmsk, 0, 0, (int) (k + x), (int) y, 24, 24);
                 }
             }
             graphics.SwitchArea();
@@ -619,8 +612,8 @@ public class GraphTest {
                     terminal.Write('-');
             }
             input.GetMouse(new Runtime.FieldRef<>(this::getMx, this::setMx), new Runtime.FieldRef<>(this::getMy, this::setMy));
-            terminal.WriteInt(mx, (short) 4);
-            terminal.WriteInt(my, (short) 4);
+            terminal.WriteInt(mx, 4);
+            terminal.WriteInt(my, 4);
             terminal.WriteLn();
             terminal.WriteLn();
         } while (!((event.type == Input.eKEYBOARD) && (event.ch == ((char) 03))));

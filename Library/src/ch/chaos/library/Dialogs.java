@@ -251,7 +251,7 @@ public class Dialogs {
         };
     }
 
-    public GadgetPtr AllocGadget(short type) {
+    public GadgetPtr AllocGadget(int type) {
         return invokeInSwing(() -> {
             Gadget gadget = create(type);
             return gadget;

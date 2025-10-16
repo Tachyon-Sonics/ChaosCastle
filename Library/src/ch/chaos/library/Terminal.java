@@ -101,7 +101,7 @@ public class Terminal {
         throw new UnsupportedOperationException("Not implemented: FormatNr");
     }
 
-    public void WriteInt(int x, short n) {
+    public void WriteInt(long x, int n) {
         if (n <= 0) {
             System.out.print(x);
         } else {
@@ -110,7 +110,7 @@ public class Terminal {
         }
     }
 
-    public void WriteHex(int x, short n) {
+    public void WriteHex(int x, int n) {
         if (n <= 0) {
             System.out.print(Integer.toHexString(x));
         } else {

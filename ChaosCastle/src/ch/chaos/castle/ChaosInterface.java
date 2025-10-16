@@ -356,7 +356,7 @@ public class ChaosInterface {
                     for (int _z = Zone.Chaos.ordinal(); _z <= Zone.Family.ordinal(); _z++) {
                         z = Zone.values()[_z];
                         res = files.ReadFileBytes(chaosBase.file, ch, 1);
-                        _topScore.endLevel[z.ordinal()] = (char) ch.get();
+                        _topScore.endLevel[z.ordinal()] = (int) ch.get();
                     }
                     res = files.ReadFileBytes(chaosBase.file, new Runtime.FieldRef<>(_topScore::getEndZone, _topScore::setEndZone), Runtime.sizeOf(1, Zone.class));
                     res = files.ReadFileBytes(chaosBase.file, new Runtime.FieldRef<>(_topScore::getEndDifficulty, _topScore::setEndDifficulty), Runtime.sizeOf(4, int.class));
@@ -480,7 +480,7 @@ public class ChaosInterface {
                 if (dfltLang)
                     languages.SetLanguage(dfltLanguage);
                 else
-                    languages.SetLanguage((char) ch.get());
+                    languages.SetLanguage((int) ch.get());
                 chaosGraphics.dfltGraphic = false;
                 chaosSounds.dfltSound = false;
                 chaosSounds.sound = (data.contains(0));
@@ -828,29 +828,29 @@ public class ChaosInterface {
                 } else {
                     LoadGame_Get(new Runtime.FieldRef<>(chaosBase::getScore, chaosBase::setScore).asByteArray(4), ok);
                     LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
-                    chaosBase.pLife = (char) ch.get();
+                    chaosBase.pLife = (int) ch.get();
                     LoadGame_RangeChk(chaosBase.pLife, 1, 239, ok);
                     chaosBase.pLife = chaosBase.pLife % 30;
                     LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
-                    chaosBase.nbDollar = (char) ch.get();
+                    chaosBase.nbDollar = (int) ch.get();
                     LoadGame_RangeChk(chaosBase.nbDollar, 0, 200, ok);
                     LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
-                    chaosBase.nbSterling = (char) ch.get();
+                    chaosBase.nbSterling = (int) ch.get();
                     LoadGame_RangeChk(chaosBase.nbSterling, 0, 200, ok);
                     LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
-                    chaosBase.powerCountDown = (char) ch.get() / 10;
-                    chaosBase.difficulty = (char) ch.get() % 10;
+                    chaosBase.powerCountDown = (int) ch.get() / 10;
+                    chaosBase.difficulty = (int) ch.get() % 10;
                     if (chaosBase.difficulty == 0)
                         chaosBase.difficulty = 10;
                     LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
-                    chaosBase.specialStage = (char) ch.get();
+                    chaosBase.specialStage = (int) ch.get();
                     chaosBase.stages = chaosBase.specialStage % 6;
                     chaosBase.specialStage = chaosBase.specialStage / 6;
                     chaosBase.zone = Zone.Chaos;
                     for (int _z = 0; _z < Zone.values().length; _z++) {
                         z = Zone.values()[_z];
                         LoadGame_Get(Runtime.asByteArray(ch, 1), ok);
-                        chaosBase.level[z.ordinal()] = (char) ch.get();
+                        chaosBase.level[z.ordinal()] = (int) ch.get();
                     }
                     if (chaosBase.level[Zone.Family.ordinal()] > 10) {
                         chaosBase.level[Zone.Family.ordinal()] -= 10;
