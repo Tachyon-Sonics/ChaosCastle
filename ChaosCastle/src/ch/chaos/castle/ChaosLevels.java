@@ -113,23 +113,23 @@ public class ChaosLevels {
 
     // VAR
 
-    private short val1;
-    private short val2;
+    private int val1;
+    private int val2;
 
 
-    public short getVal1() {
+    public int getVal1() {
         return this.val1;
     }
 
-    public void setVal1(short val1) {
+    public void setVal1(int val1) {
         this.val1 = val1;
     }
 
-    public short getVal2() {
+    public int getVal2() {
         return this.val2;
     }
 
-    public void setVal2(short val2) {
+    public void setVal2(int val2) {
         this.val2 = val2;
     }
 
@@ -154,58 +154,58 @@ public class ChaosLevels {
         // VAR
         int rnd = 0;
         int c = 0;
-        short width = 0;
-        short height = 0;
-        short w = 0;
-        short h = 0;
-        Runtime.Ref<Short> angle = new Runtime.Ref<>((short) 0);
-        short sz = 0;
-        Runtime.Ref<Short> x = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y = new Runtime.Ref<>((short) 0);
-        short back = 0;
-        short wall = 0;
+        int width = 0;
+        int height = 0;
+        int w = 0;
+        int h = 0;
+        Runtime.Ref<Integer> angle = new Runtime.Ref<>(0);
+        int sz = 0;
+        Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y = new Runtime.Ref<>(0);
+        int back = 0;
+        int wall = 0;
 
-        width = (short) (20 + chaosObjects.Rnd((short) 50));
-        height = (short) (20 + chaosObjects.Rnd((short) 50));
+        width = 20 + chaosObjects.Rnd(50);
+        height = 20 + chaosObjects.Rnd(50);
         chaosObjects.Cadre(width, height);
         rnd = trigo.RND() % 3;
         if (rnd == 0) {
-            w = (short) (chaosObjects.Rnd((short) 4) + 2);
-            h = (short) (chaosObjects.Rnd((short) 4) + 2);
-            chaosGenerator.DrawPacman(trigo.RND() % 8 + 4, w, h, (short) 2, (short) 2, (short) (width - w - 1), (short) (height - h - 1));
-            chaosObjects.PutPlayer((short) 1, (short) 1);
-            chaosObjects.PutExit((short) (width - 2), (short) (height - 2));
+            w = chaosObjects.Rnd(4) + 2;
+            h = chaosObjects.Rnd(4) + 2;
+            chaosGenerator.DrawPacman(trigo.RND() % 8 + 4, w, h, 2, 2, width - w - 1, height - h - 1);
+            chaosObjects.PutPlayer(1, 1);
+            chaosObjects.PutExit(width - 2, height - 2);
         } else if (rnd == 1) {
-            w = (short) (width / 2);
-            h = (short) (height / 2);
-            chaosObjects.Fill((short) 0, (short) 0, (short) (width - 1), (short) (height - 1), (short) ChaosGraphics.NbBackground);
-            chaosObjects.Fill((short) (w - 4), (short) (h - 4), (short) (w + 4), (short) (h + 4), (short) 0);
-            chaosObjects.Fill((short) (w - 3), (short) (h - 3), (short) (w + 3), (short) (h + 3), (short) ChaosGraphics.NbBackground);
-            chaosObjects.PutPlayer((short) (w - 4), (short) (h - 4));
-            chaosObjects.PutExit((short) (w + 4), (short) (h + 4));
+            w = width / 2;
+            h = height / 2;
+            chaosObjects.Fill(0, 0, width - 1, height - 1, ChaosGraphics.NbBackground);
+            chaosObjects.Fill(w - 4, h - 4, w + 4, h + 4, 0);
+            chaosObjects.Fill(w - 3, h - 3, w + 3, h + 3, ChaosGraphics.NbBackground);
+            chaosObjects.PutPlayer(w - 4, h - 4);
+            chaosObjects.PutExit(w + 4, h + 4);
             for (c = 1; c <= 40; c++) {
-                sz = (short) (trigo.RND() % 4 + 1);
-                if (chaosGenerator.FindIsolatedRect((short) 0, (short) 0, (short) (width - 1), (short) (height - 1), sz, (short) 15, angle, x, y, true)) {
-                    chaosObjects.Fill((short) (x.get() - sz), (short) (y.get() - sz), (short) (x.get() + sz), (short) (y.get() + sz), (short) 0);
-                    chaosGenerator.MakeLink(x.get(), y.get(), sz, angle.get(), (short) 0);
+                sz = trigo.RND() % 4 + 1;
+                if (chaosGenerator.FindIsolatedRect(0, 0, width - 1, height - 1, sz, 15, angle, x, y, true)) {
+                    chaosObjects.Fill(x.get() - sz, y.get() - sz, x.get() + sz, y.get() + sz, 0);
+                    chaosGenerator.MakeLink(x.get(), y.get(), sz, angle.get(), 0);
                 }
             }
         } else {
-            chaosObjects.PutPlayer((short) 1, (short) 1);
-            chaosObjects.PutExit((short) (width - 2), (short) (height - 2));
+            chaosObjects.PutPlayer(1, 1);
+            chaosObjects.PutExit(width - 2, height - 2);
             for (c = 1; c <= 4 + trigo.RND() % 16; c++) {
-                sz = (short) (trigo.RND() % 3 + 1);
-                if (chaosGenerator.FindIsolatedRect((short) 1, (short) 1, (short) (width - 2), (short) (height - 2), sz, (short) 0, angle, x, y, false))
-                    chaosObjects.Fill((short) (x.get() - sz), (short) (y.get() - sz), (short) (x.get() + sz), (short) (y.get() + sz), (short) ChaosGraphics.NbBackground);
+                sz = trigo.RND() % 3 + 1;
+                if (chaosGenerator.FindIsolatedRect(1, 1, width - 2, height - 2, sz, 0, angle, x, y, false))
+                    chaosObjects.Fill(x.get() - sz, y.get() - sz, x.get() + sz, y.get() + sz, ChaosGraphics.NbBackground);
             }
             for (c = 1; c <= 4 + trigo.RND() % 32; c++) {
-                chaosGenerator.PutCross((short) 1, (short) 1, (short) (width - 2), (short) (height - 1), (short) ChaosGraphics.NbBackground);
+                chaosGenerator.PutCross(1, 1, width - 2, height - 1, ChaosGraphics.NbBackground);
             }
-            chaosObjects.Rect((short) 1, (short) 1, (short) (width - 2), (short) (height - 2));
+            chaosObjects.Rect(1, 1, width - 2, height - 2);
             for (c = 1; c <= 4 + trigo.RND() % 8; c++) {
                 if (chaosObjects.FindIsolatedPlace(1, x, y)) {
                     if (trigo.RND() % 2 == 0)
-                        chaosObjects.PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doFireWall, 0, x.get(), y.get());
+                        chaosObjects.PutBlockObj(Anims.DEADOBJ, ChaosDObj.doFireWall, 0, x.get(), y.get());
                     else
                         chaosObjects.Set(x.get(), y.get());
                 }
@@ -223,7 +223,7 @@ public class ChaosLevels {
             }
             case 2 -> {
                 back = Back4x4;
-                wall = (short) (Fact1Block + trigo.RND() % 3);
+                wall = Fact1Block + trigo.RND() % 3;
             }
             case 3 -> {
                 back = BackSmall;
@@ -231,25 +231,25 @@ public class ChaosLevels {
             }
             default -> throw new RuntimeException("Unhandled CASE value " + rnd);
         }
-        chaosObjects.FillCond((short) 0, (short) 0, (short) (width - 1), (short) (height - 1), chaosObjects.OnlyWall_ref, wall);
-        chaosObjects.FillCond((short) 1, (short) 1, (short) (width - 2), (short) (height - 2), chaosObjects.OnlyBackground_ref, back);
+        chaosObjects.FillCond(0, 0, width - 1, height - 1, chaosObjects.OnlyWall_ref, wall);
+        chaosObjects.FillCond(1, 1, width - 2, height - 2, chaosObjects.OnlyBackground_ref, back);
         for (c = 1; c <= 2; c++) {
-            x.set(chaosObjects.Rnd((short) (width - 10)));
-            y.set(chaosObjects.Rnd((short) (height - 10)));
-            chaosObjects.Rect((short) (x.get() + 1), (short) (y.get() + 1), (short) (x.get() + 8), (short) (y.get() + 8));
+            x.set(chaosObjects.Rnd(width - 10));
+            y.set(chaosObjects.Rnd(height - 10));
+            chaosObjects.Rect(x.get() + 1, y.get() + 1, x.get() + 8, y.get() + 8);
             do {
                 c = trigo.RND() % 16;
             } while (!Alien1Set.contains(c));
             chaosObjects.PutAlien1(c, chaos1Zone.pLife3, 10 + chaosBase.difficulty);
         }
-        x.set(chaosObjects.Rnd((short) (width - 10)));
-        y.set(chaosObjects.Rnd((short) (height - 10)));
-        chaosObjects.Rect((short) (x.get() + 1), (short) (y.get() + 1), (short) (x.get() + 8), (short) (y.get() + 8));
+        x.set(chaosObjects.Rnd(width - 10));
+        y.set(chaosObjects.Rnd(height - 10));
+        chaosObjects.Rect(x.get() + 1, y.get() + 1, x.get() + 8, y.get() + 8);
         do {
             c = trigo.RND() % 16;
         } while (!Alien2Set.contains(c));
         chaosObjects.PutAlien2(c, 80, 10 + chaosBase.difficulty);
-        chaosObjects.Rect((short) 4, (short) 4, (short) (width - 2), (short) (height - 2));
+        chaosObjects.Rect(4, 4, width - 2, height - 2);
         chaosObjects.PutTBonus(ChaosBonus.tbBomb, 3);
         chaosObjects.PutTBonus(ChaosBonus.tbSleeper, 1);
         chaosObjects.PutTBonus(ChaosBonus.tbInvinsibility, 1);
@@ -257,71 +257,71 @@ public class ChaosLevels {
         chaosObjects.PutHospital(3);
         chaosObjects.PutAlien2(ChaosCreator.cCircle, 100, 15);
         chaosObjects.PutAlien2(ChaosCreator.cChief, 50, 10);
-        chaos1Zone.AddOptions((short) 4, (short) 4, (short) 30, (short) 30, 0, 0, 0, 5, 0, 0, 0);
+        chaos1Zone.AddOptions(4, 4, 30, 30, 0, 0, 0, 5, 0, 0, 0);
     }
 
     private void Spider() {
         // VAR
         int c = 0;
-        Runtime.Ref<Short> x = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y = new Runtime.Ref<>((short) 0);
-        short sz = 0;
-        Runtime.Ref<Short> angle = new Runtime.Ref<>((short) 0);
-        short d = 0;
-        short val = 0;
+        Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y = new Runtime.Ref<>(0);
+        int sz = 0;
+        Runtime.Ref<Integer> angle = new Runtime.Ref<>(0);
+        int d = 0;
+        int val = 0;
 
-        chaosObjects.Clear((short) 60, (short) 60);
-        chaosObjects.Fill((short) 0, (short) 0, (short) 59, (short) 59, (short) ChaosGraphics.NbBackground);
-        chaosGenerator.FillEllipse(26, 0, 8, 8, (short) 0);
+        chaosObjects.Clear(60, 60);
+        chaosObjects.Fill(0, 0, 59, 59, ChaosGraphics.NbBackground);
+        chaosGenerator.FillEllipse(26, 0, 8, 8, 0);
         for (c = 1; c <= 25; c++) {
-            sz = (short) (trigo.RND() % 5 + 1);
-            d = (short) (2 * sz + 1);
-            if (chaosGenerator.FindIsolatedRect((short) 0, (short) 0, (short) 59, (short) 59, sz, (short) 10, angle, x, y, true)) {
+            sz = trigo.RND() % 5 + 1;
+            d = 2 * sz + 1;
+            if (chaosGenerator.FindIsolatedRect(0, 0, 59, 59, sz, 10, angle, x, y, true)) {
                 if (trigo.RND() % 2 == 0)
-                    chaosObjects.Fill((short) (x.get() - sz), (short) (y.get() - sz), (short) (x.get() + sz), (short) (y.get() + sz), (short) 0);
+                    chaosObjects.Fill(x.get() - sz, y.get() - sz, x.get() + sz, y.get() + sz, 0);
                 else
-                    chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, (short) 0);
-                chaosGenerator.MakeLink(x.get(), y.get(), sz, angle.get(), (short) 0);
+                    chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, 0);
+                chaosGenerator.MakeLink(x.get(), y.get(), sz, angle.get(), 0);
             }
         }
-        for (y.set((short) 0); y.get() <= 59; y.inc()) {
-            for (x.set((short) 0); x.get() <= 59; x.inc()) {
+        for (y.set(0); y.get() <= 59; y.inc()) {
+            for (x.set(0); x.get() <= 59; x.inc()) {
                 if (chaosObjects.Get(x.get(), y.get()) >= ChaosGraphics.NbBackground)
                     chaosObjects.Reset(x.get(), y.get());
                 else
                     chaosObjects.Set(x.get(), y.get());
             }
         }
-        chaosObjects.PutPlayer((short) 27, (short) 0);
-        chaosObjects.PutExit((short) 32, (short) 0);
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) 59, (short) 59, (short) Forest1, (short) Forest7, chaosObjects.OnlyWall_ref, chaosObjects.Rnd_ref);
+        chaosObjects.PutPlayer(27, 0);
+        chaosObjects.PutExit(32, 0);
+        chaosObjects.FillRandom(0, 0, 59, 59, Forest1, Forest7, chaosObjects.OnlyWall_ref, chaosObjects.Rnd_ref);
         for (c = 1; c <= trigo.RND() % 8 + 5; c++) {
-            val = (short) (trigo.RND() % 4 + Leaf1);
-            chaosGenerator.PutCross((short) 1, (short) 1, (short) 58, (short) 58, val);
+            val = trigo.RND() % 4 + Leaf1;
+            chaosGenerator.PutCross(1, 1, 58, 58, val);
         }
         for (c = 1; c <= trigo.RND() % 8 + 5; c++) {
-            val = (short) (trigo.RND() % 4 + Leaf1);
-            sz = (short) (trigo.RND() % 2 + 1);
-            if (chaosGenerator.FindIsolatedRect((short) 1, (short) 1, (short) 58, (short) 58, sz, (short) 0, angle, x, y, false))
-                chaosObjects.Fill((short) (x.get() - sz), (short) (y.get() - sz), (short) (x.get() + sz), (short) (y.get() + sz), val);
+            val = trigo.RND() % 4 + Leaf1;
+            sz = trigo.RND() % 2 + 1;
+            if (chaosGenerator.FindIsolatedRect(1, 1, 58, 58, sz, 0, angle, x, y, false))
+                chaosObjects.Fill(x.get() - sz, y.get() - sz, x.get() + sz, y.get() + sz, val);
         }
         for (c = 1; c <= 30; c++) {
-            sz = (short) (trigo.RND() % 4);
-            d = (short) (2 * sz + 1);
-            if (chaosGenerator.FindIsolatedRect((short) 0, (short) 0, (short) 59, (short) 59, sz, (short) 10, angle, x, y, true)) {
+            sz = trigo.RND() % 4;
+            d = 2 * sz + 1;
+            if (chaosGenerator.FindIsolatedRect(0, 0, 59, 59, sz, 10, angle, x, y, true)) {
                 if (trigo.RND() % 2 == 0)
-                    chaosObjects.Fill((short) (x.get() - sz), (short) (y.get() - sz), (short) (x.get() + sz), (short) (y.get() + sz), (short) 0);
+                    chaosObjects.Fill(x.get() - sz, y.get() - sz, x.get() + sz, y.get() + sz, 0);
                 else
-                    chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, (short) 0);
-                chaosGenerator.MakeLink(x.get(), y.get(), sz, angle.get(), (short) 0);
+                    chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, 0);
+                chaosGenerator.MakeLink(x.get(), y.get(), sz, angle.get(), 0);
             }
         }
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 59, (short) 59, chaosObjects.OnlyBackground_ref, (short) Ground2);
+        chaosObjects.FillCond(0, 0, 59, 59, chaosObjects.OnlyBackground_ref, Ground2);
         for (c = 1; c <= 3; c++) {
-            if (chaosGenerator.FindIsolatedRect((short) 1, (short) 1, (short) 58, (short) 58, (short) 1, (short) 0, angle, x, y, false))
-                chaosObjects.FillObj(Anims.ALIEN1, (short) ChaosAlien.aCartoon, trigo.RND() % 2 + 1, (short) (x.get() - 1), (short) (y.get() - 1), (short) (x.get() + 1), (short) (y.get() + 1), true);
+            if (chaosGenerator.FindIsolatedRect(1, 1, 58, 58, 1, 0, angle, x, y, false))
+                chaosObjects.FillObj(Anims.ALIEN1, ChaosAlien.aCartoon, trigo.RND() % 2 + 1, x.get() - 1, y.get() - 1, x.get() + 1, y.get() + 1, true);
         }
-        chaosObjects.Rect((short) 1, (short) 1, (short) 58, (short) 58);
+        chaosObjects.Rect(1, 1, 58, 58);
         chaosObjects.PutAlien2(ChaosCreator.cNest, 0, 28);
         chaosObjects.PutTBonus(ChaosBonus.tbMagnet, 1);
         chaosObjects.PutTBonus(ChaosBonus.tbFreeFire, 1);
@@ -333,64 +333,64 @@ public class ChaosLevels {
         chaosObjects.PutAlien2(ChaosCreator.cChief, 50, 12);
         chaosObjects.PutMachine(ChaosMachine.mCannon3, 0, 0, 8);
         if (chaosBase.difficulty >= 10)
-            chaosObjects.PutRandomObjs(Anims.ALIEN3, (short) ChaosBoss.bSisterAlien, 0, 1);
-        chaos1Zone.AddOptions((short) 1, (short) 1, (short) 59, (short) 59, 3, 3, 0, 0, 5, 4, 1);
+            chaosObjects.PutRandomObjs(Anims.ALIEN3, ChaosBoss.bSisterAlien, 0, 1);
+        chaos1Zone.AddOptions(1, 1, 59, 59, 3, 3, 0, 0, 5, 4, 1);
     }
 
     private void Graveyard_RndRect() {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
 
-        x = chaosObjects.Rnd((short) 96);
-        y = chaosObjects.Rnd((short) 96);
-        chaosObjects.Rect(x, y, (short) (x + 30), (short) (y + 30));
+        x = chaosObjects.Rnd(96);
+        y = chaosObjects.Rnd(96);
+        chaosObjects.Rect(x, y, x + 30, y + 30);
     }
 
     private void Graveyard() {
         // VAR
         int c = 0;
-        Runtime.Ref<Short> angle = new Runtime.Ref<>((short) 0);
-        short sz = 0;
-        short d = 0;
-        short lx = 0;
-        short ly = 0;
-        short ml = 0;
-        Runtime.Ref<Short> x = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y = new Runtime.Ref<>((short) 0);
-        int r = 0;
-        short val = 0;
+        Runtime.Ref<Integer> angle = new Runtime.Ref<>(0);
+        int sz = 0;
+        int d = 0;
+        int lx = 0;
+        int ly = 0;
+        int ml = 0;
+        Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y = new Runtime.Ref<>(0);
+        long r = 0L;
+        int val = 0;
 
         chaosBase.water = chaosBase.level[Zone.Special.ordinal()] == 20;
-        chaosObjects.Clear((short) 127, (short) 127);
-        chaosObjects.Fill((short) 0, (short) 0, (short) 126, (short) 126, (short) SimpleBlock);
+        chaosObjects.Clear(127, 127);
+        chaosObjects.Fill(0, 0, 126, 126, SimpleBlock);
         lx = 0;
         ly = 0;
-        ml = (short) (trigo.RND() % 6 + 2);
-        for (angle.set((short) 0); angle.get() <= 360; angle.inc(2)) {
-            r = trigo.SIN((short) (angle.get() * ml));
-            x.set((short) (trigo.COS(angle.get()) * (2048 + r) / 54330));
-            y.set((short) (trigo.SIN(angle.get()) * (2048 + r) / 54330));
+        ml = trigo.RND() % 6 + 2;
+        for (angle.set(0); angle.get() <= 360; angle.inc(2)) {
+            r = trigo.SIN(angle.get() * ml);
+            x.set((int) (trigo.COS(angle.get()) * (2048 + r) / 54330));
+            y.set((int) (trigo.SIN(angle.get()) * (2048 + r) / 54330));
             x.inc(63);
             y.inc(63);
             if ((lx != 0) && (ly != 0))
-                chaosGenerator.Road(lx, ly, x.get(), y.get(), (short) 2, (short) Ground);
+                chaosGenerator.Road(lx, ly, x.get(), y.get(), 2, Ground);
             lx = x.get();
             ly = y.get();
         }
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 126, (short) 126, chaosObjects.OnlyWall_ref, (short) Leaf1, (short) 255);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 126, (short) 126, chaosObjects.OnlyWall_ref, (short) Leaf2, (short) 255);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 126, (short) 126, chaosObjects.OnlyWall_ref, (short) Leaf3, (short) 255);
-        chaosObjects.PutRandom((short) 0, (short) 0, (short) 126, (short) 126, chaosObjects.OnlyWall_ref, (short) Fact2Block, (short) 50);
-        chaosObjects.PutPlayer((short) 100, (short) 63);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbSleeper, (short) 100, (short) 63);
-        chaosObjects.PutExit((short) 102, (short) 63);
+        chaosObjects.PutRandom(0, 0, 126, 126, chaosObjects.OnlyWall_ref, Leaf1, 255);
+        chaosObjects.PutRandom(0, 0, 126, 126, chaosObjects.OnlyWall_ref, Leaf2, 255);
+        chaosObjects.PutRandom(0, 0, 126, 126, chaosObjects.OnlyWall_ref, Leaf3, 255);
+        chaosObjects.PutRandom(0, 0, 126, 126, chaosObjects.OnlyWall_ref, Fact2Block, 50);
+        chaosObjects.PutPlayer(100, 63);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbSleeper, 100, 63);
+        chaosObjects.PutExit(102, 63);
         for (c = 1; c <= 40; c++) {
-            sz = (short) (trigo.RND() % 3 + 2);
-            d = (short) (sz * 2 + 1);
-            if (chaosGenerator.FindIsolatedRect((short) 0, (short) 0, (short) 126, (short) 126, sz, (short) 30, angle, x, y, true)) {
-                chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, (short) Balls);
-                chaosObjects.Rect((short) (x.get() - sz), (short) (y.get() - sz), (short) (x.get() + sz), (short) (y.get() + sz));
+            sz = trigo.RND() % 3 + 2;
+            d = sz * 2 + 1;
+            if (chaosGenerator.FindIsolatedRect(0, 0, 126, 126, sz, 30, angle, x, y, true)) {
+                chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, Balls);
+                chaosObjects.Rect(x.get() - sz, y.get() - sz, x.get() + sz, y.get() + sz);
                 if ((c >= 25) && ((c % 2) != 0))
                     val = FalseBlock;
                 else if (chaosGraphics.dualpf)
@@ -400,7 +400,7 @@ public class ChaosLevels {
                 chaosGenerator.MakeLink(x.get(), y.get(), sz, angle.get(), val);
                 sz -= 2;
                 d -= 4;
-                chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, (short) (Granit1 + trigo.RND() % 2));
+                chaosGenerator.FillEllipse(x.get() - sz, y.get() - sz, d, d, Granit1 + trigo.RND() % 2);
                 chaosObjects.PutDeadObj(ChaosDObj.doBubbleMaker, 0, 1);
                 if (((c % 2) != 0)) {
                     if ((((c / 2) % 2) != 0))
@@ -414,7 +414,7 @@ public class ChaosLevels {
                     chaosObjects.PutTBonus(ChaosBonus.tbBomb, 1);
             }
         }
-        chaosObjects.Rect((short) 0, (short) 0, (short) 126, (short) 126);
+        chaosObjects.Rect(0, 0, 126, 126);
         chaosObjects.PutTBonus(ChaosBonus.tbHelp, 1);
         chaosObjects.PutDeadObj(ChaosDObj.doFireMaker, 0, 6);
         chaosObjects.PutDeadObj(ChaosDObj.doWindMaker, 1, 3);
@@ -428,7 +428,7 @@ public class ChaosLevels {
         chaosObjects.PutAlien1(ChaosAlien.aBigDrawer, 100, 3);
         chaosObjects.PutAlien1(ChaosAlien.aSmallDrawer, 100, 3);
         chaosObjects.PutDeadObj(ChaosDObj.doFireWall, 0, 10);
-        chaos1Zone.AddOptions((short) 32, (short) 32, (short) 95, (short) 95, 0, 4, 0, 2, 10, 8, 1);
+        chaos1Zone.AddOptions(32, 32, 95, 95, 0, 4, 0, 2, 10, 8, 1);
         Graveyard_RndRect();
         chaosObjects.PutAlien2(ChaosCreator.cCircle, 100, 20);
         Graveyard_RndRect();
@@ -447,68 +447,68 @@ public class ChaosLevels {
 
     private void Winter() {
         // VAR
-        short lx = 0;
-        short ly = 0;
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        short s1 = 0;
-        short s2 = 0;
-        short a1 = 0;
-        short a2 = 0;
+        int lx = 0;
+        int ly = 0;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        int s1 = 0;
+        int s2 = 0;
+        int a1 = 0;
+        int a2 = 0;
         int c = 0;
-        short val = 0;
+        int val = 0;
 
-        chaosObjects.Clear((short) 120, (short) 38);
+        chaosObjects.Clear(120, 38);
         chaosBase.snow = true;
         chaosBase.water = (chaosBase.difficulty >= 6) && (trigo.RND() % 8 == 0);
-        chaosObjects.Fill((short) 0, (short) 0, (short) 119, (short) 37, (short) SimpleBlock);
+        chaosObjects.Fill(0, 0, 119, 37, SimpleBlock);
         a1 = 0;
         a2 = 0;
         lx = 0;
         ly = 0;
-        s1 = (short) (chaosObjects.Rnd((short) 16) + 6);
-        s2 = (short) (chaosObjects.Rnd((short) 16) + 6);
-        for (px.set((short) 3); px.get() <= 116; px.inc()) {
-            py.set((short) ((trigo.SIN(a1) * 3 + trigo.SIN(a2) * 2) / 366 + 16));
+        s1 = chaosObjects.Rnd(16) + 6;
+        s2 = chaosObjects.Rnd(16) + 6;
+        for (px.set(3); px.get() <= 116; px.inc()) {
+            py.set((trigo.SIN(a1) * 3 + trigo.SIN(a2) * 2) / 366 + 16);
             if (lx != 0)
-                chaosGenerator.Road(lx, ly, px.get(), py.get(), (short) 2, (short) Ice);
+                chaosGenerator.Road(lx, ly, px.get(), py.get(), 2, Ice);
             lx = px.get();
             ly = py.get();
             a1 += s1;
             a2 += s2;
         }
-        px.set((short) 116);
-        chaosObjects.Fill((short) (px.get() - 2), (short) (py.get() - 2), (short) (px.get() + 2), (short) (py.get() + 2), (short) Ice);
-        chaosObjects.Fill((short) 119, py.get(), (short) 119, (short) 37, (short) FalseBlock);
-        chaosObjects.Fill((short) 100, (short) 37, (short) 118, (short) 37, (short) Ground2);
-        chaosObjects.Fill((short) 97, (short) 35, (short) 99, (short) 37, (short) Ground);
-        chaosObjects.PutBlockObj(Anims.BONUS, (short) ChaosBonus.BonusLevel, ChaosBonus.tbBonusLevel, (short) 98, (short) 36);
-        chaosObjects.PutExit((short) 97, (short) 35);
-        chaosObjects.PutPlayer((short) 1, (short) 16);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbInvinsibility, (short) 1, (short) 16);
+        px.set(116);
+        chaosObjects.Fill(px.get() - 2, py.get() - 2, px.get() + 2, py.get() + 2, Ice);
+        chaosObjects.Fill(119, py.get(), 119, 37, FalseBlock);
+        chaosObjects.Fill(100, 37, 118, 37, Ground2);
+        chaosObjects.Fill(97, 35, 99, 37, Ground);
+        chaosObjects.PutBlockObj(Anims.BONUS, ChaosBonus.BonusLevel, ChaosBonus.tbBonusLevel, 98, 36);
+        chaosObjects.PutExit(97, 35);
+        chaosObjects.PutPlayer(1, 16);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbInvinsibility, 1, 16);
         chaosObjects.PutExit(px.get(), py.get());
-        chaosObjects.FillRandom((short) 1, (short) 1, (short) 118, (short) 36, (short) Forest1, (short) Forest7, chaosObjects.OnlyWall_ref, chaosObjects.Rnd_ref);
-        chaosObjects.Rect((short) 1, (short) 1, (short) 118, (short) 31);
+        chaosObjects.FillRandom(1, 1, 118, 36, Forest1, Forest7, chaosObjects.OnlyWall_ref, chaosObjects.Rnd_ref);
+        chaosObjects.Rect(1, 1, 118, 31);
         for (c = 0; c <= trigo.RND() % 24 + 8; c++) {
             if (chaosObjects.FindIsolatedPlace(0, px, py)) {
-                val = (short) (Leaf1 + trigo.RND() % 5);
+                val = Leaf1 + trigo.RND() % 5;
                 if (val > Leaf4)
                     val = IceBlock;
                 chaosObjects.Put(px.get(), py.get(), val);
             }
         }
-        chaosObjects.Rect((short) 20, (short) 1, (short) 70, (short) 31);
-        chaosObjects.PutDeltaObjs(Anims.MACHINE, (short) ChaosMachine.mCannon2, 0, (short) 0, (short) -1, 10);
-        chaosObjects.PutDeltaObjs(Anims.MACHINE, (short) ChaosMachine.mCannon2, 1, (short) 0, (short) 1, 10);
-        chaosObjects.Rect((short) 50, (short) 1, (short) 100, (short) 31);
+        chaosObjects.Rect(20, 1, 70, 31);
+        chaosObjects.PutDeltaObjs(Anims.MACHINE, ChaosMachine.mCannon2, 0, 0, -1, 10);
+        chaosObjects.PutDeltaObjs(Anims.MACHINE, ChaosMachine.mCannon2, 1, 0, 1, 10);
+        chaosObjects.Rect(50, 1, 100, 31);
         chaosObjects.PutMachine(ChaosMachine.mCannon1, 0, 1, 4);
         chaosObjects.PutTurret(10);
         chaosObjects.PutCannon3(8);
-        chaosObjects.Rect((short) 80, (short) 1, (short) 118, (short) 31);
+        chaosObjects.Rect(80, 1, 118, 31);
         chaosObjects.PutDeadObj(ChaosDObj.doFireMaker, 0, 7);
         chaosObjects.PutDeadObj(ChaosDObj.doWindMaker, 0, 3);
         chaosObjects.PutDeadObj(ChaosDObj.doWindMaker, 1, 4);
-        chaosObjects.Rect((short) 1, (short) 1, (short) 118, (short) 37);
+        chaosObjects.Rect(1, 1, 118, 37);
         chaosObjects.PutDeadObj(ChaosDObj.doBubbleMaker, 0, 10);
         chaosObjects.PutAlien2(ChaosCreator.cNest, 0, 15);
         chaosObjects.PutRAlien1(ChaosAlien.aCartoon, 0, 2, 15);
@@ -521,53 +521,53 @@ public class ChaosLevels {
 
     private void Panic() {
         // VAR
-        short px = 0;
-        short py = 0;
-        short pl = 0;
-        short r = 0;
+        int px = 0;
+        int py = 0;
+        int pl = 0;
+        int r = 0;
 
-        chaosObjects.Clear((short) 41, (short) 41);
+        chaosObjects.Clear(41, 41);
         chaosBase.water = true;
         for (py = 0; py <= 40; py++) {
             for (px = 0; px <= 40; px++) {
-                pl = (short) trigo.SQRT((px - 20) * (px - 20) + (py - 20) * (py - 20));
-                r = (short) (trigo.RND() % 16 + 4);
+                pl = trigo.SQRT((px - 20) * (px - 20) + (py - 20) * (py - 20));
+                r = trigo.RND() % 16 + 4;
                 if (pl > r)
-                    chaosObjects.Put(px, py, (short) FPanic);
+                    chaosObjects.Put(px, py, FPanic);
                 else
-                    chaosObjects.Put(px, py, (short) 0);
+                    chaosObjects.Put(px, py, 0);
             }
         }
         if (chaosGraphics.dualpf)
-            chaosObjects.FillCond((short) 1, (short) 1, (short) 39, (short) 39, chaosObjects.OnlyBackground_ref, (short) BackNone);
+            chaosObjects.FillCond(1, 1, 39, 39, chaosObjects.OnlyBackground_ref, BackNone);
         else
-            chaosObjects.FillRandom((short) 1, (short) 1, (short) 39, (short) 39, (short) 0, (short) 7, chaosObjects.OnlyBackground_ref, chaosObjects.Rnd_ref);
-        chaosObjects.Fill((short) 20, (short) 1, (short) 20, (short) 39, (short) Ice);
-        chaosObjects.PutPlayer((short) 20, (short) 22);
-        chaosObjects.PutExit((short) 20, (short) 30);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHelp, (short) 20, (short) 26);
-        chaosObjects.PutBlockObj(Anims.BONUS, (short) ChaosBonus.BonusLevel, ChaosBonus.tbBonusLevel, (short) 20, (short) 39);
+            chaosObjects.FillRandom(1, 1, 39, 39, 0, 7, chaosObjects.OnlyBackground_ref, chaosObjects.Rnd_ref);
+        chaosObjects.Fill(20, 1, 20, 39, Ice);
+        chaosObjects.PutPlayer(20, 22);
+        chaosObjects.PutExit(20, 30);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHelp, 20, 26);
+        chaosObjects.PutBlockObj(Anims.BONUS, ChaosBonus.BonusLevel, ChaosBonus.tbBonusLevel, 20, 39);
         for (py = 33; py <= 38; py++) {
-            chaosObjects.PutBlockBonus(ChaosBonus.tbInvinsibility, (short) 20, py);
+            chaosObjects.PutBlockBonus(ChaosBonus.tbInvinsibility, 20, py);
         }
         for (py = 1; py <= 4; py++) {
-            chaosObjects.PutBlockBonus(ChaosBonus.tbSleeper, (short) 20, py);
+            chaosObjects.PutBlockBonus(ChaosBonus.tbSleeper, 20, py);
         }
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bSisterAlien, 0, (short) 20, (short) 8);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMotherAlien, 0, (short) 18, (short) 20);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMotherAlien, 0, (short) 22, (short) 20);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterEye, 0, (short) 19, (short) 18);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterEye, 1, (short) 21, (short) 18);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterMouth, 0, (short) 20, (short) 18);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterAlien1, 0, (short) 20, (short) 18);
-        chaosObjects.Rect((short) 1, (short) 1, (short) 39, (short) 39);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bSisterAlien, 0, 20, 8);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMotherAlien, 0, 18, 20);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMotherAlien, 0, 22, 20);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterEye, 0, 19, 18);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterEye, 1, 21, 18);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterMouth, 0, 20, 18);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterAlien1, 0, 20, 18);
+        chaosObjects.Rect(1, 1, 39, 39);
         chaosObjects.PutTBonus(ChaosBonus.tbBomb, 8);
-        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, (short) ChaosDObj.doBubbleMaker, 0, 1, 0, 15);
-        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, (short) ChaosDObj.doMirror, 0, 1, 0, 6);
+        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, ChaosDObj.doBubbleMaker, 0, 1, 0, 15);
+        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, ChaosDObj.doMirror, 0, 1, 0, 6);
         chaosObjects.PutMagnetR(3, 8);
         chaosObjects.PutMagnetA(1, 3);
-        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, (short) ChaosDObj.doWindMaker, 0, 1, 0, 6);
-        chaosObjects.PutChaosObjs(Anims.DEADOBJ, (short) ChaosDObj.doSand, 0, (short) (ChaosGraphics.BW * 10), (short) (ChaosGraphics.BH * 10), (short) (ChaosGraphics.BW * 30), (short) (ChaosGraphics.BH * 20), 20);
+        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, ChaosDObj.doWindMaker, 0, 1, 0, 6);
+        chaosObjects.PutChaosObjs(Anims.DEADOBJ, ChaosDObj.doSand, 0, ChaosGraphics.BW * 10, ChaosGraphics.BH * 10, ChaosGraphics.BW * 30, ChaosGraphics.BH * 20, 20);
         chaosObjects.PutRAlien1(ChaosAlien.aCartoon, 0, 2, 8);
         chaosObjects.PutHospital(16);
         chaosObjects.PutBullet(10);
@@ -575,7 +575,7 @@ public class ChaosLevels {
         chaosObjects.PutMoney(EnumSet.of(Moneys.m3), 1);
     }
 
-    private short CheckerBoard(short x, short y) {
+    private int CheckerBoard(int x, int y) {
         if ((((x + y) % 2) != 0))
             return val1;
         else
@@ -585,93 +585,93 @@ public class ChaosLevels {
     private final ChaosObjects.ChooseProc CheckerBoard_ref = this::CheckerBoard;
 
     private void Brother() {
-        chaosObjects.Cadre((short) 21, (short) 21);
+        chaosObjects.Cadre(21, 21);
         val1 = FSmall1;
         val2 = FSmall2;
-        chaosObjects.FillChoose((short) 0, (short) 0, (short) 20, (short) 20, chaosObjects.All_ref, CheckerBoard_ref);
-        chaosObjects.Fill((short) 7, (short) 1, (short) 13, (short) 19, (short) 11);
-        chaosObjects.Fill((short) 1, (short) 7, (short) 19, (short) 13, (short) 11);
-        chaosObjects.PutPlayer((short) 7, (short) 19);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHelp, (short) 7, (short) 1);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bBrotherAlien, 0, (short) 11, (short) 1);
+        chaosObjects.FillChoose(0, 0, 20, 20, chaosObjects.All_ref, CheckerBoard_ref);
+        chaosObjects.Fill(7, 1, 13, 19, 11);
+        chaosObjects.Fill(1, 7, 19, 13, 11);
+        chaosObjects.PutPlayer(7, 19);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHelp, 7, 1);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bBrotherAlien, 0, 11, 1);
     }
 
     private void Sister() {
-        chaosObjects.Cadre((short) 16, (short) 24);
+        chaosObjects.Cadre(16, 24);
         chaosBase.water = true;
         val1 = FSmall1;
         val2 = FSmall2;
-        chaosObjects.FillChoose((short) 0, (short) 0, (short) 15, (short) 23, chaosObjects.All_ref, CheckerBoard_ref);
-        chaosObjects.Fill((short) 1, (short) 1, (short) 14, (short) 22, (short) Light);
+        chaosObjects.FillChoose(0, 0, 15, 23, chaosObjects.All_ref, CheckerBoard_ref);
+        chaosObjects.Fill(1, 1, 14, 22, Light);
         val1 = FBig1;
         val2 = FBig2;
-        chaosObjects.FillChoose((short) 7, (short) 10, (short) 8, (short) 13, chaosObjects.All_ref, CheckerBoard_ref);
-        chaosObjects.PutObj(Anims.DEADOBJ, (short) ChaosDObj.doBubbleMaker, 0, (short) (ChaosGraphics.BW * 8), (short) (ChaosGraphics.BH * 9));
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bSisterAlien, 0, (short) 9, (short) 14);
-        chaosObjects.PutPlayer((short) 6, (short) 22);
+        chaosObjects.FillChoose(7, 10, 8, 13, chaosObjects.All_ref, CheckerBoard_ref);
+        chaosObjects.PutObj(Anims.DEADOBJ, ChaosDObj.doBubbleMaker, 0, ChaosGraphics.BW * 8, ChaosGraphics.BH * 9);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bSisterAlien, 0, 9, 14);
+        chaosObjects.PutPlayer(6, 22);
     }
 
     private void Mother() {
         // VAR
-        short x = 0;
-        short y = 0;
-        short zx = 0;
-        short zy = 0;
+        int x = 0;
+        int y = 0;
+        int zx = 0;
+        int zy = 0;
 
-        chaosObjects.Clear((short) 11, (short) 11);
+        chaosObjects.Clear(11, 11);
         if (chaosGraphics.dualpf) {
             for (x = 0; x <= 10; x++) {
                 for (y = 0; y <= 10; y++) {
-                    zx = (short) ((x - 7) + chaosObjects.Rnd((short) 5));
-                    zy = (short) ((y - 7) + chaosObjects.Rnd((short) 5));
+                    zx = (x - 7) + chaosObjects.Rnd(5);
+                    zy = (y - 7) + chaosObjects.Rnd(5);
                     if ((Math.abs(zx) <= 1) || (Math.abs(zy) <= 1))
-                        chaosObjects.Put(x, y, (short) Round4);
+                        chaosObjects.Put(x, y, Round4);
                     else
-                        chaosObjects.Put(x, y, (short) BackNone);
+                        chaosObjects.Put(x, y, BackNone);
                 }
             }
         } else {
-            chaosObjects.FillRandom((short) 0, (short) 0, (short) 10, (short) 10, (short) 0, (short) 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
+            chaosObjects.FillRandom(0, 0, 10, 10, 0, 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
         }
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMotherAlien, 0, (short) 5, (short) 3);
-        chaosObjects.PutPlayer((short) 5, (short) 7);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMotherAlien, 0, 5, 3);
+        chaosObjects.PutPlayer(5, 7);
     }
 
     private void Father() {
         // VAR
-        short x = 0;
+        int x = 0;
 
-        chaosObjects.Clear((short) 11, (short) 13);
+        chaosObjects.Clear(11, 13);
         val1 = FRound;
         val2 = FStar;
-        chaosObjects.FillChoose((short) 0, (short) 0, (short) 10, (short) 12, chaosObjects.All_ref, CheckerBoard_ref);
-        chaosObjects.Fill((short) 1, (short) 3, (short) 9, (short) 11, (short) Back2x2);
-        chaosObjects.Fill((short) 4, (short) 1, (short) 6, (short) 2, (short) BackSmall);
-        chaosObjects.Put((short) 5, (short) 0, (short) BackSmall);
-        chaosObjects.PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doMirror, 0, (short) 4, (short) 1);
-        chaosObjects.PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doMirror, 0, (short) 5, (short) 0);
-        chaosObjects.PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doMirror, 0, (short) 6, (short) 1);
+        chaosObjects.FillChoose(0, 0, 10, 12, chaosObjects.All_ref, CheckerBoard_ref);
+        chaosObjects.Fill(1, 3, 9, 11, Back2x2);
+        chaosObjects.Fill(4, 1, 6, 2, BackSmall);
+        chaosObjects.Put(5, 0, BackSmall);
+        chaosObjects.PutBlockObj(Anims.DEADOBJ, ChaosDObj.doMirror, 0, 4, 1);
+        chaosObjects.PutBlockObj(Anims.DEADOBJ, ChaosDObj.doMirror, 0, 5, 0);
+        chaosObjects.PutBlockObj(Anims.DEADOBJ, ChaosDObj.doMirror, 0, 6, 1);
         for (x = 4; x <= 6; x++) {
-            chaosObjects.PutBlockObj(Anims.MACHINE, (short) ChaosMachine.mDoor, 0, x, (short) 2);
-            chaosObjects.PutBlockObj(Anims.ALIEN2, (short) ChaosCreator.cNest, 0, (short) 5, (short) 1);
+            chaosObjects.PutBlockObj(Anims.MACHINE, ChaosMachine.mDoor, 0, x, 2);
+            chaosObjects.PutBlockObj(Anims.ALIEN2, ChaosCreator.cNest, 0, 5, 1);
         }
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bFatherHeart, 0, (short) 5, (short) 5);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bFatherAlien, 0, (short) 5, (short) 5);
-        chaosObjects.PutPlayer((short) 5, (short) 9);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHelp, (short) 9, (short) 3);
-        chaosObjects.PutExit((short) 1, (short) 3);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bFatherHeart, 0, 5, 5);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bFatherAlien, 0, 5, 5);
+        chaosObjects.PutPlayer(5, 9);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHelp, 9, 3);
+        chaosObjects.PutExit(1, 3);
     }
 
     private void Master() {
         // VAR
-        short z = 0;
-        short d = 0;
-        short val = 0;
+        int z = 0;
+        int d = 0;
+        int val = 0;
 
-        chaosObjects.Clear((short) 11, (short) 11);
+        chaosObjects.Clear(11, 11);
         if (chaosGraphics.dualpf) {
             for (z = 5; z >= 0; z -= 1) {
-                d = (short) (z * 2 + 1);
+                d = z * 2 + 1;
                 if (((z % 2) != 0))
                     val = BackBig;
                 else
@@ -679,63 +679,63 @@ public class ChaosLevels {
                 chaosGenerator.FillEllipse(5 - z, 5 - z, d, d, val);
             }
         } else {
-            chaosObjects.FillRandom((short) 0, (short) 0, (short) 10, (short) 10, (short) 0, (short) 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
+            chaosObjects.FillRandom(0, 0, 10, 10, 0, 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
         }
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterEye, 0, (short) 4, (short) 3);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterEye, 1, (short) 6, (short) 3);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterMouth, 0, (short) 5, (short) 4);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterAlien1, 0, (short) 5, (short) 3);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbInvinsibility, (short) 0, (short) 0);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbInvinsibility, (short) 10, (short) 0);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, (short) 0, (short) 10);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, (short) 10, (short) 10);
-        chaosObjects.PutPlayer((short) 5, (short) 7);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterEye, 0, 4, 3);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterEye, 1, 6, 3);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterMouth, 0, 5, 4);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterAlien1, 0, 5, 3);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbInvinsibility, 0, 0);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbInvinsibility, 10, 0);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, 0, 10);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, 10, 10);
+        chaosObjects.PutPlayer(5, 7);
     }
 
     private void Illusion() {
-        chaosObjects.Cadre((short) 36, (short) 18);
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 35, (short) 17, chaosObjects.OnlyBackground_ref, (short) BackBig);
-        chaosObjects.FillCond((short) 0, (short) 0, (short) 35, (short) 17, chaosObjects.OnlyWall_ref, (short) F9x9);
+        chaosObjects.Cadre(36, 18);
+        chaosObjects.FillCond(0, 0, 35, 17, chaosObjects.OnlyBackground_ref, BackBig);
+        chaosObjects.FillCond(0, 0, 35, 17, chaosObjects.OnlyWall_ref, F9x9);
         val1 = FSmall1;
         val2 = FBig2;
-        chaosObjects.FillChoose((short) 9, (short) 5, (short) 12, (short) 11, chaosObjects.All_ref, CheckerBoard_ref);
+        chaosObjects.FillChoose(9, 5, 12, 11, chaosObjects.All_ref, CheckerBoard_ref);
         val1 = FSmall2;
         val2 = FBig1;
-        chaosObjects.FillChoose((short) 23, (short) 5, (short) 26, (short) 11, chaosObjects.All_ref, CheckerBoard_ref);
-        chaosObjects.PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doMirror, 1, (short) 15, (short) 7);
-        chaosObjects.PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doMirror, 1, (short) 20, (short) 7);
-        chaosObjects.PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doMirror, 0, (short) 17, (short) 10);
-        chaosObjects.PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doMirror, 0, (short) 18, (short) 10);
-        chaosObjects.PutBlockObj(Anims.MACHINE, (short) ChaosMachine.mReactor, 0, (short) 2, (short) 16);
-        chaosObjects.PutBlockObj(Anims.MACHINE, (short) ChaosMachine.mReactor, 0, (short) 33, (short) 16);
-        chaosObjects.PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doMagnetA, 3, (short) 3, (short) 13);
-        chaosObjects.PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doMagnetA, 3, (short) 32, (short) 13);
-        chaosObjects.Rect((short) 10, (short) 1, (short) 25, (short) 16);
-        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, (short) ChaosDObj.doWindMaker, 0, 1, 0, 2);
-        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, (short) ChaosDObj.doBubbleMaker, 0, 1, 0, 2);
-        chaosObjects.Rect((short) 1, (short) 1, (short) 34, (short) 3);
-        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, (short) ChaosDObj.doFireMaker, 0, 1, 0, 2);
-        chaosObjects.Rect((short) 5, (short) 1, (short) 30, (short) 16);
+        chaosObjects.FillChoose(23, 5, 26, 11, chaosObjects.All_ref, CheckerBoard_ref);
+        chaosObjects.PutBlockObj(Anims.DEADOBJ, ChaosDObj.doMirror, 1, 15, 7);
+        chaosObjects.PutBlockObj(Anims.DEADOBJ, ChaosDObj.doMirror, 1, 20, 7);
+        chaosObjects.PutBlockObj(Anims.DEADOBJ, ChaosDObj.doMirror, 0, 17, 10);
+        chaosObjects.PutBlockObj(Anims.DEADOBJ, ChaosDObj.doMirror, 0, 18, 10);
+        chaosObjects.PutBlockObj(Anims.MACHINE, ChaosMachine.mReactor, 0, 2, 16);
+        chaosObjects.PutBlockObj(Anims.MACHINE, ChaosMachine.mReactor, 0, 33, 16);
+        chaosObjects.PutBlockObj(Anims.DEADOBJ, ChaosDObj.doMagnetA, 3, 3, 13);
+        chaosObjects.PutBlockObj(Anims.DEADOBJ, ChaosDObj.doMagnetA, 3, 32, 13);
+        chaosObjects.Rect(10, 1, 25, 16);
+        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, ChaosDObj.doWindMaker, 0, 1, 0, 2);
+        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, ChaosDObj.doBubbleMaker, 0, 1, 0, 2);
+        chaosObjects.Rect(1, 1, 34, 3);
+        chaosObjects.PutIsolatedObjs(Anims.DEADOBJ, ChaosDObj.doFireMaker, 0, 1, 0, 2);
+        chaosObjects.Rect(5, 1, 30, 16);
         chaosObjects.PutMagnetR(3, 6);
         chaosObjects.PutMagnetA(1, 6);
-        chaosObjects.PutPlayer((short) 1, (short) 1);
+        chaosObjects.PutPlayer(1, 1);
         if (chaosBase.difficulty >= 4)
-            chaosObjects.PutObj(Anims.ALIEN2, (short) ChaosCreator.cController, 0, (short) 0, (short) 0);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterAlien2, 10, (short) 34, (short) 1);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterPart0, 0, (short) 34, (short) 1);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterPart0, 1, (short) 34, (short) 1);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterPart1, 2, (short) 34, (short) 1);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterPart1, 3, (short) 34, (short) 1);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterPart2, 4, (short) 34, (short) 1);
+            chaosObjects.PutObj(Anims.ALIEN2, ChaosCreator.cController, 0, 0, 0);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterAlien2, 10, 34, 1);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterPart0, 0, 34, 1);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterPart0, 1, 34, 1);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterPart1, 2, 34, 1);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterPart1, 3, 34, 1);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterPart2, 4, 34, 1);
     }
 
     private void Kids() {
-        chaosObjects.Cadre((short) 24, (short) 24);
+        chaosObjects.Cadre(24, 24);
         chaosBase.snow = true;
-        chaosObjects.Fill((short) 6, (short) 6, (short) 17, (short) 17, (short) ChaosGraphics.NbBackground);
-        chaosObjects.Fill((short) 9, (short) 9, (short) 14, (short) 14, (short) 0);
-        chaosObjects.Fill((short) 11, (short) 6, (short) 12, (short) 17, (short) 0);
-        chaosObjects.Fill((short) 6, (short) 11, (short) 17, (short) 12, (short) 0);
+        chaosObjects.Fill(6, 6, 17, 17, ChaosGraphics.NbBackground);
+        chaosObjects.Fill(9, 9, 14, 14, 0);
+        chaosObjects.Fill(11, 6, 12, 17, 0);
+        chaosObjects.Fill(6, 11, 17, 12, 0);
         if (trigo.RND() % 2 == 0) {
             val1 = FSmall1;
             val2 = FBig2;
@@ -743,117 +743,117 @@ public class ChaosLevels {
             val1 = FSmall2;
             val2 = FBig1;
         }
-        chaosObjects.FillChoose((short) 0, (short) 0, (short) 23, (short) 23, chaosObjects.OnlyWall_ref, CheckerBoard_ref);
-        chaosObjects.FillCond((short) 1, (short) 1, (short) 22, (short) 22, chaosObjects.OnlyBackground_ref, (short) Ice);
-        chaosObjects.PutChaosObjs(Anims.DEADOBJ, (short) ChaosDObj.doSand, 0, (short) 0, (short) 0, (short) 735, (short) 735, 10);
-        chaosObjects.PutPlayer((short) 1, (short) 22);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bBrotherAlien, 0, (short) 21, (short) 22);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bSisterAlien, 0, (short) 1, (short) 1);
+        chaosObjects.FillChoose(0, 0, 23, 23, chaosObjects.OnlyWall_ref, CheckerBoard_ref);
+        chaosObjects.FillCond(1, 1, 22, 22, chaosObjects.OnlyBackground_ref, Ice);
+        chaosObjects.PutChaosObjs(Anims.DEADOBJ, ChaosDObj.doSand, 0, 0, 0, 735, 735, 10);
+        chaosObjects.PutPlayer(1, 22);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bBrotherAlien, 0, 21, 22);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bSisterAlien, 0, 1, 1);
     }
 
     private void Parents() {
-        chaosObjects.Cadre((short) 17, (short) 17);
-        chaosObjects.Fill((short) 0, (short) 0, (short) 16, (short) 16, (short) FRound);
-        chaosObjects.Fill((short) 1, (short) 1, (short) 15, (short) 15, (short) Ice);
-        chaosObjects.Fill((short) 2, (short) 2, (short) 14, (short) 14, (short) FStar);
-        chaosObjects.Fill((short) 3, (short) 2, (short) 13, (short) 13, (short) Ice);
-        chaosObjects.Fill((short) 8, (short) 0, (short) 8, (short) 16, (short) Ice);
-        chaosObjects.Fill((short) 0, (short) 8, (short) 16, (short) 8, (short) Ice);
-        chaosObjects.Fill((short) 0, (short) 0, (short) 4, (short) 4, (short) Ice);
-        chaosObjects.Fill((short) 0, (short) 12, (short) 4, (short) 16, (short) Ice);
-        chaosObjects.Fill((short) 12, (short) 0, (short) 16, (short) 4, (short) Ice);
-        chaosObjects.Fill((short) 12, (short) 12, (short) 16, (short) 16, (short) Ice);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, (short) 2, (short) 2);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, (short) 15, (short) 2);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, (short) 2, (short) 15);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, (short) 15, (short) 15);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 0, (short) 8);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 16, (short) 8);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 8, (short) 0);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 8, (short) 16);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bFatherHeart, 0, (short) 7, (short) 12);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bFatherAlien, 0, (short) 7, (short) 12);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMotherAlien, 0, (short) 11, (short) 12);
-        chaosObjects.PutPlayer((short) 8, (short) 5);
+        chaosObjects.Cadre(17, 17);
+        chaosObjects.Fill(0, 0, 16, 16, FRound);
+        chaosObjects.Fill(1, 1, 15, 15, Ice);
+        chaosObjects.Fill(2, 2, 14, 14, FStar);
+        chaosObjects.Fill(3, 2, 13, 13, Ice);
+        chaosObjects.Fill(8, 0, 8, 16, Ice);
+        chaosObjects.Fill(0, 8, 16, 8, Ice);
+        chaosObjects.Fill(0, 0, 4, 4, Ice);
+        chaosObjects.Fill(0, 12, 4, 16, Ice);
+        chaosObjects.Fill(12, 0, 16, 4, Ice);
+        chaosObjects.Fill(12, 12, 16, 16, Ice);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, 2, 2);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, 15, 2);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, 2, 15);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbMagnet, 15, 15);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, 0, 8);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, 16, 8);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, 8, 0);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, 8, 16);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bFatherHeart, 0, 7, 12);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bFatherAlien, 0, 7, 12);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMotherAlien, 0, 11, 12);
+        chaosObjects.PutPlayer(8, 5);
     }
 
     private void Masters() {
-        chaosObjects.Cadre((short) 17, (short) 17);
+        chaosObjects.Cadre(17, 17);
         if (chaosGraphics.dualpf)
             val1 = BackNone;
         else
             val1 = Back8x8;
-        chaosObjects.Fill((short) 1, (short) 1, (short) 15, (short) 15, (short) Back4x4);
+        chaosObjects.Fill(1, 1, 15, 15, Back4x4);
         chaosGenerator.FillEllipse(0, 0, 17, 17, val1);
-        chaosGenerator.FillEllipse(2, 2, 13, 13, (short) ChaosGraphics.NbBackground);
+        chaosGenerator.FillEllipse(2, 2, 13, 13, ChaosGraphics.NbBackground);
         chaosGenerator.FillEllipse(4, 4, 9, 9, val1);
-        chaosObjects.Fill((short) 7, (short) 2, (short) 9, (short) 14, (short) BackSmall);
-        chaosObjects.Fill((short) 2, (short) 7, (short) 14, (short) 9, (short) BackSmall);
+        chaosObjects.Fill(7, 2, 9, 14, BackSmall);
+        chaosObjects.Fill(2, 7, 14, 9, BackSmall);
         val1 = FBig1;
         val2 = FBig2;
-        chaosObjects.FillChoose((short) 0, (short) 0, (short) 16, (short) 16, chaosObjects.OnlyWall_ref, CheckerBoard_ref);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 6, (short) 6);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 10, (short) 6);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 6, (short) 10);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 10, (short) 10);
-        chaosObjects.PutBlockObj(Anims.MACHINE, (short) ChaosMachine.mDoor, 0, (short) 8, (short) 5);
-        chaosObjects.PutFineObj(Anims.DEADOBJ, (short) ChaosDObj.doMirror, 1, (short) 1, (short) 8, (short) 0, (short) 1);
-        chaosObjects.PutFineObj(Anims.DEADOBJ, (short) ChaosDObj.doMirror, 1, (short) 15, (short) 8, (short) 1, (short) 1);
-        chaosObjects.PutBlockObj(Anims.MACHINE, (short) ChaosMachine.mReactor, 0, (short) 1, (short) 15);
-        chaosObjects.PutBlockObj(Anims.MACHINE, (short) ChaosMachine.mReactor, 0, (short) 15, (short) 15);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbInvinsibility, (short) 1, (short) 1);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbInvinsibility, (short) 15, (short) 1);
-        chaosObjects.PutPlayer((short) 5, (short) 9);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterEye, 0, (short) 9, (short) 5);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterEye, 1, (short) 9, (short) 5);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterMouth, 0, (short) 9, (short) 5);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterAlien1, 0, (short) 9, (short) 5);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterAlien2, 10, (short) 8, (short) 8);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterPart0, 0, (short) 8, (short) 8);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterPart0, 1, (short) 8, (short) 8);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterPart1, 2, (short) 8, (short) 8);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterPart1, 3, (short) 8, (short) 8);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMasterPart2, 4, (short) 8, (short) 8);
+        chaosObjects.FillChoose(0, 0, 16, 16, chaosObjects.OnlyWall_ref, CheckerBoard_ref);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, 6, 6);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, 10, 6);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, 6, 10);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, 10, 10);
+        chaosObjects.PutBlockObj(Anims.MACHINE, ChaosMachine.mDoor, 0, 8, 5);
+        chaosObjects.PutFineObj(Anims.DEADOBJ, ChaosDObj.doMirror, 1, 1, 8, 0, 1);
+        chaosObjects.PutFineObj(Anims.DEADOBJ, ChaosDObj.doMirror, 1, 15, 8, 1, 1);
+        chaosObjects.PutBlockObj(Anims.MACHINE, ChaosMachine.mReactor, 0, 1, 15);
+        chaosObjects.PutBlockObj(Anims.MACHINE, ChaosMachine.mReactor, 0, 15, 15);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbInvinsibility, 1, 1);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbInvinsibility, 15, 1);
+        chaosObjects.PutPlayer(5, 9);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterEye, 0, 9, 5);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterEye, 1, 9, 5);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterMouth, 0, 9, 5);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterAlien1, 0, 9, 5);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterAlien2, 10, 8, 8);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterPart0, 0, 8, 8);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterPart0, 1, 8, 8);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterPart1, 2, 8, 8);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterPart1, 3, 8, 8);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMasterPart2, 4, 8, 8);
     }
 
     private void Final() {
-        chaosObjects.Cadre((short) 19, (short) 99);
-        chaosObjects.Fill((short) 0, (short) 0, (short) 18, (short) 40, (short) F9x9);
-        chaosObjects.Fill((short) 3, (short) 28, (short) 16, (short) 31, (short) Leaf3);
-        chaosObjects.Fill((short) 10, (short) 32, (short) 17, (short) 34, (short) BackNone);
-        chaosObjects.Fill((short) 0, (short) 58, (short) 18, (short) 98, (short) F9x9);
-        chaosObjects.Fill((short) 1, (short) 1, (short) 17, (short) 19, (short) 0);
-        chaosObjects.Fill((short) 1, (short) 1, (short) 3, (short) 3, (short) 6);
-        chaosObjects.Fill((short) 17, (short) 20, (short) 17, (short) 39, (short) FF9x9);
-        chaosObjects.Fill((short) 2, (short) 20, (short) 2, (short) 33, (short) FF9x9);
-        chaosObjects.Fill((short) 3, (short) 25, (short) 9, (short) 25, (short) FF9x9);
-        chaosObjects.Fill((short) 2, (short) 33, (short) 2, (short) 33, (short) Ground2);
-        chaosObjects.FillCond((short) 0, (short) 40, (short) 18, (short) 58, chaosObjects.OnlyWall_ref, (short) F9x9);
-        chaosObjects.FillCond((short) 0, (short) 40, (short) 18, (short) 58, chaosObjects.OnlyBackground_ref, (short) Round4);
-        chaosObjects.Fill((short) 4, (short) 44, (short) 6, (short) 46, (short) FBig1);
-        chaosObjects.Fill((short) 5, (short) 45, (short) 5, (short) 45, (short) FPanic);
-        chaosObjects.Fill((short) 12, (short) 44, (short) 14, (short) 46, (short) FBig2);
-        chaosObjects.Fill((short) 13, (short) 45, (short) 13, (short) 45, (short) FPanic);
-        chaosObjects.Fill((short) 4, (short) 52, (short) 6, (short) 54, (short) FBig2);
-        chaosObjects.Fill((short) 5, (short) 53, (short) 5, (short) 53, (short) FPanic);
-        chaosObjects.Fill((short) 12, (short) 52, (short) 14, (short) 54, (short) FBig1);
-        chaosObjects.Fill((short) 13, (short) 53, (short) 13, (short) 53, (short) FPanic);
-        chaosObjects.FillObj(Anims.SMARTBONUS, (short) ChaosSmartBonus.sbExtraLife, 0, (short) 1, (short) 41, (short) 1, (short) 41, true);
-        chaosObjects.FillObj(Anims.BONUS, (short) ChaosBonus.TimedBonus, ChaosBonus.tbMagnet, (short) 1, (short) 57, (short) 1, (short) 57, true);
-        chaosObjects.FillObj(Anims.BONUS, (short) ChaosBonus.TimedBonus, ChaosBonus.tbInvinsibility, (short) 17, (short) 41, (short) 17, (short) 41, true);
-        chaosObjects.FillObj(Anims.BONUS, (short) ChaosBonus.TimedBonus, ChaosBonus.tbSleeper, (short) 17, (short) 57, (short) 17, (short) 57, true);
-        chaosObjects.FillObj(Anims.BONUS, (short) ChaosBonus.BonusLevel, ChaosBonus.tbBonusLevel, (short) 9, (short) 25, (short) 9, (short) 25, true);
-        chaosObjects.PutBlockObj(Anims.BONUS, (short) ChaosBonus.BonusLevel, ChaosBonus.tbBonusLevel, (short) 2, (short) 33);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHelp, (short) 17, (short) 35);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 1, (short) 49);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 17, (short) 49);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 9, (short) 41);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, (short) 9, (short) 57);
-        chaosObjects.PutBlockObj(Anims.MACHINE, (short) ChaosMachine.mReactor, 0, (short) 9, (short) 57);
-        chaosObjects.PutBlockBonus(ChaosBonus.tbDifficulty, (short) 2, (short) 2);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bBrotherAlien, 0, (short) 10, (short) 50);
-        chaosObjects.PutBlockObj(Anims.ALIEN3, (short) ChaosBoss.bMotherAlien, 0, (short) 10, (short) 50);
-        chaosObjects.PutPlayer((short) 16, (short) 56);
+        chaosObjects.Cadre(19, 99);
+        chaosObjects.Fill(0, 0, 18, 40, F9x9);
+        chaosObjects.Fill(3, 28, 16, 31, Leaf3);
+        chaosObjects.Fill(10, 32, 17, 34, BackNone);
+        chaosObjects.Fill(0, 58, 18, 98, F9x9);
+        chaosObjects.Fill(1, 1, 17, 19, 0);
+        chaosObjects.Fill(1, 1, 3, 3, 6);
+        chaosObjects.Fill(17, 20, 17, 39, FF9x9);
+        chaosObjects.Fill(2, 20, 2, 33, FF9x9);
+        chaosObjects.Fill(3, 25, 9, 25, FF9x9);
+        chaosObjects.Fill(2, 33, 2, 33, Ground2);
+        chaosObjects.FillCond(0, 40, 18, 58, chaosObjects.OnlyWall_ref, F9x9);
+        chaosObjects.FillCond(0, 40, 18, 58, chaosObjects.OnlyBackground_ref, Round4);
+        chaosObjects.Fill(4, 44, 6, 46, FBig1);
+        chaosObjects.Fill(5, 45, 5, 45, FPanic);
+        chaosObjects.Fill(12, 44, 14, 46, FBig2);
+        chaosObjects.Fill(13, 45, 13, 45, FPanic);
+        chaosObjects.Fill(4, 52, 6, 54, FBig2);
+        chaosObjects.Fill(5, 53, 5, 53, FPanic);
+        chaosObjects.Fill(12, 52, 14, 54, FBig1);
+        chaosObjects.Fill(13, 53, 13, 53, FPanic);
+        chaosObjects.FillObj(Anims.SMARTBONUS, ChaosSmartBonus.sbExtraLife, 0, 1, 41, 1, 41, true);
+        chaosObjects.FillObj(Anims.BONUS, ChaosBonus.TimedBonus, ChaosBonus.tbMagnet, 1, 57, 1, 57, true);
+        chaosObjects.FillObj(Anims.BONUS, ChaosBonus.TimedBonus, ChaosBonus.tbInvinsibility, 17, 41, 17, 41, true);
+        chaosObjects.FillObj(Anims.BONUS, ChaosBonus.TimedBonus, ChaosBonus.tbSleeper, 17, 57, 17, 57, true);
+        chaosObjects.FillObj(Anims.BONUS, ChaosBonus.BonusLevel, ChaosBonus.tbBonusLevel, 9, 25, 9, 25, true);
+        chaosObjects.PutBlockObj(Anims.BONUS, ChaosBonus.BonusLevel, ChaosBonus.tbBonusLevel, 2, 33);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHelp, 17, 35);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, 1, 49);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, 17, 49);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, 9, 41);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbHospital, 9, 57);
+        chaosObjects.PutBlockObj(Anims.MACHINE, ChaosMachine.mReactor, 0, 9, 57);
+        chaosObjects.PutBlockBonus(ChaosBonus.tbDifficulty, 2, 2);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bBrotherAlien, 0, 10, 50);
+        chaosObjects.PutBlockObj(Anims.ALIEN3, ChaosBoss.bMotherAlien, 0, 10, 50);
+        chaosObjects.PutPlayer(16, 56);
     }
 
     private void MakeChaos() {
@@ -866,24 +866,24 @@ public class ChaosLevels {
         int total = 0;
         int cStep = 0;
         int cCurrent = 0;
-        short cnt = 0;
-        short cntAlienS = 0;
-        short cntAlienV = 0;
-        short cntAlienA = 0;
-        short cLevel = 0;
-        short dv = 0;
-        short fib1 = 0;
-        short fib2 = 0;
+        int cnt = 0;
+        int cntAlienS = 0;
+        int cntAlienV = 0;
+        int cntAlienA = 0;
+        int cLevel = 0;
+        int dv = 0;
+        int fib1 = 0;
+        int fib2 = 0;
 
-        chaosObjects.Clear((short) ChaosGraphics.SOW, (short) ChaosGraphics.SOH);
+        chaosObjects.Clear(ChaosGraphics.SOW, ChaosGraphics.SOH);
         chaosBase.water = (chaosBase.difficulty >= 6) && (chaosBase.level[Zone.Chaos.ordinal()] == 13);
         chaosGraphics.gameWidth = ChaosGraphics.PW;
         chaosGraphics.gameHeight = ChaosGraphics.PH;
-        chaosObjects.FillRandom((short) 0, (short) 0, (short) (ChaosGraphics.SOW - 1), (short) (ChaosGraphics.SOH - 1), (short) 0, (short) 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
+        chaosObjects.FillRandom(0, 0, ChaosGraphics.SOW - 1, ChaosGraphics.SOH - 1, 0, 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
         cLevel = chaosBase.level[Zone.Chaos.ordinal()];
         total = 0;
         cnt = -1;
-        dv = (short) trigo.SQRT(cLevel);
+        dv = trigo.SQRT(cLevel);
         while (dv * dv > cLevel) {
             dv--;
         }
@@ -894,7 +894,7 @@ public class ChaosLevels {
         }
         if (cnt > 0) {
             total += cnt;
-            chaosObjects.PutChaosObjs(Anims.ALIEN1, (short) ChaosAlien.aSmallDrawer, 0, (short) 10, (short) 10, (short) (ChaosGraphics.PW - 10), (short) MaxY, cnt);
+            chaosObjects.PutChaosObjs(Anims.ALIEN1, ChaosAlien.aSmallDrawer, 0, 10, 10, ChaosGraphics.PW - 10, MaxY, cnt);
         }
         fib1 = 3;
         fib2 = 5;
@@ -908,7 +908,7 @@ public class ChaosLevels {
         }
         if ((fib2 == cLevel) || (cLevel == 100)) {
             total += cnt;
-            chaosObjects.PutChaosObjs(Anims.ALIEN1, (short) ChaosAlien.aBigDrawer, 0, (short) 20, (short) 20, (short) (ChaosGraphics.PW - 20), (short) MaxY, cnt);
+            chaosObjects.PutChaosObjs(Anims.ALIEN1, ChaosAlien.aBigDrawer, 0, 20, 20, ChaosGraphics.PW - 20, MaxY, cnt);
         }
         cnt = 0;
         cStep = 6;
@@ -929,7 +929,7 @@ public class ChaosLevels {
         c.set(cnt * 80);
         if (cLevel % 33 == 0)
             c.inc(160);
-        chaosObjects.PutChaosChain(Anims.ALIEN2, (short) ChaosCreator.cCreatorR, c, 80, (short) 20, (short) 20, (short) (ChaosGraphics.PW - 20), (short) MaxY, cnt);
+        chaosObjects.PutChaosChain(Anims.ALIEN2, ChaosCreator.cCreatorR, c, 80, 20, 20, ChaosGraphics.PW - 20, MaxY, cnt);
         total += cnt;
         cntAlienV = 0;
         cntAlienA = 0;
@@ -942,12 +942,12 @@ public class ChaosLevels {
             total += cntAlienS;
             stl.set((cntAlienS + chaosBase.difficulty - 1) * 8);
             while ((cLevel % 2 == 0) && (cntAlienS > 0)) {
-                cLevel = (short) (cLevel / 2);
+                cLevel = cLevel / 2;
                 cntAlienS--;
                 cntAlienV++;
             }
             while ((cLevel % 3 == 0) && (cntAlienS > 0)) {
-                cLevel = (short) (cLevel / 3);
+                cLevel = cLevel / 3;
                 cntAlienS--;
                 cntAlienA++;
             }
@@ -955,53 +955,53 @@ public class ChaosLevels {
                 cntAlienA++;
                 cntAlienS--;
             }
-            chaosObjects.PutChaosChain(Anims.ALIEN2, (short) ChaosCreator.cAlienA, stl, 8, (short) 10, (short) 10, (short) (ChaosGraphics.PW - 10), (short) MaxY, cntAlienA);
-            chaosObjects.PutChaosChain(Anims.ALIEN2, (short) ChaosCreator.cAlienV, stl, 8, (short) 10, (short) 10, (short) (ChaosGraphics.PW - 10), (short) MaxY, cntAlienV);
-            chaosObjects.PutChaosChain(Anims.ALIEN1, (short) ChaosAlien.aDbOval, stl, 8, (short) 10, (short) 10, (short) (ChaosGraphics.PW - 10), (short) MaxY, cntAlienS);
+            chaosObjects.PutChaosChain(Anims.ALIEN2, ChaosCreator.cAlienA, stl, 8, 10, 10, ChaosGraphics.PW - 10, MaxY, cntAlienA);
+            chaosObjects.PutChaosChain(Anims.ALIEN2, ChaosCreator.cAlienV, stl, 8, 10, 10, ChaosGraphics.PW - 10, MaxY, cntAlienV);
+            chaosObjects.PutChaosChain(Anims.ALIEN1, ChaosAlien.aDbOval, stl, 8, 10, 10, ChaosGraphics.PW - 10, MaxY, cntAlienS);
         } else if (chaosBase.difficulty >= 3) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Mind the meteorites"), String.class), (short) ChaosActions.statPos, (short) 3);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Mind the meteorites"), String.class), ChaosActions.statPos, 3);
         }
         if (chaosBase.level[Zone.Chaos.ordinal()] % 20 == 0) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Big trouble"), String.class), (short) ChaosActions.statPos, (short) 3);
-            chaosObjects.PutChaosObjs(Anims.ALIEN2, (short) ChaosCreator.cCircle, 200, (short) 20, (short) 20, (short) (ChaosGraphics.PW - 20), (short) MaxY, 1);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Big trouble"), String.class), ChaosActions.statPos, 3);
+            chaosObjects.PutChaosObjs(Anims.ALIEN2, ChaosCreator.cCircle, 200, 20, 20, ChaosGraphics.PW - 20, MaxY, 1);
             total++;
         }
         if (chaosBase.level[Zone.Chaos.ordinal()] == 100)
-            chaosObjects.PutChaosObjs(Anims.BONUS, (short) ChaosBonus.TimedBonus, ChaosBonus.tbDifficulty, (short) 10, (short) 10, (short) (ChaosGraphics.PW - 10), (short) MaxY, 1);
+            chaosObjects.PutChaosObjs(Anims.BONUS, ChaosBonus.TimedBonus, ChaosBonus.tbDifficulty, 10, 10, ChaosGraphics.PW - 10, MaxY, 1);
         cLevel = chaosBase.level[Zone.Chaos.ordinal()];
-        dv = (short) trigo.SQRT(cLevel);
+        dv = trigo.SQRT(cLevel);
         if ((dv * dv == cLevel) && ((cLevel >= 9) || (chaosBase.level[Zone.Castle.ordinal()] > 1))) {
             c.set(50 + chaosBase.pLife * 4);
-            chaosObjects.PutChaosObjs(Anims.ALIEN1, (short) ChaosAlien.aHospital, c.get(), (short) 10, (short) 10, (short) (ChaosGraphics.PW - 10), (short) MaxY, 1);
+            chaosObjects.PutChaosObjs(Anims.ALIEN1, ChaosAlien.aHospital, c.get(), 10, 10, ChaosGraphics.PW - 10, MaxY, 1);
         }
-        chaosObjects.PutObj(Anims.ALIEN2, (short) ChaosCreator.cController, 0, (short) 0, (short) 0);
-        chaosObjects.PutPlayer((short) (ChaosGraphics.SOW / 2 - 1), (short) (ChaosGraphics.SOH - 2));
+        chaosObjects.PutObj(Anims.ALIEN2, ChaosCreator.cController, 0, 0, 0);
+        chaosObjects.PutPlayer(ChaosGraphics.SOW / 2 - 1, ChaosGraphics.SOH - 2);
         if ((cLevel == 1) && (chaosBase.level[Zone.Castle.ordinal()] == 1)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Just warming up"), String.class), (short) ChaosActions.statPos, (short) 3);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Just warming up"), String.class), ChaosActions.statPos, 3);
         } else if ((cLevel == 5)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("The drawer may help you"), String.class), (short) ChaosActions.statPos, (short) 3);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("The drawer may help you"), String.class), ChaosActions.statPos, 3);
         } else if ((cLevel == 7)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Too easy?"), String.class), (short) ChaosActions.statPos, (short) 3);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Too easy?"), String.class), ChaosActions.statPos, 3);
         } else if ((cLevel == 9)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Something new"), String.class), (short) ChaosActions.statPos, (short) 3);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Something new"), String.class), ChaosActions.statPos, 3);
         } else if ((cLevel == 17) && (chaosBase.score < 1000)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Still a long way before"), String.class), (short) ChaosActions.statPos, (short) 3);
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Father Alien"), String.class), (short) ChaosActions.moneyPos, (short) 3);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Still a long way before"), String.class), ChaosActions.statPos, 3);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Father Alien"), String.class), ChaosActions.moneyPos, 3);
         } else if ((cLevel == 50)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("To be or not to be"), String.class), (short) ChaosActions.statPos, (short) 3);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("To be or not to be"), String.class), ChaosActions.statPos, 3);
         } else if ((cLevel == 37)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Getting harder"), String.class), (short) ChaosActions.statPos, (short) 3);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Getting harder"), String.class), ChaosActions.statPos, 3);
         } else if ((cLevel == 79)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Coming to the end"), String.class), (short) ChaosActions.statPos, (short) 3);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Coming to the end"), String.class), ChaosActions.statPos, 3);
         } else if ((cLevel == 98)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Prepare yourself for level 100"), String.class), (short) ChaosActions.statPos, (short) 3);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Prepare yourself for level 100"), String.class), ChaosActions.statPos, 3);
         }
     }
 
     public void MakeCastle() {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
         int c = 0;
         int lvl = 0;
 
@@ -1016,9 +1016,9 @@ public class ChaosLevels {
         chaos1Zone.flipVert = true;
         chaos1Zone.flipHorz = true;
         chaos1Zone.rotate = true;
-        chaos1Zone.pLife2 = (short) (chaosBase.pLife * 2);
-        chaos1Zone.pLife3 = (short) (chaosBase.pLife * 3);
-        chaos1Zone.pLife4 = (short) (chaos1Zone.pLife2 + 18 + chaosBase.difficulty * 2);
+        chaos1Zone.pLife2 = chaosBase.pLife * 2;
+        chaos1Zone.pLife3 = chaosBase.pLife * 3;
+        chaos1Zone.pLife4 = chaos1Zone.pLife2 + 18 + chaosBase.difficulty * 2;
         chaosDual.InstallDual();
         for (x = 0; x <= 127; x++) {
             for (y = 0; y <= 126; y++) {
@@ -1086,9 +1086,9 @@ public class ChaosLevels {
                 default -> throw new RuntimeException("Unhandled CASE value " + chaosBase.level[Zone.Family.ordinal()]);
             }
             if (chaosBase.level[Zone.Family.ordinal()] == 10)
-                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Good luck !"), String.class), (short) ChaosActions.lifePos, (short) 4);
+                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Good luck !"), String.class), ChaosActions.lifePos, 4);
             else
-                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("* PANIC *"), String.class), (short) ChaosActions.lifePos, (short) 4);
+                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("* PANIC *"), String.class), ChaosActions.lifePos, 4);
         } else {
             lvl = chaosBase.level[Zone.Special.ordinal()];
             if (lvl % 24 == 0) {
@@ -1096,7 +1096,7 @@ public class ChaosLevels {
             } else if (lvl % 8 == 0) {
                 Winter();
             } else if (lvl % 4 == 0) {
-                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("That's where you'll end"), String.class), (short) ChaosActions.lifePos, (short) 4);
+                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("That's where you'll end"), String.class), ChaosActions.lifePos, 4);
                 Graveyard();
             } else if (lvl % 2 == 0) {
                 Spider();
@@ -1128,11 +1128,11 @@ public class ChaosLevels {
                     }
                 }
             }
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Warning: you are under water"), String.class), (short) ChaosActions.statPos, (short) 3);
-            chaosObjects.PutObj(Anims.ALIEN2, (short) ChaosCreator.cController, 0, (short) 0, (short) 0);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Warning: you are under water"), String.class), ChaosActions.statPos, 3);
+            chaosObjects.PutObj(Anims.ALIEN2, ChaosCreator.cController, 0, 0, 0);
         }
         if (chaosBase.snow)
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Warning: you are running on ice"), String.class), (short) ChaosActions.moneyPos, (short) 3);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Warning: you are running on ice"), String.class), ChaosActions.moneyPos, 3);
         chaosImages.InitPalette();
     }
 

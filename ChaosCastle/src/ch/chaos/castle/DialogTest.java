@@ -38,7 +38,7 @@ public class DialogTest {
     private int fill;
     private long[] tags = new long[21];
     private String buffer = "";
-    private short dummy;
+    private int dummy;
 
 
     public Dialogs.GadgetPtr getDialog() {
@@ -193,11 +193,11 @@ public class DialogTest {
         this.buffer = buffer;
     }
 
-    public short getDummy() {
+    public int getDummy() {
         return this.dummy;
     }
 
-    public void setDummy(short dummy) {
+    public void setDummy(int dummy) {
         this.dummy = dummy;
     }
 
@@ -223,54 +223,54 @@ public class DialogTest {
         checks.AddTermProc(Close_ref);
         terminal.WriteString("Creating Dialog");
         terminal.WriteLn();
-        dialog = dialogs.AllocGadget((short) Dialogs.dDialog);
+        dialog = dialogs.AllocGadget(Dialogs.dDialog);
         if (dialog == null)
             throw new HaltException();
         dialogs.ModifyGadget(dialog, (Memory.TagItem) memory.TAG3(Dialogs.dFLAGS, Dialogs.dfCLOSE + Dialogs.dfVDIR + Dialogs.dfSCROLLY + Dialogs.dfSIZE + Dialogs.dfDOWNEVENT, Dialogs.dHEIGHT, 50, Dialogs.dTEXT, "Dialog"));
         group = dialog;
         terminal.WriteString("Creating Button");
         terminal.WriteLn();
-        button = dialogs.AllocGadget((short) Dialogs.dButton);
+        button = dialogs.AllocGadget(Dialogs.dButton);
         if (button == null)
             throw new HaltException();
         dialogs.ModifyGadget(button, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, "Button", Dialogs.dFLAGS, Dialogs.dfDOWNEVENT));
         dialogs.AddGadget(group, button, dialogs.noGadget);
-        bool = dialogs.CreateGadget((short) Dialogs.dBool, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, "Bool", Dialogs.dFLAGS, Dialogs.dfAUTOLEFT + Dialogs.dfAUTORIGHT));
+        bool = dialogs.CreateGadget(Dialogs.dBool, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, "Bool", Dialogs.dFLAGS, Dialogs.dfAUTOLEFT + Dialogs.dfAUTORIGHT));
         if (bool == null)
             throw new HaltException();
         dialogs.AddGadget(group, bool, dialogs.noGadget);
-        cycle = dialogs.AddNewGadget(group, (short) Dialogs.dCycle, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, "Cycle", Dialogs.dFLAGS, Dialogs.dfAUTOUP + Dialogs.dfAUTODOWN));
+        cycle = dialogs.AddNewGadget(group, Dialogs.dCycle, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, "Cycle", Dialogs.dFLAGS, Dialogs.dfAUTOUP + Dialogs.dfAUTODOWN));
         if (cycle == null)
             throw new HaltException();
-        _switch = dialogs.AddNewGadget(group, (short) Dialogs.dSwitch, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, "Switch", Dialogs.dFLAGS, Dialogs.dfAUTOLEFT + Dialogs.dfAUTOUP + Dialogs.dfAUTODOWN));
+        _switch = dialogs.AddNewGadget(group, Dialogs.dSwitch, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, "Switch", Dialogs.dFLAGS, Dialogs.dfAUTOLEFT + Dialogs.dfAUTOUP + Dialogs.dfAUTODOWN));
         if (_switch == null)
             throw new HaltException();
-        switch1 = dialogs.AddNewGadget(group, (short) Dialogs.dSwitch, (Memory.TagItem) memory.TAG3(Dialogs.dTEXT, "Sub-Switch 1", Dialogs.dFLAGS, Dialogs.dfAUTOLEFT + Dialogs.dfAUTOUP + Dialogs.dfAUTODOWN, Dialogs.dFILL, 1));
+        switch1 = dialogs.AddNewGadget(group, Dialogs.dSwitch, (Memory.TagItem) memory.TAG3(Dialogs.dTEXT, "Sub-Switch 1", Dialogs.dFLAGS, Dialogs.dfAUTOLEFT + Dialogs.dfAUTOUP + Dialogs.dfAUTODOWN, Dialogs.dFILL, 1));
         if (switch1 == null)
             throw new HaltException();
-        switch2 = dialogs.AddNewGadget(group, (short) Dialogs.dSwitch, (Memory.TagItem) memory.TAG3(Dialogs.dTEXT, "Sub-Switch 2", Dialogs.dFLAGS, Dialogs.dfAUTOLEFT + Dialogs.dfAUTOUP + Dialogs.dfAUTODOWN, Dialogs.dFILL, 1));
+        switch2 = dialogs.AddNewGadget(group, Dialogs.dSwitch, (Memory.TagItem) memory.TAG3(Dialogs.dTEXT, "Sub-Switch 2", Dialogs.dFLAGS, Dialogs.dfAUTOLEFT + Dialogs.dfAUTOUP + Dialogs.dfAUTODOWN, Dialogs.dFILL, 1));
         if (switch2 == null)
             throw new HaltException();
-        progress = dialogs.AddNewGadget(group, (short) Dialogs.dProgress, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, "Progress", Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
+        progress = dialogs.AddNewGadget(group, Dialogs.dProgress, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, "Progress", Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
         if (progress == null)
             throw new HaltException();
-        cb = dialogs.AddNewGadget(group, (short) Dialogs.dCheckbox, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, "Checkbox", Dialogs.dFLAGS, Dialogs.dfAUTOLEFT));
+        cb = dialogs.AddNewGadget(group, Dialogs.dCheckbox, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, "Checkbox", Dialogs.dFLAGS, Dialogs.dfAUTOLEFT));
         if (cb == null)
             throw new HaltException();
-        scroller = dialogs.AddNewGadget(group, (short) Dialogs.dScroller, null);
+        scroller = dialogs.AddNewGadget(group, Dialogs.dScroller, null);
         if (scroller == null)
             throw new HaltException();
-        slider = dialogs.AddNewGadget(group, (short) Dialogs.dSlider, null);
+        slider = dialogs.AddNewGadget(group, Dialogs.dSlider, null);
         if (slider == null)
             throw new HaltException();
         buffer = "Text Edit";
-        te = dialogs.AddNewGadget(group, (short) Dialogs.dTextEdit, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, new Runtime.FieldRef<>(this::getBuffer, this::setBuffer), Dialogs.dTXTLEN, 20));
+        te = dialogs.AddNewGadget(group, Dialogs.dTextEdit, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, new Runtime.FieldRef<>(this::getBuffer, this::setBuffer), Dialogs.dTXTLEN, 20));
         if (te == null)
             throw new HaltException();
-        _int = dialogs.AddNewGadget(group, (short) Dialogs.dIntEdit, (Memory.TagItem) memory.TAG1(Dialogs.dINTVAL, -142857));
+        _int = dialogs.AddNewGadget(group, Dialogs.dIntEdit, (Memory.TagItem) memory.TAG1(Dialogs.dINTVAL, -142857));
         if (_int == null)
             throw new HaltException();
-        label = dialogs.AddNewGadget(group, (short) Dialogs.dLabel, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, "Label"));
+        label = dialogs.AddNewGadget(group, Dialogs.dLabel, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, "Label"));
         if (label == null)
             throw new HaltException();
         if (dialogs.RefreshGadget(dialog) != Dialogs.DialogOk)
@@ -281,7 +281,7 @@ public class DialogTest {
             input.GetEvent(event);
             if (event.type == Input.eGADGET) {
                 terminal.WriteString("Gadget Event: ");
-                terminal.WriteInt((int) (int) event.gadget, (short) -1);
+                terminal.WriteInt((long) event.gadget, -1);
                 terminal.WriteLn();
                 if ((event.gadget == dialog) && (event.gadgetUp))
                     break;
@@ -302,7 +302,7 @@ public class DialogTest {
                     dialogs.ModifyGadget(cycle, (Memory.TagItem) memory.TAG1(Dialogs.dRFLAGS, Dialogs.dfSELECT));
                 } else if (event.ch == 't') {
                     dialogs.ModifyGadget(cycle, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, "----- New Cycle -----"));
-                    dummy = (short) dialogs.RefreshGadget(dialog);
+                    dummy = (int) dialogs.RefreshGadget(dialog);
                 }
                 if (event.ch == 'f') {
                     if (fill == 65535)

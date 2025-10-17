@@ -306,9 +306,9 @@ public class ChaosAlien {
 
     private void MakeCartoon(ChaosBase.Obj cartoon) {
         // VAR
-        short px = 0;
-        short py = 0;
-        short sz = 0;
+        int px = 0;
+        int py = 0;
+        int sz = 0;
 
         if (cartoon.stat == 0) {
             px = 160;
@@ -330,35 +330,35 @@ public class ChaosAlien {
     private final ChaosBase.MakeProc MakeCartoon_ref = this::MakeCartoon;
 
     private void MakeAlien0(ChaosBase.Obj alien) {
-        chaosActions.SetObjLoc(alien, (short) 0, (short) 76, (short) 20, (short) 20);
+        chaosActions.SetObjLoc(alien, 0, 76, 20, 20);
         chaosActions.SetObjRect(alien, 0, 0, 20, 20);
     }
 
     private final ChaosBase.MakeProc MakeAlien0_ref = this::MakeAlien0;
 
     private void MakeSmallDrawer(ChaosBase.Obj drawer) {
-        chaosActions.SetObjLoc(drawer, (short) 168, (short) 60, (short) 16, (short) 12);
+        chaosActions.SetObjLoc(drawer, 168, 60, 16, 12);
         chaosActions.SetObjRect(drawer, 0, 0, 16, 12);
     }
 
     private final ChaosBase.MakeProc MakeSmallDrawer_ref = this::MakeSmallDrawer;
 
     private void MakeBigDrawer(ChaosBase.Obj drawer) {
-        chaosActions.SetObjLoc(drawer, (short) 96, (short) 76, (short) 32, (short) 20);
+        chaosActions.SetObjLoc(drawer, 96, 76, 32, 20);
         chaosActions.SetObjRect(drawer, 0, 0, 32, 20);
     }
 
     private final ChaosBase.MakeProc MakeBigDrawer_ref = this::MakeBigDrawer;
 
     private void MakeHospital(ChaosBase.Obj hospital) {
-        chaosActions.SetObjLoc(hospital, (short) 20, (short) 76, (short) 20, (short) 20);
+        chaosActions.SetObjLoc(hospital, 20, 76, 20, 20);
         chaosActions.SetObjRect(hospital, 0, 0, 20, 20);
     }
 
     private final ChaosBase.MakeProc MakeHospital_ref = this::MakeHospital;
 
     private void MakeDiese(ChaosBase.Obj diese) {
-        chaosActions.SetObjLoc(diese, (short) 144, (short) 72, (short) 15, (short) 15);
+        chaosActions.SetObjLoc(diese, 144, 72, 15, 15);
         chaosActions.SetObjRect(diese, 0, 0, 15, 15);
     }
 
@@ -366,12 +366,12 @@ public class ChaosAlien {
 
     private void MakeKamikaze(ChaosBase.Obj kamikaze) {
         // VAR
-        short px = 0;
-        short py = 0;
+        int px = 0;
+        int py = 0;
 
-        py = (short) ((kamikaze.stat / 2) * 16);
-        px = (short) ((kamikaze.stat % 2) * 16);
-        chaosActions.SetObjLoc(kamikaze, (short) (px + 96), (short) (py + 96), (short) 16, (short) 16);
+        py = (kamikaze.stat / 2) * 16;
+        px = (kamikaze.stat % 2) * 16;
+        chaosActions.SetObjLoc(kamikaze, px + 96, py + 96, 16, 16);
         chaosActions.SetObjRect(kamikaze, 0, 0, 16, 16);
     }
 
@@ -379,59 +379,59 @@ public class ChaosAlien {
 
     private void MakePic(ChaosBase.Obj pic) {
         // VAR
-        short py = 0;
+        int py = 0;
 
-        py = (short) (pic.stat * 16 + 128);
-        chaosActions.SetObjLoc(pic, (short) 80, py, (short) 16, (short) 16);
+        py = pic.stat * 16 + 128;
+        chaosActions.SetObjLoc(pic, 80, py, 16, 16);
         chaosActions.SetObjRect(pic, 0, 0, 16, 16);
     }
 
     private final ChaosBase.MakeProc MakePic_ref = this::MakePic;
 
     private void MakeStar(ChaosBase.Obj star) {
-        chaosActions.SetObjLoc(star, (short) 64, (short) 148, (short) 16, (short) 16);
+        chaosActions.SetObjLoc(star, 64, 148, 16, 16);
         chaosActions.SetObjRect(star, 0, 0, 16, 16);
     }
 
     private final ChaosBase.MakeProc MakeStar_ref = this::MakeStar;
 
     private void MakeBubble(ChaosBase.Obj bubble) {
-        chaosActions.SetObjLoc(bubble, (short) 64, (short) 164, (short) 16, (short) 16);
+        chaosActions.SetObjLoc(bubble, 64, 164, 16, 16);
         chaosActions.SetObjRect(bubble, 1, 1, 15, 15);
     }
 
     private final ChaosBase.MakeProc MakeBubble_ref = this::MakeBubble;
 
     private void MakeBumper(ChaosBase.Obj bumper) {
-        chaosActions.SetObjLoc(bumper, (short) 76, (short) 76, (short) 20, (short) 20);
+        chaosActions.SetObjLoc(bumper, 76, 76, 20, 20);
         chaosActions.SetObjRect(bumper, 0, 0, 20, 20);
     }
 
     private final ChaosBase.MakeProc MakeBumper_ref = this::MakeBumper;
 
     private void MakeTri(ChaosBase.Obj tri) {
-        chaosActions.SetObjLoc(tri, (short) 224, (short) 164, (short) 24, (short) 20);
+        chaosActions.SetObjLoc(tri, 224, 164, 24, 20);
         chaosActions.SetObjRect(tri, 4, 4, 20, 16);
     }
 
     private final ChaosBase.MakeProc MakeTri_ref = this::MakeTri;
 
     private void MakeTrefle(ChaosBase.Obj trefle) {
-        chaosActions.SetObjLoc(trefle, (short) 80, (short) 160, (short) 20, (short) 20);
+        chaosActions.SetObjLoc(trefle, 80, 160, 20, 20);
         chaosActions.SetObjRect(trefle, 0, 0, 20, 20);
     }
 
     private final ChaosBase.MakeProc MakeTrefle_ref = this::MakeTrefle;
 
     private void MakeBig(ChaosBase.Obj big) {
-        chaosActions.SetObjLoc(big, (short) 100, (short) 180, (short) 20, (short) 20);
+        chaosActions.SetObjLoc(big, 100, 180, 20, 20);
         chaosActions.SetObjRect(big, 1, 1, 19, 19);
     }
 
     private final ChaosBase.MakeProc MakeBig_ref = this::MakeBig;
 
     private void MakeSquare(ChaosBase.Obj square) {
-        chaosActions.SetObjLoc(square, (short) 101, (short) 101, (short) 22, (short) 22);
+        chaosActions.SetObjLoc(square, 101, 101, 22, 22);
         chaosActions.SetObjRect(square, 0, 0, 22, 22);
     }
 
@@ -439,13 +439,13 @@ public class ChaosAlien {
 
     private void MakeFlame(ChaosBase.Obj flame) {
         // VAR
-        short py = 0;
+        int py = 0;
 
         if (flame.stat == 0)
             py = 172;
         else
             py = 184;
-        chaosActions.SetObjLoc(flame, (short) 200, py, (short) 12, (short) 12);
+        chaosActions.SetObjLoc(flame, 200, py, 12, 12);
         chaosActions.SetObjRect(flame, 0, 0, 12, 12);
     }
 
@@ -453,13 +453,13 @@ public class ChaosAlien {
 
     private void MakeColor(ChaosBase.Obj color) {
         // VAR
-        short px = 0;
+        int px = 0;
 
-        px = (short) (color.life / 20);
+        px = color.life / 20;
         if (px > 4)
             px = 4;
-        px = (short) (px * 20 + 100);
-        chaosActions.SetObjLoc(color, px, (short) 160, (short) 20, (short) 20);
+        px = px * 20 + 100;
+        chaosActions.SetObjLoc(color, px, 160, 20, 20);
         chaosActions.SetObjRect(color, 0, 0, 20, 20);
     }
 
@@ -480,16 +480,16 @@ public class ChaosAlien {
 
     private void ResetAlien0(ChaosBase.Obj alien) {
         // VAR
-        short nvx = 0;
-        short nvy = 0;
+        int nvx = 0;
+        int nvy = 0;
 
         alien.moveSeq = ChaosBase.Period * 5 + ChaosBase.Period * (trigo.RND() % 10);
         alien.hitSubLife = alien.life;
         alien.fireSubLife = alien.life;
-        nvx = (short) (trigo.RND() % 1024);
-        nvy = (short) (trigo.RND() % 1024);
-        alien.dvx = (short) (nvx - 512);
-        alien.dvy = (short) (nvy - 512);
+        nvx = trigo.RND() % 1024;
+        nvy = trigo.RND() % 1024;
+        alien.dvx = nvx - 512;
+        alien.dvy = nvy - 512;
         alien.attr.Make.invoke(alien);
     }
 
@@ -515,11 +515,11 @@ public class ChaosAlien {
 
     private void ResetHospital(ChaosBase.Obj hospital) {
         // VAR
-        short angle = 0;
+        int angle = 0;
 
         hospital.hitSubLife = hospital.life;
         hospital.fireSubLife = hospital.life;
-        angle = (short) (trigo.RND() % 360);
+        angle = trigo.RND() % 360;
         hospital.vx = trigo.COS(angle);
         hospital.vy = trigo.SIN(angle);
         MakeHospital(hospital);
@@ -642,14 +642,14 @@ public class ChaosAlien {
         final int RDST = ChaosBase.Frac * 4;
 
         // VAR
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> ox = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> oy = new Runtime.Ref<>((short) 0);
-        int sx = 0;
-        int sy = 0;
-        int sz = 0;
-        int iz = 0;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> ox = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> oy = new Runtime.Ref<>(0);
+        long sx = 0L;
+        long sy = 0L;
+        long sz = 0L;
+        long iz = 0L;
 
         if ((victim.kind == Anims.ALIEN1) && (victim.subKind == aCartoon))
             return;
@@ -664,13 +664,13 @@ public class ChaosAlien {
                 if (iz > RDST)
                     iz = RDST;
                 victim.x -= iz;
-                victim.vx = (short) -Math.abs(victim.vx / 4);
+                victim.vx = (int) -Math.abs(victim.vx / 4);
             } else {
                 iz = sx + sz - victim.x;
                 if (iz > RDST)
                     iz = RDST;
                 victim.x += iz;
-                victim.vx = (short) Math.abs(victim.vx / 4);
+                victim.vx = (int) Math.abs(victim.vx / 4);
             }
         } else {
             if (oy.get() < py.get()) {
@@ -678,13 +678,13 @@ public class ChaosAlien {
                 if (iz > RDST)
                     iz = RDST;
                 victim.y -= iz;
-                victim.vy = (short) -Math.abs(victim.vy / 4);
+                victim.vy = (int) -Math.abs(victim.vy / 4);
             } else {
                 iz = sy + sz - victim.y;
                 if (iz > RDST)
                     iz = RDST;
                 victim.y += iz;
-                victim.vy = (short) Math.abs(victim.vy / 4);
+                victim.vy = (int) Math.abs(victim.vy / 4);
             }
         }
     }
@@ -712,8 +712,8 @@ public class ChaosAlien {
             chaosActions.Leave(drawer);
             return;
         }
-        chaosActions.AvoidBackground(drawer, (short) 2);
-        chaosActions.AvoidBounds(drawer, (short) 2);
+        chaosActions.AvoidBackground(drawer, 2);
+        chaosActions.AvoidBounds(drawer, 2);
         drawer.dvx = 0;
         drawer.dvy = 0;
         chaosActions.DoCollision(drawer, Runtime.withRange(EnumSet.of(Anims.PLAYER, Anims.SMARTBONUS, Anims.BONUS), Anims.ALIEN3, Anims.MISSILE), Stop_ref, new Runtime.FieldRef<>(drawer::getHitSubLife, drawer::setHitSubLife), new Runtime.FieldRef<>(drawer::getFireSubLife, drawer::setFireSubLife));
@@ -729,9 +729,9 @@ public class ChaosAlien {
             return;
         }
         chaosActions.UpdateXY(alien);
-        chaosActions.LimitSpeed(alien, (short) 1536);
-        chaosActions.AvoidBounds(alien, (short) 4);
-        chaosActions.AvoidBackground(alien, (short) 4);
+        chaosActions.LimitSpeed(alien, 1536);
+        chaosActions.AvoidBounds(alien, 4);
+        chaosActions.AvoidBackground(alien, 4);
         chaosActions.Burn(alien);
         if (chaosBase.step > alien.moveSeq)
             ResetAlien0(alien);
@@ -746,30 +746,30 @@ public class ChaosAlien {
 
     private void MoveHospital(ChaosBase.Obj hospital) {
         // VAR
-        short nvx = 0;
-        short nvy = 0;
-        short nvl = 0;
+        int nvx = 0;
+        int nvy = 0;
+        int nvl = 0;
 
         if (chaosActions.OutOfScreen(hospital)) {
             chaosActions.Leave(hospital);
             return;
         }
-        nvx = (short) (hospital.vx / 32);
-        nvy = (short) (hospital.vy / 32);
-        nvl = (short) trigo.SQRT(nvx * nvx + nvy * nvy);
+        nvx = hospital.vx / 32;
+        nvy = hospital.vy / 32;
+        nvl = trigo.SQRT(nvx * nvx + nvy * nvy);
         if (nvl == 0) {
             ResetHospital(hospital);
         } else if (Math.abs(nvl - 1024) > 256) {
-            hospital.vx = (short) (hospital.vx * 4 / nvl * 8);
-            hospital.vy = (short) (hospital.vy * 4 / nvl * 8);
+            hospital.vx = hospital.vx * 4 / nvl * 8;
+            hospital.vy = hospital.vy * 4 / nvl * 8;
         }
         hospital.dvx = 0;
         hospital.dvy = 0;
-        hospital.ax = (byte) (hospital.vy / 64);
-        hospital.ay = (byte) -(hospital.vx / 64);
+        hospital.ax = hospital.vy / 64;
+        hospital.ay = -(hospital.vx / 64);
         chaosActions.UpdateXY(hospital);
-        chaosActions.AvoidBounds(hospital, (short) 4);
-        chaosActions.AvoidBackground(hospital, (short) 4);
+        chaosActions.AvoidBounds(hospital, 4);
+        chaosActions.AvoidBackground(hospital, 4);
         chaosActions.Burn(hospital);
         chaosActions.PlayerCollision(hospital, new Runtime.FieldExprRef<>(hospital, ChaosBase.Obj::getLife, ChaosBase.Obj::setLife));
         if (hospital.life == 0)
@@ -780,34 +780,34 @@ public class ChaosAlien {
 
     private void MoveDiese(ChaosBase.Obj diese) {
         // VAR
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> mx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> my = new Runtime.Ref<>((short) 0);
-        short dx = 0;
-        short dy = 0;
-        short dl = 0;
-        short speed = 0;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> mx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> my = new Runtime.Ref<>(0);
+        int dx = 0;
+        int dy = 0;
+        int dl = 0;
+        int speed = 0;
 
         if (chaosBase.zone != Zone.Castle) {
-            chaosActions.AvoidBounds(diese, (short) 0);
+            chaosActions.AvoidBounds(diese, 0);
         } else if (chaosActions.OutOfScreen(diese)) {
             chaosActions.Leave(diese);
             return;
         }
         chaosActions.UpdateXY(diese);
-        chaosActions.AvoidBackground(diese, (short) 0);
+        chaosActions.AvoidBackground(diese, 0);
         chaosActions.Burn(diese);
         chaosActions.GetCenter(diese, mx, my);
         chaosActions.GetCenter(chaosBase.mainPlayer, px, py);
-        dx = (short) (px.get() - mx.get());
-        dy = (short) (py.get() - my.get());
+        dx = px.get() - mx.get();
+        dy = py.get() - my.get();
         if ((Math.abs(dx) < 128) && (Math.abs(dy) < 128)) {
-            dl = (short) trigo.SQRT(dx * dx + dy * dy);
+            dl = trigo.SQRT(dx * dx + dy * dy);
             if (dl != 0) {
-                speed = (short) (4 + chaosBase.difficulty / 2);
-                diese.dvx = (short) (dx * 128 / dl * speed);
-                diese.dvy = (short) (dy * 128 / dl * speed);
+                speed = 4 + chaosBase.difficulty / 2;
+                diese.dvx = dx * 128 / dl * speed;
+                diese.dvy = dy * 128 / dl * speed;
             }
         } else {
             diese.dvx = 0;
@@ -822,18 +822,18 @@ public class ChaosAlien {
 
     private void MovePic(ChaosBase.Obj pic) {
         // VAR
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> kx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> ky = new Runtime.Ref<>((short) 0);
-        short dx = 0;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> kx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> ky = new Runtime.Ref<>(0);
+        int dx = 0;
 
         if (chaosActions.OutOfScreen(pic)) {
             chaosActions.Leave(pic);
             return;
         }
         chaosActions.UpdateXY(pic);
-        dx = (short) (pic.stat * 2);
+        dx = (pic.stat * 2);
         dx--;
         if (pic.moveSeq == 2) {
             pic.dvx = 0;
@@ -847,7 +847,7 @@ public class ChaosAlien {
         } else if (pic.moveSeq == 1) {
             chaosSounds.SoundEffect(pic, aiePicEffect);
             pic.moveSeq = 0;
-            pic.dvx = (short) -(dx * 4096);
+            pic.dvx = -(dx * 4096);
         } else {
             chaosActions.DoCollision(pic, EnumSet.of(Anims.PLAYER, Anims.ALIEN1), chaosActions.Aie_ref, new Runtime.FieldRef<>(pic::getHitSubLife, pic::setHitSubLife), new Runtime.FieldRef<>(pic::getFireSubLife, pic::setFireSubLife));
             if ((pic.hitSubLife == 0) || (pic.fireSubLife == 0) || chaosActions.InBackground(pic) || chaosActions.OutOfBounds(pic))
@@ -859,21 +859,21 @@ public class ChaosAlien {
 
     private void MoveKamikaze(ChaosBase.Obj kamikaze) {
         // VAR
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> kx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> ky = new Runtime.Ref<>((short) 0);
-        short dx = 0;
-        short dy = 0;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> kx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> ky = new Runtime.Ref<>(0);
+        int dx = 0;
+        int dy = 0;
 
         if (chaosActions.OutOfScreen(kamikaze)) {
             chaosActions.Leave(kamikaze);
             return;
         }
         chaosActions.UpdateXY(kamikaze);
-        dy = (short) ((kamikaze.stat / 2) * 2);
+        dy = (kamikaze.stat / 2) * 2;
         dy--;
-        dx = (short) ((kamikaze.stat % 2) * 2);
+        dx = (kamikaze.stat % 2) * 2;
         dx--;
         if (kamikaze.moveSeq == 2) {
             kamikaze.dvx = 0;
@@ -889,8 +889,8 @@ public class ChaosAlien {
         } else if (kamikaze.moveSeq == 1) {
             chaosSounds.SoundEffect(kamikaze, aieKmkEffect);
             kamikaze.moveSeq = 0;
-            kamikaze.dvx = (short) -(dx * 2896);
-            kamikaze.dvy = (short) -(dy * 2896);
+            kamikaze.dvx = -(dx * 2896);
+            kamikaze.dvy = -(dy * 2896);
         }
         chaosActions.PlayerCollision(kamikaze, new Runtime.FieldRef<>(kamikaze::getHitSubLife, kamikaze::setHitSubLife));
         if ((kamikaze.hitSubLife != kamikaze.life) || chaosActions.InBackground(kamikaze) || chaosActions.OutOfBounds(kamikaze))
@@ -901,22 +901,22 @@ public class ChaosAlien {
 
     private void MoveBumper(ChaosBase.Obj bumper) {
         // VAR
-        short nax = 0;
-        short nay = 0;
+        int nax = 0;
+        int nay = 0;
 
         if (chaosActions.OutOfScreen(bumper)) {
             chaosActions.Leave(bumper);
             return;
         }
-        chaosActions.LimitSpeed(bumper, (short) 1600);
+        chaosActions.LimitSpeed(bumper, 1600);
         chaosActions.UpdateXY(bumper);
-        chaosActions.AvoidBounds(bumper, (short) 4);
-        chaosActions.AvoidBackground(bumper, (short) 4);
+        chaosActions.AvoidBounds(bumper, 4);
+        chaosActions.AvoidBackground(bumper, 4);
         chaosActions.Burn(bumper);
         if (chaosBase.step > bumper.moveSeq) {
-            nax = (short) (trigo.RND() % 256);
-            nay = (short) (trigo.RND() % 256);
-            chaosActions.SetObjAXY(bumper, (byte) (nax - 128), (byte) (nay - 128));
+            nax = trigo.RND() % 256;
+            nay = trigo.RND() % 256;
+            chaosActions.SetObjAXY(bumper, nax - 128, nay - 128);
             bumper.moveSeq += ChaosBase.Period / 3 + trigo.RND() % (ChaosBase.Period * 2);
         }
         bumper.moveSeq -= chaosBase.step;
@@ -929,22 +929,22 @@ public class ChaosAlien {
 
     private void MoveStarBubble(ChaosBase.Obj obj) {
         // VAR
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> mx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> my = new Runtime.Ref<>((short) 0);
-        int dx = 0;
-        int dy = 0;
-        int dl = 0;
-        int speed = 0;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> mx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> my = new Runtime.Ref<>(0);
+        long dx = 0L;
+        long dy = 0L;
+        long dl = 0L;
+        long speed = 0L;
 
         if (chaosActions.OutOfScreen(obj)) {
             chaosActions.Leave(obj);
             return;
         }
         chaosActions.UpdateXY(obj);
-        chaosActions.AvoidBounds(obj, (short) 2);
-        chaosActions.AvoidBackground(obj, (short) 3);
+        chaosActions.AvoidBounds(obj, 2);
+        chaosActions.AvoidBackground(obj, 3);
         chaosActions.Burn(obj);
         if (chaosBase.step > obj.moveSeq) {
             chaosActions.GetCenter(obj, mx, my);
@@ -954,8 +954,8 @@ public class ChaosAlien {
             dl = trigo.SQRT(dx * dx + dy * dy);
             if (dl != 0) {
                 speed = 7 + chaosBase.difficulty / 3;
-                obj.dvx = (short) (dx * 64 / dl * speed - 512);
-                obj.dvy = (short) (dy * 64 / dl * speed - 512);
+                obj.dvx = (int) (dx * 64 / dl * speed - 512);
+                obj.dvy = (int) (dy * 64 / dl * speed - 512);
                 obj.dvx += trigo.RND() % 1024;
                 obj.dvy += trigo.RND() % 1024;
             }
@@ -971,21 +971,21 @@ public class ChaosAlien {
 
     private void MoveTri(ChaosBase.Obj tri) {
         // VAR
-        int dx = 0;
-        int dy = 0;
-        int dl = 0;
-        int speed = 0;
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> mx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> my = new Runtime.Ref<>((short) 0);
+        long dx = 0L;
+        long dy = 0L;
+        long dl = 0L;
+        long speed = 0L;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> mx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> my = new Runtime.Ref<>(0);
 
         if (chaosActions.OutOfScreen(tri)) {
             chaosActions.Leave(tri);
             return;
         }
         chaosActions.UpdateXY(tri);
-        chaosActions.AvoidBackground(tri, (short) 0);
+        chaosActions.AvoidBackground(tri, 0);
         chaosActions.Burn(tri);
         if ((tri.vx == tri.dvx) && (tri.vy == tri.dvy)) {
             if ((tri.dvx == 0) && (tri.dvy == 0)) {
@@ -996,8 +996,8 @@ public class ChaosAlien {
                 dl = trigo.SQRT(dx * dx + dy * dy);
                 if (dl != 0) {
                     speed = 1300 + chaosBase.difficulty * 80;
-                    tri.dvx = (short) (dx * speed / dl);
-                    tri.dvy = (short) (dy * speed / dl);
+                    tri.dvx = (int) (dx * speed / dl);
+                    tri.dvy = (int) (dy * speed / dl);
                 }
             } else {
                 tri.dvx = 0;
@@ -1013,27 +1013,27 @@ public class ChaosAlien {
 
     private void MoveTrefle(ChaosBase.Obj trefle) {
         // VAR
-        Runtime.Ref<Short> tx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> ty = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> tx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> ty = new Runtime.Ref<>(0);
 
         if (chaosActions.OutOfScreen(trefle)) {
             chaosActions.Leave(trefle);
             return;
         }
         chaosActions.UpdateXY(trefle);
-        chaosActions.AvoidBounds(trefle, (short) 0);
-        chaosActions.AvoidBackground(trefle, (short) 0);
+        chaosActions.AvoidBounds(trefle, 0);
+        chaosActions.AvoidBackground(trefle, 0);
         chaosActions.AvoidAnims(trefle, EnumSet.of(Anims.WEAPON, Anims.ALIEN3, Anims.MISSILE));
-        chaosActions.LimitSpeed(trefle, (short) 1300);
+        chaosActions.LimitSpeed(trefle, 1300);
         chaosActions.Burn(trefle);
         if (chaosBase.step > trefle.moveSeq) {
-            trefle.dvx = (short) (trigo.RND() % 512);
-            trefle.dvy = (short) (trigo.RND() % 512);
+            trefle.dvx = trigo.RND() % 512;
+            trefle.dvy = trigo.RND() % 512;
             chaosActions.GetCenter(trefle, tx, ty);
             if (tx.get() > chaosGraphics.gameWidth / 2)
-                trefle.dvx = (short) -trefle.dvx;
+                trefle.dvx = -trefle.dvx;
             if (ty.get() > chaosGraphics.gameHeight / 2)
-                trefle.dvy = (short) -trefle.dvy;
+                trefle.dvy = -trefle.dvy;
             trefle.moveSeq += ChaosBase.Period + trigo.RND() % ChaosBase.Period;
         }
         trefle.moveSeq -= chaosBase.step;
@@ -1046,7 +1046,7 @@ public class ChaosAlien {
 
     private void MoveBig(ChaosBase.Obj big) {
         // VAR
-        short angle = 0;
+        int angle = 0;
         EnumSet<Anims> anims = EnumSet.noneOf(Anims.class);
 
         if (chaosActions.OutOfScreen(big)) {
@@ -1054,13 +1054,13 @@ public class ChaosAlien {
             return;
         }
         chaosActions.UpdateXY(big);
-        chaosActions.AvoidBounds(big, (short) 4);
-        chaosActions.AvoidBackground(big, (short) 4);
-        chaosActions.LimitSpeed(big, (short) 1024);
+        chaosActions.AvoidBounds(big, 4);
+        chaosActions.AvoidBackground(big, 4);
+        chaosActions.LimitSpeed(big, 1024);
         chaosActions.Burn(big);
         if (big.moveSeq == 0) {
             big.moveSeq = 1;
-            angle = (short) (trigo.RND() % 360);
+            angle = trigo.RND() % 360;
             big.dvx = trigo.COS(angle);
             big.dvy = trigo.SIN(angle);
         }
@@ -1077,24 +1077,24 @@ public class ChaosAlien {
 
     private void MoveFlame(ChaosBase.Obj flame) {
         // VAR
-        int dx = 0;
-        int dy = 0;
-        int dl = 0;
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> fx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> fy = new Runtime.Ref<>((short) 0);
-        short dv = 0;
-        short nax = 0;
-        short nay = 0;
+        long dx = 0L;
+        long dy = 0L;
+        long dl = 0L;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> fx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> fy = new Runtime.Ref<>(0);
+        int dv = 0;
+        int nax = 0;
+        int nay = 0;
 
         if (chaosActions.OutOfScreen(flame)) {
             chaosActions.Leave(flame);
             return;
         }
         chaosActions.UpdateXY(flame);
-        chaosActions.AvoidBackground(flame, (short) 1);
-        chaosActions.LimitSpeed(flame, (short) 1536);
+        chaosActions.AvoidBackground(flame, 1);
+        chaosActions.LimitSpeed(flame, 1536);
         chaosActions.Burn(flame);
         chaosActions.GetCenter(flame, fx, fy);
         chaosActions.GetCenter(chaosBase.mainPlayer, px, py);
@@ -1102,21 +1102,21 @@ public class ChaosAlien {
         dy = py.get() - fy.get();
         dl = trigo.SQRT(dx * dx + dy * dy);
         if (dl != 0) {
-            nax = (short) (dx * 64 / dl);
-            nay = (short) (dy * 64 / dl);
+            nax = (int) (dx * 64 / dl);
+            nay = (int) (dy * 64 / dl);
         } else {
             nax = 0;
             nay = 0;
         }
-        fx.set((short) (flame.vx / 32));
-        fy.set((short) (flame.vy / 32));
-        dv = (short) trigo.SQRT(fx.get() * fx.get() + fy.get() * fy.get());
+        fx.set(flame.vx / 32);
+        fy.set(flame.vy / 32);
+        dv = trigo.SQRT(fx.get() * fx.get() + fy.get() * fy.get());
         if (dv != 0) {
             nax -= fx.get() * 32 / dv;
             nay -= fy.get() * 32 / dv;
         }
-        flame.ax = (byte) nax;
-        flame.ay = (byte) nay;
+        flame.ax = nax;
+        flame.ay = nay;
         if (chaosBase.step > flame.shapeSeq) {
             flame.shapeSeq += ChaosBase.Period / 10;
             if (trigo.RND() % 8 != 0)
@@ -1242,8 +1242,8 @@ public class ChaosAlien {
     private void DieAlien0(ChaosBase.Obj alien) {
         // VAR
         ChaosBase.Obj heart = null;
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
 
         chaosBase.addpt++;
         chaosSounds.SoundEffect(alien, dieAlien0Effect);
@@ -1251,7 +1251,7 @@ public class ChaosAlien {
             chaosBonus.BoumMoney(alien, EnumSet.of(Moneys.m1), 1, 1);
         if ((chaosBase.level[chaosBase.zone.ordinal()] % 7 == 0) && (chaosBase.difficulty < 10) && (chaosBase.pLife == 1)) {
             chaosActions.GetCenter(alien, px, py);
-            heart = chaosActions.CreateObj(Anims.SMARTBONUS, (short) ChaosSmartBonus.sbExtraLife, px.get(), py.get(), 1, 1);
+            heart = chaosActions.CreateObj(Anims.SMARTBONUS, ChaosSmartBonus.sbExtraLife, px.get(), py.get(), 1, 1);
             heart.ay = 8;
             heart.vy = -512;
             heart.dvy = heart.vy;
@@ -1328,13 +1328,13 @@ public class ChaosAlien {
     private void DieSmallDrawer(ChaosBase.Obj drawer) {
         // VAR
         ChaosBase.Obj heart = null;
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
 
         chaosSounds.SoundEffect(drawer, dieSmallDrawerEffect);
         if (chaosBase.difficulty < 9) {
             chaosActions.GetCenter(drawer, px, py);
-            heart = chaosActions.CreateObj(Anims.SMARTBONUS, (short) ChaosSmartBonus.sbExtraLife, px.get(), py.get(), 1, 1);
+            heart = chaosActions.CreateObj(Anims.SMARTBONUS, ChaosSmartBonus.sbExtraLife, px.get(), py.get(), 1, 1);
             heart.ay = 8;
             heart.vy = -384;
             heart.dvy = heart.vy;
@@ -1352,8 +1352,8 @@ public class ChaosAlien {
         int max = 0;
         int ssKind = 0;
         int bullets = 0;
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
         Weapon w = Weapon.GUN;
 
         chaosSounds.SoundEffect(drawer, dieBigDrawerEffect);
@@ -1378,9 +1378,9 @@ public class ChaosAlien {
         }
         if ((bullets < 100 + trigo.RND() % 64) && (chaosBase.powerCountDown <= 14))
             ssKind = ChaosBonus.tbBullet;
-        bonus = chaosActions.CreateObj(Anims.BONUS, (short) ChaosBonus.TimedBonus, px.get(), py.get(), ssKind, 1);
+        bonus = chaosActions.CreateObj(Anims.BONUS, ChaosBonus.TimedBonus, px.get(), py.get(), ssKind, 1);
         if (chaosBase.zone != Zone.Castle)
-            chaosActions.SetObjAXY(bonus, (byte) 0, (byte) 12);
+            chaosActions.SetObjAXY(bonus, 0, 12);
     }
 
     private final ChaosBase.DieProc DieBigDrawer_ref = this::DieBigDrawer;
@@ -1388,16 +1388,16 @@ public class ChaosAlien {
     private void DieHospital(ChaosBase.Obj hospital) {
         // VAR
         ChaosBase.Obj bonus = null;
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
 
         chaosSounds.SoundEffect(hospital, dieHospitalEffect);
         chaosActions.GetCenter(hospital, px, py);
         if (chaosBase.difficulty < 10) {
-            bonus = chaosActions.CreateObj(Anims.BONUS, (short) ChaosBonus.TimedBonus, px.get(), py.get(), ChaosBonus.tbHospital, 1);
-            chaosActions.SetObjVXY(bonus, (short) (hospital.vx / 2), (short) (hospital.vy / 2));
+            bonus = chaosActions.CreateObj(Anims.BONUS, ChaosBonus.TimedBonus, px.get(), py.get(), ChaosBonus.tbHospital, 1);
+            chaosActions.SetObjVXY(bonus, hospital.vx / 2, hospital.vy / 2);
             if (chaosBase.zone != Zone.Castle)
-                chaosActions.SetObjAXY(bonus, (byte) 0, (byte) 12);
+                chaosActions.SetObjAXY(bonus, 0, 12);
         }
         if (chaosBase.nbDollar == 0)
             chaosBonus.BoumMoney(hospital, EnumSet.of(Moneys.m1, Moneys.m2, Moneys.m5), 3, 11 - chaosBase.difficulty);
@@ -1408,96 +1408,96 @@ public class ChaosAlien {
     private void InitParams() {
         // VAR
         ChaosBase.ObjAttr attr = null;
-        short c = 0;
-        short v = 0;
-        short f = 0;
+        int c = 0;
+        int v = 0;
+        int f = 0;
 
-        chaosSounds.SetEffect(aieAlien0Effect[0], chaosSounds.soundList[SoundList.sCymbale.ordinal()], 0, 0, (short) 120, (short) 1);
-        chaosSounds.SetEffect(dieAlien0Effect[0], chaosSounds.soundList[SoundList.aCrash.ordinal()], 0, 0, (short) 160, (short) 4);
-        chaosSounds.SetEffect(dieSBEffect[0], chaosSounds.soundList[SoundList.aCrash.ordinal()], 0, 0, (short) 160, (short) 4);
-        chaosSounds.SetEffect(dieAlien0Effect[1], chaosSounds.soundList[SoundList.wCrash.ordinal()], 1164, 0, (short) 160, (short) 2);
-        chaosSounds.SetEffect(dieSBEffect[1], chaosSounds.soundList[SoundList.wCrash.ordinal()], 388, 0, (short) 160, (short) 2);
+        chaosSounds.SetEffect(aieAlien0Effect[0], chaosSounds.soundList[SoundList.sCymbale.ordinal()], 0, 0, 120, 1);
+        chaosSounds.SetEffect(dieAlien0Effect[0], chaosSounds.soundList[SoundList.aCrash.ordinal()], 0, 0, 160, 4);
+        chaosSounds.SetEffect(dieSBEffect[0], chaosSounds.soundList[SoundList.aCrash.ordinal()], 0, 0, 160, 4);
+        chaosSounds.SetEffect(dieAlien0Effect[1], chaosSounds.soundList[SoundList.wCrash.ordinal()], 1164, 0, 160, 2);
+        chaosSounds.SetEffect(dieSBEffect[1], chaosSounds.soundList[SoundList.wCrash.ordinal()], 388, 0, 160, 2);
         for (c = 7; c >= 1; c -= 1) {
-            chaosSounds.SetEffect(dieAlien0Effect[9 - c], chaosSounds.nulSound, 1164, 0, (short) (c * 20), (short) 2);
-            chaosSounds.SetEffect(dieSBEffect[9 - c], chaosSounds.nulSound, 388, 0, (short) (c * 20), (short) 2);
+            chaosSounds.SetEffect(dieAlien0Effect[9 - c], chaosSounds.nulSound, 1164, 0, c * 20, 2);
+            chaosSounds.SetEffect(dieSBEffect[9 - c], chaosSounds.nulSound, 388, 0, c * 20, 2);
         }
-        chaosSounds.SetEffect(dieDieseEffect[0], chaosSounds.soundList[SoundList.aCrash.ordinal()], 0, 0, (short) 180, (short) 4);
-        chaosSounds.SetEffect(dieDieseEffect[1], chaosSounds.soundList[SoundList.wCrash.ordinal()], 582, 0, (short) 180, (short) 3);
+        chaosSounds.SetEffect(dieDieseEffect[0], chaosSounds.soundList[SoundList.aCrash.ordinal()], 0, 0, 180, 4);
+        chaosSounds.SetEffect(dieDieseEffect[1], chaosSounds.soundList[SoundList.wCrash.ordinal()], 582, 0, 180, 3);
         for (c = 2; c <= 16; c++) {
-            v = (short) (((17 - c) * 11) * (Math.abs(3 - (c - 1) % 6) + 1) / 4);
-            chaosSounds.SetEffect(dieDieseEffect[c], chaosSounds.nulSound, 582, 0, v, (short) 3);
+            v = ((17 - c) * 11) * (Math.abs(3 - (c - 1) % 6) + 1) / 4;
+            chaosSounds.SetEffect(dieDieseEffect[c], chaosSounds.nulSound, 582, 0, v, 3);
         }
-        chaosSounds.SetEffect(aieKmkEffect[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 12544, (short) 192, (short) 2);
-        chaosSounds.SetEffect(aieKmkEffect[1], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 25088, 12544, (short) 24, (short) 1);
-        chaosSounds.SetEffect(aiePicEffect[0], chaosSounds.soundList[SoundList.aCrash.ordinal()], 0, 10537, (short) 100, (short) 2);
-        chaosSounds.SetEffect(aiePicEffect[1], chaosSounds.soundList[SoundList.wCrash.ordinal()], 21074, 10537, (short) 100, (short) 2);
+        chaosSounds.SetEffect(aieKmkEffect[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 12544, 192, 2);
+        chaosSounds.SetEffect(aieKmkEffect[1], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 25088, 12544, 24, 1);
+        chaosSounds.SetEffect(aiePicEffect[0], chaosSounds.soundList[SoundList.aCrash.ordinal()], 0, 10537, 100, 2);
+        chaosSounds.SetEffect(aiePicEffect[1], chaosSounds.soundList[SoundList.wCrash.ordinal()], 21074, 10537, 100, 2);
         for (c = 2; c <= 9; c++) {
-            chaosSounds.SetEffect(aieKmkEffect[c], chaosSounds.nulSound, 1568, 12544, (short) ((10 - c) * 3), (short) 1);
-            chaosSounds.SetEffect(aiePicEffect[c], chaosSounds.nulSound, 1317, 10537, (short) ((10 - c) * 12), (short) 1);
+            chaosSounds.SetEffect(aieKmkEffect[c], chaosSounds.nulSound, 1568, 12544, (10 - c) * 3, 1);
+            chaosSounds.SetEffect(aiePicEffect[c], chaosSounds.nulSound, 1317, 10537, (10 - c) * 12, 1);
         }
         v = 0;
         for (c = 0; c <= 7; c++) {
-            chaosSounds.SetEffect(dieKmkEffect[c], chaosSounds.soundList[SoundList.aCrash.ordinal()], 0, 5575 + 995 * v, (short) ((8 - c) * 24), (short) 4);
-            v = (short) ((v * 9 + 5) % 8);
+            chaosSounds.SetEffect(dieKmkEffect[c], chaosSounds.soundList[SoundList.aCrash.ordinal()], 0, 5575 + 995 * v, (8 - c) * 24, 4);
+            v = (v * 9 + 5) % 8;
         }
-        chaosSounds.SetEffect(aieHospitalEffect[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 16726, (short) 80, (short) 1);
+        chaosSounds.SetEffect(aieHospitalEffect[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 16726, 80, 1);
         for (c = 0; c <= 15; c++) {
-            v = (short) (((c + 1) % 2) * 2987 + 15787);
-            chaosSounds.SetEffect(dieHospitalEffect[c], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1045, v, (short) ((16 - c) * 11), (short) 4);
+            v = ((c + 1) % 2) * 2987 + 15787;
+            chaosSounds.SetEffect(dieHospitalEffect[c], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1045, v, (16 - c) * 11, 4);
         }
-        chaosSounds.SetEffect(aieTrefleEffect[0], chaosSounds.soundList[SoundList.sCymbale.ordinal()], 0, 12544, (short) 100, (short) 1);
-        chaosSounds.SetEffect(aieTrefleEffect[1], chaosSounds.soundList[SoundList.sCymbale.ordinal()], 0, 6272, (short) 100, (short) 1);
-        chaosSounds.SetEffect(dieCartoonEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 418, 4181, (short) 100, (short) 5);
-        chaosSounds.SetEffect(dieCartoonEffect[1], chaosSounds.soundList[SoundList.wNoise.ordinal()], 836, 8363, (short) 100, (short) 5);
-        chaosSounds.SetEffect(dieCartoonEffect[2], chaosSounds.soundList[SoundList.wWhite.ordinal()], 1673, 16726, (short) 150, (short) 5);
-        chaosSounds.SetEffect(dieCartoonEffect[3], chaosSounds.soundList[SoundList.wNoise.ordinal()], 836, 8363, (short) 100, (short) 5);
-        chaosSounds.SetEffect(dieSCartoonEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 1673, 16726, (short) 100, (short) 3);
+        chaosSounds.SetEffect(aieTrefleEffect[0], chaosSounds.soundList[SoundList.sCymbale.ordinal()], 0, 12544, 100, 1);
+        chaosSounds.SetEffect(aieTrefleEffect[1], chaosSounds.soundList[SoundList.sCymbale.ordinal()], 0, 6272, 100, 1);
+        chaosSounds.SetEffect(dieCartoonEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 418, 4181, 100, 5);
+        chaosSounds.SetEffect(dieCartoonEffect[1], chaosSounds.soundList[SoundList.wNoise.ordinal()], 836, 8363, 100, 5);
+        chaosSounds.SetEffect(dieCartoonEffect[2], chaosSounds.soundList[SoundList.wWhite.ordinal()], 1673, 16726, 150, 5);
+        chaosSounds.SetEffect(dieCartoonEffect[3], chaosSounds.soundList[SoundList.wNoise.ordinal()], 836, 8363, 100, 5);
+        chaosSounds.SetEffect(dieSCartoonEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 1673, 16726, 100, 3);
         for (c = 4; c <= 11; c++) {
-            v = (short) (418 + (c % 2) * 418);
-            f = (short) (4181 + (c % 2) * 4181);
-            chaosSounds.SetEffect(dieCartoonEffect[c], chaosSounds.soundList[SoundList.wNoise.ordinal()], v, f, (short) ((12 - c) * 11), (short) 4);
-            chaosSounds.SetEffect(dieSCartoonEffect[c - 3], chaosSounds.soundList[SoundList.wNoise.ordinal()], v, f, (short) ((12 - c) * 11), (short) 4);
+            v = 418 + (c % 2) * 418;
+            f = 4181 + (c % 2) * 4181;
+            chaosSounds.SetEffect(dieCartoonEffect[c], chaosSounds.soundList[SoundList.wNoise.ordinal()], v, f, (12 - c) * 11, 4);
+            chaosSounds.SetEffect(dieSCartoonEffect[c - 3], chaosSounds.soundList[SoundList.wNoise.ordinal()], v, f, (12 - c) * 11, 4);
         }
         for (c = 0; c <= 23; c++) {
-            v = (short) (Math.abs(c % 4 - 2) + 1);
-            chaosSounds.SetEffect(dieTrefleEffect[c], chaosSounds.soundList[SoundList.wCrash.ordinal()], 700, 4182 + v * 3485, (short) ((24 - c) * v * 3), (short) 4);
+            v = Math.abs(c % 4 - 2) + 1;
+            chaosSounds.SetEffect(dieTrefleEffect[c], chaosSounds.soundList[SoundList.wCrash.ordinal()], 700, 4182 + v * 3485, (24 - c) * v * 3, 4);
         }
-        chaosSounds.SetEffect(aieCartoonEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 800, 8363, (short) 40, (short) 1);
-        chaosSounds.SetEffect(aieDrawerEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 400, 12544, (short) 80, (short) 1);
-        chaosSounds.SetEffect(aieDrawerEffect[1], chaosSounds.soundList[SoundList.wNoise.ordinal()], 400, 6272, (short) 80, (short) 1);
-        chaosSounds.SetEffect(dieBigDrawerEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 582, 8860, (short) 160, (short) 5);
-        chaosSounds.SetEffect(dieSmallDrawerEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 582, 0, (short) 160, (short) 5);
+        chaosSounds.SetEffect(aieCartoonEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 800, 8363, 40, 1);
+        chaosSounds.SetEffect(aieDrawerEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 400, 12544, 80, 1);
+        chaosSounds.SetEffect(aieDrawerEffect[1], chaosSounds.soundList[SoundList.wNoise.ordinal()], 400, 6272, 80, 1);
+        chaosSounds.SetEffect(dieBigDrawerEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 582, 8860, 160, 5);
+        chaosSounds.SetEffect(dieSmallDrawerEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 582, 0, 160, 5);
         for (c = 1; c <= 16; c++) {
-            v = (short) ((17 - c) * 8);
-            chaosSounds.SetEffect(dieBigDrawerEffect[c], chaosSounds.nulSound, 582, 12544 - (c % 2) * 6969, v, (short) 4);
-            v = (short) (v * (c % 2));
-            chaosSounds.SetEffect(dieSmallDrawerEffect[c], chaosSounds.nulSound, 582, 0, v, (short) 4);
+            v = (17 - c) * 8;
+            chaosSounds.SetEffect(dieBigDrawerEffect[c], chaosSounds.nulSound, 582, 12544 - (c % 2) * 6969, v, 4);
+            v = v * (c % 2);
+            chaosSounds.SetEffect(dieSmallDrawerEffect[c], chaosSounds.nulSound, 582, 0, v, 4);
         }
-        chaosSounds.SetEffect(aieBigEffect[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 4181, (short) 100, (short) 2);
-        chaosSounds.SetEffect(dieBigEffect[0], chaosSounds.soundList[SoundList.sVerre.ordinal()], 0, 16726, (short) 192, (short) 4);
-        chaosSounds.SetEffect(aieSquareEffect[0], chaosSounds.soundList[SoundList.wVoice.ordinal()], 300, 0, (short) 200, (short) 2);
-        chaosSounds.SetEffect(dieSquareEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 209, 4181, (short) 192, (short) 4);
-        chaosSounds.SetEffect(dieSquareEffect[1], chaosSounds.soundList[SoundList.wNoise.ordinal()], 418, 8363, (short) 192, (short) 4);
-        chaosSounds.SetEffect(dieSquareEffect[2], chaosSounds.soundList[SoundList.wNoise.ordinal()], 836, 16726, (short) 192, (short) 4);
-        chaosSounds.SetEffect(dieSquareEffect[3], chaosSounds.soundList[SoundList.sHHat.ordinal()], 0, 8363, (short) 192, (short) 4);
-        chaosSounds.SetEffect(dieSquareEffect[4], chaosSounds.soundList[SoundList.sHHat.ordinal()], 0, 16726, (short) 192, (short) 4);
-        chaosSounds.SetEffect(dieSquareEffect[5], chaosSounds.soundList[SoundList.sCymbale.ordinal()], 0, 8363, (short) 192, (short) 4);
-        chaosSounds.SetEffect(dieSquareEffect[6], chaosSounds.soundList[SoundList.wCrash.ordinal()], 418, 8363, (short) 220, (short) 4);
-        chaosSounds.SetEffect(dieSquareEffect[7], chaosSounds.soundList[SoundList.wCrash.ordinal()], 279, 5575, (short) 220, (short) 4);
-        chaosSounds.SetEffect(dieSquareEffect[8], chaosSounds.soundList[SoundList.wCrash.ordinal()], 418, 4181, (short) 220, (short) 4);
-        chaosSounds.SetEffect(dieSquareEffect[9], chaosSounds.soundList[SoundList.sHurryUp.ordinal()], 0, 16726, (short) 220, (short) 4);
-        chaosSounds.SetEffect(dieSquareEffect[10], chaosSounds.soundList[SoundList.sGun.ordinal()], 0, 8363, (short) 160, (short) 4);
-        chaosSounds.SetEffect(dieSquareEffect[11], chaosSounds.soundList[SoundList.wVoice.ordinal()], 6000, 9387, (short) 210, (short) 4);
-        chaosSounds.SetEffect(dieSquareEffect[12], chaosSounds.soundList[SoundList.wWhite.ordinal()], 523, 4181, (short) 192, (short) 4);
-        chaosSounds.SetEffect(dieSquareEffect[13], chaosSounds.soundList[SoundList.wWhite.ordinal()], 8363, 16726, (short) 192, (short) 4);
-        chaosSounds.SetEffect(aieTriEffect[0], chaosSounds.soundList[SoundList.wCrash.ordinal()], 522, 4181, (short) 180, (short) 1);
+        chaosSounds.SetEffect(aieBigEffect[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 4181, 100, 2);
+        chaosSounds.SetEffect(dieBigEffect[0], chaosSounds.soundList[SoundList.sVerre.ordinal()], 0, 16726, 192, 4);
+        chaosSounds.SetEffect(aieSquareEffect[0], chaosSounds.soundList[SoundList.wVoice.ordinal()], 300, 0, 200, 2);
+        chaosSounds.SetEffect(dieSquareEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 209, 4181, 192, 4);
+        chaosSounds.SetEffect(dieSquareEffect[1], chaosSounds.soundList[SoundList.wNoise.ordinal()], 418, 8363, 192, 4);
+        chaosSounds.SetEffect(dieSquareEffect[2], chaosSounds.soundList[SoundList.wNoise.ordinal()], 836, 16726, 192, 4);
+        chaosSounds.SetEffect(dieSquareEffect[3], chaosSounds.soundList[SoundList.sHHat.ordinal()], 0, 8363, 192, 4);
+        chaosSounds.SetEffect(dieSquareEffect[4], chaosSounds.soundList[SoundList.sHHat.ordinal()], 0, 16726, 192, 4);
+        chaosSounds.SetEffect(dieSquareEffect[5], chaosSounds.soundList[SoundList.sCymbale.ordinal()], 0, 8363, 192, 4);
+        chaosSounds.SetEffect(dieSquareEffect[6], chaosSounds.soundList[SoundList.wCrash.ordinal()], 418, 8363, 220, 4);
+        chaosSounds.SetEffect(dieSquareEffect[7], chaosSounds.soundList[SoundList.wCrash.ordinal()], 279, 5575, 220, 4);
+        chaosSounds.SetEffect(dieSquareEffect[8], chaosSounds.soundList[SoundList.wCrash.ordinal()], 418, 4181, 220, 4);
+        chaosSounds.SetEffect(dieSquareEffect[9], chaosSounds.soundList[SoundList.sHurryUp.ordinal()], 0, 16726, 220, 4);
+        chaosSounds.SetEffect(dieSquareEffect[10], chaosSounds.soundList[SoundList.sGun.ordinal()], 0, 8363, 160, 4);
+        chaosSounds.SetEffect(dieSquareEffect[11], chaosSounds.soundList[SoundList.wVoice.ordinal()], 6000, 9387, 210, 4);
+        chaosSounds.SetEffect(dieSquareEffect[12], chaosSounds.soundList[SoundList.wWhite.ordinal()], 523, 4181, 192, 4);
+        chaosSounds.SetEffect(dieSquareEffect[13], chaosSounds.soundList[SoundList.wWhite.ordinal()], 8363, 16726, 192, 4);
+        chaosSounds.SetEffect(aieTriEffect[0], chaosSounds.soundList[SoundList.wCrash.ordinal()], 522, 4181, 180, 1);
         for (c = 0; c <= 11; c++) {
-            v = (short) ((12 - c) * 13 * ((c + 1) % 2));
-            chaosSounds.SetEffect(dieTriEffect[c], chaosSounds.soundList[SoundList.wNoise.ordinal()], 896, 12544, v, (short) 4);
+            v = (12 - c) * 13 * ((c + 1) % 2);
+            chaosSounds.SetEffect(dieTriEffect[c], chaosSounds.soundList[SoundList.wNoise.ordinal()], 896, 12544, v, 4);
         }
         for (c = 0; c <= 15; c++) {
-            f = (short) (c % 4);
-            v = (short) ((16 - c) * 12);
+            f = (c % 4);
+            v = (16 - c) * 12;
             if (f == 3)
                 v = 0;
             if (f == 0)
@@ -1506,12 +1506,12 @@ public class ChaosAlien {
                 f = 8363;
             else
                 f = 4181;
-            chaosSounds.SetEffect(dieBumperEffect[c], chaosSounds.soundList[SoundList.wNoise.ordinal()], f / 20, f, v, (short) 4);
+            chaosSounds.SetEffect(dieBumperEffect[c], chaosSounds.soundList[SoundList.wNoise.ordinal()], f / 20, f, v, 4);
         }
-        chaosSounds.SetEffect(dieFlameEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 836, 16726, (short) 150, (short) 3);
-        chaosSounds.SetEffect(dieFlameEffect[1], chaosSounds.soundList[SoundList.wNoise.ordinal()], 418, 8363, (short) 150, (short) 3);
-        chaosSounds.SetEffect(dieFlameEffect[2], chaosSounds.soundList[SoundList.wNoise.ordinal()], 209, 4181, (short) 150, (short) 3);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        chaosSounds.SetEffect(dieFlameEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 836, 16726, 150, 3);
+        chaosSounds.SetEffect(dieFlameEffect[1], chaosSounds.soundList[SoundList.wNoise.ordinal()], 418, 8363, 150, 3);
+        chaosSounds.SetEffect(dieFlameEffect[2], chaosSounds.soundList[SoundList.wNoise.ordinal()], 209, 4181, 150, 3);
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetCartoon_ref;
         attr.Make = MakeCartoon_ref;
@@ -1534,7 +1534,7 @@ public class ChaosAlien {
         attr.priority = -70;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetAlien0_ref;
         attr.Make = MakeAlien0_ref;
@@ -1559,7 +1559,7 @@ public class ChaosAlien {
         attr.priority = -60;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetSmallDrawer_ref;
         attr.Make = MakeSmallDrawer_ref;
@@ -1584,7 +1584,7 @@ public class ChaosAlien {
         attr.basicType = BasicTypes.Bonus;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetBigDrawer_ref;
         attr.Make = MakeBigDrawer_ref;
@@ -1609,7 +1609,7 @@ public class ChaosAlien {
         attr.basicType = BasicTypes.Bonus;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetHospital_ref;
         attr.Make = MakeHospital_ref;
@@ -1633,7 +1633,7 @@ public class ChaosAlien {
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetDiese_ref;
         attr.Make = MakeDiese_ref;
@@ -1658,7 +1658,7 @@ public class ChaosAlien {
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetKamikaze_ref;
         attr.Make = MakeKamikaze_ref;
@@ -1676,7 +1676,7 @@ public class ChaosAlien {
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetStar_ref;
         attr.Make = MakeStar_ref;
@@ -1698,7 +1698,7 @@ public class ChaosAlien {
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetBubble_ref;
         attr.Make = MakeBubble_ref;
@@ -1722,7 +1722,7 @@ public class ChaosAlien {
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetBumper_ref;
         attr.Make = MakeBumper_ref;
@@ -1747,7 +1747,7 @@ public class ChaosAlien {
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetPic_ref;
         attr.Make = MakePic_ref;
@@ -1765,7 +1765,7 @@ public class ChaosAlien {
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetTri_ref;
         attr.Make = MakeTri_ref;
@@ -1790,7 +1790,7 @@ public class ChaosAlien {
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetTrefle_ref;
         attr.Make = MakeTrefle_ref;
@@ -1815,7 +1815,7 @@ public class ChaosAlien {
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetBig_ref;
         attr.Make = MakeBig_ref;
@@ -1835,12 +1835,12 @@ public class ChaosAlien {
         attr.aieStStyle = ChaosBase.slowStyle;
         attr.dieStKinds = EnumSet.of(Stones.stFOG3);
         attr.dieSKCount = 1;
-        attr.dieStone = (short) (ChaosBase.FlameMult + 16);
+        attr.dieStone = ChaosBase.FlameMult + 16;
         attr.dieStStyle = ChaosBase.slowStyle;
         attr.basicType = BasicTypes.Mineral;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetSquare_ref;
         attr.Make = MakeSquare_ref;
@@ -1860,12 +1860,12 @@ public class ChaosAlien {
         attr.aieStStyle = ChaosBase.slowStyle;
         attr.dieStKinds = EnumSet.noneOf(Stones.class);
         attr.dieSKCount = 0;
-        attr.dieStone = (short) (ChaosBase.FlameMult * 7);
+        attr.dieStone = ChaosBase.FlameMult * 7;
         attr.dieStStyle = ChaosBase.slowStyle;
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetFlame_ref;
         attr.Make = MakeFlame_ref;
@@ -1890,7 +1890,7 @@ public class ChaosAlien {
         attr.priority = -30;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN1.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetColor_ref;
         attr.Make = MakeColor_ref;

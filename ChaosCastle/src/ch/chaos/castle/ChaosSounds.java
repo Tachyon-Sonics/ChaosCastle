@@ -131,8 +131,8 @@ public class ChaosSounds {
         public Sound sound /* POINTER */;
         public int delay;
         public int rate;
-        public short volume;
-        public byte pri;
+        public int volume;
+        public int pri;
 
 
         public Sound getSound() {
@@ -159,19 +159,19 @@ public class ChaosSounds {
             this.rate = rate;
         }
 
-        public short getVolume() {
+        public int getVolume() {
             return this.volume;
         }
 
-        public void setVolume(short volume) {
+        public void setVolume(int volume) {
             this.volume = volume;
         }
 
-        public byte getPri() {
+        public int getPri() {
             return this.pri;
         }
 
-        public void setPri(byte pri) {
+        public void setPri(int pri) {
             this.pri = pri;
         }
 
@@ -196,8 +196,8 @@ public class ChaosSounds {
 
         public ChaosBase.Obj sndObj /* POINTER */;
         public Object sndWave;
-        public short sndPri;
-        public short boostPri;
+        public int sndPri;
+        public int boostPri;
 
 
         public ChaosBase.Obj getSndObj() {
@@ -216,19 +216,19 @@ public class ChaosSounds {
             this.sndWave = sndWave;
         }
 
-        public short getSndPri() {
+        public int getSndPri() {
             return this.sndPri;
         }
 
-        public void setSndPri(short sndPri) {
+        public void setSndPri(int sndPri) {
             this.sndPri = sndPri;
         }
 
-        public short getBoostPri() {
+        public int getBoostPri() {
             return this.boostPri;
         }
 
-        public void setBoostPri(short boostPri) {
+        public void setBoostPri(int boostPri) {
             this.boostPri = boostPri;
         }
 
@@ -253,7 +253,7 @@ public class ChaosSounds {
 
     public Channel[] channel = Runtime.initArray(new Channel[16]);
     public int nbChannel;
-    public short musicPri;
+    public int musicPri;
     public boolean sound;
     public boolean music;
     public boolean stereo;
@@ -278,11 +278,11 @@ public class ChaosSounds {
         this.nbChannel = nbChannel;
     }
 
-    public short getMusicPri() {
+    public int getMusicPri() {
         return this.musicPri;
     }
 
-    public void setMusicPri(short musicPri) {
+    public void setMusicPri(int musicPri) {
         this.musicPri = musicPri;
     }
 
@@ -344,8 +344,8 @@ public class ChaosSounds {
 
     private Sounds.ChannelPtr[] chans = new Sounds.ChannelPtr[16];
     private int nbChans;
-    private short stereoEffect;
-    private short plStereo;
+    private int stereoEffect;
+    private int plStereo;
 
 
     public Sounds.ChannelPtr[] getChans() {
@@ -364,19 +364,19 @@ public class ChaosSounds {
         this.nbChans = nbChans;
     }
 
-    public short getStereoEffect() {
+    public int getStereoEffect() {
         return this.stereoEffect;
     }
 
-    public void setStereoEffect(short stereoEffect) {
+    public void setStereoEffect(int stereoEffect) {
         this.stereoEffect = stereoEffect;
     }
 
-    public short getPlStereo() {
+    public int getPlStereo() {
         return this.plStereo;
     }
 
-    public void setPlStereo(short plStereo) {
+    public void setPlStereo(int plStereo) {
         this.plStereo = plStereo;
     }
 
@@ -390,7 +390,7 @@ public class ChaosSounds {
 
     private void SwitchSoundOn_LoadWave(/* VAR */ Sound sound, int size, Dialogs.GadgetPtr progress, /* VAR */ Runtime.IRef<Integer> fill, /* VAR */ Runtime.IRef<Boolean> loadOk) {
         // VAR
-        int res = 0;
+        long res = 0L;
 
         if (!loadOk.get())
             return;
@@ -402,7 +402,7 @@ public class ChaosSounds {
             loadOk.set(false);
             return;
         }
-        res = files.ReadFileBytes(chaosBase.file, sound.wave, (int) sound.size);
+        res = files.ReadFileBytes(chaosBase.file, sound.wave, sound.size);
         if (res <= 0) {
             checks.Warn(true, Runtime.castToRef(memory.ADS(SamplesFile), String.class), files.FileErrorMsg());
             loadOk.set(false);
@@ -420,7 +420,7 @@ public class ChaosSounds {
 
         // VAR
         Dialogs.GadgetPtr progress = null;
-        short c = 0;
+        int c = 0;
         Runtime.Ref<Integer> fill = new Runtime.Ref<>(0);
         SoundList sndCnt = SoundList.aCrash;
         Runtime.Ref<Boolean> loadOk = new Runtime.Ref<>(false);
@@ -432,10 +432,10 @@ public class ChaosSounds {
         loadOk.set(true);
         fill.set(8);
         dTitle = languages.ADL(DTitle);
-        chaosBase.d = dialogs.CreateGadget((short) Dialogs.dDialog, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, dTitle, Dialogs.dRFLAGS, Dialogs.dfCLOSE));
+        chaosBase.d = dialogs.CreateGadget(Dialogs.dDialog, (Memory.TagItem) memory.TAG2(Dialogs.dTEXT, dTitle, Dialogs.dRFLAGS, Dialogs.dfCLOSE));
         progress = dialogs.noGadget;
         if (chaosBase.d != dialogs.noGadget) {
-            progress = dialogs.AddNewGadget(chaosBase.d, (short) Dialogs.dProgress, (Memory.TagItem) memory.TAG3(Dialogs.dRFLAGS, Dialogs.dfBORDER, Dialogs.dTEXT, memory.ADS(""), Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
+            progress = dialogs.AddNewGadget(chaosBase.d, Dialogs.dProgress, (Memory.TagItem) memory.TAG3(Dialogs.dRFLAGS, Dialogs.dfBORDER, Dialogs.dTEXT, memory.ADS(""), Dialogs.dFLAGS, Dialogs.dfJUSTIFY));
             if ((progress == dialogs.noGadget) || (dialogs.RefreshGadget(chaosBase.d) != Dialogs.DialogOk))
                 dialogs.DeepFreeGadget(new Runtime.FieldRef<>(chaosBase::getD, chaosBase::setD));
         }
@@ -489,7 +489,7 @@ public class ChaosSounds {
         if (nbChannel > 16)
             nbChannel = 16;
         nbChans = nbChannel;
-        c = (short) nbChannel;
+        c = nbChannel;
         while (loadOk.get() && (c > 0)) {
             c--;
             chans[c] = sounds.AllocChannel((Memory.TagItem) memory.TAG1(Sounds.sSTEREO, (stereo ? 1 : 0)));
@@ -501,7 +501,7 @@ public class ChaosSounds {
                 Channel _channel = channel[c];
                 _channel.sndWave = null;
                 _channel.sndObj = null;
-                _channel.sndPri = (short) Byte.MIN_VALUE /* MIN(SHORTINT) */;
+                _channel.sndPri = Byte.MIN_VALUE /* MIN(SHORTINT) */;
             }
         }
         dialogs.DeepFreeGadget(new Runtime.FieldRef<>(chaosBase::getD, chaosBase::setD));
@@ -513,7 +513,7 @@ public class ChaosSounds {
     public void SwitchSoundOff() {
         // VAR
         SoundList sound = SoundList.aCrash;
-        short c = 0;
+        int c = 0;
 
         while (nbChans > 0) {
             nbChans--;
@@ -536,12 +536,12 @@ public class ChaosSounds {
 
     public final Runnable SwitchSoundOff_ref = this::SwitchSoundOff;
 
-    public void SetEffect(/* VAR */ Effect effect, /* var */ Sound sound, int delay, int rate, short volume, short pri) {
+    public void SetEffect(/* VAR */ Effect effect, /* var */ Sound sound, int delay, int rate, int volume, int pri) {
         effect.sound = sound;
         effect.delay = delay;
         effect.rate = rate;
         effect.volume = volume;
-        effect.pri = (byte) pri;
+        effect.pri = pri;
     }
 
     public void StereoEffect() {
@@ -566,39 +566,39 @@ public class ChaosSounds {
         long dx = 0L;
         long dy = 0L;
         long dist = 0L;
-        int px = 0;
-        int pl = 0;
-        short rx = 0;
-        short ry = 0;
-        short rl = 0;
-        short ov = 0;
-        short pv = 0;
+        long px = 0L;
+        long pl = 0L;
+        int rx = 0;
+        int ry = 0;
+        int rl = 0;
+        int ov = 0;
+        int pv = 0;
         int am = 0;
         int fm = 0;
         int os = 0;
         int ps = 0;
         long delay = 0L;
-        short stereo = 0;
+        int stereo = 0;
 
         { // WITH
             Channel _channel = channel[chan];
             if ((tags == null) && sounds.SndFinish(chans[chan])) {
                 _channel.sndWave = null;
                 _channel.sndObj = null;
-                _channel.sndPri = (short) Byte.MIN_VALUE /* MIN(SHORTINT) */;
+                _channel.sndPri = Byte.MIN_VALUE /* MIN(SHORTINT) */;
                 return;
             }
             if (_channel.sndObj == null)
                 return;
-            rx = (short) ((_channel.sndObj.x - chaosBase.mainPlayer.x) / ChaosBase.Frac);
+            rx = (int) ((_channel.sndObj.x - chaosBase.mainPlayer.x) / ChaosBase.Frac);
             rx += _channel.sndObj.cx - chaosBase.mainPlayer.cx;
-            ry = (short) ((_channel.sndObj.y - chaosBase.mainPlayer.y) / ChaosBase.Frac);
+            ry = (int) ((_channel.sndObj.y - chaosBase.mainPlayer.y) / ChaosBase.Frac);
             ry += _channel.sndObj.cy - chaosBase.mainPlayer.cy;
             px = rx;
             dx = Math.abs(rx);
             dy = Math.abs(ry);
             dist = trigo.SQRT(dx * dx + dy * dy);
-            pl = (int) dist;
+            pl = dist;
             if (dist >= 256)
                 am = 0;
             else
@@ -617,26 +617,26 @@ public class ChaosSounds {
                 } else if ((tags == null) && (_channel.sndObj.kind == Anims.PLAYER)) {
                     tagGadget.tag = Sounds.sSTEREO;
                     sounds.SndGet(chans[chan], tagGadget);
-                    stereo = (short) tagGadget.lint;
+                    stereo = (int) tagGadget.lint;
                 } else if (pl != 0) {
-                    stereo = (short) ((px * 90) / pl);
+                    stereo = (int) ((px * 90) / pl);
                     if (ry > 0) {
                         if (stereo > 0)
-                            stereo = (short) (180 - stereo);
+                            stereo = 180 - stereo;
                         else
-                            stereo = (short) (-180 - stereo);
+                            stereo = -180 - stereo;
                     }
                 } else {
                     stereo = 0;
                 }
                 if ((dx > 127) || (dy > 127)) {
-                    rx = (short) (rx / 2);
-                    ry = (short) (ry / 2);
+                    rx = rx / 2;
+                    ry = ry / 2;
                 }
-                rl = (short) trigo.SQRT(rx * rx + ry * ry);
+                rl = trigo.SQRT(rx * rx + ry * ry);
                 if (rl != 0) {
-                    ov = (short) -(((_channel.sndObj.vx / 32) * rx + (_channel.sndObj.vy / 32) * ry) / rl);
-                    pv = (short) (((chaosBase.mainPlayer.vx / 32) * rx + (chaosBase.mainPlayer.vy / 32) * ry) / rl);
+                    ov = -(((_channel.sndObj.vx / 32) * rx + (_channel.sndObj.vy / 32) * ry) / rl);
+                    pv = ((chaosBase.mainPlayer.vx / 32) * rx + (chaosBase.mainPlayer.vy / 32) * ry) / rl;
                     if (chaosBase.water) {
                         os = WaterSpeed - ov;
                         ps = WaterSpeed + pv;
@@ -675,14 +675,14 @@ public class ChaosSounds {
         }
     }
 
-    public boolean GetChan(/* VAR */ Runtime.IRef<Integer> chan, short pri, Object wave, ChaosBase.Obj obj) {
+    public boolean GetChan(/* VAR */ Runtime.IRef<Integer> chan, int pri, Object wave, ChaosBase.Obj obj) {
         // VAR
-        int rx = 0;
-        int ry = 0;
+        long rx = 0L;
+        long ry = 0L;
         long dx = 0L;
         long dy = 0L;
         int dl = 0;
-        short boost = 0;
+        int boost = 0;
 
         rx = (obj.x - chaosBase.mainPlayer.x) / ChaosBase.Frac;
         rx += obj.cx - chaosBase.mainPlayer.cx;
@@ -694,8 +694,8 @@ public class ChaosSounds {
         if (dl >= 256)
             boost = 0;
         else
-            boost = (short) (128 - (dl / 2));
-        pri = (short) ((pri * boost + 127) / 128);
+            boost = 128 - (dl / 2);
+        pri = (pri * boost + 127) / 128;
         chan.set(nbChans);
         while (true) {
             if (chan.get() == 0) {
@@ -732,7 +732,7 @@ public class ChaosSounds {
         Runtime.Ref<Integer> chan = new Runtime.Ref<>(0);
         int lrate = 0;
         int rrate = 0;
-        short k = 0;
+        int k = 0;
         boolean first = false;
 
         if (GetChan(chan, effects[0].pri, effects[0].sound.wave, obj)) {

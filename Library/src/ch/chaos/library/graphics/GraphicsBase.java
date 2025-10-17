@@ -94,18 +94,18 @@ public abstract class GraphicsBase implements IGraphics {
     }
 
     @Override
-    public void SetTextPos(short x, short y) {
+    public void SetTextPos(int x, int y) {
         textPosition = new Point(x, y);
     }
 
     @Override
-    public short TextWidth(Runtime.IRef<String> t) {
+    public int TextWidth(Runtime.IRef<String> t) {
         AtomicInteger result = new AtomicInteger();
         currentArea.draw((g) -> {
             Rectangle2D rect = g.getFontMetrics().getStringBounds(t.get(), g);
             result.set((int) (rect.getWidth() * TEXT_FONT_WIDEN + 0.5));
         });
-        return (short) result.get();
+        return result.get();
     }
 
     @Override
@@ -142,7 +142,7 @@ public abstract class GraphicsBase implements IGraphics {
     }
 
     @Override
-    public void SetTextSize(short s) {
+    public void SetTextSize(int s) {
         textSize = s;
         currentArea.draw((g) -> {
             g.setFont(g.getFont().deriveFont(textSize));

@@ -63,11 +63,11 @@ public class ChaosMissile {
 
     private void MakeMissile1(ChaosBase.Obj missile) {
         if (missile.stat == 3)
-            chaosActions.SetObjLoc(missile, (short) 78, (short) 67, (short) 7, (short) 7);
+            chaosActions.SetObjLoc(missile, 78, 67, 7, 7);
         else if (missile.stat == 4)
-            chaosActions.SetObjLoc(missile, (short) 92, (short) 180, (short) 7, (short) 7);
+            chaosActions.SetObjLoc(missile, 92, 180, 7, 7);
         else
-            chaosActions.SetObjLoc(missile, (short) (missile.stat * 7 + 131), (short) 65, (short) 7, (short) 7);
+            chaosActions.SetObjLoc(missile, missile.stat * 7 + 131, 65, 7, 7);
         chaosActions.SetObjRect(missile, 0, 0, 7, 7);
     }
 
@@ -78,7 +78,7 @@ public class ChaosMissile {
             missile.stat = 0;
         else
             missile.stat++;
-        chaosActions.SetObjLoc(missile, (short) (missile.stat * 11 + 78), (short) 67, (short) 7, (short) 7);
+        chaosActions.SetObjLoc(missile, missile.stat * 11 + 78, 67, 7, 7);
         chaosActions.SetObjRect(missile, 0, 0, 7, 7);
     }
 
@@ -89,7 +89,7 @@ public class ChaosMissile {
             missile.stat = 0;
         else
             missile.stat++;
-        chaosActions.SetObjLoc(missile, (short) (missile.stat * 11 + 76), (short) 65, (short) 11, (short) 11);
+        chaosActions.SetObjLoc(missile, missile.stat * 11 + 76, 65, 11, 11);
         chaosActions.SetObjRect(missile, 0, 0, 11, 11);
     }
 
@@ -134,7 +134,7 @@ public class ChaosMissile {
                 ss = EnumSet.of(Stones.stFLAME2);
                 cnt = missile.subKind + 1;
             }
-            chaosActions.Boum(missile, ss, (short) ChaosBase.slowStyle, (short) cnt, (short) 1);
+            chaosActions.Boum(missile, ss, ChaosBase.slowStyle, cnt, 1);
             chaosSounds.SoundEffect(missile, missileDieEffect);
             chaosActions.Die(missile);
             return;
@@ -177,8 +177,8 @@ public class ChaosMissile {
         // VAR
         ChaosBase.ObjAttr attr = null;
 
-        chaosSounds.SetEffect(missileDieEffect[0], chaosSounds.soundList[SoundList.wCrash.ordinal()], 1673, 16726, (short) 30, (short) 0);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        chaosSounds.SetEffect(missileDieEffect[0], chaosSounds.soundList[SoundList.wCrash.ordinal()], 1673, 16726, 30, 0);
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetMissile_ref;
         attr.Make = MakeMissile1_ref;
@@ -189,7 +189,7 @@ public class ChaosMissile {
         attr.priority = 20;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.MISSILE.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetMissile_ref;
         attr.Make = MakeMissile2_ref;
@@ -200,7 +200,7 @@ public class ChaosMissile {
         attr.priority = 22;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.MISSILE.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetMissile_ref;
         attr.Make = MakeMissile3_ref;

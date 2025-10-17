@@ -102,26 +102,26 @@ public class ChaosBase {
         public Memory.Node animNode = new Memory.Node(this);
         public Memory.Node objNode = new Memory.Node(this);
         public ObjAttr attr /* POINTER */;
-        public int left;
-        public int top;
-        public int right;
-        public int bottom;
-        public int x;
-        public int y;
-        public int midx;
-        public int midy;
-        public short vx;
-        public short vy;
-        public short dvx;
-        public short dvy;
-        public byte ax;
-        public byte ay;
-        public short posX;
-        public short posY;
-        public short width;
-        public short height;
-        public short cx;
-        public short cy;
+        public long left;
+        public long top;
+        public long right;
+        public long bottom;
+        public long x;
+        public long y;
+        public long midx;
+        public long midy;
+        public int vx;
+        public int vy;
+        public int dvx;
+        public int dvy;
+        public int ax;
+        public int ay;
+        public int posX;
+        public int posY;
+        public int width;
+        public int height;
+        public int cx;
+        public int cy;
         public int life;
         public int shapeSeq;
         public int moveSeq;
@@ -129,10 +129,10 @@ public class ChaosBase {
         public int hitSubLife;
         public int fireSubLife;
         public int temperature;
-        public short adelay;
+        public int adelay;
         public Anims kind;
-        public short subKind;
-        public byte priority;
+        public int subKind;
+        public int priority;
         public EnumSet<ObjFlags> flags = EnumSet.noneOf(ObjFlags.class);
 
 
@@ -160,163 +160,163 @@ public class ChaosBase {
             this.attr = attr;
         }
 
-        public int getLeft() {
+        public long getLeft() {
             return this.left;
         }
 
-        public void setLeft(int left) {
+        public void setLeft(long left) {
             this.left = left;
         }
 
-        public int getTop() {
+        public long getTop() {
             return this.top;
         }
 
-        public void setTop(int top) {
+        public void setTop(long top) {
             this.top = top;
         }
 
-        public int getRight() {
+        public long getRight() {
             return this.right;
         }
 
-        public void setRight(int right) {
+        public void setRight(long right) {
             this.right = right;
         }
 
-        public int getBottom() {
+        public long getBottom() {
             return this.bottom;
         }
 
-        public void setBottom(int bottom) {
+        public void setBottom(long bottom) {
             this.bottom = bottom;
         }
 
-        public int getX() {
+        public long getX() {
             return this.x;
         }
 
-        public void setX(int x) {
+        public void setX(long x) {
             this.x = x;
         }
 
-        public int getY() {
+        public long getY() {
             return this.y;
         }
 
-        public void setY(int y) {
+        public void setY(long y) {
             this.y = y;
         }
 
-        public int getMidx() {
+        public long getMidx() {
             return this.midx;
         }
 
-        public void setMidx(int midx) {
+        public void setMidx(long midx) {
             this.midx = midx;
         }
 
-        public int getMidy() {
+        public long getMidy() {
             return this.midy;
         }
 
-        public void setMidy(int midy) {
+        public void setMidy(long midy) {
             this.midy = midy;
         }
 
-        public short getVx() {
+        public int getVx() {
             return this.vx;
         }
 
-        public void setVx(short vx) {
+        public void setVx(int vx) {
             this.vx = vx;
         }
 
-        public short getVy() {
+        public int getVy() {
             return this.vy;
         }
 
-        public void setVy(short vy) {
+        public void setVy(int vy) {
             this.vy = vy;
         }
 
-        public short getDvx() {
+        public int getDvx() {
             return this.dvx;
         }
 
-        public void setDvx(short dvx) {
+        public void setDvx(int dvx) {
             this.dvx = dvx;
         }
 
-        public short getDvy() {
+        public int getDvy() {
             return this.dvy;
         }
 
-        public void setDvy(short dvy) {
+        public void setDvy(int dvy) {
             this.dvy = dvy;
         }
 
-        public byte getAx() {
+        public int getAx() {
             return this.ax;
         }
 
-        public void setAx(byte ax) {
+        public void setAx(int ax) {
             this.ax = ax;
         }
 
-        public byte getAy() {
+        public int getAy() {
             return this.ay;
         }
 
-        public void setAy(byte ay) {
+        public void setAy(int ay) {
             this.ay = ay;
         }
 
-        public short getPosX() {
+        public int getPosX() {
             return this.posX;
         }
 
-        public void setPosX(short posX) {
+        public void setPosX(int posX) {
             this.posX = posX;
         }
 
-        public short getPosY() {
+        public int getPosY() {
             return this.posY;
         }
 
-        public void setPosY(short posY) {
+        public void setPosY(int posY) {
             this.posY = posY;
         }
 
-        public short getWidth() {
+        public int getWidth() {
             return this.width;
         }
 
-        public void setWidth(short width) {
+        public void setWidth(int width) {
             this.width = width;
         }
 
-        public short getHeight() {
+        public int getHeight() {
             return this.height;
         }
 
-        public void setHeight(short height) {
+        public void setHeight(int height) {
             this.height = height;
         }
 
-        public short getCx() {
+        public int getCx() {
             return this.cx;
         }
 
-        public void setCx(short cx) {
+        public void setCx(int cx) {
             this.cx = cx;
         }
 
-        public short getCy() {
+        public int getCy() {
             return this.cy;
         }
 
-        public void setCy(short cy) {
+        public void setCy(int cy) {
             this.cy = cy;
         }
 
@@ -376,11 +376,11 @@ public class ChaosBase {
             this.temperature = temperature;
         }
 
-        public short getAdelay() {
+        public int getAdelay() {
             return this.adelay;
         }
 
-        public void setAdelay(short adelay) {
+        public void setAdelay(int adelay) {
             this.adelay = adelay;
         }
 
@@ -392,19 +392,19 @@ public class ChaosBase {
             this.kind = kind;
         }
 
-        public short getSubKind() {
+        public int getSubKind() {
             return this.subKind;
         }
 
-        public void setSubKind(short subKind) {
+        public void setSubKind(int subKind) {
             this.subKind = subKind;
         }
 
-        public byte getPriority() {
+        public int getPriority() {
             return this.priority;
         }
 
-        public void setPriority(byte priority) {
+        public void setPriority(int priority) {
             this.priority = priority;
         }
 
@@ -497,22 +497,22 @@ public class ChaosBase {
         public AieProc Aie;
         public DieProc Die;
         public int inerty;
-        public short weight;
-        public short charge;
+        public int weight;
+        public int charge;
         public int heatSpeed;
         public int coolSpeed;
         public int refreshSpeed;
         public EnumSet<Stones> aieStKinds = EnumSet.noneOf(Stones.class);
         public EnumSet<Stones> dieStKinds = EnumSet.noneOf(Stones.class);
-        public short aieStone;
-        public short aieStStyle;
-        public short aieSKCount;
-        public short dieStone;
-        public short dieStStyle;
-        public short dieSKCount;
+        public int aieStone;
+        public int aieStStyle;
+        public int aieSKCount;
+        public int dieStone;
+        public int dieStStyle;
+        public int dieSKCount;
         public BasicTypes basicType;
-        public byte priority;
-        public short nbObj;
+        public int priority;
+        public int nbObj;
         public boolean toKill;
 
 
@@ -572,19 +572,19 @@ public class ChaosBase {
             this.inerty = inerty;
         }
 
-        public short getWeight() {
+        public int getWeight() {
             return this.weight;
         }
 
-        public void setWeight(short weight) {
+        public void setWeight(int weight) {
             this.weight = weight;
         }
 
-        public short getCharge() {
+        public int getCharge() {
             return this.charge;
         }
 
-        public void setCharge(short charge) {
+        public void setCharge(int charge) {
             this.charge = charge;
         }
 
@@ -628,51 +628,51 @@ public class ChaosBase {
             this.dieStKinds = dieStKinds;
         }
 
-        public short getAieStone() {
+        public int getAieStone() {
             return this.aieStone;
         }
 
-        public void setAieStone(short aieStone) {
+        public void setAieStone(int aieStone) {
             this.aieStone = aieStone;
         }
 
-        public short getAieStStyle() {
+        public int getAieStStyle() {
             return this.aieStStyle;
         }
 
-        public void setAieStStyle(short aieStStyle) {
+        public void setAieStStyle(int aieStStyle) {
             this.aieStStyle = aieStStyle;
         }
 
-        public short getAieSKCount() {
+        public int getAieSKCount() {
             return this.aieSKCount;
         }
 
-        public void setAieSKCount(short aieSKCount) {
+        public void setAieSKCount(int aieSKCount) {
             this.aieSKCount = aieSKCount;
         }
 
-        public short getDieStone() {
+        public int getDieStone() {
             return this.dieStone;
         }
 
-        public void setDieStone(short dieStone) {
+        public void setDieStone(int dieStone) {
             this.dieStone = dieStone;
         }
 
-        public short getDieStStyle() {
+        public int getDieStStyle() {
             return this.dieStStyle;
         }
 
-        public void setDieStStyle(short dieStStyle) {
+        public void setDieStStyle(int dieStStyle) {
             this.dieStStyle = dieStStyle;
         }
 
-        public short getDieSKCount() {
+        public int getDieSKCount() {
             return this.dieSKCount;
         }
 
-        public void setDieSKCount(short dieSKCount) {
+        public void setDieSKCount(int dieSKCount) {
             this.dieSKCount = dieSKCount;
         }
 
@@ -684,19 +684,19 @@ public class ChaosBase {
             this.basicType = basicType;
         }
 
-        public byte getPriority() {
+        public int getPriority() {
             return this.priority;
         }
 
-        public void setPriority(byte priority) {
+        public void setPriority(int priority) {
             this.priority = priority;
         }
 
-        public short getNbObj() {
+        public int getNbObj() {
             return this.nbObj;
         }
 
-        public void setNbObj(short nbObj) {
+        public void setNbObj(int nbObj) {
             this.nbObj = nbObj;
         }
 
@@ -757,32 +757,32 @@ public class ChaosBase {
 
     public static class WeaponAttr { // RECORD
 
-        public short power;
-        public short nbBullet;
-        public short nbBomb;
+        public int power;
+        public int nbBullet;
+        public int nbBomb;
 
 
-        public short getPower() {
+        public int getPower() {
             return this.power;
         }
 
-        public void setPower(short power) {
+        public void setPower(int power) {
             this.power = power;
         }
 
-        public short getNbBullet() {
+        public int getNbBullet() {
             return this.nbBullet;
         }
 
-        public void setNbBullet(short nbBullet) {
+        public void setNbBullet(int nbBullet) {
             this.nbBullet = nbBullet;
         }
 
-        public short getNbBomb() {
+        public int getNbBomb() {
             return this.nbBomb;
         }
 
-        public void setNbBomb(short nbBomb) {
+        public void setNbBomb(int nbBomb) {
             this.nbBomb = nbBomb;
         }
 
@@ -862,13 +862,13 @@ public class ChaosBase {
 
     public Memory.List[] attrList = Runtime.initArray(new Memory.List[Anims.values().length]);
     public Memory.List[] animList = Runtime.initArray(new Memory.List[Anims.values().length]);
-    public short[] nbAnim = new short[Anims.values().length];
+    public int[] nbAnim = new int[Anims.values().length];
     public Memory.List objList = new Memory.List();
     public Memory.List leftObjList = new Memory.List();
     public Memory.List emptyObjList = new Memory.List();
     public Obj nextObj /* POINTER */;
-    public short nbEmpty;
-    public short nbObj;
+    public int nbEmpty;
+    public int nbObj;
     public int nbToKill;
     public long lasttime;
     public int step;
@@ -890,18 +890,18 @@ public class ChaosBase {
     public int maxPower;
     public int noMissile;
     public int playerPower;
-    public short screenInverted;
-    public short specialStage;
-    public short stages;
-    public short powerCountDown;
-    public short pLife;
-    public short nbDollar;
-    public short nbSterling;
+    public int screenInverted;
+    public int specialStage;
+    public int stages;
+    public int powerCountDown;
+    public int pLife;
+    public int nbDollar;
+    public int nbSterling;
     public boolean snow;
     public boolean water;
     public GameStat gameStat;
     public Zone zone;
-    public short[] level = new short[Zone.values().length];
+    public int[] level = new int[Zone.values().length];
     public Statistic[] basics = Runtime.initArray(new Statistic[BasicTypes.Animal.ordinal() - BasicTypes.Bonus.ordinal() + 1]);
     public Statistic shoot = new Statistic();
     public long addpt;
@@ -933,11 +933,11 @@ public class ChaosBase {
         this.animList = animList;
     }
 
-    public short[] getNbAnim() {
+    public int[] getNbAnim() {
         return this.nbAnim;
     }
 
-    public void setNbAnim(short[] nbAnim) {
+    public void setNbAnim(int[] nbAnim) {
         this.nbAnim = nbAnim;
     }
 
@@ -973,19 +973,19 @@ public class ChaosBase {
         this.nextObj = nextObj;
     }
 
-    public short getNbEmpty() {
+    public int getNbEmpty() {
         return this.nbEmpty;
     }
 
-    public void setNbEmpty(short nbEmpty) {
+    public void setNbEmpty(int nbEmpty) {
         this.nbEmpty = nbEmpty;
     }
 
-    public short getNbObj() {
+    public int getNbObj() {
         return this.nbObj;
     }
 
-    public void setNbObj(short nbObj) {
+    public void setNbObj(int nbObj) {
         this.nbObj = nbObj;
     }
 
@@ -1157,59 +1157,59 @@ public class ChaosBase {
         this.playerPower = playerPower;
     }
 
-    public short getScreenInverted() {
+    public int getScreenInverted() {
         return this.screenInverted;
     }
 
-    public void setScreenInverted(short screenInverted) {
+    public void setScreenInverted(int screenInverted) {
         this.screenInverted = screenInverted;
     }
 
-    public short getSpecialStage() {
+    public int getSpecialStage() {
         return this.specialStage;
     }
 
-    public void setSpecialStage(short specialStage) {
+    public void setSpecialStage(int specialStage) {
         this.specialStage = specialStage;
     }
 
-    public short getStages() {
+    public int getStages() {
         return this.stages;
     }
 
-    public void setStages(short stages) {
+    public void setStages(int stages) {
         this.stages = stages;
     }
 
-    public short getPowerCountDown() {
+    public int getPowerCountDown() {
         return this.powerCountDown;
     }
 
-    public void setPowerCountDown(short powerCountDown) {
+    public void setPowerCountDown(int powerCountDown) {
         this.powerCountDown = powerCountDown;
     }
 
-    public short getPLife() {
+    public int getPLife() {
         return this.pLife;
     }
 
-    public void setPLife(short pLife) {
+    public void setPLife(int pLife) {
         this.pLife = pLife;
     }
 
-    public short getNbDollar() {
+    public int getNbDollar() {
         return this.nbDollar;
     }
 
-    public void setNbDollar(short nbDollar) {
+    public void setNbDollar(int nbDollar) {
         this.nbDollar = nbDollar;
     }
 
-    public short getNbSterling() {
+    public int getNbSterling() {
         return this.nbSterling;
     }
 
-    public void setNbSterling(short nbSterling) {
+    public void setNbSterling(int nbSterling) {
         this.nbSterling = nbSterling;
     }
 
@@ -1245,11 +1245,11 @@ public class ChaosBase {
         this.zone = zone;
     }
 
-    public short[] getLevel() {
+    public int[] getLevel() {
         return this.level;
     }
 
-    public void setLevel(short[] level) {
+    public void setLevel(int[] level) {
         this.level = level;
     }
 
@@ -1360,17 +1360,17 @@ public class ChaosBase {
 
     // CONST
 
-//    private static final short MAXOBJ = ((1 << 8) - 1) /* MAX(SHORTCARD) */;
+//    private static final int MAXOBJ = ((1 << 8) - 1) /* MAX(SHORTCARD) */;
 //    private static final int MAXALIEN = MAXOBJ - 32;
 //    public static final int MAXSTONES = MAXOBJ - 64;
-    private static final short MAXOBJ = 1024;
+    private static final int MAXOBJ = 1024;
     public static final int MAXALIEN = MAXOBJ - 128;
     public static final int MAXSTONES = MAXOBJ - 256;
 
 
     // PROCEDURE
 
-    public ObjAttr GetAnimAttr(Anims kind, short subKind) {
+    public ObjAttr GetAnimAttr(Anims kind, int subKind) {
         // VAR
         Memory.List list = null;
         ObjAttr objAttr = null;
@@ -1390,14 +1390,14 @@ public class ChaosBase {
         return objAttr;
     }
 
-    public Obj NewObj(Anims kind, short subKind) {
+    public Obj NewObj(Anims kind, int subKind) {
         // VAR
         ObjAttr attr = null;
         Obj obj = null;
         Memory.Node at = null; /* PATCH */
         Memory.Node tail = null;
-        short max = 0;
-        byte pri = 0;
+        int max = 0;
+        int pri = 0;
 
         if (Runtime.minusSet(Runtime.plusSet(AnimAlienSet, EnumSet.of(Anims.STONE, Anims.DEADOBJ)), EnumSet.of(Anims.ALIEN3)).contains(kind))
             max = MAXALIEN;
@@ -1450,7 +1450,7 @@ public class ChaosBase {
         memory.AddHead(emptyObjList, obj.objNode);
     }
 
-    public void ConvertObj(Obj obj, Anims kind, short subKind) {
+    public void ConvertObj(Obj obj, Anims kind, int subKind) {
         // VAR
         ObjAttr attr = null;
 
@@ -1487,7 +1487,7 @@ public class ChaosBase {
         // VAR
         Memory.Node at = null; /* PATCH */
         Memory.Node tail = null;
-        byte pri = 0;
+        int pri = 0;
 
         memory.Remove(obj.objNode);
         memory.AddHead(animList[obj.kind.ordinal()], obj.animNode);
@@ -1529,7 +1529,7 @@ public class ChaosBase {
     private void InitLists() {
         // VAR
         Anims a = Anims.PLAYER;
-        short c = 0;
+        int c = 0;
         Obj newObj = null;
 
         memory.InitList(objList);
@@ -1542,7 +1542,7 @@ public class ChaosBase {
             nbAnim[a.ordinal()] = 0;
         }
         for (c = 0; c <= MAXOBJ; c++) {
-            newObj = (Obj) memory.AllocMem(Runtime.sizeOf(148, Obj.class));
+            newObj = (Obj) memory.AllocMem(Runtime.sizeOf(213, Obj.class));
             checks.CheckMem(newObj);
             memory.AddHead(emptyObjList, newObj.objNode);
         }

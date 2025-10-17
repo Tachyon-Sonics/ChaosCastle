@@ -362,7 +362,7 @@ public class ChaosWeapon {
 
     // PROCEDURE
 
-    public short GetBulletPrice(Weapon w) {
+    public int GetBulletPrice(Weapon w) {
         switch (w) {
             case GUN -> {
                 return 0;
@@ -405,9 +405,9 @@ public class ChaosWeapon {
                 return true;
             } else {
                 if (_weaponAttr.power == 0)
-                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("not enough power"), String.class), (short) ChaosActions.actionPos, (short) 1);
+                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("not enough power"), String.class), ChaosActions.actionPos, 1);
                 else
-                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("no bullet"), String.class), (short) ChaosActions.actionPos, (short) 1);
+                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("no bullet"), String.class), ChaosActions.actionPos, 1);
                 return false;
             }
         }
@@ -432,31 +432,31 @@ public class ChaosWeapon {
             return 4;
     }
 
-    private void StdFire(ChaosBase.Obj player, Weapon w, short speed, boolean addV, boolean stdV) {
+    private void StdFire(ChaosBase.Obj player, Weapon w, int speed, boolean addV, boolean stdV) {
         // CONST
         final int rOff = 7;
         final int dOff = 5;
 
         // VAR
         ChaosBase.ObjAttr wattr = null;
-        short nvx = 0;
-        short nvy = 0;
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        short diaspeed = 0;
+        int nvx = 0;
+        int nvy = 0;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        int diaspeed = 0;
 
         chaosActions.GetCenter(player, px, py);
         if (stdV || ((Math.abs(player.vx) < 64) && (Math.abs(player.vy) < 64))) {
             nvx = 0;
             nvy = 0;
-            diaspeed = (short) (speed * 5 / 7);
+            diaspeed = speed * 5 / 7;
             switch (player.shapeSeq) {
                 case 0 -> {
-                    nvy = (short) -speed;
+                    nvy = -speed;
                     py.dec(rOff);
                 }
                 case 1 -> {
-                    nvy = (short) -diaspeed;
+                    nvy = -diaspeed;
                     nvx = diaspeed;
                     py.dec(dOff);
                     px.inc(dOff);
@@ -477,16 +477,16 @@ public class ChaosWeapon {
                 }
                 case 5 -> {
                     nvy = diaspeed;
-                    nvx = (short) -diaspeed;
+                    nvx = -diaspeed;
                     px.dec(dOff);
                     py.inc(dOff);
                 }
                 case 6 -> {
-                    nvx = (short) -speed;
+                    nvx = -speed;
                     px.dec(rOff);
                 }
                 case 7 -> {
-                    nvx = (short) -diaspeed;
+                    nvx = -diaspeed;
                     nvy = nvx;
                     px.dec(dOff);
                     py.dec(dOff);
@@ -494,12 +494,12 @@ public class ChaosWeapon {
                 default -> throw new RuntimeException("Unhandled CASE value " + player.shapeSeq);
             }
         } else {
-            nvx = (short) (player.vx / 32);
-            nvy = (short) (player.vy / 32);
-            diaspeed = (short) trigo.SQRT(nvx * nvx + nvy * nvy);
-            speed = (short) (speed / 32);
-            nvx = (short) ((nvx * speed / diaspeed) * 32);
-            nvy = (short) ((nvy * speed / diaspeed) * 32);
+            nvx = player.vx / 32;
+            nvy = player.vy / 32;
+            diaspeed = trigo.SQRT(nvx * nvx + nvy * nvy);
+            speed = speed / 32;
+            nvx = (nvx * speed / diaspeed) * 32;
+            nvy = (nvy * speed / diaspeed) * 32;
         }
         if (addV) {
             nvx += player.vx;
@@ -514,34 +514,34 @@ public class ChaosWeapon {
                 nvy = -4095;
         }
         if (w != Weapon.BUBBLE) {
-            wattr = chaosBase.GetAnimAttr(Anims.WEAPON, (short) w.ordinal());
+            wattr = chaosBase.GetAnimAttr(Anims.WEAPON, w.ordinal());
             player.vx -= nvx / 128 * wattr.weight;
             player.vy -= nvy / 128 * wattr.weight;
         }
-        newWeapon = chaosActions.CreateObj(Anims.WEAPON, (short) w.ordinal(), px.get(), py.get(), 0, 0);
+        newWeapon = chaosActions.CreateObj(Anims.WEAPON, w.ordinal(), px.get(), py.get(), 0, 0);
         chaosActions.SetObjVXY(newWeapon, nvx, nvy);
     }
 
-    private void StdBomb(ChaosBase.Obj player, Weapon w, short speed, int nstat, int count, boolean addV) {
+    private void StdBomb(ChaosBase.Obj player, Weapon w, int speed, int nstat, int count, boolean addV) {
         // VAR
         ChaosBase.Obj obj = null;
         int cnt = 0;
         int angle = 0;
         int base = 0;
         int power = 0;
-        Runtime.Ref<Short> cx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> cy = new Runtime.Ref<>((short) 0);
-        short nvx = 0;
-        short nvy = 0;
+        Runtime.Ref<Integer> cx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> cy = new Runtime.Ref<>(0);
+        int nvx = 0;
+        int nvy = 0;
 
         power = GetPower(w);
         chaosActions.GetCenter(player, cx, cy);
-        speed = (short) (speed / 128);
+        speed = speed / 128;
         base = trigo.RND() % (60 / count + 1);
         for (cnt = 0; cnt < count; cnt++) {
             angle = cnt * 360 / count + base;
-            nvx = (short) ((speed * trigo.COS((short) angle)) / 8);
-            nvy = (short) ((speed * trigo.SIN((short) angle)) / 8);
+            nvx = (speed * trigo.COS(angle)) / 8;
+            nvy = (speed * trigo.SIN(angle)) / 8;
             if (addV) {
                 nvx += player.vx;
                 nvy += player.vy;
@@ -554,7 +554,7 @@ public class ChaosWeapon {
                 else if (nvy <= -4096)
                     nvy = -4095;
             }
-            obj = chaosActions.CreateObj(Anims.WEAPON, (short) w.ordinal(), cx.get(), cy.get(), nstat, 0);
+            obj = chaosActions.CreateObj(Anims.WEAPON, w.ordinal(), cx.get(), cy.get(), nstat, 0);
             chaosActions.SetObjVXY(obj, nvx, nvy);
         }
     }
@@ -612,12 +612,12 @@ public class ChaosWeapon {
 
     private void CheckFollow(int num, long newtime, long step, ChaosBase.Obj src, boolean chkall) {
         // VAR
-        int rx = 0;
-        int ry = 0;
-        Runtime.Ref<Short> sx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> sy = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> cx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> cy = new Runtime.Ref<>((short) 0);
+        long rx = 0L;
+        long ry = 0L;
+        Runtime.Ref<Integer> sx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> sy = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> cx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> cy = new Runtime.Ref<>(0);
         int count = 0;
         int dist = 0;
         int cnt = 0;
@@ -677,7 +677,7 @@ public class ChaosWeapon {
     }
 
     private void MakeGun(ChaosBase.Obj gun) {
-        chaosActions.SetObjLoc(gun, (short) 240, (short) 20, (short) 6, (short) 6);
+        chaosActions.SetObjLoc(gun, 240, 20, 6, 6);
         chaosActions.SetObjRect(gun, 0, 0, 6, 6);
     }
 
@@ -685,8 +685,8 @@ public class ChaosWeapon {
 
     private void MakeFB(ChaosBase.Obj fb) {
         // VAR
-        short px = 0;
-        short py = 0;
+        int px = 0;
+        int py = 0;
 
         if (fb.stat == 0) {
             if (fb.temperature < 15000) {
@@ -702,10 +702,10 @@ public class ChaosWeapon {
                 px = 10;
                 py = 66;
             }
-            chaosActions.SetObjLoc(fb, px, py, (short) 10, (short) 10);
+            chaosActions.SetObjLoc(fb, px, py, 10, 10);
             chaosActions.SetObjRect(fb, 0, 0, 10, 10);
         } else {
-            chaosActions.SetObjLoc(fb, (short) 192, (short) 56, (short) 32, (short) 32);
+            chaosActions.SetObjLoc(fb, 192, 56, 32, 32);
             chaosActions.SetObjRect(fb, 0, 0, 32, 32);
         }
     }
@@ -731,7 +731,7 @@ public class ChaosWeapon {
             py = 50;
         else
             py = 60;
-        chaosActions.SetObjLoc(laser, (short) (238 - dt), (short) (py - dt), (short) sz, (short) sz);
+        chaosActions.SetObjLoc(laser, 238 - dt, py - dt, sz, sz);
         chaosActions.SetObjRect(laser, 0, 0, sz, sz);
     }
 
@@ -739,9 +739,9 @@ public class ChaosWeapon {
 
     private void MakeBubble(ChaosBase.Obj bubble) {
         // VAR
-        short px = 0;
-        short py = 0;
-        short sz = 0;
+        int px = 0;
+        int py = 0;
+        int sz = 0;
 
         sz = 10;
         if (bubble.life <= 20) {
@@ -766,8 +766,8 @@ public class ChaosWeapon {
 
     private void MakeFire(ChaosBase.Obj fire) {
         // VAR
-        short px = 0;
-        short sz = 0;
+        int px = 0;
+        int sz = 0;
 
         if (fire.life <= 1) {
             px = 169;
@@ -782,9 +782,9 @@ public class ChaosWeapon {
         if (fire.shapeSeq != 0)
             px += sz;
         if (px != 161)
-            chaosActions.SetObjLoc(fire, px, (short) 54, sz, sz);
+            chaosActions.SetObjLoc(fire, px, 54, sz, sz);
         else // Replace 161x54 by 248x236, because 161x54 overlaps Small Drawer and has been moved
-            chaosActions.SetObjLoc(fire, (short) 248, (short) 236, sz, sz);
+            chaosActions.SetObjLoc(fire, 248, 236, sz, sz);
         sz++;
         chaosActions.SetObjRect(fire, -1, -1, sz, sz);
     }
@@ -793,9 +793,9 @@ public class ChaosWeapon {
 
     private void MakeBall(ChaosBase.Obj ball) {
         // VAR
-        short offset = 0;
-        short px = 0;
-        short py = 0;
+        int offset = 0;
+        int px = 0;
+        int py = 0;
         int max = 0;
 
         if (ball.life > 50) {
@@ -812,9 +812,9 @@ public class ChaosWeapon {
             max = 12;
         }
         offset += ball.stat % max;
-        px = (short) ((offset % 10) * 11 + 76);
-        py = (short) ((offset / 10) * 11 + 32);
-        chaosActions.SetObjLoc(ball, px, py, (short) 11, (short) 11);
+        px = (offset % 10) * 11 + 76;
+        py = (offset / 10) * 11 + 32;
+        chaosActions.SetObjLoc(ball, px, py, 11, 11);
         chaosActions.SetObjRect(ball, 0, 0, 11, 11);
     }
 
@@ -822,13 +822,13 @@ public class ChaosWeapon {
 
     private void MakeStar(ChaosBase.Obj star) {
         // VAR
-        short py = 0;
+        int py = 0;
 
         if (star.shapeSeq / 32 == 0)
             py = 0;
         else
             py = 12;
-        chaosActions.SetObjLoc(star, (short) 146, py, (short) 12, (short) 12);
+        chaosActions.SetObjLoc(star, 146, py, 12, 12);
         chaosActions.SetObjRect(star, 0, 0, 12, 12);
     }
 
@@ -836,11 +836,11 @@ public class ChaosWeapon {
 
     private void MakeGrenade(ChaosBase.Obj grenade) {
         // VAR
-        short px = 0;
-        short py = 0;
+        int px = 0;
+        int py = 0;
 
         if (grenade.stat == 0) {
-            chaosActions.SetObjLoc(grenade, (short) 244, (short) 52, (short) 12, (short) 8);
+            chaosActions.SetObjLoc(grenade, 244, 52, 12, 8);
             chaosActions.SetObjRect(grenade, 0, 0, 12, 8);
         } else {
             if (grenade.stat == 1) {
@@ -853,7 +853,7 @@ public class ChaosWeapon {
                 px = 232;
                 py = 72;
             }
-            chaosActions.SetObjLoc(grenade, px, py, (short) 12, (short) 12);
+            chaosActions.SetObjLoc(grenade, px, py, 12, 12);
             chaosActions.SetObjRect(grenade, 0, 0, 12, 12);
         }
     }
@@ -1006,7 +1006,7 @@ public class ChaosWeapon {
             chaosSounds.SoundEffect(gun, gunKillEffect);
             gun.vx = 0;
             gun.vy = 0;
-            chaosActions.Boum(gun, EnumSet.of(Stones.stFLAME2), (short) ChaosBase.slowStyle, (short) GetPower(Weapon.GUN), (short) 1);
+            chaosActions.Boum(gun, EnumSet.of(Stones.stFLAME2), ChaosBase.slowStyle, GetPower(Weapon.GUN), 1);
         }
         if (kill || chaosActions.OutOfScreen(gun) || chaosActions.OutOfBounds(gun) || (chaosBase.step > gun.moveSeq) || (gun.hitSubLife + gun.fireSubLife < gun.life)) {
             chaosActions.Die(gun);
@@ -1039,9 +1039,9 @@ public class ChaosWeapon {
         kill = (fb.stat == 0) && chaosActions.InBackground(fb);
         if (kill) {
             chaosSounds.SoundEffect(fb, fbKillEffect);
-            fb.vx = (short) (fb.vx / 4);
-            fb.vy = (short) (fb.vy / 4);
-            chaosActions.Boum(fb, EnumSet.of(Stones.stFOG2), (short) ChaosBase.slowStyle, (short) (GetPower(Weapon.FB) * 2), (short) 1);
+            fb.vx = fb.vx / 4;
+            fb.vy = fb.vy / 4;
+            chaosActions.Boum(fb, EnumSet.of(Stones.stFOG2), ChaosBase.slowStyle, GetPower(Weapon.FB) * 2, 1);
         }
         if (kill || chaosActions.OutOfScreen(fb) || chaosActions.OutOfBounds(fb) || ((fb.stat == 0) && (fb.hitSubLife + fb.fireSubLife == 0))) {
             chaosActions.Die(fb);
@@ -1075,13 +1075,13 @@ public class ChaosWeapon {
 
     private void MoveLaser(ChaosBase.Obj laser) {
         // VAR
-        int rx = 0;
-        int ry = 0;
-        int rl = 0;
-        Runtime.Ref<Short> bx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> by = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> lx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> ly = new Runtime.Ref<>((short) 0);
+        long rx = 0L;
+        long ry = 0L;
+        long rl = 0L;
+        Runtime.Ref<Integer> bx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> by = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> lx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> ly = new Runtime.Ref<>(0);
         boolean kill = false;
 
         chaosActions.DoCollision(laser, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), chaosActions.Aie_ref, new Runtime.FieldRef<>(laser::getHitSubLife, laser::setHitSubLife), new Runtime.FieldRef<>(laser::getFireSubLife, laser::setFireSubLife));
@@ -1091,7 +1091,7 @@ public class ChaosWeapon {
             chaosSounds.SoundEffect(laser, gunKillEffect);
             laser.vx = 0;
             laser.vy = 0;
-            chaosActions.Boum(laser, EnumSet.of(Stones.stFLAME1), (short) ChaosBase.slowStyle, (short) (GetPower(Weapon.LASER) * 2), (short) 1);
+            chaosActions.Boum(laser, EnumSet.of(Stones.stFLAME1), ChaosBase.slowStyle, GetPower(Weapon.LASER) * 2, 1);
         }
         if (kill || chaosActions.OutOfScreen(laser) || chaosActions.OutOfBounds(laser) || (laser.life == 0)) {
             FreeFollow(laser.stat);
@@ -1135,7 +1135,7 @@ public class ChaosWeapon {
                         ry = 127;
                     else if (ry < -127)
                         ry = -127;
-                    chaosActions.SetObjAXY(laser, (byte) rx, (byte) ry);
+                    chaosActions.SetObjAXY(laser, (int) rx, (int) ry);
                 }
                 _followData.finish = false;
             }
@@ -1148,10 +1148,10 @@ public class ChaosWeapon {
     private void MoveBubble(ChaosBase.Obj bubble) {
         // VAR
         ChaosBase.Obj clone = null;
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        short nvx = 0;
-        short nvy = 0;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        int nvx = 0;
+        int nvy = 0;
 
         chaosActions.DoCollision(bubble, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), chaosActions.Aie_ref, new Runtime.FieldRef<>(bubble::getHitSubLife, bubble::setHitSubLife), new Runtime.FieldRef<>(bubble::getFireSubLife, bubble::setFireSubLife));
         if ((bubble.hitSubLife == 0) || chaosActions.OutOfScreen(bubble) || chaosActions.OutOfBounds(bubble) || (chaosBase.step > bubble.moveSeq)) {
@@ -1165,7 +1165,7 @@ public class ChaosWeapon {
                     chaosActions.Die(bubble);
                     return;
                 } else {
-                    chaosActions.AvoidBackground(bubble, (short) 4);
+                    chaosActions.AvoidBackground(bubble, 4);
                     bubble.life -= 5;
                     bubble.hitSubLife -= 5;
                 }
@@ -1173,13 +1173,13 @@ public class ChaosWeapon {
                 bubble.stat--;
                 bubble.life = bubble.hitSubLife;
                 MakeBubble(bubble);
-                chaosActions.AvoidBackground(bubble, (short) 4);
+                chaosActions.AvoidBackground(bubble, 4);
                 chaosActions.GetCenter(bubble, px, py);
-                nvx = (short) (bubble.vx - 1024);
-                nvy = (short) (bubble.vy - 1024);
+                nvx = bubble.vx - 1024;
+                nvy = bubble.vy - 1024;
                 nvx += trigo.RND() % 2048;
                 nvy += trigo.RND() % 2048;
-                clone = chaosActions.CreateObj(Anims.WEAPON, (short) Weapon.BUBBLE.ordinal(), px.get(), py.get(), bubble.stat, 0);
+                clone = chaosActions.CreateObj(Anims.WEAPON, Weapon.BUBBLE.ordinal(), px.get(), py.get(), bubble.stat, 0);
                 chaosActions.SetObjVXY(clone, nvx, nvy);
             }
         }
@@ -1193,8 +1193,8 @@ public class ChaosWeapon {
         if (fire.stat == 0)
             chaosActions.DoCollision(fire, Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1), chaosActions.Aie_ref, new Runtime.FieldRef<>(fire::getHitSubLife, fire::setHitSubLife), new Runtime.FieldRef<>(fire::getFireSubLife, fire::setFireSubLife));
         if ((fire.life > fire.fireSubLife) || chaosActions.InBackground(fire) || (fire.life == 0) || chaosBase.water) {
-            fire.vx = (short) (fire.vx / 2);
-            fire.vy = (short) (fire.vy / 2);
+            fire.vx = fire.vx / 2;
+            fire.vy = fire.vy / 2;
             chaosActions.Die(fire);
             return;
         }
@@ -1217,17 +1217,17 @@ public class ChaosWeapon {
 
     private void MoveBall(ChaosBase.Obj ball) {
         // VAR
-        int rx = 0;
-        int ry = 0;
-        int rl = 0;
-        short dx = 0;
-        short dy = 0;
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> fx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> fy = new Runtime.Ref<>((short) 0);
-        short dv = 0;
-        short ds = 0;
+        long rx = 0L;
+        long ry = 0L;
+        long rl = 0L;
+        int dx = 0;
+        int dy = 0;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> fx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> fy = new Runtime.Ref<>(0);
+        int dv = 0;
+        int ds = 0;
         int spd = 0;
         boolean kill = false;
 
@@ -1238,9 +1238,9 @@ public class ChaosWeapon {
         kill = chaosActions.InBackground(ball);
         if (kill) {
             chaosSounds.SoundEffect(ball, fbKillEffect);
-            ball.vx = (short) (ball.vx / 4);
-            ball.vy = (short) (ball.vy / 4);
-            chaosActions.Boum(ball, EnumSet.of(Stones.stFOG2), (short) ChaosBase.slowStyle, (short) (ball.life / 16 + 1), (short) 1);
+            ball.vx = ball.vx / 4;
+            ball.vy = ball.vy / 4;
+            chaosActions.Boum(ball, EnumSet.of(Stones.stFOG2), ChaosBase.slowStyle, ball.life / 16 + 1, 1);
         }
         if (chaosActions.OutOfScreen(ball) || chaosActions.OutOfBounds(ball) || kill || (ball.life == 0) || ((ball.vx == 0) && (ball.vy == 0))) {
             FreeFollow(ball.moveSeq);
@@ -1265,8 +1265,8 @@ public class ChaosWeapon {
         ry = ball.vy;
         rl = trigo.SQRT(rx * rx + ry * ry);
         if (rl != 0) {
-            ball.vx = (short) (rx * 2200 / rl);
-            ball.vy = (short) (ry * 2200 / rl);
+            ball.vx = (int) (rx * 2200 / rl);
+            ball.vy = (int) (ry * 2200 / rl);
         } else {
             ball.vx = 2200;
         }
@@ -1283,21 +1283,21 @@ public class ChaosWeapon {
                 if (_followData.wait == 0) {
                     chaosActions.GetCenter(_followData.bestObj, fx, fy);
                     chaosActions.GetCenter(ball, px, py);
-                    dx = (short) (fx.get() - px.get());
-                    dy = (short) (fy.get() - py.get());
+                    dx = fx.get() - px.get();
+                    dy = fy.get() - py.get();
                     while (Math.abs(dx) > 256) {
-                        dx = (short) (dx / 2);
+                        dx = dx / 2;
                     }
                     while (Math.abs(dy) > 256) {
-                        dy = (short) (dy / 2);
+                        dy = dy / 2;
                     }
-                    fx.set((short) (ball.vy / 64));
-                    fy.set((short) (ball.vx / 64));
+                    fx.set(ball.vy / 64);
+                    fy.set(ball.vx / 64);
                     if ((fx.get() * dx) < (fy.get() * dy))
-                        fx.set((short) -fx.get());
+                        fx.set(-fx.get());
                     else
-                        fy.set((short) -fy.get());
-                    dv = (short) chaosBase.step;
+                        fy.set(-fy.get());
+                    dv = chaosBase.step;
                     if (ball.life > 50)
                         ds = 9;
                     else if (ball.life > 40)
@@ -1320,13 +1320,13 @@ public class ChaosWeapon {
 
     private void MoveStar(ChaosBase.Obj star) {
         // VAR
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> sx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> sy = new Runtime.Ref<>((short) 0);
-        int nvx = 0;
-        int nvy = 0;
-        int nvl = 0;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> sx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> sy = new Runtime.Ref<>(0);
+        long nvx = 0L;
+        long nvy = 0L;
+        long nvl = 0L;
         EnumSet<Anims> anims = EnumSet.noneOf(Anims.class);
 
         if ((star.ax != 0) || (star.ay != 0))
@@ -1359,8 +1359,8 @@ public class ChaosWeapon {
                 nvx = nvx * 3000 / nvl;
                 nvy = nvy * 3000 / nvl;
             }
-            star.dvx = (short) nvx;
-            star.dvy = (short) nvy;
+            star.dvx = (int) nvx;
+            star.dvy = (int) nvy;
         }
         MakeStar(star);
         chaosActions.UpdateXY(star);
@@ -1372,8 +1372,8 @@ public class ChaosWeapon {
     private void MoveGrenade(ChaosBase.Obj grenade) {
         grenade.dvx = 0;
         grenade.dvy = 0;
-        chaosActions.AvoidBounds(grenade, (short) 4);
-        chaosActions.AvoidBackground(grenade, (short) 4);
+        chaosActions.AvoidBounds(grenade, 4);
+        chaosActions.AvoidBackground(grenade, 4);
         if (grenade.stat != 0) {
             if (chaosBase.step >= grenade.shapeSeq) {
                 grenade.shapeSeq += ChaosBase.Period / 5;
@@ -1391,11 +1391,11 @@ public class ChaosWeapon {
         if (chaosBase.step > grenade.moveSeq) {
             if (grenade.stat == 0) {
                 if (GetPower(Weapon.GRENADE) == 4) {
-                    StdBomb(grenade, Weapon.BUBBLE, (short) 3000, 0, 15, false);
+                    StdBomb(grenade, Weapon.BUBBLE, 3000, 0, 15, false);
                     chaosSounds.SoundEffect(grenade, bubbleBombEffect);
                 } else {
                     chaosSounds.SoundEffect(grenade, grenadeBombEffect);
-                    StdBomb(grenade, Weapon.GUN, (short) 3250, 1, 3, false);
+                    StdBomb(grenade, Weapon.GUN, 3250, 1, 3, false);
                 }
             }
             chaosActions.Die(grenade);
@@ -1411,7 +1411,7 @@ public class ChaosWeapon {
     private void FireGun(ChaosBase.Obj player) {
         chaosSounds.SoundEffect(player, gunFireEffect);
         chaosBase.shoot.total++;
-        StdFire(player, Weapon.GUN, (short) 3250, false, false);
+        StdFire(player, Weapon.GUN, 3250, false, false);
     }
 
     private final ChaosBase.FireProc FireGun_ref = this::FireGun;
@@ -1419,7 +1419,7 @@ public class ChaosWeapon {
     private void FireFB(ChaosBase.Obj player) {
         if (CheckBullet(Weapon.FB)) {
             chaosSounds.SoundEffect(player, fbFireEffect);
-            StdFire(player, Weapon.FB, (short) 2600, false, false);
+            StdFire(player, Weapon.FB, 2600, false, false);
         }
     }
 
@@ -1428,7 +1428,7 @@ public class ChaosWeapon {
     private void FireLaser(ChaosBase.Obj player) {
         if (CheckBullet(Weapon.LASER)) {
             chaosSounds.SoundEffect(player, laserFireEffect);
-            StdFire(player, Weapon.LASER, (short) 4090, false, true);
+            StdFire(player, Weapon.LASER, 4090, false, true);
         }
     }
 
@@ -1436,21 +1436,21 @@ public class ChaosWeapon {
 
     private void FireBubble(ChaosBase.Obj player) {
         // VAR
-        short bvx = 0;
-        short bvy = 0;
+        int bvx = 0;
+        int bvy = 0;
 
         if (CheckBullet(Weapon.BUBBLE)) {
             chaosSounds.StereoEffect();
             chaosSounds.SoundEffect(player, bubbleFireEffectL);
             chaosSounds.SoundEffect(player, bubbleFireEffectR);
-            StdFire(player, Weapon.BUBBLE, (short) 2000, true, false);
+            StdFire(player, Weapon.BUBBLE, 2000, true, false);
             if ((GetPower(Weapon.BUBBLE) == 4) && (newWeapon != chaosActions.nlObj)) {
-                bvx = (short) (newWeapon.vx / 4);
-                bvy = (short) (newWeapon.vy / 4);
-                StdFire(player, Weapon.BUBBLE, (short) 2000, true, false);
-                chaosActions.SetObjVXY(newWeapon, (short) (newWeapon.vx + bvy), (short) (newWeapon.vy - bvx));
-                StdFire(player, Weapon.BUBBLE, (short) 2000, true, false);
-                chaosActions.SetObjVXY(newWeapon, (short) (newWeapon.vx - bvy), (short) (newWeapon.vy + bvx));
+                bvx = newWeapon.vx / 4;
+                bvy = newWeapon.vy / 4;
+                StdFire(player, Weapon.BUBBLE, 2000, true, false);
+                chaosActions.SetObjVXY(newWeapon, newWeapon.vx + bvy, newWeapon.vy - bvx);
+                StdFire(player, Weapon.BUBBLE, 2000, true, false);
+                chaosActions.SetObjVXY(newWeapon, newWeapon.vx - bvy, newWeapon.vy + bvx);
             }
         }
     }
@@ -1466,12 +1466,12 @@ public class ChaosWeapon {
         ChaosBase.Obj fire = null;
         int power = 0;
         int cnt = 0;
-        short nvx = 0;
-        short nvy = 0;
-        short svx = 0;
-        short svy = 0;
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
+        int nvx = 0;
+        int nvy = 0;
+        int svx = 0;
+        int svy = 0;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
 
         if (CheckBullet(Weapon.FIRE)) {
             chaosSounds.SoundEffect(player, fireFireEffect);
@@ -1515,11 +1515,11 @@ public class ChaosWeapon {
             if (power >= 4)
                 power = 5;
             while (cnt > 0) {
-                svx = (short) (nvx - 512);
+                svx = nvx - 512;
                 svx += trigo.RND() % 1024;
-                svy = (short) (nvy - 512);
+                svy = nvy - 512;
                 svy += trigo.RND() % 1024;
-                fire = chaosActions.CreateObj(Anims.WEAPON, (short) Weapon.FIRE.ordinal(), px.get(), py.get(), 0, power);
+                fire = chaosActions.CreateObj(Anims.WEAPON, Weapon.FIRE.ordinal(), px.get(), py.get(), 0, power);
                 fire.flags.remove(ObjFlags.nested);
                 chaosActions.SetObjVXY(fire, svx, svy);
                 cnt--;
@@ -1541,7 +1541,7 @@ public class ChaosWeapon {
                 chaosSounds.SoundEffect(player, ballFireEffect3);
             else
                 chaosSounds.SoundEffect(player, ballFireEffect2);
-            StdFire(player, Weapon.BALL, (short) 1024, false, false);
+            StdFire(player, Weapon.BALL, 1024, false, false);
         }
     }
 
@@ -1557,10 +1557,10 @@ public class ChaosWeapon {
                 max = 3;
             else
                 max = 1;
-            attr = chaosBase.GetAnimAttr(Anims.WEAPON, (short) Weapon.STAR.ordinal());
+            attr = chaosBase.GetAnimAttr(Anims.WEAPON, Weapon.STAR.ordinal());
             if (attr.nbObj < max) {
                 chaosSounds.SoundEffect(player, starFireEffect);
-                StdFire(player, Weapon.STAR, (short) 3000, true, true);
+                StdFire(player, Weapon.STAR, 3000, true, true);
             }
         }
     }
@@ -1570,7 +1570,7 @@ public class ChaosWeapon {
     private void FireGrenade(ChaosBase.Obj player) {
         if (CheckBullet(Weapon.GRENADE)) {
             chaosSounds.SoundEffect(player, grenadeFireEffect);
-            StdFire(player, Weapon.GRENADE, (short) 2000, true, false);
+            StdFire(player, Weapon.GRENADE, 2000, true, false);
         }
     }
 
@@ -1578,11 +1578,11 @@ public class ChaosWeapon {
 
     private void GunBomb(ChaosBase.Obj player) {
         if (CheckBomb(Weapon.GUN)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Bomb"), String.class), (short) ChaosActions.statPos, (short) 1);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Bomb"), String.class), ChaosActions.statPos, 1);
             chaosSounds.StereoEffect();
             chaosSounds.SoundEffect(player, gunBombEffectL);
             chaosSounds.SoundEffect(player, gunBombEffectR);
-            StdBomb(player, Weapon.GUN, (short) 3250, 1, 20, false);
+            StdBomb(player, Weapon.GUN, 3250, 1, 20, false);
         }
     }
 
@@ -1590,8 +1590,8 @@ public class ChaosWeapon {
 
     private void FBBomb(ChaosBase.Obj player) {
         if (CheckBomb(Weapon.FB)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Cold Fire"), String.class), (short) ChaosActions.statPos, (short) 2);
-            StdBomb(player, Weapon.FB, (short) 2090, 1, 30, false);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Cold Fire"), String.class), ChaosActions.statPos, 2);
+            StdBomb(player, Weapon.FB, 2090, 1, 30, false);
         }
     }
 
@@ -1599,11 +1599,11 @@ public class ChaosWeapon {
 
     private void LaserBomb(ChaosBase.Obj player) {
         if (CheckBomb(Weapon.LASER)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Supernovae"), String.class), (short) ChaosActions.statPos, (short) 2);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Supernovae"), String.class), ChaosActions.statPos, 2);
             chaosSounds.StereoEffect();
             chaosSounds.SoundEffect(player, laserBombEffectL);
             chaosSounds.SoundEffect(player, laserBombEffectR);
-            StdBomb(player, Weapon.LASER, (short) 4090, 1, 30, false);
+            StdBomb(player, Weapon.LASER, 4090, 1, 30, false);
         }
     }
 
@@ -1614,10 +1614,10 @@ public class ChaosWeapon {
         int q = 0;
 
         if (CheckBomb(Weapon.BUBBLE)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Fragmentation Bomb"), String.class), (short) ChaosActions.statPos, (short) 2);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Fragmentation Bomb"), String.class), ChaosActions.statPos, 2);
             q = GetPower(Weapon.BUBBLE) + 2;
             chaosSounds.SoundEffect(player, bubbleBombEffect);
-            StdBomb(player, Weapon.BUBBLE, (short) 2000, q, q, true);
+            StdBomb(player, Weapon.BUBBLE, 2000, q, q, true);
         }
     }
 
@@ -1630,7 +1630,7 @@ public class ChaosWeapon {
         Anims a = Anims.PLAYER;
 
         if (CheckBomb(Weapon.FIRE)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Pyrotechnics"), String.class), (short) ChaosActions.statPos, (short) 2);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Pyrotechnics"), String.class), ChaosActions.statPos, 2);
             for (int _a = 0; _a < Anims.values().length; _a++) {
                 a = Anims.values()[_a];
                 if (Runtime.withRange(EnumSet.of(Anims.MACHINE), Anims.ALIEN3, Anims.ALIEN1).contains(a)) {
@@ -1650,11 +1650,11 @@ public class ChaosWeapon {
 
     private void BallBomb(ChaosBase.Obj player) {
         if (CheckBomb(Weapon.BALL)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Hunters"), String.class), (short) ChaosActions.statPos, (short) 2);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Hunters"), String.class), ChaosActions.statPos, 2);
             chaosSounds.StereoEffect();
             chaosSounds.SoundEffect(player, ballBombEffectR);
             chaosSounds.SoundEffect(player, ballBombEffectL);
-            StdBomb(player, Weapon.BALL, (short) 1024, 0, 24, false);
+            StdBomb(player, Weapon.BALL, 1024, 0, 24, false);
         }
     }
 
@@ -1670,7 +1670,7 @@ public class ChaosWeapon {
         Anims a = Anims.PLAYER;
 
         if (CheckBomb(Weapon.STAR)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Big Bang"), String.class), (short) ChaosActions.statPos, (short) 2);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Big Bang"), String.class), ChaosActions.statPos, 2);
             chaosSounds.SoundEffect(player, gunFireEffect);
             for (int _a = Anims.ALIEN3.ordinal(); _a <= Anims.MACHINE.ordinal(); _a++) {
                 a = Anims.values()[_a];
@@ -1695,8 +1695,8 @@ public class ChaosWeapon {
 
     private void GrenadeBomb(ChaosBase.Obj player) {
         if (CheckBomb(Weapon.GRENADE)) {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Black Hole"), String.class), (short) ChaosActions.statPos, (short) 2);
-            StdBomb(player, Weapon.GRENADE, (short) 0, 1, 1, true);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Black Hole"), String.class), ChaosActions.statPos, 2);
+            StdBomb(player, Weapon.GRENADE, 0, 1, 1, true);
         }
     }
 
@@ -1706,7 +1706,7 @@ public class ChaosWeapon {
         // VAR
         ChaosBase.ObjAttr attr = null;
 
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.copyFrom(attrs);
         memory.AddTail(chaosBase.attrList[Anims.WEAPON.ordinal()], attr.node);
@@ -1723,15 +1723,15 @@ public class ChaosWeapon {
         for (c = 1; c <= MAXF; c++) {
             follow[c - 1].used = false;
         }
-        attr.set((ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class)));
+        attr.set((ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class)));
         checks.CheckMem(attr.get());
         attrs.copyFrom(attr.get());
         memory.FreeMem(attr.asAdrRef());
-        chaosSounds.SetEffect(gunFireEffect[0], chaosSounds.soundList[SoundList.sGun.ordinal()], 0, 4181, (short) 50, (short) 2);
-        chaosSounds.SetEffect(gunBombEffectL[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 0, 8363, (short) 160, (short) 5);
-        chaosSounds.SetEffect(gunBombEffectR[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 167, 8363, (short) 0, (short) 5);
-        chaosSounds.SetEffect(gunBombEffectR[1], chaosSounds.soundList[SoundList.sPouf.ordinal()], 0, 8363, (short) 160, (short) 5);
-        chaosSounds.SetEffect(gunKillEffect[0], chaosSounds.soundList[SoundList.wWhite.ordinal()], 1673, 16726, (short) 8, (short) 0);
+        chaosSounds.SetEffect(gunFireEffect[0], chaosSounds.soundList[SoundList.sGun.ordinal()], 0, 4181, 50, 2);
+        chaosSounds.SetEffect(gunBombEffectL[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 0, 8363, 160, 5);
+        chaosSounds.SetEffect(gunBombEffectR[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 167, 8363, 0, 5);
+        chaosSounds.SetEffect(gunBombEffectR[1], chaosSounds.soundList[SoundList.sPouf.ordinal()], 0, 8363, 160, 5);
+        chaosSounds.SetEffect(gunKillEffect[0], chaosSounds.soundList[SoundList.wWhite.ordinal()], 1673, 16726, 8, 0);
         chaosBase.Fire[Weapon.GUN.ordinal()] = FireGun_ref;
         chaosBase.Bomb[Weapon.GUN.ordinal()] = GunBomb_ref;
         attrs.Reset = ResetGun_ref;
@@ -1743,10 +1743,10 @@ public class ChaosWeapon {
         attrs.priority = 50;
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
-        chaosSounds.SetEffect(fbFireEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 418, 4181, (short) 120, (short) 4);
-        chaosSounds.SetEffect(fbFireEffect[1], chaosSounds.soundList[SoundList.wNoise.ordinal()], 627, 6265, (short) 120, (short) 4);
-        chaosSounds.SetEffect(fbFireEffect[2], chaosSounds.soundList[SoundList.wNoise.ordinal()], 527, 5268, (short) 120, (short) 4);
-        chaosSounds.SetEffect(fbKillEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 1673, 16726, (short) 16, (short) 0);
+        chaosSounds.SetEffect(fbFireEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 418, 4181, 120, 4);
+        chaosSounds.SetEffect(fbFireEffect[1], chaosSounds.soundList[SoundList.wNoise.ordinal()], 627, 6265, 120, 4);
+        chaosSounds.SetEffect(fbFireEffect[2], chaosSounds.soundList[SoundList.wNoise.ordinal()], 527, 5268, 120, 4);
+        chaosSounds.SetEffect(fbKillEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 1673, 16726, 16, 0);
         chaosBase.Fire[Weapon.FB.ordinal()] = FireFB_ref;
         chaosBase.Bomb[Weapon.FB.ordinal()] = FBBomb_ref;
         attrs.Reset = ResetFB_ref;
@@ -1758,18 +1758,18 @@ public class ChaosWeapon {
         attrs.priority = 51;
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
-        chaosSounds.SetEffect(laserFireEffect[0], chaosSounds.soundList[SoundList.sLaser.ordinal()], 0, 8363, (short) 100, (short) 3);
+        chaosSounds.SetEffect(laserFireEffect[0], chaosSounds.soundList[SoundList.sLaser.ordinal()], 0, 8363, 100, 3);
         for (c = 0; c <= 3; c++) {
             d = (c + 1) * 48;
-            chaosSounds.SetEffect(laserBombEffectL[c], chaosSounds.soundList[SoundList.wNoise.ordinal()], 523, 4181, (short) d, (short) 5);
-            chaosSounds.SetEffect(laserBombEffectL[8 - c], chaosSounds.nulSound, 1045, 4181, (short) d, (short) 5);
+            chaosSounds.SetEffect(laserBombEffectL[c], chaosSounds.soundList[SoundList.wNoise.ordinal()], 523, 4181, d, 5);
+            chaosSounds.SetEffect(laserBombEffectL[8 - c], chaosSounds.nulSound, 1045, 4181, d, 5);
         }
-        chaosSounds.SetEffect(laserBombEffectL[4], chaosSounds.nulSound, 1045, 4181, (short) 192, (short) 5);
-        chaosSounds.SetEffect(laserBombEffectR[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 4181, 8363, (short) 96, (short) 5);
+        chaosSounds.SetEffect(laserBombEffectL[4], chaosSounds.nulSound, 1045, 4181, 192, 5);
+        chaosSounds.SetEffect(laserBombEffectR[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 4181, 8363, 96, 5);
         for (c = 1; c <= 8; c++) {
             d = (9 - c) * 1045 + 8366;
             e = (9 - c) * 30;
-            chaosSounds.SetEffect(laserBombEffectR[c], chaosSounds.nulSound, 1673, d, (short) e, (short) 5);
+            chaosSounds.SetEffect(laserBombEffectR[c], chaosSounds.nulSound, 1673, d, e, 5);
         }
         chaosBase.Fire[Weapon.LASER.ordinal()] = FireLaser_ref;
         chaosBase.Bomb[Weapon.LASER.ordinal()] = LaserBomb_ref;
@@ -1782,17 +1782,17 @@ public class ChaosWeapon {
         attrs.priority = 51;
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
-        chaosSounds.SetEffect(bubbleBombEffect[0], chaosSounds.soundList[SoundList.sCannon.ordinal()], 0, 0, (short) 192, (short) 5);
-        chaosSounds.SetEffect(bubbleFireEffectL[0], chaosSounds.soundList[SoundList.wWhite.ordinal()], 1097, 16726, (short) 120, (short) 3);
-        chaosSounds.SetEffect(bubbleFireEffectR[0], chaosSounds.soundList[SoundList.wWhite.ordinal()], 2090, 16726, (short) 120, (short) 3);
+        chaosSounds.SetEffect(bubbleBombEffect[0], chaosSounds.soundList[SoundList.sCannon.ordinal()], 0, 0, 192, 5);
+        chaosSounds.SetEffect(bubbleFireEffectL[0], chaosSounds.soundList[SoundList.wWhite.ordinal()], 1097, 16726, 120, 3);
+        chaosSounds.SetEffect(bubbleFireEffectR[0], chaosSounds.soundList[SoundList.wWhite.ordinal()], 2090, 16726, 120, 3);
         for (c = 1; c <= 7; c++) {
-            chaosSounds.SetEffect(bubbleFireEffectL[c], chaosSounds.nulSound, 1097, 16726, (short) ((8 - c) * 15), (short) 3);
+            chaosSounds.SetEffect(bubbleFireEffectL[c], chaosSounds.nulSound, 1097, 16726, (8 - c) * 15, 3);
         }
         for (c = 0; c <= 3; c++) {
             d = 4 - c;
-            chaosSounds.SetEffect(bubbleFireEffectR[c * 3 + 1], chaosSounds.nulSound, 279, 8363, (short) (d * 25), (short) 3);
-            chaosSounds.SetEffect(bubbleFireEffectR[c * 3 + 2], chaosSounds.nulSound, 318, 12544, (short) (d * 25), (short) 3);
-            chaosSounds.SetEffect(bubbleFireEffectR[c * 3 + 3], chaosSounds.nulSound, 558, 16726, (short) (d * 25), (short) 3);
+            chaosSounds.SetEffect(bubbleFireEffectR[c * 3 + 1], chaosSounds.nulSound, 279, 8363, d * 25, 3);
+            chaosSounds.SetEffect(bubbleFireEffectR[c * 3 + 2], chaosSounds.nulSound, 318, 12544, d * 25, 3);
+            chaosSounds.SetEffect(bubbleFireEffectR[c * 3 + 3], chaosSounds.nulSound, 558, 16726, d * 25, 3);
         }
         chaosBase.Fire[Weapon.BUBBLE.ordinal()] = FireBubble_ref;
         chaosBase.Bomb[Weapon.BUBBLE.ordinal()] = BubbleBomb_ref;
@@ -1807,10 +1807,10 @@ public class ChaosWeapon {
         InitParams_AddAttrs(attrs);
         for (c = 0; c <= 3; c++) {
             d = c + 1;
-            chaosSounds.SetEffect(fireFireEffect[c], chaosSounds.nulSound, 300, 4181, (short) (d * 20), (short) 3);
-            chaosSounds.SetEffect(fireFireEffect[7 - c], chaosSounds.nulSound, 400, 4181, (short) (d * 20), (short) 3);
+            chaosSounds.SetEffect(fireFireEffect[c], chaosSounds.nulSound, 300, 4181, d * 20, 3);
+            chaosSounds.SetEffect(fireFireEffect[7 - c], chaosSounds.nulSound, 400, 4181, d * 20, 3);
         }
-        chaosSounds.SetEffect(fireFireEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 300, 4181, (short) 20, (short) 3);
+        chaosSounds.SetEffect(fireFireEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 300, 4181, 20, 3);
         chaosBase.Fire[Weapon.FIRE.ordinal()] = FireFire_ref;
         chaosBase.Bomb[Weapon.FIRE.ordinal()] = FireBomb_ref;
         attrs.Reset = ResetFire_ref;
@@ -1827,40 +1827,40 @@ public class ChaosWeapon {
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
         attrs.dieStone = 0;
-        chaosSounds.SetEffect(ballFireEffect1[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 8363, (short) 110, (short) 3);
-        chaosSounds.SetEffect(ballFireEffect2[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 9387, (short) 110, (short) 3);
-        chaosSounds.SetEffect(ballFireEffect3[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 10536, (short) 110, (short) 3);
-        chaosSounds.SetEffect(ballBombEffectR[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 4694, (short) 250, (short) 5);
+        chaosSounds.SetEffect(ballFireEffect1[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 8363, 110, 3);
+        chaosSounds.SetEffect(ballFireEffect2[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 9387, 110, 3);
+        chaosSounds.SetEffect(ballFireEffect3[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 10536, 110, 3);
+        chaosSounds.SetEffect(ballBombEffectR[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 4694, 250, 5);
         for (c = 1; c <= 6; c++) {
-            chaosSounds.SetEffect(ballBombEffectR[c], chaosSounds.soundList[SoundList.wWhite.ordinal()], 0, 18774, (short) (c * c * 4), (short) 5);
+            chaosSounds.SetEffect(ballBombEffectR[c], chaosSounds.soundList[SoundList.wWhite.ordinal()], 0, 18774, c * c * 4, 5);
         }
-        chaosSounds.SetEffect(ballBombEffectR[7], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1671, 12530, (short) 4, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[8], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1671, 21073, (short) 9, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[9], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2810, 14065, (short) 14, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[10], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1875, 18774, (short) 21, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[11], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2503, 22327, (short) 32, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[12], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2977, 15787, (short) 50, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[13], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2105, 12000, (short) 70, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[14], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1600, 16726, (short) 70, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[15], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2230, 14000, (short) 70, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[16], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1867, 18800, (short) 70, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[17], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2507, 15000, (short) 70, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[18], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2000, 12500, (short) 70, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[19], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1667, 11000, (short) 70, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[20], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1467, 16700, (short) 70, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[21], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2227, 21000, (short) 70, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[22], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2800, 25000, (short) 70, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[23], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 3333, 15900, (short) 70, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[24], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2120, 18700, (short) 70, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[25], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2493, 22300, (short) 50, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[26], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2973, 28130, (short) 32, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[27], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 3751, 16726, (short) 21, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[28], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2230, 22100, (short) 14, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[29], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2947, 14800, (short) 9, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectR[30], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1973, 13000, (short) 4, (short) 5);
-        chaosSounds.SetEffect(ballBombEffectL[0], chaosSounds.soundList[SoundList.wShakuhachi.ordinal()], 17838, 4694, (short) 80, (short) 5);
+        chaosSounds.SetEffect(ballBombEffectR[7], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1671, 12530, 4, 5);
+        chaosSounds.SetEffect(ballBombEffectR[8], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1671, 21073, 9, 5);
+        chaosSounds.SetEffect(ballBombEffectR[9], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2810, 14065, 14, 5);
+        chaosSounds.SetEffect(ballBombEffectR[10], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1875, 18774, 21, 5);
+        chaosSounds.SetEffect(ballBombEffectR[11], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2503, 22327, 32, 5);
+        chaosSounds.SetEffect(ballBombEffectR[12], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2977, 15787, 50, 5);
+        chaosSounds.SetEffect(ballBombEffectR[13], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2105, 12000, 70, 5);
+        chaosSounds.SetEffect(ballBombEffectR[14], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1600, 16726, 70, 5);
+        chaosSounds.SetEffect(ballBombEffectR[15], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2230, 14000, 70, 5);
+        chaosSounds.SetEffect(ballBombEffectR[16], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1867, 18800, 70, 5);
+        chaosSounds.SetEffect(ballBombEffectR[17], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2507, 15000, 70, 5);
+        chaosSounds.SetEffect(ballBombEffectR[18], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2000, 12500, 70, 5);
+        chaosSounds.SetEffect(ballBombEffectR[19], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1667, 11000, 70, 5);
+        chaosSounds.SetEffect(ballBombEffectR[20], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1467, 16700, 70, 5);
+        chaosSounds.SetEffect(ballBombEffectR[21], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2227, 21000, 70, 5);
+        chaosSounds.SetEffect(ballBombEffectR[22], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2800, 25000, 70, 5);
+        chaosSounds.SetEffect(ballBombEffectR[23], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 3333, 15900, 70, 5);
+        chaosSounds.SetEffect(ballBombEffectR[24], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2120, 18700, 70, 5);
+        chaosSounds.SetEffect(ballBombEffectR[25], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2493, 22300, 50, 5);
+        chaosSounds.SetEffect(ballBombEffectR[26], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2973, 28130, 32, 5);
+        chaosSounds.SetEffect(ballBombEffectR[27], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 3751, 16726, 21, 5);
+        chaosSounds.SetEffect(ballBombEffectR[28], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2230, 22100, 14, 5);
+        chaosSounds.SetEffect(ballBombEffectR[29], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 2947, 14800, 9, 5);
+        chaosSounds.SetEffect(ballBombEffectR[30], chaosSounds.soundList[SoundList.wPanflute.ordinal()], 1973, 13000, 4, 5);
+        chaosSounds.SetEffect(ballBombEffectL[0], chaosSounds.soundList[SoundList.wShakuhachi.ordinal()], 17838, 4694, 80, 5);
         for (c = 1; c <= 15; c++) {
-            chaosSounds.SetEffect(ballBombEffectL[c], chaosSounds.nulSound, 588, 4694, (short) ((16 - c) * 5), (short) 5);
+            chaosSounds.SetEffect(ballBombEffectL[c], chaosSounds.nulSound, 588, 4694, (16 - c) * 5, 5);
         }
         chaosBase.Fire[Weapon.BALL.ordinal()] = FireBall_ref;
         chaosBase.Bomb[Weapon.BALL.ordinal()] = BallBomb_ref;
@@ -1873,7 +1873,7 @@ public class ChaosWeapon {
         attrs.priority = 49;
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
-        chaosSounds.SetEffect(starFireEffect[0], chaosSounds.soundList[SoundList.sCasserole.ordinal()], 0, 16726, (short) 100, (short) 3);
+        chaosSounds.SetEffect(starFireEffect[0], chaosSounds.soundList[SoundList.sCasserole.ordinal()], 0, 16726, 100, 3);
         chaosBase.Fire[Weapon.STAR.ordinal()] = FireStar_ref;
         chaosBase.Bomb[Weapon.STAR.ordinal()] = StarBomb_ref;
         attrs.Reset = ResetStar_ref;
@@ -1886,11 +1886,11 @@ public class ChaosWeapon {
         attrs.basicType = BasicTypes.NotBase;
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
-        chaosSounds.SetEffect(grenadeBombEffect[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 0, 16726, (short) 160, (short) 5);
-        chaosSounds.SetEffect(grenadeFireEffect[0], chaosSounds.soundList[SoundList.sHHat.ordinal()], 697, 8363, (short) 120, (short) 3);
-        chaosSounds.SetEffect(grenadeFireEffect[1], chaosSounds.soundList[SoundList.sCymbale.ordinal()], 697, 8363, (short) 120, (short) 3);
-        chaosSounds.SetEffect(grenadeFireEffect[2], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1045, 12544, (short) 120, (short) 3);
-        chaosSounds.SetEffect(grenadeFireEffect[3], chaosSounds.soundList[SoundList.aCrash.ordinal()], 0, 0, (short) 120, (short) 3);
+        chaosSounds.SetEffect(grenadeBombEffect[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 0, 16726, 160, 5);
+        chaosSounds.SetEffect(grenadeFireEffect[0], chaosSounds.soundList[SoundList.sHHat.ordinal()], 697, 8363, 120, 3);
+        chaosSounds.SetEffect(grenadeFireEffect[1], chaosSounds.soundList[SoundList.sCymbale.ordinal()], 697, 8363, 120, 3);
+        chaosSounds.SetEffect(grenadeFireEffect[2], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1045, 12544, 120, 3);
+        chaosSounds.SetEffect(grenadeFireEffect[3], chaosSounds.soundList[SoundList.aCrash.ordinal()], 0, 0, 120, 3);
         chaosBase.Fire[Weapon.GRENADE.ordinal()] = FireGrenade_ref;
         chaosBase.Bomb[Weapon.GRENADE.ordinal()] = GrenadeBomb_ref;
         attrs.Reset = ResetGrenade_ref;

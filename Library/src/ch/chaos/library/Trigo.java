@@ -35,19 +35,19 @@ public class Trigo {
      * 'angle' is in degree.
      * Result should be multiplied by 'TrigoOne' to support int-only calculations
      */
-    public short SIN(short angle) {
-        return (short) Math.round(Math.sin(rad(angle)) * TrigoOne);
+    public int SIN(int angle) {
+        return (int) Math.round(Math.sin(rad(angle)) * TrigoOne);
     }
 
-    public short COS(short angle) {
-        return (short) Math.round(Math.cos(rad(angle)) * TrigoOne);
+    public int COS(int angle) {
+        return (int) Math.round(Math.cos(rad(angle)) * TrigoOne);
     }
 
     public int SQRT(long val) {
         return (int) (Math.sqrt(val) + 0.5);
     }
 
-    public short SGN(short val) {
+    public int SGN(int val) {
         if (val < 0)
             return -1;
         else if (val > 0)

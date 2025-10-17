@@ -40,13 +40,13 @@ public class ChaosDead {
 
     private void MoveDead(ChaosBase.Obj d) {
         // VAR
-        short py = 0;
+        int py = 0;
         int c = 0;
 
         chaosActions.UpdateXY(d);
         if (d.subKind == ChaosBase.Message) {
-            d.height = chaosGraphics.H.invoke((short) 10);
-            py = (short) d.stat;
+            d.height = chaosGraphics.H.invoke(10);
+            py = d.stat;
             py += chaosGraphics.backpy;
             chaosActions.SetObjXY(d, chaosGraphics.backpx, py);
             if (chaosBase.step >= d.moveSeq) {
@@ -55,7 +55,7 @@ public class ChaosDead {
                 chaosBase.DisposeObj(d);
             } else {
                 d.moveSeq -= chaosBase.step;
-                chaosActions.priorities[d.shapeSeq] = (short) ((d.moveSeq + 255) / 256);
+                chaosActions.priorities[d.shapeSeq] = (d.moveSeq + 255) / 256;
             }
         } else {
             c = chaosSounds.nbChannel;
@@ -74,7 +74,7 @@ public class ChaosDead {
         // VAR
         ChaosBase.ObjAttr attr = null;
 
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Move = MoveDead_ref;
         attr.Make = MakeDead_ref;

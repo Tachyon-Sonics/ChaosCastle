@@ -122,13 +122,13 @@ public class ChaosBoss {
 
     private void MakeBrotherAlien(ChaosBase.Obj boss) {
         // VAR
-        short py = 0;
+        int py = 0;
 
         if (boss.hitSubLife + boss.fireSubLife == 0)
             py = 148;
         else
             py = 96;
-        chaosActions.SetObjLoc(boss, (short) 0, py, (short) 64, (short) 32);
+        chaosActions.SetObjLoc(boss, 0, py, 64, 32);
         chaosActions.SetObjRect(boss, 1, 1, 63, 31);
     }
 
@@ -149,23 +149,23 @@ public class ChaosBoss {
     private void MoveBrotherAlien(ChaosBase.Obj boss) {
         // VAR
         Runtime.Ref<Integer> hit = new Runtime.Ref<>(0);
-        Runtime.Ref<Short> bx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> by = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> bx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> by = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
 
         chaosActions.UpdateXY(boss);
-        chaosActions.AvoidBounds(boss, (short) 3);
-        chaosActions.AvoidBackground(boss, (short) 3);
+        chaosActions.AvoidBounds(boss, 3);
+        chaosActions.AvoidBackground(boss, 3);
         chaosActions.Burn(boss);
         if (chaosBase.step >= boss.shapeSeq) {
             if (boss.hitSubLife + boss.fireSubLife == 0) {
                 if ((boss.moveSeq < 10) && (boss.moveSeq > 0))
-                    chaosFire.BoumE(boss, (short) 30, (short) 8, (short) 16);
+                    chaosFire.BoumE(boss, 30, 8, 16);
                 boss.shapeSeq += ChaosBase.Period;
             } else {
                 if (boss.moveSeq < 20)
-                    chaosFire.BoumE(boss, (short) 30, (short) 16, (short) 8);
+                    chaosFire.BoumE(boss, 30, 16, 8);
                 boss.shapeSeq += ChaosBase.Period * (trigo.RND() % 8 + 5);
             }
         }
@@ -187,14 +187,14 @@ public class ChaosBoss {
                 MakeBrotherAlien(boss);
             }
             if (boss.moveSeq < 10)
-                chaosFire.FireFlame(boss, (short) 0, (short) 0, true);
+                chaosFire.FireFlame(boss, 0, 0, true);
             else if (boss.moveSeq < 20)
-                chaosFire.FireMissileV(boss, chaosBase.mainPlayer, (short) 0, (short) 0, true);
+                chaosFire.FireMissileV(boss, chaosBase.mainPlayer, 0, 0, true);
             else if (boss.moveSeq < 30)
-                chaosFire.FireMissileA(boss, (short) 0, (short) 0);
-            boss.dvx = (short) (trigo.RND() % 4096);
+                chaosFire.FireMissileA(boss, 0, 0);
+            boss.dvx = trigo.RND() % 4096;
             boss.dvx -= 2048;
-            boss.dvy = (short) (trigo.RND() % 4096);
+            boss.dvy = trigo.RND() % 4096;
             boss.dvy -= 2048;
             boss.stat += ChaosBase.Period / 4 + trigo.RND() % (ChaosBase.Period * 10 / (chaosBase.difficulty + 4));
         }
@@ -230,18 +230,18 @@ public class ChaosBoss {
         // VAR
         Runtime.Ref<Integer> hit = new Runtime.Ref<>(0);
         Runtime.Ref<Integer> fire = new Runtime.Ref<>(0);
-        short cnt = 0;
+        int cnt = 0;
 
         if (boss.moveSeq == 0) {
             chaosFire.Chain(boss);
             chaosSounds.SoundEffect(boss, brotherEffect);
-            chaosActions.Boum(boss, EnumSet.of(Stones.stFOG3, Stones.stFOG4), (short) ChaosBase.slowStyle, (short) 15, (short) 2);
-            chaosActions.Boum(boss, EnumSet.of(Stones.stCE, Stones.stRE, Stones.stCROSS), (short) ChaosBase.gravityStyle, (short) 15, (short) 3);
-            chaosActions.Boum(boss, EnumSet.of(Stones.stC26, Stones.stC35), (short) ChaosBase.fastStyle, (short) 15, (short) 2);
+            chaosActions.Boum(boss, EnumSet.of(Stones.stFOG3, Stones.stFOG4), ChaosBase.slowStyle, 15, 2);
+            chaosActions.Boum(boss, EnumSet.of(Stones.stCE, Stones.stRE, Stones.stCROSS), ChaosBase.gravityStyle, 15, 3);
+            chaosActions.Boum(boss, EnumSet.of(Stones.stC26, Stones.stC35), ChaosBase.fastStyle, 15, 2);
             for (cnt = 1; cnt <= 10; cnt++) {
-                boss.vx = (short) (trigo.COS((short) (cnt * 36)) * 4);
-                boss.vy = (short) (trigo.SIN((short) (cnt * 36)) * 4);
-                chaosFire.FireFlame(boss, (short) 0, (short) 0, false);
+                boss.vx = trigo.COS(cnt * 36) * 4;
+                boss.vy = trigo.SIN(cnt * 36) * 4;
+                chaosFire.FireFlame(boss, 0, 0, false);
             }
             boss.vx = 0;
             boss.vy = 0;
@@ -257,23 +257,23 @@ public class ChaosBoss {
 
     private void MakeSisterAlien(ChaosBase.Obj boss) {
         // VAR
-        short ss = 0;
-        short sz = 0;
-        short sx = 0;
-        short sy = 0;
+        int ss = 0;
+        int sz = 0;
+        int sx = 0;
+        int sy = 0;
 
         if (boss.shapeSeq >= 512) {
             sz = 0;
         } else {
-            ss = (short) ((boss.shapeSeq / 16) % 16);
+            ss = (boss.shapeSeq / 16) % 16;
             if (ss < 8)
-                sz = (short) (8 - ss);
+                sz = 8 - ss;
             else
-                sz = (short) (ss - 7);
+                sz = ss - 7;
         }
-        sx = (short) (28 - sz * 2);
-        sy = (short) (16 - sz * 2);
-        chaosActions.SetObjLoc(boss, (short) (60 + sz), (short) (224 + sz), sx, sy);
+        sx = 28 - sz * 2;
+        sy = 16 - sz * 2;
+        chaosActions.SetObjLoc(boss, 60 + sz, 224 + sz, sx, sy);
         chaosActions.SetObjRect(boss, 0, 0, 28, 16);
     }
 
@@ -295,22 +295,22 @@ public class ChaosBoss {
         // VAR
         ChaosBase.Obj obj = null;
         ChaosBase.ObjAttr aAttr = null;
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
         Runtime.Ref<Integer> hit = new Runtime.Ref<>(0);
         int kCnt = 0;
         int sStat = 0;
         int cnt = 0;
         int mul = 0;
         Anims nKind = Anims.PLAYER;
-        short sKind = 0;
+        int sKind = 0;
 
         chaosActions.UpdateXY(boss);
-        chaosActions.AvoidBounds(boss, (short) 4);
-        chaosActions.AvoidBackground(boss, (short) 4);
+        chaosActions.AvoidBounds(boss, 4);
+        chaosActions.AvoidBackground(boss, 4);
         chaosActions.Burn(boss);
         if ((boss.shapeSeq >= 512) && (chaosBase.step + 512 > boss.shapeSeq))
-            chaosFire.BoumS(boss, chaosBase.mainPlayer, (short) 0, (short) 0, (short) 0, (short) 0, (short) 15, (short) 0, (short) 24, (short) 13, (short) 0, false, false, true);
+            chaosFire.BoumS(boss, chaosBase.mainPlayer, 0, 0, 0, 0, 15, 0, 24, 13, 0, false, false, true);
         if (chaosBase.step > boss.shapeSeq) {
             if (boss.hitSubLife + boss.fireSubLife == 0) {
                 if (boss.moveSeq == 0) {
@@ -371,9 +371,9 @@ public class ChaosBoss {
                     }
                     kCnt++;
                 }
-                boss.dvx = (short) (trigo.RND() % 3072);
+                boss.dvx = trigo.RND() % 3072;
                 boss.dvx -= 1536;
-                boss.dvy = (short) (trigo.RND() % 3072);
+                boss.dvy = trigo.RND() % 3072;
                 boss.dvy -= 1536;
                 boss.stat = trigo.RND() % 3 + 1;
             } else {
@@ -383,7 +383,7 @@ public class ChaosBoss {
                     boss.dvy = 0;
                 }
             }
-            chaosFire.FireMissileV(boss, chaosBase.mainPlayer, (short) 0, (short) 0, true);
+            chaosFire.FireMissileV(boss, chaosBase.mainPlayer, 0, 0, true);
             boss.shapeSeq += 512;
         }
         boss.shapeSeq -= chaosBase.step;
@@ -425,7 +425,7 @@ public class ChaosBoss {
         if (boss.moveSeq == 0) {
             chaosFire.Chain(boss);
             chaosSounds.SoundEffect(boss, sisterEffect);
-            chaosFire.BoumS(boss, chaosBase.mainPlayer, (short) 0, (short) 0, (short) 0, (short) 0, (short) 12, (short) 18, (short) 60, (short) 6, (short) 10, false, false, false);
+            chaosFire.BoumS(boss, chaosBase.mainPlayer, 0, 0, 0, 0, 12, 18, 60, 6, 10, false, false, false);
         } else {
             boss.life = boss.moveSeq * 50 + 1;
             hit.set(10);
@@ -438,8 +438,8 @@ public class ChaosBoss {
 
     private void MakeMotherAlien(ChaosBase.Obj boss) {
         // VAR
-        short px = 0;
-        short py = 0;
+        int px = 0;
+        int py = 0;
 
         switch (boss.stat) {
             case 0, 1, 3, 4 -> {
@@ -463,7 +463,7 @@ public class ChaosBoss {
             }
             default -> throw new RuntimeException("Unhandled CASE value " + boss.stat);
         }
-        chaosActions.SetObjLoc(boss, px, py, (short) 24, (short) 24);
+        chaosActions.SetObjLoc(boss, px, py, 24, 24);
         chaosActions.SetObjRect(boss, 1, 1, 23, 23);
     }
 
@@ -487,19 +487,19 @@ public class ChaosBoss {
         int oldSeq = 0;
         Runtime.Ref<Integer> hit = new Runtime.Ref<>(0);
         int nLife = 0;
-        short cnt = 0;
-        short c = 0;
-        short angle = 0;
-        Runtime.Ref<Short> bx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> by = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        short nSpeed = 0;
+        int cnt = 0;
+        int c = 0;
+        int angle = 0;
+        Runtime.Ref<Integer> bx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> by = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        int nSpeed = 0;
         Anims nKind = Anims.PLAYER;
-        short sKind = 0;
+        int sKind = 0;
 
         chaosActions.UpdateXY(boss);
-        chaosActions.AvoidBackground(boss, (short) 4);
+        chaosActions.AvoidBackground(boss, 4);
         chaosActions.Burn(boss);
         chaosActions.GetCenter(chaosBase.mainPlayer, px, py);
         chaosActions.GetCenter(boss, bx, by);
@@ -518,7 +518,7 @@ public class ChaosBoss {
                 boss.shapeSeq = ChaosBase.Period * 2;
                 boss.stat = 5;
             } else if ((boss.stat == 3) && (chaosBase.nbAnim[Anims.ALIEN2.ordinal()] + chaosBase.nbAnim[Anims.ALIEN1.ordinal()] == 0)) {
-                chaosFire.BoumS(boss, chaosBase.mainPlayer, (short) 0, (short) 0, (short) 0, (short) 0, (short) 15, (short) 0, (short) 24, (short) 15, (short) 0, true, true, true);
+                chaosFire.BoumS(boss, chaosBase.mainPlayer, 0, 0, 0, 0, 15, 0, 24, 15, 0, true, true, true);
                 boss.stat = 2;
                 boss.shapeSeq = ChaosBase.Period * (20 + trigo.RND() % 16);
             } else if (boss.stat == 4) {
@@ -625,14 +625,14 @@ public class ChaosBoss {
                     default -> throw new RuntimeException("Unhandled CASE value " + boss.moveSeq);
                 }
                 for (c = 1; c <= cnt; c++) {
-                    angle = (short) (c * 360 / cnt);
-                    px.set((short) (bx.get() + trigo.COS(angle) / 64));
-                    py.set((short) (by.get() + trigo.SIN(angle) / 64));
+                    angle = c * 360 / cnt;
+                    px.set(bx.get() + trigo.COS(angle) / 64);
+                    py.set(by.get() + trigo.SIN(angle) / 64);
                     alien = chaosActions.CreateObj(nKind, sKind, px.get(), py.get(), 0, nLife);
-                    chaosActions.SetObjVXY(alien, (short) (trigo.COS(angle) * nSpeed), (short) (trigo.SIN(angle) * nSpeed));
+                    chaosActions.SetObjVXY(alien, trigo.COS(angle) * nSpeed, trigo.SIN(angle) * nSpeed);
                 }
             } else if (boss.stat == 5) {
-                chaosFire.BoumS(boss, chaosBase.mainPlayer, (short) 0, (short) 0, (short) 0, (short) 0, (short) 15, (short) 0, (short) 24, (short) 15, (short) 0, true, true, true);
+                chaosFire.BoumS(boss, chaosBase.mainPlayer, 0, 0, 0, 0, 15, 0, 24, 15, 0, true, true, true);
                 boss.hitSubLife = 0;
                 boss.fireSubLife = 0;
                 boss.stat = 2;
@@ -652,11 +652,11 @@ public class ChaosBoss {
                     chaosActions.GetCenter(chaosBase.mainPlayer, px, py);
                     chaosActions.GetCenter(boss, bx, by);
                     chaosFire.ReturnWeapon(bx.get(), by.get());
-                    chaosActions.SetObjAXY(boss, (byte) (trigo.SGN((short) (px.get() - bx.get())) * 64), (byte) (trigo.SGN((short) (py.get() - by.get())) * 64));
-                    chaosActions.LimitSpeed(boss, (short) 2200);
+                    chaosActions.SetObjAXY(boss, trigo.SGN(px.get() - bx.get()) * 64, trigo.SGN(py.get() - by.get()) * 64);
+                    chaosActions.LimitSpeed(boss, 2200);
                     if ((oldSeq / 32) != (boss.shapeSeq / 32)) {
                         chaosActions.GetCenter(boss, px, py);
-                        c = (short) (trigo.RND() % 3);
+                        c = trigo.RND() % 3;
                         if (c == 0) {
                             chaosSounds.SoundEffect(boss, chaosFire.missileEffect);
                             nKind = Anims.MISSILE;
@@ -664,51 +664,51 @@ public class ChaosBoss {
                             cnt = ChaosMissile.mAcc2;
                         } else if (c == 1) {
                             nKind = Anims.STONE;
-                            cnt = (short) Stones.stRBOX.ordinal();
+                            cnt = Stones.stRBOX.ordinal();
                             sKind = 0;
                         } else {
                             nKind = Anims.STONE;
-                            cnt = (short) Stones.stCBOX.ordinal();
+                            cnt = Stones.stCBOX.ordinal();
                             sKind = 0;
                         }
                         alien = chaosActions.CreateObj(nKind, sKind, px.get(), py.get(), cnt, 12);
-                        bx.set((short) (trigo.RND() % 2048));
-                        by.set((short) (trigo.RND() % 2048));
-                        chaosActions.SetObjVXY(alien, (short) (boss.vx + bx.get() - 1024), (short) (boss.vy + by.get() - 1536));
-                        chaosActions.SetObjAXY(alien, (byte) 0, (byte) 48);
+                        bx.set(trigo.RND() % 2048);
+                        by.set(trigo.RND() % 2048);
+                        chaosActions.SetObjVXY(alien, boss.vx + bx.get() - 1024, boss.vy + by.get() - 1536);
+                        chaosActions.SetObjAXY(alien, 0, 48);
                     }
                 }
             }
             case 1, 3 -> {
                 chaosActions.GetCenter(boss, bx, by);
                 if (((boss.ax >= 0) && (bx.get() > chaosGraphics.gameWidth / 2 + 117)) || (boss.ax == 0)) {
-                    boss.ax = (byte) (trigo.RND() % 32);
-                    boss.ax = (byte) (-boss.ax - 16);
+                    boss.ax = trigo.RND() % 32;
+                    boss.ax = -boss.ax - 16;
                 } else if ((boss.ax < 0) && (bx.get() < chaosGraphics.gameWidth / 2 - 117)) {
-                    boss.ax = (byte) (trigo.RND() % 32 + 16);
+                    boss.ax = trigo.RND() % 32 + 16;
                 }
                 if (((boss.ay >= 0) && (by.get() > chaosGraphics.gameHeight / 2 + 117)) || (boss.ay == 0)) {
-                    boss.ay = (byte) (trigo.RND() % 32);
-                    boss.ay = (byte) (-boss.ay - 16);
+                    boss.ay = trigo.RND() % 32;
+                    boss.ay = -boss.ay - 16;
                 } else if ((boss.ay < 0) && (by.get() < chaosGraphics.gameHeight / 2 - 117)) {
-                    boss.ay = (byte) (trigo.RND() % 32 + 16);
+                    boss.ay = trigo.RND() % 32 + 16;
                 }
-                chaosActions.LimitSpeed(boss, (short) 1536);
+                chaosActions.LimitSpeed(boss, 1536);
                 chaosFire.ReturnWeapon(bx.get(), by.get());
             }
             case 2 -> {
                 chaosActions.GetCenter(boss, px, py);
                 chaosFire.ReturnWeapon(px.get(), py.get());
                 if (chaosBase.step > boss.hitSubLife) {
-                    chaosFire.FireMissileS(px.get(), py.get(), boss.vx, boss.vy, boss, chaosBase.mainPlayer, (short) 0, (short) 0, true, true);
+                    chaosFire.FireMissileS(px.get(), py.get(), boss.vx, boss.vy, boss, chaosBase.mainPlayer, 0, 0, true, true);
                     boss.hitSubLife += ChaosBase.Period / 5 + trigo.RND() % (ChaosBase.Period * 8 / 5);
-                    bx.set((short) (trigo.RND() % 64));
-                    by.set((short) (trigo.RND() % 64));
+                    bx.set(trigo.RND() % 64);
+                    by.set(trigo.RND() % 64);
                     px.inc(trigo.RND() % 2);
                     py.inc(trigo.RND() % 2);
-                    chaosActions.SetObjAXY(boss, (byte) (trigo.SGN((short) (chaosGraphics.gameWidth / 2 - px.get())) * bx.get()), (byte) (trigo.SGN((short) (chaosGraphics.gameHeight / 2 - py.get())) * by.get()));
+                    chaosActions.SetObjAXY(boss, trigo.SGN(chaosGraphics.gameWidth / 2 - px.get()) * bx.get(), trigo.SGN(chaosGraphics.gameHeight / 2 - py.get()) * by.get());
                 }
-                chaosActions.LimitSpeed(boss, (short) 1536);
+                chaosActions.LimitSpeed(boss, 1536);
                 boss.hitSubLife -= chaosBase.step;
             }
             case 4, 5 -> {
@@ -753,7 +753,7 @@ public class ChaosBoss {
             chaosSounds.SoundEffect(boss, motherEffect);
             boss.temperature = ChaosBase.MaxHot;
             chaosFire.turn = chaosBase.level[Zone.Family.ordinal()] > 4;
-            chaosFire.BoumS(boss, boss, (short) 0, (short) 0, (short) 0, (short) 0, (short) 12, (short) 18, (short) 60, (short) 12, (short) 10, true, true, false);
+            chaosFire.BoumS(boss, boss, 0, 0, 0, 0, 12, 18, 60, 12, 10, true, true, false);
         } else {
             boss.life = boss.moveSeq * 50 + 1;
             hit.set(20);
@@ -766,10 +766,10 @@ public class ChaosBoss {
 
     private void MakeFatherAlien(ChaosBase.Obj boss) {
         // VAR
-        short px = 0;
-        short py = 0;
-        short sz = 0;
-        short dt = 0;
+        int px = 0;
+        int py = 0;
+        int sz = 0;
+        int dt = 0;
         int v = 0;
 
         sz = 16;
@@ -821,20 +821,20 @@ public class ChaosBoss {
         // VAR
         ChaosBase.Obj alien = null;
         ChaosBase.ObjAttr cattr = null;
-        int lx = 0;
-        int ly = 0;
-        int dl = 0;
-        short c = 0;
-        short angle = 0;
-        Runtime.Ref<Short> bx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> by = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        short mul = 0;
-        short nvx = 0;
-        short nvy = 0;
-        short nax = 0;
-        short nay = 0;
+        long lx = 0L;
+        long ly = 0L;
+        long dl = 0L;
+        int c = 0;
+        int angle = 0;
+        Runtime.Ref<Integer> bx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> by = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        int mul = 0;
+        int nvx = 0;
+        int nvy = 0;
+        int nax = 0;
+        int nay = 0;
         int oldSeq = 0;
         int dv = 0;
         int skcnt = 0;
@@ -842,12 +842,12 @@ public class ChaosBoss {
         int nLife = 0;
         Runtime.RangeSet sList = new Runtime.RangeSet(Memory.SET16_r);
         Anims nKind = Anims.PLAYER;
-        short sKind = 0;
+        int sKind = 0;
 
         chaosActions.UpdateXY(boss);
-        chaosActions.AvoidBackground(boss, (short) 4);
-        chaosActions.AvoidBounds(boss, (short) 4);
-        chaosActions.LimitSpeed(boss, (short) 3072);
+        chaosActions.AvoidBackground(boss, 4);
+        chaosActions.AvoidBounds(boss, 4);
+        chaosActions.LimitSpeed(boss, 3072);
         chaosActions.GetCenter(chaosBase.mainPlayer, px, py);
         chaosActions.GetCenter(boss, bx, by);
         if (chaosBase.step > boss.shapeSeq) {
@@ -874,8 +874,8 @@ public class ChaosBoss {
                 }
                 case 3 -> {
                     if (boss.moveSeq == 0) {
-                        chaosFire.KillObjs(Anims.MACHINE, (short) ChaosMachine.mDoor);
-                        chaosFire.KillObjs(Anims.DEADOBJ, (short) ChaosDObj.doMirror);
+                        chaosFire.KillObjs(Anims.MACHINE, ChaosMachine.mDoor);
+                        chaosFire.KillObjs(Anims.DEADOBJ, ChaosDObj.doMirror);
                         boss.stat = 5;
                         boss.shapeSeq = ChaosBase.Period * 50;
                     } else {
@@ -897,9 +897,9 @@ public class ChaosBoss {
                     }
                 }
                 case 6 -> {
-                    cattr = chaosBase.GetAnimAttr(Anims.ALIEN2, (short) ChaosCreator.cNest);
+                    cattr = chaosBase.GetAnimAttr(Anims.ALIEN2, ChaosCreator.cNest);
                     if ((cattr.nbObj < 3) && (chaosBase.level[Zone.Family.ordinal()] < 10))
-                        alien = chaosActions.CreateObj(Anims.ALIEN2, (short) ChaosCreator.cNest, (short) (5 * ChaosGraphics.BW + ChaosGraphics.BW / 2), (short) (3 * ChaosGraphics.BW / 2), 0, 100);
+                        alien = chaosActions.CreateObj(Anims.ALIEN2, ChaosCreator.cNest, 5 * ChaosGraphics.BW + ChaosGraphics.BW / 2, 3 * ChaosGraphics.BW / 2, 0, 100);
                     boss.stat = 0;
                     boss.shapeSeq = ChaosBase.Period * (20 + trigo.RND() % 16);
                 }
@@ -928,19 +928,19 @@ public class ChaosBoss {
                 ly = py.get() - by.get();
                 dl = trigo.SQRT(lx * lx + ly * ly);
                 if (dl != 0) {
-                    boss.dvx = (short) (lx * 128 / dl * 16);
-                    boss.dvy = (short) (ly * 128 / dl * 16);
+                    boss.dvx = (int) (lx * 128 / dl * 16);
+                    boss.dvy = (int) (ly * 128 / dl * 16);
                 }
                 dv = (boss.shapeSeq / (ChaosBase.Period / 3));
                 if (oldSeq / (ChaosBase.Period / 3) != dv) {
                     if (dv % 2 == 0) {
                         dv = trigo.RND() % 3;
                         if (dv == 0)
-                            chaosFire.FireMissileV(boss, chaosBase.mainPlayer, (short) 0, (short) 0, true);
+                            chaosFire.FireMissileV(boss, chaosBase.mainPlayer, 0, 0, true);
                         else if (dv == 1)
-                            chaosFire.FireMissileA(boss, (short) 0, (short) 0);
+                            chaosFire.FireMissileA(boss, 0, 0);
                         else
-                            chaosFire.FireMissileS(bx.get(), by.get(), -boss.dvx, -boss.dvy, boss, chaosBase.mainPlayer, (short) 0, (short) 0, true, true);
+                            chaosFire.FireMissileS(bx.get(), by.get(), -boss.dvx, -boss.dvy, boss, chaosBase.mainPlayer, 0, 0, true, true);
                     } else if (((bx.get() < 64) || (by.get() < 128) || (bx.get() > chaosGraphics.gameWidth - 64) || (by.get() > chaosGraphics.gameHeight - 64)) && (boss.shapeSeq > ChaosBase.Period * 2)) {
                         dv = trigo.RND() % 8;
                         if (dv < 4) {
@@ -959,8 +959,8 @@ public class ChaosBoss {
                     }
                 }
                 if (dl < 56) {
-                    boss.dvx = (short) -boss.dvx;
-                    boss.dvy = (short) -boss.dvy;
+                    boss.dvx = -boss.dvx;
+                    boss.dvy = -boss.dvy;
                 } else if (dl < 64) {
                     boss.dvx = 0;
                     boss.dvy = 0;
@@ -975,13 +975,13 @@ public class ChaosBoss {
                     boss.vx = 1536;
                     boss.vy = 0;
                 } else {
-                    boss.vx = (short) (lx * 1536 / dl);
-                    boss.vy = (short) (ly * 1536 / dl);
+                    boss.vx = (int) (lx * 1536 / dl);
+                    boss.vy = (int) (ly * 1536 / dl);
                 }
                 boss.dvx = 0;
                 boss.dvy = 0;
-                boss.ax = (byte) -(boss.vy / 64);
-                boss.ay = (byte) (boss.vy / 64);
+                boss.ax = -(boss.vy / 64);
+                boss.ay = boss.vy / 64;
                 dv = (boss.shapeSeq / (ChaosBase.Period / 2));
                 if ((oldSeq / (ChaosBase.Period / 2)) != dv) {
                     nKind = Anims.ALIEN2;
@@ -1038,7 +1038,7 @@ public class ChaosBoss {
                     }
                     while (skcnt > 0) {
                         do {
-                            sKind = (short) ((sKind + 1) % 16);
+                            sKind = (sKind + 1) % 16;
                         } while (!sList.contains(sKind));
                         skcnt--;
                     }
@@ -1049,24 +1049,24 @@ public class ChaosBoss {
                     chaosSounds.SoundEffect(boss, chaosFire.flameEffect);
                     nLife += trigo.RND() % 4;
                     alien = chaosActions.CreateObj(nKind, sKind, bx.get(), by.get(), trigo.RND() % 4, nLife);
-                    angle = (short) (trigo.RND() % 360);
+                    angle = trigo.RND() % 360;
                     chaosActions.SetObjVXY(alien, trigo.COS(angle), trigo.SIN(angle));
                 }
             }
             case 2 -> {
                 if (((boss.ax >= 0) && (bx.get() > chaosGraphics.gameWidth / 2 + 118)) || (boss.ax == 0)) {
-                    boss.ax = (byte) (trigo.RND() % 32);
-                    boss.ax = (byte) (-boss.ax - 16);
+                    boss.ax = trigo.RND() % 32;
+                    boss.ax = -boss.ax - 16;
                 } else if ((boss.ax < 0) && (bx.get() < chaosGraphics.gameWidth / 2 - 118)) {
-                    boss.ax = (byte) (trigo.RND() % 32 + 16);
+                    boss.ax = trigo.RND() % 32 + 16;
                 }
                 if (((boss.ay >= 0) && (by.get() > chaosGraphics.gameHeight / 2 + 118)) || (boss.ay == 0)) {
-                    boss.ay = (byte) (trigo.RND() % 32);
-                    boss.ay = (byte) (-boss.ay - 16);
+                    boss.ay = trigo.RND() % 32;
+                    boss.ay = -boss.ay - 16;
                 } else if ((boss.ay < 0) && (by.get() < chaosGraphics.gameHeight / 2 - 118)) {
-                    boss.ay = (byte) (trigo.RND() % 32 + 16);
+                    boss.ay = trigo.RND() % 32 + 16;
                 }
-                chaosActions.LimitSpeed(boss, (short) 1536);
+                chaosActions.LimitSpeed(boss, 1536);
                 chaosFire.ReturnWeapon(bx.get(), by.get());
             }
             case 3 -> {
@@ -1076,25 +1076,25 @@ public class ChaosBoss {
                 if ((oldSeq / (ChaosBase.Period / 3)) != dv) {
                     chaosSounds.SoundEffect(boss, chaosFire.missileEffect);
                     if ((Math.abs(px.get() - bx.get()) < 56) && (Math.abs(py.get() - by.get()) < 56) && (trigo.RND() % 6 == 0))
-                        chaosFire.BoumS(boss, boss, (short) 0, (short) 0, (short) (trigo.RND() % 18), (short) 0, (short) 18, (short) 0, (short) 20, (short) 12, (short) 0, false, false, false);
+                        chaosFire.BoumS(boss, boss, 0, 0, trigo.RND() % 18, 0, 18, 0, 20, 12, 0, false, false, false);
                     for (c = 1; c <= 4; c++) {
-                        angle = (short) (trigo.RND() % 360);
-                        nvx = (short) (trigo.COS(angle) * 2);
-                        nvy = (short) (trigo.SIN(angle) * 2);
-                        nax = (short) (trigo.RND() % 200);
+                        angle = trigo.RND() % 360;
+                        nvx = trigo.COS(angle) * 2;
+                        nvy = trigo.SIN(angle) * 2;
+                        nax = trigo.RND() % 200;
                         nax -= 100;
-                        nay = (short) (trigo.RND() % 200);
+                        nay = trigo.RND() % 200;
                         nay -= 100;
                         if (chaosFire.ParabolicDist(bx.get(), by.get(), nvx, nvy, nax, nay, px.get(), py.get()) > 24) {
-                            alien = chaosActions.CreateObj(Anims.MISSILE, (short) ChaosMissile.mAlien1, bx.get(), by.get(), trigo.RND() % 3, 12);
+                            alien = chaosActions.CreateObj(Anims.MISSILE, ChaosMissile.mAlien1, bx.get(), by.get(), trigo.RND() % 3, 12);
                             chaosActions.SetObjVXY(alien, nvx, nvy);
-                            chaosActions.SetObjAXY(alien, (byte) nax, (byte) nay);
+                            chaosActions.SetObjAXY(alien, nax, nay);
                         }
                     }
                 }
             }
             case 4 -> {
-                chaosFire.GoTo(boss, (short) (chaosGraphics.gameWidth / 2), (short) (chaosGraphics.gameHeight / 2 + 70));
+                chaosFire.GoTo(boss, chaosGraphics.gameWidth / 2, chaosGraphics.gameHeight / 2 + 70);
                 chaosFire.ReturnWeapon(bx.get(), by.get());
                 dv = boss.shapeSeq / 60;
                 if ((oldSeq / 60 != dv) && (Math.abs(boss.vx) < 64) && (Math.abs(boss.vy) < 64)) {
@@ -1102,15 +1102,15 @@ public class ChaosBoss {
                     dv = (dv % 30);
                     if ((((boss.moveSeq / 2) % 2) != 0))
                         dv = 29 - dv;
-                    angle = (short) (dv * 12 + boss.shapeSeq / 750);
-                    mul = (short) ((boss.moveSeq / 3) + 1);
+                    angle = dv * 12 + boss.shapeSeq / 750;
+                    mul = (boss.moveSeq / 3) + 1;
                     if (!((boss.moveSeq % 2) != 0))
-                        mul = (short) (mul * 4);
-                    alien = chaosActions.CreateObj(Anims.MISSILE, (short) ChaosMissile.mAlien2, bx.get(), by.get(), ChaosMissile.mAcc2, 12);
-                    chaosActions.SetObjVXY(alien, (short) (trigo.COS(angle) * 4 / mul), (short) (trigo.SIN(angle) / 2));
+                        mul = mul * 4;
+                    alien = chaosActions.CreateObj(Anims.MISSILE, ChaosMissile.mAlien2, bx.get(), by.get(), ChaosMissile.mAcc2, 12);
+                    chaosActions.SetObjVXY(alien, trigo.COS(angle) * 4 / mul, trigo.SIN(angle) / 2);
                     if (((boss.moveSeq % 2) != 0)) {
-                        mul = (short) (mul * 16);
-                        chaosActions.SetObjAXY(alien, (byte) -(trigo.COS(angle) / mul), (byte) -(trigo.SIN(angle) / 32));
+                        mul = mul * 16;
+                        chaosActions.SetObjAXY(alien, -(trigo.COS(angle) / mul), -(trigo.SIN(angle) / 32));
                     }
                 }
             }
@@ -1118,19 +1118,19 @@ public class ChaosBoss {
                 if (boss.shapeSeq > ChaosBase.Period * 10) {
                     boss.ax = 0;
                     boss.ay = 0;
-                    boss.dvx = (short) (trigo.SGN((short) (px.get() - bx.get())) * 800);
-                    boss.dvy = (short) (trigo.SGN((short) (py.get() - by.get())) * 800);
+                    boss.dvx = trigo.SGN(px.get() - bx.get()) * 800;
+                    boss.dvy = trigo.SGN(py.get() - by.get()) * 800;
                     dv = boss.shapeSeq / ChaosBase.Period;
                     if (oldSeq / ChaosBase.Period != dv) {
                         dv = trigo.RND() % 4;
                         if (dv == 0)
-                            chaosFire.FireFlame(boss, (short) 0, (short) 0, true);
+                            chaosFire.FireFlame(boss, 0, 0, true);
                         else if (dv == 1)
-                            chaosFire.FireMissileV(boss, chaosBase.mainPlayer, (short) 0, (short) 0, true);
+                            chaosFire.FireMissileV(boss, chaosBase.mainPlayer, 0, 0, true);
                         else if (dv == 2)
-                            chaosFire.FireMissileA(boss, (short) 0, (short) 0);
+                            chaosFire.FireMissileA(boss, 0, 0);
                         else
-                            chaosFire.FireMissileS(bx.get(), by.get(), -boss.dvx, -boss.dvy, boss, chaosBase.mainPlayer, (short) 0, (short) 0, true, true);
+                            chaosFire.FireMissileS(bx.get(), by.get(), -boss.dvx, -boss.dvy, boss, chaosBase.mainPlayer, 0, 0, true, true);
                     }
                 } else {
                     chaosFire.GoCenter(boss);
@@ -1178,20 +1178,20 @@ public class ChaosBoss {
         // VAR
         Runtime.Ref<Integer> hit = new Runtime.Ref<>(0);
         Runtime.Ref<Integer> fire = new Runtime.Ref<>(0);
-        short angle = 0;
-        short ox = 0;
-        short oy = 0;
-        short c = 0;
+        int angle = 0;
+        int ox = 0;
+        int oy = 0;
+        int c = 0;
 
         if ((boss.moveSeq == 0) && (boss.stat == 5) && (boss.shapeSeq == 0)) {
             chaosFire.Chain(boss);
             chaosSounds.SoundEffect(boss, fatherEffect);
-            chaosFire.BoumS(boss, boss, (short) 0, (short) 0, (short) 6, (short) 0, (short) 18, (short) 0, (short) 20, (short) 16, (short) 0, true, false, false);
-            angle = (short) (trigo.RND() % 120);
+            chaosFire.BoumS(boss, boss, 0, 0, 6, 0, 18, 0, 20, 16, 0, true, false, false);
+            angle = trigo.RND() % 120;
             for (c = 0; c <= 2; c++) {
-                ox = (short) (trigo.COS(angle) / 16);
-                oy = (short) (trigo.SIN(angle) / 16);
-                chaosFire.BoumS(boss, boss, ox, oy, (short) 0, (short) 0, (short) 18, (short) 0, (short) 20, (short) 8, (short) 0, true, false, false);
+                ox = trigo.COS(angle) / 16;
+                oy = trigo.SIN(angle) / 16;
+                chaosFire.BoumS(boss, boss, ox, oy, 0, 0, 18, 0, 20, 8, 0, true, false, false);
                 angle += 120;
             }
         } else {
@@ -1205,7 +1205,7 @@ public class ChaosBoss {
     private final ChaosBase.DieProc DieFatherAlien_ref = this::DieFatherAlien;
 
     private void MakeMasterAlien(ChaosBase.Obj boss) {
-        chaosActions.SetObjLoc(boss, (short) 88, (short) 200, (short) 84, (short) 36);
+        chaosActions.SetObjLoc(boss, 88, 200, 84, 36);
         chaosActions.SetObjRect(boss, 8, 4, 68, 28);
     }
 
@@ -1229,29 +1229,29 @@ public class ChaosBoss {
         // VAR
         ChaosBase.Obj fObj = null;
         ChaosBase.Obj alien = null;
-        int dx = 0;
-        int dy = 0;
-        int dl = 0;
-        short angle = 0;
-        Runtime.Ref<Short> bx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> by = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        short mx = 0;
-        short my = 0;
+        long dx = 0L;
+        long dy = 0L;
+        long dl = 0L;
+        int angle = 0;
+        Runtime.Ref<Integer> bx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> by = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        int mx = 0;
+        int my = 0;
         Runtime.Ref<Integer> hit = new Runtime.Ref<>(0);
         int oldSeq = 0;
-        short sKind = 0;
+        int sKind = 0;
         boolean speed = false;
         boolean inv = false;
 
         chaosActions.UpdateXY(boss);
-        chaosActions.AvoidBackground(boss, (short) 1);
-        chaosActions.LimitSpeed(boss, (short) 2048);
+        chaosActions.AvoidBackground(boss, 1);
+        chaosActions.LimitSpeed(boss, 2048);
         inv = (chaosBase.screenInverted > 0);
         if (chaosFire.laugh != inv) {
             if (chaosFire.laugh) {
-                hit.set((int) chaosBase.nbDollar);
+                hit.set(chaosBase.nbDollar);
                 hit.inc(chaosBase.nbSterling);
                 if ((chaosBase.pLife == 0) && (hit.get() < 20))
                     chaosSounds.SoundEffect(boss, haha2Effect);
@@ -1287,28 +1287,28 @@ public class ChaosBoss {
                             fObj = chaosBase.mainPlayer;
                             speed = false;
                         }
-                        angle = (short) (trigo.RND() % 360);
+                        angle = trigo.RND() % 360;
                         switch (boss.moveSeq % 5) {
                             case 0 -> {
-                                chaosFire.BoumS(boss, fObj, (short) 0, (short) 0, (short) 0, angle, (short) 12, (short) 18, (short) 60, (short) 12, (short) 10, true, speed, true);
+                                chaosFire.BoumS(boss, fObj, 0, 0, 0, angle, 12, 18, 60, 12, 10, true, speed, true);
                             }
                             case 4 -> {
-                                chaosFire.BoumS(boss, fObj, (short) 0, (short) 0, (short) 0, (short) 0, (short) 15, (short) 0, (short) 24, (short) 14, (short) 0, true, speed, true);
+                                chaosFire.BoumS(boss, fObj, 0, 0, 0, 0, 15, 0, 24, 14, 0, true, speed, true);
                             }
                             case 3 -> {
-                                chaosFire.BoumS(boss, fObj, (short) 0, (short) 0, (short) 0, angle, (short) 15, (short) 45, (short) 24, (short) 12, (short) 10, true, speed, true);
+                                chaosFire.BoumS(boss, fObj, 0, 0, 0, angle, 15, 45, 24, 12, 10, true, speed, true);
                             }
                             case 2 -> {
                                 chaosSounds.SoundEffect(boss, chaosFire.bombEffect);
                                 boss.shapeSeq = 2;
-                                chaosFire.BoumS(boss, fObj, (short) -56, (short) 8, (short) 0, (short) 0, (short) 15, (short) 0, (short) 24, (short) 13, (short) 0, true, speed, false);
+                                chaosFire.BoumS(boss, fObj, -56, 8, 0, 0, 15, 0, 24, 13, 0, true, speed, false);
                                 boss.shapeSeq = 1;
-                                chaosFire.BoumS(boss, fObj, (short) 56, (short) 8, (short) 0, (short) 0, (short) 15, (short) 0, (short) 24, (short) 13, (short) 0, true, speed, false);
+                                chaosFire.BoumS(boss, fObj, 56, 8, 0, 0, 15, 0, 24, 13, 0, true, speed, false);
                                 boss.shapeSeq = 0;
-                                chaosFire.BoumS(boss, fObj, (short) 0, (short) -60, (short) 0, (short) 0, (short) 15, (short) 0, (short) 24, (short) 13, (short) 0, true, speed, false);
+                                chaosFire.BoumS(boss, fObj, 0, -60, 0, 0, 15, 0, 24, 13, 0, true, speed, false);
                             }
                             case 1 -> {
-                                chaosFire.BoumS(boss, fObj, (short) 0, (short) 0, (short) 0, (short) 0, (short) 15, (short) 105, (short) 24, (short) 12, (short) 10, true, speed, true);
+                                chaosFire.BoumS(boss, fObj, 0, 0, 0, 0, 15, 105, 24, 12, 10, true, speed, true);
                             }
                             default -> throw new RuntimeException("Unhandled CASE value " + boss.moveSeq % 5);
                         }
@@ -1350,27 +1350,27 @@ public class ChaosBoss {
             case 2 -> {
                 chaosFire.ReturnWeapon(bx.get(), by.get());
                 if (chaosBase.step > boss.hitSubLife) {
-                    mx = (short) (trigo.RND() % 64);
-                    my = (short) (trigo.RND() % 64);
+                    mx = trigo.RND() % 64;
+                    my = trigo.RND() % 64;
                     bx.inc(trigo.RND() % 2);
                     by.inc(trigo.RND() % 2);
-                    chaosActions.SetObjAXY(boss, (byte) (trigo.SGN((short) (chaosGraphics.gameWidth / 2 - bx.get())) * mx), (byte) (trigo.SGN((short) (chaosGraphics.gameHeight / 2 - by.get())) * my));
+                    chaosActions.SetObjAXY(boss, trigo.SGN(chaosGraphics.gameWidth / 2 - bx.get()) * mx, trigo.SGN(chaosGraphics.gameHeight / 2 - by.get()) * my);
                     switch ((boss.moveSeq % 5)) {
                         case 0 -> {
                             chaosSounds.SoundEffect(boss, chaosFire.missileEffect);
-                            chaosFire.FireMissileV(boss, chaosBase.mainPlayer, (short) -28, (short) 4, false);
-                            chaosFire.FireMissileV(boss, chaosBase.mainPlayer, (short) 28, (short) 4, false);
+                            chaosFire.FireMissileV(boss, chaosBase.mainPlayer, -28, 4, false);
+                            chaosFire.FireMissileV(boss, chaosBase.mainPlayer, 28, 4, false);
                             boss.hitSubLife += trigo.RND() % ChaosBase.Period;
                         }
                         case 4 -> {
                             chaosSounds.SoundEffect(boss, chaosFire.missileEffect);
-                            angle = (short) (((boss.shapeSeq / 60) % 30) * 12);
-                            mx = (short) (trigo.COS(angle) * 2);
-                            my = (short) (trigo.SIN(angle) * 2);
-                            chaosFire.FireMissileS(bx.get() - 28, by.get() + 4, mx, my, boss, chaosBase.mainPlayer, (short) 0, (short) 0, true, false);
-                            mx = (short) -mx;
-                            my = (short) -my;
-                            chaosFire.FireMissileS(bx.get() + 28, by.get() + 4, mx, my, boss, chaosBase.mainPlayer, (short) 0, (short) 0, true, false);
+                            angle = ((boss.shapeSeq / 60) % 30) * 12;
+                            mx = trigo.COS(angle) * 2;
+                            my = trigo.SIN(angle) * 2;
+                            chaosFire.FireMissileS(bx.get() - 28, by.get() + 4, mx, my, boss, chaosBase.mainPlayer, 0, 0, true, false);
+                            mx = -mx;
+                            my = -my;
+                            chaosFire.FireMissileS(bx.get() + 28, by.get() + 4, mx, my, boss, chaosBase.mainPlayer, 0, 0, true, false);
                             boss.hitSubLife += ChaosBase.Period / 3;
                         }
                         case 3 -> {
@@ -1378,7 +1378,7 @@ public class ChaosBoss {
                                 mx = 28;
                             else
                                 mx = -28;
-                            chaosFire.FireFlame(boss, mx, (short) 4, true);
+                            chaosFire.FireFlame(boss, mx, 4, true);
                             boss.hitSubLife += trigo.RND() % ChaosBase.Period + ChaosBase.Period / 2;
                         }
                         case 2 -> {
@@ -1390,7 +1390,7 @@ public class ChaosBoss {
                                 dx = dx * 3072 / dl;
                                 dy = dy * 3072 / dl;
                             }
-                            chaosFire.FireMissileS(bx.get() - 28, by.get() + 4, dx, dy, boss, chaosBase.mainPlayer, (short) 0, (short) 0, true, false);
+                            chaosFire.FireMissileS(bx.get() - 28, by.get() + 4, dx, dy, boss, chaosBase.mainPlayer, 0, 0, true, false);
                             dx = bx.get() + 28 - px.get();
                             dy = by.get() + 4 - py.get();
                             dl = trigo.SQRT(dx * dx + dy * dy);
@@ -1398,19 +1398,19 @@ public class ChaosBoss {
                                 dx = dx * 3072 / dl;
                                 dy = dy * 3072 / dl;
                             }
-                            chaosFire.FireMissileS(bx.get() + 28, by.get() + 4, dx, dy, boss, chaosBase.mainPlayer, (short) 0, (short) 0, true, false);
+                            chaosFire.FireMissileS(bx.get() + 28, by.get() + 4, dx, dy, boss, chaosBase.mainPlayer, 0, 0, true, false);
                             boss.hitSubLife += trigo.RND() % ChaosBase.Period;
                         }
                         case 1 -> {
                             chaosSounds.SoundEffect(boss, chaosFire.missileEffect);
-                            angle = (short) (((boss.shapeSeq / 60) % 30) * 12);
-                            chaosFire.FireMissileS(bx.get(), by.get(), trigo.COS(angle) * 2, trigo.SIN(angle) * 2, boss, chaosBase.mainPlayer, (short) 0, (short) 0, true, false);
+                            angle = ((boss.shapeSeq / 60) % 30) * 12;
+                            chaosFire.FireMissileS(bx.get(), by.get(), trigo.COS(angle) * 2, trigo.SIN(angle) * 2, boss, chaosBase.mainPlayer, 0, 0, true, false);
                             angle += 120;
                             if (boss.moveSeq < 5)
-                                chaosFire.FireMissileS(bx.get(), by.get(), trigo.COS(angle) * 2, trigo.SIN(angle) * 2, boss, chaosBase.mainPlayer, (short) 0, (short) 0, true, false);
+                                chaosFire.FireMissileS(bx.get(), by.get(), trigo.COS(angle) * 2, trigo.SIN(angle) * 2, boss, chaosBase.mainPlayer, 0, 0, true, false);
                             angle += 120;
                             if (boss.moveSeq < 10)
-                                chaosFire.FireMissileS(bx.get(), by.get(), trigo.COS(angle) * 2, trigo.SIN(angle) * 2, boss, chaosBase.mainPlayer, (short) 0, (short) 0, true, false);
+                                chaosFire.FireMissileS(bx.get(), by.get(), trigo.COS(angle) * 2, trigo.SIN(angle) * 2, boss, chaosBase.mainPlayer, 0, 0, true, false);
                             boss.hitSubLife += ChaosBase.Period / 4;
                         }
                         default -> throw new RuntimeException("Unhandled CASE value " + (boss.moveSeq % 5));
@@ -1420,7 +1420,7 @@ public class ChaosBoss {
                     boss.hitSubLife = 0;
                 else
                     boss.hitSubLife -= chaosBase.step;
-                chaosActions.LimitSpeed(boss, (short) 1536);
+                chaosActions.LimitSpeed(boss, 1536);
             }
             case 3 -> {
                 chaosFire.GoCenter(boss);
@@ -1434,7 +1434,7 @@ public class ChaosBoss {
             case 5 -> {
                 if ((boss.shapeSeq / ChaosBase.Period) != (oldSeq / ChaosBase.Period)) {
                     chaosSounds.SoundEffect(boss, chaosFire.createEffect);
-                    sKind = (short) (trigo.RND() % 4);
+                    sKind = trigo.RND() % 4;
                     if (sKind == 0)
                         sKind = ChaosCreator.cNest;
                     else if (sKind == 1)
@@ -1489,11 +1489,11 @@ public class ChaosBoss {
             chaosSounds.SoundEffect(boss, sisterEffect);
             chaosSounds.SoundEffect(boss, motherEffect);
             boss.shapeSeq = 2;
-            chaosFire.BoumS(boss, boss, (short) -69, (short) 40, (short) 0, (short) 0, (short) 12, (short) 18, (short) 60, (short) 12, (short) 10, true, false, false);
+            chaosFire.BoumS(boss, boss, -69, 40, 0, 0, 12, 18, 60, 12, 10, true, false, false);
             boss.shapeSeq = 1;
-            chaosFire.BoumS(boss, boss, (short) 69, (short) 40, (short) 0, (short) 0, (short) 12, (short) 18, (short) 60, (short) 12, (short) 10, true, false, false);
+            chaosFire.BoumS(boss, boss, 69, 40, 0, 0, 12, 18, 60, 12, 10, true, false, false);
             boss.shapeSeq = 0;
-            chaosFire.BoumS(boss, boss, (short) 0, (short) -80, (short) 0, (short) 0, (short) 12, (short) 18, (short) 60, (short) 12, (short) 10, true, false, false);
+            chaosFire.BoumS(boss, boss, 0, -80, 0, 0, 12, 18, 60, 12, 10, true, false, false);
         } else {
             boss.life = boss.moveSeq * 50 + 1;
             hit.set(25);
@@ -1505,7 +1505,7 @@ public class ChaosBoss {
     private final ChaosBase.DieProc DieMasterAlien_ref = this::DieMasterAlien;
 
     private void MakeIllusion(ChaosBase.Obj boss) {
-        chaosActions.SetObjLoc(boss, (short) 59, (short) 243, (short) 10, (short) 10);
+        chaosActions.SetObjLoc(boss, 59, 243, 10, 10);
         chaosActions.SetObjRect(boss, -3, -3, 19, 19);
     }
 
@@ -1530,17 +1530,17 @@ public class ChaosBoss {
         int nLife = 0;
         int oldSeq = 0;
         int dv = 0;
-        Runtime.Ref<Short> bx = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> by = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        short angle = 0;
-        short sKind = 0;
+        Runtime.Ref<Integer> bx = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> by = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        int angle = 0;
+        int sKind = 0;
         Anims nKind = Anims.PLAYER;
 
         chaosActions.UpdateXY(boss);
-        chaosActions.AvoidBounds(boss, (short) 2);
-        chaosActions.AvoidBackground(boss, (short) 4);
+        chaosActions.AvoidBounds(boss, 2);
+        chaosActions.AvoidBackground(boss, 4);
         chaosActions.GetCenter(boss, bx, by);
         chaosActions.GetCenter(chaosBase.mainPlayer, px, py);
         if ((boss.stat != 33) || (boss.shapeSeq > ChaosBase.Period)) {
@@ -1571,10 +1571,10 @@ public class ChaosBoss {
                     boss.stat = trigo.RND() % 32 + 1;
             } else {
                 if (chaosFire.CloseEnough(bx.get(), by.get(), px.get(), py.get())) {
-                    chaosFire.KillObjs(Anims.DEADOBJ, (short) ChaosDObj.doMagnetR);
-                    chaosFire.KillObjs(Anims.DEADOBJ, (short) ChaosDObj.doMagnetA);
-                    chaosFire.KillObjs(Anims.DEADOBJ, (short) ChaosDObj.doWindMaker);
-                    chaosFire.KillObjs(Anims.DEADOBJ, (short) ChaosDObj.doMirror);
+                    chaosFire.KillObjs(Anims.DEADOBJ, ChaosDObj.doMagnetR);
+                    chaosFire.KillObjs(Anims.DEADOBJ, ChaosDObj.doMagnetA);
+                    chaosFire.KillObjs(Anims.DEADOBJ, ChaosDObj.doWindMaker);
+                    chaosFire.KillObjs(Anims.DEADOBJ, ChaosDObj.doMirror);
                     boss.shapeSeq = 0;
                     chaosActions.Die(boss);
                     return;
@@ -1593,10 +1593,10 @@ public class ChaosBoss {
             chaosFire.GoCenter(boss);
         if ((boss.shapeSeq / dv) != (oldSeq / dv)) {
             if ((trigo.RND() % 8 == 0) || (boss.vx == 0)) {
-                chaosFire.BoumX(boss, boss, (short) 48, ((boss.moveSeq % 2) != 0));
-                angle = (short) (trigo.RND() % 360);
-                boss.vx = (short) (trigo.COS(angle) * 3 / 2);
-                boss.vy = (short) (trigo.SIN(angle) * 3 / 2);
+                chaosFire.BoumX(boss, boss, 48, ((boss.moveSeq % 2) != 0));
+                angle = trigo.RND() % 360;
+                boss.vx = trigo.COS(angle) * 3 / 2;
+                boss.vy = trigo.SIN(angle) * 3 / 2;
             }
             if ((boss.stat > 0) && (boss.stat <= 29)) {
                 if (boss.stat <= 12) {
@@ -1709,9 +1709,9 @@ public class ChaosBoss {
 
     private void DieIllusion(ChaosBase.Obj boss) {
         // VAR
-        short off = 0;
-        short rx = 0;
-        short ry = 0;
+        int off = 0;
+        int rx = 0;
+        int ry = 0;
 
         if ((boss.moveSeq == 0) && (boss.stat == 33) && (boss.shapeSeq == 0)) {
             chaosFire.Chain(boss);
@@ -1721,14 +1721,14 @@ public class ChaosBoss {
             ry = 0;
             for (off = 0; off <= 3; off++) {
                 chaosFire.turn = true;
-                chaosFire.BoumS(boss, boss, rx, ry, (short) 0, (short) 0, (short) 12, (short) 0, (short) 30, (short) 12, (short) 0, true, false, false);
-                rx = (short) (trigo.COS((short) (off * 120)) / 16);
-                ry = (short) (trigo.SIN((short) (off * 120)) / 16);
+                chaosFire.BoumS(boss, boss, rx, ry, 0, 0, 12, 0, 30, 12, 0, true, false, false);
+                rx = trigo.COS(off * 120) / 16;
+                ry = trigo.SIN(off * 120) / 16;
             }
             chaosFire.theIllusion = null;
             return;
         } else if ((boss.stat > 0) && (boss.stat <= 32)) {
-            chaosActions.Boum(boss, EnumSet.of(Stones.stFOG3), (short) ChaosBase.fastStyle, (short) 31, (short) 1);
+            chaosActions.Boum(boss, EnumSet.of(Stones.stFOG3), ChaosBase.fastStyle, 31, 1);
             boss.moveSeq--;
             boss.life = boss.moveSeq * 50;
             chaosFire.ShowStat(Runtime.castToRef(languages.ADL("Illusion: ##"), String.class), boss.moveSeq);
@@ -1753,27 +1753,27 @@ public class ChaosBoss {
         ChaosBase.ObjAttr attr = null;
         int c = 0;
 
-        chaosSounds.SetEffect(chaosFire.missileEffect[0], chaosSounds.soundList[SoundList.sMissile.ordinal()], 0, 0, (short) 100, (short) 4);
-        chaosSounds.SetEffect(chaosFire.flameEffect[0], chaosSounds.soundList[SoundList.sHHat.ordinal()], 0, 0, (short) 180, (short) 4);
-        chaosSounds.SetEffect(chaosFire.bombEffect[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 0, 0, (short) 220, (short) 7);
-        chaosSounds.SetEffect(chaosFire.huEffect[0], chaosSounds.soundList[SoundList.sHurryUp.ordinal()], 0, 0, (short) 255, (short) 4);
-        chaosSounds.SetEffect(chaosFire.poufEffect[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 0, 4181, (short) 255, (short) 14);
-        chaosSounds.SetEffect(chaosFire.createEffect[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 4181, (short) 220, (short) 12);
-        chaosSounds.SetEffect(chaosFire.aieEffect[0], chaosSounds.soundList[SoundList.sGong.ordinal()], 0, 16726, (short) 200, (short) 13);
-        chaosSounds.SetEffect(chaosFire.koEffect[0], chaosSounds.soundList[SoundList.sHa.ordinal()], 0, 0, (short) 240, (short) 14);
-        chaosSounds.SetEffect(brotherEffect[0], chaosSounds.soundList[SoundList.sVerre.ordinal()], 0, 4181, (short) 255, (short) 15);
-        chaosSounds.SetEffect(sisterEffect[0], chaosSounds.soundList[SoundList.sGong.ordinal()], 0, 4181, (short) 255, (short) 15);
-        chaosSounds.SetEffect(motherEffect[0], chaosSounds.soundList[SoundList.sCasserole.ordinal()], 0, 4181, (short) 255, (short) 15);
-        chaosSounds.SetEffect(fatherEffect[0], chaosSounds.soundList[SoundList.sCannon.ordinal()], 0, 4181, (short) 255, (short) 15);
-        chaosSounds.SetEffect(haha1Effect[0], chaosSounds.soundList[SoundList.wJans.ordinal()], 0, 16726, (short) 0, (short) 8);
-        chaosSounds.SetEffect(haha2Effect[0], chaosSounds.soundList[SoundList.wJans.ordinal()], 0, 0, (short) 0, (short) 8);
+        chaosSounds.SetEffect(chaosFire.missileEffect[0], chaosSounds.soundList[SoundList.sMissile.ordinal()], 0, 0, 100, 4);
+        chaosSounds.SetEffect(chaosFire.flameEffect[0], chaosSounds.soundList[SoundList.sHHat.ordinal()], 0, 0, 180, 4);
+        chaosSounds.SetEffect(chaosFire.bombEffect[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 0, 0, 220, 7);
+        chaosSounds.SetEffect(chaosFire.huEffect[0], chaosSounds.soundList[SoundList.sHurryUp.ordinal()], 0, 0, 255, 4);
+        chaosSounds.SetEffect(chaosFire.poufEffect[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 0, 4181, 255, 14);
+        chaosSounds.SetEffect(chaosFire.createEffect[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 4181, 220, 12);
+        chaosSounds.SetEffect(chaosFire.aieEffect[0], chaosSounds.soundList[SoundList.sGong.ordinal()], 0, 16726, 200, 13);
+        chaosSounds.SetEffect(chaosFire.koEffect[0], chaosSounds.soundList[SoundList.sHa.ordinal()], 0, 0, 240, 14);
+        chaosSounds.SetEffect(brotherEffect[0], chaosSounds.soundList[SoundList.sVerre.ordinal()], 0, 4181, 255, 15);
+        chaosSounds.SetEffect(sisterEffect[0], chaosSounds.soundList[SoundList.sGong.ordinal()], 0, 4181, 255, 15);
+        chaosSounds.SetEffect(motherEffect[0], chaosSounds.soundList[SoundList.sCasserole.ordinal()], 0, 4181, 255, 15);
+        chaosSounds.SetEffect(fatherEffect[0], chaosSounds.soundList[SoundList.sCannon.ordinal()], 0, 4181, 255, 15);
+        chaosSounds.SetEffect(haha1Effect[0], chaosSounds.soundList[SoundList.wJans.ordinal()], 0, 16726, 0, 8);
+        chaosSounds.SetEffect(haha2Effect[0], chaosSounds.soundList[SoundList.wJans.ordinal()], 0, 0, 0, 8);
         for (c = 1; c <= 3; c++) {
-            chaosSounds.SetEffect(haha1Effect[c], chaosSounds.soundList[SoundList.sHa.ordinal()], 0, 0, (short) 160, (short) 8);
-            chaosSounds.SetEffect(haha2Effect[c], chaosSounds.soundList[SoundList.sHa.ordinal()], 0, 0, (short) 250, (short) 8);
+            chaosSounds.SetEffect(haha1Effect[c], chaosSounds.soundList[SoundList.sHa.ordinal()], 0, 0, 160, 8);
+            chaosSounds.SetEffect(haha2Effect[c], chaosSounds.soundList[SoundList.sHa.ordinal()], 0, 0, 250, 8);
         }
-        chaosSounds.SetEffect(haha2Effect[4], chaosSounds.soundList[SoundList.sHa.ordinal()], 0, 7032, (short) 250, (short) 8);
-        chaosSounds.SetEffect(haha2Effect[5], chaosSounds.soundList[SoundList.sHa.ordinal()], 0, 7032, (short) 250, (short) 8);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        chaosSounds.SetEffect(haha2Effect[4], chaosSounds.soundList[SoundList.sHa.ordinal()], 0, 7032, 250, 8);
+        chaosSounds.SetEffect(haha2Effect[5], chaosSounds.soundList[SoundList.sHa.ordinal()], 0, 7032, 250, 8);
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetBrotherAlien_ref;
         attr.Make = MakeBrotherAlien_ref;
@@ -1789,16 +1789,16 @@ public class ChaosBoss {
         attr.coolSpeed = 120;
         attr.aieStKinds = EnumSet.of(Stones.stSTAR1);
         attr.aieSKCount = 1;
-        attr.aieStone = (short) (ChaosBase.FlameMult * 7 + 15);
+        attr.aieStone = ChaosBase.FlameMult * 7 + 15;
         attr.aieStStyle = ChaosBase.fastStyle;
         attr.dieStKinds = EnumSet.of(Stones.stSTAR1, Stones.stSTAR2);
         attr.dieSKCount = 2;
-        attr.dieStone = (short) (ChaosBase.FlameMult * 7 + 31);
+        attr.dieStone = ChaosBase.FlameMult * 7 + 31;
         attr.dieStStyle = ChaosBase.fastStyle;
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetSisterAlien_ref;
         attr.Make = MakeSisterAlien_ref;
@@ -1814,16 +1814,16 @@ public class ChaosBoss {
         attr.coolSpeed = 25;
         attr.aieStKinds = EnumSet.of(Stones.stSTAR1);
         attr.aieSKCount = 1;
-        attr.aieStone = (short) (ChaosBase.FlameMult * 7 + 15);
+        attr.aieStone = ChaosBase.FlameMult * 7 + 15;
         attr.aieStStyle = ChaosBase.fastStyle;
         attr.dieStKinds = EnumSet.of(Stones.stSTAR1, Stones.stSTAR2);
         attr.dieSKCount = 2;
-        attr.dieStone = (short) (ChaosBase.FlameMult * 7);
+        attr.dieStone = ChaosBase.FlameMult * 7;
         attr.dieStStyle = ChaosBase.fastStyle;
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetMotherAlien_ref;
         attr.Make = MakeMotherAlien_ref;
@@ -1839,16 +1839,16 @@ public class ChaosBoss {
         attr.coolSpeed = 40;
         attr.aieStKinds = EnumSet.of(Stones.stSTAR1);
         attr.aieSKCount = 1;
-        attr.aieStone = (short) (ChaosBase.FlameMult * 6 + 15);
+        attr.aieStone = ChaosBase.FlameMult * 6 + 15;
         attr.aieStStyle = ChaosBase.fastStyle;
         attr.dieStKinds = EnumSet.of(Stones.stSTAR1, Stones.stSTAR2);
         attr.dieSKCount = 2;
-        attr.dieStone = (short) (ChaosBase.FlameMult * 7);
+        attr.dieStone = ChaosBase.FlameMult * 7;
         attr.dieStStyle = ChaosBase.fastStyle;
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetFatherAlien_ref;
         attr.Make = MakeFatherAlien_ref;
@@ -1861,12 +1861,12 @@ public class ChaosBoss {
         attr.priority = -63;
         attr.aieStKinds = EnumSet.of(Stones.stSTAR1);
         attr.aieSKCount = 1;
-        attr.aieStone = (short) (ChaosBase.FlameMult * 6 + 15);
+        attr.aieStone = ChaosBase.FlameMult * 6 + 15;
         attr.aieStStyle = ChaosBase.fastStyle;
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetMasterAlien_ref;
         attr.Make = MakeMasterAlien_ref;
@@ -1882,7 +1882,7 @@ public class ChaosBoss {
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetIllusion_ref;
         attr.Make = MakeIllusion_ref;
@@ -1898,7 +1898,7 @@ public class ChaosBoss {
         attr.basicType = BasicTypes.Animal;
         attr.toKill = true;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = chaosFire.ResetPart_ref;
         attr.Move = chaosFire.MoveHeart_ref;
@@ -1906,7 +1906,7 @@ public class ChaosBoss {
         attr.basicType = BasicTypes.NotBase;
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = chaosFire.ResetPart_ref;
         attr.Move = chaosFire.MoveEye_ref;
@@ -1914,7 +1914,7 @@ public class ChaosBoss {
         attr.basicType = BasicTypes.NotBase;
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = chaosFire.ResetPart_ref;
         attr.Move = chaosFire.MoveMouth_ref;
@@ -1923,13 +1923,13 @@ public class ChaosBoss {
         attr.toKill = false;
         memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
         for (c = 0; c <= 2; c++) {
-            attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+            attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
             checks.CheckMem(attr);
             attr.Reset = chaosFire.ResetPart_ref;
             attr.Move = chaosFire.MovePart_ref;
             attr.Die = chaosFire.DiePart_ref;
             attr.basicType = BasicTypes.NotBase;
-            attr.priority = (byte) (99 + c);
+            attr.priority = 99 + c;
             attr.toKill = false;
             memory.AddTail(chaosBase.attrList[Anims.ALIEN3.ordinal()], attr.node);
         }

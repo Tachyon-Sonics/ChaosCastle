@@ -32,17 +32,17 @@ public class ChaosObjects {
 
     @FunctionalInterface
     public static interface FilterProc { // PROCEDURE Type
-        public boolean invoke(short arg1, short arg2);
+        public boolean invoke(int arg1, int arg2);
     }
 
     @FunctionalInterface
     public static interface RandomProc { // PROCEDURE Type
-        public short invoke(short arg1);
+        public int invoke(int arg1);
     }
 
     @FunctionalInterface
     public static interface ChooseProc { // PROCEDURE Type
-        public short invoke(short arg1, short arg2);
+        public int invoke(int arg1, int arg2);
     }
 
 
@@ -50,185 +50,185 @@ public class ChaosObjects {
 
     @FunctionalInterface
     private static interface FillObj_PutObjProc { // PROCEDURE Type
-        public void invoke(Anims arg1, short arg2, int arg3, short arg4, short arg5);
+        public void invoke(Anims arg1, int arg2, int arg3, int arg4, int arg5);
     }
 
 
     // VAR
 
-    private short onlyValue;
-    private short sx;
-    private short sy;
-    private short ex;
-    private short ey;
+    private int onlyValue;
+    private int sx;
+    private int sy;
+    private int ex;
+    private int ey;
 
 
-    public short getOnlyValue() {
+    public int getOnlyValue() {
         return this.onlyValue;
     }
 
-    public void setOnlyValue(short onlyValue) {
+    public void setOnlyValue(int onlyValue) {
         this.onlyValue = onlyValue;
     }
 
-    public short getSx() {
+    public int getSx() {
         return this.sx;
     }
 
-    public void setSx(short sx) {
+    public void setSx(int sx) {
         this.sx = sx;
     }
 
-    public short getSy() {
+    public int getSy() {
         return this.sy;
     }
 
-    public void setSy(short sy) {
+    public void setSy(int sy) {
         this.sy = sy;
     }
 
-    public short getEx() {
+    public int getEx() {
         return this.ex;
     }
 
-    public void setEx(short ex) {
+    public void setEx(int ex) {
         this.ex = ex;
     }
 
-    public short getEy() {
+    public int getEy() {
         return this.ey;
     }
 
-    public void setEy(short ey) {
+    public void setEy(int ey) {
         this.ey = ey;
     }
 
 
     // PROCEDURE
 
-    public short Rnd(short range) {
+    public int Rnd(int range) {
         // VAR
         int mod = 0;
 
         mod = range;
-        return (short) (trigo.RND() % mod);
+        return trigo.RND() % mod;
     }
 
     public final RandomProc Rnd_ref = this::Rnd;
 
-    public short ExpRandom(short range) {
+    public int ExpRandom(int range) {
         // VAR
-        short cnt = 0;
+        int cnt = 0;
 
         cnt = range;
         while ((cnt > 2) && (trigo.RND() % 16 < 7)) {
-            cnt = (short) (cnt / 2);
+            cnt = cnt / 2;
         }
         return Rnd(cnt);
     }
 
     public final RandomProc ExpRandom_ref = this::ExpRandom;
 
-    public void Set(short x, short y) {
+    public void Set(int x, int y) {
         chaosGraphics.castle[y][x] = ChaosGraphics.NbBackground;
     }
 
-    public void Reset(short x, short y) {
+    public void Reset(int x, int y) {
         chaosGraphics.castle[y][x] = 0;
     }
 
-    public short Get(short x, short y) {
-        return (short) (chaosGraphics.castle[y][x] % 64);
+    public int Get(int x, int y) {
+        return chaosGraphics.castle[y][x] % 64;
     }
 
-    public void Put(short x, short y, short v) {
+    public void Put(int x, int y, int v) {
         chaosGraphics.castle[y][x] = v;
     }
 
-    public void Mark(short x, short y) {
+    public void Mark(int x, int y) {
         // VAR
-        Runtime.IRef<Short> v = null;
+        Runtime.IRef<Integer> v = null;
 
         v = new Runtime.ArrayElementRef<>(chaosGraphics.castle[y], x);
         if (v.get() < 64)
-            v.set((short) (v.get() + 64));
+            v.set(v.get() + 64);
     }
 
-    public boolean Marked(short x, short y) {
+    public boolean Marked(int x, int y) {
         return chaosGraphics.castle[y][x] >= 64;
     }
 
     public void FlushMarks() {
         // VAR
-        Runtime.IRef<Short> v = null;
-        short x = 0;
-        short y = 0;
+        Runtime.IRef<Integer> v = null;
+        int x = 0;
+        int y = 0;
 
         for (y = 0; y < chaosGraphics.castleHeight; y++) {
             for (x = 0; x < chaosGraphics.castleWidth; x++) {
                 v = new Runtime.ArrayElementRef<>(chaosGraphics.castle[y], x);
-                v.set((short) (v.get() % 64));
+                v.set(v.get() % 64);
             }
         }
     }
 
-    public void Clear(short w, short h) {
+    public void Clear(int w, int h) {
         chaosGraphics.castleWidth = w;
         chaosGraphics.castleHeight = h;
-        chaosGraphics.gameWidth = (short) (w * ChaosGraphics.BW);
-        chaosGraphics.gameHeight = (short) (h * ChaosGraphics.BH);
+        chaosGraphics.gameWidth = w * ChaosGraphics.BW;
+        chaosGraphics.gameHeight = h * ChaosGraphics.BH;
     }
 
-    public void Cadre(short w, short h) {
+    public void Cadre(int w, int h) {
         // VAR
-        short i = 0;
+        int i = 0;
 
         chaosGraphics.castleWidth = w;
         chaosGraphics.castleHeight = h;
-        chaosGraphics.gameWidth = (short) (w * ChaosGraphics.BW);
-        chaosGraphics.gameHeight = (short) (h * ChaosGraphics.BH);
+        chaosGraphics.gameWidth = w * ChaosGraphics.BW;
+        chaosGraphics.gameHeight = h * ChaosGraphics.BH;
         w--;
         h--;
         for (i = 0; i <= w; i++) {
-            Set(i, (short) 0);
+            Set(i, 0);
             Set(i, h);
         }
         for (i = 0; i <= h; i++) {
-            Set((short) 0, i);
+            Set(0, i);
             Set(w, i);
         }
     }
 
-    public boolean All(short px, short py) {
+    public boolean All(int px, int py) {
         return true;
     }
 
     public final FilterProc All_ref = this::All;
 
-    public boolean OnlyBackground(short px, short py) {
+    public boolean OnlyBackground(int px, int py) {
         return Get(px, py) < ChaosGraphics.NbClear;
     }
 
     public final FilterProc OnlyBackground_ref = this::OnlyBackground;
 
-    public boolean OnlyWall(short px, short py) {
+    public boolean OnlyWall(int px, int py) {
         return Get(px, py) >= ChaosGraphics.NbBackground;
     }
 
     public final FilterProc OnlyWall_ref = this::OnlyWall;
 
-    public void SetOnlyValue(short val) {
+    public void SetOnlyValue(int val) {
         onlyValue = val;
     }
 
-    public boolean OnlyValue(short px, short py) {
+    public boolean OnlyValue(int px, int py) {
         return Get(px, py) == onlyValue;
     }
 
-    public void Fill(short sx, short sy, short ex, short ey, short val) {
+    public void Fill(int sx, int sy, int ex, int ey, int val) {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
 
         for (y = sy; y <= ey; y++) {
             for (x = sx; x <= ex; x++) {
@@ -237,10 +237,10 @@ public class ChaosObjects {
         }
     }
 
-    public void FillCond(short sx, short sy, short ex, short ey, FilterProc Filter, short val) {
+    public void FillCond(int sx, int sy, int ex, int ey, FilterProc Filter, int val) {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
 
         for (y = sy; y <= ey; y++) {
             for (x = sx; x <= ex; x++) {
@@ -250,25 +250,25 @@ public class ChaosObjects {
         }
     }
 
-    public void FillRandom(short sx, short sy, short ex, short ey, short min, short max, FilterProc Filter, RandomProc Random) {
+    public void FillRandom(int sx, int sy, int ex, int ey, int min, int max, FilterProc Filter, RandomProc Random) {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
         int range = 0;
 
         range = max - min + 1;
         for (y = sy; y <= ey; y++) {
             for (x = sx; x <= ex; x++) {
                 if (Filter.invoke(x, y))
-                    Put(x, y, (short) (Random.invoke((short) range) + min));
+                    Put(x, y, Random.invoke(range) + min);
             }
         }
     }
 
-    public void FillChoose(short sx, short sy, short ex, short ey, FilterProc Filter, ChooseProc Choose) {
+    public void FillChoose(int sx, int sy, int ex, int ey, FilterProc Filter, ChooseProc Choose) {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
 
         for (y = sy; y <= ey; y++) {
             for (x = sx; x <= ex; x++) {
@@ -278,22 +278,22 @@ public class ChaosObjects {
         }
     }
 
-    public void PutRandom(short sx, short sy, short ex, short ey, FilterProc Filter, short val, short cnt) {
+    public void PutRandom(int sx, int sy, int ex, int ey, FilterProc Filter, int val, int cnt) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short w = 0;
-        short h = 0;
+        int x = 0;
+        int y = 0;
+        int w = 0;
+        int h = 0;
         int timeOut = 0;
 
-        w = (short) (ex - sx + 1);
-        h = (short) (ey - sy + 1);
+        w = ex - sx + 1;
+        h = ey - sy + 1;
         while (cnt > 0) {
             timeOut = 50;
             do {
                 timeOut--;
-                x = (short) (Rnd(w) + sx);
-                y = (short) (Rnd(h) + sy);
+                x = Rnd(w) + sx;
+                y = Rnd(h) + sy;
             } while (!((timeOut == 0) || Filter.invoke(x, y)));
             if (timeOut != 0)
                 Put(x, y, val);
@@ -301,14 +301,14 @@ public class ChaosObjects {
         }
     }
 
-    public void Rect(short nsx, short nsy, short nex, short ney) {
+    public void Rect(int nsx, int nsy, int nex, int ney) {
         sx = nsx;
         sy = nsy;
         ex = nex;
         ey = ney;
     }
 
-    public void PutObj(Anims kind, short subKind, int stat, short px, short py) {
+    public void PutObj(Anims kind, int subKind, int stat, int px, int py) {
         // VAR
         ChaosBase.Obj obj = null;
 
@@ -322,80 +322,80 @@ public class ChaosObjects {
             chaosBase.mainPlayer = obj;
     }
 
-    public void PutBlockObj(Anims kind, short subKind, int stat, short px, short py) {
+    public void PutBlockObj(Anims kind, int subKind, int stat, int px, int py) {
         if (Get(px, py) < ChaosGraphics.NbBackground) {
             Mark(px, py);
-            PutObj(kind, subKind, stat, (short) (px * ChaosGraphics.BW + ChaosGraphics.BW / 2), (short) (py * ChaosGraphics.BH + ChaosGraphics.BH / 2));
+            PutObj(kind, subKind, stat, px * ChaosGraphics.BW + ChaosGraphics.BW / 2, py * ChaosGraphics.BH + ChaosGraphics.BH / 2);
         }
     }
 
     public final FillObj_PutObjProc PutBlockObj_ref = this::PutBlockObj;
 
-    public void PutFineObj(Anims kind, short subKind, int stat, short px, short py, short dx, short dy) {
+    public void PutFineObj(Anims kind, int subKind, int stat, int px, int py, int dx, int dy) {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
 
         Mark(px, py);
-        x = (short) (px * ChaosGraphics.BW + ChaosGraphics.BW / 4 + (ChaosGraphics.BW / 2) * dx);
-        y = (short) (py * ChaosGraphics.BH + ChaosGraphics.BH / 4 + (ChaosGraphics.BH / 2) * dy);
+        x = px * ChaosGraphics.BW + ChaosGraphics.BW / 4 + (ChaosGraphics.BW / 2) * dx;
+        y = py * ChaosGraphics.BH + ChaosGraphics.BH / 4 + (ChaosGraphics.BH / 2) * dy;
         PutObj(kind, subKind, stat, x, y);
     }
 
-    public void Put4Objs(Anims kind, short subKind, int stat, short px, short py) {
-        PutFineObj(kind, subKind, stat, px, py, (short) 0, (short) 0);
-        PutFineObj(kind, subKind, stat, px, py, (short) 0, (short) 1);
-        PutFineObj(kind, subKind, stat, px, py, (short) 1, (short) 0);
-        PutFineObj(kind, subKind, stat, px, py, (short) 1, (short) 1);
+    public void Put4Objs(Anims kind, int subKind, int stat, int px, int py) {
+        PutFineObj(kind, subKind, stat, px, py, 0, 0);
+        PutFineObj(kind, subKind, stat, px, py, 0, 1);
+        PutFineObj(kind, subKind, stat, px, py, 1, 0);
+        PutFineObj(kind, subKind, stat, px, py, 1, 1);
     }
 
     public final FillObj_PutObjProc Put4Objs_ref = this::Put4Objs;
 
-    public void PutRandomObjs(Anims kind, short subKind, int stat, int count) {
+    public void PutRandomObjs(Anims kind, int subKind, int stat, int count) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short w = 0;
-        short h = 0;
+        int x = 0;
+        int y = 0;
+        int w = 0;
+        int h = 0;
         int timeOut = 0;
 
-        w = (short) (ex - sx + 1);
-        h = (short) (ey - sy + 1);
+        w = ex - sx + 1;
+        h = ey - sy + 1;
         while (count > 0) {
             timeOut = 50;
             do {
                 timeOut--;
-                x = (short) (Rnd(w) + sx);
-                y = (short) (Rnd(h) + sy);
+                x = Rnd(w) + sx;
+                y = Rnd(h) + sy;
             } while (!(((Get(x, y) < ChaosGraphics.NbClear) && (!Marked(x, y))) || (timeOut == 0)));
             PutBlockObj(kind, subKind, stat, x, y);
             count--;
         }
     }
 
-    public boolean FindIsolatedPlace(int mxw, /* VAR */ Runtime.IRef<Short> x, /* VAR */ Runtime.IRef<Short> y) {
+    public boolean FindIsolatedPlace(int mxw, /* VAR */ Runtime.IRef<Integer> x, /* VAR */ Runtime.IRef<Integer> y) {
         // VAR
-        short dx = 0;
-        short dy = 0;
-        short w = 0;
-        short h = 0;
-        short px = 0;
-        short py = 0;
+        int dx = 0;
+        int dy = 0;
+        int w = 0;
+        int h = 0;
+        int px = 0;
+        int py = 0;
         int timeOut = 0;
         int walls = 0;
 
-        w = (short) (ex - sx + 1);
-        h = (short) (ey - sy + 1);
+        w = ex - sx + 1;
+        h = ey - sy + 1;
         timeOut = 50;
         do {
             timeOut--;
-            x.set((short) (Rnd(w) + sx));
-            y.set((short) (Rnd(h) + sy));
+            x.set(Rnd(w) + sx);
+            y.set(Rnd(h) + sy);
             walls = 0;
             for (dy = -1; dy <= 1; dy++) {
                 for (dx = -1; dx <= 1; dx++) {
-                    px = (short) (x.get() + dx);
-                    py = (short) (y.get() + dy);
+                    px = x.get() + dx;
+                    py = y.get() + dy;
                     if ((Get(px, py) >= ChaosGraphics.NbBackground) || Marked(px, py))
                         walls++;
                 }
@@ -404,19 +404,19 @@ public class ChaosObjects {
         return timeOut != 0;
     }
 
-    public void PutIsolated(int mnc, int mxc, short mns, short mxs, short val) {
+    public void PutIsolated(int mnc, int mxc, int mns, int mxs, int val) {
         // VAR
-        Runtime.Ref<Short> x = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y = new Runtime.Ref<>((short) 0);
-        short nsx = 0;
-        short nsy = 0;
-        short sz = 0;
+        Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y = new Runtime.Ref<>(0);
+        int nsx = 0;
+        int nsy = 0;
+        int sz = 0;
         int count = 0;
 
-        sz = (short) (Rnd((short) (mxs - mns + 1)) + mns);
-        nsx = (short) (Rnd((short) (ex - sx - sz + 2)) + sx);
-        nsy = (short) (Rnd((short) (ey - sy - sz + 2)) + sy);
-        Rect(nsx, nsy, (short) (nsx + sz - 1), (short) (nsy + sz - 1));
+        sz = Rnd(mxs - mns + 1) + mns;
+        nsx = Rnd(ex - sx - sz + 2) + sx;
+        nsy = Rnd(ey - sy - sz + 2) + sy;
+        Rect(nsx, nsy, nsx + sz - 1, nsy + sz - 1);
         count = trigo.RND() % (mxc - mnc + 1) + mnc;
         while (count > 0) {
             if (FindIsolatedPlace(0, x, y))
@@ -425,42 +425,42 @@ public class ChaosObjects {
         }
     }
 
-    public void PutIsolatedObjs(Anims kind, short subKind, int mns, int mxs, int mxw, int count) {
+    public void PutIsolatedObjs(Anims kind, int subKind, int mns, int mxs, int mxw, int count) {
         // VAR
-        Runtime.Ref<Short> x = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y = new Runtime.Ref<>(0);
         int stat = 0;
 
         while (count > 0) {
             if (FindIsolatedPlace(mxw, x, y)) {
                 stat = trigo.RND() % (mxs - mns + 1) + mns;
                 Mark(x.get(), y.get());
-                x.set((short) (x.get() * ChaosGraphics.BW + ChaosGraphics.BW / 4 + Rnd((short) (ChaosGraphics.BW / 2))));
-                y.set((short) (y.get() * ChaosGraphics.BH + ChaosGraphics.BH / 4 + Rnd((short) (ChaosGraphics.BH / 2))));
+                x.set(x.get() * ChaosGraphics.BW + ChaosGraphics.BW / 4 + Rnd(ChaosGraphics.BW / 2));
+                y.set(y.get() * ChaosGraphics.BH + ChaosGraphics.BH / 4 + Rnd(ChaosGraphics.BH / 2));
                 PutObj(kind, subKind, stat, x.get(), y.get());
             }
             count--;
         }
     }
 
-    public void PutDeltaObjs(Anims kind, short subKind, int stat, short dx, short dy, int count) {
+    public void PutDeltaObjs(Anims kind, int subKind, int stat, int dx, int dy, int count) {
         // VAR
-        short lx = 0;
-        short ly = 0;
-        short x = 0;
-        short y = 0;
-        short w = 0;
-        short h = 0;
+        int lx = 0;
+        int ly = 0;
+        int x = 0;
+        int y = 0;
+        int w = 0;
+        int h = 0;
         int timeOut = 0;
 
-        w = (short) (ex - sx + 1);
-        h = (short) (ey - sy + 1);
+        w = ex - sx + 1;
+        h = ey - sy + 1;
         while (count > 0) {
             timeOut = 50;
             do {
                 timeOut--;
-                x = (short) (Rnd(w) + sx);
-                y = (short) (Rnd(h) + sy);
+                x = Rnd(w) + sx;
+                y = Rnd(h) + sy;
             } while (!(((Get(x, y) < ChaosGraphics.NbClear) && !Marked(x, y)) || (timeOut == 0)));
             if (timeOut != 0) {
                 do {
@@ -475,19 +475,19 @@ public class ChaosObjects {
         }
     }
 
-    public void PutGridObjs(Anims kind, short subKind, int stat, short sx, short sy, short dx, short dy, short cx, short cy) {
+    public void PutGridObjs(Anims kind, int subKind, int stat, int sx, int sy, int dx, int dy, int cx, int cy) {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
 
         for (y = 0; y <= cy; y++) {
             for (x = 0; x <= cx; x++) {
-                PutBlockObj(kind, subKind, stat, (short) (sx + x * dx), (short) (sy + y * dy));
+                PutBlockObj(kind, subKind, stat, sx + x * dx, sy + y * dy);
             }
         }
     }
 
-    public void PutRndStatObjs(Anims kind, short subKind, int mnstat, int mxstat, int count) {
+    public void PutRndStatObjs(Anims kind, int subKind, int mnstat, int mxstat, int count) {
         // VAR
         int stat = 0;
 
@@ -498,30 +498,30 @@ public class ChaosObjects {
         }
     }
 
-    public void PutChaosObjs(Anims kind, short subKind, int stat, short sx, short sy, short ex, short ey, int count) {
+    public void PutChaosObjs(Anims kind, int subKind, int stat, int sx, int sy, int ex, int ey, int count) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short w = 0;
-        short h = 0;
+        int x = 0;
+        int y = 0;
+        int w = 0;
+        int h = 0;
         int timeOut = 0;
 
-        w = (short) (ex - sx + 1);
-        h = (short) (ey - sy + 1);
+        w = ex - sx + 1;
+        h = ey - sy + 1;
         while (count > 0) {
             timeOut = 50;
             do {
                 timeOut--;
-                x = (short) (Rnd(w) + sx);
-                y = (short) (Rnd(h) + sy);
-            } while (!((Get((short) (x / ChaosGraphics.BW), (short) (y / ChaosGraphics.BH)) < ChaosGraphics.NbClear) || (timeOut == 0)));
+                x = Rnd(w) + sx;
+                y = Rnd(h) + sy;
+            } while (!((Get(x / ChaosGraphics.BW, y / ChaosGraphics.BH) < ChaosGraphics.NbClear) || (timeOut == 0)));
             if (timeOut != 0)
                 PutObj(kind, subKind, stat, x, y);
             count--;
         }
     }
 
-    public void PutChaosChain(Anims kind, short subKind, /* VAR */ Runtime.IRef<Integer> start, int step, short sx, short sy, short ex, short ey, int count) {
+    public void PutChaosChain(Anims kind, int subKind, /* VAR */ Runtime.IRef<Integer> start, int step, int sx, int sy, int ex, int ey, int count) {
         while (count > 0) {
             PutChaosObjs(kind, subKind, start.get(), sx, sy, ex, ey, 1);
             start.dec(step);
@@ -529,11 +529,11 @@ public class ChaosObjects {
         }
     }
 
-    public void FillObj(Anims kind, short subKind, int stat, short sx, short sy, short ex, short ey, boolean fine) {
+    public void FillObj(Anims kind, int subKind, int stat, int sx, int sy, int ex, int ey, boolean fine) {
         // VAR
         FillObj_PutObjProc PutIt = null;
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
 
         if (fine)
             PutIt = Put4Objs_ref;
@@ -546,20 +546,20 @@ public class ChaosObjects {
         }
     }
 
-    public void PutPlayer(short px, short py) {
+    public void PutPlayer(int px, int py) {
         if (chaosBase.pLife == 0)
             chaosBase.pLife = 1;
-        PutBlockObj(Anims.PLAYER, (short) 0, 0, px, py);
+        PutBlockObj(Anims.PLAYER, 0, 0, px, py);
     }
 
-    public void PutExit(short px, short py) {
-        PutBlockObj(Anims.BONUS, (short) ChaosBonus.TimedBonus, ChaosBonus.tbExit, px, py);
+    public void PutExit(int px, int py) {
+        PutBlockObj(Anims.BONUS, ChaosBonus.TimedBonus, ChaosBonus.tbExit, px, py);
     }
 
     public void PutKamikaze(int stat, int count) {
         // VAR
-        short dx = 0;
-        short dy = 0;
+        int dx = 0;
+        int dy = 0;
 
         switch (stat % 4) {
             case 0 -> {
@@ -580,26 +580,26 @@ public class ChaosObjects {
             }
             default -> throw new RuntimeException("Unhandled CASE value " + stat % 4);
         }
-        PutDeltaObjs(Anims.ALIEN1, (short) ChaosAlien.aKamikaze, stat, dx, dy, count);
+        PutDeltaObjs(Anims.ALIEN1, ChaosAlien.aKamikaze, stat, dx, dy, count);
     }
 
     public void PutPic(int stat, int count) {
         // VAR
-        short dx = 0;
+        int dx = 0;
 
         if (((stat % 2) != 0))
             dx = 1;
         else
             dx = -1;
-        PutDeltaObjs(Anims.ALIEN1, (short) ChaosAlien.aPic, stat, dx, (short) 0, count);
+        PutDeltaObjs(Anims.ALIEN1, ChaosAlien.aPic, stat, dx, 0, count);
     }
 
-    public void PutBlockBonus(int stat, short px, short py) {
-        PutBlockObj(Anims.BONUS, (short) ChaosBonus.TimedBonus, stat, px, py);
+    public void PutBlockBonus(int stat, int px, int py) {
+        PutBlockObj(Anims.BONUS, ChaosBonus.TimedBonus, stat, px, py);
     }
 
     public void PutTBonus(int stat, int count) {
-        PutRandomObjs(Anims.BONUS, (short) ChaosBonus.TimedBonus, stat, count);
+        PutRandomObjs(Anims.BONUS, ChaosBonus.TimedBonus, stat, count);
     }
 
     public void PutHospital(int count) {
@@ -631,7 +631,7 @@ public class ChaosObjects {
     }
 
     public void PutChaosSterling(int count) {
-        PutChaosObjs(Anims.BONUS, (short) ChaosBonus.Money, Moneys.st.ordinal(), (short) (sx * ChaosGraphics.BW), (short) (sy * ChaosGraphics.BH), (short) (ex * ChaosGraphics.BW), (short) (ey * ChaosGraphics.BH), count);
+        PutChaosObjs(Anims.BONUS, ChaosBonus.Money, Moneys.st.ordinal(), sx * ChaosGraphics.BW, sy * ChaosGraphics.BH, ex * ChaosGraphics.BW, ey * ChaosGraphics.BH, count);
     }
 
     public void PutMoney(EnumSet<Moneys> which, int count) {
@@ -648,26 +648,26 @@ public class ChaosObjects {
                     money = Runtime.next(money);
                 }
             } while (!which.contains(money));
-            PutRandomObjs(Anims.BONUS, (short) ChaosBonus.Money, money.ordinal(), 1);
+            PutRandomObjs(Anims.BONUS, ChaosBonus.Money, money.ordinal(), 1);
             count--;
         }
     }
 
-    public void PutExtraPower(short min, short px, short py) {
+    public void PutExtraPower(int min, int px, int py) {
         if (chaosBase.powerCountDown > min)
-            PutBlockObj(Anims.SMARTBONUS, (short) ChaosSmartBonus.sbExtraPower, 0, px, py);
+            PutBlockObj(Anims.SMARTBONUS, ChaosSmartBonus.sbExtraPower, 0, px, py);
     }
 
-    public void PutExtraLife(short px, short py) {
-        PutBlockObj(Anims.SMARTBONUS, (short) ChaosSmartBonus.sbExtraLife, 0, px, py);
+    public void PutExtraLife(int px, int py) {
+        PutBlockObj(Anims.SMARTBONUS, ChaosSmartBonus.sbExtraLife, 0, px, py);
     }
 
     public void PutRAlien1(int subK, int mins, int maxs, int count) {
-        PutRndStatObjs(Anims.ALIEN1, (short) subK, mins, maxs, count);
+        PutRndStatObjs(Anims.ALIEN1, subK, mins, maxs, count);
     }
 
     public void PutAlien1(int subK, int stat, int count) {
-        PutRandomObjs(Anims.ALIEN1, (short) subK, stat, count);
+        PutRandomObjs(Anims.ALIEN1, subK, stat, count);
     }
 
     public void PutAColor(int mins, int maxs, int count) {
@@ -691,11 +691,11 @@ public class ChaosObjects {
     }
 
     public void PutRAlien2(int subK, int mins, int maxs, int count) {
-        PutRndStatObjs(Anims.ALIEN2, (short) subK, mins, maxs, count);
+        PutRndStatObjs(Anims.ALIEN2, subK, mins, maxs, count);
     }
 
     public void PutAlien2(int subK, int stat, int count) {
-        PutRandomObjs(Anims.ALIEN2, (short) subK, stat, count);
+        PutRandomObjs(Anims.ALIEN2, subK, stat, count);
     }
 
     public void PutCFour(int mins, int maxs, int count) {
@@ -727,23 +727,23 @@ public class ChaosObjects {
     }
 
     public void PutDeadObj(int subK, int stat, int count) {
-        PutRandomObjs(Anims.DEADOBJ, (short) subK, stat, count);
+        PutRandomObjs(Anims.DEADOBJ, subK, stat, count);
     }
 
-    public void PutBubbleMaker(int stat, short px, short py) {
-        PutBlockObj(Anims.DEADOBJ, (short) ChaosDObj.doBubbleMaker, stat, px, py);
+    public void PutBubbleMaker(int stat, int px, int py) {
+        PutBlockObj(Anims.DEADOBJ, ChaosDObj.doBubbleMaker, stat, px, py);
     }
 
     public void PutMagnetR(int maxs, int count) {
-        PutIsolatedObjs(Anims.DEADOBJ, (short) ChaosDObj.doMagnetR, 0, maxs, 1, count);
+        PutIsolatedObjs(Anims.DEADOBJ, ChaosDObj.doMagnetR, 0, maxs, 1, count);
     }
 
     public void PutMagnetA(int maxs, int count) {
-        PutIsolatedObjs(Anims.DEADOBJ, (short) ChaosDObj.doMagnetA, 0, maxs, 1, count);
+        PutIsolatedObjs(Anims.DEADOBJ, ChaosDObj.doMagnetA, 0, maxs, 1, count);
     }
 
     public void PutMachine(int subK, int mins, int maxs, int count) {
-        PutRndStatObjs(Anims.MACHINE, (short) subK, mins, maxs, count);
+        PutRndStatObjs(Anims.MACHINE, subK, mins, maxs, count);
     }
 
     public void PutCannon3(int count) {

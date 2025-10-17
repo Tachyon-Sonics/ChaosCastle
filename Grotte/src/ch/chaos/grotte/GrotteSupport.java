@@ -1508,7 +1508,7 @@ public class GrotteSupport {
             }
             aNSITerm.WaitChar(ch);
             if ((ch.get() >= 'a') && (ch.get() <= 'k'))
-                ch.set((char) ((char) ch.get() - 32));
+                ch.set((char) ((int) ch.get() - 32));
             aNSITerm.Color(6);
             aNSITerm.Write(ch.get());
             if (ch.get() > '0') {
@@ -1762,9 +1762,9 @@ public class GrotteSupport {
                     if (bcount == 0) {
                         checks.Check(files.ReadFileBytes(fh, ch, 1) != 1, Runtime.castToRef(memory.ADS("Read error in file"), String.class), new Runtime.Ref<>(DecorFile));
                         if (ch.get() > ((char) 0177)) {
-                            ch.set((char) ((char) ch.get() - 128));
+                            ch.set((char) ((int) ch.get() - 128));
                             checks.Check(files.ReadFileBytes(fh, tmp, 1) != 1, Runtime.castToRef(memory.ADS("Read error in file"), String.class), new Runtime.Ref<>(DecorFile));
-                            bcount = (char) tmp.get();
+                            bcount = (int) tmp.get();
                         } else {
                             bcount = 1;
                         }
@@ -1836,7 +1836,7 @@ public class GrotteSupport {
                                 ppos[0].x = c2;
                                 ppos[0].y = c1;
                             } else if ((ch.get() >= 'b') && (ch.get() <= 'd')) {
-                                c = (char) ch.get() - 'a';
+                                c = (int) ch.get() - 'a';
                                 aNSITerm.Write(' ');
                                 ppos[c].x = c2;
                                 ppos[c].y = c1;

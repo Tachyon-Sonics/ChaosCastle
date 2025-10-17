@@ -583,7 +583,7 @@ public class Memory {
         throw new UnsupportedOperationException("Not implemented: sWriteLReal64");
     }
 
-    public short GetBitField(Object src, long offset, short size) {
+    public int GetBitField(Object src, long offset, int size) {
         if (src instanceof IRef<?> ref) {
             if (ref.getDataType().equals(Short.class)) {
                 int mask = (1 << size) - 1;
@@ -591,14 +591,14 @@ public class Memory {
                 IRef<Short> sRef = (IRef<Short>) ref;
                 int value = sRef.get();
                 value = (value >>> offset) & mask;
-                return (short) value;
+                return value;
             }
         }
         // todo implement GetBitField
         throw new UnsupportedOperationException("Not implemented: GetBitField");
     }
 
-    public void SetBitField(Object dst, long offset, short size, short data) {
+    public void SetBitField(Object dst, long offset, int size, int data) {
         if (dst instanceof IRef<?> ref) {
             if (ref.getDataType().equals(Short.class)) {
                 @SuppressWarnings("unchecked")

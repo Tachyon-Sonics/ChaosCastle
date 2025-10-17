@@ -92,11 +92,11 @@ public class ChaosPlayer {
     private int dFF;
     private int dMaxPower;
     private int dPlayerPower;
-    private short[] oldMpx = new short[2];
-    private short[] oldMpy = new short[2];
-    private short mpx;
-    private short mpy;
-    private short infoBackPen;
+    private int[] oldMpx = new int[2];
+    private int[] oldMpy = new int[2];
+    private int mpx;
+    private int mpy;
+    private int infoBackPen;
     private ChaosSounds.Effect[] lifeEffectL = Runtime.initArray(new ChaosSounds.Effect[24]);
     private ChaosSounds.Effect[] lifeEffectR = Runtime.initArray(new ChaosSounds.Effect[24]);
     private ChaosSounds.Effect[] life0Effect = Runtime.initArray(new ChaosSounds.Effect[2]);
@@ -113,9 +113,9 @@ public class ChaosPlayer {
     private ChaosSounds.Effect[] powerEffectR = Runtime.initArray(new ChaosSounds.Effect[13]);
     private ChaosSounds.Effect[] savedEffect = Runtime.initArray(new ChaosSounds.Effect[1]);
     private ChaosSounds.Effect[] dieEffects = Runtime.initArray(new ChaosSounds.Effect[1]);
-    private short bulletToAdd;
-    private short bombToAdd;
-    private short powerToAdd;
+    private int bulletToAdd;
+    private int bombToAdd;
+    private int powerToAdd;
     private boolean waitPause;
     private boolean pauseRequest;
     private long prevTime;
@@ -228,43 +228,43 @@ public class ChaosPlayer {
         this.dPlayerPower = dPlayerPower;
     }
 
-    public short[] getOldMpx() {
+    public int[] getOldMpx() {
         return this.oldMpx;
     }
 
-    public void setOldMpx(short[] oldMpx) {
+    public void setOldMpx(int[] oldMpx) {
         this.oldMpx = oldMpx;
     }
 
-    public short[] getOldMpy() {
+    public int[] getOldMpy() {
         return this.oldMpy;
     }
 
-    public void setOldMpy(short[] oldMpy) {
+    public void setOldMpy(int[] oldMpy) {
         this.oldMpy = oldMpy;
     }
 
-    public short getMpx() {
+    public int getMpx() {
         return this.mpx;
     }
 
-    public void setMpx(short mpx) {
+    public void setMpx(int mpx) {
         this.mpx = mpx;
     }
 
-    public short getMpy() {
+    public int getMpy() {
         return this.mpy;
     }
 
-    public void setMpy(short mpy) {
+    public void setMpy(int mpy) {
         this.mpy = mpy;
     }
 
-    public short getInfoBackPen() {
+    public int getInfoBackPen() {
         return this.infoBackPen;
     }
 
-    public void setInfoBackPen(short infoBackPen) {
+    public void setInfoBackPen(int infoBackPen) {
         this.infoBackPen = infoBackPen;
     }
 
@@ -396,27 +396,27 @@ public class ChaosPlayer {
         this.dieEffects = dieEffects;
     }
 
-    public short getBulletToAdd() {
+    public int getBulletToAdd() {
         return this.bulletToAdd;
     }
 
-    public void setBulletToAdd(short bulletToAdd) {
+    public void setBulletToAdd(int bulletToAdd) {
         this.bulletToAdd = bulletToAdd;
     }
 
-    public short getBombToAdd() {
+    public int getBombToAdd() {
         return this.bombToAdd;
     }
 
-    public void setBombToAdd(short bombToAdd) {
+    public void setBombToAdd(int bombToAdd) {
         this.bombToAdd = bombToAdd;
     }
 
-    public short getPowerToAdd() {
+    public int getPowerToAdd() {
         return this.powerToAdd;
     }
 
-    public void setPowerToAdd(short powerToAdd) {
+    public void setPowerToAdd(int powerToAdd) {
         this.powerToAdd = powerToAdd;
     }
 
@@ -471,7 +471,7 @@ public class ChaosPlayer {
 
     // PROCEDURE
 
-    private void SetP(short pen) {
+    private void SetP(int pen) {
         if (chaosGraphics.color)
             graphics.SetPen(pen);
         else if (pen > 0)
@@ -480,15 +480,15 @@ public class ChaosPlayer {
             graphics.SetPen(0);
     }
 
-    private void DrawMapLine(short sx, short sy, short dx, short dy) {
+    private void DrawMapLine(int sx, int sy, int dx, int dy) {
         // VAR
-        short lx = 0;
-        short ly = 0;
-        short x = 0;
-        short y = 0;
-        short px = 0;
-        short py = 0;
-        short c = 0;
+        int lx = 0;
+        int ly = 0;
+        int x = 0;
+        int y = 0;
+        int px = 0;
+        int py = 0;
+        int c = 0;
         boolean lon = false;
         boolean on = false;
 
@@ -497,17 +497,17 @@ public class ChaosPlayer {
         lon = false;
         x = sx;
         y = sy;
-        px = (short) (mpx + sx);
-        py = (short) (mpy + sy);
+        px = mpx + sx;
+        py = mpy + sy;
         for (c = 0; c <= 31; c++) {
             on = (px >= 0) && (py >= 0) && (px < chaosGraphics.castleWidth) && (py < chaosGraphics.castleHeight) && (chaosGraphics.castle[py][px] >= ChaosGraphics.NbClear);
             if (on != lon) {
                 if (c > 0) {
                     if (lon)
-                        SetP((short) 7);
+                        SetP(7);
                     else
                         graphics.SetPen(0);
-                    graphics.FillRect(chaosGraphics.X.invoke(lx), chaosGraphics.Y.invoke(ly), chaosGraphics.X.invoke((short) (x + dy)), chaosGraphics.Y.invoke((short) (y + dx)));
+                    graphics.FillRect(chaosGraphics.X.invoke(lx), chaosGraphics.Y.invoke(ly), chaosGraphics.X.invoke(x + dy), chaosGraphics.Y.invoke(y + dx));
                 }
                 lon = on;
                 lx = x;
@@ -519,21 +519,21 @@ public class ChaosPlayer {
             py += dy;
         }
         if (lon)
-            SetP((short) 7);
+            SetP(7);
         else
             graphics.SetPen(0);
-        graphics.FillRect(chaosGraphics.X.invoke(lx), chaosGraphics.Y.invoke(ly), chaosGraphics.X.invoke((short) (x + dy)), chaosGraphics.Y.invoke((short) (y + dx)));
+        graphics.FillRect(chaosGraphics.X.invoke(lx), chaosGraphics.Y.invoke(ly), chaosGraphics.X.invoke(x + dy), chaosGraphics.Y.invoke(y + dx));
     }
 
     private void SetMapCoords() {
         chaosActions.GetCenter(chaosBase.mainPlayer, new Runtime.FieldRef<>(this::getMpx, this::setMpx), new Runtime.FieldRef<>(this::getMpy, this::setMpy));
-        mpx = (short) (mpx / ChaosGraphics.BW - 16);
-        mpy = (short) (mpy / ChaosGraphics.BH - 16);
+        mpx = mpx / ChaosGraphics.BW - 16;
+        mpy = mpy / ChaosGraphics.BH - 16;
     }
 
     private void DrawMap() {
         // VAR
-        short y = 0;
+        int y = 0;
 
         SetMapCoords();
         oldMpx[1] = mpx;
@@ -541,63 +541,63 @@ public class ChaosPlayer {
         oldMpx[0] = mpx;
         oldMpy[0] = mpy;
         graphics.SetCopyMode(Graphics.cmCopy);
-        chaosGraphics.SetOrigin((short) (ChaosGraphics.PW + 21), (short) 5);
-        SetP((short) 4);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 0), chaosGraphics.Y.invoke((short) 0), chaosGraphics.X.invoke((short) 38), chaosGraphics.Y.invoke((short) 38));
-        SetP((short) 3);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 0), chaosGraphics.Y.invoke((short) 0), chaosGraphics.X.invoke((short) 37), chaosGraphics.Y.invoke((short) 37));
-        SetP((short) 7);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 1), chaosGraphics.Y.invoke((short) 1), chaosGraphics.X.invoke((short) 37), chaosGraphics.Y.invoke((short) 37));
+        chaosGraphics.SetOrigin(ChaosGraphics.PW + 21, 5);
+        SetP(4);
+        graphics.FillRect(chaosGraphics.X.invoke(0), chaosGraphics.Y.invoke(0), chaosGraphics.X.invoke(38), chaosGraphics.Y.invoke(38));
+        SetP(3);
+        graphics.FillRect(chaosGraphics.X.invoke(0), chaosGraphics.Y.invoke(0), chaosGraphics.X.invoke(37), chaosGraphics.Y.invoke(37));
+        SetP(7);
+        graphics.FillRect(chaosGraphics.X.invoke(1), chaosGraphics.Y.invoke(1), chaosGraphics.X.invoke(37), chaosGraphics.Y.invoke(37));
         if (chaosGraphics.color) {
             graphics.SetPen(4);
-            graphics.FillRect(chaosGraphics.X.invoke((short) 2), chaosGraphics.Y.invoke((short) 2), chaosGraphics.X.invoke((short) 36), chaosGraphics.Y.invoke((short) 36));
+            graphics.FillRect(chaosGraphics.X.invoke(2), chaosGraphics.Y.invoke(2), chaosGraphics.X.invoke(36), chaosGraphics.Y.invoke(36));
             graphics.SetPen(3);
-            graphics.FillRect(chaosGraphics.X.invoke((short) 3), chaosGraphics.Y.invoke((short) 3), chaosGraphics.X.invoke((short) 36), chaosGraphics.Y.invoke((short) 36));
+            graphics.FillRect(chaosGraphics.X.invoke(3), chaosGraphics.Y.invoke(3), chaosGraphics.X.invoke(36), chaosGraphics.Y.invoke(36));
         } else {
             graphics.SetPen(0);
-            graphics.FillRect(chaosGraphics.X.invoke((short) 2), chaosGraphics.Y.invoke((short) 2), chaosGraphics.X.invoke((short) 36), chaosGraphics.Y.invoke((short) 36));
+            graphics.FillRect(chaosGraphics.X.invoke(2), chaosGraphics.Y.invoke(2), chaosGraphics.X.invoke(36), chaosGraphics.Y.invoke(36));
         }
-        chaosGraphics.SetOrigin((short) (ChaosGraphics.PW + 24), (short) 8);
+        chaosGraphics.SetOrigin(ChaosGraphics.PW + 24, 8);
         for (y = 0; y <= 31; y++) {
-            DrawMapLine((short) 0, y, (short) 1, (short) 0);
+            DrawMapLine(0, y, 1, 0);
         }
-        SetP((short) 2);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 16), chaosGraphics.Y.invoke((short) 16), chaosGraphics.X.invoke((short) 17), chaosGraphics.Y.invoke((short) 17));
+        SetP(2);
+        graphics.FillRect(chaosGraphics.X.invoke(16), chaosGraphics.Y.invoke(16), chaosGraphics.X.invoke(17), chaosGraphics.Y.invoke(17));
         graphics.SetCopyMode(Graphics.cmTrans);
-        chaosGraphics.SetOrigin((short) ChaosGraphics.PW, (short) 0);
+        chaosGraphics.SetOrigin(ChaosGraphics.PW, 0);
     }
 
     private void ScrollMap() {
         // VAR
-        short dx = 0;
-        short dy = 0;
+        int dx = 0;
+        int dy = 0;
         Runtime.Ref<Boolean> first = new Runtime.Ref<>(false);
         Runtime.Ref<Boolean> off = new Runtime.Ref<>(false);
 
         graphics.GetBuffer(first, off);
-        dx = (short) (oldMpx[Runtime.ord(first.get())] - mpx);
-        dy = (short) (oldMpy[Runtime.ord(first.get())] - mpy);
-        chaosGraphics.SetOrigin((short) (ChaosGraphics.PW + 24), (short) 8);
+        dx = oldMpx[Runtime.ord(first.get())] - mpx;
+        dy = oldMpy[Runtime.ord(first.get())] - mpy;
+        chaosGraphics.SetOrigin(ChaosGraphics.PW + 24, 8);
         graphics.SetPen(0);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 16), chaosGraphics.Y.invoke((short) 16), chaosGraphics.X.invoke((short) 17), chaosGraphics.Y.invoke((short) 17));
-        graphics.ScrollRect(chaosGraphics.X.invoke((short) 0), chaosGraphics.Y.invoke((short) 0), chaosGraphics.W.invoke((short) 32), chaosGraphics.H.invoke((short) 32), chaosGraphics.W.invoke(dx), chaosGraphics.H.invoke(dy));
-        SetP((short) 2);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 16), chaosGraphics.Y.invoke((short) 16), chaosGraphics.X.invoke((short) 17), chaosGraphics.Y.invoke((short) 17));
+        graphics.FillRect(chaosGraphics.X.invoke(16), chaosGraphics.Y.invoke(16), chaosGraphics.X.invoke(17), chaosGraphics.Y.invoke(17));
+        graphics.ScrollRect(chaosGraphics.X.invoke(0), chaosGraphics.Y.invoke(0), chaosGraphics.W.invoke(32), chaosGraphics.H.invoke(32), chaosGraphics.W.invoke(dx), chaosGraphics.H.invoke(dy));
+        SetP(2);
+        graphics.FillRect(chaosGraphics.X.invoke(16), chaosGraphics.Y.invoke(16), chaosGraphics.X.invoke(17), chaosGraphics.Y.invoke(17));
         while (dx < 0) {
             dx++;
-            DrawMapLine((short) (31 + dx), (short) 0, (short) 0, (short) 1);
+            DrawMapLine(31 + dx, 0, 0, 1);
         }
         while (dx > 0) {
             dx--;
-            DrawMapLine(dx, (short) 0, (short) 0, (short) 1);
+            DrawMapLine(dx, 0, 0, 1);
         }
         while (dy < 0) {
             dy++;
-            DrawMapLine((short) 0, (short) (31 + dy), (short) 1, (short) 0);
+            DrawMapLine(0, 31 + dy, 1, 0);
         }
         while (dy > 0) {
             dy--;
-            DrawMapLine((short) 0, dy, (short) 1, (short) 0);
+            DrawMapLine(0, dy, 1, 0);
         }
         oldMpx[Runtime.ord(first.get())] = mpx;
         oldMpy[Runtime.ord(first.get())] = mpy;
@@ -609,7 +609,7 @@ public class ChaosPlayer {
         final String TTL2 = " Castle";
 
         // VAR
-        short p1 = 0;
+        int p1 = 0;
 
         if ((chaosBase.zone == Zone.Castle) && (chaosBase.gameStat == GameStat.Playing)) {
             DrawMap();
@@ -618,18 +618,18 @@ public class ChaosPlayer {
                 p1 = 7;
             else
                 p1 = 0;
-            SetP((short) 4);
-            chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) 5), chaosGraphics.Y.invoke((short) 5), new Runtime.Ref<>(TTL1));
-            SetP((short) 3);
-            chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke((short) 4), new Runtime.Ref<>(TTL1));
+            SetP(4);
+            chaosGraphics.WriteAt(chaosGraphics.X.invoke(5), chaosGraphics.Y.invoke(5), new Runtime.Ref<>(TTL1));
+            SetP(3);
+            chaosGraphics.WriteAt(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(4), new Runtime.Ref<>(TTL1));
             SetP(p1);
-            chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) 5), chaosGraphics.Y.invoke((short) 4), new Runtime.Ref<>(TTL1));
-            SetP((short) 4);
-            chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) 5), chaosGraphics.Y.invoke((short) 14), new Runtime.Ref<>(TTL2));
-            SetP((short) 3);
-            chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke((short) 13), new Runtime.Ref<>(TTL2));
+            chaosGraphics.WriteAt(chaosGraphics.X.invoke(5), chaosGraphics.Y.invoke(4), new Runtime.Ref<>(TTL1));
+            SetP(4);
+            chaosGraphics.WriteAt(chaosGraphics.X.invoke(5), chaosGraphics.Y.invoke(14), new Runtime.Ref<>(TTL2));
+            SetP(3);
+            chaosGraphics.WriteAt(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(13), new Runtime.Ref<>(TTL2));
             SetP(p1);
-            chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) 5), chaosGraphics.Y.invoke((short) 13), new Runtime.Ref<>(TTL2));
+            chaosGraphics.WriteAt(chaosGraphics.X.invoke(5), chaosGraphics.Y.invoke(13), new Runtime.Ref<>(TTL2));
         }
     }
 
@@ -648,64 +648,64 @@ public class ChaosPlayer {
             else
                 ln = Runtime.castToRef("*Bonus*", String.class);
             graphics.SetPen(infoBackPen);
-            graphics.FillRect(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke((short) 24), chaosGraphics.X.invoke((short) (ChaosGraphics.IW - 4)), chaosGraphics.Y.invoke((short) 42));
-            SetP((short) 6);
-            chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke((short) 33), ln);
-            chaosGraphics.WriteCard(chaosGraphics.X.invoke((short) 58), chaosGraphics.Y.invoke((short) 33), chaosBase.level[chaosBase.zone.ordinal()] % 100);
+            graphics.FillRect(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(24), chaosGraphics.X.invoke(ChaosGraphics.IW - 4), chaosGraphics.Y.invoke(42));
+            SetP(6);
+            chaosGraphics.WriteAt(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(33), ln);
+            chaosGraphics.WriteCard(chaosGraphics.X.invoke(58), chaosGraphics.Y.invoke(33), chaosBase.level[chaosBase.zone.ordinal()] % 100);
             str = "Diff";
-            chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke((short) 24), Runtime.castToRef(languages.ADL(str), String.class));
+            chaosGraphics.WriteAt(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(24), Runtime.castToRef(languages.ADL(str), String.class));
             str = " # ";
             if (chaosBase.difficulty < 10)
                 str = Runtime.setChar(str, 1, (char) (48 + chaosBase.difficulty));
             else
                 str = "MAX";
-            SetP((short) 6);
-            chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) 53), chaosGraphics.Y.invoke((short) 24), Runtime.castToRef(languages.ADL(str), String.class));
+            SetP(6);
+            chaosGraphics.WriteAt(chaosGraphics.X.invoke(53), chaosGraphics.Y.invoke(24), Runtime.castToRef(languages.ADL(str), String.class));
         }
     }
 
     private void DrawLife() {
         graphics.SetPen(infoBackPen);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke((short) 46), chaosGraphics.X.invoke((short) (ChaosGraphics.IW - 4)), chaosGraphics.Y.invoke((short) 55));
-        SetP((short) 5);
-        chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke((short) 46), Runtime.castToRef(languages.ADL("Lives:"), String.class));
-        SetP((short) 2);
-        chaosGraphics.WriteCard(chaosGraphics.X.invoke((short) 58), chaosGraphics.Y.invoke((short) 46), chaosBase.pLife);
+        graphics.FillRect(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(46), chaosGraphics.X.invoke(ChaosGraphics.IW - 4), chaosGraphics.Y.invoke(55));
+        SetP(5);
+        chaosGraphics.WriteAt(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(46), Runtime.castToRef(languages.ADL("Lives:"), String.class));
+        SetP(2);
+        chaosGraphics.WriteCard(chaosGraphics.X.invoke(58), chaosGraphics.Y.invoke(46), chaosBase.pLife);
     }
 
     private void DrawScore() {
         graphics.SetPen(infoBackPen);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke((short) 55), chaosGraphics.X.invoke((short) (ChaosGraphics.IW - 4)), chaosGraphics.Y.invoke((short) 64));
+        graphics.FillRect(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(55), chaosGraphics.X.invoke(ChaosGraphics.IW - 4), chaosGraphics.Y.invoke(64));
         if ((chaosBase.zone == Zone.Chaos) || !chaosGraphics.color)
             graphics.SetPen(1);
         else
             graphics.SetPen(0);
-        chaosGraphics.WriteCard(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke((short) 55), chaosBase.score);
+        chaosGraphics.WriteCard(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(55), chaosBase.score);
     }
 
     private void DrawDollar() {
         graphics.SetPen(infoBackPen);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke((short) 64), chaosGraphics.X.invoke((short) (ChaosGraphics.IW / 2)), chaosGraphics.Y.invoke((short) 73));
+        graphics.FillRect(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(64), chaosGraphics.X.invoke(ChaosGraphics.IW / 2), chaosGraphics.Y.invoke(73));
         graphics.SetPen(5);
-        chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke((short) 64), Runtime.castToRef("$ ", String.class));
-        chaosGraphics.WriteCard(chaosGraphics.X.invoke((short) 12), chaosGraphics.Y.invoke((short) 64), chaosBase.nbDollar);
+        chaosGraphics.WriteAt(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(64), Runtime.castToRef("$ ", String.class));
+        chaosGraphics.WriteCard(chaosGraphics.X.invoke(12), chaosGraphics.Y.invoke(64), chaosBase.nbDollar);
     }
 
     private void DrawSterling() {
         graphics.SetPen(infoBackPen);
-        graphics.FillRect(chaosGraphics.X.invoke((short) (ChaosGraphics.IW / 2)), chaosGraphics.Y.invoke((short) 64), chaosGraphics.X.invoke((short) (ChaosGraphics.IW - 4)), chaosGraphics.Y.invoke((short) 73));
+        graphics.FillRect(chaosGraphics.X.invoke(ChaosGraphics.IW / 2), chaosGraphics.Y.invoke(64), chaosGraphics.X.invoke(ChaosGraphics.IW - 4), chaosGraphics.Y.invoke(73));
         graphics.SetPen(5);
-        chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) (ChaosGraphics.IW / 2)), chaosGraphics.Y.invoke((short) 64), Runtime.castToRef("£ ", String.class));
-        chaosGraphics.WriteCard(chaosGraphics.X.invoke((short) (ChaosGraphics.IW / 2 + 8)), chaosGraphics.Y.invoke((short) 64), chaosBase.nbSterling);
+        chaosGraphics.WriteAt(chaosGraphics.X.invoke(ChaosGraphics.IW / 2), chaosGraphics.Y.invoke(64), Runtime.castToRef("£ ", String.class));
+        chaosGraphics.WriteCard(chaosGraphics.X.invoke(ChaosGraphics.IW / 2 + 8), chaosGraphics.Y.invoke(64), chaosBase.nbSterling);
     }
 
-    private void DrawTime(short p, short y, short h, int what, /* VAR */ Runtime.IRef<Integer> dWhat, int divisor) {
+    private void DrawTime(int p, int y, int h, int what, /* VAR */ Runtime.IRef<Integer> dWhat, int divisor) {
         // VAR
-        short width = 0;
+        int width = 0;
 
         if ((p != 0) && (p == infoBackPen))
             p = 1;
-        width = (short) (what / (ChaosBase.Period / 2) / divisor);
+        width = what / (ChaosBase.Period / 2) / divisor;
         if (width > 72)
             width = 72;
         if (width > 0) {
@@ -713,59 +713,59 @@ public class ChaosPlayer {
                 graphics.SetPen(p);
             else
                 graphics.SetPen(1);
-            graphics.FillRect(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke(y), chaosGraphics.X.invoke((short) (width + 4)), chaosGraphics.Y.invoke((short) (y + h)));
+            graphics.FillRect(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(y), chaosGraphics.X.invoke(width + 4), chaosGraphics.Y.invoke(y + h));
         }
         if (width < 72) {
             graphics.SetPen(infoBackPen);
-            graphics.FillRect(chaosGraphics.X.invoke((short) (width + 4)), chaosGraphics.Y.invoke(y), chaosGraphics.X.invoke((short) 76), chaosGraphics.Y.invoke((short) (y + h)));
+            graphics.FillRect(chaosGraphics.X.invoke(width + 4), chaosGraphics.Y.invoke(y), chaosGraphics.X.invoke(76), chaosGraphics.Y.invoke(y + h));
         }
         dWhat.set(what);
     }
 
     private void DrawMagnet() {
-        DrawTime((short) 2, (short) 74, (short) 1, chaosBase.magnet, new Runtime.FieldRef<>(this::getDMagnet, this::setDMagnet), 1);
+        DrawTime(2, 74, 1, chaosBase.magnet, new Runtime.FieldRef<>(this::getDMagnet, this::setDMagnet), 1);
     }
 
     private void DrawInv() {
-        DrawTime((short) 3, (short) 75, (short) 1, chaosBase.invinsibility, new Runtime.FieldRef<>(this::getDInv, this::setDInv), 1);
+        DrawTime(3, 75, 1, chaosBase.invinsibility, new Runtime.FieldRef<>(this::getDInv, this::setDInv), 1);
     }
 
     private void DrawFF() {
-        DrawTime((short) 6, (short) 76, (short) 1, chaosBase.freeFire, new Runtime.FieldRef<>(this::getDFF, this::setDFF), 1);
+        DrawTime(6, 76, 1, chaosBase.freeFire, new Runtime.FieldRef<>(this::getDFF, this::setDFF), 1);
     }
 
     private void DrawSleeper() {
-        DrawTime((short) 7, (short) 77, (short) 1, chaosBase.sleeper, new Runtime.FieldRef<>(this::getDSleeper, this::setDSleeper), 1);
+        DrawTime(7, 77, 1, chaosBase.sleeper, new Runtime.FieldRef<>(this::getDSleeper, this::setDSleeper), 1);
     }
 
     private void DrawMaxPower() {
-        DrawTime((short) 4, (short) 78, (short) 1, chaosBase.maxPower, new Runtime.FieldRef<>(this::getDMaxPower, this::setDMaxPower), 1);
+        DrawTime(4, 78, 1, chaosBase.maxPower, new Runtime.FieldRef<>(this::getDMaxPower, this::setDMaxPower), 1);
     }
 
     private void DrawAir() {
         int air = (chaosBase.water ? chaosBase.air : 0);
-        DrawTime((short) 0, (short) 79, (short) 1, air, new Runtime.FieldRef<>(this::getDAir, this::setDAir), 4);
+        DrawTime(0, 79, 1, air, new Runtime.FieldRef<>(this::getDAir, this::setDAir), 4);
     }
 
     private void DrawPlayerPower() {
-        DrawTime((short) 5, (short) 80, (short) 2, chaosBase.playerPower * ChaosBase.Period, new Runtime.FieldRef<>(this::getDPlayerPower, this::setDPlayerPower), 1);
+        DrawTime(5, 80, 2, chaosBase.playerPower * ChaosBase.Period, new Runtime.FieldRef<>(this::getDPlayerPower, this::setDPlayerPower), 1);
     }
 
     private void DrawNumber(Weapon w, boolean select) {
         // VAR
-        short y = 0;
+        int y = 0;
 
         graphics.SetPen(infoBackPen);
-        y = (short) (w.ordinal() * 19 + 93);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 27), chaosGraphics.Y.invoke(y), chaosGraphics.X.invoke((short) 45), chaosGraphics.Y.invoke((short) (y + 9)));
+        y = w.ordinal() * 19 + 93;
+        graphics.FillRect(chaosGraphics.X.invoke(27), chaosGraphics.Y.invoke(y), chaosGraphics.X.invoke(45), chaosGraphics.Y.invoke(y + 9));
         if (select) {
-            SetP((short) 3);
+            SetP(3);
             graphics.SetTextMode(EnumSet.of(TextModes.bold, TextModes.italic));
         } else {
-            SetP((short) 4);
+            SetP(4);
             graphics.SetTextMode(EnumSet.noneOf(TextModes.class));
         }
-        chaosGraphics.WriteCard(chaosGraphics.X.invoke((short) 27), chaosGraphics.Y.invoke((short) (w.ordinal() * 19 + 93)), chaosBase.weaponAttr[w.ordinal()].nbBullet);
+        chaosGraphics.WriteCard(chaosGraphics.X.invoke(27), chaosGraphics.Y.invoke(w.ordinal() * 19 + 93), chaosBase.weaponAttr[w.ordinal()].nbBullet);
         if (select)
             graphics.SetTextMode(EnumSet.noneOf(TextModes.class));
     }
@@ -803,44 +803,44 @@ public class ChaosPlayer {
     private void DrawWeapon(Weapon w, boolean select) {
         // VAR
         Runtime.IRef<String> ln = null;
-        short y = 0;
-        short p = 0;
+        int y = 0;
+        int p = 0;
 
-        y = (short) (w.ordinal() * 19 + 84);
+        y = w.ordinal() * 19 + 84;
         graphics.SetPen(infoBackPen);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke(y), chaosGraphics.X.invoke((short) (ChaosGraphics.IW - 4)), chaosGraphics.Y.invoke((short) (y + 19)));
+        graphics.FillRect(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(y), chaosGraphics.X.invoke(ChaosGraphics.IW - 4), chaosGraphics.Y.invoke(y + 19));
         if (select) {
-            SetP((short) 3);
+            SetP(3);
             graphics.SetTextMode(EnumSet.of(TextModes.bold, TextModes.italic));
         } else {
-            SetP((short) 4);
+            SetP(4);
             graphics.SetTextMode(EnumSet.noneOf(TextModes.class));
         }
         ln = WeaponToStr(w);
-        chaosGraphics.CenterText(chaosGraphics.X.invoke((short) 4), chaosGraphics.Y.invoke(y), chaosGraphics.W.invoke((short) (ChaosGraphics.IW - 8)), ln);
+        chaosGraphics.CenterText(chaosGraphics.X.invoke(4), chaosGraphics.Y.invoke(y), chaosGraphics.W.invoke(ChaosGraphics.IW - 8), ln);
         y += 9;
         graphics.SetTextMode(EnumSet.noneOf(TextModes.class));
         DrawNumber(w, select);
-        chaosGraphics.WriteAt(chaosGraphics.X.invoke((short) 45), chaosGraphics.Y.invoke(y), Runtime.castToRef("/ ", String.class));
-        chaosGraphics.WriteCard(chaosGraphics.X.invoke((short) 54), chaosGraphics.Y.invoke(y), chaosBase.weaponAttr[w.ordinal()].nbBomb);
+        chaosGraphics.WriteAt(chaosGraphics.X.invoke(45), chaosGraphics.Y.invoke(y), Runtime.castToRef("/ ", String.class));
+        chaosGraphics.WriteCard(chaosGraphics.X.invoke(54), chaosGraphics.Y.invoke(y), chaosBase.weaponAttr[w.ordinal()].nbBomb);
         p = chaosBase.weaponAttr[w.ordinal()].power;
-        graphics.FillRect(chaosGraphics.X.invoke((short) 9), chaosGraphics.Y.invoke(y), chaosGraphics.X.invoke((short) 18), chaosGraphics.Y.invoke((short) (y + 9)));
+        graphics.FillRect(chaosGraphics.X.invoke(9), chaosGraphics.Y.invoke(y), chaosGraphics.X.invoke(18), chaosGraphics.Y.invoke(y + 9));
         SetP(infoBackPen);
         if (p > 3)
-            SetP((short) 3);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 14), chaosGraphics.Y.invoke((short) (y + 1)), chaosGraphics.X.invoke((short) 17), chaosGraphics.Y.invoke((short) (y + 4)));
+            SetP(3);
+        graphics.FillRect(chaosGraphics.X.invoke(14), chaosGraphics.Y.invoke(y + 1), chaosGraphics.X.invoke(17), chaosGraphics.Y.invoke(y + 4));
         if (p > 2)
-            SetP((short) 3);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 10), chaosGraphics.Y.invoke((short) (y + 1)), chaosGraphics.X.invoke((short) 13), chaosGraphics.Y.invoke((short) (y + 4)));
+            SetP(3);
+        graphics.FillRect(chaosGraphics.X.invoke(10), chaosGraphics.Y.invoke(y + 1), chaosGraphics.X.invoke(13), chaosGraphics.Y.invoke(y + 4));
         if (p > 1)
-            SetP((short) 3);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 14), chaosGraphics.Y.invoke((short) (y + 5)), chaosGraphics.X.invoke((short) 17), chaosGraphics.Y.invoke((short) (y + 8)));
+            SetP(3);
+        graphics.FillRect(chaosGraphics.X.invoke(14), chaosGraphics.Y.invoke(y + 5), chaosGraphics.X.invoke(17), chaosGraphics.Y.invoke(y + 8));
         if (p > 0)
-            SetP((short) 3);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 10), chaosGraphics.Y.invoke((short) (y + 5)), chaosGraphics.X.invoke((short) 13), chaosGraphics.Y.invoke((short) (y + 8)));
+            SetP(3);
+        graphics.FillRect(chaosGraphics.X.invoke(10), chaosGraphics.Y.invoke(y + 5), chaosGraphics.X.invoke(13), chaosGraphics.Y.invoke(y + 8));
     }
 
-    private void DrawRect(short x1, short y1, short x2, short y2) {
+    private void DrawRect(int x1, int y1, int x2, int y2) {
         graphics.DrawLine(x1, y1, x2, y1);
         graphics.DrawLine(x1, y2, x2, y2);
         y1++;
@@ -853,10 +853,10 @@ public class ChaosPlayer {
         // VAR
         Weapon w = Weapon.GUN;
 
-        chaosGraphics.SetOrigin((short) ChaosGraphics.PW, (short) 0);
+        chaosGraphics.SetOrigin(ChaosGraphics.PW, 0);
         graphics.SetCopyMode(Graphics.cmTrans);
-        graphics.SetPat((short) 4);
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 9));
+        graphics.SetPat(4);
+        graphics.SetTextSize(chaosGraphics.H.invoke(9));
         if (chaosBase.gameStat == GameStat.Playing) {
             if (!gChanges.equals(EnumSet.noneOf(Infos.class))) {
                 ogChanges = Runtime.plusSet(ogChanges, gChanges);
@@ -929,7 +929,7 @@ public class ChaosPlayer {
             graphics.GetBuffer(first, off);
             graphics.SetBuffer(first.get(), true);
         }
-        chaosGraphics.SetOrigin((short) ChaosGraphics.PW, (short) 0);
+        chaosGraphics.SetOrigin(ChaosGraphics.PW, 0);
         dMagnet = Inv;
         dInv = Inv;
         dSleeper = Inv;
@@ -938,8 +938,8 @@ public class ChaosPlayer {
         dFF = Inv;
         dPlayerPower = Inv;
         graphics.SetCopyMode(Graphics.cmCopy);
-        graphics.SetPat((short) 4);
-        graphics.SetTextSize(chaosGraphics.H.invoke((short) 9));
+        graphics.SetPat(4);
+        graphics.SetTextSize(chaosGraphics.H.invoke(9));
         if (!chaosGraphics.color)
             infoBackPen = 0;
         else if (chaosBase.zone == Zone.Chaos)
@@ -951,15 +951,15 @@ public class ChaosPlayer {
         else
             infoBackPen = 2;
         graphics.SetPen(infoBackPen);
-        graphics.FillRect(chaosGraphics.X.invoke((short) 0), chaosGraphics.Y.invoke((short) 0), chaosGraphics.X.invoke((short) ChaosGraphics.IW), chaosGraphics.Y.invoke((short) ChaosGraphics.IH));
-        SetP((short) 5);
-        DrawRect(chaosGraphics.X.invoke((short) 0), chaosGraphics.Y.invoke((short) 0), (short) (chaosGraphics.X.invoke((short) ChaosGraphics.IW) - 2), (short) (chaosGraphics.Y.invoke((short) ChaosGraphics.IH) - 2));
-        SetP((short) 0);
-        DrawRect((short) (chaosGraphics.X.invoke((short) 0) + 2), (short) (chaosGraphics.Y.invoke((short) 0) + 2), chaosGraphics.X.invoke((short) ChaosGraphics.IW), chaosGraphics.Y.invoke((short) ChaosGraphics.IH));
-        SetP((short) 6);
-        DrawRect((short) (chaosGraphics.X.invoke((short) 0) + 1), (short) (chaosGraphics.Y.invoke((short) 0) + 1), (short) (chaosGraphics.X.invoke((short) ChaosGraphics.IW) - 1), (short) (chaosGraphics.Y.invoke((short) ChaosGraphics.IH) - 1));
-        graphics.DrawLine((short) (chaosGraphics.X.invoke((short) 0) + 3), chaosGraphics.Y.invoke((short) 45), (short) (chaosGraphics.X.invoke((short) ChaosGraphics.IW) - 4), chaosGraphics.Y.invoke((short) 45));
-        graphics.DrawLine((short) (chaosGraphics.X.invoke((short) 0) + 3), chaosGraphics.Y.invoke((short) 83), (short) (chaosGraphics.X.invoke((short) ChaosGraphics.IW) - 4), chaosGraphics.Y.invoke((short) 83));
+        graphics.FillRect(chaosGraphics.X.invoke(0), chaosGraphics.Y.invoke(0), chaosGraphics.X.invoke(ChaosGraphics.IW), chaosGraphics.Y.invoke(ChaosGraphics.IH));
+        SetP(5);
+        DrawRect(chaosGraphics.X.invoke(0), chaosGraphics.Y.invoke(0), chaosGraphics.X.invoke(ChaosGraphics.IW) - 2, chaosGraphics.Y.invoke(ChaosGraphics.IH) - 2);
+        SetP(0);
+        DrawRect(chaosGraphics.X.invoke(0) + 2, chaosGraphics.Y.invoke(0) + 2, chaosGraphics.X.invoke(ChaosGraphics.IW), chaosGraphics.Y.invoke(ChaosGraphics.IH));
+        SetP(6);
+        DrawRect(chaosGraphics.X.invoke(0) + 1, chaosGraphics.Y.invoke(0) + 1, chaosGraphics.X.invoke(ChaosGraphics.IW) - 1, chaosGraphics.Y.invoke(ChaosGraphics.IH) - 1);
+        graphics.DrawLine(chaosGraphics.X.invoke(0) + 3, chaosGraphics.Y.invoke(45), chaosGraphics.X.invoke(ChaosGraphics.IW) - 4, chaosGraphics.Y.invoke(45));
+        graphics.DrawLine(chaosGraphics.X.invoke(0) + 3, chaosGraphics.Y.invoke(83), chaosGraphics.X.invoke(ChaosGraphics.IW) - 4, chaosGraphics.Y.invoke(83));
         gChanges = EnumSet.of(Infos.TITLE, Infos.LEVEL, Infos.LIFE, Infos.SCORE, Infos.DOLLAR, Infos.STERLING);
         wChanges = EnumSet.of(Weapon.GUN, Weapon.FB, Weapon.LASER, Weapon.BUBBLE, Weapon.FIRE, Weapon.BALL, Weapon.STAR, Weapon.GRENADE);
         UpdateInfos();
@@ -979,16 +979,16 @@ public class ChaosPlayer {
             chaosSounds.StereoEffect();
             chaosSounds.SoundEffect(player, lifeEffectL);
             chaosSounds.SoundEffect(player, lifeEffectR);
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("EXTRA LIFE"), String.class), (short) ChaosActions.lifePos, (short) 4);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("EXTRA LIFE"), String.class), ChaosActions.lifePos, 4);
         }
         gChanges.add(Infos.LIFE);
     }
 
-    public void AddMoney(ChaosBase.Obj player, short dollar, short sterling) {
+    public void AddMoney(ChaosBase.Obj player, int dollar, int sterling) {
         // VAR
         Runtime.Ref<String> str = new Runtime.Ref<>("");
-        short v = 0;
-        short d = 0;
+        int v = 0;
+        int d = 0;
 
         if (chaosBase.gameStat == GameStat.Playing) {
             chaosSounds.SoundEffect(player, moneyEffect);
@@ -998,7 +998,7 @@ public class ChaosPlayer {
             else if (dollar > 0)
                 v = dollar;
             if (v > 0) {
-                d = (short) (v / 10);
+                d = v / 10;
                 if (d > 0)
                     Runtime.setChar(str, 0, (char) (d + 48));
                 else
@@ -1009,7 +1009,7 @@ public class ChaosPlayer {
                 else
                     Runtime.setChar(str, 2, '$');
                 Runtime.setChar(str, 3, ((char) 0));
-                chaosActions.PopMessage(str, (short) ChaosActions.moneyPos, (short) 1);
+                chaosActions.PopMessage(str, ChaosActions.moneyPos, 1);
             }
         }
         if (dollar > 0)
@@ -1036,7 +1036,7 @@ public class ChaosPlayer {
             gChanges.add(Infos.STERLING);
     }
 
-    public void AddToWeapon(ChaosBase.Obj player, Weapon w, /* VAR */ Runtime.IRef<Short> bullet, /* VAR */ Runtime.IRef<Short> bomb) {
+    public void AddToWeapon(ChaosBase.Obj player, Weapon w, /* VAR */ Runtime.IRef<Integer> bullet, /* VAR */ Runtime.IRef<Integer> bomb) {
         if (chaosBase.weaponAttr[w.ordinal()].power == 0)
             return;
         if (chaosBase.gameStat == GameStat.Playing)
@@ -1045,10 +1045,10 @@ public class ChaosPlayer {
             ChaosBase.WeaponAttr _weaponAttr = chaosBase.weaponAttr[w.ordinal()];
             if (99 - _weaponAttr.nbBullet >= bullet.get()) {
                 _weaponAttr.nbBullet += bullet.get();
-                bullet.set((short) 0);
+                bullet.set(0);
             } else {
                 if (chaosBase.gameStat == GameStat.Playing)
-                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Weapon reloaded"), String.class), (short) ChaosActions.moneyPos, (short) 3);
+                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Weapon reloaded"), String.class), ChaosActions.moneyPos, 3);
                 bullet.dec(99 - _weaponAttr.nbBullet);
                 _weaponAttr.nbBullet = 99;
             }
@@ -1056,41 +1056,41 @@ public class ChaosPlayer {
                 _weaponAttr.nbBomb += bomb.get();
             else
                 _weaponAttr.nbBomb = 9;
-            bomb.set((short) 0);
+            bomb.set(0);
         }
         wChanges.add(w);
     }
 
-    public void AddWeapon(ChaosBase.Obj player, short bullet) {
+    public void AddWeapon(ChaosBase.Obj player, int bullet) {
         chaosSounds.StereoEffect();
         chaosSounds.SoundEffect(player, cBulletEffectR);
         chaosSounds.SoundEffect(player, cBulletEffectL);
-        chaosActions.PopMessage(Runtime.castToRef(languages.ADL(AddMsg), String.class), (short) ChaosActions.actionPos, (short) 2);
+        chaosActions.PopMessage(Runtime.castToRef(languages.ADL(AddMsg), String.class), ChaosActions.actionPos, 2);
         if (255 - bullet > bulletToAdd)
             bulletToAdd += bullet;
         else
             bulletToAdd = 255;
     }
 
-    public void AddBomb(ChaosBase.Obj player, short bomb) {
+    public void AddBomb(ChaosBase.Obj player, int bomb) {
         chaosSounds.StereoEffect();
         chaosSounds.SoundEffect(player, cBulletEffectR);
         chaosSounds.SoundEffect(player, cBulletEffectL);
-        chaosActions.PopMessage(Runtime.castToRef(languages.ADL(AddMsg), String.class), (short) ChaosActions.actionPos, (short) 2);
+        chaosActions.PopMessage(Runtime.castToRef(languages.ADL(AddMsg), String.class), ChaosActions.actionPos, 2);
         bombToAdd += bomb;
     }
 
-    public void AddPower(ChaosBase.Obj player, short power) {
+    public void AddPower(ChaosBase.Obj player, int power) {
         powerToAdd += power;
         chaosSounds.SoundEffect(player, cPowerEffect);
-        chaosActions.PopMessage(Runtime.castToRef(languages.ADL(AddMsg), String.class), (short) ChaosActions.actionPos, (short) 4);
+        chaosActions.PopMessage(Runtime.castToRef(languages.ADL(AddMsg), String.class), ChaosActions.actionPos, 4);
     }
 
     public void MakeInvinsible(ChaosBase.Obj player, int time) {
         chaosBase.invinsibility += time;
         player.hitSubLife = 0;
         player.fireSubLife = 0;
-        player.posY = (short) (chaosGraphics.mulS * 16);
+        player.posY = chaosGraphics.mulS * 16;
     }
 
     private void Pause() {
@@ -1116,18 +1116,18 @@ public class ChaosPlayer {
         while (true) {
             if (redraw.get()) {
                 str = Runtime.castToRef(languages.ADL("Game paused"), String.class);
-                chaosGraphics.SetOrigin((short) 0, (short) 0);
+                chaosGraphics.SetOrigin(0, 0);
                 graphics.SetCopyMode(Graphics.cmTrans);
                 graphics.SetPen(0);
-                chaosGraphics.CenterText((short) 0, chaosGraphics.Y.invoke((short) (ChaosGraphics.PH / 2 + 1)), chaosGraphics.X.invoke((short) ChaosGraphics.PW), str);
+                chaosGraphics.CenterText(0, chaosGraphics.Y.invoke(ChaosGraphics.PH / 2 + 1), chaosGraphics.X.invoke(ChaosGraphics.PW), str);
                 if (chaosGraphics.color)
                     graphics.SetPen(6);
-                chaosGraphics.CenterText(chaosGraphics.X.invoke((short) 2), chaosGraphics.Y.invoke((short) (ChaosGraphics.PH / 2)), chaosGraphics.X.invoke((short) ChaosGraphics.PW), str);
-                SetP((short) 5);
+                chaosGraphics.CenterText(chaosGraphics.X.invoke(2), chaosGraphics.Y.invoke(ChaosGraphics.PH / 2), chaosGraphics.X.invoke(ChaosGraphics.PW), str);
+                SetP(5);
                 redraw.set(false);
-                chaosGraphics.CenterText((short) 0, chaosGraphics.Y.invoke((short) (ChaosGraphics.PH / 2)), chaosGraphics.X.invoke((short) ChaosGraphics.PW), str);
+                chaosGraphics.CenterText(0, chaosGraphics.Y.invoke(ChaosGraphics.PH / 2), chaosGraphics.X.invoke(ChaosGraphics.PW), str);
                 graphics.SetBuffer(true, false);
-                input.SetBusyStat((short) Input.statWaiting);
+                input.SetBusyStat(Input.statWaiting);
             }
             while ((c != 0) && (!Runtime.RangeSet.mul(input.GetStick(), new Runtime.RangeSet(Memory.SET16_r).with(Input.JoyPause).withRange(Input.Joy1, Input.Joy4)).equals(new Runtime.RangeSet(Memory.SET16_r)))) {
                 c--;
@@ -1152,7 +1152,7 @@ public class ChaosPlayer {
     }
 
     private void MakePlayer(ChaosBase.Obj player) {
-        chaosActions.SetObjLoc(player, (short) 0, (short) 0, (short) 16, (short) 16);
+        chaosActions.SetObjLoc(player, 0, 0, 16, 16);
         chaosActions.SetObjRect(player, 2, 2, 14, 14);
         chaosBase.nextGunFireTime = 0;
         prevTime = 0;
@@ -1181,9 +1181,9 @@ public class ChaosPlayer {
         ChaosBase.Obj obj = null;
         ChaosBase.Obj tail = null;
         ChaosBase.Obj todie = null;
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        short c = 0;
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        int c = 0;
         int rem = 0;
         Runtime.Ref<Integer> thit = new Runtime.Ref<>(0);
         Runtime.Ref<Integer> tfire = new Runtime.Ref<>(0);
@@ -1194,7 +1194,7 @@ public class ChaosPlayer {
 
         rem = (hit.get() + fire.get()) / 2;
         if (rem >= chaosBase.playerPower) {
-            chaosActions.Boum(player, EnumSet.of(Stones.stC34), (short) ChaosBase.gravityStyle, (short) (ChaosBase.FlameMult * 6 + 15), (short) 1);
+            chaosActions.Boum(player, EnumSet.of(Stones.stC34), ChaosBase.gravityStyle, ChaosBase.FlameMult * 6 + 15, 1);
             chaosSounds.SoundEffect(player, aieEffects);
             if (chaosBase.zone == Zone.Special) {
                 chaosBase.gameStat = GameStat.Finish;
@@ -1222,14 +1222,14 @@ public class ChaosPlayer {
                 }
             }
             if (chaosGraphics.color) {
-                chaosGraphics.SetTrans((short) 0, (short) 255);
-                chaosGraphics.SetRGB((short) 0, (short) 255, (short) 255, (short) 255);
-                chaosGraphics.SetRGB((short) 4, (short) 255, (short) 255, (short) 255);
+                chaosGraphics.SetTrans(0, 255);
+                chaosGraphics.SetRGB(0, 255, 255, 255);
+                chaosGraphics.SetRGB(4, 255, 255, 255);
             }
             if (chaosBase.pLife > 0)
                 chaosBase.pLife--;
             gChanges.add(Infos.LIFE);
-            chaosBase.screenInverted = (short) (ChaosBase.Period / 2);
+            chaosBase.screenInverted = ChaosBase.Period / 2;
             MakeInvinsible(player, ChaosBase.Period * 4);
             player.life = chaosBase.pLife;
             nd = chaosBase.nbDollar;
@@ -1237,9 +1237,9 @@ public class ChaosPlayer {
             if (player.life == 0)
                 chaosSounds.SoundEffect(player, life0Effect);
             if ((player.life == 0) && (nd + ns < 20)) {
-                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Game Over"), String.class), (short) ChaosActions.lifePos, (short) 5);
+                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Game Over"), String.class), ChaosActions.lifePos, 5);
             } else if (player.life > 0) {
-                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Ouch !"), String.class), (short) ChaosActions.lifePos, (short) 3);
+                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Ouch !"), String.class), ChaosActions.lifePos, 3);
                 if (player.life <= 3) {
                     if (player.life == 3)
                         chaosSounds.SoundEffect(player, life3Effect);
@@ -1254,11 +1254,11 @@ public class ChaosPlayer {
                     }
                     if (c < Runtime.sizeOf(40, String.class))
                         Runtime.setChar(msg, c, (char) (48 + player.life));
-                    chaosActions.PopMessage(msg, (short) ChaosActions.statPos, (short) 2);
+                    chaosActions.PopMessage(msg, ChaosActions.statPos, 2);
                 }
             }
         } else {
-            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Ow"), String.class), (short) ChaosActions.lifePos, (short) 2);
+            chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Ow"), String.class), ChaosActions.lifePos, 2);
             MakeInvinsible(player, ChaosBase.Period);
             chaosSounds.SoundEffect(player, hitEffect);
             hit.set(0);
@@ -1361,7 +1361,7 @@ public class ChaosPlayer {
                 if (4 - _weaponAttr.power >= powerToAdd) {
                     _weaponAttr.power += powerToAdd;
                     powerToAdd = 0;
-                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("POWER ADDED"), String.class), (short) ChaosActions.actionPos, (short) 5);
+                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("POWER ADDED"), String.class), ChaosActions.actionPos, 5);
                 } else {
                     powerToAdd -= 4 - _weaponAttr.power;
                     _weaponAttr.power = 4;
@@ -1374,15 +1374,15 @@ public class ChaosPlayer {
         } else if (((bulletToAdd > 0) && (chaosBase.weaponAttr[w.ordinal()].nbBullet < 99)) || ((bombToAdd > 0) && (chaosBase.weaponAttr[w.ordinal()].nbBomb < 99))) {
             if (bulletToAdd != 0) {
                 if (chaosBase.weaponAttr[w.ordinal()].power > 0)
-                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Bullet added"), String.class), (short) ChaosActions.moneyPos, (short) 2);
+                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Bullet added"), String.class), ChaosActions.moneyPos, 2);
                 else
-                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("not enough power"), String.class), (short) ChaosActions.moneyPos, (short) 2);
+                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("not enough power"), String.class), ChaosActions.moneyPos, 2);
             }
             if (bombToAdd != 0) {
                 if (chaosBase.weaponAttr[w.ordinal()].power > 0)
-                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("BOMB added"), String.class), (short) ChaosActions.lifePos, (short) 2);
+                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("BOMB added"), String.class), ChaosActions.lifePos, 2);
                 else
-                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("not enough power"), String.class), (short) ChaosActions.moneyPos, (short) 2);
+                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("not enough power"), String.class), ChaosActions.moneyPos, 2);
             }
             if (chaosBase.weaponAttr[w.ordinal()].power > 0) {
                 if (bombToAdd > 0) {
@@ -1391,7 +1391,7 @@ public class ChaosPlayer {
                     if (EnumSet.of(Weapon.LASER, Weapon.BUBBLE, Weapon.FIRE).contains(w))
                         bombToAdd++;
                 }
-                bulletToAdd = (short) (bulletToAdd / chaosWeapon.GetBulletPrice(w)); // TODO division by zero if unattributed key??
+                bulletToAdd = bulletToAdd / chaosWeapon.GetBulletPrice(w); // TODO division by zero if unattributed key??
                 AddToWeapon(player, w, new Runtime.FieldRef<>(this::getBulletToAdd, this::setBulletToAdd), new Runtime.FieldRef<>(this::getBombToAdd, this::setBombToAdd));
                 bulletToAdd = 0;
             }
@@ -1424,14 +1424,14 @@ public class ChaosPlayer {
         Runtime.RangeSet dir = new Runtime.RangeSet(Memory.SET16_r);
         Runtime.RangeSet tmp = new Runtime.RangeSet(Memory.SET16_r);
         Weapon w = Weapon.GUN;
-        Runtime.Ref<Short> mouseX = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> mouseY = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> px = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> py = new Runtime.Ref<>((short) 0);
-        int oldx = 0;
-        int oldy = 0;
-        int newx = 0;
-        int newy = 0;
+        Runtime.Ref<Integer> mouseX = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> mouseY = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> py = new Runtime.Ref<>(0);
+        long oldx = 0L;
+        long oldy = 0L;
+        long newx = 0L;
+        long newy = 0L;
         long oldscr = 0L;
         Runtime.Ref<Integer> tohit = new Runtime.Ref<>(0);
         Runtime.Ref<Integer> tofire = new Runtime.Ref<>(0);
@@ -1488,11 +1488,11 @@ public class ChaosPlayer {
             player.shapeSeq = 7;
         }
         if (chaosBase.doubleSpeed > 0) {
-            player.dvx = (short) (player.dvx * 3 / 2);
-            player.dvy = (short) (player.dvy * 3 / 2);
+            player.dvx = player.dvx * 3 / 2;
+            player.dvy = player.dvy * 3 / 2;
         }
-        px.set((short) player.shapeSeq);
-        player.posX = chaosGraphics.W.invoke((short) (px.get() * 16));
+        px.set(player.shapeSeq);
+        player.posX = chaosGraphics.W.invoke(px.get() * 16);
         oldx = player.x;
         oldy = player.y;
         chaosActions.UpdateXY(player);
@@ -1501,8 +1501,8 @@ public class ChaosPlayer {
             chaosBase.nextGunFireTime -= chaosBase.step;
         }
         oldtime = chaosBase.lasttime;
-        chaosActions.AvoidBounds(player, (short) 0);
-        chaosActions.AvoidBackground(player, (short) 0);
+        chaosActions.AvoidBounds(player, 0);
+        chaosActions.AvoidBackground(player, 0);
         if (chaosBase.zone == Zone.Castle) {
             SetMapCoords();
             graphics.GetBuffer(first, off);
@@ -1591,9 +1591,9 @@ public class ChaosPlayer {
             pauseRequest = true;
         if ((joy.contains(Input.JoyForward)) && (joy.contains(Input.JoyReverse)) && (!chaosBase.lastJoy.contains(Input.JoyForward) || !chaosBase.lastJoy.contains(Input.JoyReverse))) {
             if (!chaosBase.bombActive)
-                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("bomb actived"), String.class), (short) ChaosActions.actionPos, (short) 1);
+                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("bomb actived"), String.class), ChaosActions.actionPos, 1);
             else
-                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("bomb unactived"), String.class), (short) ChaosActions.actionPos, (short) 1);
+                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("bomb unactived"), String.class), ChaosActions.actionPos, 1);
             chaosBase.weaponSelected = false;
             wChanges.add(chaosBase.selectedWeapon);
             chaosBase.bombActive = !chaosBase.bombActive;
@@ -1630,7 +1630,7 @@ public class ChaosPlayer {
                     }
                 }
                 chaosSounds.SoundEffect(player, mioEffect);
-                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Mega score bonus"), String.class), (short) ChaosActions.lifePos, (short) 7);
+                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Mega score bonus"), String.class), ChaosActions.lifePos, 7);
             }
             if (!registration.registered && ((chaosBase.score >= 1000) || (chaosBase.level[Zone.Castle.ordinal()] >= 8)))
                 checks.Check(true, Runtime.castToRef(languages.ADL("Please pay the shareware"), String.class), Runtime.castToRef(languages.ADL("if you want to play more"), String.class));
@@ -1665,7 +1665,7 @@ public class ChaosPlayer {
                 tohit.set(chaosBase.playerPower);
                 tofire.set(tohit.get());
                 AiePlayer(player, null, tohit, tofire);
-                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("() No more air ()"), String.class), (short) ChaosActions.lifePos, (short) 4);
+                chaosActions.PopMessage(Runtime.castToRef(languages.ADL("() No more air ()"), String.class), ChaosActions.lifePos, 4);
                 chaosBase.air = ChaosBase.Period * 60;
             } else if (chaosBase.step > chaosBase.air) {
                 chaosBase.air = 0;
@@ -1677,11 +1677,11 @@ public class ChaosPlayer {
                         msg.set("() # ()");
                         Runtime.setChar(msg, 3, (char) (48 + c));
                         Runtime.setChar(msg, 7, ((char) 0));
-                        chaosActions.PopMessage(msg, (short) ChaosActions.lifePos, (short) 1);
+                        chaosActions.PopMessage(msg, ChaosActions.lifePos, 1);
                     } else if (c == 20) {
-                        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("() 60 ()"), String.class), (short) ChaosActions.lifePos, (short) 2);
+                        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("() 60 ()"), String.class), ChaosActions.lifePos, 2);
                     } else if (c == 10) {
-                        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("() 30 ()"), String.class), (short) ChaosActions.lifePos, (short) 2);
+                        chaosActions.PopMessage(Runtime.castToRef(languages.ADL("() 30 ()"), String.class), ChaosActions.lifePos, 2);
                     }
                 }
             }
@@ -1709,7 +1709,7 @@ public class ChaosPlayer {
                     player.life++;
                     chaosBase.pLife++;
                     player.posY = 0;
-                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("$AVED BY THE CA$H"), String.class), (short) ChaosActions.lifePos, (short) 5);
+                    chaosActions.PopMessage(Runtime.castToRef(languages.ADL("$AVED BY THE CA$H"), String.class), ChaosActions.lifePos, 5);
                     chaosSounds.SoundEffect(player, savedEffect);
                     if (chaosBase.nbDollar >= 20) {
                         chaosBase.nbDollar -= 20;
@@ -1728,9 +1728,9 @@ public class ChaosPlayer {
             if (chaosBase.step >= chaosBase.screenInverted) {
                 chaosBase.screenInverted = 0;
                 if (chaosGraphics.color) {
-                    chaosGraphics.SetTrans((short) 0, (short) 0);
-                    chaosGraphics.SetRGB((short) 0, (short) 0, (short) 0, (short) 0);
-                    chaosGraphics.SetRGB((short) 4, (short) 255, (short) 0, (short) 0);
+                    chaosGraphics.SetTrans(0, 0);
+                    chaosGraphics.SetRGB(0, 0, 0, 0);
+                    chaosGraphics.SetRGB(4, 255, 0, 0);
                 }
             } else {
                 chaosBase.screenInverted -= chaosBase.step;
@@ -1754,97 +1754,97 @@ public class ChaosPlayer {
         int v = 0;
         int f = 0;
 
-        chaosSounds.SetEffect(lifeEffectL[0], chaosSounds.soundList[SoundList.wVoice.ordinal()], 392, 6272, (short) 180, (short) 12);
-        chaosSounds.SetEffect(lifeEffectL[1], chaosSounds.soundList[SoundList.wVoice.ordinal()], 523, 8363, (short) 180, (short) 12);
-        chaosSounds.SetEffect(lifeEffectL[2], chaosSounds.soundList[SoundList.wVoice.ordinal()], 698, 11163, (short) 180, (short) 12);
-        chaosSounds.SetEffect(lifeEffectL[3], chaosSounds.soundList[SoundList.wVoice.ordinal()], 587, 9387, (short) 180, (short) 12);
-        chaosSounds.SetEffect(lifeEffectL[4], chaosSounds.soundList[SoundList.wVoice.ordinal()], 784, 12544, (short) 180, (short) 12);
-        chaosSounds.SetEffect(lifeEffectL[5], chaosSounds.soundList[SoundList.wVoice.ordinal()], 1045, 16726, (short) 180, (short) 12);
-        chaosSounds.SetEffect(lifeEffectL[6], chaosSounds.soundList[SoundList.wVoice.ordinal()], 1395, 22327, (short) 180, (short) 12);
-        chaosSounds.SetEffect(lifeEffectL[7], chaosSounds.soundList[SoundList.wVoice.ordinal()], 1173, 18774, (short) 180, (short) 12);
+        chaosSounds.SetEffect(lifeEffectL[0], chaosSounds.soundList[SoundList.wVoice.ordinal()], 392, 6272, 180, 12);
+        chaosSounds.SetEffect(lifeEffectL[1], chaosSounds.soundList[SoundList.wVoice.ordinal()], 523, 8363, 180, 12);
+        chaosSounds.SetEffect(lifeEffectL[2], chaosSounds.soundList[SoundList.wVoice.ordinal()], 698, 11163, 180, 12);
+        chaosSounds.SetEffect(lifeEffectL[3], chaosSounds.soundList[SoundList.wVoice.ordinal()], 587, 9387, 180, 12);
+        chaosSounds.SetEffect(lifeEffectL[4], chaosSounds.soundList[SoundList.wVoice.ordinal()], 784, 12544, 180, 12);
+        chaosSounds.SetEffect(lifeEffectL[5], chaosSounds.soundList[SoundList.wVoice.ordinal()], 1045, 16726, 180, 12);
+        chaosSounds.SetEffect(lifeEffectL[6], chaosSounds.soundList[SoundList.wVoice.ordinal()], 1395, 22327, 180, 12);
+        chaosSounds.SetEffect(lifeEffectL[7], chaosSounds.soundList[SoundList.wVoice.ordinal()], 1173, 18774, 180, 12);
         for (c = 8; c <= 20; c += 4) {
             v = (21 - c) * 11;
-            chaosSounds.SetEffect(lifeEffectL[c], chaosSounds.soundList[SoundList.wVoice.ordinal()], 392, 12544, (short) v, (short) 12);
-            chaosSounds.SetEffect(lifeEffectL[c + 1], chaosSounds.soundList[SoundList.wVoice.ordinal()], 587, 18774, (short) v, (short) 12);
-            chaosSounds.SetEffect(lifeEffectL[c + 2], chaosSounds.soundList[SoundList.wVoice.ordinal()], 739, 23654, (short) v, (short) 12);
-            chaosSounds.SetEffect(lifeEffectL[c + 3], chaosSounds.soundList[SoundList.wVoice.ordinal()], 2352, 25089, (short) v, (short) 12);
+            chaosSounds.SetEffect(lifeEffectL[c], chaosSounds.soundList[SoundList.wVoice.ordinal()], 392, 12544, v, 12);
+            chaosSounds.SetEffect(lifeEffectL[c + 1], chaosSounds.soundList[SoundList.wVoice.ordinal()], 587, 18774, v, 12);
+            chaosSounds.SetEffect(lifeEffectL[c + 2], chaosSounds.soundList[SoundList.wVoice.ordinal()], 739, 23654, v, 12);
+            chaosSounds.SetEffect(lifeEffectL[c + 3], chaosSounds.soundList[SoundList.wVoice.ordinal()], 2352, 25089, v, 12);
         }
         for (c = 0; c <= 23; c++) {
             lifeEffectR[c].copyFrom(lifeEffectL[c]);
         }
         for (c = 8; c <= 23; c++) {
             if ((c / 4) % 2 == 0)
-                lifeEffectL[c].volume = (short) (lifeEffectL[c].volume / 4);
+                lifeEffectL[c].volume = lifeEffectL[c].volume / 4;
             else
-                lifeEffectR[c].volume = (short) (lifeEffectR[c].volume / 4);
+                lifeEffectR[c].volume = lifeEffectR[c].volume / 4;
         }
-        chaosSounds.SetEffect(lifeEffectR[7], chaosSounds.soundList[SoundList.wVoice.ordinal()], 1467, 18774, (short) 180, (short) 12);
-        chaosSounds.SetEffect(life0Effect[0], chaosSounds.soundList[SoundList.sPoubelle.ordinal()], 0, 4181, (short) 0, (short) 9);
-        chaosSounds.SetEffect(life0Effect[1], chaosSounds.soundList[SoundList.sPoubelle.ordinal()], 0, 4181, (short) 160, (short) 9);
-        chaosSounds.SetEffect(life1Effect[0], chaosSounds.soundList[SoundList.wJans.ordinal()], 0, 8363, (short) 120, (short) 9);
-        chaosSounds.SetEffect(life1Effect[1], chaosSounds.soundList[SoundList.wVoice.ordinal()], 1394, 12544, (short) 40, (short) 9);
-        chaosSounds.SetEffect(life1Effect[2], chaosSounds.soundList[SoundList.wVoice.ordinal()], 3485, 10454, (short) 40, (short) 9);
-        chaosSounds.SetEffect(life1Effect[3], chaosSounds.soundList[SoundList.wVoice.ordinal()], 1043, 9387, (short) 120, (short) 9);
-        chaosSounds.SetEffect(life1Effect[4], chaosSounds.soundList[SoundList.wVoice.ordinal()], 3717, 11151, (short) 60, (short) 9);
-        chaosSounds.SetEffect(life1Effect[5], chaosSounds.soundList[SoundList.wJans.ordinal()], 1394, 8363, (short) 120, (short) 9);
-        chaosSounds.SetEffect(life1Effect[6], chaosSounds.soundList[SoundList.wJans.ordinal()], 1742, 10454, (short) 130, (short) 9);
-        chaosSounds.SetEffect(life1Effect[7], chaosSounds.soundList[SoundList.wJans.ordinal()], 2060, 12545, (short) 140, (short) 9);
-        chaosSounds.SetEffect(life1Effect[8], chaosSounds.soundList[SoundList.wJans.ordinal()], 0, 14868, (short) 150, (short) 9);
+        chaosSounds.SetEffect(lifeEffectR[7], chaosSounds.soundList[SoundList.wVoice.ordinal()], 1467, 18774, 180, 12);
+        chaosSounds.SetEffect(life0Effect[0], chaosSounds.soundList[SoundList.sPoubelle.ordinal()], 0, 4181, 0, 9);
+        chaosSounds.SetEffect(life0Effect[1], chaosSounds.soundList[SoundList.sPoubelle.ordinal()], 0, 4181, 160, 9);
+        chaosSounds.SetEffect(life1Effect[0], chaosSounds.soundList[SoundList.wJans.ordinal()], 0, 8363, 120, 9);
+        chaosSounds.SetEffect(life1Effect[1], chaosSounds.soundList[SoundList.wVoice.ordinal()], 1394, 12544, 40, 9);
+        chaosSounds.SetEffect(life1Effect[2], chaosSounds.soundList[SoundList.wVoice.ordinal()], 3485, 10454, 40, 9);
+        chaosSounds.SetEffect(life1Effect[3], chaosSounds.soundList[SoundList.wVoice.ordinal()], 1043, 9387, 120, 9);
+        chaosSounds.SetEffect(life1Effect[4], chaosSounds.soundList[SoundList.wVoice.ordinal()], 3717, 11151, 60, 9);
+        chaosSounds.SetEffect(life1Effect[5], chaosSounds.soundList[SoundList.wJans.ordinal()], 1394, 8363, 120, 9);
+        chaosSounds.SetEffect(life1Effect[6], chaosSounds.soundList[SoundList.wJans.ordinal()], 1742, 10454, 130, 9);
+        chaosSounds.SetEffect(life1Effect[7], chaosSounds.soundList[SoundList.wJans.ordinal()], 2060, 12545, 140, 9);
+        chaosSounds.SetEffect(life1Effect[8], chaosSounds.soundList[SoundList.wJans.ordinal()], 0, 14868, 150, 9);
         for (c = 0; c <= 2; c++) {
             life3Effect[c].copyFrom(life1Effect[c]);
         }
         for (c = 0; c <= 4; c++) {
             life2Effect[c].copyFrom(life1Effect[c]);
         }
-        chaosSounds.SetEffect(aieEffects[0], chaosSounds.soundList[SoundList.sVerre.ordinal()], 0, 0, (short) 255, (short) 14);
-        chaosSounds.SetEffect(hitEffect[0], chaosSounds.soundList[SoundList.sPoubelle.ordinal()], 0, 12544, (short) 210, (short) 10);
-        chaosSounds.SetEffect(dieEffects[0], chaosSounds.soundList[SoundList.sGong.ordinal()], 0, 0, (short) 255, (short) 14);
-        chaosSounds.SetEffect(moneyEffect[0], chaosSounds.soundList[SoundList.sMoney.ordinal()], 0, 0, (short) 70, (short) 4);
-        chaosSounds.SetEffect(bulletEffect[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 16726, (short) 110, (short) 6);
-        chaosSounds.SetEffect(cPowerEffect[0], chaosSounds.soundList[SoundList.sCannon.ordinal()], 0, 16726, (short) 180, (short) 12);
-        chaosSounds.SetEffect(savedEffect[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 0, (short) 150, (short) 8);
-        chaosSounds.SetEffect(cBulletEffectL[0], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1566, 12530, (short) 90, (short) 5);
-        chaosSounds.SetEffect(cBulletEffectL[1], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1566, 12530, (short) 80, (short) 5);
-        chaosSounds.SetEffect(cBulletEffectL[2], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1566, 12530, (short) 70, (short) 5);
-        chaosSounds.SetEffect(cBulletEffectL[3], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1243, 9945, (short) 60, (short) 5);
-        chaosSounds.SetEffect(cBulletEffectL[4], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1395, 11163, (short) 70, (short) 5);
-        chaosSounds.SetEffect(cBulletEffectL[5], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1395, 11163, (short) 80, (short) 5);
-        chaosSounds.SetEffect(cBulletEffectL[6], chaosSounds.soundList[SoundList.sHHat.ordinal()], 0, 11163, (short) 90, (short) 5);
-        chaosSounds.SetEffect(cBulletEffectR[0], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1243, 9945, (short) 80, (short) 6);
-        chaosSounds.SetEffect(cBulletEffectR[1], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1243, 9945, (short) 80, (short) 6);
-        chaosSounds.SetEffect(cBulletEffectR[2], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1566, 12530, (short) 80, (short) 6);
-        chaosSounds.SetEffect(cBulletEffectR[3], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1566, 12530, (short) 80, (short) 6);
-        chaosSounds.SetEffect(cBulletEffectR[4], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1243, 9945, (short) 80, (short) 6);
-        chaosSounds.SetEffect(cBulletEffectR[5], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1243, 9945, (short) 80, (short) 6);
-        chaosSounds.SetEffect(cBulletEffectR[6], chaosSounds.soundList[SoundList.sHHat.ordinal()], 0, 11163, (short) 80, (short) 6);
+        chaosSounds.SetEffect(aieEffects[0], chaosSounds.soundList[SoundList.sVerre.ordinal()], 0, 0, 255, 14);
+        chaosSounds.SetEffect(hitEffect[0], chaosSounds.soundList[SoundList.sPoubelle.ordinal()], 0, 12544, 210, 10);
+        chaosSounds.SetEffect(dieEffects[0], chaosSounds.soundList[SoundList.sGong.ordinal()], 0, 0, 255, 14);
+        chaosSounds.SetEffect(moneyEffect[0], chaosSounds.soundList[SoundList.sMoney.ordinal()], 0, 0, 70, 4);
+        chaosSounds.SetEffect(bulletEffect[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 16726, 110, 6);
+        chaosSounds.SetEffect(cPowerEffect[0], chaosSounds.soundList[SoundList.sCannon.ordinal()], 0, 16726, 180, 12);
+        chaosSounds.SetEffect(savedEffect[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 0, 150, 8);
+        chaosSounds.SetEffect(cBulletEffectL[0], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1566, 12530, 90, 5);
+        chaosSounds.SetEffect(cBulletEffectL[1], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1566, 12530, 80, 5);
+        chaosSounds.SetEffect(cBulletEffectL[2], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1566, 12530, 70, 5);
+        chaosSounds.SetEffect(cBulletEffectL[3], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1243, 9945, 60, 5);
+        chaosSounds.SetEffect(cBulletEffectL[4], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1395, 11163, 70, 5);
+        chaosSounds.SetEffect(cBulletEffectL[5], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1395, 11163, 80, 5);
+        chaosSounds.SetEffect(cBulletEffectL[6], chaosSounds.soundList[SoundList.sHHat.ordinal()], 0, 11163, 90, 5);
+        chaosSounds.SetEffect(cBulletEffectR[0], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1243, 9945, 80, 6);
+        chaosSounds.SetEffect(cBulletEffectR[1], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1243, 9945, 80, 6);
+        chaosSounds.SetEffect(cBulletEffectR[2], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1566, 12530, 80, 6);
+        chaosSounds.SetEffect(cBulletEffectR[3], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1566, 12530, 80, 6);
+        chaosSounds.SetEffect(cBulletEffectR[4], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1243, 9945, 80, 6);
+        chaosSounds.SetEffect(cBulletEffectR[5], chaosSounds.soundList[SoundList.sHHat.ordinal()], 1243, 9945, 80, 6);
+        chaosSounds.SetEffect(cBulletEffectR[6], chaosSounds.soundList[SoundList.sHHat.ordinal()], 0, 11163, 80, 6);
         for (c = 0; c <= 8; c += 4) {
             v = (10 - c) * 24;
             if (c == 0)
                 f = 1;
             else
                 f = 2;
-            chaosSounds.SetEffect(powerEffectL[c], chaosSounds.nulSound, 1045 * f, 8363 * f, (short) v, (short) (15 - c));
-            chaosSounds.SetEffect(powerEffectL[c + 1], chaosSounds.nulSound, 1395 * f, 11163 * f, (short) v, (short) (15 - c));
-            chaosSounds.SetEffect(powerEffectL[c + 2], chaosSounds.nulSound, 1173 * f, 9387 * f, (short) v, (short) (15 - c));
-            chaosSounds.SetEffect(powerEffectL[c + 3], chaosSounds.nulSound, 1566 * f, 12530 * f, (short) v, (short) (15 - c));
+            chaosSounds.SetEffect(powerEffectL[c], chaosSounds.nulSound, 1045 * f, 8363 * f, v, 15 - c);
+            chaosSounds.SetEffect(powerEffectL[c + 1], chaosSounds.nulSound, 1395 * f, 11163 * f, v, 15 - c);
+            chaosSounds.SetEffect(powerEffectL[c + 2], chaosSounds.nulSound, 1173 * f, 9387 * f, v, 15 - c);
+            chaosSounds.SetEffect(powerEffectL[c + 3], chaosSounds.nulSound, 1566 * f, 12530 * f, v, 15 - c);
         }
-        chaosSounds.SetEffect(powerEffectL[0], chaosSounds.soundList[SoundList.wShakuhachi.ordinal()], 1045, 8363, (short) 240, (short) 15);
-        chaosSounds.SetEffect(powerEffectR[0], chaosSounds.soundList[SoundList.wShakuhachi.ordinal()], 697, 16726, (short) 0, (short) 15);
+        chaosSounds.SetEffect(powerEffectL[0], chaosSounds.soundList[SoundList.wShakuhachi.ordinal()], 1045, 8363, 240, 15);
+        chaosSounds.SetEffect(powerEffectR[0], chaosSounds.soundList[SoundList.wShakuhachi.ordinal()], 697, 16726, 0, 15);
         for (c = 1; c <= 12; c++) {
             powerEffectR[c].copyFrom(powerEffectL[c - 1]);
         }
-        chaosSounds.SetEffect(mioEffect[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 2088, 6265, (short) 180, (short) 15);
-        chaosSounds.SetEffect(mioEffect[1], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 2631, 7894, (short) 180, (short) 15);
-        chaosSounds.SetEffect(mioEffect[2], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 2344, 7032, (short) 180, (short) 15);
-        chaosSounds.SetEffect(mioEffect[3], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 1971, 5913, (short) 180, (short) 15);
-        chaosSounds.SetEffect(mioEffect[4], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 6265, (short) 120, (short) 15);
+        chaosSounds.SetEffect(mioEffect[0], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 2088, 6265, 180, 15);
+        chaosSounds.SetEffect(mioEffect[1], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 2631, 7894, 180, 15);
+        chaosSounds.SetEffect(mioEffect[2], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 2344, 7032, 180, 15);
+        chaosSounds.SetEffect(mioEffect[3], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 1971, 5913, 180, 15);
+        chaosSounds.SetEffect(mioEffect[4], chaosSounds.soundList[SoundList.sCaisse.ordinal()], 0, 6265, 120, 15);
         chaosBase.selectedWeapon = Weapon.GUN;
         chaosBase.selectedWeapon = Runtime.next(chaosBase.selectedWeapon);
         chaosBase.weaponSelected = false;
         for (c = 0; c <= 15; c++) {
             chaosBase.buttonAssign[c] = Weapon.GUN;
         }
-        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(109, ChaosBase.ObjAttr.class));
+        attr = (ChaosBase.ObjAttr) memory.AllocMem(Runtime.sizeOf(130, ChaosBase.ObjAttr.class));
         checks.CheckMem(attr);
         attr.Reset = ResetPlayer_ref;
         attr.Make = MakePlayer_ref;
@@ -1862,7 +1862,7 @@ public class ChaosPlayer {
         attr.dieStKinds = Runtime.withRange(EnumSet.noneOf(Stones.class), Stones.stC26, Stones.stFLAME2);
         attr.dieSKCount = 12;
         attr.dieStStyle = ChaosBase.fastStyle;
-        attr.dieStone = (short) ((1 << 8) - 1) /* MAX(SHORTCARD) */;
+        attr.dieStone = ((1 << 8) - 1) /* MAX(SHORTCARD) */;
         attr.basicType = BasicTypes.NotBase;
         memory.AddHead(chaosBase.attrList[Anims.PLAYER.ordinal()], attr.node);
     }

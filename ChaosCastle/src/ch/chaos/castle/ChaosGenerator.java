@@ -28,13 +28,13 @@ public class ChaosGenerator {
 
     // PROCEDURE
 
-    public void DrawPacman(int open, short width, short height, short sx, short sy, short ex, short ey) {
+    public void DrawPacman(int open, int width, int height, int sx, int sy, int ex, int ey) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short v = 0;
-        short h = 0;
-        short z = 0;
+        int x = 0;
+        int y = 0;
+        int v = 0;
+        int h = 0;
+        int z = 0;
 
         y = ey;
         while (y >= sy) {
@@ -42,10 +42,10 @@ public class ChaosGenerator {
             while (x >= sx) {
                 chaosObjects.Set(x, y);
                 if (trigo.RND() % 16 > open) {
-                    h = (short) (trigo.RND() % 2);
-                    v = (short) (1 - h);
+                    h = trigo.RND() % 2;
+                    v = 1 - h;
                     for (z = 1; z < width * h + height * v; z++) {
-                        chaosObjects.Set((short) (x + h * z), (short) (y + v * z));
+                        chaosObjects.Set(x + h * z, y + v * z);
                     }
                 }
                 x -= width;
@@ -54,53 +54,53 @@ public class ChaosGenerator {
         }
     }
 
-    public void Road(short sx, short sy, short ex, short ey, short sz, short val) {
+    public void Road(int sx, int sy, int ex, int ey, int sz, int val) {
         // VAR
-        short w = 0;
-        short h = 0;
-        short m = 0;
-        short c = 0;
-        short x = 0;
-        short y = 0;
+        int w = 0;
+        int h = 0;
+        int m = 0;
+        int c = 0;
+        int x = 0;
+        int y = 0;
 
-        w = (short) Math.abs(ex - sx);
-        h = (short) Math.abs(ey - sy);
+        w = (int) Math.abs(ex - sx);
+        h = (int) Math.abs(ey - sy);
         c = 0;
         if (w > h)
             m = w;
         else
             m = h;
-        w = (short) (ex - sx);
-        h = (short) (ey - sy);
+        w = ex - sx;
+        h = ey - sy;
         while (c < m) {
-            x = (short) (sx + w * c / m);
-            y = (short) (sy + h * c / m);
-            chaosObjects.Fill((short) (x - sz), (short) (y - sz), (short) (x + sz), (short) (y + sz), val);
+            x = sx + w * c / m;
+            y = sy + h * c / m;
+            chaosObjects.Fill(x - sz, y - sz, x + sz, y + sz, val);
             c++;
         }
     }
 
-    public void Excavate(short sx, short ex, short mny, short mxy, short mnh, short mxh, short sdy, short sh, short sd, short mxsy, short mxsh, short mnd, short mxd) {
+    public void Excavate(int sx, int ex, int mny, int mxy, int mnh, int mxh, int sdy, int sh, int sd, int mxsy, int mxsh, int mnd, int mxd) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short py = 0;
-        short h = 0;
-        short d = 0;
-        short dw = 0;
-        short syw = 0;
-        short shw = 0;
+        int x = 0;
+        int y = 0;
+        int py = 0;
+        int h = 0;
+        int d = 0;
+        int dw = 0;
+        int syw = 0;
+        int shw = 0;
 
         x = sx;
-        y = (short) (mny + sdy);
+        y = mny + sdy;
         h = sh;
         d = sd;
-        dw = (short) (mxd - mnd + 1);
-        syw = (short) (mxsy * 2 + 1);
-        shw = (short) (mxsh * 2 + 1);
+        dw = mxd - mnd + 1;
+        syw = mxsy * 2 + 1;
+        shw = mxsh * 2 + 1;
         while (x <= ex) {
             if (d == 0) {
-                d = (short) (chaosObjects.Rnd((short) (mxd - mnd + 1)) + mnd);
+                d = chaosObjects.Rnd(mxd - mnd + 1) + mnd;
                 h += chaosObjects.Rnd(shw) - mxsh;
                 if (h < mnh)
                     h = mnh;
@@ -110,35 +110,35 @@ public class ChaosGenerator {
                 if (y < mny)
                     y = mny;
                 else if (y + h > mxy)
-                    y = (short) (mxy - h + 1);
+                    y = mxy - h + 1;
             }
-            py = (short) (y + h);
+            py = y + h;
             while (py != y) {
                 py--;
-                chaosObjects.Put(x, py, (short) 0);
+                chaosObjects.Put(x, py, 0);
             }
             x++;
             d--;
         }
     }
 
-    private boolean PutCross_CheckPlace(short bx, short by, short w, short h, short x, short y, short s) {
+    private boolean PutCross_CheckPlace(int bx, int by, int w, int h, int x, int y, int s) {
         // VAR
-        short px = 0;
-        short py = 0;
+        int px = 0;
+        int py = 0;
 
         if ((x - s - 1 <= bx) && (y - s - 1 <= by))
             return false;
         if ((x + s + 2 >= bx + w) && (y + s + 2 >= by + h))
             return false;
-        for (px = (short) (x - s - 1); px <= x + s + 1; px++) {
-            for (py = (short) (y - 1); py <= y + 1; py++) {
+        for (px = x - s - 1; px <= x + s + 1; px++) {
+            for (py = y - 1; py <= y + 1; py++) {
                 if (chaosObjects.Get(px, py) >= ChaosGraphics.NbBackground)
                     return false;
             }
         }
-        for (py = (short) (y - s - 1); py <= y + s + 1; py++) {
-            for (px = (short) (x - 1); px <= x + 1; px++) {
+        for (py = y - s - 1; py <= y + s + 1; py++) {
+            for (px = x - 1; px <= x + 1; px++) {
                 if (chaosObjects.Get(px, py) >= ChaosGraphics.NbBackground)
                     return false;
             }
@@ -146,101 +146,101 @@ public class ChaosGenerator {
         return true;
     }
 
-    private boolean PutCross_FindPlace(short bx, short by, short w, short h, /* VAR */ Runtime.IRef<Short> x, /* VAR */ Runtime.IRef<Short> y, /* VAR */ Runtime.IRef<Short> s, /* VAR */ Runtime.IRef<Short> z) {
+    private boolean PutCross_FindPlace(int bx, int by, int w, int h, /* VAR */ Runtime.IRef<Integer> x, /* VAR */ Runtime.IRef<Integer> y, /* VAR */ Runtime.IRef<Integer> s, /* VAR */ Runtime.IRef<Integer> z) {
         // VAR
         int timeOut = 0;
 
         timeOut = 50;
         do {
             timeOut--;
-            s.set((short) (trigo.RND() % 4 + 1));
-            z.set((short) (2 * s.get() + 1));
-            x.set((short) (chaosObjects.Rnd((short) (w - z.get())) + bx + s.get()));
-            y.set((short) (chaosObjects.Rnd((short) (h - z.get())) + by + s.get()));
+            s.set(trigo.RND() % 4 + 1);
+            z.set(2 * s.get() + 1);
+            x.set(chaosObjects.Rnd(w - z.get()) + bx + s.get());
+            y.set(chaosObjects.Rnd(h - z.get()) + by + s.get());
             if (PutCross_CheckPlace(bx, by, w, h, x.get(), y.get(), s.get()))
                 return true;
         } while (timeOut != 0);
         return false;
     }
 
-    private void PutCross_PutIt(short val, short x, short y, short s) {
+    private void PutCross_PutIt(int val, int x, int y, int s) {
         // VAR
-        short pz = 0;
+        int pz = 0;
 
-        for (pz = (short) (x - s); pz <= x + s; pz++) {
+        for (pz = x - s; pz <= x + s; pz++) {
             chaosObjects.Put(pz, y, val);
         }
-        for (pz = (short) (y - s); pz <= y + s; pz++) {
+        for (pz = y - s; pz <= y + s; pz++) {
             chaosObjects.Put(x, pz, val);
         }
     }
 
-    public void PutCross(short bx, short by, short w, short h, short val) {
+    public void PutCross(int bx, int by, int w, int h, int val) {
         // VAR
-        Runtime.Ref<Short> x = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> y = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> s = new Runtime.Ref<>((short) 0);
-        Runtime.Ref<Short> z = new Runtime.Ref<>((short) 0);
+        Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> y = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> s = new Runtime.Ref<>(0);
+        Runtime.Ref<Integer> z = new Runtime.Ref<>(0);
 
         if (PutCross_FindPlace(bx, by, w, h, x, y, s, z))
             PutCross_PutIt(val, x.get(), y.get(), s.get());
     }
 
-    private boolean CheckLink(short x, short y, short sz, short ml, /* VAR */ Runtime.IRef<Short> angle) {
+    private boolean CheckLink(int x, int y, int sz, int ml, /* VAR */ Runtime.IRef<Integer> angle) {
         // VAR
         int timeOut = 0;
-        short length = 0;
-        short px = 0;
-        short py = 0;
-        short dx = 0;
-        short dy = 0;
+        int length = 0;
+        int px = 0;
+        int py = 0;
+        int dx = 0;
+        int dy = 0;
 
-        angle.set((short) ((trigo.RND() % 4) * 90));
+        angle.set((trigo.RND() % 4) * 90);
         timeOut = 4;
         do {
-            dx = (short) (trigo.COS(angle.get()) / 1024);
-            dy = (short) (trigo.SIN(angle.get()) / 1024);
-            px = (short) (x + dx * (sz + 1));
-            py = (short) (y + dy * (sz + 1));
+            dx = trigo.COS(angle.get()) / 1024;
+            dy = trigo.SIN(angle.get()) / 1024;
+            px = x + dx * (sz + 1);
+            py = y + dy * (sz + 1);
             length = 0;
             while ((length <= ml) && (chaosObjects.Get(px, py) >= ChaosGraphics.NbBackground)) {
                 px += dx;
                 py += dy;
                 length++;
                 if ((px < 0) || (py < 0) || (px >= chaosGraphics.castleWidth) || (py >= chaosGraphics.castleHeight))
-                    length = (short) (ml + 1);
+                    length = ml + 1;
             }
             if (length <= ml)
                 return true;
-            angle.set((short) ((angle.get() + 90) % 360));
+            angle.set((angle.get() + 90) % 360);
             timeOut--;
         } while (timeOut != 0);
         return false;
     }
 
-    public boolean FindIsolatedRect(short sx, short sy, short ex, short ey, short sz, short ml, /* VAR+WRT */ Runtime.IRef<Short> angle, /* VAR */ Runtime.IRef<Short> x, /* VAR */ Runtime.IRef<Short> y, boolean wall) {
+    public boolean FindIsolatedRect(int sx, int sy, int ex, int ey, int sz, int ml, /* VAR+WRT */ Runtime.IRef<Integer> angle, /* VAR */ Runtime.IRef<Integer> x, /* VAR */ Runtime.IRef<Integer> y, boolean wall) {
         // VAR
-        short dx = 0;
-        short dy = 0;
-        short w = 0;
-        short h = 0;
+        int dx = 0;
+        int dy = 0;
+        int w = 0;
+        int h = 0;
         int timeOut = 0;
         int backs = 0;
         boolean res = false;
 
-        w = (short) (ex - sx - sz * 2 - 1);
+        w = ex - sx - sz * 2 - 1;
         sx += sz + 1;
-        h = (short) (ey - sy - sz * 2 - 1);
+        h = ey - sy - sz * 2 - 1;
         sy += sz + 1;
         timeOut = 20;
         do {
             timeOut--;
-            x.set((short) (chaosObjects.Rnd(w) + sx));
-            y.set((short) (chaosObjects.Rnd(h) + sy));
+            x.set(chaosObjects.Rnd(w) + sx);
+            y.set(chaosObjects.Rnd(h) + sy);
             backs = 0;
-            for (dy = (short) (-sz - 1); dy <= sz + 1; dy++) {
-                for (dx = (short) (-sz - 1); dx <= sz + 1; dx++) {
-                    res = chaosObjects.Get((short) (x.get() + dx), (short) (y.get() + dy)) < ChaosGraphics.NbBackground;
+            for (dy = -sz - 1; dy <= sz + 1; dy++) {
+                for (dx = -sz - 1; dx <= sz + 1; dx++) {
+                    res = chaosObjects.Get(x.get() + dx, y.get() + dy) < ChaosGraphics.NbBackground;
                     if (res == wall)
                         backs++;
                 }
@@ -251,17 +251,17 @@ public class ChaosGenerator {
         return backs == 0;
     }
 
-    public void MakeLink(short x, short y, short sz, short angle, short val) {
+    public void MakeLink(int x, int y, int sz, int angle, int val) {
         // VAR
-        short px = 0;
-        short py = 0;
-        short dx = 0;
-        short dy = 0;
+        int px = 0;
+        int py = 0;
+        int dx = 0;
+        int dy = 0;
 
-        dx = (short) (trigo.COS(angle) / 1024);
-        dy = (short) (trigo.SIN(angle) / 1024);
-        px = (short) (x + dx * (sz + 1));
-        py = (short) (y + dy * (sz + 1));
+        dx = trigo.COS(angle) / 1024;
+        dy = trigo.SIN(angle) / 1024;
+        px = x + dx * (sz + 1);
+        py = y + dy * (sz + 1);
         while (chaosObjects.Get(px, py) >= ChaosGraphics.NbBackground) {
             chaosObjects.Put(px, py, val);
             px += dx;
@@ -269,19 +269,19 @@ public class ChaosGenerator {
         }
     }
 
-    public void FillEllipse(int sx, int sy, int pw, int ph, short val) {
+    public void FillEllipse(long sx, long sy, long pw, long ph, int val) {
         // VAR
-        int by = 0;
-        int ey = 0;
-        int ex = 0;
-        int x = 0;
-        int y = 0;
-        int w = 0;
-        int h = 0;
-        int pw2 = 0;
-        int ph2 = 0;
-        int w2 = 0;
-        int phd = 0;
+        long by = 0L;
+        long ey = 0L;
+        long ex = 0L;
+        long x = 0L;
+        long y = 0L;
+        long w = 0L;
+        long h = 0L;
+        long pw2 = 0L;
+        long ph2 = 0L;
+        long w2 = 0L;
+        long phd = 0L;
         boolean odd = false;
 
         odd = ((pw % 2) != 0);
@@ -302,66 +302,66 @@ public class ChaosGenerator {
             by = sy + y;
             ey = sy + ph - y - 1;
             ex = x + w - 1;
-            chaosObjects.Fill((short) x, (short) by, (short) ex, (short) by, val);
+            chaosObjects.Fill((int) x, (int) by, (int) ex, (int) by, val);
             if (h != 0)
-                chaosObjects.Fill((short) x, (short) ey, (short) ex, (short) ey, val);
+                chaosObjects.Fill((int) x, (int) ey, (int) ex, (int) ey, val);
             y++;
             h += 2;
         } while (h <= 0);
     }
 
-    public void TripleLoop(short val) {
+    public void TripleLoop(int val) {
         // VAR
-        short angle = 0;
-        short sz = 0;
-        short ml = 0;
-        short bs = 0;
-        short lx = 0;
-        short ly = 0;
-        int r = 0;
-        int x = 0;
-        int y = 0;
+        int angle = 0;
+        int sz = 0;
+        int ml = 0;
+        int bs = 0;
+        int lx = 0;
+        int ly = 0;
+        long r = 0L;
+        long x = 0L;
+        long y = 0L;
 
         lx = 0;
         ly = 0;
-        ml = (short) (trigo.RND() % 8 + 1);
-        bs = (short) (trigo.RND() % 360);
+        ml = trigo.RND() % 8 + 1;
+        bs = trigo.RND() % 360;
         for (angle = 0; angle <= 702; angle += 2) {
-            sz = (short) ((trigo.SIN((short) (bs + angle * ml)) + 1024) / 700 + 1);
-            r = trigo.SIN((short) (angle * 3 / 2));
+            sz = (trigo.SIN(bs + angle * ml) + 1024) / 700 + 1;
+            r = trigo.SIN(angle * 3 / 2);
             x = trigo.COS(angle) * (2048 + r) / 54330;
             y = trigo.SIN(angle) * (2048 + r) / 54330;
             x += 62;
             y += 62;
             if ((lx != 0) && (ly != 0))
-                Road(lx, ly, (short) x, (short) y, sz, val);
-            lx = (short) x;
-            ly = (short) y;
+                Road(lx, ly, (int) x, (int) y, sz, val);
+            lx = (int) x;
+            ly = (int) y;
         }
     }
 
-    public void GCastle(short sx, short sy, short ex, short ey, short wall, short back) {
+    public void GCastle(int sx, int sy, int ex, int ey, int wall, int back) {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
         int c = 0;
 
         for (y = sy; y <= ey; y += 2) {
             chaosObjects.Fill(sx, y, ex, y, wall);
             for (c = 1; c <= 3; c++) {
-                x = (short) (chaosObjects.Rnd((short) (ex - sx + 1)) + 1);
+                x = chaosObjects.Rnd(ex - sx + 1) + 1;
                 chaosObjects.Put(x, y, back);
             }
         }
     }
 
-    public void Cave(short sx, short sy, short ex, short ey, short y1, short y2, short dx) {
+    public void Cave(int sx, int sy, int ex, int ey, int y1, int y2, int dx) {
         // VAR
-        short x = 0;
-        short d1 = 0;
-        short d2 = 0;
-        short t1 = 0;
-        short t2 = 0;
+        int x = 0;
+        int d1 = 0;
+        int d2 = 0;
+        int t1 = 0;
+        int t2 = 0;
 
         x = sx;
         d1 = 1;
@@ -369,14 +369,14 @@ public class ChaosGenerator {
         t1 = 0;
         t2 = 0;
         do {
-            chaosObjects.Fill(x, y1, x, y2, (short) 0);
+            chaosObjects.Fill(x, y1, x, y2, 0);
             x += dx;
             if (t1 == 0) {
                 if (trigo.RND() % 2 == 0)
                     d1 = 1;
                 else
                     d1 = -1;
-                t1 = (short) (trigo.RND() % 8 + 3);
+                t1 = trigo.RND() % 8 + 3;
             } else {
                 t1--;
             }
@@ -385,7 +385,7 @@ public class ChaosGenerator {
                     d2 = 1;
                 else
                     d2 = -1;
-                t2 = (short) (trigo.RND() % 8 + 3);
+                t2 = trigo.RND() % 8 + 3;
             } else {
                 t2--;
             }
@@ -402,26 +402,26 @@ public class ChaosGenerator {
             y1 += d1;
             y2 += d2;
         } while (x != ex);
-        chaosObjects.PutExit((short) 12, (short) (y1 - d1));
-        chaosObjects.PutExit((short) 12, (short) (y2 - d2));
+        chaosObjects.PutExit(12, y1 - d1);
+        chaosObjects.PutExit(12, y2 - d2);
     }
 
     public void DrawFactory() {
         // VAR
-        short x = 0;
-        short y = 0;
-        short dx = 0;
-        short dy = 0;
-        short mnx = 0;
-        short mxx = 0;
-        short nxx = 0;
-        short l = 0;
-        short s = 0;
-        short sz = 0;
-        short sz2 = 0;
+        int x = 0;
+        int y = 0;
+        int dx = 0;
+        int dy = 0;
+        int mnx = 0;
+        int mxx = 0;
+        int nxx = 0;
+        int l = 0;
+        int s = 0;
+        int sz = 0;
+        int sz2 = 0;
         int pass = 0;
-        short val = 0;
-        short v2 = 0;
+        int val = 0;
+        int v2 = 0;
 
         pass = 0;
         x = 12;
@@ -436,7 +436,7 @@ public class ChaosGenerator {
         v2 = 20;
         while (true) {
             if (l == 0) {
-                sz = (short) (trigo.RND() % 4 + 2);
+                sz = trigo.RND() % 4 + 2;
                 switch (pass) {
                     case 0 -> {
                         val = 13;
@@ -459,10 +459,10 @@ public class ChaosGenerator {
                     v2 = val;
                     val = 9;
                 }
-                chaosObjects.FillCond((short) (x - sz), (short) (y - sz), (short) (x + sz), (short) (y + sz), chaosObjects.OnlyWall_ref, val);
-                val = (short) (trigo.RND() % 4 + pass + 25);
-                sz2 = chaosObjects.Rnd((short) (sz - 1));
-                chaosObjects.Fill((short) (x - sz2), (short) (y - sz2), (short) (x + sz2), (short) (y + sz2), val);
+                chaosObjects.FillCond(x - sz, y - sz, x + sz, y + sz, chaosObjects.OnlyWall_ref, val);
+                val = trigo.RND() % 4 + pass + 25;
+                sz2 = chaosObjects.Rnd(sz - 1);
+                chaosObjects.Fill(x - sz2, y - sz2, x + sz2, y + sz2, val);
                 if (((s < 0) && (y > 10)) || ((s > 0) && (y < 90))) {
                     if (trigo.RND() % 3 == 0) {
                         dy = 0;
@@ -475,23 +475,23 @@ public class ChaosGenerator {
                         else if (x >= mxx)
                             dx = -1;
                     } else if (trigo.RND() % 16 == 0) {
-                        dy = (short) -s;
+                        dy = -s;
                         dx = 0;
                     } else {
                         dy = s;
                         dx = 0;
                     }
                 } else {
-                    mxx = (short) (nxx + 1);
+                    mxx = nxx + 1;
                     if (trigo.RND() % 3 == 0) {
-                        dy = (short) -s;
+                        dy = -s;
                         dx = 0;
                     } else {
                         dx = 1;
                         dy = 0;
                     }
                 }
-                l = (short) (6 + trigo.RND() % 8);
+                l = 6 + trigo.RND() % 8;
                 x += dx * sz2 + dx;
                 y += dy * sz2 + dy;
             }
@@ -517,24 +517,24 @@ public class ChaosGenerator {
             if (x >= nxx) {
                 mnx += 25;
                 nxx += 25;
-                mxx = (short) (mnx + 13);
+                mxx = mnx + 13;
                 if (nxx > 95)
                     nxx = 95;
-                s = (short) -s;
+                s = -s;
                 pass++;
                 if (pass > 3)
                     break;
             }
         }
-        MakeLink((short) 12, (short) 90, (short) -1, (short) -90, (short) 20);
-        chaosObjects.Put(x, y, (short) 11);
+        MakeLink(12, 90, -1, -90, 20);
+        chaosObjects.Put(x, y, 11);
         chaosObjects.PutExit(x, y);
     }
 
-    private void DrawLabyrinth_Cut(short size, short x, short y, short px, short py, /* VAR */ Runtime.IRef<Boolean> flag) {
+    private void DrawLabyrinth_Cut(int size, int x, int y, int px, int py, /* VAR */ Runtime.IRef<Boolean> flag) {
         // VAR
-        short z = 0;
-        short v = 0;
+        int z = 0;
+        int v = 0;
         boolean h = false;
 
         h = (trigo.RND() % 2 == 0);
@@ -542,29 +542,29 @@ public class ChaosGenerator {
             z = x;
         else
             z = y;
-        v = chaosObjects.Rnd((short) 50);
+        v = chaosObjects.Rnd(50);
         flag.set((z * size < v * v));
-        v = (short) (chaosObjects.Rnd(size) - 2 * z);
-        chaosObjects.Put(px, py, (short) 0);
+        v = chaosObjects.Rnd(size) - 2 * z;
+        chaosObjects.Put(px, py, 0);
         if (v >= 0) {
             if (h)
-                chaosObjects.Put((short) (px + 1), py, (short) 0);
+                chaosObjects.Put(px + 1, py, 0);
             else
-                chaosObjects.Put(px, (short) (py + 1), (short) 0);
+                chaosObjects.Put(px, py + 1, 0);
         } else {
             if (h)
-                chaosObjects.Put((short) (px - 1), py, (short) 0);
+                chaosObjects.Put(px - 1, py, 0);
             else
-                chaosObjects.Put(px, (short) (py - 1), (short) 0);
+                chaosObjects.Put(px, py - 1, 0);
         }
     }
 
-    public void DrawLabyrinth(short size) {
+    public void DrawLabyrinth(int size) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short px = 0;
-        short py = 0;
+        int x = 0;
+        int y = 0;
+        int px = 0;
+        int py = 0;
         Runtime.Ref<Boolean> flag = new Runtime.Ref<>(false);
 
         py = 1;
@@ -580,16 +580,16 @@ public class ChaosGenerator {
         }
     }
 
-    public void RemIsolated(short sx, short sy, short ex, short ey, short dx, short dy, short val) {
+    public void RemIsolated(int sx, int sy, int ex, int ey, int dx, int dy, int val) {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
 
         y = sy;
         while (y <= ey) {
             x = sx;
             while (x <= ex) {
-                if ((chaosObjects.Get((short) (x - 1), y) < ChaosGraphics.NbBackground) && (chaosObjects.Get((short) (x + 1), y) < ChaosGraphics.NbBackground) && (chaosObjects.Get(x, (short) (y - 1)) < ChaosGraphics.NbBackground) && (chaosObjects.Get(x, (short) (y + 1)) < ChaosGraphics.NbBackground))
+                if ((chaosObjects.Get(x - 1, y) < ChaosGraphics.NbBackground) && (chaosObjects.Get(x + 1, y) < ChaosGraphics.NbBackground) && (chaosObjects.Get(x, y - 1) < ChaosGraphics.NbBackground) && (chaosObjects.Get(x, y + 1) < ChaosGraphics.NbBackground))
                     chaosObjects.Put(x, y, val);
                 x += dx;
             }
@@ -597,7 +597,7 @@ public class ChaosGenerator {
         }
     }
 
-    public void VRace(short val) {
+    public void VRace(int val) {
         // CONST
         final int W = 120;
         final int H = 60;
@@ -610,47 +610,47 @@ public class ChaosGenerator {
         final int HP = MY - (SE + BE + ST + 15) / 4;
 
         // VAR
-        int dx = 0;
-        int dy = 0;
-        int dl = 0;
-        short ap = 0;
-        short at = 0;
-        short ae = 0;
-        short vp = 0;
-        short vt = 0;
-        short ve = 0;
-        short nt = 0;
-        short ne = 0;
-        short dt = 0;
-        short de = 0;
-        short x = 0;
-        short y = 0;
-        short sz = 0;
-        short lx = 0;
-        short ly = 0;
+        long dx = 0L;
+        long dy = 0L;
+        long dl = 0L;
+        int ap = 0;
+        int at = 0;
+        int ae = 0;
+        int vp = 0;
+        int vt = 0;
+        int ve = 0;
+        int nt = 0;
+        int ne = 0;
+        int dt = 0;
+        int de = 0;
+        int x = 0;
+        int y = 0;
+        int sz = 0;
+        int lx = 0;
+        int ly = 0;
 
         lx = 0;
         ly = 0;
-        dt = (short) (7 + chaosObjects.Rnd((short) 7));
-        de = (short) (4 + chaosObjects.Rnd((short) 7));
+        dt = 7 + chaosObjects.Rnd(7);
+        de = 4 + chaosObjects.Rnd(7);
         vp = 2;
         ap = 0;
-        at = chaosObjects.Rnd((short) 180);
+        at = chaosObjects.Rnd(180);
         nt = at;
-        ae = chaosObjects.Rnd((short) 180);
+        ae = chaosObjects.Rnd(180);
         ne = ae;
         do {
             if (at >= nt) {
-                vt = (short) (vp * dt / 2 + vp * chaosObjects.Rnd(dt));
-                nt += chaosObjects.Rnd((short) 200);
+                vt = vp * dt / 2 + vp * chaosObjects.Rnd(dt);
+                nt += chaosObjects.Rnd(200);
             }
             if (ae >= ne) {
-                ve = (short) (vp * de / 2 + vp * chaosObjects.Rnd(de));
-                ne += chaosObjects.Rnd((short) 200);
+                ve = vp * de / 2 + vp * chaosObjects.Rnd(de);
+                ne += chaosObjects.Rnd(200);
             }
-            x = (short) (MX + trigo.SIN(ap) / 2 * WP / 512);
-            y = (short) (MY + trigo.SIN((short) (ap * 2)) / 2 * HP / 512);
-            dx = -trigo.COS((short) (ap * 2));
+            x = MX + trigo.SIN(ap) / 2 * WP / 512;
+            y = MY + trigo.SIN(ap * 2) / 2 * HP / 512;
+            dx = -trigo.COS(ap * 2);
             dy = trigo.COS(ap) * HP / WP;
             dl = trigo.SQRT(dx * dx + dy * dy);
             dx = dx * 1024 / dl;
@@ -658,7 +658,7 @@ public class ChaosGenerator {
             dl = trigo.SIN(at) * ST / 4096;
             x += dl * dx / 1024;
             y += dl * dy / 1024;
-            sz = (short) ((trigo.SIN(ae) * SE / 1024 + BE) / 4);
+            sz = (trigo.SIN(ae) * SE / 1024 + BE) / 4;
             if (lx == 0) {
                 lx = x;
                 ly = y;
@@ -672,47 +672,47 @@ public class ChaosGenerator {
         } while (ap < 362);
     }
 
-    private void DrawCastle_Rect(short psx, short psy, short dy, short pex, short pey, short sx, short w) {
+    private void DrawCastle_Rect(int psx, int psy, int dy, int pex, int pey, int sx, int w) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short py = 0;
-        short val = 0;
+        int x = 0;
+        int y = 0;
+        int py = 0;
+        int val = 0;
 
-        py = (short) (chaosObjects.Rnd((short) 3) + psy);
+        py = chaosObjects.Rnd(3) + psy;
         if ((psx == sx) || (pex == w))
             py = psy;
-        for (y = (short) (psy + dy); y <= pey; y++) {
+        for (y = psy + dy; y <= pey; y++) {
             for (x = psx; x <= pex; x++) {
                 if (((x != psx) && (x != pex) && (y != pey)) || (y == py))
                     val = 0;
                 else
-                    val = (short) (ChaosGraphics.NbBackground + 1);
+                    val = ChaosGraphics.NbBackground + 1;
                 if (chaosObjects.Get(x, y) == 1)
                     chaosObjects.Put(x, y, val);
             }
         }
     }
 
-    public void DrawCastle(short sx, short sy, short w, short h) {
+    public void DrawCastle(int sx, int sy, int w, int h) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short ex = 0;
-        short ey = 0;
-        short dy = 0;
+        int x = 0;
+        int y = 0;
+        int ex = 0;
+        int ey = 0;
+        int dy = 0;
         boolean start = false;
 
-        w = (short) (w + sx - 1);
-        h = (short) (h + sy - 1);
-        chaosObjects.Fill(sx, sy, w, h, (short) 1);
+        w = w + sx - 1;
+        h = h + sy - 1;
+        chaosObjects.Fill(sx, sy, w, h, 1);
         y = sy;
         start = true;
         do {
             x = sx;
             do {
-                ex = (short) (chaosObjects.Rnd((short) 6) + 4 + x);
-                ey = (short) (chaosObjects.Rnd((short) 4) + 3 + y);
+                ex = chaosObjects.Rnd(6) + 4 + x;
+                ey = chaosObjects.Rnd(4) + 3 + y;
                 if (ex >= w - 4)
                     ex = w;
                 if (y == sy)
@@ -720,68 +720,68 @@ public class ChaosGenerator {
                 else
                     dy = -6;
                 DrawCastle_Rect(x, y, dy, ex, ey, sx, w);
-                x = (short) (ex - chaosObjects.Rnd((short) 3));
+                x = ex - chaosObjects.Rnd(3);
             } while (x < w);
             if (start)
-                chaosObjects.Put((short) (sx - 1), (short) (y + 1), (short) ChaosGraphics.NbBackground);
+                chaosObjects.Put(sx - 1, y + 1, ChaosGraphics.NbBackground);
             else
-                chaosObjects.Put((short) (ex + 1), (short) (y + 1), (short) ChaosGraphics.NbBackground);
+                chaosObjects.Put(ex + 1, y + 1, ChaosGraphics.NbBackground);
             y += 8;
             start = !start;
         } while (y < h);
     }
 
-    public void DrawBoxes(short sx, short sy, short w, short h) {
+    public void DrawBoxes(int sx, int sy, int w, int h) {
         // VAR
-        short x = 0;
-        short y = 0;
-        short minx = 0;
-        short miny = 0;
-        short maxx = 0;
-        short maxy = 0;
+        int x = 0;
+        int y = 0;
+        int minx = 0;
+        int miny = 0;
+        int maxx = 0;
+        int maxy = 0;
         int c = 0;
         boolean k = false;
 
         maxy = -1;
         do {
             k = true;
-            miny = (short) (maxy + 2);
-            maxy += chaosObjects.Rnd((short) 8) + 6;
+            miny = maxy + 2;
+            maxy += chaosObjects.Rnd(8) + 6;
             if (maxy > h - 8) {
-                maxy = (short) (h - 1);
-                chaosObjects.Set((short) (sx + 1), (short) (sy + maxy));
+                maxy = h - 1;
+                chaosObjects.Set(sx + 1, sy + maxy);
             }
             for (x = 2; x < w; x++) {
-                chaosObjects.Set((short) (sx + x), (short) (sy + maxy));
+                chaosObjects.Set(sx + x, sy + maxy);
             }
             maxy--;
             maxx = -1;
             do {
-                minx = (short) (maxx + 2);
-                maxx += chaosObjects.Rnd((short) 8) + 6;
+                minx = maxx + 2;
+                maxx += chaosObjects.Rnd(8) + 6;
                 if (maxx > w - 8)
-                    maxx = (short) (w - 1);
+                    maxx = w - 1;
                 for (y = miny; y <= maxy; y++) {
-                    chaosObjects.Set((short) (sx + maxx), (short) (sy + y));
+                    chaosObjects.Set(sx + maxx, sy + y);
                 }
                 if (maxx != w - 1) {
                     if (k)
-                        chaosObjects.Reset((short) (sx + maxx), (short) (sy + maxy));
+                        chaosObjects.Reset(sx + maxx, sy + maxy);
                     else
-                        chaosObjects.Reset((short) (sx + maxx), (short) (sy + miny));
+                        chaosObjects.Reset(sx + maxx, sy + miny);
                 }
                 maxx--;
                 y = miny;
                 while (true) {
-                    y += chaosObjects.Rnd((short) 3) + 3;
+                    y += chaosObjects.Rnd(3) + 3;
                     if (y >= maxy)
                         break;
                     for (x = minx; x <= maxx; x++) {
-                        chaosObjects.Set((short) (sx + x), (short) (sy + y));
+                        chaosObjects.Set(sx + x, sy + y);
                     }
                     for (c = 1; c <= 5; c++) {
-                        x = (short) (minx + chaosObjects.Rnd((short) (maxx - minx + 1)));
-                        chaosObjects.Reset((short) (sx + x), (short) (sy + y));
+                        x = minx + chaosObjects.Rnd(maxx - minx + 1);
+                        chaosObjects.Reset(sx + x, sy + y);
                     }
                 }
                 k = !k;
@@ -789,10 +789,10 @@ public class ChaosGenerator {
         } while (maxy < h - 2);
     }
 
-    public void Join(short sx, short sy, short ex, short ey, short dx, short dy, short val) {
+    public void Join(int sx, int sy, int ex, int ey, int dx, int dy, int val) {
         // VAR
-        short x = 0;
-        short y = 0;
+        int x = 0;
+        int y = 0;
 
         x = sx;
         y = sy;
@@ -813,15 +813,15 @@ public class ChaosGenerator {
         // VAR
         ChaosBase.Obj obj = null;
         ChaosBase.Obj tail = null;
-        int gh = 0;
-        int ry = 0;
-        short x = 0;
-        short y = 0;
-        short my = 0;
+        long gh = 0L;
+        long ry = 0L;
+        int x = 0;
+        int y = 0;
+        int my = 0;
         Anims a = Anims.PLAYER;
-        short swp = 0;
+        int swp = 0;
 
-        my = (short) (chaosGraphics.castleHeight - 1);
+        my = chaosGraphics.castleHeight - 1;
         gh = chaosGraphics.gameHeight;
         gh = gh * ChaosBase.Frac;
         for (x = 0; x < chaosGraphics.castleWidth; x++) {
@@ -858,15 +858,15 @@ public class ChaosGenerator {
         // VAR
         ChaosBase.Obj obj = null;
         ChaosBase.Obj tail = null;
-        int gw = 0;
-        int rx = 0;
-        short x = 0;
-        short y = 0;
-        short mx = 0;
+        long gw = 0L;
+        long rx = 0L;
+        int x = 0;
+        int y = 0;
+        int mx = 0;
         Anims a = Anims.PLAYER;
-        short swp = 0;
+        int swp = 0;
 
-        mx = (short) (chaosGraphics.castleWidth - 1);
+        mx = chaosGraphics.castleWidth - 1;
         gw = chaosGraphics.gameWidth;
         gw = gw * ChaosBase.Frac;
         for (y = 0; y < chaosGraphics.castleHeight; y++) {
@@ -906,19 +906,19 @@ public class ChaosGenerator {
         // VAR
         ChaosBase.Obj obj = null;
         ChaosBase.Obj tail = null;
-        int tmp = 0;
-        int rx = 0;
-        short x = 0;
-        short y = 0;
-        short m = 0;
-        short t = 0;
+        long tmp = 0L;
+        long rx = 0L;
+        int x = 0;
+        int y = 0;
+        int m = 0;
+        int t = 0;
         Anims a = Anims.PLAYER;
-        short swp = 0;
+        int swp = 0;
 
         if (chaosGraphics.castleWidth > chaosGraphics.castleHeight)
-            m = (short) (chaosGraphics.castleWidth - 1);
+            m = chaosGraphics.castleWidth - 1;
         else
-            m = (short) (chaosGraphics.castleHeight - 1);
+            m = chaosGraphics.castleHeight - 1;
         for (y = 1; y <= m; y++) {
             for (x = 0; x < y; x++) {
                 swp = chaosGraphics.castle[y][x];
