@@ -9,12 +9,12 @@ public class LevelNamer {
     private final static Languages languages = Languages.instance();
     
 
-    public static String getChaosName(short level) {
+    public static String getChaosName(int level) {
         // VAR
-        short d = 0;
+        int d = 0;
         String levelName = "";
 
-        d = (short) (level / 10);
+        d = level / 10;
         if (d == 0) {
             levelName = Runtime.setChar(levelName, 0, (char) (48 + level));
             levelName = Runtime.setChar(levelName, 1, ((char) 0));
@@ -26,11 +26,11 @@ public class LevelNamer {
         return levelName;
     }
     
-    public static String getCastleName(short level) {
+    public static String getCastleName(int level) {
         return getCastleName0(level).get();
     }
 
-    private static Runtime.IRef<String> getCastleName0(short level) {
+    private static Runtime.IRef<String> getCastleName0(int level) {
         switch (level) {
             case 1 -> {
                 return Runtime.castToRef(languages.ADL("Entry"), String.class);
@@ -126,11 +126,11 @@ public class LevelNamer {
         }
     }
     
-    public static String getBonusLevelName(short level) {
+    public static String getBonusLevelName(int level) {
         return getSpecialName0(level).get();
     }
 
-    private static Runtime.IRef<String> getSpecialName0(short level) {
+    private static Runtime.IRef<String> getSpecialName0(int level) {
         if (level == 24)
             return Runtime.castToRef(languages.ADL("ChaosCastle"), String.class);
         else if (level % 8 == 0)
@@ -143,11 +143,11 @@ public class LevelNamer {
             return Runtime.castToRef(languages.ADL("Baby Aliens"), String.class);
     }
 
-    public static String getFamilyName(short level) {
+    public static String getFamilyName(int level) {
         return getFamilyName0(level).get();
     }
     
-    private static Runtime.IRef<String> getFamilyName0(short level) {
+    private static Runtime.IRef<String> getFamilyName0(int level) {
         if (GameSimulator.NEW_MODE) {
             String name = switch (level) {
                 case 1 -> "Brother Alien";
