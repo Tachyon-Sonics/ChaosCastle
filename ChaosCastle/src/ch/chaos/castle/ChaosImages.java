@@ -582,6 +582,7 @@ public class ChaosImages {
             memory.FreeMem(dest.asAdrRef());
         memory.FreeMem(block.asAdrRef());
         files.CloseFile(new Runtime.FieldRef<>(chaosBase::getFile, chaosBase::setFile));
+        /*  SetArea(mainArea); CopyRect(imageArea, 0, 0, 0, H(-16), W(256), H(256)); */
         chaosBase.water = oldWater;
         InitPalette();
         return true;

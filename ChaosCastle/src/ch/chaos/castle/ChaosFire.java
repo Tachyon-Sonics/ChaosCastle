@@ -201,6 +201,7 @@ public class ChaosFire {
         long mx = 0L;
         long my = 0L;
 
+        /* Adjust unities */
         ax = ax / 4;
         ay = ay / 4;
         vx = vx * 4;
@@ -211,6 +212,7 @@ public class ChaosFire {
         py = py * 8 * ChaosBase.Frac;
         x -= px;
         y -= py;
+        /* x dist */
         delta = vx * vx - 4 * x * ax;
         if (delta >= 0) {
             delta = trigo.SQRT(delta);
@@ -247,6 +249,7 @@ public class ChaosFire {
             my = (((ay * t1) + vy) * t1 + y) / 65536;
             dx = trigo.SQRT(mx * mx + my * my) * 65536;
         }
+        /* y dist */
         delta = vy * vy - 4 * y * ay;
         if (delta >= 0) {
             delta = trigo.SQRT(delta);

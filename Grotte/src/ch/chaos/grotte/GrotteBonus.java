@@ -25,6 +25,7 @@ public class GrotteBonus {
 
     // VAR
 
+    /*★★★★ Niveaux Bonus *****/
     private Clock.TimePtr clock0;
 
 
@@ -151,6 +152,7 @@ public class GrotteBonus {
         int y = 0;
         int c = 0;
 
+        /* MiniGrotte */
         Cadre(false);
         aNSITerm.Color(6);
         for (x = 40; x <= 71; x++) {
@@ -211,8 +213,10 @@ public class GrotteBonus {
         int k = 0;
         int mx = 0;
 
+        /* Montagnes : et x */
         Cadre(false);
         aNSITerm.Color(7);
+        /* Mur de droite */
         y = 1;
         x = 54;
         c = 0;
@@ -231,6 +235,7 @@ public class GrotteBonus {
             x += d;
             c--;
         }
+        /* montagnes */
         for (k = 0; k <= 2; k += 2) {
             y = 5 + k * 4;
             x = k + 1;
@@ -321,6 +326,7 @@ public class GrotteBonus {
         int m = 0;
         boolean ok = false;
 
+        /* Labyrinthe */
         m = grotteSupport.Rnd() % 4 + 2;
         ax.set(65);
         ay.set(0);
@@ -381,6 +387,7 @@ public class GrotteBonus {
         int y2 = 0;
         int c = 0;
 
+        /* Grotte 2 tages */
         c = 0;
         aNSITerm.Color(7);
         do {
@@ -451,6 +458,7 @@ public class GrotteBonus {
         boolean s = false;
         char ch = (char) 0;
 
+        /* Château */
         Cadre(false);
         maxy = -1;
         s = false;
@@ -546,6 +554,7 @@ public class GrotteBonus {
         int t = 0;
         boolean k = false;
 
+        /* Lignes */
         aNSITerm.Color(7);
         Cadre(false);
         d = 0;
@@ -641,6 +650,8 @@ public class GrotteBonus {
         int oy = 0;
         boolean platdisp = false;
 
+        /* Grotte 1 etage */
+        /* Remplissage */
         aNSITerm.Color(7);
         for (c = 0; c <= 9; c++) {
             for (y = c; y <= 19 - c; y++) {
@@ -652,6 +663,7 @@ public class GrotteBonus {
                 WrAt(x, 19 - c, 'S');
             }
         }
+        /* creuser */
         platdisp = true;
         dx = 1;
         dy = 1;
@@ -778,6 +790,7 @@ public class GrotteBonus {
             }
             aNSITerm.Color(7);
         }
+        /* common objects */
         PutDeltaObj(OBJECT.PIC, 16, 1, 1, 70, 18, 0, -1, grotteSupport.pvie, 2, 'V');
         PutObj(OBJECT.K1, 16, 16, 1, 70, 18, grotteSupport.pvie / 4 + 1, 0, '+');
         aNSITerm.Color(2);
@@ -798,6 +811,7 @@ public class GrotteBonus {
         int c = 0;
         int d = 0;
 
+        /* Plateaux */
         Cadre(true);
         aNSITerm.Color(7);
         WrAt(1, 17, ':');
@@ -861,6 +875,7 @@ public class GrotteBonus {
         // VAR
         int n = 0;
 
+        /* Fouillis */
         Cadre(true);
         ax.set(70);
         ay.set(18);
@@ -893,6 +908,7 @@ public class GrotteBonus {
         int y = 0;
         int c = 0;
 
+        /* H et = */
         ax.set(70);
         ay.set(14);
         grotteSupport.Create.invoke(OBJECT.PLAYER, 1, 5, grotteSupport.pvie, 0, '*');
@@ -924,6 +940,7 @@ public class GrotteBonus {
     }
 
     private void BonusLevelC(/* VAR */ Runtime.IRef<Integer> ax, /* VAR */ Runtime.IRef<Integer> ay) {
+        /* 8 */
         Cadre(true);
         aNSITerm.Color(2);
         Put('%', 8, 5, 1, 66, 18);

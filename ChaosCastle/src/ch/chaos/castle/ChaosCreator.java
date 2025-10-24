@@ -906,6 +906,9 @@ public class ChaosCreator {
         ctrl.stat = 1;
         ctrl.moveSeq = 0;
         ctrl.shapeSeq = 0;
+        /* moveSeq: time down to next hurryup */
+        /* shapeSeq: time down to next meteorite */
+        /* tell MakeController to reinit both values: */
         MakeController(ctrl);
     }
 
