@@ -147,6 +147,7 @@ public class Chaos1Zone {
 
     // CONST
 
+    /* Drawing procs */
     private static final int fKmk = 0;
     private static final int fPic = 1;
     private static final int fMoneyS = 2;
@@ -163,6 +164,7 @@ public class Chaos1Zone {
     private static final int fAnims4 = 13;
     private static final int fCrunchY = 14;
     private static final int fCrunchX = 15;
+    /* Levels creation */
     private static final int Back4x4 = 8;
     private static final int BackNone = 9;
     private static final int Back2x2 = 10;
@@ -325,6 +327,7 @@ public class Chaos1Zone {
         AddOptions_AddOption(Anims.ALIEN1, ChaosAlien.aSquare, nbSquare, 8);
     }
 
+    /* Level 1 */
     private void DrawVertRocs(int sx, int sy, int ey, int val) {
         // VAR
         int rx = 0;
@@ -436,6 +439,7 @@ public class Chaos1Zone {
         chaosObjects.PutPlayer(1, 9);
     }
 
+    /* Level 2 */
     public void Groove() {
         // VAR
         Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
@@ -524,6 +528,7 @@ public class Chaos1Zone {
         chaosObjects.PutPlayer(1, 12);
     }
 
+    /* Level 3 */
     public void Garden() {
         chaosObjects.Cadre(61, 61);
         chaosGenerator.DrawPacman(10 - chaosBase.difficulty, 6, 6, 6, 6, 54, 54);
@@ -557,6 +562,7 @@ public class Chaos1Zone {
         chaosObjects.PutPlayer(1, 1);
     }
 
+    /* Level 4 */
     public void Lake() {
         // VAR
         Runtime.Ref<Integer> px = new Runtime.Ref<>(0);
@@ -663,6 +669,7 @@ public class Chaos1Zone {
         }
     }
 
+    /* Level 5 */
     public void Site() {
         // VAR
         Runtime.Ref<Integer> a = new Runtime.Ref<>(0);
@@ -767,6 +774,7 @@ public class Chaos1Zone {
         AddOptions(21, 21, 60, 78, 0, 0, 5, 0, 8, 0, 0);
     }
 
+    /* Level 6 */
     public void GhostCastle() {
         // VAR
         int val = 0;
@@ -823,6 +831,7 @@ public class Chaos1Zone {
         AddOptions(1, 1, 23, 65, 1, 1, 1, 1, 10, 1, 4);
     }
 
+    /* Level 7 */
     public void Machinery() {
         // VAR
         int x = 0;
@@ -900,6 +909,7 @@ public class Chaos1Zone {
         AddOptions(1, 1, 78, 38, 0, 0, 6, 0, 10, 0, 3);
     }
 
+    /* Level 8 */
     public void IceRink() {
         // VAR
         int c = 0;
@@ -1010,6 +1020,7 @@ public class Chaos1Zone {
         AddOptions(1, 1, 79, 79, 4, 4, 0, 0, 1, 0, 0);
     }
 
+    /* Level 9 */
     public void Factory() {
         // VAR
         int c = 0;
@@ -1111,6 +1122,7 @@ public class Chaos1Zone {
         AddOptions(30, 1, 98, 98, 5, 5, 3, 4, 1, 0, 0);
     }
 
+    /* Level 10 */
     public void Labyrinth() {
         // VAR
         int i = 0;

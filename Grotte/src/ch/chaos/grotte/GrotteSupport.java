@@ -41,6 +41,7 @@ public class GrotteSupport {
 
     // TYPE
 
+    /*$ CStrings:= FALSE */
     public static enum OBJECT {
         EMPTY,
         PLAYER,
@@ -572,15 +573,19 @@ public class GrotteSupport {
     }
 
     public int Random() {
+        /*$ OverflowChk:= FALSE */
         randomcount = (randomcount * 13077 + 6925) % 32768;
         return randomcount;
     }
 
+    /*$ POP OverflowChk */
     public int Rnd() {
+        /*$ OverflowChk:= FALSE  RangeChk:= FALSE */
         rndcount = (rndcount * 13077 + 6925 + trigo.RND()) % 32768;
         return rndcount;
     }
 
+    /*$ POP OverflowChk  POP RangeChk */
     public void ReadDir(/* VAR+WRT */ Runtime.IRef<Character> ch) {
         aNSITerm.Read(ch);
         if (ch.get() == ((char) 033)) {
@@ -712,6 +717,7 @@ public class GrotteSupport {
             if (!clock.WaitTime(time, 512))
                 clock.StartTime(time);
         }
+        /* Flush; */
         if (clock.WaitTime(time, 4096)) {
         }
         for (x = 1; x <= 10; x++) {
@@ -759,6 +765,7 @@ public class GrotteSupport {
         long s = 0L;
         long v = 0L;
 
+        /*$ OverflowChk:= FALSE  RangeChk:= FALSE */
         s = 1;
         v = 0;
         while (cnt > 0) {
@@ -770,10 +777,14 @@ public class GrotteSupport {
         return v;
     }
 
+    /*$ POP OverflowChk  POP RangeChk */
     private void WriteCode(int c, int s) {
         // VAR
         int i = 0;
 
+        /* It is very unfortunate to dicover that most text font will
+            * not properly distinguish 0 and O, or 1, l and I !
+            */
         c = (c + s) % 64;
         i = c;
         if (i == 'O' - 65)
@@ -875,6 +886,7 @@ public class GrotteSupport {
                 sum -= 63;
         }
         WriteCode(sum, 27);
+        /* Flush; */
         aNSITerm.Goto(4, 12);
         aNSITerm.Color(7);
         clock.StartTime(time);
@@ -1570,6 +1582,7 @@ public class GrotteSupport {
             by = -1;
         }
         H = false;
+        /* fill with JUMP up to any H */
         for (x = 0; x <= 71; x++) {
             for (y = 19; y >= 0; y -= 1) {
                 ch = Runtime.getChar(g[x], y);
@@ -1585,6 +1598,7 @@ public class GrotteSupport {
                 }
             }
         }
+        /* where JUMP and MR, go on it */
         if (d == '<')
             sd = -1;
         else
@@ -1623,6 +1637,7 @@ public class GrotteSupport {
             else
                 gd = '<';
         }
+        /* filling */
         for (y = 1; y <= 18; y++) {
             for (x = 1; x <= 70; x++) {
                 ch = Runtime.getChar(g[x], y);
@@ -1698,6 +1713,7 @@ public class GrotteSupport {
         memory.FreeMem(new Runtime.FieldRef<>(this::getG, this::setG).asAdrRef());
     }
 
+    /*★★★★ Niveaux Bonus *****/
     private void Find(/* VAR */ Runtime.IRef<Integer> x, /* VAR */ Runtime.IRef<Integer> y, int sx, int sy, int dx, int dy) {
         // VAR
         int w = 0;

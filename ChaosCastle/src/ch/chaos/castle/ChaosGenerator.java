@@ -28,6 +28,7 @@ public class ChaosGenerator {
 
     // PROCEDURE
 
+    /* Construction support */
     public void DrawPacman(int open, int width, int height, int sx, int sy, int ex, int ey) {
         // VAR
         int x = 0;
@@ -423,6 +424,7 @@ public class ChaosGenerator {
         int val = 0;
         int v2 = 0;
 
+        /* 100 x 100 */
         pass = 0;
         x = 12;
         y = 90;
@@ -629,6 +631,8 @@ public class ChaosGenerator {
         int lx = 0;
         int ly = 0;
 
+        /* 46 */
+        /* 16 */
         lx = 0;
         ly = 0;
         dt = 7 + chaosObjects.Rnd(7);
@@ -809,6 +813,7 @@ public class ChaosGenerator {
         } while (!((dx == 0) && (dy == 0)));
     }
 
+    /* Modifiers */
     public void FlipVert() {
         // VAR
         ChaosBase.Obj obj = null;

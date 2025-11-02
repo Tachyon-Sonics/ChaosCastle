@@ -57,6 +57,7 @@ public class ChaosObjects {
     // VAR
 
     private int onlyValue;
+    /* Objects creation */
     private int sx;
     private int sy;
     private int ex;
@@ -199,6 +200,7 @@ public class ChaosObjects {
         }
     }
 
+    /* Filling procs */
     public boolean All(int px, int py) {
         return true;
     }
@@ -546,6 +548,7 @@ public class ChaosObjects {
         }
     }
 
+    /* Specific obj creation */
     public void PutPlayer(int px, int py) {
         if (chaosBase.pLife == 0)
             chaosBase.pLife = 1;

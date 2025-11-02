@@ -630,6 +630,7 @@ public class ChaosInterface {
 
         input.RemEvents(new Runtime.RangeSet(Input.EventTypes).with(Input.eMENU, Input.eREFRESH));
         input.SetBusyStat(Input.statBusy);
+        /* Screen, windows */
         if (!chaosGraphics.OpenScreen() || !chaosImages.InitImages()) {
             gerr = graphics.GetGraphicsErr();
             chaosGraphics.CloseScreen();
@@ -644,6 +645,13 @@ public class ChaosInterface {
             checks.CheckMemBool(!chaosGraphics.OpenScreen() || !chaosImages.InitImages());
         }
         chaosImages.RenderObjects();
+        /*
+        SetArea(mainArea);
+        CopyRect(shapeArea, 0, 0, 20, 0(*-16 * mulS*), 256 * mulS, 256 * mulS);
+        REPEAT
+         WaitTOF;
+        UNTIL Joy1 IN GetStick();
+        */
         obj = (ChaosBase.Obj) chaosBase.FirstObj(chaosBase.objList);
         last = (ChaosBase.Obj) chaosBase.TailObj(chaosBase.objList);
         while (obj != last) {
@@ -687,6 +695,7 @@ public class ChaosInterface {
         dialogs.DeepFreeGadget(new Runtime.FieldRef<>(chaosBase::getD, chaosBase::setD));
         graphics.DeleteArea(new Runtime.FieldRef<>(chaosGraphics::getImage2Area, chaosGraphics::setImage2Area));
         graphics.DeleteArea(new Runtime.FieldRef<>(chaosGraphics::getImageArea, chaosGraphics::setImageArea));
+        /* Screen */
         chaosGraphics.CloseScreen();
     }
 

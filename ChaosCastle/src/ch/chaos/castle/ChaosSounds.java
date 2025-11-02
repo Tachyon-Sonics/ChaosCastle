@@ -444,6 +444,7 @@ public class ChaosSounds {
             checks.Warn(true, Runtime.castToRef(memory.ADS(SamplesFile), String.class), files.FileErrorMsg());
             loadOk.set(false);
         }
+        /* Samples */
         SwitchSoundOn_LoadWave(soundList[SoundList.aCrash.ordinal()], 1408, progress, fill, loadOk);
         SwitchSoundOn_LoadWave(soundList[SoundList.aPanflute.ordinal()], 4234, progress, fill, loadOk);
         SwitchSoundOn_LoadWave(soundList[SoundList.wCrash.ordinal()], 3492, progress, fill, loadOk);
@@ -580,6 +581,7 @@ public class ChaosSounds {
         long delay = 0L;
         int stereo = 0;
 
+        /* 4320 pixels / sec */
         { // WITH
             Channel _channel = channel[chan];
             if ((tags == null) && sounds.SndFinish(chans[chan])) {

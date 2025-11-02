@@ -59,6 +59,7 @@ public class ChaosLevels {
 
     // CONST
 
+    /* Levels creation */
     private static final int Back4x4 = 8;
     private static final int BackNone = 9;
     private static final int Back2x2 = 10;
@@ -113,6 +114,7 @@ public class ChaosLevels {
 
     // VAR
 
+    /* Brother Alien */
     private int val1;
     private int val2;
 
@@ -146,6 +148,7 @@ public class ChaosLevels {
         }
     }
 
+    /* Bonus level 1 */
     private void BabyAliens() {
         // CONST
         final Runtime.RangeSet Alien1Set = new Runtime.RangeSet(Memory.SET16_r).with(ChaosAlien.aCartoon, ChaosAlien.aDbOval, ChaosAlien.aHospital, ChaosAlien.aDiese, ChaosAlien.aStar, ChaosAlien.aBubble, ChaosAlien.aBumper, ChaosAlien.aTri);
@@ -856,6 +859,7 @@ public class ChaosLevels {
         chaosObjects.PutPlayer(16, 56);
     }
 
+    /* Main procedures */
     private void MakeChaos() {
         // CONST
         final int MaxY = ChaosGraphics.PH * 2 / 3 - 10;
@@ -875,6 +879,7 @@ public class ChaosLevels {
         int fib1 = 0;
         int fib2 = 0;
 
+        /* Background */
         chaosObjects.Clear(ChaosGraphics.SOW, ChaosGraphics.SOH);
         chaosBase.water = (chaosBase.difficulty >= 6) && (chaosBase.level[Zone.Chaos.ordinal()] == 13);
         chaosGraphics.gameWidth = ChaosGraphics.PW;
@@ -882,6 +887,7 @@ public class ChaosLevels {
         chaosObjects.FillRandom(0, 0, ChaosGraphics.SOW - 1, ChaosGraphics.SOH - 1, 0, 7, chaosObjects.OnlyBackground_ref, chaosObjects.ExpRandom_ref);
         cLevel = chaosBase.level[Zone.Chaos.ordinal()];
         total = 0;
+        /* Small drawer */
         cnt = -1;
         dv = trigo.SQRT(cLevel);
         while (dv * dv > cLevel) {
@@ -896,6 +902,7 @@ public class ChaosLevels {
             total += cnt;
             chaosObjects.PutChaosObjs(Anims.ALIEN1, ChaosAlien.aSmallDrawer, 0, 10, 10, ChaosGraphics.PW - 10, MaxY, cnt);
         }
+        /* Big drawer */
         fib1 = 3;
         fib2 = 5;
         cnt = 1;
@@ -910,6 +917,7 @@ public class ChaosLevels {
             total += cnt;
             chaosObjects.PutChaosObjs(Anims.ALIEN1, ChaosAlien.aBigDrawer, 0, 20, 20, ChaosGraphics.PW - 20, MaxY, cnt);
         }
+        /* Creator */
         cnt = 0;
         cStep = 6;
         cCurrent = 7;
@@ -931,6 +939,7 @@ public class ChaosLevels {
             c.inc(160);
         chaosObjects.PutChaosChain(Anims.ALIEN2, ChaosCreator.cCreatorR, c, 80, 20, 20, ChaosGraphics.PW - 20, MaxY, cnt);
         total += cnt;
+        /* Aliens */
         cntAlienV = 0;
         cntAlienA = 0;
         cntAlienS = 0;
@@ -961,6 +970,7 @@ public class ChaosLevels {
         } else if (chaosBase.difficulty >= 3) {
             chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Mind the meteorites"), String.class), ChaosActions.statPos, 3);
         }
+        /* Circle */
         if (chaosBase.level[Zone.Chaos.ordinal()] % 20 == 0) {
             chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Big trouble"), String.class), ChaosActions.statPos, 3);
             chaosObjects.PutChaosObjs(Anims.ALIEN2, ChaosCreator.cCircle, 200, 20, 20, ChaosGraphics.PW - 20, MaxY, 1);
@@ -968,14 +978,18 @@ public class ChaosLevels {
         }
         if (chaosBase.level[Zone.Chaos.ordinal()] == 100)
             chaosObjects.PutChaosObjs(Anims.BONUS, ChaosBonus.TimedBonus, ChaosBonus.tbDifficulty, 10, 10, ChaosGraphics.PW - 10, MaxY, 1);
+        /* Hospital */
         cLevel = chaosBase.level[Zone.Chaos.ordinal()];
         dv = trigo.SQRT(cLevel);
         if ((dv * dv == cLevel) && ((cLevel >= 9) || (chaosBase.level[Zone.Castle.ordinal()] > 1))) {
             c.set(50 + chaosBase.pLife * 4);
             chaosObjects.PutChaosObjs(Anims.ALIEN1, ChaosAlien.aHospital, c.get(), 10, 10, ChaosGraphics.PW - 10, MaxY, 1);
         }
+        /* Controller */
         chaosObjects.PutObj(Anims.ALIEN2, ChaosCreator.cController, 0, 0, 0);
+        /* Player */
         chaosObjects.PutPlayer(ChaosGraphics.SOW / 2 - 1, ChaosGraphics.SOH - 2);
+        /* Messages */
         if ((cLevel == 1) && (chaosBase.level[Zone.Castle.ordinal()] == 1)) {
             chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Just warming up"), String.class), ChaosActions.statPos, 3);
         } else if ((cLevel == 5)) {

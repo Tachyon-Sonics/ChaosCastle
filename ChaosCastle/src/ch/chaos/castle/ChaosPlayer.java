@@ -67,6 +67,11 @@ public class ChaosPlayer {
 
     // TYPE
 
+    /*★ SubKinds of player:
+       * 0: player 1/2
+       * 1: link player(s)
+       * 2: computer
+       */
     private static enum Infos {
         TITLE,
         LEVEL,
@@ -1441,6 +1446,8 @@ public class ChaosPlayer {
         Runtime.Ref<Boolean> off = new Runtime.Ref<>(false);
 
         chaosBase.mainPlayer = player;
+        /* can be changed by BlackHole, but should be right for
+              ModulateSounds & co as well as MoveBackground & co */
         chaosSounds.ModulateSounds();
         UpdateInfos();
         joy.copyFrom(input.GetStick());
@@ -1864,6 +1871,7 @@ public class ChaosPlayer {
         attr.dieStStyle = ChaosBase.fastStyle;
         attr.dieStone = ((1 << 8) - 1) /* MAX(SHORTCARD) */;
         attr.basicType = BasicTypes.NotBase;
+        /* priority:= 0; */
         memory.AddHead(chaosBase.attrList[Anims.PLAYER.ordinal()], attr.node);
     }
 

@@ -110,6 +110,7 @@ public class ChaosGraphics {
 
     public int[][] castle /* POINTER */;
     public int[][] dual /* POINTER */;
+    /* kill ev. last error */
     public int castleWidth;
     public int castleHeight;
     public int gameWidth;
@@ -452,6 +453,7 @@ public class ChaosGraphics {
     private int backtox;
     private int backtoy;
     private int stepmod;
+    /* Palette */
     private int[] cpPos = new int[16];
     private int[] dcpPos = new int[16];
     private Runtime.RangeSet cpReverse = new Runtime.RangeSet(Memory.SET16_r);
@@ -845,6 +847,7 @@ public class ChaosGraphics {
             buffpy--;
             DrawBlocks(buffpx, buffpy, SOW + 1, 1);
         }
+        /* Render */
         px = buffdx * BW + mx;
         py = buffdy * BH + my;
         w1 = OW - px;
@@ -871,6 +874,7 @@ public class ChaosGraphics {
             if (w2 > 0)
                 graphics.CopyRect(buffArea, 0, 0, H.invoke(w1), H.invoke(h1), W.invoke(w2), H.invoke(h2));
         }
+        /* Render 2nd playfield */
         if (dualpf) {
             px = dualpx / BW;
             py = dualpy / BH;
@@ -982,6 +986,7 @@ public class ChaosGraphics {
         py = (int) (chaosBase.mainPlayer.y / ChaosBase.Frac);
         py += chaosBase.mainPlayer.cy;
         SetBackgroundPos(px, py);
+        /* Draw bufferArea */
         buffpx = backpx / BW;
         buffpy = backpy / BH;
         buffdx = 0;
@@ -994,6 +999,7 @@ public class ChaosGraphics {
             dbuffdy = 0;
             DrawDBlocks(dbuffpx, dbuffpy, SOW + 1, SOH + 1);
         }
+        /* Draw dualArea */
         RenderBlocks();
     }
 
@@ -1092,6 +1098,7 @@ public class ChaosGraphics {
         int x = 0;
         int y = 0;
 
+        /* castle */
         for (y = 0; y <= 63; y++) {
             for (x = 0; x <= 63; x++) {
                 dual[y][x] = castle[y][x];

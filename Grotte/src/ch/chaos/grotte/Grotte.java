@@ -19,6 +19,7 @@ public class Grotte {
 
     // PROCEDURE
 
+    /*★★★★★★★★★ MoveProcs **********/
     private void MoveK1(int k) {
         { // WITH
             GrotteActions.Object _object = grotteActions.object[k];
@@ -208,6 +209,7 @@ public class Grotte {
 
     private final GrotteActions.MoveProc MoveK3_ref = this::MoveK3;
 
+    /* Sorting */
     private void MoveK4(int k) {
         { // WITH
             GrotteActions.Object _object = grotteActions.object[k];
@@ -1315,6 +1317,7 @@ public class Grotte {
         }
         grotteActions.ShowScore();
         aNSITerm.WriteString("    ");
+        /*  Flush; */
         if (clock.WaitTime(grotteSupport.time, 800)) {
         }
     }
@@ -1378,6 +1381,10 @@ public class Grotte {
         GrotteSupport.instance().begin();
         GrotteActions.instance().begin();
 
+        /*★★★★★★★★★*/
+        /**/
+        /**/
+        /*★★★★★★★★★*/
         InitVars();
         do {
             grotteSupport.ReadGame(new Runtime.FieldRef<>(grotteSupport::getLevel, grotteSupport::setLevel), new Runtime.FieldRef<>(grotteSupport::getGame, grotteSupport::setGame));

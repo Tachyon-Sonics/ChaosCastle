@@ -461,6 +461,7 @@ public class ChaosActions {
         int nax = 0;
         int nay = 0;
 
+        /* explosions */
         flames = cnt / ChaosBase.FlameMult;
         stones = cnt % ChaosBase.FlameMult;
         if (chaosGraphics.explosions == Explosions.Low)
@@ -468,6 +469,7 @@ public class ChaosActions {
         else if (chaosGraphics.explosions == Explosions.High)
             stones = stones * 2;
         GetCenter(obj, px, py);
+        /*★ flames */
         if (flames > 0) {
             flames--;
             nvx = obj.vx;
@@ -495,6 +497,7 @@ public class ChaosActions {
                 angle += step;
             } while (flames != 0);
         }
+        /*★ stones */
         angle = trigo.RND() % 360;
         if (stones > 0)
             step = 360 / stones;
@@ -606,6 +609,7 @@ public class ChaosActions {
                 tmp--;
             }
         }
+        /* Random power */
         obj.width = 0;
         obj.height = 0;
         chaosBase.ConvertObj(obj, Anims.DEAD, ChaosBase.DeadObj);
@@ -693,6 +697,7 @@ public class ChaosActions {
 
     public final ChaosBase.AieProc Aie_ref = this::Aie;
 
+    /* Stones */
     public boolean Collision(ChaosBase.Obj obj1, ChaosBase.Obj obj2) {
         // VAR
         long px = 0L;
@@ -1032,6 +1037,7 @@ public class ChaosActions {
         int r2 = 0;
         Anims k = Anims.PLAYER;
 
+        /* Electronic gravity ! */
         GetCenter(obj, px, py);
         istep = chaosBase.step;
         for (int _k = 0; _k < Anims.values().length; _k++) {
@@ -1115,6 +1121,7 @@ public class ChaosActions {
         }
     }
 
+    /* Random delay before flame fires */
     public void LimitSpeed(ChaosBase.Obj obj, int max) {
         // VAR
         int ovx = 0;

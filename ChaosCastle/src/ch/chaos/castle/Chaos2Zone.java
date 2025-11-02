@@ -34,6 +34,7 @@ public class Chaos2Zone {
 
     // CONST
 
+    /* Drawing procs */
     private static final int fKmk = 0;
     private static final int fPic = 1;
     private static final int fMoneyS = 2;
@@ -50,6 +51,7 @@ public class Chaos2Zone {
     private static final int fAnims4 = 13;
     private static final int fCrunchY = 14;
     private static final int fCrunchX = 15;
+    /* Levels creation */
     private static final int Back4x4 = 8;
     private static final int BackNone = 9;
     private static final int Back2x2 = 10;
@@ -104,6 +106,7 @@ public class Chaos2Zone {
 
     // PROCEDURE
 
+    /* Level 11 */
     public void Rooms() {
         // VAR
         int c = 0;
@@ -190,6 +193,7 @@ public class Chaos2Zone {
         chaos1Zone.AddOptions(1, 1, 58, 58, 0, 0, 1, 0, 10, 0, 0);
     }
 
+    /* Level 12 */
     private void Yard_RndRect() {
         // VAR
         int x = 0;
@@ -249,6 +253,7 @@ public class Chaos2Zone {
         chaos1Zone.AddOptions(10, 10, 38, 38, 5, 5, 1, 3, 0, 5, 3);
     }
 
+    /* Level 13 */
     public void Antarctica() {
         // CONST
         final int W = 120;
@@ -346,6 +351,7 @@ public class Chaos2Zone {
         chaos1Zone.AddOptions(1, 1, W - 2, H - 2, 4, 4, 0, 2, 10, 0, 1);
     }
 
+    /* Level 14 */
     public void Forest() {
         // VAR
         int c = 0;
@@ -402,6 +408,7 @@ public class Chaos2Zone {
         chaos1Zone.AddOptions(1, 1, 58, 58, 0, 10, 2, 10, 10, 4, 0);
     }
 
+    /* Level 15 */
     public void ZCastle() {
         // VAR
         int val = 0;
@@ -442,6 +449,7 @@ public class Chaos2Zone {
         chaos1Zone.AddOptions(1, 20, 38, 38, 1, 20, 1, 10, 10, 0, 0);
     }
 
+    /* Level 16 */
     public void Lights() {
         // VAR
         int x = 0;
@@ -508,6 +516,7 @@ public class Chaos2Zone {
         chaos1Zone.AddOptions(60, 1, 120, 18, 4, 0, 0, 8, 10, 1, 1);
     }
 
+    /* Level 17 */
     private void Plain_RndRect(/* VAR+WRT */ Runtime.IRef<Integer> x, /* VAR+WRT */ Runtime.IRef<Integer> y) {
         x.set(chaosObjects.Rnd(51) + 4);
         y.set(chaosObjects.Rnd(49) + 6);
@@ -617,6 +626,7 @@ public class Chaos2Zone {
         chaos1Zone.AddOptions(0, 69, 59, 69, 0, 0, 0, 20, 0, 0, 0);
     }
 
+    /* Level 18 */
     public void UnderWater() {
         // VAR
         Runtime.Ref<Integer> x = new Runtime.Ref<>(0);
@@ -688,6 +698,7 @@ public class Chaos2Zone {
         chaos1Zone.AddOptions(1, 1, 98, 68, 1, 1, 0, 6, 20, 3, 3);
     }
 
+    /* Level 19 */
     public void Assembly() {
         // VAR
         int x = 0;
@@ -745,6 +756,7 @@ public class Chaos2Zone {
         chaosObjects.Rect(x.get() - 9, y.get() - 9, x.get() + 9, y.get() + 9);
     }
 
+    /* Level 20 */
     public void Jungle() {
         // CONST
         final Runtime.RangeSet Alien1L = new Runtime.RangeSet(Memory.SET16_r).with(ChaosAlien.aDbOval, ChaosAlien.aHospital, ChaosAlien.aDiese, ChaosAlien.aStar, ChaosAlien.aBubble, ChaosAlien.aTri, ChaosAlien.aTrefle);

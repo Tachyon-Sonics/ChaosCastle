@@ -126,16 +126,27 @@ public class ChaosDual {
         Runtime.Ref<Integer> z = new Runtime.Ref<>(0);
 
         z.set(6);
+        /* C */
         DrawEntry_DrawLetter(124, 130, 257, 257, 257, 6, z);
+        /* h */
         DrawEntry_DrawLetter(511, 16, 16, 15, 0, 5, z);
+        /* a */
         DrawEntry_DrawLetter(14, 17, 10, 31, 0, 5, z);
+        /* o */
         DrawEntry_DrawLetter(14, 17, 17, 17, 14, 6, z);
+        /* s */
         DrawEntry_DrawLetter(9, 21, 21, 21, 18, 6, z);
+        /* C */
         DrawEntry_DrawLetter(124, 130, 257, 257, 257, 6, z);
+        /* a */
         DrawEntry_DrawLetter(14, 17, 10, 31, 0, 5, z);
+        /* s */
         DrawEntry_DrawLetter(9, 21, 21, 21, 18, 6, z);
+        /* t */
         DrawEntry_DrawLetter(32, 510, 33, 0, 0, 4, z);
+        /* l */
         DrawEntry_DrawLetter(511, 0, 0, 0, 0, 2, z);
+        /* e */
         DrawEntry_DrawLetter(14, 21, 21, 21, 8, 5, z);
         chaosObjects.FillCond(0, 0, 63, 63, chaosObjects.OnlyWall_ref, SimpleBlock);
         chaosObjects.PutRandom(0, 0, 63, 63, chaosObjects.OnlyWall_ref, Leaf2, trigo.RND() % 64 + 32);

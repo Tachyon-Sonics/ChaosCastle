@@ -33,6 +33,7 @@ public class GrotteActions {
 
     // CONST
 
+    /*$ CStrings:= FALSE */
     public static final int N = 0;
     public static final int G = 1;
     public static final int H = 2;
@@ -232,6 +233,8 @@ public class GrotteActions {
         }
 
     }
+
+    /*★★★★★★★ Subroutines ********/
 
     @FunctionalInterface
     public static interface MoveProc { // PROCEDURE Type
@@ -930,6 +933,8 @@ public class GrotteActions {
         int cv = 0;
         int bv = 0;
 
+        /* first PLAYER: real player, second: link player */
+        /* pvie = vie de first[PLAYER] */
         bv = Byte.MAX_VALUE /* MAX(SHORTINT) */;
         o = first[OBJECT.PLAYER.ordinal()];
         do {
@@ -1099,6 +1104,7 @@ public class GrotteActions {
             if (!scoreshown)
                 ShowScore();
         }
+        /* Flush; */
         aNSITerm.Goto(0, 0);
         wt = clock.WaitTime(grotteSupport.time, 16);
     }
@@ -1135,6 +1141,7 @@ public class GrotteActions {
             }
             aNSITerm.Read(new Runtime.FieldRef<>(this::getCh, this::setCh));
         } while (ch == ((char) 0));
+        /*    Flush; */
         aNSITerm.Color(2);
         aNSITerm.WriteAt(px, py, '*');
         aNSITerm.ReadAgain();
@@ -1162,6 +1169,7 @@ public class GrotteActions {
         }
     }
 
+    /*★★★★★★★★★ Loading **********/
     public void InitGame(int level, int game) {
         // VAR
         int eo = 0;
@@ -1169,6 +1177,7 @@ public class GrotteActions {
         int c1 = 0;
         int c2 = 0;
 
+        /* Init Vars */
         nlj = 0;
         nlk = 0;
         l2l = 0;
@@ -1271,6 +1280,7 @@ public class GrotteActions {
         clock.StartTime(grotteSupport.time);
     }
 
+    /*★★★★★★★ Events *******/
     public void Delay(int d) {
         // VAR
         int c = 0;
@@ -1547,6 +1557,7 @@ public class GrotteActions {
         return (ch.get() < ' ') || (ch.get() == 'y') || (ch.get() == 'Y') || (ch.get() == 'J') || (ch.get() == 'j') || (ch.get() == 'O') || (ch.get() == 'o') || (ch.get() == 'Q') || (ch.get() == 'q');
     }
 
+    /*★★★★ Move help *****/
     public boolean Fixed(char ch) {
         // VAR
         OBJECT t = OBJECT.EMPTY;
@@ -1653,6 +1664,7 @@ public class GrotteActions {
         e[ny][nx] = first[t.ordinal()];
     }
 
+    /*★★★★★★★★★ MoveProcs **********/
     public void MovePlayer(int p) {
         // VAR
         int nd = 0;

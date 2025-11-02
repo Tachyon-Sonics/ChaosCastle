@@ -141,6 +141,9 @@ public class ChaosBoss {
         boss.moveSeq = 30;
         boss.shapeSeq = 0;
         boss.stat = 0;
+        /* life DIV 50 */
+        /* time before changing dir */
+        /* time before firing / getting vincible */
         MakeBrotherAlien(boss);
     }
 
@@ -286,6 +289,9 @@ public class ChaosBoss {
         boss.moveSeq = 30;
         boss.shapeSeq = 128;
         boss.stat = 0;
+        /* life DIV 50 */
+        /* shape cycle pos */
+        /* time, in shape cycles, before obj. creation */
         MakeSisterAlien(boss);
     }
 
@@ -476,6 +482,10 @@ public class ChaosBoss {
         boss.life = boss.moveSeq * 50 + 1;
         boss.shapeSeq = 0;
         boss.stat = 5;
+        /* life DIV 50 */
+        /* countDown before next stat */
+        /* 0: kmk + end  1: wait -> 0  3: wait-> 2  2: fires
+                        4: center + aliens       5: center + fire */
         MakeMotherAlien(boss);
     }
 
@@ -1452,6 +1462,7 @@ public class ChaosBoss {
             }
             default -> throw new RuntimeException("Unhandled CASE value " + boss.stat);
         }
+        /* wait & explode */
         MakeMasterAlien(boss);
         hit.set(50);
         chaosActions.PlayerCollision(boss, hit);
@@ -1519,6 +1530,7 @@ public class ChaosBoss {
         boss.life = boss.moveSeq * 50 + 1;
         boss.stat = 0;
         boss.shapeSeq = 1;
+        /* kind of alien to create, 0 = crash recover */
         MakeIllusion(boss);
     }
 
