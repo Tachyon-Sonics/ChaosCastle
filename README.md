@@ -177,7 +177,7 @@ Each time you have collected 150£, you can play a level of the "Family" zone (b
 
 In the "**Family**" zone, each level is basically a fight against a boss.
 
-Levels are cycling in every zones. Once the last level of a zone has been done, it restarts with the first one. As such the game never finishes. However, it takes several hours of playing until you can reach the last boss in the "Family" zone. Note that there is an in-game menu (use the right-mouse button to show it) that allows you to load and save games. It can be used when you are in the shop between levels. You can also load a saved game from the tite screen, just after starting the application.
+Levels are cycling in every zones. Once the last level of a zone has been done, it restarts with the first one. As such the game never finishes. However, it takes several hours of playing until you can reach the last boss in the "Family" zone. Note that there is an in-game menu (use the right-mouse button to show it) that allows you to load and save games. It can be used when you are in the shop between levels. You can also load a saved game from the title screen, just after starting the application.
 
 There are 20 levels in the "Castle" zone. These levels are procedurally generated. This means that you never play exactly the same level twice, although each level typically has a distinct "feel", based on the procedural algorithm used to generate it. Many "Castle" levels may also appear with a different random orientation / rotation each time you play them.
 
