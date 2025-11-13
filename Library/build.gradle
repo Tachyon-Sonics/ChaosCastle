@@ -28,3 +28,11 @@ eclipse {
     pathVariables 'GRADLE_USER_HOME' : gradle.gradleUserHomeDir
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+    systemProperty 'file.encoding', 'UTF-8'
+}
+
