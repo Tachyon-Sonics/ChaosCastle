@@ -646,12 +646,12 @@ public class ChaosInterface {
         }
         chaosImages.RenderObjects();
         /*
-        SetArea(mainArea);
-        CopyRect(shapeArea, 0, 0, 20, 0(*-16 * mulS*), 256 * mulS, 256 * mulS);
-        REPEAT
-         WaitTOF;
-        UNTIL Joy1 IN GetStick();
-        */
+         SetArea(mainArea);
+         CopyRect(shapeArea, 0, 0, 20, 0(*-16 * mulS*), 256 * mulS, 256 * mulS);
+         REPEAT
+          WaitTOF;
+         UNTIL Joy1 IN GetStick();
+         */
         obj = (ChaosBase.Obj) chaosBase.FirstObj(chaosBase.objList);
         last = (ChaosBase.Obj) chaosBase.TailObj(chaosBase.objList);
         while (obj != last) {

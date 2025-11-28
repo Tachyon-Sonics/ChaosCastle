@@ -1107,20 +1107,20 @@ public class GrotteActions {
                 ShowScore();
         }
         /*
-        INC(rfx); IF rfx > 75 THEN rfx:= 0; INC(rfy) END;
-        IF rfy > 21 THEN rfy:= 0 END;
-        ch:= Report(rfx, rfy);
-        IF (TypeOf(ch) <> L1) OR (rfx > 71) THEN
-         IF rfx > 71 THEN
-          IF (ch = "(") OR (ch = ")") THEN Color(2) ELSE Color(7) END
-         ELSIF rfy > 19 THEN
-          IF (rfx >= 42) AND (rfx < 60) THEN Color(3) ELSE Color(7) END
-         ELSE
-          SetColor(ch)
-         END;
-         WriteAt(rfx, rfy, ch)
-        END
-            */
+         INC(rfx); IF rfx > 75 THEN rfx:= 0; INC(rfy) END;
+         IF rfy > 21 THEN rfy:= 0 END;
+         ch:= Report(rfx, rfy);
+         IF (TypeOf(ch) <> L1) OR (rfx > 71) THEN
+          IF rfx > 71 THEN
+           IF (ch = "(") OR (ch = ")") THEN Color(2) ELSE Color(7) END
+          ELSIF rfy > 19 THEN
+           IF (rfx >= 42) AND (rfx < 60) THEN Color(3) ELSE Color(7) END
+          ELSE
+           SetColor(ch)
+          END;
+          WriteAt(rfx, rfy, ch)
+         END
+         */
         /* Flush; */
         aNSITerm.Goto(0, 0);
         wt = clock.WaitTime(grotteSupport.time, 16);
