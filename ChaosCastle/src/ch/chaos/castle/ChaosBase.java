@@ -31,15 +31,21 @@ public class ChaosBase {
 
     // CONST
 
+    /* INT32; Coords are given in 1/Frac pixels */
     public static final int Frac = 4096;
+    /* Delays are in 1/Period seconds */
     public static final int Period = 300;
+    /*  Stones **/
+    /* Explosions */
     public static final int slowStyle = 0;
     public static final int gravityStyle = 1;
     public static final int returnStyle = 2;
     public static final int fastStyle = 3;
     public static final int FlameMult = 32;
+    /*  Dead objs **/
     public static final int DeadObj = 0;
     public static final int Message = 1;
+    /* Should be killed to finish the game */
     public static final EnumSet<Anims> AnimAlienSet = EnumSet.of(Anims.ALIEN3, Anims.ALIEN2, Anims.ALIEN1, Anims.MISSILE, Anims.MACHINE);
     public static final int Cold = 0;
     public static final int Warm = 8192;
@@ -69,6 +75,7 @@ public class ChaosBase {
         stFOG4;
     }
 
+    /*  All objects **/
     public static enum Anims {
         PLAYER,
         WEAPON,
@@ -83,6 +90,10 @@ public class ChaosBase {
         MACHINE,
         DEAD;
     }
+
+    /* DEAD: dead obj which is still sounding / exploding */
+    /* used to hold position for sound modulating; */
+    /* also used for messages (subK = 1) */
 
     public static enum BasicTypes {
         NotBase,
@@ -465,6 +476,9 @@ public class ChaosBase {
 
     }
 
+    /* pos of current image */
+    /* max lives to remove when Aie */
+    /* has not moved # times */
     @FunctionalInterface
     public static interface ResetProc { // PROCEDURE Type
         public void invoke(Obj arg1);
@@ -746,6 +760,7 @@ public class ChaosBase {
 
     }
 
+    /*  Weapons **/
     public static enum Weapon {
         GUN,
         FB,
@@ -808,6 +823,7 @@ public class ChaosBase {
         public void invoke(Obj arg1);
     }
 
+    /*  Playing **/
     public static enum GameStat {
         Start,
         Playing,
@@ -862,11 +878,16 @@ public class ChaosBase {
 
     // VAR
 
+    /* nodes are ObjAttr */
     public Memory.List[] attrList = Runtime.initArray(new Memory.List[Anims.values().length]);
+    /* nodes are Obj */
     public Memory.List[] animList = Runtime.initArray(new Memory.List[Anims.values().length]);
     public int[] nbAnim = new int[Anims.values().length];
+    /* all objects */
     public Memory.List objList = new Memory.List();
+    /* off-screen objects (not moving) */
     public Memory.List leftObjList = new Memory.List();
+    /* empty obj structures */
     public Memory.List emptyObjList = new Memory.List();
     public Obj nextObj /* POINTER */;
     public int nbEmpty;
@@ -880,6 +901,7 @@ public class ChaosBase {
     public long nextGunFireTime;
     public boolean gunFiring;
     public boolean password;
+    /*  Player **/
     public Obj mainPlayer /* POINTER */;
     public int invinsibility;
     public int sleeper;

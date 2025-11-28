@@ -58,6 +58,7 @@ public class ChaosActions {
 
     // TYPE
 
+    /* px, py in pixels, to pass to SetObj */
     @FunctionalInterface
     public static interface DoToPlayerProc { // PROCEDURE Type
         public void invoke(ChaosBase.Obj arg1, ChaosBase.Obj arg2);

@@ -29,12 +29,14 @@ public class ChaosGraphics {
 
     // CONST
 
+    /* Screen, Play-area, Info-area */
     public static final int SW = 320;
     public static final int PW = 240;
     public static final int IW = 80;
     public static final int SH = 240;
     public static final int PH = SH;
     public static final int IH = SH;
+    /* Off screen size */
     public static final int OW = 288;
     public static final int OH = 288;
     public static final int BW = 32;
@@ -110,7 +112,6 @@ public class ChaosGraphics {
 
     public int[][] castle /* POINTER */;
     public int[][] dual /* POINTER */;
-    /* kill ev. last error */
     public int castleWidth;
     public int castleHeight;
     public int gameWidth;
@@ -122,8 +123,10 @@ public class ChaosGraphics {
     public Graphics.AreaPtr mainArea;
     public Graphics.AreaPtr buffArea;
     public Graphics.AreaPtr dualArea;
+    /* 256 x 256 */
     public Graphics.AreaPtr shapeArea;
     public Graphics.AreaPtr maskArea;
+    /* 256 x 256 */
     public Graphics.AreaPtr imageArea;
     public Graphics.AreaPtr image2Area;
     public int mulS;
@@ -648,6 +651,7 @@ public class ChaosGraphics {
         } else {
             nbColor = 2;
         }
+        /* kill ev. last error */
         err = graphics.GetGraphicsErr();
         mainArea = graphics.CreateArea((Memory.TagItem) memory.TAG4(Graphics.aSIZEX, W.invoke(SW), Graphics.aSIZEY, H.invoke(SH), Graphics.aCOLOR, nbColor, Graphics.aTYPE, Graphics.atBUFFER));
         if (mainArea == graphics.noArea)

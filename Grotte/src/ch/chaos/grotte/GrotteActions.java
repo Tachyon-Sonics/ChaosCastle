@@ -33,7 +33,6 @@ public class GrotteActions {
 
     // CONST
 
-    /*$ CStrings:= FALSE */
     public static final int N = 0;
     public static final int G = 1;
     public static final int H = 2;
@@ -234,13 +233,13 @@ public class GrotteActions {
 
     }
 
-    /* ****** Subroutines ********/
-
     @FunctionalInterface
     public static interface MoveProc { // PROCEDURE Type
         public void invoke(int arg1);
     }
 
+    /* tableau bidimensionel des pointeurs sur les objets */
+    /* GN2 */
     public static class _Gn { // RECORD
 
         public Runtime.RangeSet hset = new Runtime.RangeSet(Memory.SET16_r);
@@ -723,6 +722,7 @@ public class GrotteActions {
     // PROCEDURE
 
     public int SGN(int v) {
+        /*$ CStrings:= FALSE */
         if (v > 0)
             return 1;
         else if (v < 0)
@@ -731,6 +731,7 @@ public class GrotteActions {
             return 0;
     }
 
+    /* ****** Subroutines ********/
     public void Snd(OBJECT t1, OBJECT t2, int zx, int zy) {
         // VAR
         int dx = 0;

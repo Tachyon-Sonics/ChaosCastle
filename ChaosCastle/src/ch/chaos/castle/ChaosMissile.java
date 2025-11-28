@@ -41,6 +41,7 @@ public class ChaosMissile {
     public static final int mYellow = 2;
     public static final int mWhite = 3;
     public static final int mGreen = 4;
+    /* cycle */
     public static final int mAcc2 = 0;
     public static final int mBig = 0;
 

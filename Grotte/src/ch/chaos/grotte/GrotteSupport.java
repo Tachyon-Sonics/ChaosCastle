@@ -41,7 +41,6 @@ public class GrotteSupport {
 
     // TYPE
 
-    /*$ CStrings:= FALSE */
     public static enum OBJECT {
         EMPTY,
         PLAYER,
@@ -557,6 +556,7 @@ public class GrotteSupport {
     // PROCEDURE
 
     public void WL(String s) {
+        /*$ CStrings:= FALSE */
         aNSITerm.WriteString(s);
         aNSITerm.WriteLn();
     }
