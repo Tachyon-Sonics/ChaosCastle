@@ -960,6 +960,7 @@ public class ChaosActions {
         }
     }
 
+    /* return: 4 = ellastic, 0 = stop */
     public void AvoidBackground(ChaosBase.Obj obj, int _return) {
         // VAR
         Runtime.Ref<Integer> corner = new Runtime.Ref<>(0);
