@@ -115,20 +115,25 @@ public class ChaosBase {
         public Memory.Node animNode = new Memory.Node();
         public Memory.Node objNode = new Memory.Node();
         public ObjAttr attr /* POINTER */;
+        /* Collision rect */
         public long left;
         public long top;
         public long right;
         public long bottom;
+        /* 0..16777215 */
         public long x;
         public long y;
         public long midx;
         public long midy;
+        /* -4095..4095 -> 300 pix / sec */
         public int vx;
         public int vy;
         public int dvx;
         public int dvy;
+        /* -63..63 Frac pixels / Period * 60 * sec^2 */
         public int ax;
         public int ay;
+        /* pos of current image */
         public int posX;
         public int posY;
         public int width;
@@ -139,9 +144,11 @@ public class ChaosBase {
         public int shapeSeq;
         public int moveSeq;
         public int stat;
+        /* max lives to remove when Aie */
         public int hitSubLife;
         public int fireSubLife;
         public int temperature;
+        /* has not moved # times */
         public int adelay;
         public Anims kind;
         public int subKind;
@@ -476,9 +483,6 @@ public class ChaosBase {
 
     }
 
-    /* pos of current image */
-    /* max lives to remove when Aie */
-    /* has not moved # times */
     @FunctionalInterface
     public static interface ResetProc { // PROCEDURE Type
         public void invoke(Obj arg1);
@@ -507,17 +511,26 @@ public class ChaosBase {
     public static class ObjAttr { // RECORD
 
         public Memory.Node node = new Memory.Node();
+        /* After creating a new obj */
         public ResetProc Reset;
+        /* After changing gfx settings; called by Reset */
         public MakeProc Make;
         public MoveProc Move;
+        /* may be NIL ! */
         public AieProc Aie;
+        /* may be NIL ! */
         public DieProc Die;
         public int inerty;
+        /* inerty: max. acceleration.  NB: maxStep * # < 32768*5 ! */
+        /* weight for collisions, charge for attraction */
         public int weight;
         public int charge;
+        /* weight, charge: + / - 0..127 */
         public int heatSpeed;
         public int coolSpeed;
         public int refreshSpeed;
+        /* heat, refresh: * fire DIV 16 */
+        /* cool: * step DIV 5 */
         public EnumSet<Stones> aieStKinds = EnumSet.noneOf(Stones.class);
         public EnumSet<Stones> dieStKinds = EnumSet.noneOf(Stones.class);
         public int aieStone;
