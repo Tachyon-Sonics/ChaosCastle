@@ -826,6 +826,7 @@ public class ChaosActions {
         return (obj.x + obj.left >= gw) || (obj.y + obj.top >= gh) || (obj.x + obj.right < 0) || (obj.y + obj.bottom < 0);
     }
 
+    /* return: 4 = ellastic, 0 = stop */
     public void AvoidBounds(ChaosBase.Obj obj, int _return) {
         // VAR
         long gw = 0L;
@@ -960,7 +961,6 @@ public class ChaosActions {
         }
     }
 
-    /* return: 4 = ellastic, 0 = stop */
     public void AvoidBackground(ChaosBase.Obj obj, int _return) {
         // VAR
         Runtime.Ref<Integer> corner = new Runtime.Ref<>(0);
