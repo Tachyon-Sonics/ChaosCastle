@@ -176,6 +176,7 @@ public class ChaosActions {
         int ySize = 0;
 
         if (pri >= priorities[pos]) {
+            /* kill previous obj */
             if (msgObj[pos] != null) {
                 chaosBase.DisposeObj(msgObj[pos]);
                 msgObj[pos] = null;
@@ -190,6 +191,7 @@ public class ChaosActions {
             yPos = pos * 10;
             yInP = (yPos + ((ChaosGraphics.PH - 40) / 2));
             yPos = chaosGraphics.H.invoke(yPos + 256);
+            /* Erase previous message */
             graphics.SetPen(0);
             graphics.SetCopyMode(Graphics.cmCopy);
             graphics.FillRect(0, yPos, chaosGraphics.W.invoke(ChaosGraphics.PW), yPos + ySize + chaosGraphics.mulS);
@@ -214,6 +216,7 @@ public class ChaosActions {
             graphics.SetPen(0);
             graphics.SetCopyMode(Graphics.cmCopy);
             graphics.FillRect(0, yPos, chaosGraphics.W.invoke(ChaosGraphics.PW), yPos + ySize + chaosGraphics.mulS);
+            /* Draw current message */
             graphics.SetPen(1);
             graphics.SetCopyMode(Graphics.cmTrans);
             graphics.SetTextSize(ySize);
@@ -223,6 +226,7 @@ public class ChaosActions {
             graphics.DrawText(msg);
             graphics.SetTextPos(xPos, yPos);
             graphics.DrawText(msg);
+            /* Set corresponding obj */
             graphics.SetArea(chaosGraphics.mainArea);
             obj = CreateObj(Anims.DEAD, ChaosBase.Message, chaosGraphics.backpx + ChaosGraphics.PW / 2, chaosGraphics.backpy + yInP + 5, yInP, 1);
             if (obj != nlObj) {
@@ -250,10 +254,6 @@ public class ChaosActions {
         int b = 0;
         int f = 0;
 
-        /* kill previous obj */
-        /* Erase previous message */
-        /* Draw current message */
-        /* Set corresponding obj */
         if (!chaosGraphics.color) {
             p1 = 0;
             p2 = 1;
@@ -603,21 +603,21 @@ public class ChaosActions {
                 tmp = 0;
             maxpower = tmp / 2 + 1;
             while (tmp > 0) {
+                /* Random direction */
                 angle = trigo.RND() % 360;
                 cos = trigo.COS(angle);
                 sin = trigo.SIN(angle);
+                /* Random speed */
                 rnd = trigo.RND() % 16;
                 sin = sin * rnd / 8 + obj.vy / 2;
                 cos = cos * rnd / 8 + obj.vx / 2;
+                /* Random power */
                 power = trigo.RND() % maxpower + 1;
                 flame = CreateObj(Anims.WEAPON, Weapon.FIRE.ordinal(), px.get(), py.get(), 0, power);
                 SetObjVXY(flame, cos, sin);
                 tmp--;
             }
         }
-        /* Random direction */
-        /* Random speed */
-        /* Random power */
         obj.width = 0;
         obj.height = 0;
         chaosBase.ConvertObj(obj, Anims.DEAD, ChaosBase.DeadObj);
@@ -660,6 +660,7 @@ public class ChaosActions {
         ttaie = dhit + dfire;
         if ((victim.hitSubLife == 0) && (victim.fireSubLife == 0))
             return;
+        /* Collision */
         sw = src.attr.weight;
         vw = victim.attr.weight;
         if (sw + vw != 0) {
@@ -668,6 +669,7 @@ public class ChaosActions {
         }
         if ((src.kind == Anims.WEAPON) && !((src.subKind == Weapon.FIRE.ordinal()) && (src.flags.contains(ObjFlags.nested))))
             chaosBase.shoot.done++;
+        /* Lives */
         if (ttaie == 0)
             return;
         if (victim.attr.Aie != null)
@@ -679,6 +681,7 @@ public class ChaosActions {
             Die(victim);
             return;
         }
+        /* temperature */
         dfire = victim.attr.heatSpeed * dfire;
         if (dfire < ChaosBase.MaxHot / 16)
             victim.temperature += dfire * 16;
@@ -695,6 +698,7 @@ public class ChaosActions {
             victim.temperature = 0;
         else
             victim.temperature -= dhit;
+        /* Stones */
         stones = victim.attr.aieStone;
         if (ttaie < 16)
             stones -= (stones % ChaosBase.FlameMult) * (16 - ttaie) / 16;
@@ -705,7 +709,6 @@ public class ChaosActions {
 
     public final ChaosBase.AieProc Aie_ref = this::Aie;
 
-    /* Stones */
     public boolean Collision(ChaosBase.Obj obj1, ChaosBase.Obj obj2) {
         // VAR
         long px = 0L;
@@ -715,9 +718,6 @@ public class ChaosActions {
         long w = 0L;
         long h = 0L;
 
-        /* Collision */
-        /* Lives */
-        /* temperature */
         px = obj1.x + obj1.left;
         py = obj1.y + obj1.top;
         mx = obj1.midx + obj1.left;
@@ -1114,16 +1114,21 @@ public class ChaosActions {
         stp = chaosBase.step;
         while (stp > 0) {
             if (trigo.RND() < tmp) {
+                /* Random direction */
                 angle = trigo.RND() % 360;
                 cos = trigo.COS(angle);
                 sin = trigo.SIN(angle);
+                /* Random position within obj */
                 rnd = trigo.RND() % (size + 1);
                 nx = px.get() + cos / 16 * rnd / 64;
                 ny = py.get() + sin / 16 * rnd / 64;
+                /* Random speed */
                 rnd = trigo.RND() % 16;
                 sin = sin * rnd / 16 + obj.vy * 3 / 4;
                 cos = cos * rnd / 16 + obj.vx * 3 / 4;
+                /* Random power */
                 power = trigo.RND() % maxpower + 1;
+                /* Random delay before flame fires */
                 delay = trigo.RND() % ChaosBase.Period;
                 flame = CreateObj(Anims.WEAPON, Weapon.FIRE.ordinal(), nx, ny, delay, power);
                 SetObjVXY(flame, cos, sin);
@@ -1132,17 +1137,12 @@ public class ChaosActions {
         }
     }
 
-    /* Random delay before flame fires */
     public void LimitSpeed(ChaosBase.Obj obj, int max) {
         // VAR
         int ovx = 0;
         int ovy = 0;
         int speed = 0;
 
-        /* Random direction */
-        /* Random position within obj */
-        /* Random speed */
-        /* Random power */
         if ((Math.abs(obj.vx * 2) < max) && (Math.abs(obj.vy * 2) < max))
             return;
         ovx = (obj.vx + 32) / 64;
@@ -1425,6 +1425,7 @@ public class ChaosActions {
         oldx = obj.x;
         oldy = obj.y;
         if (chaosBase.water) {
+            /* LONG(mvx DIV 3) */
             obj.x += mvx / 3 * mstep;
             obj.y += mvy / 3 * mstep;
         } else {
@@ -1436,7 +1437,6 @@ public class ChaosActions {
     }
 
     public void NextFrame() {
-        /* LONG(mvx DIV 3) */
         chaosBase.step = (int) (clock.GetTime(time) - chaosBase.lasttime);
         chaosBase.lasttime += chaosBase.step;
         if (chaosBase.step > 60)

@@ -1037,6 +1037,7 @@ public class ChaosInterface {
         cancel = dialogs.AddNewGadget(group3, Dialogs.dButton, (Memory.TagItem) memory.TAG1(Dialogs.dTEXT, languages.ADL("Cancel")));
         checks.CheckMemBool(dialogs.RefreshGadget(chaosBase.d) != Dialogs.DialogOk);
         do {
+            /* Update Gadget */
             if (chaosGraphics.explosions == Explosions.Low)
                 expTxt = languages.ADL("Low");
             else if (chaosGraphics.explosions == Explosions.Medium)
@@ -1098,7 +1099,6 @@ public class ChaosInterface {
             if ((chaosGraphics.mulS < 1) || (chaosGraphics.mulS > 9))
                 chaosGraphics.mulS = 1;
         } while (!((event.gadget == save) || (event.gadget == use) || (event.gadget == cancel) || (event.gadget == chaosBase.d)));
-        /* Update Gadget */
         input.SetBusyStat(Input.statBusy);
         change = (chaosGraphics.mulS != oldmulS) || (chaosGraphics.color != oldcolor) || (chaosGraphics.dualpf != olddual);
         if ((event.gadget != cancel) && (event.gadget != chaosBase.d)) {

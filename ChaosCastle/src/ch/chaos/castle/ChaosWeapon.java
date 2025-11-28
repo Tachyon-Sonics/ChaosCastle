@@ -1736,6 +1736,7 @@ public class ChaosWeapon {
         checks.CheckMem(attr.get());
         attrs.copyFrom(attr.get());
         memory.FreeMem(attr.asAdrRef());
+        /* Gun */
         chaosSounds.SetEffect(gunFireEffect[0], chaosSounds.soundList[SoundList.sGun.ordinal()], 0, 4181, 50, 2);
         chaosSounds.SetEffect(gunBombEffectL[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 0, 8363, 160, 5);
         chaosSounds.SetEffect(gunBombEffectR[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 167, 8363, 0, 5);
@@ -1752,6 +1753,7 @@ public class ChaosWeapon {
         attrs.priority = 50;
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
+        /* FB */
         chaosSounds.SetEffect(fbFireEffect[0], chaosSounds.soundList[SoundList.wNoise.ordinal()], 418, 4181, 120, 4);
         chaosSounds.SetEffect(fbFireEffect[1], chaosSounds.soundList[SoundList.wNoise.ordinal()], 627, 6265, 120, 4);
         chaosSounds.SetEffect(fbFireEffect[2], chaosSounds.soundList[SoundList.wNoise.ordinal()], 527, 5268, 120, 4);
@@ -1767,6 +1769,7 @@ public class ChaosWeapon {
         attrs.priority = 51;
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
+        /* Laser */
         chaosSounds.SetEffect(laserFireEffect[0], chaosSounds.soundList[SoundList.sLaser.ordinal()], 0, 8363, 100, 3);
         for (c = 0; c <= 3; c++) {
             d = (c + 1) * 48;
@@ -1791,6 +1794,7 @@ public class ChaosWeapon {
         attrs.priority = 51;
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
+        /* Bubble */
         chaosSounds.SetEffect(bubbleBombEffect[0], chaosSounds.soundList[SoundList.sCannon.ordinal()], 0, 0, 192, 5);
         chaosSounds.SetEffect(bubbleFireEffectL[0], chaosSounds.soundList[SoundList.wWhite.ordinal()], 1097, 16726, 120, 3);
         chaosSounds.SetEffect(bubbleFireEffectR[0], chaosSounds.soundList[SoundList.wWhite.ordinal()], 2090, 16726, 120, 3);
@@ -1814,6 +1818,7 @@ public class ChaosWeapon {
         attrs.priority = 51;
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
+        /* Fire */
         for (c = 0; c <= 3; c++) {
             d = c + 1;
             chaosSounds.SetEffect(fireFireEffect[c], chaosSounds.nulSound, 300, 4181, d * 20, 3);
@@ -1836,6 +1841,7 @@ public class ChaosWeapon {
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
         attrs.dieStone = 0;
+        /* Ball */
         chaosSounds.SetEffect(ballFireEffect1[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 8363, 110, 3);
         chaosSounds.SetEffect(ballFireEffect2[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 9387, 110, 3);
         chaosSounds.SetEffect(ballFireEffect3[0], chaosSounds.soundList[SoundList.aPanflute.ordinal()], 0, 10536, 110, 3);
@@ -1882,6 +1888,7 @@ public class ChaosWeapon {
         attrs.priority = 49;
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
+        /* Star */
         chaosSounds.SetEffect(starFireEffect[0], chaosSounds.soundList[SoundList.sCasserole.ordinal()], 0, 16726, 100, 3);
         chaosBase.Fire[Weapon.STAR.ordinal()] = FireStar_ref;
         chaosBase.Bomb[Weapon.STAR.ordinal()] = StarBomb_ref;
@@ -1895,6 +1902,7 @@ public class ChaosWeapon {
         attrs.basicType = BasicTypes.NotBase;
         attrs.toKill = true;
         InitParams_AddAttrs(attrs);
+        /* Grenade */
         chaosSounds.SetEffect(grenadeBombEffect[0], chaosSounds.soundList[SoundList.sPouf.ordinal()], 0, 16726, 160, 5);
         chaosSounds.SetEffect(grenadeFireEffect[0], chaosSounds.soundList[SoundList.sHHat.ordinal()], 697, 8363, 120, 3);
         chaosSounds.SetEffect(grenadeFireEffect[1], chaosSounds.soundList[SoundList.sCymbale.ordinal()], 697, 8363, 120, 3);

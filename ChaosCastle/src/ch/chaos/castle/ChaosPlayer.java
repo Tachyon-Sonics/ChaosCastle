@@ -1446,10 +1446,13 @@ public class ChaosPlayer {
               ModulateSounds & co as well as MoveBackground & co */
         chaosSounds.ModulateSounds();
         UpdateInfos();
+        /* Events */
         joy.copyFrom(input.GetStick());
         tmp.copyFrom(joy);
         input.GetEvent(event);
+        /*  Directions */
         dir.copyFrom((Runtime.RangeSet.mul(joy, DirMask)));
+        /* remove opposites */
         if (Runtime.RangeSet.mul(dir, BDH).equals(BDH))
             dir = Runtime.RangeSet.minus(dir, BDH);
         if (Runtime.RangeSet.mul(dir, BDV).equals(BDV))
@@ -1496,6 +1499,7 @@ public class ChaosPlayer {
         }
         px.set(player.shapeSeq);
         player.posX = chaosGraphics.W.invoke(px.get() * 16);
+        /* Move player */
         oldx = player.x;
         oldy = player.y;
         chaosActions.UpdateXY(player);
@@ -1520,10 +1524,12 @@ public class ChaosPlayer {
         chaosGraphics.MoveBackground(px.get(), py.get());
         player.x = newx;
         player.y = newy;
+        /* Check mouse move */
         input.GetMouse(mouseX, mouseY);
         if (waitPause || pauseRequest || (Math.abs(chaosActions.lastMouseX - mouseX.get()) + Math.abs(chaosActions.lastMouseY - mouseY.get()) > 6))
             Pause();
         CheckSelect(event, joy, false);
+        /*  Keys */
         if ((event.type == Input.eKEYBOARD) && (event.ch != ((char) 0))) {
             if ((event.ch == 'p') || (event.ch == 'P')) {
                 pauseRequest = true;
@@ -1562,6 +1568,7 @@ public class ChaosPlayer {
         } else {
             chaosInterface.CommonEvent(event);
         }
+        /*  Fire buttons */
         if (joy.contains(Input.Joy1)) {
             if ((joy.contains(Input.JoyShift)) || (chaosBase.bombActive)) {
                 if (chaosBase.lasttime > chaosBase.nextGunFireTime) {
@@ -1592,6 +1599,7 @@ public class ChaosPlayer {
         }
         if ((joy.contains(Input.JoyPause)) && !chaosBase.lastJoy.contains(Input.JoyPause))
             pauseRequest = true;
+        /*  Weapon selection */
         if ((joy.contains(Input.JoyForward)) && (joy.contains(Input.JoyReverse)) && (!chaosBase.lastJoy.contains(Input.JoyForward) || !chaosBase.lastJoy.contains(Input.JoyReverse))) {
             if (!chaosBase.bombActive)
                 chaosActions.PopMessage(Runtime.castToRef(languages.ADL("bomb actived"), String.class), ChaosActions.actionPos, 1);
@@ -1602,7 +1610,9 @@ public class ChaosPlayer {
             chaosBase.bombActive = !chaosBase.bombActive;
         }
         chaosBase.lastJoy.copyFrom(tmp);
+        /* left objs ? */
         chaosActions.CheckLeftObjs();
+        /* Gun autofire */
         if (chaosBase.gunFiring) {
             if (chaosBase.lasttime >= chaosBase.nextGunFireTime) {
                 chaosBase.Fire[Weapon.GUN.ordinal()].invoke(player);
@@ -1611,7 +1621,9 @@ public class ChaosPlayer {
                 chaosBase.nextGunFireTime += ChaosBase.GunFireSpeed;
             }
         }
+        /* Palette cycling */
         chaosGraphics.AnimPalette(chaosBase.step);
+        /* AddPt */
         if ((chaosBase.addpt > 0) && (chaosBase.step < 60)) {
             oldscr = chaosBase.score;
             while (chaosBase.addpt > 0) {
@@ -1641,28 +1653,34 @@ public class ChaosPlayer {
                 chaosActions.NextStage();
             gChanges.add(Infos.SCORE);
         }
+        /* magnet */
         if (chaosBase.step >= chaosBase.magnet) {
             chaosBase.magnet = 0;
         } else {
             chaosActions.Gravity(player, EnumSet.of(Anims.ALIEN2, Anims.ALIEN1, Anims.MISSILE, Anims.BONUS, Anims.STONE));
             chaosBase.magnet -= chaosBase.step;
         }
+        /* freeFire */
         if (chaosBase.step > chaosBase.freeFire)
             chaosBase.freeFire = 0;
         else
             chaosBase.freeFire -= chaosBase.step;
+        /* maxPower */
         if (chaosBase.step > chaosBase.maxPower)
             chaosBase.maxPower = 0;
         else
             chaosBase.maxPower -= chaosBase.step;
+        /* noMissile */
         if (chaosBase.step > chaosBase.noMissile)
             chaosBase.noMissile = 0;
         else
             chaosBase.noMissile -= chaosBase.step;
+        /* sleeper */
         if (chaosBase.step > chaosBase.sleeper)
             chaosBase.sleeper = 0;
         else
             chaosBase.sleeper -= chaosBase.step;
+        /* air */
         if (chaosBase.water) {
             if (chaosBase.air == 0) {
                 tohit.set(chaosBase.playerPower);
@@ -1689,6 +1707,7 @@ public class ChaosPlayer {
                 }
             }
         }
+        /* invinsibility */
         if (chaosBase.invinsibility > 0) {
             if (chaosBase.step >= chaosBase.invinsibility)
                 chaosBase.invinsibility = 0;
@@ -1727,6 +1746,9 @@ public class ChaosPlayer {
                 }
             }
         }
+        /* double speed */
+        /* Only changed by the single-speed bonus */
+        /* screenInverted */
         if (chaosBase.screenInverted > 0) {
             if (chaosBase.step >= chaosBase.screenInverted) {
                 chaosBase.screenInverted = 0;
@@ -1744,28 +1766,6 @@ public class ChaosPlayer {
     private final ChaosBase.MoveProc MovePlayer0_ref = this::MovePlayer0;
 
     private void DiePlayer(ChaosBase.Obj player) {
-        /* Events */
-        /*  Directions */
-        /* remove opposites */
-        /* Move player */
-        /* Check mouse move */
-        /*  Keys */
-        /*  Fire buttons */
-        /*  Weapon selection */
-        /* left objs ? */
-        /* Gun autofire */
-        /* Palette cycling */
-        /* AddPt */
-        /* magnet */
-        /* freeFire */
-        /* maxPower */
-        /* noMissile */
-        /* sleeper */
-        /* air */
-        /* invinsibility */
-        /* double speed */
-        /* Only changed by the single-speed bonus */
-        /* screenInverted */
         chaosSounds.SoundEffect(player, dieEffects);
         chaosBase.gameStat = GameStat.Gameover;
     }

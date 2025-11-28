@@ -138,12 +138,12 @@ public class ChaosBoss {
         boss.life = 1500;
         boss.fireSubLife = 10;
         boss.hitSubLife = 40;
-        boss.moveSeq = 30;
-        boss.shapeSeq = 0;
-        boss.stat = 0;
         /* life DIV 50 */
+        boss.moveSeq = 30;
         /* time before changing dir */
+        boss.shapeSeq = 0;
         /* time before firing / getting vincible */
+        boss.stat = 0;
         MakeBrotherAlien(boss);
     }
 
@@ -286,12 +286,12 @@ public class ChaosBoss {
         boss.life = 1500;
         boss.fireSubLife = 40;
         boss.hitSubLife = 10;
-        boss.moveSeq = 30;
-        boss.shapeSeq = 128;
-        boss.stat = 0;
         /* life DIV 50 */
+        boss.moveSeq = 30;
         /* shape cycle pos */
+        boss.shapeSeq = 128;
         /* time, in shape cycles, before obj. creation */
+        boss.stat = 0;
         MakeSisterAlien(boss);
     }
 
@@ -478,14 +478,14 @@ public class ChaosBoss {
     private void ResetMotherAlien(ChaosBase.Obj boss) {
         boss.hitSubLife = 30;
         boss.fireSubLife = 20;
+        /* life DIV 50 */
         boss.moveSeq = 9 + chaosBase.difficulty;
         boss.life = boss.moveSeq * 50 + 1;
-        boss.shapeSeq = 0;
-        boss.stat = 5;
-        /* life DIV 50 */
         /* countDown before next stat */
+        boss.shapeSeq = 0;
         /* 0: kmk + end  1: wait -> 0  3: wait-> 2  2: fires
                         4: center + aliens       5: center + fire */
+        boss.stat = 5;
         MakeMotherAlien(boss);
     }
 
@@ -934,6 +934,7 @@ public class ChaosBoss {
             boss.shapeSeq -= chaosBase.step;
         switch (boss.stat) {
             case 0 -> {
+                /* fight vs player */
                 lx = px.get() - bx.get();
                 ly = py.get() - by.get();
                 dl = trigo.SQRT(lx * lx + ly * ly);
@@ -978,6 +979,7 @@ public class ChaosBoss {
                 chaosActions.AvoidAnims(boss, EnumSet.of(Anims.WEAPON));
             }
             case 1 -> {
+                /* create objs */
                 lx = boss.vx;
                 ly = boss.vy;
                 dl = trigo.SQRT(lx * lx + ly * ly);
@@ -1064,6 +1066,7 @@ public class ChaosBoss {
                 }
             }
             case 2 -> {
+                /* wait until no objs */
                 if (((boss.ax >= 0) && (bx.get() > chaosGraphics.gameWidth / 2 + 118)) || (boss.ax == 0)) {
                     boss.ax = trigo.RND() % 32;
                     boss.ax = -boss.ax - 16;
@@ -1080,6 +1083,7 @@ public class ChaosBoss {
                 chaosFire.ReturnWeapon(bx.get(), by.get());
             }
             case 3 -> {
+                /* center + fire around */
                 chaosFire.GoCenter(boss);
                 chaosFire.ReturnWeapon(bx.get(), by.get());
                 dv = (boss.shapeSeq / (ChaosBase.Period / 3));
@@ -1104,6 +1108,7 @@ public class ChaosBoss {
                 }
             }
             case 4 -> {
+                /* spiral firing */
                 chaosFire.GoTo(boss, chaosGraphics.gameWidth / 2, chaosGraphics.gameHeight / 2 + 70);
                 chaosFire.ReturnWeapon(bx.get(), by.get());
                 dv = boss.shapeSeq / 60;
@@ -1125,6 +1130,7 @@ public class ChaosBoss {
                 }
             }
             case 5 -> {
+                /* kamikaze + boum */
                 if (boss.shapeSeq > ChaosBase.Period * 10) {
                     boss.ax = 0;
                     boss.ay = 0;
@@ -1157,12 +1163,6 @@ public class ChaosBoss {
             }
             default -> throw new RuntimeException("Unhandled CASE value " + boss.stat);
         }
-        /* fight vs player */
-        /* create objs */
-        /* wait until no objs */
-        /* center + fire around */
-        /* spiral firing */
-        /* kamikaze + boum */
         MakeFatherAlien(boss);
         hit.set(50);
         chaosActions.PlayerCollision(boss, hit);
@@ -1360,10 +1360,12 @@ public class ChaosBoss {
             boss.shapeSeq -= chaosBase.step;
         switch (boss.stat) {
             case 1 -> {
+                /* wait boum */
                 chaosFire.GoCenter(boss);
                 chaosFire.ReturnWeapon(bx.get(), by.get());
             }
             case 2 -> {
+                /* fires */
                 chaosFire.ReturnWeapon(bx.get(), by.get());
                 if (chaosBase.step > boss.hitSubLife) {
                     mx = trigo.RND() % 64;
@@ -1439,15 +1441,18 @@ public class ChaosBoss {
                 chaosActions.LimitSpeed(boss, 1536);
             }
             case 3 -> {
+                /* go center */
                 chaosFire.GoCenter(boss);
             }
             case 4 -> {
+                /* aie recover */
                 if ((oldSeq >= ChaosBase.Period) && (boss.shapeSeq < ChaosBase.Period))
                     chaosSounds.SoundEffect(boss, chaosFire.huEffect);
                 chaosFire.GoCenter(boss);
                 chaosFire.ReturnWeapon(bx.get(), by.get());
             }
             case 5 -> {
+                /* kamikaze */
                 if ((boss.shapeSeq / ChaosBase.Period) != (oldSeq / ChaosBase.Period)) {
                     chaosSounds.SoundEffect(boss, chaosFire.createEffect);
                     sKind = trigo.RND() % 4;
@@ -1464,16 +1469,11 @@ public class ChaosBoss {
                 chaosFire.GoTo(boss, px.get(), py.get());
             }
             case 6 -> {
+                /* wait & explode */
                 chaosFire.GoCenter(boss);
             }
             default -> throw new RuntimeException("Unhandled CASE value " + boss.stat);
         }
-        /* wait boum */
-        /* fires */
-        /* go center */
-        /* aie recover */
-        /* kamikaze */
-        /* wait & explode */
         MakeMasterAlien(boss);
         hit.set(50);
         chaosActions.PlayerCollision(boss, hit);
@@ -1539,9 +1539,9 @@ public class ChaosBoss {
         boss.fireSubLife = 10;
         boss.moveSeq = 10 + chaosBase.difficulty / 2;
         boss.life = boss.moveSeq * 50 + 1;
+        /* kind of alien to create, 0 = crash recover */
         boss.stat = 0;
         boss.shapeSeq = 1;
-        /* kind of alien to create, 0 = crash recover */
         MakeIllusion(boss);
     }
 

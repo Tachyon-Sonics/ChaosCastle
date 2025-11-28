@@ -595,6 +595,7 @@ public class ChaosSounds {
             }
             if (_channel.sndObj == null)
                 return;
+            /* Volume */
             rx = (int) ((_channel.sndObj.x - chaosBase.mainPlayer.x) / ChaosBase.Frac);
             rx += _channel.sndObj.cx - chaosBase.mainPlayer.cx;
             ry = (int) ((_channel.sndObj.y - chaosBase.mainPlayer.y) / ChaosBase.Frac);
@@ -602,6 +603,7 @@ public class ChaosSounds {
             px = rx;
             dx = Math.abs(rx);
             dy = Math.abs(ry);
+            /* dist in pixels */
             dist = trigo.SQRT(dx * dx + dy * dy);
             pl = dist;
             if (dist >= 256)
@@ -609,6 +611,7 @@ public class ChaosSounds {
             else
                 am = (int) (128 - (dist / 2));
             if (am > 0) {
+                /* Stereo */
                 if ((stereoEffect > 0) && (tags != null)) {
                     stereoEffect--;
                     if (plStereo == -181)
@@ -624,7 +627,9 @@ public class ChaosSounds {
                     sounds.SndGet(chans[chan], tagGadget);
                     stereo = (int) tagGadget.lint;
                 } else if (pl != 0) {
+                    /* Cos(a) = adj/hyp */
                     stereo = (int) ((px * 90) / pl);
+                    /* rear => surround */
                     if (ry > 0) {
                         if (stereo > 0)
                             stereo = 180 - stereo;
@@ -634,6 +639,7 @@ public class ChaosSounds {
                 } else {
                     stereo = 0;
                 }
+                /* Frequence (Doppler effect) */
                 if ((dx > 127) || (dy > 127)) {
                     rx = rx / 2;
                     ry = ry / 2;
@@ -673,12 +679,6 @@ public class ChaosSounds {
         // VAR
         int chan = 0;
 
-        /* Volume */
-        /* dist in pixels */
-        /* Stereo */
-        /* Cos(a) = adj/hyp */
-        /* rear => surround */
-        /* Frequence (Doppler effect) */
         chan = nbChans;
         while (chan > 0) {
             chan--;

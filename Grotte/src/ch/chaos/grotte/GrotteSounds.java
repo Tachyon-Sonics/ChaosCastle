@@ -648,6 +648,7 @@ public class GrotteSounds {
             InitSounds_LoadSound(SoundList.Water, 10748, 16726, 4, f.get(), ok);
             InitSounds_LoadSound(SoundList.Pic, 248, 8363, 2, f.get(), ok);
             InitSounds_LoadSound(SoundList.Noise, 4326, 8363, 4, f.get(), ok);
+            /* Init Clock */
             synth = (int[]) sounds.AllocWave(4096);
             if (synth == null) {
                 ok.set(false);
@@ -680,6 +681,7 @@ public class GrotteSounds {
                             sounds.ConvertWave(new Runtime.FieldRef<>(_snd::getWave, _snd::setWave), _snd.size);
                     }
                 }
+                /* Allocate channels */
                 attr.tag = Sounds.sNUMCHANS;
                 sounds.GetSoundsSysAttr(attr);
                 c = (int) attr.data;
@@ -715,8 +717,6 @@ public class GrotteSounds {
         // VAR
         SoundList s = SoundList.CrashA;
 
-        /* Init Clock */
-        /* Allocate channels */
         while (nbChan > 0) {
             nbChan--;
             { // WITH
@@ -870,16 +870,24 @@ public class GrotteSounds {
 
     public void Sound(OBJECT t1, OBJECT t2, int volume, int stereo, int balance) {
         if (t2 == OBJECT.BN) {
+            /* Player got a bonus */
             switch (t1) {
-                case K1 -> PlayEffect(ptEffect, volume, stereo, balance);
-                case K0 -> PlayEffect(pt2Effect, volume, stereo, balance);
-                case K2 -> PlayEffect(blvEffect, volume, stereo, balance);
-                case K3 -> PlayEffect(atEffect, volume, stereo, balance);
-                case EMPTY -> PlayEffect(bonus1Effect, volume, stereo, balance);
-                case K4 -> PlaySound(SoundList.HHat, volume, stereo, balance);
+                case K1 -> /* . */
+                PlayEffect(ptEffect, volume, stereo, balance);
+                case K0 -> /* % -> # */
+                PlayEffect(pt2Effect, volume, stereo, balance);
+                case K2 -> /* $ */
+                PlayEffect(blvEffect, volume, stereo, balance);
+                case K3 -> /* @ */
+                PlayEffect(atEffect, volume, stereo, balance);
+                case EMPTY -> /* % */
+                PlayEffect(bonus1Effect, volume, stereo, balance);
+                case K4 -> /* ! */
+                PlaySound(SoundList.HHat, volume, stereo, balance);
                 default -> throw new RuntimeException("Unhandled CASE value " + t1);
             }
         } else if (t2 == OBJECT.EMPTY) {
+            /* Die */
             switch (t1) {
                 case PLAYER -> {
                     PlayEffect(lowCannon, volume, stereo, balance);
@@ -929,6 +937,7 @@ public class GrotteSounds {
                 }
             }
         } else if (t1 == OBJECT.EMPTY) {
+            /* Create */
             switch (t2) {
                 case L1 -> PlaySound(SoundList.Canon1, volume / 2, stereo, balance);
                 case L2 -> PlaySound(SoundList.Canon2, volume / 3 * 2, stereo, balance);
@@ -936,20 +945,25 @@ public class GrotteSounds {
                 default -> PlayEffect(createEffect, volume / 2, stereo, balance);
             }
         } else if (t1 == OBJECT.PLAYER) {
+            /* Player action */
             switch (t2) {
                 case GN1 -> {
+                    /* jump */
                     PlaySound(SoundList.Hit2, volume / 4, stereo, balance);
                 }
                 case GN2 -> {
+                    /* move */
                     PlaySound(SoundList.Hit1, volume / 4, stereo, balance);
                 }
                 case PLAYER -> {
+                    /* start / end */
                     PlayEffect(gameEffect, volume, stereo, balance);
                 }
                 default -> {
                 }
             }
         } else {
+            /* Aie */
             switch (t2) {
                 case L1, L3 -> PlaySound(SoundList.Cymbales, volume, stereo, balance);
                 case K0 -> PlayEffect(highGong, volume, stereo, balance);
@@ -961,20 +975,6 @@ public class GrotteSounds {
     }
 
     public void GameOverSound() {
-        /* Player got a bonus */
-        /* . */
-        /* % -> # */
-        /* $ */
-        /* @ */
-        /* % */
-        /* ! */
-        /* Die */
-        /* Create */
-        /* Player action */
-        /* jump */
-        /* move */
-        /* start / end */
-        /* Aie */
         PlayEffect(dieEffect1, 255, 45, 45);
         PlayEffect(dieEffect2, 255, -45, -45);
     }

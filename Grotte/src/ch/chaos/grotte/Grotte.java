@@ -201,6 +201,7 @@ public class Grotte {
             grotteActions.MoveObj(k, 1, _object.x, _object.y, '#');
             if ((grotteActions.oldx != _object.x) || (grotteActions.oldy != _object.y))
                 grotteActions.k3c++;
+            /* Sorting */
             if (_object.next != 0) {
                 if (Math.abs(_object.x - grotteActions.px) + Math.abs(_object.y - grotteActions.py) > Math.abs(grotteActions.object[_object.next].x - grotteActions.px) + Math.abs(grotteActions.object[_object.next].y - grotteActions.py))
                     grotteActions.SortK3(k);
@@ -210,7 +211,6 @@ public class Grotte {
 
     private final GrotteActions.MoveProc MoveK3_ref = this::MoveK3;
 
-    /* Sorting */
     private void MoveK4(int k) {
         { // WITH
             GrotteActions.Object _object = grotteActions.object[k];

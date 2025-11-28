@@ -906,6 +906,7 @@ public class ChaosGraphics {
                 dbuffpy--;
                 DrawDBlocks(dbuffpx, dbuffpy, SOW + 1, 1);
             }
+            /* Render */
             px = dbuffdx * BW + mx;
             py = dbuffdy * BH + my;
             w1 = OW - px;
@@ -944,7 +945,6 @@ public class ChaosGraphics {
         int px = 0;
         int py = 0;
 
-        /* Render */
         graphics.SetArea(mainArea);
         obj = (ChaosBase.Obj) chaosBase.FirstObj(chaosBase.objList);
         tail = (ChaosBase.Obj) chaosBase.TailObj(chaosBase.objList);
@@ -994,13 +994,13 @@ public class ChaosGraphics {
         buffdy = 0;
         DrawBlocks(buffpx, buffpy, SOW + 1, SOH + 1);
         if (dualpf) {
+            /* Draw dualArea */
             dbuffpx = dualpx / BW;
             dbuffpy = dualpy / BH;
             dbuffdx = 0;
             dbuffdy = 0;
             DrawDBlocks(dbuffpx, dbuffpy, SOW + 1, SOH + 1);
         }
-        /* Draw dualArea */
         RenderBlocks();
     }
 

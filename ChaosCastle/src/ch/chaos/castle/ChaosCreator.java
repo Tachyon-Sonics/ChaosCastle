@@ -513,6 +513,7 @@ public class ChaosCreator {
 
         if (ctrl.moveSeq == 0) {
             if (chaosBase.zone != Zone.Castle) {
+                /* hurryup */
                 if (ctrl.stat == 0) {
                     chaosActions.PopMessage(Runtime.castToRef(languages.ADL("Hurry up !"), String.class), ChaosActions.statPos, 1);
                     if ((huCnt == 0) && (chaosBase.stages == 3))
@@ -563,6 +564,7 @@ public class ChaosCreator {
                 ctrl.shapeSeq = ChaosBase.Period / 2;
             }
             if ((chaosBase.difficulty >= 3) && ((chaosBase.zone == Zone.Chaos) || ((chaosBase.zone == Zone.Family) && (chaosBase.level[Zone.Family.ordinal()] == 6)))) {
+                /* meteorite */
                 mf = false;
                 angle = trigo.RND() % 360;
                 px = trigo.COS(angle) / 16 * ChaosGraphics.PW / 64;
@@ -635,8 +637,6 @@ public class ChaosCreator {
     }
 
     private void MakeHurryUp(ChaosBase.Obj hu) {
-        /* hurryup */
-        /* meteorite */
         chaosActions.SetObjLoc(hu, 40, 80, 24, 16);
         chaosActions.SetObjRect(hu, 0, 0, 24, 16);
     }
@@ -905,12 +905,12 @@ public class ChaosCreator {
         ctrl.fireSubLife = 0;
         chaosActions.SetObjLoc(ctrl, 0, 0, 0, 0);
         chaosActions.SetObjRect(ctrl, 0, 0, 0, 0);
-        ctrl.stat = 1;
-        ctrl.moveSeq = 0;
-        ctrl.shapeSeq = 0;
         /* moveSeq: time down to next hurryup */
         /* shapeSeq: time down to next meteorite */
         /* tell MakeController to reinit both values: */
+        ctrl.stat = 1;
+        ctrl.moveSeq = 0;
+        ctrl.shapeSeq = 0;
         MakeController(ctrl);
     }
 
@@ -1089,6 +1089,7 @@ public class ChaosCreator {
             alien.ay = 0;
             alien.attr.Make.invoke(alien);
         } else if (chaosBase.step > alien.moveSeq) {
+            /* Fire */
             if (alien.shapeSeq == 0) {
                 if (alien.subKind == cAlienV) {
                     FireMissileV(alien, ChaosMissile.mRed);
@@ -1124,7 +1125,6 @@ public class ChaosCreator {
         Anims nKind = Anims.PLAYER;
         int sKind = 0;
 
-        /* Fire */
         if (chaosActions.OutOfScreen(creator)) {
             chaosActions.Leave(creator);
             return;
@@ -1448,7 +1448,9 @@ public class ChaosCreator {
         if (bg)
             chaosActions.AvoidBackground(chief, 0);
         if (chief.stat == 0) {
+            /* Follow player */
             chaosActions.GetCenter(chief, mx, my);
+            /* fire ? */
             if (chaosBase.step > chief.shapeSeq) {
                 chief.shapeSeq += ChaosBase.Period * (1 + trigo.RND() % 8);
                 rnd = trigo.RND() % 3;
@@ -1479,6 +1481,7 @@ public class ChaosCreator {
             }
             if (!chaosActions.OutOfScreen(chief))
                 chief.shapeSeq -= chaosBase.step;
+            /* player */
             chaosActions.GetCenter(chaosBase.mainPlayer, px, py);
             dx = px.get() - mx.get();
             dy = py.get() - my.get();
@@ -1556,6 +1559,7 @@ public class ChaosCreator {
                 }
             }
         } else {
+            /* stat = 1 */
             { // WITH
                 ChiefData _chiefData = chiefData[chief.moveSeq - 1];
                 if (chaosBase.gameStat != GameStat.Playing)
@@ -1630,10 +1634,6 @@ public class ChaosCreator {
         // VAR
         Runtime.Ref<Integer> hit = new Runtime.Ref<>(0);
 
-        /* Follow player */
-        /* fire ? */
-        /* player */
-        /* stat = 1 */
         if (chaosActions.OutOfScreen(abox)) {
             chaosActions.Leave(abox);
             return;

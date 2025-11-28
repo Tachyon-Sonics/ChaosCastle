@@ -807,6 +807,7 @@ public class GrotteActions {
     public void SetAttr(OBJECT t) {
         { // WITH
             GrotteSupport.Attr _attr = grotteSupport.attr[t.ordinal()];
+            /* LOOP dt --> 0 END */
             _attr.ct = 0;
             if (t == OBJECT.ASC) {
                 _attr.nt = _attr.nb;
@@ -835,7 +836,6 @@ public class GrotteActions {
         // VAR
         int o = 0;
 
-        /* LOOP dt --> 0 END */
         o = first[OBJECT.EMPTY.ordinal()];
         if (o == 0)
             return 0;
@@ -1155,9 +1155,9 @@ public class GrotteActions {
                 }
                 aNSITerm.Goto(0, 21);
             }
+            /*    Flush; */
             aNSITerm.Read(new Runtime.FieldRef<>(this::getCh, this::setCh));
         } while (ch == ((char) 0));
-        /*    Flush; */
         aNSITerm.Color(2);
         aNSITerm.WriteAt(px, py, '*');
         aNSITerm.ReadAgain();
@@ -2170,6 +2170,7 @@ public class GrotteActions {
                 plfd = 10;
             else if (plfd > 0)
                 plfd--;
+            /* contournement */
             if (_object.seq == 1) {
                 td = _object.d;
                 if (_object.v == 1) {
@@ -2199,6 +2200,7 @@ public class GrotteActions {
                     _object.flags.excl(1);
                 }
             } else if (_object.seq == 0) {
+                /* rapprochement */
                 _object.flags.excl(1);
                 if (px > _object.x)
                     _object.d = D;
@@ -2220,6 +2222,7 @@ public class GrotteActions {
                         _object.d = td;
                 }
                 c1 = Math.abs(px - _object.x) + Math.abs(py - _object.y) * 2;
+                /* Fire */
                 if (c1 >= 6) {
                     tmp = mvie;
                     if ((grotteSupport.Random() % 128 + 4) < tmp) {
@@ -2235,6 +2238,7 @@ public class GrotteActions {
                         Fire(OBJECT.L1, _object.x, _object.y, (grotteSupport.Random() % 2) * 2 + 2, true);
                 }
             }
+            /* controle des projectiles dangereux */
             for (td = N; td <= B; td++) {
                 danger[td - N] = 0;
             }
@@ -2288,6 +2292,7 @@ public class GrotteActions {
             } else if (Fixed(ch)) {
                 if (_object.seq == 1) {
                     if ((_object.x == 0) || (_object.x == 71) || (_object.y == 0) || (_object.y == 19)) {
+                        /* inverse le sens de recherche */
                         if (_object.d < D)
                             _object.d += 2;
                         else
@@ -2301,6 +2306,7 @@ public class GrotteActions {
                 _object.x = oldx;
                 _object.y = oldy;
                 if (!fuite) {
+                    /* nouveau contournement */
                     if (_object.seq == 0) {
                         _object.bx = _object.x;
                         _object.by = _object.y;

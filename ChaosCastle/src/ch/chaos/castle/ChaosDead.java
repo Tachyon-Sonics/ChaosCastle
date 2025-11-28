@@ -34,12 +34,12 @@ public class ChaosDead {
     private void MakeDead(ChaosBase.Obj d) {
         /* Called when resolution changes */
         if (d.subKind == ChaosBase.Message)
+            /* Kill it, as message has been erased */
             d.width = 0;
     }
 
     private final ChaosBase.MakeProc MakeDead_ref = this::MakeDead;
 
-    /* Kill it, as message has been erased */
     private void MoveDead(ChaosBase.Obj d) {
         // VAR
         int py = 0;

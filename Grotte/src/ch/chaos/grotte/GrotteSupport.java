@@ -714,10 +714,10 @@ public class GrotteSupport {
             WA(7, 9, " &   & &   & &   & &           &   &  & &  &     &&    ");
             WA(7, 10, " &&&&& &   & &   & &&&&&        &&&    &   &&&&& & &&& ");
             aNSITerm.WriteLn();
+            /* Flush; */
             if (!clock.WaitTime(time, 512))
                 clock.StartTime(time);
         }
-        /* Flush; */
         if (clock.WaitTime(time, 4096)) {
         }
         for (x = 1; x <= 10; x++) {
@@ -1521,6 +1521,7 @@ public class GrotteSupport {
             aNSITerm.WaitChar(ch);
             if ((ch.get() >= 'a') && (ch.get() <= 'k'))
                 ch.set((char) ((int) ch.get() - 32));
+            /* Flush;*/
             aNSITerm.Color(6);
             aNSITerm.Write(ch.get());
             if (ch.get() > '0') {
@@ -1536,7 +1537,6 @@ public class GrotteSupport {
                 }
             }
         } while (!((ch.get() <= '0') || (ch.get() == 'q') || (ch.get() == 'Q')));
-        /* Flush;*/
         current = first;
         while (current != null) {
             _new.set(current);
@@ -1762,6 +1762,7 @@ public class GrotteSupport {
         aNSITerm.Goto(0, 0);
         ndoor = 0;
         if (level < 10) {
+            /* Load */
             fh = files.OpenFile(new Runtime.Ref<>(DecorFile), EnumSet.of(AccessFlags.accessRead));
             checks.Check(fh == files.noFile, Runtime.castToRef(memory.ADS("Can't open data file:"), String.class), Runtime.castToRef(memory.ADS(DecorFile), String.class));
             c1 = level * 10 + game + 1;
@@ -1901,7 +1902,6 @@ public class GrotteSupport {
         } else {
             grotteBonus.BonusLevel(ax, ay);
         }
-        /* Load */
         aNSITerm.ClearLine(20);
         aNSITerm.Goto(0, 20);
         aNSITerm.Color(7);

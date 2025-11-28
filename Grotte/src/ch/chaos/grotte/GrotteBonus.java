@@ -686,6 +686,7 @@ public class GrotteBonus {
                 sy = dy;
                 ey = oy - 2;
             }
+            /* creux */
             do {
                 for (y = dy; y <= dy + 10; y++) {
                     WrAt(ex, y, ' ');
@@ -696,6 +697,7 @@ public class GrotteBonus {
                 grotteSupport.Create.invoke(OBJECT.PLAYER, 1, dy + 9, grotteSupport.pvie, 0, '*');
                 aNSITerm.Color(7);
             }
+            /* sol */
             c = grotteSupport.Rnd() % 4;
             if (c == 0) {
                 for (y = dy + 6; y <= dy + 10; y++) {
@@ -735,6 +737,7 @@ public class GrotteBonus {
                 }
                 aNSITerm.Color(7);
             }
+            /* left */
             if ((ey - sy >= 3) && (oy != 0)) {
                 c = grotteSupport.Rnd() % 2;
                 aNSITerm.Color(2);
@@ -758,6 +761,7 @@ public class GrotteBonus {
                 grotteSupport.Create.invoke(OBJECT.GN1, sx, y, 3, 0, '>');
             }
             aNSITerm.Color(7);
+            /* to go up */
             c = grotteSupport.Rnd() % 3;
             if (c == 0) {
                 grotteSupport.Create.invoke(OBJECT.ASC, ex - 4, dy + 6, 1, 0, '=');
@@ -791,10 +795,6 @@ public class GrotteBonus {
             }
             aNSITerm.Color(7);
         }
-        /* creux */
-        /* sol */
-        /* left */
-        /* to go up */
         /* common objects */
         PutDeltaObj(OBJECT.PIC, 16, 1, 1, 70, 18, 0, -1, grotteSupport.pvie, 2, 'V');
         PutObj(OBJECT.K1, 16, 16, 1, 70, 18, grotteSupport.pvie / 4 + 1, 0, '+');

@@ -369,6 +369,7 @@ public class ChaosImages {
             if (bRead.get() != BlockSize)
                 checks.Check(true, Runtime.castToRef(languages.ADL(ReadIErrMsg), String.class), files.FileErrorMsg());
             if (chaosGraphics.dualpf) {
+                /* 4bit -> 8 bit */
                 for (z = BlockSize - 1; z >= 0; z -= 1) {
                     v = block[z];
                     block[z * 2 + 1] = v % 16;
@@ -455,7 +456,6 @@ public class ChaosImages {
             image.zh = 1;
             graphics.DrawImage(image, 0, 0, px.get() * chaosGraphics.mulS, py.get() * chaosGraphics.mulS, ChaosGraphics.BW * chaosGraphics.mulS, ChaosGraphics.BH * chaosGraphics.mulS);
         }
-        /* 4bit -> 8 bit */
         fill.inc(1023);
         if (progress != dialogs.noGadget)
             dialogs.ModifyGadget(progress, (Memory.TagItem) memory.TAG1(Dialogs.dFILL, fill.get()));
