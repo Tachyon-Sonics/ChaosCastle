@@ -751,12 +751,12 @@ public class Chaos2Zone {
     }
 
     private void Jungle_RndRect(/* VAR+WRT */ Runtime.IRef<Integer> x, /* VAR+WRT */ Runtime.IRef<Integer> y) {
+        /* Level 20 */
         x.set(chaosObjects.Rnd(40) + 10);
         y.set(chaosObjects.Rnd(40) + 10);
         chaosObjects.Rect(x.get() - 9, y.get() - 9, x.get() + 9, y.get() + 9);
     }
 
-    /* Level 20 */
     public void Jungle() {
         // CONST
         final Runtime.RangeSet Alien1L = new Runtime.RangeSet(Memory.SET16_r).with(ChaosAlien.aDbOval, ChaosAlien.aHospital, ChaosAlien.aDiese, ChaosAlien.aStar, ChaosAlien.aBubble, ChaosAlien.aTri, ChaosAlien.aTrefle);

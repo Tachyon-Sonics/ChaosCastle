@@ -27,6 +27,10 @@ public class ChaosCastle {
         // VAR
         BasicTypes b = BasicTypes.NotBase;
 
+        /* ChaosCastle
+         * All files imported directly or indirectly by this one
+         * and starting with 'Chaos' are (c) 1997 - 1999 by Nicky
+        */
         chaosBase.gunFiring = false;
         chaosBase.invinsibility = 0;
         chaosBase.sleeper = 0;

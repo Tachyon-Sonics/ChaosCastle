@@ -944,6 +944,7 @@ public class ChaosGraphics {
         int px = 0;
         int py = 0;
 
+        /* Render */
         graphics.SetArea(mainArea);
         obj = (ChaosBase.Obj) chaosBase.FirstObj(chaosBase.objList);
         tail = (ChaosBase.Obj) chaosBase.TailObj(chaosBase.objList);

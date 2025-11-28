@@ -1536,6 +1536,7 @@ public class GrotteSupport {
                 }
             }
         } while (!((ch.get() <= '0') || (ch.get() == 'q') || (ch.get() == 'Q')));
+        /* Flush;*/
         current = first;
         while (current != null) {
             _new.set(current);
@@ -1713,7 +1714,7 @@ public class GrotteSupport {
         memory.FreeMem(new Runtime.FieldRef<>(this::getG, this::setG).asAdrRef());
     }
 
-    /*★★★★ Niveaux Bonus *****/
+    /* *** Niveaux Bonus *****/
     private void Find(/* VAR */ Runtime.IRef<Integer> x, /* VAR */ Runtime.IRef<Integer> y, int sx, int sy, int dx, int dy) {
         // VAR
         int w = 0;
@@ -1900,6 +1901,7 @@ public class GrotteSupport {
         } else {
             grotteBonus.BonusLevel(ax, ay);
         }
+        /* Load */
         aNSITerm.ClearLine(20);
         aNSITerm.Goto(0, 20);
         aNSITerm.Color(7);

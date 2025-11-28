@@ -454,6 +454,7 @@ public class GrotteSounds {
     // PROCEDURE
 
     private void InitEffects_SetEffect(/* VAR */ Effect e, SoundList sound, int time, int freq, int volume) {
+        /*$ OverflowChk:= FALSE */
         e.sound = soundList[sound.ordinal()];
         if (time != 0)
             e.length = (soundList[sound.ordinal()].rate * freq / 440) * time / 1000;
@@ -714,6 +715,8 @@ public class GrotteSounds {
         // VAR
         SoundList s = SoundList.CrashA;
 
+        /* Init Clock */
+        /* Allocate channels */
         while (nbChan > 0) {
             nbChan--;
             { // WITH
@@ -958,6 +961,20 @@ public class GrotteSounds {
     }
 
     public void GameOverSound() {
+        /* Player got a bonus */
+        /* . */
+        /* % -> # */
+        /* $ */
+        /* @ */
+        /* % */
+        /* ! */
+        /* Die */
+        /* Create */
+        /* Player action */
+        /* jump */
+        /* move */
+        /* start / end */
+        /* Aie */
         PlayEffect(dieEffect1, 255, 45, 45);
         PlayEffect(dieEffect2, 255, -45, -45);
     }

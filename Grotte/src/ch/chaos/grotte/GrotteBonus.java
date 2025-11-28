@@ -25,7 +25,7 @@ public class GrotteBonus {
 
     // VAR
 
-    /*★★★★ Niveaux Bonus *****/
+    /* *** Niveaux Bonus *****/
     private Clock.TimePtr clock0;
 
 
@@ -44,6 +44,7 @@ public class GrotteBonus {
         // VAR
         boolean w = false;
 
+        /*$ CStrings:= FALSE */
         if (clock0 != clock.noTime)
             w = clock.WaitTime(clock0, 1);
         aNSITerm.WriteAt(x, y, ch);
@@ -790,6 +791,10 @@ public class GrotteBonus {
             }
             aNSITerm.Color(7);
         }
+        /* creux */
+        /* sol */
+        /* left */
+        /* to go up */
         /* common objects */
         PutDeltaObj(OBJECT.PIC, 16, 1, 1, 70, 18, 0, -1, grotteSupport.pvie, 2, 'V');
         PutObj(OBJECT.K1, 16, 16, 1, 70, 18, grotteSupport.pvie / 4 + 1, 0, '+');

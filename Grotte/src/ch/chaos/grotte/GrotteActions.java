@@ -234,7 +234,7 @@ public class GrotteActions {
 
     }
 
-    /*★★★★★★★ Subroutines ********/
+    /* ****** Subroutines ********/
 
     @FunctionalInterface
     public static interface MoveProc { // PROCEDURE Type
@@ -835,6 +835,7 @@ public class GrotteActions {
         // VAR
         int o = 0;
 
+        /* LOOP dt --> 0 END */
         o = first[OBJECT.EMPTY.ordinal()];
         if (o == 0)
             return 0;
@@ -1104,6 +1105,21 @@ public class GrotteActions {
             if (!scoreshown)
                 ShowScore();
         }
+        /*
+        INC(rfx); IF rfx > 75 THEN rfx:= 0; INC(rfy) END;
+        IF rfy > 21 THEN rfy:= 0 END;
+        ch:= Report(rfx, rfy);
+        IF (TypeOf(ch) <> L1) OR (rfx > 71) THEN
+         IF rfx > 71 THEN
+          IF (ch = "(") OR (ch = ")") THEN Color(2) ELSE Color(7) END
+         ELSIF rfy > 19 THEN
+          IF (rfx >= 42) AND (rfx < 60) THEN Color(3) ELSE Color(7) END
+         ELSE
+          SetColor(ch)
+         END;
+         WriteAt(rfx, rfy, ch)
+        END
+            */
         /* Flush; */
         aNSITerm.Goto(0, 0);
         wt = clock.WaitTime(grotteSupport.time, 16);
@@ -1169,7 +1185,7 @@ public class GrotteActions {
         }
     }
 
-    /*★★★★★★★★★ Loading **********/
+    /* ******** Loading **********/
     public void InitGame(int level, int game) {
         // VAR
         int eo = 0;
@@ -1280,7 +1296,7 @@ public class GrotteActions {
         clock.StartTime(grotteSupport.time);
     }
 
-    /*★★★★★★★ Events *******/
+    /* ****** Events *******/
     public void Delay(int d) {
         // VAR
         int c = 0;
@@ -1557,7 +1573,7 @@ public class GrotteActions {
         return (ch.get() < ' ') || (ch.get() == 'y') || (ch.get() == 'Y') || (ch.get() == 'J') || (ch.get() == 'j') || (ch.get() == 'O') || (ch.get() == 'o') || (ch.get() == 'Q') || (ch.get() == 'q');
     }
 
-    /*★★★★ Move help *****/
+    /* *** Move help *****/
     public boolean Fixed(char ch) {
         // VAR
         OBJECT t = OBJECT.EMPTY;
@@ -1664,7 +1680,7 @@ public class GrotteActions {
         e[ny][nx] = first[t.ordinal()];
     }
 
-    /*★★★★★★★★★ MoveProcs **********/
+    /* ******** MoveProcs **********/
     public void MovePlayer(int p) {
         // VAR
         int nd = 0;

@@ -363,6 +363,7 @@ public class ChaosImages {
         int pix = 0;
         int add = 0;
 
+        /* BW * BH DIV 2 */
         if (chaosGraphics.color) {
             bRead.set((int) files.ReadFileBytes(chaosBase.file, block, BlockSize));
             if (bRead.get() != BlockSize)
@@ -454,6 +455,7 @@ public class ChaosImages {
             image.zh = 1;
             graphics.DrawImage(image, 0, 0, px.get() * chaosGraphics.mulS, py.get() * chaosGraphics.mulS, ChaosGraphics.BW * chaosGraphics.mulS, ChaosGraphics.BH * chaosGraphics.mulS);
         }
+        /* 4bit -> 8 bit */
         fill.inc(1023);
         if (progress != dialogs.noGadget)
             dialogs.ModifyGadget(progress, (Memory.TagItem) memory.TAG1(Dialogs.dFILL, fill.get()));

@@ -635,6 +635,8 @@ public class ChaosCreator {
     }
 
     private void MakeHurryUp(ChaosBase.Obj hu) {
+        /* hurryup */
+        /* meteorite */
         chaosActions.SetObjLoc(hu, 40, 80, 24, 16);
         chaosActions.SetObjRect(hu, 0, 0, 24, 16);
     }
@@ -1122,6 +1124,7 @@ public class ChaosCreator {
         Anims nKind = Anims.PLAYER;
         int sKind = 0;
 
+        /* Fire */
         if (chaosActions.OutOfScreen(creator)) {
             chaosActions.Leave(creator);
             return;
@@ -1627,6 +1630,10 @@ public class ChaosCreator {
         // VAR
         Runtime.Ref<Integer> hit = new Runtime.Ref<>(0);
 
+        /* Follow player */
+        /* fire ? */
+        /* player */
+        /* stat = 1 */
         if (chaosActions.OutOfScreen(abox)) {
             chaosActions.Leave(abox);
             return;

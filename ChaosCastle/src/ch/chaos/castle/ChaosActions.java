@@ -250,6 +250,10 @@ public class ChaosActions {
         int b = 0;
         int f = 0;
 
+        /* kill previous obj */
+        /* Erase previous message */
+        /* Draw current message */
+        /* Set corresponding obj */
         if (!chaosGraphics.color) {
             p1 = 0;
             p2 = 1;
@@ -462,6 +466,7 @@ public class ChaosActions {
         int nax = 0;
         int nay = 0;
 
+        /* Frac DIV 1024 */
         /* explosions */
         flames = cnt / ChaosBase.FlameMult;
         stones = cnt % ChaosBase.FlameMult;
@@ -470,7 +475,7 @@ public class ChaosActions {
         else if (chaosGraphics.explosions == Explosions.High)
             stones = stones * 2;
         GetCenter(obj, px, py);
-        /*★ flames */
+        /*  flames */
         if (flames > 0) {
             flames--;
             nvx = obj.vx;
@@ -498,7 +503,7 @@ public class ChaosActions {
                 angle += step;
             } while (flames != 0);
         }
-        /*★ stones */
+        /*  stones */
         angle = trigo.RND() % 360;
         if (stones > 0)
             step = 360 / stones;
@@ -610,6 +615,8 @@ public class ChaosActions {
                 tmp--;
             }
         }
+        /* Random direction */
+        /* Random speed */
         /* Random power */
         obj.width = 0;
         obj.height = 0;
@@ -708,6 +715,9 @@ public class ChaosActions {
         long w = 0L;
         long h = 0L;
 
+        /* Collision */
+        /* Lives */
+        /* temperature */
         px = obj1.x + obj1.left;
         py = obj1.y + obj1.top;
         mx = obj1.midx + obj1.left;
@@ -1129,6 +1139,10 @@ public class ChaosActions {
         int ovy = 0;
         int speed = 0;
 
+        /* Random direction */
+        /* Random position within obj */
+        /* Random speed */
+        /* Random power */
         if ((Math.abs(obj.vx * 2) < max) && (Math.abs(obj.vy * 2) < max))
             return;
         ovx = (obj.vx + 32) / 64;
@@ -1422,6 +1436,7 @@ public class ChaosActions {
     }
 
     public void NextFrame() {
+        /* LONG(mvx DIV 3) */
         chaosBase.step = (int) (clock.GetTime(time) - chaosBase.lasttime);
         chaosBase.lasttime += chaosBase.step;
         if (chaosBase.step > 60)

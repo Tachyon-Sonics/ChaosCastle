@@ -19,8 +19,9 @@ public class Grotte {
 
     // PROCEDURE
 
-    /*★★★★★★★★★ MoveProcs **********/
+    /* ******** MoveProcs **********/
     private void MoveK1(int k) {
+        /*$ CStrings:= FALSE */
         { // WITH
             GrotteActions.Object _object = grotteActions.object[k];
             if ((_object.x == 0) || (_object.y == 0) || (_object.x == 71) || (_object.y == 19)) {
@@ -1381,10 +1382,10 @@ public class Grotte {
         GrotteSupport.instance().begin();
         GrotteActions.instance().begin();
 
-        /*★★★★★★★★★*/
+        /* *********/
         /**/
         /**/
-        /*★★★★★★★★★*/
+        /* *********/
         InitVars();
         do {
             grotteSupport.ReadGame(new Runtime.FieldRef<>(grotteSupport::getLevel, grotteSupport::setLevel), new Runtime.FieldRef<>(grotteSupport::getGame, grotteSupport::setGame));

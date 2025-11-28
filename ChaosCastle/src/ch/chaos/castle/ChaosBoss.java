@@ -1157,6 +1157,12 @@ public class ChaosBoss {
             }
             default -> throw new RuntimeException("Unhandled CASE value " + boss.stat);
         }
+        /* fight vs player */
+        /* create objs */
+        /* wait until no objs */
+        /* center + fire around */
+        /* spiral firing */
+        /* kamikaze + boum */
         MakeFatherAlien(boss);
         hit.set(50);
         chaosActions.PlayerCollision(boss, hit);
@@ -1462,6 +1468,11 @@ public class ChaosBoss {
             }
             default -> throw new RuntimeException("Unhandled CASE value " + boss.stat);
         }
+        /* wait boum */
+        /* fires */
+        /* go center */
+        /* aie recover */
+        /* kamikaze */
         /* wait & explode */
         MakeMasterAlien(boss);
         hit.set(50);

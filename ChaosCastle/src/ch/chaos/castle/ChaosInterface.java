@@ -1098,6 +1098,7 @@ public class ChaosInterface {
             if ((chaosGraphics.mulS < 1) || (chaosGraphics.mulS > 9))
                 chaosGraphics.mulS = 1;
         } while (!((event.gadget == save) || (event.gadget == use) || (event.gadget == cancel) || (event.gadget == chaosBase.d)));
+        /* Update Gadget */
         input.SetBusyStat(Input.statBusy);
         change = (chaosGraphics.mulS != oldmulS) || (chaosGraphics.color != oldcolor) || (chaosGraphics.dualpf != olddual);
         if ((event.gadget != cancel) && (event.gadget != chaosBase.d)) {

@@ -65,7 +65,7 @@ public class ChaosPlayer {
 
     // TYPE
 
-    /*★ SubKinds of player:
+    /*  SubKinds of player:
        * 0: player 1/2
        * 1: link player(s)
        * 2: computer
@@ -1744,6 +1744,28 @@ public class ChaosPlayer {
     private final ChaosBase.MoveProc MovePlayer0_ref = this::MovePlayer0;
 
     private void DiePlayer(ChaosBase.Obj player) {
+        /* Events */
+        /*  Directions */
+        /* remove opposites */
+        /* Move player */
+        /* Check mouse move */
+        /*  Keys */
+        /*  Fire buttons */
+        /*  Weapon selection */
+        /* left objs ? */
+        /* Gun autofire */
+        /* Palette cycling */
+        /* AddPt */
+        /* magnet */
+        /* freeFire */
+        /* maxPower */
+        /* noMissile */
+        /* sleeper */
+        /* air */
+        /* invinsibility */
+        /* double speed */
+        /* Only changed by the single-speed bonus */
+        /* screenInverted */
         chaosSounds.SoundEffect(player, dieEffects);
         chaosBase.gameStat = GameStat.Gameover;
     }

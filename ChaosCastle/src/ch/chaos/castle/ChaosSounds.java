@@ -581,6 +581,9 @@ public class ChaosSounds {
         long delay = 0L;
         int stereo = 0;
 
+        /* (1000 * Frac DIV Period) DIV 32 */
+        /* 1000 pixels / sec */
+        /* (4320 * Frac DIV Period) DIV 32 */
         /* 4320 pixels / sec */
         { // WITH
             Channel _channel = channel[chan];
@@ -670,6 +673,12 @@ public class ChaosSounds {
         // VAR
         int chan = 0;
 
+        /* Volume */
+        /* dist in pixels */
+        /* Stereo */
+        /* Cos(a) = adj/hyp */
+        /* rear => surround */
+        /* Frequence (Doppler effect) */
         chan = nbChans;
         while (chan > 0) {
             chan--;
